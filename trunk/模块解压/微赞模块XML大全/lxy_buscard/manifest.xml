@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微名片]]></name>
+		<identifie><![CDATA[lxy_buscard]]></identifie>
+		<version><![CDATA[1.9.5]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[供企业业务员、销售员进行营销时的名片展示,同时对企业形象及企业产品进行全面展示]]></ability>
+		<description><![CDATA[供企业业务员、销售员进行营销时的名片展示,同时对企业形象及企业产品进行全面展示]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="名片管理" do="cardlist" state="" direct="false" />
+			<entry title="公司设置" do="copadd" state="" direct="false" />
+			<entry title="分类管理" do="classlist" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

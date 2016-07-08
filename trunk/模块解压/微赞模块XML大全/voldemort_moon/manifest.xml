@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[嫦娥爱色兔]]></name>
+		<identifie><![CDATA[voldemort_moon]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[游戏，嫦娥爱色兔]]></ability>
+		<description><![CDATA[营销游戏，嫦娥爱色兔，游戏资源来源于网络，如有侵权请告知]]></description>
+		<author><![CDATA[新乡微创网络]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="video" />
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+			<message type="qr" />
+			<message type="click" />
+			<message type="view" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="click" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="游戏入口" do="rule1" state="" direct="false" />
+		</cover>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

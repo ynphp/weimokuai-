@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微小区]]></name>
+		<identifie><![CDATA[xfeng_community]]></identifie>
+		<version><![CDATA[1.3]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[微小区]]></ability>
+		<description><![CDATA[微小区]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[www.H770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="首页入口设置" do="home" state="" direct="false" />
+			<entry title="公告入口设置" do="announcement" state="" direct="false" />
+			<entry title="报修入口设置" do="repair" state="" direct="false" />
+			<entry title="投诉入口设置" do="report" state="" direct="false" />
+			<entry title="电话入口设置" do="phone" state="" direct="false" />
+			<entry title="家政入口设置" do="homemaking" state="" direct="false" />
+			<entry title="租赁入口设置" do="houselease" state="" direct="false" />
+			<entry title="活动入口设置" do="activity" state="" direct="false" />
+			<entry title="二手入口设置" do="fledindex" state="" direct="false" />
+			<entry title="商家入口设置" do="sjhome" state="" direct="false" />
+			<entry title="常用查询入口设置" do="search" state="" direct="false" />
+			<entry title="物业介绍入口设置" do="property" state="" direct="false" />
+			<entry title="查物业费入口设置" do="propertyfree" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="" do="" state="" direct="false" />
+			<entry title="小区管理" do="region" state="" direct="false" />
+			<entry title="类型管理" do="serviceCategory" state="" direct="false" />
+			<entry title="幻灯管理" do="slide" state="" direct="false" />
+			<entry title="物业介绍" do="property" state="" direct="false" />
+			<entry title="导航管理" do="NavExtension" state="" direct="false" />
+			<entry title="小区活动" do="activity" state="" direct="false" />
+			<entry title="常用查询" do="search" state="" direct="false" />
+			<entry title="便民号码" do="phone" state="" direct="false" />
+			<entry title="二手市场" do="fled" state="" direct="false" />
+			<entry title="小区拼车" do="carpool" state="" direct="false" />
+			<entry title="商家管理" do="business" state="" direct="false" />
+			<entry title="查物业费" do="propertyfree" state="" direct="false" />
+			<entry title="黑名单管理" do="black" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

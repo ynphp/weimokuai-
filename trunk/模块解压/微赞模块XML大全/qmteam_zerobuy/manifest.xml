@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[零元购]]></name>
+		<identifie><![CDATA[qmteam_zerobuy]]></identifie>
+		<version><![CDATA[2.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[零元购]]></ability>
+		<description><![CDATA[零元购闪亮上线，零元抽大奖，大牌低价秒，优惠享不停，动动手指，天天有新品、豪礼抽不停。提高关注度。]]></description>
+		<author><![CDATA[青盟网]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="零元购入口" do="list" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="商品管理" do="list" state="" direct="false" />
+			<entry title="活动详情" do="detail" state="" direct="false" />
+			<entry title="活动规则" do="activity_rule" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="零元购列表" do="list1" state="" direct="false" />
+			<entry title="零元购详细页" do="detail" state="" direct="true" />
+		</home>
+		<profile>
+			<entry title="个人中心导航" do="zerobuy_uc" state="" direct="false" />
+		</profile>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

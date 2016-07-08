@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[商户现金红包]]></name>
+		<identifie><![CDATA[microb_redpack]]></identifie>
+		<version><![CDATA[1.8]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[提供利用商户现金红包进行营销活动的功能]]></ability>
+		<description><![CDATA[商户现金红包功能不同于市面上现有的红包功能. 用户领取后不需要提现, 打开后直接存入微信钱包零钱. <br>
+        主要功能使用 <mark>支持支付的认证服务号</mark>, 订阅号和未认证的服务号可以借用接口. <br>
+        也可以支持有赞等其他平台的营销活动]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="礼品设置" do="gifts" state="" direct="false" />
+			<entry title="红包活动选项" do="activity" state="" direct="false" />
+			<entry title="活动参与方式" do="entry" state="" direct="false" />
+			<entry title="接口参数" do="api" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

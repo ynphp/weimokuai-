@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[拍大白(高级版)]]></name>
+		<identifie><![CDATA[ewei_takephotoa]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[流行游戏，拍大白，排名，发奖品，导出成绩]]></ability>
+		<description><![CDATA[流行游戏，拍大白，排名，发奖品，导出成绩]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="活动管理" do="manage" state="" direct="false" />
+			<entry title="系统设置" do="sysset" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_ewei_takephotoa_fans;
+CREATE TABLE `ims_ewei_takephotoa_fans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) DEFAULT '0',
+  `openid` varchar(255) DEFAULT '' COMMENT '用户openid',
+  `nickname` varchar(255) DEFAULT '' COMMENT '用户昵称',
+  `headimgurl` varchar(255) DEFAULT '' COMMENT '用户头像',
+  `score` decimal(10,2) DEFAULT '0.00' COMMENT '平均',
+  `img` varchar(255) DEFAULT '' COMMENT '成绩截图',
+  `createtime` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_ewei_takephotoa_fans_score;
+CREATE TABLE `ims_ewei_takephotoa_fans_score` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) DEFAULT '0',
+  `openid` varchar(255) DEFAULT '' COMMENT '用户openid',
+  `score` decimal(10,2) DEFAULT '0.00' COMMENT '平均',
+  `createtime` int(10) DEFAULT '0',
+  `img` varchar(255) DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `idx_rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_ewei_takephotoa_reply;
+CREATE TABLE `ims_ewei_takephotoa_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0',
+  `rid` int(11) DEFAULT '0',
+  `title` varchar(255) DEFAULT '',
+  `description` varchar(255) DEFAULT '',
+  `thumb` varchar(255) DEFAULT '',
+  `starttime` int(11) DEFAULT '0',
+  `endtime` int(11) DEFAULT '0',
+  `bgimg` varchar(255) DEFAULT '',
+  `helpimg` varchar(255) DEFAULT '',
+  `shareimg` varchar(255) DEFAULT '',
+  `titleimg` varchar(255) DEFAULT '',
+  `cameraimg` varchar(255) DEFAULT '',
+  `numberimg` varchar(255) DEFAULT '',
+  `items` text COMMENT '物品',
+  `follow_url` varchar(1000) DEFAULT '',
+  `share_url` varchar(1000) DEFAULT '',
+  `viewnum` int(11) DEFAULT '0',
+  `status` tinyint(1) DEFAULT '0',
+  `share_desc` varchar(500) DEFAULT '',
+  `share_icon` varchar(255) DEFAULT '',
+  `share_title` varchar(255) DEFAULT '',
+  `createtime` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`),
+  KEY `idx_rid` (`rid`),
+  KEY `idx_status` (`status`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_ewei_takephotoa_sysset;
+CREATE TABLE `ims_ewei_takephotoa_sysset` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0',
+  `oauth2` tinyint(1) DEFAULT '0',
+  `appid` varchar(255) DEFAULT '',
+  `appsecret` varchar(255) DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微助力]]></name>
+		<identifie><![CDATA[mon_weishare]]></identifie>
+		<version><![CDATA[2.8]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[分享活动赢好礼]]></ability>
+		<description><![CDATA[分享活动到朋友圈获取朋友的助力，即可获取相应礼品！]]></description>
+		<author><![CDATA[微动力]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="助力活动管理" do="share" state="" direct="false" />
+			<entry title="授权接口设置" do="setting" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

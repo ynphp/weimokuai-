@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[九烨-微招聘]]></name>
+		<identifie><![CDATA[jy_wei]]></identifie>
+		<version><![CDATA[1.9]]></version>
+		<type><![CDATA[customer]]></type>
+		<ability><![CDATA[招聘微网站]]></ability>
+		<description><![CDATA[招聘微网站]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[www.H770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="职位管理" do="Position" state="" direct="false" />
+			<entry title="关键字管理" do="Keyword" state="" direct="false" />
+			<entry title="标签管理" do="Label" state="" direct="false" />
+			<entry title="公司管理" do="Company" state="" direct="false" />
+			<entry title="用户中心" do="Position" state="" direct="false" />
+			<entry title="统计中心" do="Log" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_jy_wei_company;
+CREATE TABLE `ims_jy_wei_company` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL,
+  `url` varchar(255) NOT NULL COMMENT '公司URL',
+  `title` varchar(255) NOT NULL COMMENT '网站title',
+  `name` varchar(255) NOT NULL COMMENT '公司名称',
+  `shortname` varchar(255) NOT NULL COMMENT '公司名称简写',
+  `banner` varchar(255) NOT NULL COMMENT 'Banner',
+  `logo` varchar(255) NOT NULL COMMENT 'Logo',
+  `propagenda` varchar(255) NOT NULL COMMENT '一句话公司宣传语',
+  `description` varchar(255) NOT NULL COMMENT '简介',
+  `shareimage` varchar(255) NOT NULL COMMENT '分享图片',
+  `sharetitle` varchar(255) NOT NULL COMMENT '分享标题',
+  `sharedescription` varchar(255) NOT NULL COMMENT '分享描述',
+  `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(11) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_jy_wei_invitation;
+CREATE TABLE `ims_jy_wei_invitation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL,
+  `uid` int(11) unsigned NOT NULL,
+  `companyid` int(11) unsigned NOT NULL,
+  `positionid` int(11) unsigned NOT NULL,
+  `name` varchar(255) NOT NULL COMMENT '姓名',
+  `phone` varchar(255) NOT NULL COMMENT '手机',
+  `payment` varchar(255) NOT NULL COMMENT '薪酬',
+  `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(11) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_jy_wei_keyword;
+CREATE TABLE `ims_jy_wei_keyword` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL,
+  `companyid` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(255) NOT NULL COMMENT '关键字',
+  `unicode` varchar(255) NOT NULL COMMENT '唯一码MD5(name)',
+  `description` varchar(255) NOT NULL COMMENT '描述',
+  `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(11) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_jy_wei_label;
+CREATE TABLE `ims_jy_wei_label` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL,
+  `companyid` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(255) NOT NULL COMMENT '标签',
+  `unicode` varchar(255) NOT NULL COMMENT '唯一码MD5(name)',
+  `description` varchar(255) NOT NULL COMMENT '描述',
+  `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(11) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_jy_wei_log;
+CREATE TABLE `ims_jy_wei_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL,
+  `uid` int(11) unsigned NOT NULL,
+  `companyid` int(11) unsigned NOT NULL,
+  `positionid` int(11) unsigned NOT NULL,
+  `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_jy_wei_position;
+CREATE TABLE `ims_jy_wei_position` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL,
+  `companyid` int(11) NOT NULL DEFAULT '0',
+  `name` varchar(255) NOT NULL COMMENT '职位',
+  `payment` varchar(255) NOT NULL COMMENT '薪酬',
+  `description` varchar(255) NOT NULL COMMENT '描述',
+  `count` int(11) NOT NULL DEFAULT '0',
+  `createtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int(11) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_jy_wei_rule;
+CREATE TABLE `ims_jy_wei_rule` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `companyid` int(11) NOT NULL,
+  `ruleid` int(11) NOT NULL,
+  `uniacid` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

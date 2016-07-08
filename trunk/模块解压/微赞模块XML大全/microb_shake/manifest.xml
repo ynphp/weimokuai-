@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[周边摇一摇]]></name>
+		<identifie><![CDATA[microb_shake]]></identifie>
+		<version><![CDATA[2.7]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[提供利用iBeacon蓝牙设备进行现场营销活动的功能]]></ability>
+		<description><![CDATA[周边摇一摇使用腾讯最新的摇一摇周边功能. 特别适合各种车站, 会场, 卖场等现场活动, 活动形式新颖, 可以迅速引爆现场.]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[www.H770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="活动参与方式" do="entry" state="" direct="false" />
+			<entry title="活动管理" do="activity" state="" direct="false" />
+			<entry title="礼品设置" do="gifts" state="" direct="false" />
+			<entry title="设备管理" do="devices" state="" direct="false" />
+			<entry title="接口参数" do="api" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

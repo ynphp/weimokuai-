@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微商城]]></name>
+		<identifie><![CDATA[wdl_shopping]]></identifie>
+		<version><![CDATA[3.2]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[微商城]]></ability>
+		<description><![CDATA[微商城]]></description>
+		<author><![CDATA[微动力]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="商城入口设置" do="list" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="订单管理" do="order" state="" direct="false" />
+			<entry title="商品管理" do="goods" state="" direct="false" />
+			<entry title="商品分类" do="category" state="" direct="false" />
+			<entry title="物流管理" do="express" state="" direct="false" />
+			<entry title="配送方式" do="dispatch" state="" direct="false" />
+			<entry title="幻灯片管理" do="adv" state="" direct="false" />
+			<entry title="维权与告警" do="notice" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="商城" do="list" state="" direct="false" />
+		</home>
+		<profile>
+			<entry title="我的订单" do="myorder" state="" direct="false" />
+		</profile>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

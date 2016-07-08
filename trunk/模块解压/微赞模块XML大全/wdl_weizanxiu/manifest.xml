@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微赞秀]]></name>
+		<identifie><![CDATA[wdl_weizanxiu]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[微赞秀:H5微赞秀移动场景应用自营销管家]]></ability>
+		<description><![CDATA[微赞秀::微赞秀移动场景应用自营销管家,免费为中小微企业或团队提供业务场景应用展示、潜在客户在线报名收集]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[www.H770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="进入微赞秀" do="index" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_wdl_weizanxiu_reply;
+CREATE TABLE `ims_wdl_weizanxiu_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `thumb` varchar(60) NOT NULL,
+  `author` varchar(20) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `share_url` varchar(255) NOT NULL DEFAULT '',
+  `createtime` int(10) unsigned NOT NULL,
+  `share_title` varchar(255) DEFAULT NULL,
+  `share_description` varchar(255) DEFAULT NULL,
+  `share_thumb` varchar(255) DEFAULT NULL,
+  `share_302` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

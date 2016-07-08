@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[多客服转接]]></name>
+		<identifie><![CDATA[custom]]></identifie>
+		<version><![CDATA[1.0.0]]></version>
+		<type><![CDATA[system]]></type>
+		<ability><![CDATA[用来接入腾讯的多客服系统]]></ability>
+		<description><![CDATA[]]></description>
+		<author><![CDATA[Weizan Team]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_custom_reply;
+CREATE TABLE `ims_custom_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL,
+  `start1` int(10) NOT NULL DEFAULT '-1',
+  `end1` int(10) NOT NULL DEFAULT '-1',
+  `start2` int(10) NOT NULL DEFAULT '-1',
+  `end2` int(10) NOT NULL DEFAULT '-1',
+  PRIMARY KEY (`id`),
+  KEY `rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

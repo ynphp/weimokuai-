@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[大白治疗师]]></name>
+		<identifie><![CDATA[bobo_dabai]]></identifie>
+		<version><![CDATA[4.3]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[大白治疗师]]></ability>
+		<description><![CDATA[大白治疗师]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="大白治疗师入口设置" do="index" state="" direct="false" />
+		</cover>
+		<home>
+			<entry title="大白治疗师" do="index" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

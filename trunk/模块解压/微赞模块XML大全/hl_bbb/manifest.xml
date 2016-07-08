@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[摇骰子]]></name>
+		<identifie><![CDATA[hl_bbb]]></identifie>
+		<version><![CDATA[2.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[趣味性赚点数功能]]></ability>
+		<description><![CDATA[腻了大转盘刮刮卡么?来一起摇骰子吧!可周期性举行比赛,按点数排名,增加用户黏度]]></description>
+		<author><![CDATA[www.H770.com]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

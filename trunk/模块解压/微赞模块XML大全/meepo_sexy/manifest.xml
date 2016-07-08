@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[英雄联盟]]></name>
+		<identifie><![CDATA[meepo_sexy]]></identifie>
+		<version><![CDATA[2.9.5]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[英雄联盟]]></ability>
+		<description><![CDATA[英雄联盟]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="基本设置" do="set" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_meepo_sexy_set;
+CREATE TABLE `ims_meepo_sexy_set` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `url` varchar(100) NOT NULL,
+  `num` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

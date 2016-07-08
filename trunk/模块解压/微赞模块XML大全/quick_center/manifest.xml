@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[菜单中心]]></name>
+		<identifie><![CDATA[quick_center]]></identifie>
+		<version><![CDATA[1.2]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[菜单中心]]></ability>
+		<description><![CDATA[菜单中心]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[www.wdlcms.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="菜单中心入口" do="Center" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="菜单中心" do="Center" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="菜单中心" do="Center" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_quick_center_module_bindings;
+CREATE TABLE `ims_quick_center_module_bindings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `groupid` varchar(50) NOT NULL COMMENT '分组名称',
+  `identifier` varchar(50) NOT NULL COMMENT '菜单标示符',
+  `pidentifier` varchar(50) NOT NULL COMMENT '上级菜单标示符',
+  `displayorder` int(11) NOT NULL COMMENT '显示顺序',
+  `title` varchar(50) NOT NULL,
+  `url` varchar(1000) NOT NULL,
+  `thumb` varchar(1000) NOT NULL,
+  `module` varchar(1000) NOT NULL,
+  `do` varchar(100) NOT NULL COMMENT '打开按钮的跳转链接',
+  `callback` varchar(10240) NOT NULL,
+  `rich_callback_enable` int(11) NOT NULL DEFAULT '0',
+  `enable` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

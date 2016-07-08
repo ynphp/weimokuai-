@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[签到]]></name>
+		<identifie><![CDATA[meepo_nsign]]></identifie>
+		<version><![CDATA[2.11]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[签到]]></ability>
+		<description><![CDATA[签到得积分]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[http://bbs.b2ctui.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="image" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[360全景展示]]></name>
+		<identifie><![CDATA[weisrc_pano]]></identifie>
+		<version><![CDATA[3.4]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[360全景展示]]></ability>
+		<description><![CDATA[360全景展示]]></description>
+		<author><![CDATA[新睿源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="360全景入口设置" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="全景管理" do="manage" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="360全景入展示" do="index" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_weisrc_pano_reply;
+CREATE TABLE `ims_weisrc_pano_reply` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `rid` int(10) NOT NULL DEFAULT '0',
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `type` tinyint(1) NOT NULL DEFAULT '1',
+  `title` varchar(50) NOT NULL,
+  `description` text NOT NULL,
+  `picture` varchar(200) NOT NULL,
+  `picture1` varchar(200) NOT NULL,
+  `picture2` varchar(200) NOT NULL,
+  `picture3` varchar(200) NOT NULL,
+  `picture4` varchar(200) NOT NULL,
+  `picture5` varchar(200) NOT NULL,
+  `picture6` varchar(200) NOT NULL,
+  `music` varchar(400) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

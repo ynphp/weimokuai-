@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[联盟弹幕]]></name>
+		<identifie><![CDATA[meepo_danmu]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[联盟弹幕]]></ability>
+		<description><![CDATA[联盟弹幕]]></description>
+		<author><![CDATA[meepo]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="弹幕入口" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="" do="" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_meepo_danmu_data;
+CREATE TABLE `ims_meepo_danmu_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `url` varchar(250) NOT NULL,
+  `click` int(11) DEFAULT '0',
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_meepo_danmu_set;
+CREATE TABLE `ims_meepo_danmu_set` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `title` varchar(120) NOT NULL,
+  `logo` varchar(120) NOT NULL,
+  `wx_name` varchar(80) NOT NULL,
+  `wx_num` varchar(100) NOT NULL,
+  `share_title` varchar(200) NOT NULL,
+  `share_content` text NOT NULL,
+  `share_img` varchar(420) NOT NULL,
+  `num` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

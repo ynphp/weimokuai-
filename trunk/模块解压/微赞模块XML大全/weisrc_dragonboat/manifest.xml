@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[龙舟大赛]]></name>
+		<identifie><![CDATA[weisrc_dragonboat]]></identifie>
+		<version><![CDATA[1.1]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[龙舟大赛]]></ability>
+		<description><![CDATA[龙舟大赛]]></description>
+		<author><![CDATA[微赞科技]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="活动管理" do="manage" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="" do="" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_weisrc_dragonboat_fans;
+CREATE TABLE `ims_weisrc_dragonboat_fans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `rid` int(11) DEFAULT '0',
+  `from_user` varchar(50) DEFAULT '' COMMENT '用户ID',
+  `nickname` varchar(50) DEFAULT '',
+  `headimgurl` varchar(500) DEFAULT '',
+  `username` varchar(50) DEFAULT '',
+  `tel` varchar(20) DEFAULT '' COMMENT '登记信息(手机等)',
+  `credit` decimal(10,2) DEFAULT '0.00' COMMENT '单次最高分数',
+  `totalcredit` decimal(10,2) DEFAULT '0.00' COMMENT '累计分数',
+  `totalnum` int(11) DEFAULT '0' COMMENT '总次数',
+  `todaynum` int(11) DEFAULT '0' COMMENT '今天次数',
+  `lasttime` int(11) DEFAULT '0' COMMENT '最后游戏时间',
+  `sharenum` int(11) DEFAULT '0' COMMENT '总分享次数',
+  `sharelotterynum` int(11) DEFAULT '0' COMMENT '分享抽奖次数',
+  `todaysharenum` int(11) DEFAULT '0' COMMENT '今日分享次数',
+  `lastsharetime` int(10) DEFAULT '0',
+  `dateline` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`)
+) ENGINE=MyISAM AUTO_INCREMENT=557 DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_weisrc_dragonboat_record;
+CREATE TABLE `ims_weisrc_dragonboat_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `rid` int(11) DEFAULT '0',
+  `from_user` varchar(50) DEFAULT '0' COMMENT '用户ID',
+  `fansid` int(11) DEFAULT '0',
+  `credit` int(10) DEFAULT '0',
+  `dateline` int(10) DEFAULT '0',
+  `status` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM AUTO_INCREMENT=14291 DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_weisrc_dragonboat_reply;
+CREATE TABLE `ims_weisrc_dragonboat_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT '0',
+  `weid` int(11) DEFAULT '0',
+  `title` varchar(50) DEFAULT '',
+  `description` varchar(255) DEFAULT '',
+  `content` varchar(200) DEFAULT '',
+  `rule` text,
+  `award` text,
+  `bg` varchar(500) DEFAULT '',
+  `logo` varchar(500) DEFAULT '',
+  `start_picurl` varchar(500) DEFAULT '',
+  `end_theme` varchar(50) DEFAULT '',
+  `end_instruction` varchar(200) DEFAULT '',
+  `end_picurl` varchar(500) DEFAULT '',
+  `banner` varchar(200) DEFAULT '',
+  `starttime` int(10) DEFAULT '0',
+  `endtime` int(10) DEFAULT '0',
+  `number_times` int(11) DEFAULT '0' COMMENT '总游戏次数',
+  `most_num_times` int(11) DEFAULT '0' COMMENT '每天游戏次数',
+  `daysharenum` int(11) DEFAULT '0' COMMENT '日分享次数',
+  `sharelotterynum` int(11) DEFAULT '0' COMMENT '分享后奖励次数',
+  `viewnum` int(11) DEFAULT '0',
+  `sharenum` int(11) DEFAULT '0',
+  `gametime` int(11) DEFAULT '15',
+  `gamelevel` int(11) DEFAULT '3',
+  `cover` varchar(500) DEFAULT '',
+  `showusernum` int(11) DEFAULT '20',
+  `share_title` varchar(200) DEFAULT '',
+  `share_url` varchar(100) DEFAULT '',
+  `share_desc` varchar(300) DEFAULT '',
+  `share_image` varchar(500) DEFAULT '',
+  `follow_url` varchar(100) DEFAULT '',
+  `follow_title` varchar(100) DEFAULT '',
+  `copyright` varchar(100) DEFAULT '',
+  `copyrighturl` varchar(200) DEFAULT '',
+  `isneedfollow` tinyint(1) DEFAULT '1',
+  `mode` tinyint(1) DEFAULT '0',
+  `status` tinyint(1) DEFAULT '0',
+  `dateline` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

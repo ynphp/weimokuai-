@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[二手市场]]></name>
+		<identifie><![CDATA[thinkidea_secondmarket]]></identifie>
+		<version><![CDATA[3.3]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[二手市场]]></ability>
+		<description><![CDATA[类似58、赶集发布二手信息的模块.后期将继续推出新版本，使其功能更强大]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="物品管理" do="goods" state="" direct="false" />
+			<entry title="物品分类" do="category" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="" do="" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_thinkidea_secondmarket_category;
+CREATE TABLE `ims_thinkidea_secondmarket_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parentid` int(11) NOT NULL DEFAULT '0' COMMENT '父栏目id',
+  `weid` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `enabled` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否开启',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_thinkidea_secondmarket_goods;
+CREATE TABLE `ims_thinkidea_secondmarket_goods` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `openid` varchar(50) NOT NULL,
+  `title` varchar(20) NOT NULL,
+  `rolex` varchar(30) NOT NULL,
+  `pcate` int(10) unsigned NOT NULL DEFAULT '0',
+  `ccate` int(10) unsigned NOT NULL DEFAULT '0',
+  `price` int(10) NOT NULL,
+  `realname` varchar(18) NOT NULL,
+  `sex` int(1) NOT NULL,
+  `mobile` varchar(12) NOT NULL,
+  `description` longtext NOT NULL,
+  `thumb1` varchar(200) DEFAULT NULL,
+  `thumb2` varchar(200) DEFAULT NULL,
+  `thumb3` varchar(200) DEFAULT NULL,
+  `createtime` int(11) NOT NULL,
+  `status` int(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_thinkidea_secondmarket_reply;
+CREATE TABLE `ims_thinkidea_secondmarket_reply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) NOT NULL,
+  `acid` int(11) NOT NULL,
+  `title` text NOT NULL,
+  `avatar` text NOT NULL,
+  `description` text NOT NULL,
+  `dateline` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

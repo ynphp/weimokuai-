@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[手撕鬼子]]></name>
+		<identifie><![CDATA[mx_ssgz]]></identifie>
+		<version><![CDATA[0.2]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[纪念抗日战争胜利70周年]]></ability>
+		<description><![CDATA[纪念抗日战争胜利70周年]]></description>
+		<author><![CDATA[新乡微创网络]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="回复规则" do="manage" state="" direct="true" />
+		</cover>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

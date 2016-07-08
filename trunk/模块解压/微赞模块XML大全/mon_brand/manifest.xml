@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微品牌]]></name>
+		<identifie><![CDATA[mon_brand]]></identifie>
+		<version><![CDATA[1.3]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[品牌介绍，视频，幻灯片，产品！]]></ability>
+		<description><![CDATA[品牌介绍，视频，幻灯片，产品！]]></description>
+		<author><![CDATA[微动力]]></author>
+		<url><![CDATA[bbs.b2ctui.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="品牌管理" do="brand" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

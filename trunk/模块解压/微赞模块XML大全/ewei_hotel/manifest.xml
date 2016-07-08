@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微酒店]]></name>
+		<identifie><![CDATA[ewei_hotel]]></identifie>
+		<version><![CDATA[4.6]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[酒店房间预定,单店版,多店版]]></ability>
+		<description><![CDATA[酒店房间预定，单店版, 多店版，类似携程]]></description>
+		<author><![CDATA[新睿源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="微酒店入口设置" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="酒店管理" do="hotel" state="" direct="false" />
+			<entry title="房型管理" do="room" state="" direct="false" />
+			<entry title="品牌管理" do="brand" state="" direct="false" />
+			<entry title="商圈管理" do="business" state="" direct="false" />
+			<entry title="用户管理" do="member" state="" direct="false" />
+			<entry title="订单管理" do="order" state="" direct="false" />
+			<entry title="基本设置" do="hotelset" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="" do="" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

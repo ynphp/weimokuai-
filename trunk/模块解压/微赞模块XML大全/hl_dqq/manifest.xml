@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[打气球]]></name>
+		<identifie><![CDATA[hl_dqq]]></identifie>
+		<version><![CDATA[2.6]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[砸蛋功能升级版]]></ability>
+		<description><![CDATA[打气球送积分可以增强粉丝与公众号的互动、提升公众号的黏性，让你在短时间内迅速引爆人气。]]></description>
+		<author><![CDATA[新睿源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<home>
+			<entry title="" do="" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

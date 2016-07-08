@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[教师节贺卡]]></name>
+		<identifie><![CDATA[xc_heka]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[送给老师的贺卡]]></ability>
+		<description><![CDATA[送给老师的贺卡]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="贺卡入口设置" do="myxinxi" state="" direct="false" />
+		</cover>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_xc_heka_addheka;
+CREATE TABLE `ims_xc_heka_addheka` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `oid` int(10) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '0',
+  `techname` varchar(200) DEFAULT NULL,
+  `openid` varchar(200) DEFAULT NULL,
+  `huayu` varchar(200) DEFAULT NULL,
+  `images` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_xc_heka_heka;
+CREATE TABLE `ims_xc_heka_heka` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` varchar(200) DEFAULT NULL,
+  `openid` varchar(200) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '0',
+  `name` varchar(200) DEFAULT NULL,
+  `img` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[精美图文]]></name>
+		<identifie><![CDATA[amouse_article]]></identifie>
+		<version><![CDATA[4.7]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[精美图文,官方微文章增加版，内置8套列表模板，很愉快的切换列表显示。可以完全兼容微文章,更好的展示公众号，图文里面可以包含音乐]]></ability>
+		<description><![CDATA[精美图文,官方微文章增加版，内置8套列表模板，很愉快的切换列表显示。可以完全兼容微文章,更好的展示公众号，图文里面可以包含音乐.打通一键关注（此一键关注为我精美图文内置模块）与精美图文，现在文章上面可以推荐公众号了。让更多的人来关注，也可以很方便运维管理多个公众号，可以跟别人来交换公众号。
+精美图文内置12套列表页面模板，5套内容页。每个内容页都可以 放置要推荐的公众号，都可以后台设置背景音乐]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="精美图文入口" do="index" state="" direct="false" />
+			<entry title="微信互推入口" do="tuijian" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="文章分类" do="category" state="" direct="false" />
+			<entry title="文章管理" do="paper" state="" direct="false" />
+			<entry title="随机广告管理" do="adv" state="" direct="false" />
+			<entry title="幻灯片管理" do="slide" state="" direct="false" />
+			<entry title="一键关注管理" do="hutui" state="" direct="false" />
+			<entry title="设置" do="sysset" state="" direct="false" />
+			<entry title="教程" do="jiaocheng" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

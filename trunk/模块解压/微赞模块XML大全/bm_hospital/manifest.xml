@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微医疗(门诊服务)]]></name>
+		<identifie><![CDATA[bm_hospital]]></identifie>
+		<version><![CDATA[1.5]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[自定义医院、科室、医生介绍，用户可通过微信在线了解医院、科室、医生介绍，并实现在线预约挂号。]]></ability>
+		<description><![CDATA[自定义医院、科室、医生介绍，用户可通过微信在线了解医院、科室、医生介绍，并实现在线预约挂号。]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="image" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="医院科室" do="classify" state="" direct="false" />
+			<entry title="医生" do="project" state="" direct="false" />
+			<entry title="预约管理" do="orders" state="" direct="false" />
+			<entry title="体检管理" do="group" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

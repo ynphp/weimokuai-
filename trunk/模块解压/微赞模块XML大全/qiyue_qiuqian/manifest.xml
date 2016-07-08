@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[祈福签]]></name>
+		<identifie><![CDATA[qiyue_qiuqian]]></identifie>
+		<version><![CDATA[1.3]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[新年祈福签]]></ability>
+		<description><![CDATA[新年祈福签]]></description>
+		<author><![CDATA[冯齐跃]]></author>
+		<url><![CDATA[http://010XR.COM/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="click" />
+			<message type="view" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="click" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="祈签入口" do="index" state="" direct="false" />
+		</cover>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_qiyue_qiuqian;
+CREATE TABLE `ims_qiyue_qiuqian` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `title` varchar(20) NOT NULL DEFAULT '',
+  `filename` varchar(200) NOT NULL DEFAULT '',
+  `myorder` tinyint(5) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`id`,`uniacid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

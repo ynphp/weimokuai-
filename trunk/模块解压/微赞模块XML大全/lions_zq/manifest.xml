@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[月球来的月饼]]></name>
+		<identifie><![CDATA[lions_zq]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[小游戏中玩家通过控制叉子叉中月饼来获得积分，积分越高排名越高]]></ability>
+		<description><![CDATA[小游戏中玩家通过控制叉子叉中月饼来获得积分，积分越高排名越高]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="游戏入口" do="zqgame" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="参数设置" do="settings" state="" direct="false" />
+			<entry title="得分记录" do="share" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_lions_zq_billboard;
+CREATE TABLE `ims_lions_zq_billboard` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `openid` varchar(255) DEFAULT NULL,
+  `score` varchar(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='月球来的月饼';
+
+
+
+DROP TABLE IF EXISTS ims_lions_zq_settings;
+CREATE TABLE `ims_lions_zq_settings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `setting_key` varchar(255) NOT NULL,
+  `setting_value` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='月球来的月饼';
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

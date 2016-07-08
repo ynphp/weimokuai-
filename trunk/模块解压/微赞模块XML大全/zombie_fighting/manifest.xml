@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[一战到底]]></name>
+		<identifie><![CDATA[zombie_fighting]]></identifie>
+		<version><![CDATA[1.3]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[一战到底]]></ability>
+		<description><![CDATA[一战到底是一档形式新颖，趣味十足，在挑战中挖掘个性，又充满悬念的全新益智攻擂游戏]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="题库管理" do="questions" state="" direct="false" />
+			<entry title="活动管理" do="lists" state="" direct="false" />
+			<entry title="等级设置" do="level" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

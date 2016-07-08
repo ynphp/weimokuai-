@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[合体红包]]></name>
+		<identifie><![CDATA[ewei_bonus]]></identifie>
+		<version><![CDATA[1.0.8]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[最火的模块，合体红包]]></ability>
+		<description><![CDATA[最火的模块，合体红包]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="活动管理" do="manage" state="" direct="false" />
+			<entry title="基础设置" do="sysset" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_ewei_bonus_fans;
+CREATE TABLE `ims_ewei_bonus_fans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) DEFAULT '0',
+  `openid` varchar(100) DEFAULT '' COMMENT '用户ID',
+  `nickname` varchar(255) DEFAULT '' COMMENT '昵称',
+  `headurl` varchar(255) DEFAULT '' COMMENT '头像',
+  `area` varchar(255) DEFAULT '' COMMENT '地区',
+  `realname` varchar(255) DEFAULT '' COMMENT '姓名',
+  `mobile` varchar(255) DEFAULT '' COMMENT '手机',
+  `paytype` tinyint(1) DEFAULT '0',
+  `account` varchar(255) DEFAULT '',
+  `bank` varchar(255) DEFAULT '',
+  `points_start` decimal(10,2) DEFAULT '0.00' COMMENT '初始钱数',
+  `points_current` decimal(10,2) DEFAULT '0.00' COMMENT '当前钱数',
+  `points_help` decimal(10,2) DEFAULT '0.00' COMMENT '合体钱数',
+  `points_withdraw` decimal(10,2) DEFAULT '0.00' COMMENT '提取钱数',
+  `points_total` decimal(10,2) DEFAULT '0.00' COMMENT '钱数总数',
+  `helps` int(11) DEFAULT '0' COMMENT '被帮助数',
+  `helpothers` int(11) DEFAULT '0' COMMENT '帮助数',
+  `joincount` int(11) DEFAULT '0',
+  `status` int(11) DEFAULT '0' COMMENT '0 未提现 1 已提现',
+  `createtime` int(10) DEFAULT '0' COMMENT '参与时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_ewei_bonus_fans_help;
+CREATE TABLE `ims_ewei_bonus_fans_help` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) DEFAULT '0',
+  `fansopenid` varchar(100) DEFAULT '',
+  `openid` varchar(100) DEFAULT '',
+  `nickname` varchar(255) DEFAULT '',
+  `headurl` varchar(255) DEFAULT '',
+  `points` decimal(10,2) DEFAULT '0.00',
+  `createtime` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `idx_rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_ewei_bonus_fans_record;
+CREATE TABLE `ims_ewei_bonus_fans_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) DEFAULT '0',
+  `openid` varchar(100) DEFAULT '',
+  `nickname` varchar(255) DEFAULT '',
+  `points` decimal(10,2) DEFAULT '0.00' COMMENT '钱数',
+  `status` int(11) DEFAULT '0' COMMENT '状态 0 申请 1 已提现',
+  `sim` int(11) DEFAULT '0' COMMENT '状态 0 用户 1 模拟',
+  `createtime` int(10) DEFAULT '0' COMMENT '申请时间',
+  `consumetime` int(10) DEFAULT '0' COMMENT '提现时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_ewei_bonus_reply;
+CREATE TABLE `ims_ewei_bonus_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT '0',
+  `uniacid` int(11) DEFAULT '0',
+  `title` varchar(50) DEFAULT '',
+  `description` varchar(255) DEFAULT '',
+  `thumb` varchar(200) DEFAULT '',
+  `isshow` tinyint(1) DEFAULT '0',
+  `viewnum` int(11) DEFAULT '0',
+  `start` decimal(10,2) DEFAULT '0.00',
+  `end` decimal(10,2) DEFAULT '0.00',
+  `detail` text,
+  `rules` text,
+  `copyright` varchar(200) DEFAULT '',
+  `followurl` varchar(1000) DEFAULT '',
+  `starttime` int(10) DEFAULT '0',
+  `endtime` int(10) DEFAULT '0',
+  `joincount` int(11) DEFAULT '0',
+  `createtime` int(10) DEFAULT '0',
+  `points` decimal(10,2) DEFAULT '100.00' COMMENT '多少可以申请提现',
+  PRIMARY KEY (`id`),
+  KEY `idx_rid` (`rid`),
+  KEY `idx_uniacid` (`uniacid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_ewei_bonus_sysset;
+CREATE TABLE `ims_ewei_bonus_sysset` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0',
+  `appid` varchar(255) DEFAULT '',
+  `appsecret` varchar(255) DEFAULT '',
+  `appid_share` varchar(255) DEFAULT '',
+  `appsecret_share` varchar(255) DEFAULT '',
+  `resroot` varchar(255) DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

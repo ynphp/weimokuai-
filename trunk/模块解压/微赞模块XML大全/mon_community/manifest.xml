@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[互动小区]]></name>
+		<identifie><![CDATA[mon_community]]></identifie>
+		<version><![CDATA[0.7]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[互动小区！]]></ability>
+		<description><![CDATA[互动小区！]]></description>
+		<author><![CDATA[codeMonkey qq:631872807]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="邻里之间" do="neighbors" state="" direct="false" />
+			<entry title="便民服务" do="service" state="" direct="false" />
+			<entry title="联系电话" do="telcatory" state="" direct="false" />
+			<entry title="物业管理" do="property" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
