@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[占楼送礼(新抢楼)]]></name>
+		<identifie><![CDATA[bm_floor]]></identifie>
+		<version><![CDATA[1.8]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[提高粉丝的活跃度，互动性！与微赞会员积分、余额打通]]></ability>
+		<description><![CDATA[通过商家发起抢楼活动，利用抢楼奖品和抢楼规则，让用户自发的把商家的“营销活动”在微信上做转发，实现营销活动在朋友圈和人脉圈中的传播。自定义楼层提示语，自定义中奖提示语，自定义中奖楼层，自定义内定中奖！柒.柒.源.码]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://H770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="image" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<rule>
+			<entry title="中奖名单" do="awardlist" state="" direct="false" />
+		</rule>
+	</bindings>
+	<install><![CDATA[
+  CREATE TABLE IF NOT EXISTS `ims_bm_floor` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `awardprompt` text NOT NULL,
+  `currentprompt` text NOT NULL,
+  `rid` int(10) unsigned NOT NULL DEFAULT '0',
+  `url` varchar(255) NOT NULL DEFAULT '',
+  `total` int(10) unsigned NOT NULL DEFAULT '0',
+  `memo` text NOT NULL,
+  `picture` varchar(255) NOT NULL DEFAULT '',
+  `password` varchar(20) NOT NULL DEFAULT '',
+  `url1` varchar(255) NOT NULL DEFAULT '',
+  `starttime` datetime NOT NULL,
+  `endtime` datetime NOT NULL,
+  `memo1` text NOT NULL,
+  `memo2` text NOT NULL,
+  `share_keyword` varchar(100) NOT NULL DEFAULT '',
+  `share_logo` varchar(255) NOT NULL DEFAULT '',
+  `share_memo` text NOT NULL,
+  `share_statement` text NOT NULL,
+  `share_url` varchar(255) NOT NULL DEFAULT '',
+  `share_point` int(10) unsigned NOT NULL DEFAULT '0',
+  `adv_url` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `rid` (`rid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+CREATE TABLE IF NOT EXISTS `ims_bm_floor_9` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_bm_floor_award` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL DEFAULT '0',
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `floor` varchar(100) NOT NULL DEFAULT '0',
+  `description` text NOT NULL,
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `rid` (`rid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+CREATE TABLE IF NOT EXISTS `ims_bm_floor_member` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL DEFAULT '',
+  `share_point` int(10) unsigned NOT NULL DEFAULT '0',
+  `share_used` int(10) unsigned NOT NULL DEFAULT '0',
+  `weid` int(10) NOT NULL,
+  `createtime` int(10) NOT NULL,
+  `IPaddress` char(15) NOT NULL DEFAULT '',
+  `rid` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_bm_floor_winner` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL DEFAULT '0',
+  `from_user` varchar(32) NOT NULL DEFAULT '',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  `ip` char(15) NOT NULL DEFAULT '',
+  `awardid` int(10) unsigned NOT NULL DEFAULT '0',
+  `awardname` varchar(255) NOT NULL DEFAULT '',
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `floor` int(10) NOT NULL DEFAULT '0',
+  `realname` varchar(32) NOT NULL DEFAULT '',
+  `mobile` varchar(11) NOT NULL DEFAULT '',
+  `qq` varchar(15) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>
