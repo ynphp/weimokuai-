@@ -1,0 +1,111 @@
+{template 'common/header'}
+{php load()->func('tpl')}
+<ul class="nav nav-tabs">
+    <li {if $op == 'trend'}class="active"{/if}><a href="{php echo $this->createWebUrl('fans', array('op' => 'trend'))}">趋势</a></li>
+    <li {if $op == 'event' || $op == 'event_category'}class="active"{/if}><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="false">事件<span class="caret"></span></a>
+    <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
+        <li><a href="{php echo $this->createWebUrl('fans', array('op' => 'event','ac' => 'list'))}">事件管理</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="{php echo $this->createWebUrl('fans', array('op' => 'event_category','ac' => 'list'))}">事件分类</a></li>
+    </ul>
+    </li>
+</ul>
+<div class="main">
+    <div class="panel panel-info">
+        <div class="panel-heading">筛选</div>
+        <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal ng-pristine ng-valid" role="form">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="jer_da" />
+                <input type="hidden" name="do" value="fans" />
+                <input type="hidden" name="op" value="event" />
+                <input type="hidden" name="is" value="1">
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">事件名</label>
+                    <div class="col-sm-9 col-md-8 col-lg-8 col-xs-12">
+                        <input type="text" class="form-control" name="eventname" value="{$eventname}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">开始时间</label>
+                    <div class="col-sm-9 col-md-8 col-lg-8 col-xs-12">
+                        {php load()->func('tpl');}
+                        {php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d', $starttime),'endtime'=>date('Y-m-d', $endtime)));}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-md-8 col-lg-8 col-xs-12">
+                        <button class="btn btn-default" data-original-title="" title=""><i class="fa fa-search"></i> 搜索</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <span class="pull-right" style="color:red;">总数：<?php echo $total;?></span>
+            <span class="brand">事件管理</span>
+        </div>
+        <div class="panel-body table-responsive">
+                <div class="sub-content">
+                    <table>
+                        <tr>
+                            <td>
+                                <a class='btn btn-default' href="{php echo $this->createWebUrl('fans', array('op' => 'event','ac' => 'post'))}"><i class="fa fa-plus"></i> 添加事件</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table table-hover">
+                        <thead class="navbar-inner">
+                        <tr>
+                            <th class="row-hover">事件名称</th>
+                            <th class="row-hover">事件分类</th>
+                            <th class="row-hover">费用</th>
+                            <th class="row-hover">开始时间</th>
+                            <th class="row-hover">结束时间</th>
+                            <th class="row-hover">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {loop $list $v}
+                        <tr>
+                            <td>
+                                <a href="{php echo $this->createWebUrl('fans',array('op'=>'event','ac' => 'analysis','id' => $v['id']));}">{$v['name']}</a>
+                            </td>
+                            <td>
+                                {$v['catename']}
+                            </td>
+                            <td>
+                                {$v['money']}
+                            </td>
+                            <td>
+                                {php echo date('Y-m-d H:i:s',$v['starttime'])}
+                            </td>
+                            <td>
+                                {php echo date('Y-m-d H:i:s',$v['endtime'])}
+                            </td>
+                            <td>
+                                <a href="{php echo $this->createWebUrl('fans',array('op'=>'event','ac' => 'analysis','id' => $v['id']));}" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom" title="分析"><i class="fa fa-signal"></i></a>
+                                <a href="{php echo $this->createWebUrl('fans',array('op'=>'event','ac' => 'post','id' => $v['id']));}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="编辑"><i class="fa fa-edit"></i></a>
+                                <a href="{php echo $this->createWebUrl('fans',array('op'=>'event', 'ac' => 'del','id' => $v['id']));}" onclick="return confirm('确定删除信息吗?')" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a>
+                            </td>
+                        </tr>
+                        {/loop}
+                        </tbody>
+                        <tr>
+                            <td colspan="6">{$pager}</td>
+                        </tr>
+                    </table>
+
+                </div>
+        </div>
+    </div>
+</div>
+
+
+{template 'common/footer'}

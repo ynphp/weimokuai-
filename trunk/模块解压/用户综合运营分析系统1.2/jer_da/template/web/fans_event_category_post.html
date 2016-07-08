@@ -1,0 +1,50 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li {if $op == 'trend'}class="active"{/if}><a href="{php echo $this->createWebUrl('fans', array('op' => 'trend'))}">趋势</a></li>
+    <li {if $op == 'event' || $op == 'event_category'}class="active"{/if}><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="false">事件<span class="caret"></span></a>
+    <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
+        <li><a href="{php echo $this->createWebUrl('fans', array('op' => 'event','ac' => 'list'))}">事件管理</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="{php echo $this->createWebUrl('fans', array('op' => 'event_category','ac' => 'list'))}">事件分类</a></li>
+    </ul>
+    </li>
+</ul>
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit="return validate(this);">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                编辑事件分类
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">事件分类名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="name" class="form-control" value="{$theone['name']}" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+		<div class="form-group col-sm-12">
+         	<input type='hidden' name='id' value="{$theone['id']}" />
+            <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+            <input type="hidden" name="token" value="{$_W['token']}" />
+        </div>
+	</form>
+</div>
+<script type="text/javascript">
+    function message(msg) {
+        require(['util'], function(util) {
+            util.message(msg);
+        });
+    }
+    $('form').submit(function() {
+        if ($.trim($(':text[name="name"]').val()) == '') {
+            message('必须填写事件分类名称.', '', 'error');
+            return false;
+        }
+        return true;
+    });
+</script>
+{template 'common/footer'}
+

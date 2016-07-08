@@ -1,0 +1,320 @@
+{template 'common/header'}
+{php load()->func('tpl')}
+
+<ul class="nav nav-tabs">
+    <li><a href="{php echo $this->createWebUrl('module', array('op' => 'list'))}">模块管理</a></li>
+    <li class="active"><a href="">分析</a></li>
+</ul>
+<div class="main">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">时间选择</div>
+        <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal ng-pristine ng-valid" role="form">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="jer_da" />
+                <input type="hidden" name="do" value="module" />
+                <input type="hidden" name="op" value="analysis" />
+                <input type="hidden" name="mid" value="{$mid}" />
+                <input type="hidden" name="is" value="1">
+                <div class="form-group col-sm-8">
+                    <div class="col-sm-5 col-md-5 col-lg-5 col-xs-12">
+                        <div class="btn-group" role="group" >
+                            <a href="{php echo $this->createWebUrl('module', array('op' => 'analysis', 'mid' => $mid, 'day_num' => 7))}" class="btn btn-default {if $day_num == 7}active{/if}">7天</a>
+                            <a href="{php echo $this->createWebUrl('module', array('op' => 'analysis', 'mid' => $mid, 'day_num' => 14))}" class="btn btn-default {if $day_num == 14}active{/if}">14天</a>
+                            <a href="{php echo $this->createWebUrl('module', array('op' => 'analysis', 'mid' => $mid, 'day_num' => 30))}" class="btn btn-default {if $day_num == 30}active{/if}">30天</a>
+                            <a href="{php echo $this->createWebUrl('module', array('op' => 'analysis', 'mid' => $mid, 'day_num' => 60))}" class="btn btn-default {if $day_num == 60}active{/if}">60天</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-md-5 col-lg-5 col-xs-12">
+                        {php load()->func('tpl');}
+                        {php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d', $starttime),'endtime'=>date('Y-m-d', $endtime)));}
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2 col-xs-12">
+                        <button class="btn btn-default" data-original-title="" title=""><i class="fa fa-search"></i> 提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {loop $fans_data_json['module_table_name'] $key $vo}
+    <div class="panel panel-default" style="padding:1em;">
+        <div id="seq_main{$key}" style="height:400px; margin-bottom: 10px;"></div>
+        <div class="row text-center">
+            <button type="button" class="btn btn-default addDataBtn" data="follow" stype="seq" key="{$key}">加入新增关注</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-default addDataBtn" data="unfollow" stype="seq" key="{$key}">加入取消关注</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-default addDataBtn" data="nav" stype="seq" key="{$key}">加入净增关注</button>&nbsp;&nbsp;
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="padding:1em;">
+        <div id="grand_main{$key}" style="height:400px; margin-bottom: 10px;"></div>
+        <div class="row text-center">
+            <button type="button" class="btn btn-default addDataBtn" data="all" stype="grand" key="{$key}">加入累计关注</button>&nbsp;&nbsp;
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="padding:1em;">
+        <div id="hour_main{$key}" style="height:400px;"></div>
+    </div>
+    {/loop}
+
+</div>
+
+<script src="/addons/jer_da/template/web/resource/echarts/dist/echarts.js"></script>
+
+<script>
+    require.config({
+        paths: {
+            echarts: '/addons/jer_da/template/web/resource/echarts/dist'
+        }
+    });
+
+    var charts = {
+        seq:[],
+        grand:[],
+        hour:[]
+    };
+    var options = {
+        seq:[],
+        grand:[],
+        hour:[]
+    };
+
+    require(
+            [
+                'echarts',
+                'echarts/chart/line',
+                'echarts/chart/bar',
+                'echarts/chart/pie'
+            ],
+            function (ec) {
+                {loop $fans_data_json['module_table_name'] $key $vo}
+                charts['seq'][{$key}] = ec.init(document.getElementById('seq_main{$key}'), 'macarons');
+                options['seq'][{$key}] = {
+                    title : {
+                        text: '{$module_table[name]}模块 - {$vo}趋势',
+                        subtext: '用户趋势变化（单位:人数）'
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['{$vo}']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    dataZoom : {
+                        show : true,
+                        realtime : true,
+                        start : 0,
+                        end : 100
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            data : {$fans_data_json['date']}
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value',
+                            axisLabel : {
+                                show: true,
+                                formatter: '{value}人'
+                            }
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'{$vo}',
+                            type:'line',
+                            smooth:true,
+                            markPoint : {
+                                data : [
+                                    {type : 'max', name: '最大值'},
+                                    {type : 'min', name: '最小值'}
+                                ]
+                            },
+                            markLine : {
+                                data : [
+                                    {type : 'average', name : '平均值'}
+                                ]
+                            },
+                            symbol:'none',
+                            data:{$fans_data_json['module_table_data_seq'][$key]}
+                        }
+                    ]
+                };
+                charts['seq'][{$key}].setOption(options['seq'][{$key}]);
+
+                charts['grand'][{$key}] = ec.init(document.getElementById('grand_main{$key}'), 'macarons');
+                options['grand'][{$key}] = {
+                    title : {
+                        text: '{$module_table[name]}模块 - {$vo}累计增长',
+                        subtext: '用户累计（单位:人数）'
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['{$vo}']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    dataZoom : {
+                        show : true,
+                        realtime : true,
+                        start : 0,
+                        end : 100
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            data : {$fans_data_json['date']}
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value',
+                            axisLabel : {
+                                show: true,
+                                formatter: '{value}人'
+                            }
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'{$vo}',
+                            type:'line',
+                            smooth:true,
+                            markPoint : {
+                                data : [
+                                    {type : 'max', name: '最大值'},
+                                    {type : 'min', name: '最小值'}
+                                ]
+                            },
+                            symbol:'none',
+                            data:{$fans_data_json['module_table_data_grand'][$key]}
+                        }
+                    ]
+                };
+                charts['grand'][{$key}].setOption(options['grand'][{$key}]);
+
+                charts['hour'][{$key}] = ec.init(document.getElementById('hour_main{$key}'), 'macarons');
+                options['hour'][{$key}] = {
+                    title : {
+                        text: '{$module_table[name]}模块 - {$vo}使用时间段',
+                        subtext: '单位:人数'
+                    },
+                    tooltip : {
+                        trigger: 'axis',
+                        formatter: "{c}时<br/>{b}人"
+                    },
+                    legend: {
+                        data:['使用时间段']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'category',
+                            axisLabel : {
+                                show: true,
+                                formatter: '{value}时'
+                            },
+                            boundaryGap : false,
+                            data : {$fans_data_json['module_table_data_hour'][$key]['key']}
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value',
+                            axisLabel : {
+                                show: true,
+                                formatter: '{value}人'
+                            }
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'使用时间段',
+                            type:'line',
+                            smooth:true,
+                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                            data:{$fans_data_json['module_table_data_hour'][$key]['value']}
+                        }
+                    ]
+                };
+                charts['hour'][{$key}].setOption(options['hour'][{$key}]);
+                {/loop}
+            }
+    );
+</script>
+<script>
+    var fans_data = {
+            seq:{
+                follow:     {name:'新增关注', data:{$fans_data_json['follow_fans']}},
+                unfollow:   {name:'取关关注', data:{$fans_data_json['unfollow_fans']}},
+                nav:        {name:'净增关注', data:{$fans_data_json['nav_fans']}}
+            },
+            grand:{
+                all:        {name:'积累关注', data:{$fans_data_json['all_fans']}}
+            }
+        };
+
+    $(".addDataBtn").on("click", function(s){
+        var key = $(this).attr("key");
+        var data = $(this).attr("data");
+        var stype = $(this).attr("stype");
+
+        options[stype][key].legend.data.push(fans_data[stype][data].name);
+        options[stype][key].series.push({
+            name: fans_data[stype][data].name,
+            type: 'line',
+            symbol:'none',
+            markPoint : {
+                data : [
+                    {type : 'max', name: '最大值'},
+                    {type : 'min', name: '最小值'}
+                ]
+            },
+            data: fans_data[stype][data].data
+        });
+        charts[stype][key].setOption(options[stype][key]);
+        $(this).attr("disabled","disabled");
+    });
+
+</script>
+{template 'common/footer'}

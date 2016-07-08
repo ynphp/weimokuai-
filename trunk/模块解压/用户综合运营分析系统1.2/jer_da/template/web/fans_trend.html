@@ -1,0 +1,518 @@
+{template 'common/header'}
+{php load()->func('tpl')}
+<ul class="nav nav-tabs">
+    <li {if $op == 'trend'}class="active"{/if}><a href="{php echo $this->createWebUrl('fans', array('op' => 'trend'))}">趋势</a></li>
+    <li {if $op == 'event'}class="active"{/if}><a href="{php echo $this->createWebUrl('fans', array('op' => 'event'))}">事件</a></li>
+</ul>
+<div class="main">
+
+    <div class="panel panel-default">
+        <div class="panel-heading">时间选择</div>
+        <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal ng-pristine ng-valid" role="form">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="jer_da" />
+                <input type="hidden" name="do" value="fans" />
+                <input type="hidden" name="op" value="trend" />
+                <input type="hidden" name="is" value="1">
+                <div class="form-group col-sm-8">
+                    <div class="col-sm-5 col-md-5 col-lg-5 col-xs-12">
+                        <div class="btn-group" role="group" >
+                            <a href="{php echo $this->createWebUrl('fans', array('op' => 'trend', 'day_num' => 7))}" class="btn btn-default {if $day_num == 7}active{/if}">7天</a>
+                            <a href="{php echo $this->createWebUrl('fans', array('op' => 'trend', 'day_num' => 14))}" class="btn btn-default {if $day_num == 14}active{/if}">14天</a>
+                            <a href="{php echo $this->createWebUrl('fans', array('op' => 'trend', 'day_num' => 30))}" class="btn btn-default {if $day_num == 30}active{/if}">30天</a>
+                            <a href="{php echo $this->createWebUrl('fans', array('op' => 'trend', 'day_num' => 60))}" class="btn btn-default {if $day_num == 60}active{/if}">60天</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-md-5 col-lg-5 col-xs-12">
+                        {php load()->func('tpl');}
+                        {php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d', $starttime),'endtime'=>date('Y-m-d', $endtime)));}
+                    </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2 col-xs-12">
+                        <button class="btn btn-default" data-original-title="" title=""><i class="fa fa-search"></i> 提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                <table class="table table-striped">
+                    <tr>
+                        <td style="width: 120px;">统计时间段：</td>
+                        <td>
+                            {php echo date('Y-m-d', $starttime).' 至 '.date('Y-m-d', $endtime)} 共 <span class="label label-default">{$fans_data_json['day_num']}</span> 天
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>新增关注用户：</td>
+                        <td><span class="label label-primary">{php echo array_sum($follow_fans);}</span> 人</td>
+                    </tr>
+                    <tr>
+                        <td>取消关注用户：</td>
+                        <td><span class="label label-danger">{php echo array_sum($unfollow_fans);}</span> 人</td>
+                    </tr>
+                    <tr>
+                        <td>净增关注用户：</td>
+                        <td><span class="label label-success">{php echo array_sum($nav_fans);}</span> 人</td>
+                    </tr>
+                    <tr>
+                        <td>营销费用：</td>
+                        <td>
+                            <span class="label label-primary">{if $event_sum_money}{$event_sum_money}{else}0.00{/if}</span> 元
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>用户成本估算：</td>
+                        <td>
+                            时间成本：<span class="label label-primary">{$time_costs}</span> 小时/人
+                            {if $event_sum_money > 0}
+                            |
+                            金钱成本：<span class="label label-primary">{$money_costs}</span> 元/人
+                            {/if}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            {if $event_speed}
+                            <p>
+                                期间内进行了事件活动，用户增长的平均时间成本为：
+                                <span class="label label-primary">{$event_speed}</span> 小时/人
+                                <br>
+                                {if $time_costs - $event_speed > 0}
+                                相比提高了：<span class="label label-success">{php echo round((($time_costs - $event_speed) / $time_costs), 2) * 100}%</span>
+                                {else}
+                                相比降低了：<span class="label label-success">{php echo round((($event_speed - $time_costs) / $time_costs), 2) * 100}%</span>
+                                {/if}
+                            </p>
+                            {/if}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                <div id="main3" style="height:230px"></div>
+            </div>
+        </div>
+    </div>
+
+    {if $event_sum_money > 0}
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                <div id="main4" style="height:230px"></div>
+            </div>
+
+            <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                <div id="main5" style="height:230px"></div>
+            </div>
+        </div>
+    </div>
+    {/if}
+
+    <div class="panel panel-default" style="padding:1em;">
+        <div id="main1" style="height:400px"></div>
+    </div>
+
+    <div class="panel panel-default" style="padding:1em;">
+        <div id="main2" style="height:400px"></div>
+    </div>
+
+</div>
+
+<script src="/addons/jer_da/template/web/resource/echarts/dist/echarts.js"></script>
+
+<script>
+    require.config({
+        paths: {
+            echarts: '/addons/jer_da/template/web/resource/echarts/dist'
+        }
+    });
+
+    require(
+            [
+                'echarts',
+                'echarts/chart/line',
+                'echarts/chart/bar',
+                'echarts/chart/pie',
+                'echarts/chart/funnel'
+            ],
+            function (ec) {
+                var myChart1 = ec.init(document.getElementById('main1'), 'macarons');
+
+                var option1 = {
+                    title : {
+                        text: '趋势图',
+                        subtext: '用户趋势变化\n单位:人数'
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['新关注','取消关注','净增关注']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    dataZoom : {
+                        show : true,
+                        realtime : true,
+                        start : 0,
+                        end : 100
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            data : {$fans_data_json['date']}
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value',
+                            axisLabel : {
+                                show: true,
+                                formatter: '{value}人'
+                            }
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'新关注',
+                            type:'line',
+                            smooth:true,
+                            markPoint : {
+                                data : [
+                                    {type : 'max', name: '最大值'},
+                                    {type : 'min', name: '最小值'}
+                                ]
+                            },
+                            symbol:'none',
+                            data:{$fans_data_json['follow_fans']}
+                        },
+                        {
+                            name:'取消关注',
+                            type:'line',
+                            smooth:true,
+                            markPoint : {
+                                data : [
+                                    {type : 'max', name: '最大值'},
+                                    {type : 'min', name: '最小值'}
+                                ]
+                            },
+                            symbol:'none',
+                            data:{$fans_data_json['unfollow_fans']}
+                        },
+                        {
+                            name:'净增关注',
+                            type:'line',
+                            smooth:true,
+                            markPoint : {
+                                data : [
+                                    {type : 'max', name: '最大值'},
+                                    {type : 'min', name: '最小值'}
+                                ]
+                            },
+                            symbol:'none',
+                            data:{$fans_data_json['nav_fans']}
+                        }
+
+
+                    ]
+                };
+
+                myChart1.setOption(option1);
+
+                var myChart2 = ec.init(document.getElementById('main2'), 'macarons');
+
+                var option2 = {
+                    title : {
+                        text: '用户累积增长率',
+                        subtext: '单位:人数'
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['累积关注']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    dataZoom : {
+                        show : true,
+                        realtime : true,
+                        start : 0,
+                        end : 100
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            data : {$fans_data_json['date']}
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value',
+                            axisLabel : {
+                                show: true,
+                                formatter: '{value}人'
+                            }
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'累积关注',
+                            type:'line',
+                            smooth:true,
+                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                            markLine : {
+                                data : [
+                                    {type : 'average', name: '平均值'}
+                                ]
+                            },
+                            symbol:'none',
+                            data:{$fans_data_json['all_fans']}
+                        }
+                    ]
+                };
+
+                myChart2.setOption(option2);
+
+                var myChart3 = ec.init(document.getElementById('main3'), 'macarons');
+
+                var option3 = {
+                    title : {
+                        text: '取关用户与净增用户占比',
+                        subtext: '',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        orient : 'vertical',
+                        x : 'left',
+                        data:['取消关注','净增关注']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            dataView : {show: true, readOnly: false},
+                            magicType : {
+                                show: true,
+                                type: ['pie', 'funnel'],
+                                option: {
+                                    funnel: {
+                                        x: '25%',
+                                        width: '50%',
+                                        funnelAlign: 'left',
+                                        max: 1548
+                                    }
+                                }
+                            },
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    series : [
+                        {
+                            name:'取关用户与净增用户占比',
+                            type:'pie',
+                            radius : '55%',
+                            center: ['50%', '60%'],
+                            data:[
+                                {value:{php echo array_sum($unfollow_fans);}, name:'取消关注'},
+                                {value:{php echo array_sum($nav_fans);}, name:'净增关注'}
+                            ]
+                        }
+                    ]
+                };
+
+                myChart3.setOption(option3);
+
+                {if $event_sum_money > 0}
+                var myChart4 = ec.init(document.getElementById('main4'));
+
+                var option4 = {
+                    title : {
+                        text: '营销费用带来的用户占比',
+                        subtext: '',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        orient : 'vertical',
+                        x : 'left',
+                        data:['免费','付费']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            dataView : {show: true, readOnly: false},
+                            magicType : {
+                                show: true,
+                                type: ['pie', 'funnel'],
+                                option: {
+                                    funnel: {
+                                        x: '25%',
+                                        width: '50%',
+                                        funnelAlign: 'left',
+                                        max: 1548
+                                    }
+                                }
+                            },
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    series : [
+                        {
+                            name:'营销费用带来的用户占比',
+                            type:'pie',
+                            radius : '55%',
+                            center: ['50%', '60%'],
+                            data:[
+                                {value:{php echo array_sum($nav_fans) - $event_num}, name:'免费'},
+                                {value:{$event_num}, name:'付费'}
+                            ]
+                        }
+                    ]
+                };
+
+                myChart4.setOption(option4);
+
+                var myChart5 = ec.init(document.getElementById('main5'), 'macarons');
+
+                var labelTop = {
+                    normal : {
+                        label : {
+                            show : true,
+                            position : 'center',
+                            formatter : '{b}',
+                            textStyle: {
+                                baseline : 'bottom'
+                            }
+                        },
+                        labelLine : {
+                            show : false
+                        }
+                    }
+                };
+                var labelFromatter = {
+                    normal : {
+                        label : {
+                            formatter : function (params){
+                                return 100 - params.value + '%'
+                            },
+                            textStyle: {
+                                baseline : 'top'
+                            }
+                        }
+                    },
+                }
+                var labelBottom = {
+                    normal : {
+                        color: '#ccc',
+                        label : {
+                            show : true,
+                            position : 'center'
+                        },
+                        labelLine : {
+                            show : false
+                        }
+                    },
+                    emphasis: {
+                        color: 'rgba(0,0,0,0)'
+                    }
+                };
+                var radius = [40, 55];
+
+                var option5 = {
+                    title : {
+                        text: '当前时间段营销费用在总费用中的占比',
+                        subtext: '',
+                        x:'center'
+                    },
+                    legend: {
+                        orient : 'vertical',
+                        x : 'left',
+                        data:['其他','当期费用']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            dataView : {show: true, readOnly: false},
+                            magicType : {
+                                show: true,
+                                type: ['pie', 'funnel'],
+                                option: {
+                                    funnel: {
+                                        width: '20%',
+                                        height: '30%',
+                                        itemStyle : {
+                                            normal : {
+                                                label : {
+                                                    formatter : function (params){
+                                                        return 'other\n' + params.value + '%\n'
+                                                    },
+                                                    textStyle: {
+                                                        baseline : 'middle'
+                                                    }
+                                                }
+                                            },
+                                        }
+                                    }
+                                }
+                            },
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    series : [
+                        {
+                            type:'pie',
+                            itemStyle : labelFromatter,
+                            radius : radius,
+                            center: ['50%', '60%'],
+                            data:[
+                                {value:{php echo 100 - $event_money_acc}, name:'其他',itemStyle : labelBottom},
+                                {value:{$event_money_acc}, name:'当期费用',itemStyle : labelTop}
+                            ]
+                        }
+                    ]
+                };
+
+                myChart5.setOption(option5);
+                {/if}
+            }
+    );
+</script>
+{template 'common/footer'}

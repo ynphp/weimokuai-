@@ -1,0 +1,81 @@
+{template 'common/header'}
+{php load()->func('tpl')}
+<ul class="nav nav-tabs">
+    <li {if $op == 'list'}class="active"{/if}><a href="{php echo $this->createWebUrl('module', array('op' => 'list'))}">模块管理</a></li>
+</ul>
+<div class="main">
+    <div class="panel panel-info">
+        <div class="panel-heading">筛选</div>
+        <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal ng-pristine ng-valid" role="form">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="jer_da" />
+                <input type="hidden" name="do" value="module" />
+                <input type="hidden" name="op" value="list" />
+                <input type="hidden" name="is" value="1">
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">模块名称</label>
+                    <div class="col-sm-9 col-md-8 col-lg-8 col-xs-12">
+                        <input type="text" class="form-control" name="modulename" value="{$modulename}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-md-8 col-lg-8 col-xs-12">
+                        <button class="btn btn-default" data-original-title="" title=""><i class="fa fa-search"></i> 搜索</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <span class="pull-right" style="color:red;">总数：<?php echo $total;?></span>
+            <span class="brand">模块管理</span>
+        </div>
+        <div class="panel-body table-responsive">
+                <div class="sub-content">
+                    <table>
+                        <tr>
+                            <td>
+                                <a class='btn btn-default' href="{php echo $this->createWebUrl('module', array('op' => 'post'))}"><i class="fa fa-plus"></i> 添加模块</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table table-hover">
+                        <thead class="navbar-inner">
+                        <tr>
+                            <th class="row-hover">模块名称</th>
+                            <th class="row-hover" style="width:250px;">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {loop $list $v}
+                        <tr>
+                            <td>
+                                {$v['name']}
+                            </td>
+                            <td>
+                                <a href="{php echo $this->createWebUrl('module',array('op'=>'analysis','mid' => $v['id']));}" class="btn btn-success btn-sm" title="分析">分析</a>
+                                <a href="{php echo $this->createWebUrl('module',array('op'=>'table', 'ac' => 'list','mid' => $v['id']));}" class="btn btn-default btn-sm">表管理</a>
+                                <a href="{php echo $this->createWebUrl('module',array('op'=>'post','id' => $v['id']));}" class="btn btn-default btn-sm"  title="编辑">编辑</a>
+                                <a href="{php echo $this->createWebUrl('module',array('op'=>'del','id' => $v['id']));}" onclick="return confirm('确定删除信息吗?')" class="btn btn-danger btn-sm" title="删除">删除</a>
+                            </td>
+                        </tr>
+                        {/loop}
+                        </tbody>
+                        <tr>
+                            <td colspan="2">{$pager}</td>
+                        </tr>
+                    </table>
+
+                </div>
+        </div>
+    </div>
+</div>
+
+
+{template 'common/footer'}

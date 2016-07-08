@@ -1,0 +1,72 @@
+{template 'common/header'}
+<style>
+    .panel ol li{
+        height: 36px;
+        line-height: 36px;
+    }
+</style>
+<div class="main">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#fans" aria-controls="fans" role="tab" data-toggle="tab">用户分析</a></li>
+        <li role="presentation"><a href="#module" aria-controls="module" role="tab" data-toggle="tab">模块分析</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="fans">
+            <h3>趋势</h3>
+            <div class="panel panel-default">
+                <div class="panel-heading">概述</div>
+                <div class="panel-body">
+                    <p>趋势做为整数据分析模块的用户增长统计表。尽可能的帮助运营者理清系统中的粉丝关注数据，用更直观的图表方式来展现数据。</p>
+                    <p>运营者可以根据预设时间段 <code>7天</code>、<code>14天</code>、<code>30天</code>、<code>60天</code>及<code>自定义时间段</code>来查看不同时间段的粉丝增长信息。</p>
+                </div>
+            </div>
+            <h3>事件</h3>
+            <div class="panel panel-default">
+                <div class="panel-heading">概述</div>
+                <div class="panel-body">
+                    <p>事件可以简单理解为某一时间段内<code>发生的事情</code>或者<code>举办的活动</code>，并对该事件的粉丝增长影响和特性做分析统计。</p>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">使用</div>
+                <div class="panel-body">
+                    <ol>
+                        <li>要使用事件分析则先 <span class="label label-info">添加事件分类</span>。事件分类只用做区分不同类型的事件，以便于管理。</li>
+                        <li>事件分类添加完毕后，点击 <span class="label label-info">新建事件</span>，并按照表单依次填写。</li>
+                        <li>新建完毕后，在 <span class="label label-info">事件列表</span> 中点击 <span class="label label-info">分析</span>，进入到事件分析页面。</li>
+                    </ol>
+                </div>
+            </div>
+
+        </div>
+        <div role="tabpanel" class="tab-pane" id="module">
+            <div class="panel panel-default">
+                <div class="panel-heading">概述</div>
+                <div class="panel-body">
+                    <p>模块分析主要针对第三方模块数据表及自定义的数据表（多个系统的数据表）进行统计分析。以自定模块的数据表作为基础数据，对比某一时间段内的粉丝增长趋势，并做出分析和决策。</p>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">使用</div>
+                <div class="panel-body">
+                    <ol>
+                        <li>要使用模块分析则先 <span class="label label-info">添加模块</span>。模块只用做区分不同类型的数据表，以便于管理。</li>
+                        <li>模块添加完毕后，点击 <span class="label label-info">表管理</span>。进入到 <span class="label label-info">表管理</span> 后再点击 <span class="label label-info">添加模块表</span>，并按照表单依次填写。</li>
+                        <li>在 <span class="label label-info">添加模块表</span> 里，<span class="label label-warning">对应数据表</span> 为需要进行分析的数据表；<span class="label label-warning">对应数据表字段</span> 为需要分析的字段；<span class="label label-warning">数据表时间字段</span> 为数据创建的时间戳。
+
+                        </li>
+                        <li>新建完毕后，在 <span class="label label-info">模块管理</span> 中点击 <span class="label label-info">分析</span>，进入到模块分析页面。</li>
+                    </ol>
+                    <span class="text-danger">（如无特殊需求，添加模块表中的对应数据表字段，请用表的主键）</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{template 'common/footer'}

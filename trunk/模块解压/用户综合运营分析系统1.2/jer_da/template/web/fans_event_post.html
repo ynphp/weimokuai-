@@ -1,0 +1,83 @@
+{template 'common/header'}
+{php load()->func('tpl')}
+<ul class="nav nav-tabs">
+    <li {if $op == 'trend'}class="active"{/if}><a href="{php echo $this->createWebUrl('fans', array('op' => 'trend'))}">趋势</a></li>
+    <li {if $op == 'event' || $op == 'event_category'}class="active"{/if}><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="false">事件<span class="caret"></span></a>
+    <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
+        <li><a href="{php echo $this->createWebUrl('fans', array('op' => 'event','ac' => 'list'))}">事件管理</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="{php echo $this->createWebUrl('fans', array('op' => 'event_category','ac' => 'list'))}">事件分类</a></li>
+    </ul>
+    </li>
+</ul>
+	<div class="main">
+		<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    添加事件
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">事件名称</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <input type="text" class="form-control" name="name" value="{$theone['name']}" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">事件类型</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <select class="form-control" name="cid">
+                                {loop $event_category $v}
+                                <option value="{$v[id]}">{$v[name]}</option>
+                                {/loop}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">开始时间</label>
+                        <div class="col-sm-9 col-xs-12">
+                            {php echo tpl_form_field_date('starttime', date('Y-m-d H:i:s', $starttime), true);}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">结束时间</label>
+                        <div class="col-sm-9 col-xs-12">
+                            {php echo tpl_form_field_date('endtime', date('Y-m-d H:i:s', $endtime), true);}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">营销费用</label>
+                        <div class="col-sm-9 col-xs-12">
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">￥</span>
+                                <input type="text" class="form-control" name="money" value="{$theone['money']}" />
+                                <span class="input-group-addon">元</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">事件介绍</label>
+                        <div class="col-sm-9 col-xs-12">
+                            {php echo tpl_ueditor('content', $theone['content']);}
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="form-group col-sm-12">
+                <input type='hidden' name='id' value="{$theone['id']}" />
+                <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+
+                <input type="hidden" name="token" value="{$_W['token']}" />
+            </div>
+	    </form>
+    </div>
+
+{template 'common/footer'}
+
