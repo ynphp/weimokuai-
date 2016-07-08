@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>班级圈-{$class_name}-{$_SESSION['school_name']}</title>
+	{template '../case01/common'}
+    <link rel="stylesheet" href="{MODULE_URL}template/case01/style/buttons.css">
+    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">    
+</head>
+<body>
+<div class="top-wrap">
+	<div class="fn-clear tr-box top">
+	   <div class='text_center'>{$_W['line_type'][$result['line_type']]}</div>
+  </div>
+</div>
+<div class="wrap" style="margin-bottom:60px;">
+    <div class="neirong">
+   <h1>{$result['line_title']}</h1>
+    <div class="other"><u>{if $result['teacher_realname']}{$result['teacher_realname']}{else}管理员{/if}</u>|<time>{php echo date("Y-m-d H:i:s",$result['addtime']);}</time>|<i><a href=" ">查看({$result['line_look']})</a></i></div>
+        <table cellpadding="0" cellspacing="0" class="neirong-box" >
+            <tbody>
+              <tr><td id="article_content">{php echo htmlspecialchars_decode($result['line_content'])}</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{template '../case01/footer'}

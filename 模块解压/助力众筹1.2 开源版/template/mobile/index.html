@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!-- saved from url=(0089)http://apps.socialstar.cn/xyns/index3.php?code=0313c6696f15c4e06030fcba2425f8cC&state=123 -->
+<html>
+
+	<head>
+		  {php echo register_jssdk();}
+    <script>
+        wx.ready(function () {
+        shareData = {
+            'title' : "{$data['share_title']}",
+            'desc': "{$data['share_desc']}",
+            'link': "{$_W['siteroot']}app/{php echo str_replace('./','',$this->createMobileUrl('index'))}",
+            'imgUrl': "{php echo tomedia($data['share_image'])}",
+        };
+        //分享朋友
+    wx.onMenuShareAppMessage({
+        title: shareData.title,
+        desc: shareData.desc,
+        link: shareData.link,
+        imgUrl:shareData.imgUrl,
+        trigger: function (res) {
+        },
+        success: function (res) {
+        	alert('分享成功！');
+            location.href='{php echo $this->createMobileUrl('index');}';
+        },
+        cancel: function (res) {
+            alert('分享是一种美德哦！');
+        },
+        fail: function (res) {
+            alert(JSON.stringify(res));
+        }
+    });
+//朋友圈
+    wx.onMenuShareTimeline({
+        title: shareData.title,
+        link: shareData.link,
+        imgUrl:shareData.imgUrl,
+        trigger: function (res) {
+        },
+        success: function (res) {
+            alert('分享成功');
+        },
+        cancel: function (res) {
+            alert('分享是一种美德哦！');
+        },
+        fail: function (res) {
+            alert(JSON.stringify(res));
+        }
+        });
+    });
+    </script>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<style type="text/css" adt="123"></style>
+		<meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no">
+		<meta charset="UTF-8">
+		<title>美丽众筹</title>
+		<link rel="stylesheet" type="text/css" href="../addons/beauty_zhongchou/template/css/style.css">
+		<script src="../addons/beauty_zhongchou/template/js/hm.js"></script>
+		<script type="text/javascript" src="../addons/beauty_zhongchou/template/js/jquery-2.1.3.min.js"></script>
+		<script>
+			var _hmt = _hmt || [];
+			(function() {
+				var hm = document.createElement("script");
+				hm.src = "//hm.baidu.com/hm.js?cde9dcfa3b7f7396b6c337b692487ee6";
+				var s = document.getElementsByTagName("script")[0];
+				s.parentNode.insertBefore(hm, s);
+			})();
+		</script>
+	<style>
+		.btn {
+    width: 237px;
+    height: 67px;
+    text-align: center;
+    color: #133990;
+    font-size: 28px;
+    background: url("../addons/beauty_zhongchou/template/imgs/btn-bg.png");
+    line-height: 58px;
+    font-weight: 600;
+}
+.lockDiv 
+		{ 
+			width:100%; 
+			height:100%; 
+			background-color:#000 ; 
+			position:fixed; 
+			top:0px; 
+			left:0px; 
+			opacity:0.2; 
+		} 
+	</style>
+	</head>
+	<body>
+		<!-- 规则 -->
+				<div class="alert_box" id="rule_box" style="position: fixed;top:30px;z-index: 12;left:9%;width: 82%;max-width:530px;background:#fffcee;padding: 5% 0 3%;border-radius: 5%;display: none;">
+					<img src="../addons/rebate/template/imgs/exit.png" class="exit" id='offf2' style="width: 10%;float: right;margin-right: -5%;margin-top: -10%;">
+					<img src="../addons/rebate/template/imgs/rule.jpg">
+					<ul class="rule_list">
+						<li>
+							<i class="num1"></i>
+							<i class="con">{$rule}</i>
+						</li>
+					</ul>
+				</div>
+		<div class="wrapper">
+			{if empty($data['p1-bg'])}
+			<div class="page1" style=" background: url('../addons/beauty_zhongchou/template/imgs/11111.jpg') no-repeat;" id="page3">
+			{else}
+			<div class="page1" style=" background: url('{php echo tomedia($data['p1-bg'])}') no-repeat;" id="page3">
+			{/if}
+				<div class="slogan"><img src="{php echo tomedia($data['p1-slogn'])}"></div>
+				<div class="p1-str"><img src="{php echo tomedia($data['p1-str'])}"></div>
+
+				<div class="p1-photo"><img src="{php echo tomedia($data['p1-photo'])}"></div>
+				<div class="p1-person"><img src="{php echo tomedia($data['p1-person'])}"></div>
+				<a href="{php echo $this->createMobileUrl('openshare');}">
+				<div class="p1-star btn" id="starBtn">
+					{$data['btn1']}
+				</div>
+				</a>
+				<div class="p1-hdxq btn" id="rule2">活动详情</div>
+			</div>
+
+			<!--<div class="rulePage" style="display: none;">
+				<div class="mask"></div>
+				<div class="rule"><img src="../addons/beauty_zhongchou/template/imgs/rule.png"></div>
+				<div class="rule-x" id="ruleClose"><img src="../addons/beauty_zhongchou/template/imgs/rule-x.png"></div>
+			</div>-->
+		</div>
+
+		<script>
+			$("#offf2").bind("click", function(){
+			 	$("#page3").removeClass("lockDiv");
+			 	$("#rule_box").hide();
+			 });
+			 $("#rule2").bind("click", function(){
+				$("#page3").addClass("lockDiv");
+				$("#rule_box").css('display','block');
+			 });
+		</script>
+		<script src="../addons/beauty_zhongchou/template/js/jweixin-1.0.0.js"></script>
+
+	</body>
+	<style type="text/css" id="19450969429"></style>
+
+</html>

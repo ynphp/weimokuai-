@@ -1,0 +1,196 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display' && $status == '' }class="active"{/if}>
+        <a href="{php echo $this->createWebUrl('order', array('op' => 'display'))}">众筹列表</a>
+    </li>
+	{if $operation == 'detail'}
+    <li class="active">
+        <a href="#">详情</a>
+    </li>
+    {/if}
+</ul>
+
+{if $operation == 'display'}
+<div class="main">
+    <div class="panel panel-info">
+	    <div class="panel-heading">筛选</div>
+	    <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="beauty_zhongchou" />
+                <input type="hidden" name="do" value="order" />
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">众筹编号</label>
+                    <div class="col-sm-8 col-lg-9 col-xs-12">
+                        <input class="form-control" name="keyword" id="" type="text" value="{$_GPC['keyword']}" placeholder="可查询众筹编号">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                        <div class="col-sm-3 col-lg-2">
+                        	<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+                        	
+                        </div>
+                </div>
+                <div class="form-group">
+                </div>
+            </form>
+            	<!--<a href='{php echo $this->createWebUrl('order', array('op' => 'output','status'=>$status))}'><button class="btn btn-default"><i class="fa fa-align-justify"></i>导出订单</button></a>
+	   			<a href='{php echo $this->createWebUrl('order', array('op' => 'refundall'))}'><button class="btn btn-default"><i class="fa fa-align-justify"></i>一键退款</button></a>-->
+	    </div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-body table-responsive">
+			<table class="table table-hover">
+				<thead class="navbar-inner">
+					<tr>
+						<th style="width:120px;">众筹编号</th>
+						<th style="width:120px;">众筹人昵称</th>
+						<th style="width:120px;">众筹人数</th>
+						<th style="width:120px;">总众筹钱</th>
+						<th style="width:120px; text-align:right;">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $orders $item}
+					<tr>
+						<td>{$item['ordersn']}</td>
+						
+						<td>{$item['nickname']}</td>
+						<td>{$item['shu']}（人）</td>
+						<td>{$item['num']}（元）</td>
+						<td style="text-align:right;">
+							<a href="{php echo $this->createWebUrl('order', array('op' => 'detail', 'fromopenid' => $item['fromopenid']))}" class="btn btn-success btn-sm">查看详情</a>
+							<a href="{php echo $this->createWebUrl('order', array('fromopenid' => $item['fromopenid'], 'op' => 'delete'))}" onclick="return confirm('此操作不可恢复，确认删除？');"
+								class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i>
+							</a>
+						</td>
+					</tr>
+					{/loop}
+				</tbody>
+			</table>
+			{if empty($orders)}
+					<span class="label label-danger">没有数据！</span>
+			{/if}
+		</div>
+	</div>
+</div>
+{$pager}
+<script type="text/javascript">
+	require(['daterangepicker'], function($){
+		$('.daterange').on('apply.daterangepicker', function(ev, picker) {
+			$('#form1')[0].submit();
+		});
+	});
+</script>
+{/if}
+{if $operation == 'detail'}
+<style type="text/css">
+	.main .form-horizontal .form-group{margin-bottom:0;}
+	.main .form-horizontal .modal .form-group{margin-bottom:15px;}
+	#modal-confirmsend .control-label{margin-top:0;}
+</style>
+<div class="main">
+	<form class="form-horizontal form" action="" method="post" enctype="multipart/form-data" onsubmit="return formcheck(this)">
+		{if $item['transid']}<div  class="alert alert-error"><i class="fa fa-lightbulb"></i> 此为微信支付订单，必须要提交发货状态！</div>{/if}
+		<input type="hidden" name="dispatchid" value="{$dispatch['id']}" />
+	<div class="panel panel-default">
+			<div class="panel-heading">
+				众筹人信息
+			</div>
+			<div class="panel-body table-responsive">
+				<table class="table table-hover">
+					<thead class="navbar-inner">
+					<tr>
+						<th style="width:80px;">昵称</th>
+						<th style="width:80px;">头像</th>
+					</tr>
+					</thead>
+					<tr>
+						<td>{$oo['nickname']}</td>
+						<td>
+						<div style=" width:40px;height:40px;">
+                           <img src="{php echo tomedia($oo['avatar'])}" style=" width:40px;height:40px;" alt="" title="">
+                        </div>  
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+			<div class="panel panel-default">
+			<div class="panel-heading">
+				众筹信息
+			</div>
+			<div class="panel-body table-responsive">
+				<table class="table table-hover">
+					<thead class="navbar-inner">
+					<tr>
+						<th style="width:150px;">订单编号</th>
+						<th style="width:100px;">昵称</th>
+						<th style="width:140px;">头像</th>
+						<th style="width:100px;">筹钱</th>
+					</tr>
+					</thead>
+					{loop $allorder $order}
+					<tr>
+						<td>{$order['ordersn']}</td>
+						<td>{$order['nickname']}</td>
+						<td>
+						<div>
+                           <img src="{php echo tomedia($order['avatar'])}" style=" width:40px;height:40px;" alt="" title="">
+                        </div>  
+						</td>
+						<td>{$order['num']}</td>
+					</tr>
+					{/loop}
+					</table>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script language='javascript'>
+    $(function(){
+        {if !empty($express)}
+        $("#express").find("option[data-name='{$express['express_name']}']").attr("selected",true);
+        $("#expresscom").val($("#express").find("option:selected").attr("data-name"));
+        {/if}
+        $("#express").change(function(){
+            var obj = $(this);
+            var sel = obj.find("option:selected").attr("data-name");
+            $("#expresscom").val(sel);
+        });
+    });
+</script>
+{/if}
+
+	
+	</form>
+</div>
+
+<script language='javascript'>
+    $(function(){
+        {if !empty($express)}
+        $("#express").find("option[data-name='{$express['express_name']}']").attr("selected",true);
+        $("#expresscom").val($("#express").find("option:selected").attr("data-name"));
+        {/if}
+        $("#express").change(function(){
+            var obj = $(this);
+            var sel = obj.find("option:selected").attr("data-name");
+            $("#expresscom").val(sel);
+        });
+    });
+</script>
+
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+{template 'common/footer'}

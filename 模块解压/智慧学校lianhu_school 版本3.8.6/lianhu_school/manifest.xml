@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[智慧学校]]></name>
+		<identifie><![CDATA[lianhu_school]]></identifie>
+		<version><![CDATA[3.8.6]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[解决教育培训学校与学生家长之间沟通，信息获取]]></ability>
+		<description><![CDATA[解决教育培训学校与学生家长之间沟通，信息获取]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://code.h770.com]]></url>
+
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="学生中心" do="bangding" state="" direct="false" />
+			<entry title="教师入口" do="teaIn"  state="" direct="false"  />
+		</cover>
+		<menu>
+			<entry title="学校管理" do="school" state="" direct="false" />
+			<entry title="收费管理" do="money" state="" direct="false" />
+			<entry title="教师管理" do="teacher" state="" direct="false" />
+			<entry title="学生管理" do="student" state="" direct="false" />
+			<entry title="数据导入" do="data_in" state="" direct="false" />
+			<entry title="数据统计" do="data_out" state="" direct="false" />
+			<entry title="课程管理" do="course" state="" direct="false" />
+			<entry title="班级课程表" do="syllabus" state="" direct="false" />
+			<entry title="班级圈" do="line" state="" direct="false" />
+			<entry title="预约管理" do="appointment" state="" direct="false" />
+			<entry title="作业管理" do="work" state="" direct="false" />
+			<entry title="考试详细管理" do="test" state="" direct="false" />
+			<entry title="考试成绩发布" do="score_list" state="" direct="false" />
+			<entry title="错题管理" do="weak" state="" direct="false" />
+			<entry title="进步管理" do="jinbu" state="" direct="false" />
+			<entry title="消息发送" do="msg" state="" direct="false" />
+			<entry title="站内信" do="neimsg" state="" direct="false" />
+			<entry title="年级管理" do="grade" state="" direct="false" />
+			<entry title="班级管理" do="class" state="" direct="false" />
+			<entry title="学生记录管理" do="student_record" state="" direct="false" />
+			<entry title="视频监控" do="video" state="" direct="false" />
+			<entry title="学校管理人员" do="neimsg" state="" direct="false" />
+			<entry title="管理功能" do="admin_function" state="" direct="false" />
+			<entry title="请假管理" do="leave" state="" direct="false" />
+			<entry title="学生食谱" do="cookbook" state="" direct="false" />
+			<entry title="教室直播" do="video" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

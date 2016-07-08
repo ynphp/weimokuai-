@@ -1,0 +1,221 @@
+<!DOCTYPE html><html>
+	<head>
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../addons/beauty_zhongchou/template/css/style.css">
+    <script src="../addons/beauty_zhongchou/template/js/hm.js?1d8e5e369a6dac5eeb5788f5e623a38d"></script>
+    <script type="text/javascript" src="../addons/beauty_zhongchou/template/js/jquery-2.1.3.min.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?1d8e5e369a6dac5eeb5788f5e623a38d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+	<style>
+.p4-from {
+    position: absolute;
+    width: 591px;
+    height: 301px;
+    left: 28px;
+    top: 565px;
+    background: url("../addons/beauty_zhongchou/template/imgs/p4-form.png");
+	}
+	.btn {
+    width: 237px;
+    height: 67px;
+    text-align: center;
+    color: #133990;
+    font-size: 28px;
+    background: url("../addons/beauty_zhongchou/template/imgs/btn-bg.png");
+    line-height: 58px;
+    font-weight: 600;
+}
+	</style>
+</head>
+<body>
+	
+{if empty($data['p4-bg'])}
+<div class="page4" style=" background: url('../addons/beauty_zhongchou/template/imgs/11111.jpg') no-repeat;">
+{else}
+<div class="page4" style=" background: url('{php echo tomedia($data['p4-bg'])}') no-repeat;">
+{/if}
+    <div class="headbg3">
+    	<img src="../addons/beauty_zhongchou/template/imgs/headbg2.png"></div>
+    <div class="head3">
+    <img src="{php echo tomedia($fromprofile['avatar'])}">
+    
+   
+    </div>
+     <div class="p3-str" style="font-size:35px;color: white;text-align: center;">
+        	 <img src="{php echo tomedia($data['p4-slogn'])}">
+    </div>
+    <div  id="faqBtn" style="position: absolute;width: 90px;height: 27px;top: 40px;right: 0px;">
+    	<img src="../addons/beauty_zhongchou/template/imgs/faq-icon.png">
+    	
+    </div>
+    <form method="post" id="formid">
+    	<input type="hidden" name="myopenid" id="myopenid"  value="{$myopenid}"/>
+		<input type="hidden" name="fromopenid" id="fromopenid"  value="{$fromopenid}"/>
+		<input type="hidden" name="money" id="mymoney"  value=""/>
+    <div class="p4-from" style="background: url('{php echo tomedia($data['p4-form'])}');">
+        <div class="p4-one" id="oneBtn"><img src="{php echo tomedia($data['p4-btn-one'])}"></div>
+        <div class="p4-je"><input id="money" type="text" value="" placeholder="1~5元"></div>
+        <div class="p4-content"><input id="content" name="content" type="text" value="" placeholder="说点什么鼓励TA一下吧!"></div>
+        <div class="p4-price">¥<span id="showMoney">0.00</span></div>
+    </div>
+    <!--<div class="p4-submit btn" id="submitBtn">确&nbsp;&nbsp;定</div>-->
+    <button type="submit" name="submit" value="yes" id= 'submitBtn' class="p4-submit btn" style="margin-bottom:20px;border: 0;">确认</button>
+    <input type="hidden" name="token" value="{$_W['token']}" />
+    </form>
+    <div class="p4-notice">微信支付后，跳回游戏支持才能被同步。</div>
+</div>
+
+<div class="faqPage" style="display: none;">
+    <div class="mask2"></div>
+    <div class="faq-main">
+        <div class="faq-item"><img src="{php echo tomedia($data['faq1'])}" style="width:620px;"></div>
+        <div class="faq-item"><img src="{php echo tomedia($data['faq2'])}" style="width:620px;"></div>
+        <div class="faq-item"><img src="{php echo tomedia($data['faq3'])}" style="width:620px;"></div>
+        <div class="faq-item"><img src="{php echo tomedia($data['faq4'])}" style="width:620px;"></div>
+        <div class="faq-item"><img src="{php echo tomedia($data['faq5'])}" style="width:620px;"></div>
+        <div class="faq-item"><img src="" style="width:620px;">
+        	
+        </div>
+    </div>
+    <div class="rule-x" id="faqClose"><img src="../addons/beauty_zhongchou/template/imgs/rule-x.png"></div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#faqBtn").click(function(){
+            $(".faqPage").show();
+        });
+        $("#faqClose").click(function () {
+            $(".faqPage").hide();
+        });
+
+
+        $("#oneBtn").click(function () {
+            $("#money").val("1.00");
+            $("#showMoney").html("1.00");
+
+        });
+
+        $("#money").blur(function () {
+            var money = $(this).val();
+            $("#mymoney").val(money);
+            if (!isNaN(money)) {
+                var newMoney = Math.floor(money);
+                if (newMoney > 5) {
+                    newMoney = 5;
+                } else if (newMoney < 1) {
+                    newMoney = 0;
+                }
+
+                $(this).val(newMoney.toFixed(2));
+                $("#showMoney").html(newMoney.toFixed(2));
+            } else {
+                $(this).val("0.00");
+            }
+        });
+
+        $("#submitBtn").click(function () {
+
+            //金额
+            var money = $("#money").val();
+            
+            var newMoney = 0;
+            if (!isNaN(money)) {
+                var newMoney = Math.floor(money);
+                if (newMoney > 5) {
+                    newMoney = 5;
+                    alert("请输入1-5的整数金额");
+                    return;
+                } else if (newMoney < 1) {
+                    newMoney = 0;
+                    alert("请输入1-5的整数金额");
+                    return;
+                }
+            } else {
+                alert("请输入1-5的整数金额");
+                return;
+            }
+
+            //content
+            var content = $("#content").val();
+            if (content == "") {
+                alert("说点什么鼓励下朋友");
+                return;
+            }
+            
+//          $("#formid").submit();
+//			 $.post("{php echo $this->createMobileUrl('ajaxpay')}",{myopenid: myopenid, fromopenid:fromopenid, num:num},
+//			   function (data){
+//			   	
+//			   },"json");
+//        pay(money, content);
+        });
+
+
+//      function pay(num, content) {
+//      	 var myopenid = $("#myopenid").val();
+//         	 var fromopenid = $("#myopenid").val();
+//         	 
+//          $.post("{php echo $this->createMobileUrl('ajaxpay')}",
+//          {myopenid: myopenid, fromopenid:fromopenid, num:num},
+//          function (data){
+//             		WeixinJSBridge.invoke('getBrandWCPayRequest',
+//             		 {
+//                      "appId": data.appId,
+//                      "timeStamp": data.timeStamp,
+//                      "nonceStr": data.nonceStr,
+//                      "package": data.pack,
+//                      "signType": data.signType,
+//                      "paySign": data.paySign
+//                  },
+//                  function (res) {
+//                      WeixinJSBridge.log(res.err_msg);
+//                      alert("错误="+ res.err_msg);
+//                      if (res.err_msg == "get_brand_wcpay_request:ok") {
+//                          alert('交易成功');
+//                          $.ajax({
+//                              type: "POST",
+//                              dataType: "text",
+//                              url: "{php echo $this->createMobileUrl('fund')}",
+//                              data: {num: num, content: content, fromopenid: fromopenid},
+//                              success: function (ret) {
+////                                    alert(ret);
+//                                  location.href = "{php echo $this->createMobileUrl('index')}";
+//                              }
+//                          });
+////                            location.href = "ajax/fund.php?status=1&num="+num+"&content="+content+"uopenid=//";
+//                      } else {
+//                          alert('交易失败');
+//                          location.href = "{php echo $this->createMobileUrl('index')}";
+//                      }
+//
+//                  }
+//              );
+//          },"json");
+//      }
+//
+//      function callpay() {
+//          if (typeof WeixinJSBridge == "undefined") {
+//              if (document.addEventListener) {
+//                  document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+//              } else if (document.attachEvent) {
+//                  document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+//                  document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+//              }
+//          } else {
+//              jsApiCall();
+//          }
+//      }
+
+    });
+</script>
+<script src="../addons/beauty_zhongchou/template/js/jweixin-1.0.0.js"></script>
+</body></html>

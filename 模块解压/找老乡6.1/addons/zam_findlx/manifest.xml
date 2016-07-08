@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[找老乡]]></name>
+		<identifie><![CDATA[zam_findlx]]></identifie>
+		<version><![CDATA[6.1]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[通过本模块可以快速找到老乡以及和老乡打招呼，通过平台进行聊天 等 功能]]></ability>
+		<description><![CDATA[通过本模块可以快速找到老乡以及和老乡打招呼，通过平台进行聊天 等 功能 ，梦科技源码论坛提供]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="基本设置" do="set" state="" direct="false" />
+			<entry title="注册列表管理" do="manage" state="" direct="false" />
+			<entry title="消息管理" do="news" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+	CREATE TABLE IF NOT EXISTS `ims_uni_account` (
+  `uniacid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `groupid` int(10) NOT NULL DEFAULT '0',
+  `name` varchar(100) NOT NULL,
+  `description` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`uniacid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_uni_account_modules` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `module` varchar(50) NOT NULL DEFAULT '',
+  `enabled` tinyint(1) unsigned NOT NULL,
+  `settings` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_module` (`module`),
+  KEY `idx_uniacid` (`uniacid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1831 ;
+
+
+
+CREATE TABLE IF NOT EXISTS `ims_uni_account_users` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL,
+  `role` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_memberid` (`uid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_uni_group` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `modules` varchar(10000) NOT NULL,
+  `templates` varchar(10000) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_uni_settings` (
+  `uniacid` int(10) unsigned NOT NULL,
+  `passport` varchar(200) NOT NULL DEFAULT '',
+  `oauth` varchar(100) NOT NULL DEFAULT '',
+  `uc` varchar(500) NOT NULL,
+  `notify` varchar(2000) NOT NULL DEFAULT '',
+  `creditnames` varchar(500) NOT NULL DEFAULT '',
+  `creditbehaviors` varchar(500) NOT NULL DEFAULT '',
+  `welcome` varchar(60) NOT NULL DEFAULT '',
+  `default` varchar(60) NOT NULL DEFAULT '',
+  `default_message` varchar(1000) NOT NULL DEFAULT '',
+  `shortcuts` varchar(5000) NOT NULL DEFAULT '',
+  `payment` varchar(2000) NOT NULL DEFAULT '',
+  `groupdata` varchar(100) NOT NULL,
+  `stat` varchar(300) NOT NULL,
+  `bootstrap` varchar(120) NOT NULL,
+  `menuset` text NOT NULL,
+  `default_site` int(10) unsigned DEFAULT '0',
+  `sync` varchar(100) NOT NULL,
+  `jsauth_acid` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`uniacid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_uni_verifycode` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `receiver` varchar(50) NOT NULL,
+  `verifycode` varchar(6) NOT NULL,
+  `total` tinyint(3) unsigned NOT NULL,
+  `createtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+	]]></install>
+	<uninstall><![CDATA[
+	DROP TABLE `ims_uni_account`;
+	DROP TABLE `ims_uni_account_users`;
+	DROP TABLE `ims_uni_group`;
+	DROP TABLE `ims_uni_settings`;
+	DROP TABLE `ims_uni_verifycode`;
+	]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

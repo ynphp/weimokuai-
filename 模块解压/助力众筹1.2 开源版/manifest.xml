@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[助力众筹]]></name>
+		<identifie><![CDATA[beauty_zhongchou]]></identifie>
+		<version><![CDATA[1.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[助力众筹]]></ability>
+		<description><![CDATA[助力众筹]]></description>
+		<author><![CDATA[柒|柒|源|码分享]]></author>
+		<url><![CDATA[http://H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="首页入口" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="订单管理" do="order" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+	CREATE TABLE IF NOT EXISTS `ims_beatuty_zhongchou_member` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `openid` varchar(115) NOT NULL,
+  `nickname` varchar(115) NOT NULL,
+  `avatar` varchar(1100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_beatuty_zhongchou_orders`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_beatuty_zhongchou_orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ordersn` varchar(115) NOT NULL,
+  `openid` varchar(45) NOT NULL,
+  `fromopenid` varchar(45) NOT NULL,
+  `num` varchar(45) NOT NULL,
+  `content` varchar(225) NOT NULL,
+  `status` int(11) NOT NULL,
+  `uniacid` int(11) NOT NULL,
+  `createtime` varchar(45) NOT NULL,
+  `pay_type` int(11) NOT NULL,
+  `transid` varchar(115) NOT NULL,
+  `ptime` varchar(115) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+	]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

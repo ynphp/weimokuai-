@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>{$result['teacher_realname']}-教学中心-{$_SESSION['school_name']}</title>
+	{template '../case01/common'}
+  <script src="{MODULE_URL}/style/teacher/bositang.js" type="text/javascript"></script>
+	<link href="{MODULE_URL}/style/teacher/style.css" type="text/css" rel="stylesheet" />  
+	
+	 <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{MODULE_URL}template/case01/style/buttons.css">
+    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<link href="{MODULE_URL}template/case01/style/user.min.css" rel="stylesheet" type="text/css" />
+	<style>
+	.button-box {
+    border-radius:50px; 
+}
+.button-wx, .button-action-flat {
+    background-color: #3eb135;
+    border-color:#3eb135;
+    color: #FFF;
+}
+.button-file, .button-action-flat {
+    background-color: #e1da05;
+    border-color:#e1da05;
+    color: #FFF;
+}
+	 .font-up{
+                display: block;
+                position: relative;
+                font-size: 1.0em;
+                font-style: normal;
+        }
+		
+		
+		.row_left{
+		padding: 0 0 0 5%;
+		
+		}
+		.col-md-3{
+		padding: 0 6% 18px 6%;
+		width:32%;
+		text-align:center;
+		margin:0 auto;
+		}
+	.name_edit, .name_edit1 {
+	width:50%;
+	}
+	.icon-level-p1 {
+    width: 100%;
+    border-radius: 50px;
+    border-radius: 100px;
+    border: none;
+    overflow: hidden;
+   -webkit-box-shadow:none;
+    box-shadow:none;
+	margin:20px auto 10px auto;
+}
+.stu_name img {
+    width: 30px;
+	
+}
+
+	</style>
+</head>
+<body>
+
+ 
+ <div class="home_bg2">
+
+   
+       
+
+        <div class="id_box user_bg">
+           
+            <a href="{php echo $this->createMobileUrl('tea_data');}"><!--<img src="{MODULE_URL}template/case01/style/icon.png" width="300" height="300"/><span class="name">-->
+			
+			
+			<div class="icon-level-p1"><img src="{$_W['attachurl']}{$result['teacher_img']}"/> </div>
+			<div class="stu_name">{$result['teacher_realname']}<img src="{MODULE_URL}template/case01/style/info.png" /></div>
+			
+			
+           <div class="name_bg">
+           			
+				
+			
+			 <div class="name_edit" id="div_about"><span class="name_sm"></span><span class="dji">授课：{php echo $this->teacherCourse($result['teacher_id'],'echo')}</span></div>  
+			  <div class="name_edit" id="div_about" style="border:none;"><span class="name_sm"></span><span class="dji">班主任：{$class_s}</span></div>  
+			</div>
+            </a>
+		
+
+</div>	
+
+
+</div>
+
+
+
+
+
+	<!--头部-->
+	<!--<div class="top_index">
+        <div style="text-align:center;line-height:35px;color:#666;width:100%;font-size:20px;font-weight:700">{$_W['uniaccount']['name']}</div>
+    </div>-->
+  <!--  <div class="banner_body" id="wrapper">
+    	<p class="top_icon"></p>
+        <div class="banner">
+        	<ul class="promptu-menu" id="slider">
+        		{loop $this->module['config']['ad'][$_SESSION['school_id']] $key $row}
+              	 <li><a href="{$row['url']}"><img src="{$_W['attachurl']}{$row['img']}" width="100%" height="100%" class="banner_{$key}"/></a></li>
+        		{/loop}
+           </ul>
+        </div>
+        <div class="t_ul_two b_f_ico b_f_ico_1" style="z-index:2;" id="pagenavi">
+        	{loop $this->module['config']['ad'][$_SESSION['school_id']] $key $row}
+           		<span class="li_a_info" index="{$key}" style="color:#FFF;">&nbsp;&nbsp;{$row['text']}</span>
+        	{/loop}
+                <font style=" width:auto; height:23px; display:block;; float:right;">
+                	{loop $this->module['config']['ad'][$_SESSION['school_id']] $key $row}
+                		<a href="javascript:void(0);" style="float:left"  index="{$key}" ></a>
+                	{/loop}
+                </font>
+         </div>
+    </div>-->
+    <!--头部-->
+    <div style="clear:both;"></div>
+    <!--中部-->
+   
+
+		
+		
+		
+		<div class="container" style="margin-bottom:60px;margin-top:20px;">
+		<div class="row row_left">
+		
+		
+		<div class="col-md-3">
+                                <a href="{php echo $this->createMobileUrl('tea_data');}">
+                                    <button class="button button-highlight button-box button-giant ">
+                                        <i class="fa fa-file" style="color:#fff"></i>
+                                </button> 
+                                <i class='font-up'>教师资料</i>
+                                </a>    
+		</div>
+		
+		<div class="col-md-3">
+                                    <a href="{php echo $this->createMobileUrl('Neimsg_tea');}">
+                        <button class="button button-primary button-box button-giant ">
+                                <i class="fa fa-building-o"></i>
+                        </button>    
+                                <i class='font-up'> 学校公告</i>
+                        </a> 
+                        
+		</div>
+		
+  		<div class="col-md-3">
+                                <a href="{php echo $this->createMobileUrl('tea_work_record');}">
+                                    <button class="button button-royal button-box button-giant ">
+                                        <i class="fa fa-tasks"></i>
+                                </button>            
+                                <i class='font-up'>作业记录</i>
+                                </a>    
+		</div>      
+		</div>
+		<div class="row row_left">
+		<div class="col-md-3">                 
+                            <a href="{php echo $this->createMobileUrl('tea_homeWork');}">
+                                    <button class="button button-caution button-box button-giant ">
+                                        <i class="fa fa-bars"></i>
+                                </button>
+                                <i class='font-up'>
+                                发布作业</i>
+                                </a>   
+		</div>
+	
+	
+		<div class="col-md-3">
+                                <a href="{php echo $this->createMobileUrl('tea_jinbu_record');}">
+                                <button class="button  button-box button-giant "
+								style="background-color:#03A9F4; color:#fff;">
+                                        <i class="fa fa-line-chart"></i>
+                                </button>  
+                                <i class='font-up'>进步记录</i>
+                                </a>    
+		</div>
+		
+		<div class="col-md-3">
+                                <a href="{php echo $this->createMobileUrl('tea_score_in');}">
+                                <button class="button button-highlight button-box button-giant " >
+                                        <i class="fa fa-table"></i>
+                                </button>     
+                                
+                                <i class='font-up'>成绩登记</i>
+                                </a> 
+		</div>
+	</div>
+	<div class="row row_left">
+		<div class="col-md-3">
+                                <a href="javascript:;" onClick="school_free()">
+                                    <button class="button button-royal button-box button-giant " >
+                                        <i class="fa fa-paper-plane-o" style="color:#fff"></i>
+                                </button> 
+                                <i class='font-up'> 一键放学</i>
+                                </a>    
+		</div>
+		<div class="col-md-3">
+                                <a href="{php echo $this->createMobileUrl('tea_line');}">
+                                    <button class="button  button-box button-giant"style="background-color: #FF5722;">
+                                        <i class="fa fa-star" style="color:#fff"></i>
+                                </button> 
+                                <i class='font-up'>班级圈</i>
+                                </a>    
+		</div>
+        
+		<div class="col-md-3">                 
+                                 <a href="{php echo $this->createMobileUrl('tea_msg');}">								
+                                    <button class=" button  button-box button-giant "  style="background-color:#8bc220;" >
+                                       <i class="fa fa-comments" style="color:#fff"></i>
+
+                                </button> 
+                                <i class='font-up'> 消息发送</i>
+                                </a>            
+		</div>
+	
+    </div>
+		  
+		
+						
+						
+                        <div style="clear:both;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="icon_bottom"></div>
+        </div>
+    </div>
+	
+<script type="text/javascript" src="{MODULE_URL}/style/teacher/touchScroll.js"></script>
+<script type="text/javascript" src="{MODULE_URL}/style/teacher/touchslider.dev.js"></script>
+<script type="text/javascript">
+function school_free(){
+    if(confirm("点击之后会通知班主任的班级下面所有家长")){
+        $.get("{php echo $this->createMobileUrl('tea_school_free')}",function(obj){
+            if(obj.status=='yes'){
+                alert('发送成功');
+            }else{
+                alert(obj.msg);
+            }
+        },'json');
+    }
+}
+jQuery(document).ready(function(){
+var active=0,
+	as=document.getElementById('pagenavi').getElementsByTagName('a')
+for(var i=0;i<as.length;i++){
+	(function(){
+		var j=i;
+		as[i].onclick=function(){
+			t2.slide(j);
+			return false;
+		}
+	})();
+}
+var t1=new TouchScroll({id:'wrapper','width':5,'opacity':0.7,color:'#555',minLength:20});
+var t2=new TouchSlider({id:'slider', speed:1000, timeout:6000, before:function(index){
+		jQuery('.li_a_info').hide();
+		jQuery('.li_a_info[index='+index+']').show();
+}});
+})
+</script>
+{template '../case01/footer_tea'}
+</body>
+</html>
