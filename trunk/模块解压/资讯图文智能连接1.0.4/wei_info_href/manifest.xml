@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[资讯图文智能链接]]></name>
+		<identifie><![CDATA[wei_info_href]]></identifie>
+		<version><![CDATA[1.0.4]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[资讯图文智能链接]]></ability>
+		<description><![CDATA[后台添加文章（文章Logo、标题、分类、跳转网址、自定义图文内容），微信以图文方式显示，点击后跳转到指定网址或自定义图文内容。]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="image" />
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+			<message type="click" />
+			<message type="view" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="click" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口设置" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="分类管理" do="category" state="" direct="false" />
+			<entry title="文章管理" do="article" state="" direct="false" />
+			<entry title="浏览统计" do="look_detail" state="" direct="false" />
+			<entry title="幻灯片管理" do="adpics" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_info_adpics` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `pic` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `link` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `weid` int(10) NOT NULL,
+  `sort` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `weid` (`weid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='幻灯片管理';
+CREATE TABLE IF NOT EXISTS `ims_info_article` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL,
+  `category_id` int(10) NOT NULL,
+  `logo` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `title` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `con_type` char(1) CHARACTER SET utf8 NOT NULL COMMENT '内容类型-D自定义-L链接',
+  `content` text CHARACTER SET utf8 NOT NULL,
+  `link` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `startdate` date NOT NULL,
+  `enddate` date NOT NULL,
+  `createtime` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `category_id` (`category_id`),
+  KEY `weid` (`weid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='文章管理';
+CREATE TABLE IF NOT EXISTS `ims_info_category` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL,
+  `tab_index` int(2) NOT NULL COMMENT '参数中对应tab索引',
+  `logo` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `title` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `ad_pic` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `sort` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `weid` (`weid`),
+  KEY `tab_index` (`tab_index`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='分类管理';
+CREATE TABLE IF NOT EXISTS `ims_info_look_detail` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `article_id` int(10) NOT NULL,
+  `user_from` varchar(60) CHARACTER SET utf8 NOT NULL COMMENT 'openid关联用户表提出信息',
+  `createtime` datetime NOT NULL,
+  `weid` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `article_id` (`article_id`),
+  KEY `weid` (`weid`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='浏览统计';
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

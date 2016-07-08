@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]>
+<html class="no-js iem7"> <![endif]-->
+<!--[if (gt IEMobile 7)|!(IEMobile)]><!-->
+<html>
+<!--<![endif]-->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="description" content="" />
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<meta http-equiv="cleartype" content="on" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Mobile Devices Support @end -->
+<title>{$reply['title']}</title>
+ 
+<link href="{MODULE_URL}template/mobile/css/css814.css" type="text/css" media="screen" rel="stylesheet"  />
+<script type="text/javascript" src="{MODULE_URL}template/mobile/js/jquery-1.11.0.min.js"></script>
+<script src="{MODULE_URL}template/mobile/js/imagesloaded.pkgd.min.js"></script>
+<script src="{MODULE_URL}template/mobile/js/Cmn.js" type="text/javascript"></script>
+<script src="{MODULE_URL}template/mobile/js/CmnAjax.js" type="text/javascript"></script>
+<script src="{MODULE_URL}template/mobile/js/CmnFuncExd.js" type="text/javascript"></script>
+<script src="{MODULE_URL}template/mobile/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/js/bigbackfrm.js"></script>
+<script type="text/javascript"  src="{MODULE_URL}template/mobile/js/tinyboxdialog.js"></script>
+<script type="text/javascript">
+Cmn.Func.MobileAdaptive(889);
+</script>
+<script type="text/javascript">
+$(function(){
+	countTime();
+	window.setInterval(countTime , 1000);
+});
+  
+function countTime(){
+	var date1=new Date();  //开始时间
+	stime = parseInt(date1.getTime()/1000);
+	//alert( + ' - ' + 1443618000 );
+	var etime = "{$reply['endtime']}";
+	var date3=etime-stime;
+	var leave1=date3//%(24*3600);
+	var hours=Math.floor(leave1/(3600)) ;
+	//alert(date3);
+	var leave2=leave1%(3600) ;       //计算小时数后剩余的毫秒数  
+	var minutes=Math.floor(leave2/(60)) ; 
+	//计算相差秒数  
+	var leave3=leave2%(60);      //计算分钟数后剩余的毫秒数  
+	var seconds=Math.round(leave3) ;
+	//alert(date3+" 相差 "+hours+"小时 "+minutes+" 分钟"+seconds+" 秒")  
+	$("#v-hours").html(hours);
+	$("#v-minutes").html(minutes);
+	$("#v-seconds").html(seconds);
+}
+</script>
+ 
+</head>
+
+<body>
+<!--  HEADER HTML END  -->
+
+
+<div class="container" style="  height: 2750px;">
+	<div class="wrap bg-2" style="  background: url({php echo toimage($reply['mainbg'])}) no-repeat;
+  background-size: 100% 110%;">
+		<!--<img class="ff" src="http://auxvoice.sal.liantop.net/source/modules/shake/style/bg-3.png" />
+		<div class="wrap-content">
+			<div class="voice-logo" style="top:142px;"><img class="" src="http://auxvoice.sal.liantop.net/source/modules/shake/style/14/voice-logo.png" /><span>0</span></div>-->
+			<div class="top-roll">
+	<marquee> 
+			{php echo strip_tags(htmlspecialchars_decode($reply['advert']));}
+	</marquee>
+</div>			
+<div class="nav-bg"><img src="{MODULE_URL}template/mobile/img/nav-bg.png" />
+<ul>
+	<a href="{php echo $this->createMobileUrl('index',array('id'=>$id))}"><li>首页</li></a>
+	<a href="{php echo $this->createMobileUrl('main',array('id'=>$id))}"><li>投票</li></a>
+	<a href="{php echo $this->createMobileUrl('rule',array('id'=>$id))}"><li>规则</li></a>
+</ul>
+</div>
+<script>
+$(function(){
+	$(".nav-bg img").click(function(){
+		if($(".nav-bg ul").is(":visible")){
+			$(".nav-bg ul").hide();
+		}else
+			$(".nav-bg ul").show();
+	});
+});
+</script>
+					<p class="ctime">距离本期结束还有 <br/>
+			<span id="v-hours">20</span>小时 <span id="v-minutes">20</span>分 <span id="v-seconds">20</span>秒</p>
+	
+    <script>
+	var i=0;
+	var len = 0;
+	var sw = 0;
+	var speed = 500;
+	var count = 0;
+	$(function(){
+		$(".list-div li").click(function(){
+			chk = $(this).attr("data-chk");
+			if(chk == 0){
+				$(this).attr("data-chk" , '1');
+				$(this).find(".aix").addClass("aix-1");
+				count++;
+			}else{
+				$(this).attr("data-chk" , '0');
+				$(this).find(".aix").removeClass("aix-1");
+				count--;
+			}
+			$(".voice-logo span").html(count);
+		});
+		$(".cc-btn-1").click(function(){
+			if(count <= 0){
+				alert("请选择学员");	
+			}else if(count > 1){
+				alert("您只能选择1位学员");	
+			}else{
+				//$.toJSON( thing )
+				var oplist = [];
+				var ids = '';
+				var com = '';
+				$(".list-div li").each(function(){
+					if($(this).attr("data-chk") == '1'){
+						oplist.push($(this).attr("data-memberid"));
+						ids+=com+$(this).attr("data-memberid")
+						com = ','
+					}
+				});
+				var mobile  = $(".mobile-div").val();
+				var username  = $(".mobile-div2").val();
+				var re= /^(13[0-9]{9})|(15[0-9]{9})|(17[0-9]{9})|(18[0-9]{9})$/;
+				if(!re.test($.trim(mobile))){
+					alert("请输入正确的手机号码");
+					return false;
+				}
+				if(mobile.length > 11){
+					alert("请输入正确的手机号码");
+					return false;
+				}
+				if(username.length==0){
+					alert("请输入姓名");
+					return false;
+				}
+			
+				$.ajax({
+					url:"{php echo $this->createMobileUrl('savevate')}",
+					data:"memberid="+ids+"&mobile="+mobile+"&username="+username,
+					dataType:'json',
+					success:function(data){
+						if(data.success == 1){
+							alert('投票成功')
+						}else if(data.success == 2){
+							alert("你已投票");
+						}else{
+							alert("请求失败");
+						}
+					}
+				});
+			}
+		});
+	});
+	</script>
+	<div class="list-div">
+		<ul>
+		{loop $joinlist $row}
+						<li data-memberid="{$row['id']}" data-chk="0">
+				<img src="{php echo toimage($row['spic'])}" class="headimg" />
+				<div class="name-div">{$row['sname']}					<div class="aix"></div>
+				</div>
+			</li>
+			{/loop}
+						
+					</ul>
+	</div>
+	<input class="mobile-div" type="text" value="" placeholder="输入您的手机号码" />
+	<input class="mobile-div2" type="text" value="" placeholder="输入您的姓名" />
+    <img src="{MODULE_URL}template/mobile/img/com-1.png" class="cc-btn-1"  />
+   
+</div>
+</div>
+</div>
+<!--  FOOTER HTML END  -->
+<img src="{MODULE_URL}template/mobile/img/hm.gif" width="0" height="0" />
+{php echo register_jssdk(false);}
+<script type="text/javascript">
+	wx.ready(function () {
+		sharedata = {
+			  title: "{php echo $reply['sharetitle']}",
+                desc: "{php echo strip_tags(htmlspecialchars_decode($reply['sharedesc']));}",
+			    link: "{php echo $_W['siteroot'].str_replace('./','app/',$this->createMobileurl('index',array('id' => $id)));}",
+				imgUrl: "{php echo toimage($reply['sharepic'])}",
+			success: function(){
+				
+			},
+			cancel: function(){
+				//alert('cancel');
+			}
+		};
+		
+		wx.onMenuShareAppMessage(sharedata);
+		wx.onMenuShareTimeline(sharedata);
+	});
+	
+	</script>
+
+</body>
+</html>

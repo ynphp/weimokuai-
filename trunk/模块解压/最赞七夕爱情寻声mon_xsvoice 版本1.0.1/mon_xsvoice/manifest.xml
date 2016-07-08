@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[最赞七夕爱情寻声]]></name>
+		<identifie><![CDATA[mon_xsvoice]]></identifie>
+		<version><![CDATA[1.0.1]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[最赞七夕爱情寻声]]></ability>
+		<description><![CDATA[最赞七夕爱情寻声]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="寻找最美祝福声音管理" do="xsManage" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_mon_xsvoice` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) NOT NULL,
+  `weid` int(11) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `starttime` int(10) DEFAULT '0',
+  `endtime` int(10) DEFAULT '0',
+  `follow_url` varchar(200) DEFAULT NULL,
+  `copyright` varchar(100) NOT NULL,
+  `new_title` varchar(200) DEFAULT NULL,
+  `new_icon` varchar(200) DEFAULT NULL,
+  `new_content` varchar(200) DEFAULT NULL,
+  `share_title` varchar(200) DEFAULT NULL,
+  `share_icon` varchar(200) DEFAULT NULL,
+  `share_content` varchar(200) DEFAULT NULL,
+  `createtime` int(10) DEFAULT '0',
+  `title_img` varchar(1000) DEFAULT NULL,
+  `crp_img` varchar(1000) DEFAULT NULL,
+  `img1` varchar(1000) DEFAULT NULL,
+  `img2` varchar(1000) DEFAULT NULL,
+  `img3` varchar(1000) DEFAULT NULL,
+  `img4` varchar(1000) DEFAULT NULL,
+  `follow_msg` varchar(1000) DEFAULT NULL,
+  `follow_btn` varchar(200) DEFAULT NULL,
+  `index_bgcolor` varchar(100) DEFAULT NULL,
+  `style_bgcolor` varchar(100) DEFAULT NULL,
+  `voice_target` varchar(100) DEFAULT NULL,
+  `rank_title` varchar(100) DEFAULT NULL,
+  `intro` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_mon_xsvoice_firend` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `vid` int(10) NOT NULL,
+  `uid` varchar(20) DEFAULT NULL,
+  `fopenid` varchar(200) NOT NULL,
+  `nickname` varchar(100) NOT NULL,
+  `headimgurl` varchar(200) NOT NULL,
+  `createtime` int(10) DEFAULT '0',
+  `zan` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_mon_xsvoice_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `vid` int(10) NOT NULL,
+  `uname` varchar(20) DEFAULT NULL,
+  `company` varchar(20) DEFAULT NULL,
+  `openid` varchar(200) NOT NULL,
+  `nickname` varchar(100) NOT NULL,
+  `headimgurl` varchar(200) NOT NULL,
+  `media_id` varchar(200) DEFAULT NULL,
+  `media_path` varchar(200) DEFAULT NULL,
+  `createtime` int(10) DEFAULT '0',
+  `zan` int(10) DEFAULT '0',
+  `tel` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

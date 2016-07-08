@@ -1,0 +1,57 @@
+{template 'common/header'}
+{php load()->func('tpl')}
+
+<div class="main">
+<ul class="nav nav-tabs">
+	<li {if $op=='list' || empty($op)}class="active"{/if}><a href="{php echo $this->createWebUrl('Shopmge',array('op'=>'list'));}">相片管理</a></li>
+	<li {if $op=='edit' && empty($item['id'])}class="active"{/if}><a href="{php echo $this->createWebUrl('Shopmge',array('op'=>'edit'));}">添加相片</a></li>
+	{if $op=='edit' && !empty($item['id'])}<li class="active"><a href="{php echo $this->createWebUrl('Shopmge', array('op'=>'edit','id'=>$id));}">编辑相片</a></li>{/if}
+</ul>
+<form action="" class="form-horizontal form" method="post" enctype="multipart/form-data" onsubmit="return formcheck()">
+	<input type="hidden" name="id" value="{$item['id']}">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			添加相片
+		</div>
+		<div class="panel-body">
+			
+	
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">参赛者名称</label>
+				<div class="col-sm-9 col-xs-12">
+					<input type="text" name="sname" id="sname"  class="form-control" value="{$item['sname']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">参赛者相片</label>
+				<div class="col-sm-9 col-xs-12">
+					{php echo tpl_form_field_image('spic',$item['spic'],'', $options);}
+					<div class="help-block"></div>
+				</div>
+			</div>
+			       <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否显示</label>
+          <div class="col-sm-4" style="padding-top:6px;">
+            <label>
+              <input type="radio" value="0" name="status" {if $reply['status'] == 0 }checked{/if}>显示</label>
+            <label>
+              <input type="radio" value="1" name="status" {if $reply['status'] == 1 }checked{/if}>不显示</label>
+          
+          </div>
+        </div>
+
+		</div>
+	</div>
+	<div class="form-group col-sm-12">
+		<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+		<input type="hidden" name="token" value="{$_W['token']}" />
+	</div>
+</form>
+  <script language='javascript'>
+  require(['jquery', 'util'], function($, u){
+    $(function(){
+      u.editor($('#rule')[0]);
+  u.editor($('#shopdetail')[0]);
+    });
+  });
+</script>

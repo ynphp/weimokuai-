@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]>
+<html class="no-js iem7"> <![endif]-->
+<!--[if (gt IEMobile 7)|!(IEMobile)]><!-->
+<html>
+<!--<![endif]-->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="description" content="" />
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+<meta http-equiv="cleartype" content="on" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<!-- Mobile Devices Support @end -->
+<title>{$reply['title']}</title>
+<link href="{MODULE_URL}template/mobile/css/css.css?{TIMESTAMP}" type="text/css" media="screen" rel="stylesheet"  />
+<script type="text/javascript" src="{MODULE_URL}template/mobile/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/js/bigbackfrm.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/js/all.js"></script>
+<script type="text/javascript">
+
+</script>
+<style type="text/css">
+.guize{width:300px;height:850px;margin:20px auto 0;  
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  margin-left: -150px;}
+  .guize img {
+	width: 100%;
+  }
+  .pagefullfrm{background: url({php echo toimage($reply['indexbg'])}) no-repeat;
+background-size: 100% 110%;}
+</style>
+   
+
+</head>
+
+<body  style="background: #000;  height: 820px;"/>
+<!--  HEADER HTML END  -->
+
+<div class="pagefullfrm" style="height:1040px">
+	<div class="mainbg">
+	<!--	<img src="" width="100%">-->
+	</div>
+	<div class="pagefrm">
+		<div class="page-content">
+			<div class="index-logo"></div>
+			<div class="guize" >
+				{php echo htmlspecialchars_decode($reply['rule']);}
+			<!--
+			<img src="http://auxvoice.sal.liantop.net/source/modules/shake/style/guize.png" width="100%">-->
+		
+			
+			</div>
+		</div>
+	 
+	</div>
+	<div class="footer-div-2" style="top: 1041px;">
+		<!--<div class="footer-2">
+			<a class="btn-1" href="mobile.php?act=module&weid=2&name=shake&do=index&id=14"></a>
+			
+
+		</div>-->
+	</div>
+	
+</div>
+<!--  FOOTER HTML END  -->
+<img src="{MODULE_URL}template/mobile/img/hm.gif" width="0" height="0" />
+{php echo register_jssdk(false);}
+<script type="text/javascript">
+	wx.ready(function () {
+		sharedata = {
+			  title: "{php echo $reply['sharetitle']}",
+                desc: "{php echo strip_tags(htmlspecialchars_decode($reply['sharedesc']));}",
+			    link: "{php echo $_W['siteroot'].str_replace('./','app/',$this->createMobileurl('index',array('id' => $id)));}",
+				imgUrl: "{php echo toimage($reply['sharepic'])}",
+			success: function(){
+				
+			},
+			cancel: function(){
+				//alert('cancel');
+			}
+		};
+		
+		wx.onMenuShareAppMessage(sharedata);
+		wx.onMenuShareTimeline(sharedata);
+	});
+	
+	</script>
+
+</body>
+</html>
