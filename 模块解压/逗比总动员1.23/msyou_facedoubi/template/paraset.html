@@ -1,0 +1,132 @@
+{template 'common/header'}
+<div class="main"> 
+<form action="" method="post" class="form-horizontal form">
+<!--
+<div class="panel panel-default">
+    <div class="panel-heading">
+       <h4>资源目录设置</h4>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">资源链接</label>
+            <div class="col-sm-9 col-xs-12">
+               <input type="text" name="resroot" class="form-control" value="{$set['resroot']}" />
+               <span class='help-block'>例如: http://res.xxxx.com/style/ 您可以将所有模块使用的资源放到外部服务器，增强服务器访问能力. 
+               <a href="../addonsmsyou_facedoubi/template/style.zip" target="_blank">【资源包下载】</a></span>
+               <span class='help-block'>如果未填写，则默认使用当前服务器上的资源</span>
+               
+        </div>
+        </div>
+    </div>
+</div>
+-->
+<div class="panel panel-default">
+    <div class="panel-heading">
+       <h4>欢迎加入</h4>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <div class="col-sm-12 col-xs-12">
+	            <p>加入组织，了解更多及时资讯！</p>
+	            <p>想什么就有神马，就是马上You！！！</p>
+	            <p><img src="{php echo IMS_VERSION>=0.6?'../addons':'./source/modules'}/msyou_facedoubi/template/style/msyouqun.png" style="width:100%;max-width:200px"></p>
+	            <p style="font-size:150%;"><a href="http://qm.qq.com/cgi-bin/qm/qr?k=uS3xvJQJ8_oUiE_G1hOiQuaWYoobZcqa" target="_blank">马上加入</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+       <h4>使用前的准备</h4>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 control-label">功能选项</label>
+            <div class="col-sm-10 col-xs-12">
+	            <p>参照下图，设置借用oAuth权限</p>
+	            <p><img src="{php echo IMS_VERSION>=0.6?'../addons':'./source/modules'}/msyou_facedoubi/template/style/help001.png" style="width:100%;max-width:750px"></p>
+	            <p>参照下图，设置借用JS分享权限</p>
+	            <p><img src="{php echo IMS_VERSION>=0.6?'../addons':'./source/modules'}/msyou_facedoubi/template/style/help002.png" style="width:100%;max-width:750px"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 control-label">基础设置</label>
+            <div class="col-sm-10 col-xs-12">
+            参照下图，设置图片消息！<br/>
+                <img src="{php echo IMS_VERSION>=0.6?'../addons':'./source/modules'}/msyou_facedoubi/template/style/help.png" style="width:100%;max-width:750px">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+       <h4>使用流程</h4>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 control-label">1.添加活动</label>
+            <div class="col-sm-10 col-xs-12">
+               <img src="{php echo IMS_VERSION>=0.6?'../addons':'./source/modules'}/msyou_facedoubi/template/style/use0101.png" style="width:100%;max-width:750px">
+               <img src="{php echo IMS_VERSION>=0.6?'../addons':'./source/modules'}/msyou_facedoubi/template/style/use0102.png" style="width:100%;max-width:750px">
+               <img src="{php echo IMS_VERSION>=0.6?'../addons':'./source/modules'}/msyou_facedoubi/template/style/use0103.png" style="width:100%;max-width:750px">
+        	</div>
+        </div>
+ 		<div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 control-label">2.管理活动</label>
+            <div class="col-sm-10 col-xs-12">
+               <img src="{php echo IMS_VERSION>=0.6?'../addons':'./source/modules'}/msyou_facedoubi/template/style/use0201.png" style="width:100%;max-width:750px">
+               <img src="{php echo IMS_VERSION>=0.6?'../addons':'./source/modules'}/msyou_facedoubi/template/style/use0202.png" style="width:100%;max-width:750px">
+            </div>
+        </div>
+ 		<div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 control-label">3.逗比图素材</label>
+            <div class="col-sm-10 col-xs-12">
+               <img src="{php echo IMS_VERSION>=0.6?'../addons':'./source/modules'}/msyou_facedoubi/template/style/use0301.png" style="width:100%;max-width:750px">
+               <img src="{php echo IMS_VERSION>=0.6?'../addons':'./source/modules'}/msyou_facedoubi/template/style/use0302.png" style="width:100%;max-width:750px">
+            </div>
+        </div>
+    </div>
+</div>
+    
+            
+<div class="panel panel-default" style="display:none;">
+    <div class="panel-heading">
+       <h4>分享借用高级认证设置<small>如果你的公众号未认证，则需要借用其他认证订阅号，或认证服务号。</small></h4>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">AppId</label>
+            <div class="col-sm-9 col-xs-12">
+               <input type="text" name="appid_share" class="form-control" value="{$set['appid_share']}" />
+	        </div>
+        </div>
+ 		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">AppSecret</label>
+            <div class="col-sm-9 col-xs-12">
+               	 <input type="text" name="appsecret_share" class="form-control" value="{$set['appsecret_share']}" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-xs-12">
+               借用说明：必需设置借用认证号的JS接口安全域名。在公众号设置-功能设置中，可以找到。
+                <br />
+                <img src="{php echo IMS_VERSION>=0.6?'../addons':'./source/modules'}/msyou_facedoubi/template/style/jssdk.png" style="width:100%;max-width:750px">
+                
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="form-group col-sm-12" style="display:none;">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+        
+    </form>
+    </div>
+ 
+{template 'common/footer'}

@@ -1,0 +1,361 @@
+{template 'header'}
+<link href="resource/css/font-awesome.min.css" rel="stylesheet">
+<script language="javascript">
+	function fileup(){
+		if ($("#fileToUpload").val()){
+			$("#uploader").show();
+			compress(event, function(base64Img){
+				//$("#uploaderimg").attr('src',base64Img); 
+				//$("#fileToUpload").val("");
+				$.ajax({
+					url : "{php echo $this->createMobileUrl('upload',array('id'=>$_GPC['id'],'fanid'=>$_GPC['fanid']),false);}",
+					type : 'post',
+					data : {'base64Img' : base64Img},
+		            dataType : 'json',
+					success : function(data){
+					//alert(JSON.stringify(data));
+							$("#uploader").hide();
+		                if(typeof(data.error) != 'undefined'){
+		                    if(data.error != ''){
+		                        alert(data.error);
+		                    }else{
+		                        window.location = "{php echo $this->createMobileUrl('submit',array('id'=>$_GPC['id'],'fanid'=>$_GPC['fanid']),true);}&rid="+data.msg.rid+"&id="+data.msg.id+"&lid="+data.msg.lid;
+		                    }
+		                }
+	　　　　                 //拿到php传过来的图片地址
+					},
+		            error: function(data, status, e){
+		                alert('Upload error');
+		            }
+				});
+			});
+		}
+	}
+	
+	function compress(event, callback){
+	    var file = event.currentTarget.files[0];
+	    var reader = new FileReader();
+ 
+    	reader.onload = function (e) {
+ 
+        var image = $('<img/>');
+        image.on('load', function () {
+			var canvas = document.createElement('canvas');
+ 
+			var context = canvas.getContext('2d');
+			var square = 1200;
+			var imageWidth;
+			var imageHeight;
+            if (this.width > this.height) {
+                  imageWidth = Math.round(square * this.width / this.height);
+                  imageHeight = square;
+			} else {
+                 imageHeight = Math.round(square * this.height / this.width);
+                 imageWidth = square; 
+			}
+			canvas.width = imageWidth;
+			canvas.height = imageHeight;
+            context.drawImage(this, 0, 0, this.width,this.height, 0, 0, imageWidth, imageHeight);
+            var data = canvas.toDataURL('image/jpeg');
+            callback(data);
+ 		});
+		image.attr('src', e.target.result);
+	};
+  
+     reader.readAsDataURL(file);
+	}
+
+	function openBrowse(){ 
+		//alert('test!');
+		var ie=navigator.appName=="Microsoft Internet Explorer" ? true : false; 
+		if(ie){ 
+			document.getElementById("fileToUpload").click(); 
+		}else{
+			var a=document.createEvent("MouseEvents");//FF的处理 
+			a.initEvent("click", true, true);
+			document.all.file.dispatchEvent(a);
+//			document.getElementById("fileToUpload").dispatchEvent(a); 
+		} 
+	} 
+	
+$(function(){
+		 function state1(){
+			 $(".rotate").removeClass("r2"); 
+			 $(".rotate").addClass("r1");
+			 setTimeout(state2,150);
+		 }
+		function state2(){	   
+		     $(".rotate").removeClass("r1");
+		     $(".rotate").addClass("r2"); 
+			 setTimeout(state3,150);
+		}
+		function state3(){
+		     $(".rotate").removeClass("r2");
+			 setTimeout(state1,200);
+		}
+		state1();
+		
+})
+
+
+</script>
+<style>
+.r1{
+	 -moz-transform:rotate(-3deg);
+    -webkit-transform:rotate(-3deg);
+	-o-transform:rotate(-3deg);
+}
+
+.r2{
+	 -moz-transform:rotate(2deg);
+    -webkit-transform:rotate(2deg);
+	-o-transform:rotate(2deg);
+}
+	body {
+		display: initial;
+		text-align: center;
+	}
+	
+	#uploader{position: fixed;
+    top: 0;
+    left: 0;
+    background:rgba(0,0,0,0.48);
+    width: 100%;
+    height: 100%;
+    display:none;}
+    
+    #uploader .spinner{
+    left: 50%!important;
+    top: 50%!important;
+    }
+	
+	.bottommenu{
+		position: fixed;
+    	bottom: 0px;
+    	width: 100%;
+	    height: 48px;
+	    background: rgba(0,0,0,0);/*0.48*/
+	}
+	.submit{
+	display: inherit;
+	    float: right;
+	    line-height: 18px;
+	    width: 100px;
+	    padding: 8px 0;
+	    margin: 5px;
+	    text-decoration: none;
+	    text-shadow: 0 1px 0 #fff;
+	    box-shadow: 0 1px 10px #d1cfd1;
+	    -moz-box-shadow: 0 1px 10px #d1cfd1;
+	    -webkit-box-shadow: 0 1px 10px #d1cfd1;
+	    border-radius: 10px 10px 10px 10px;
+	    -moz-border-radius: 10px 10px 10px 10px;
+	    -webkit-border-radius: 10px 10px 10px 10px;
+	    text-align: center;
+	    color: #000;
+	    text-shadow: 0 1px 1px white;
+	    background: #f8f8f9;
+	    background-image: -moz-linear-gradient(#f8f8f9, #dddfe1);
+	    background-image: -webkit-gradient(linear, left top, left bottom, from(#ff2222), to(#dddfe1));	
+    }
+    body div img{
+		max-height: 750px;
+    	max-width: 100%;
+    	min-width:100px;
+    	min-height:100px;
+    padding: 5px;
+    background: rgba(0,0,0,0.48);
+    border-radius: 15px;
+        margin-top: 15%;
+    }
+</style>
+<script src="../addons/msyou_facedoubi/template/style/spin.min.js?v=1.2.6"></script>
+<script>
+$(function() {
+//http://www.codeceo.com/demo/jquery-loading-spin-js/index.html
+	var opts = {
+	  lines: 17, // The number of lines to draw
+	  length: 19, // The length of each line
+	  width: 20, // The line thickness
+	  radius: 30, // The radius of the inner circle
+	  corners: 0, // Corner roundness (0..1)
+	  rotate: 0, // The rotation offset
+	  color: '#fff', // #rgb or #rrggbb
+	  speed: 0.7, // Rounds per second
+	  trail: 48, // Afterglow percentage
+	  shadow: false, // Whether to render a shadow
+	  hwaccel: false, // Whether to use hardware acceleration
+	  className: 'spinner', // The CSS class to assign to the spinner
+	  zIndex: 2e9, // The z-index (defaults to 2000000000)
+	  top: 'auto', // Top position relative to parent in px
+	  left: 'auto' // Left position relative to parent in px
+	};
+	var target = document.getElementById('uploader');
+	var spinner = new Spinner(opts).spin(target);
+})
+</script>
+</head>
+<body >
+
+<div onclick="openBrowse();" style="background: url({php echo tomedia($row['bgurl']);}) no-repeat;background-size: 100% 100%;    height: 100%;
+    width: 100%;
+    position: fixed;top:0px;z-index:-1;">
+		<img src="{php echo tomedia($row['thumb']);}"/>
+</div>
+
+<div id="c1" style="display:none; width: 70%;background-color: #ccc;border-radius: 0 0 15px 15px;margin-left: 15%;margin-top: 60%;opacity: 0.8;">
+	<div>
+		<h2 style="background-color:#0066CC;color:#FFFFFF;">
+			{$row['title']}
+			<p style="float: right;margin-top: 0px;" onclick="$('#c1').hide();">X</p>
+		</h2>
+	</div>
+	<div >
+		<div style="padding: 5px;text-align: left;">
+			{$row['contact']}
+		</div>
+	</div>
+</div>
+
+<div class="bottommenu">
+<ul style="
+    margin-top: 0px;
+    display: flex;
+    margin-bottom: 0px;
+    list-style: none;
+    height: 48px;
+    padding-left: 0px;
+">
+    <li style="width: 80%;">
+    <a class="submit" href="{php echo $this->createMobileUrl('list',array('id'=>$_GPC['id'],'fanid'=>$_GPC['fanid']),false);}"><i class="fa fa-eye" style="color: #428bca;font-size:150%;"></i>看看先</a>
+		<div id="uploader"></div>
+      </li><li style="
+    min-width: 120px;
+    width: 20%;
+">
+    <a id="filePicker" onclick="openBrowse();" class="submit rotate"><i class="fa fa-camera" style="color: #428bca;font-size:150%;"></i>马上</a>
+    </li></ul>
+</div>
+
+{php echo register_jssdk(false);}
+
+{template 'wxshare'}
+
+<div id="uploader-demo" style="display:none;">
+	<img id="uploaderimg" />
+    <!--用来存放item-->
+    <div id="fileList" class="uploader-list" >
+    	<input id="fileToUpload" type="file" size="20" name="fileToUpload" id="input" onchange="fileup();">
+	    <button id="buttonUpload">上传</button>
+    </div>
+</div>
+
+<div id="filePicker2"  style="display:none;">asdf
+</div>
+<style>
+.webuploader-element-invisible {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px);
+    }
+</style>
+<script src="./resource/components/webuploader/webuploader.min.js" ></script>
+<script>
+	var module = {};
+	module.querystring = function(name){ 
+		var result = location.search.match(new RegExp("[\?\&]" + name+ "=([^\&]+)","i")); 
+		if (result == null || result.length < 1){ 
+			return "";
+		}
+		return result[1]; 
+	}
+	
+	
+	var i = module.querystring('i');
+	var j = module.querystring('j');
+	defaultOptions = {
+			pick: {
+				id: '#filePicker2',
+				label: '点击选择图片',
+				multiple : false
+			},
+			auto: true,
+			swf: './resource/componets/webuploader/Uploader.swf',
+			server: './index.php?i='+i+'&j='+j+'&c=utility&a=file&do=upload&type=image',
+			chunked: false,
+			compress: {
+				quality: 80,
+				preserveHeaders: true,
+				noCompressIfLarger: true,
+				compressSize: 1 * 1024 * 1024
+			},
+			fileNumLimit: 1,
+			fileSizeLimit: 8 * 1024 * 1024,
+			fileSingleSizeLimit: 8 * 1024 * 1024
+		};
+		
+		options = $.extend({}, defaultOptions);
+		
+		var uploader = WebUploader.create(options);
+
+		uploader.on( 'fileQueued', function( file ) {
+		//	module.loading();
+			$("#uploader").show();
+		});
+		
+		uploader.on('uploadSuccess', function(file, result) {
+//			$("#uploader").hide();
+//					alert(JSON.stringify(result));
+//	exit;
+			if(result.error && result.error.message){
+				require(['util'], function(u){
+				//	module.loaded();
+				//	u.message(result.error.message);
+
+					alert(result.error.message);
+				});
+			} else {
+				/*if($.isFunction(callback)){
+					callback(result);
+				}*/
+
+//				alert(result.url);
+				$.ajax({
+					url : "{php echo $this->createMobileUrl('upload',array('id'=>$_GPC['id'],'fanid'=>$_GPC['fanid']),false);}",
+					type : 'post',
+					data : {'imgurl' : result.url},
+		            dataType : 'json',
+					success : function(data){
+					//alert(JSON.stringify(data));
+							$("#uploader").hide();
+		                if(typeof(data.error) != 'undefined'){
+		                    if(data.error != ''){
+		                        alert(data.error);
+		                    }else{
+		                        window.location = "{php echo $this->createMobileUrl('submit',array('id'=>$_GPC['id'],'fanid'=>$_GPC['fanid']),true);}&rid="+data.msg.rid+"&id="+data.msg.id+"&lid="+data.msg.lid;
+		                    }
+		                }
+	　　　　                 //拿到php传过来的图片地址
+					},
+		            error: function(data, status, e){
+		                alert('Upload error');
+		            }
+				});
+				uploader.reset();
+				//module.loaded();
+				//modalobj.modal('hide');
+			}
+		});
+		uploader.onError = function( code ) {
+			//modalobj.modal('hide');
+			$("#uploader").show();
+			uploader.reset();
+			if(code == 'Q_EXCEED_SIZE_LIMIT'){
+				alert('错误信息: 图片大于 8M 无法上传.');
+				return
+			}
+			alert('错误信息: ' + code );
+		};
+
+</script>
+<!--<img id="loading" src="loading.jpg" style="display:none;">-->
+ 

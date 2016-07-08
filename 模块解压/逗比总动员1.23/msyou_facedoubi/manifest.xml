@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[逗比总动员]]></name>
+		<identifie><![CDATA[msyou_facedoubi]]></identifie>
+		<version><![CDATA[1.23]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[逗比总动员，一起逗到底！]]></ability>
+		<description><![CDATA[逗比总动员，一起逗到底！]]></description>
+		<author><![CDATA[柒.柒.源.码]]></author>
+		<url><![CDATA[http://h770.cOm/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="image" />
+		</subscribes>
+		<handles>
+			<message type="image" />
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="活动管理" do="index" state="" direct="false" />
+			<entry title="逗比图管理" do="imgs" state="" direct="false" />
+		<!--   <entry title="使用说明" do="paraset" state="" direct="false" /> -->
+		</menu>
+	</bindings>
+	<install><![CDATA[
+	CREATE TABLE IF NOT EXISTS `ims_msyou_facedoubi_fans` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL,
+  `uid` int(11) unsigned NOT NULL DEFAULT '0',
+  `nickname` varchar(50) NOT NULL DEFAULT '',
+  `realname` varchar(50) NOT NULL DEFAULT '',
+  `headurl` text NOT NULL,
+  `emailname` text NOT NULL,
+  `phonenum` varchar(15) NOT NULL DEFAULT '',
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+
+CREATE TABLE IF NOT EXISTS `ims_msyou_facedoubi_imgs` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL,
+  `title` varchar(50) NOT NULL DEFAULT '',
+  `thumb` text NOT NULL,
+  `smileval` float NOT NULL DEFAULT '0',
+  `createtime` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=19 ;
+
+
+
+CREATE TABLE IF NOT EXISTS `ims_msyou_facedoubi_lists` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(11) unsigned NOT NULL,
+  `uniacid` int(11) unsigned NOT NULL,
+  `fanid` int(11) unsigned NOT NULL,
+  `fullname` varchar(20) NOT NULL DEFAULT '',
+  `phonenum` varchar(20) NOT NULL DEFAULT '',
+  `imgurl` text NOT NULL,
+  `contact` text NOT NULL,
+  `doubival` int(11) NOT NULL DEFAULT '0',
+  `sharecount` int(11) NOT NULL DEFAULT '0',
+  `zancount` int(11) NOT NULL DEFAULT '0',
+  `viewcount` int(11) NOT NULL DEFAULT '0',
+  `issubmit` int(1) NOT NULL DEFAULT '0',
+  `jiang` int(1) NOT NULL DEFAULT '0',
+  `createtime` int(10) NOT NULL,
+  `remark` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+
+CREATE TABLE IF NOT EXISTS `ims_msyou_facedoubi_lists_zan` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(11) unsigned NOT NULL,
+  `uniacid` int(11) unsigned NOT NULL,
+  `listid` int(11) unsigned NOT NULL,
+  `fanid` int(11) NOT NULL DEFAULT '0',
+  `zan` int(1) NOT NULL DEFAULT '0',
+  `contact` text NOT NULL,
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+
+CREATE TABLE IF NOT EXISTS `ims_msyou_facedoubi_paraset` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL,
+  `appid` varchar(20) NOT NULL DEFAULT '',
+  `appsecret` varchar(50) NOT NULL DEFAULT '',
+  `appid_share` varchar(20) NOT NULL DEFAULT '',
+  `appsecret_share` varchar(50) NOT NULL DEFAULT '',
+  `resroot` varchar(200) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+
+CREATE TABLE IF NOT EXISTS `ims_msyou_facedoubi_reply` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(11) unsigned NOT NULL,
+  `uniacid` int(11) unsigned NOT NULL,
+  `title` varchar(50) NOT NULL DEFAULT '',
+  `thumb` text NOT NULL,
+  `contact` text NOT NULL,
+  `detail` text NOT NULL,
+  `crinfo` text NOT NULL,
+  `bgurl` text NOT NULL,
+  `defaultshareurl` text NOT NULL,
+  `starttime` int(10) NOT NULL DEFAULT '0',
+  `endtime` int(10) NOT NULL DEFAULT '0',
+  `status` int(1) NOT NULL DEFAULT '0',
+  `joincount` int(11) NOT NULL DEFAULT '0',
+  `viewcount` int(11) NOT NULL DEFAULT '0',
+  `createtime` int(10) NOT NULL,
+  `doubix` float NOT NULL DEFAULT '0',
+  `zanx` float NOT NULL DEFAULT '0',
+  `sharex` float NOT NULL DEFAULT '0',
+  `viewx` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+	]]></install>
+	<uninstall><![CDATA[
+DROP TABLE IF EXISTS `ims_msyou_facedoubi_paraset`;
+DROP TABLE IF EXISTS `ims_msyou_facedoubi_reply`;
+DROP TABLE IF EXISTS `ims_msyou_facedoubi_lists`;
+DROP TABLE IF EXISTS `ims_msyou_facedoubi_lists_zan`;
+DROP TABLE IF EXISTS `ims_msyou_facedoubi_imgs`;
+DROP TABLE IF EXISTS `ims_msyou_facedoubi_fans`;
+	]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

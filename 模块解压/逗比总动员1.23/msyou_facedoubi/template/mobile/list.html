@@ -1,0 +1,169 @@
+{template 'header'}
+<link href="../addons/msyou_facedoubi/template/style/list-style.css" rel="stylesheet">
+<link href="../addons/msyou_facedoubi/template/style/theme.min.css" rel="stylesheet">
+<link href="resource/css/font-awesome.min.css" rel="stylesheet">
+<style>
+	body {
+		padding-top:0;
+		text-align: center;
+	}
+
+.top_bar {
+    position: fixed;
+    z-index: 9;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-family: Helvetica, Tahoma, Arial, Microsoft YaHei, sans-serif;
+}
+.top_menu {
+	float:left;
+    display: -webkit-box;
+    border-top: 1px solid #3D3D46;
+    display: block;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    height: 48px;
+    display: -webkit-box;
+    display: box;
+    margin: 0;
+    padding: 0;
+    -webkit-box-orient: horizontal;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#697077), to(#3F434E), color-stop(60%, #464A53));
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.3) inset;
+    list-style: none;
+}
+.top_menu li{
+width:50%;
+}
+.top_menu li a{
+    display: block;
+    line-height: 24px;
+}
+.top_menu li a img{
+    display: inline-block;
+    margin:2px;
+    height: 20px;
+    width: 20px;
+    color: #fff;
+    line-height: 40px;
+    vertical-align: middle;
+}
+.container{
+	width: 80%;
+}
+
+#container .item2 {
+    width: 23%;
+    margin: 10px 1%;
+    float: left;
+    zoom: 1;
+}
+
+@media (max-width: 479px) {
+	#container .grid-sizer,#container .item2 { width: 98%; margin: 10px 1%;float:left;zoom: 1;}
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+	#container .grid-sizer,#container .item2 { width: 48%; margin: 10px 1%;float:left;zoom: 1;}
+}
+
+</style>
+</head>
+<body>
+<div style="background: url({php echo tomedia($row['bgurl']);}) no-repeat;background-size: 100% 100%;    height: 100%;
+    width: 100%;
+    position: fixed;top:0px;z-index:-1;"></div>
+<div class="container" style="margin: 10%;margin-bottom:100px;z-index:8;">
+	<div id="container" style="position: relative; height: 318px;">
+		{loop $list $key $lr}
+		<div class="item">
+			<a href="{php echo $this->createMobileUrl('show',array('lid'=>$lr['id'],'id'=>$_GPC['id'],'fanid'=>$_GPC['fanid']),false);}">
+				<div class="tc-gridbox">
+					<div class="header">
+						<div class="dditem-image">
+							<div style="position: absolute;margin-top: -15px;width: 15%;    padding: 10px;height: 20%;margin-left: -15px;border-radius: 200px;background: url(../addons/msyou_facedoubi/template/style/png_icon_381.png) no-repeat;background-size: 100% 100%;font-size: 200%;line-height: 60px;min-width: 45px;min-height: 45px;max-width: 75px;max-height: 75px;color: #eee;text-shadow: 1px 1px 1px #666;">{php echo $key+1}{if ($lr['jiang'])}*{/if}</div>
+							<img data-src="{$lr['imgurl']}.jpg" src="../addons/msyou_facedoubi/template/style/ajaxloading1.gif" class="img-responsive">
+						</div>
+						<h3>{$lr['contact']}</h3>
+						<hr>
+					</div>
+					<div class="footer">
+						<div class="pull-right">
+							<i class="fa fa-share-alt"></i><span>{$lr['sharecount']}</span>
+							<i class="fa fa-eye"></i><span>{$lr['viewcount']}</span>
+							<i class="fa fa-thumbs-up"></i><span class="count">{$lr['zancount']}</span>
+						</div>
+						<div class="pull-left">
+							<i class="fa fa-trophy"></i><span>{$lr['totalval']}万</span>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</a>
+		</div>
+		{/loop}
+<script type="text/javascript"> 
+$(function(){
+	$(".item").each(function(){
+		if ($(this).offset().top<$("body").scrollTop()+$(window).height()){
+			$(this).find(".img-responsive").each(function(){
+				path=$(this).attr("data-src");
+				//alert(path);
+				$(this).attr('src',path);
+				
+			});
+			$(this).removeClass('item');
+			$(this).addClass("item2");
+			$(this).css("margin","10px 1%");
+		}
+	});
+
+	$(window).scroll(function(){
+/*	//alert(document.getElementById( "cccc" ).offsetTop);
+		alert($("body").scrollTop());
+		alert($('#cccc').offset().top);
+		alert($(window).height());
+*/
+		$(".item").each(function(){
+			if ($(this).offset().top<$("body").scrollTop()+$(window).height()){
+				$(this).find(".img-responsive").each(function(){
+					path=$(this).attr("data-src");
+					//alert(path);
+					$(this).attr('src',path);
+				});
+				$(this).removeClass('item');
+				$(this).addClass("item2");
+				$(this).css("margin","10px 1%");
+			}
+		});
+	});
+});
+</script>
+
+	</div>
+</div>
+                
+                
+<div class="top_bar" style="-webkit-transform:translate3d(0,0,0)">
+	<nav>
+		<ul id="top_menu" class="top_menu">
+			<li>
+				<a href="{php echo $this->createMobileUrl('help',array('id'=>$_GPC['id'],'fanid'=>$_GPC['fanid']),false);}">
+				<i class="fa fa-info" ></i><label>详情说明</label></a>
+			</li>
+			<li>
+				<a href="{php echo $this->createMobileUrl('index',array('id'=>$_GPC['id'],'fanid'=>$_GPC['fanid']),false);}" >
+				<i class="fa fa-camera" ></i><label>我要参与</label></a>
+			</li>
+    </ul>
+  </nav>
+</div>
+
+<div id="share" style="position:fixed;top:0px;left:0px;width:100%;height:100%;display:none;z-index: 10">
+	<img src="../addons/msyou_facedoubi/template/style/share.jpg" onclick="$('#share').hide();" style="width:100%;height:100%;"/>
+</div>
+{php echo register_jssdk(false);}
+
+{template 'wxshare'}

@@ -1,0 +1,126 @@
+<input type="hidden" name="reply_id" value="{$reply['id']}" />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        活动设置
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 活动名称</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="text" id="title" class="form-control" placeholder="" name="title" value="{$reply['title']}">
+            </div>
+        </div>
+ 		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动首页图片</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_image('thumb',$reply['thumb']);}
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">背景图片</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_image('bgurl',$reply['bgurl']);}
+            </div>
+        </div>
+        
+ 		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页入口封面</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_image('defaultshareurl',$reply['defaultshareurl']);}
+				<span class="help-block">也是默认分享图片</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动说明</label>
+            <div class="col-sm-9 col-xs-12">
+                <textarea style="height:200px; width:100%;" id='contact' class="form-control span7 richtext" name="contact" cols="70">{$reply['contact']}</textarea>
+            </div>
+            
+        </div>
+        
+           <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>活动时间</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_daterange('datelimit', array('starttime'=>date('Y-m-d H:i',$reply['starttime']),'endtime'=>date('Y-m-d H:i',$reply['endtime'])),true)}
+            </div>
+        </div>
+  <!--       
+  <div class="form-group" >
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">版权信息</label>
+      <div class="col-sm-9 col-xs-12">
+          <textarea style="height:100px; width:100%;" id='crinfo' class="form-control span7 richtext" name="crinfo" cols="70">{$reply['crinfo']}</textarea>
+          <span class="help-block">底部的版权信息，支持脚本！</span>
+      </div>
+  </div> -->
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">排序规则</label>
+            <div class="col-sm-9 col-xs-12">
+				<div class="input-group">
+					<table class="table">
+                            <thead>
+                                <tr>
+                                    <th>逗值</th>
+                                    <th>＋(点赞数*系数)</th>
+                                    <th>＋(分享数*系数)</th>
+                                    <th>＋(浏览数*系数)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rule-items">
+                                <tr class="rule_item">
+                                    <td>
+                                    见下面说明
+		              <input style="display:none;" type="text" id="doubix" class="form-control" placeholder="逗值系数" onkeyup="if(isNaN(value)) value=value.substring(0,value.length-1);" name="doubix" value="{$reply['doubix']}">
+                                    </td>
+                                    <td>
+		              <input type="text" id="zanx" class="form-control" placeholder="点赞系数" onkeyup="if(isNaN(value)) value=value.substring(0,value.length-1);" name="zanx" value="{$reply['zanx']}">
+                                    </td>
+                                    <td>
+		              <input type="text" id="sharex" class="form-control" placeholder="分享系数" onkeyup="if(isNaN(value)) value=value.substring(0,value.length-1);" name="sharex" value="{$reply['sharex']}">
+                                    </td>
+                                    <td>
+		              <input type="text" id="viewx" class="form-control" placeholder="浏览系数" onkeyup="if(isNaN(value)) value=value.substring(0,value.length-1);" name="viewx" value="{$reply['viewx']}">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+	            </div>
+	            <span class="help-block">逗值=上传图片的所有面部的分析指标总和；分析指标包括：年龄、性别和微笑程度，单人一般在100-300万之间；</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动规则</label>
+            <div class="col-sm-9 col-xs-12">
+                <textarea style="height:200px; width:100%;" id='detail' class="form-control span7 richtext" name="detail" cols="70">{$reply['detail']}</textarea>
+            </div>
+        </div>
+        <!--
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">版权信息</label>
+            <div class="col-sm-9 col-xs-12">
+            <input type="text" id="copyright" class="form-control" placeholder="" name="copyright" value="{$reply['copyright']}">
+			<div class="help-block">版权信息，如果不填写，默认为公众号名称！</div>
+            </div>
+        </div>
+        -->
+    </div>
+</div>
+
+<script>
+
+    $('form').submit(function() {
+//        if ($("#title").isEmpty()) {
+        if ($.trim($("#title").val()).length<=0) {
+//            Tip.focus("title", "请输入活动名称!", "right");
+        	util.message('请输入活动名称!');
+            return false;
+        }
+         return true;
+    });
+    
+    require(['jquery', 'util'], function($, u){
+		$(function(){
+			u.editor($('#detail')[0]);
+			u.editor($('#contact')[0]);
+		});
+    });
+</script>

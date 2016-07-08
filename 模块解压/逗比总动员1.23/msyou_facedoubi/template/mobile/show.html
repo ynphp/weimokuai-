@@ -1,0 +1,300 @@
+{template 'header'}
+	<link href="../addons/msyou_facedoubi/template/style/theme.min.css" rel="stylesheet">
+	<link href="resource/css/font-awesome.min.css" rel="stylesheet">
+<style>
+	body {
+		display: initial;
+		text-align: center;
+	}
+
+.top_bar {
+    position: fixed;
+    z-index: 9;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-family: Helvetica, Tahoma, Arial, Microsoft YaHei, sans-serif;
+}
+.top_menu {
+	float:left;
+    display: -webkit-box;
+    border-top: 1px solid #3D3D46;
+    display: block;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    height: 48px;
+    display: -webkit-box;
+    display: box;
+    margin: 0;
+    padding: 0;
+    -webkit-box-orient: horizontal;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#697077), to(#3F434E), color-stop(60%, #464A53));
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.3) inset;
+    list-style: none;
+}
+.top_menu li{
+width:50%;
+}
+.top_menu li a{
+display: block;
+line-height: 24px;
+}
+.top_menu li label{
+display: block;
+}
+.top_menu li a img{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    margin: 2px;
+    color: #fff;
+    line-height: 18px;
+    vertical-align: middle;
+}
+</style>
+</head>
+<body >
+<!--我要领奖 -->
+{if ($list['jiang'])}
+	<div style="width: 70px;height: 70px;border-radius: 200px;background: url(../addons/msyou_facedoubi/template/style/png_icon_381.png) no-repeat;background-size: 100% 100%;font-size: 120%;line-height: 70px;color: #eee;text-shadow: 1px 1px 1px #666;position: fixed;margin: auto;left: 0;right: 0;bottom: 0;z-index:10;">已发奖</div>
+{else}
+	{if ($list['fanid']==$_W['member']['uid'])}
+		<div style="width: 70px;height: 70px;border-radius: 200px;background: url(../addons/msyou_facedoubi/template/style/png_icon_381.png) no-repeat;background-size: 100% 100%;font-size: 120%;line-height: 70px;color: #eee;text-shadow: 1px 1px 1px #666;position: fixed;margin: auto;left: 0;right: 0;bottom: 0;z-index:10;" 
+			{if ($list['fullname'])}>已{else}onclick="$('#linjiang').show();" >{/if}申领
+		</div>
+	{/if}
+{/if}
+
+<div style="background: url({php echo tomedia($row['bgurl']);}) no-repeat;background-size: 100% 100%;    height: 100%;
+    width: 100%;
+    position: fixed;top:0px;z-index:-1;"></div>
+<fieldset style="z-index:8;border-radius: 15px;border: none; margin: 10%; box-sizing: border-box; padding: 0px;background: rgba(240,240,240,0.88);margin-bottom: 20%;">
+    <section id="contact" style="line-height: 0; box-sizing: border-box;" class="tn-Powered-by-XIUMI">
+		<div style="position: absolute;margin-top: -15px;min-width: 45px;height: 45px; padding: 10px;margin-left: -15px;border-radius: 200px;background: url(../addons/msyou_facedoubi/template/style/png_icon_381.png) no-repeat;background-size: 100% 100%;font-size: 200%;line-height: 45px;color: #eee;text-shadow: 1px 1px 1px #666;">
+		{$pm}{if ($list['jiang'])}*{/if}
+		</div>
+
+        <img src="{$list['imgurl']}.jpg" style="border-radius: 15px 15px 0 0;display: inline-block; width: 100%; border: 0px; box-sizing: border-box; height: auto !important;"/>
+ &nbsp; &nbsp;
+ <i class="fa fa-trophy" style="color: rgb(245,122,0);font-size:150%;margin-top: -30px;background-color: rgba(255,255,255,0.8);padding: 4px;border-radius: 5px;left: 10%;">逗值：{$list['totalval']}万</i>
+    </section>
+    <section style="width: 18%; display: inline-block; float: left; text-align: right;  padding: 0px; box-sizing: border-box;">
+        <section style="float: right; text-align: center; margin-top: -15px; box-sizing: border-box;">
+            <section style="width: 2px; height: 1.2em; margin-left: 50%; box-sizing: border-box; background-color: rgb(102, 102, 102);"></section>
+            <section data-color="color" style="width: 4em; height: 4em; border: 2px solid rgb(102, 102, 102); border-top-left-radius: 50%; border-top-right-radius: 50%; border-bottom-right-radius: 50%; border-bottom-left-radius: 50%; line-height: 2em; font-size: 1em; font-family: inherit; font-weight: inherit; text-decoration: inherit; color: rgb(39, 44, 51); box-sizing: border-box;">
+{if ($list['fanid']==$_W['member']['uid']||$zan)}
+                <section style="box-sizing: border-box;    padding: 5px;
+    line-height: 15px;">
+                    <i class="fa fa-thumbs-up" style="
+		color: rgb(245,122,0);font-size: 200%;"></i><p>{$list['zancount']}</p>
+	{else}
+                <section style="box-sizing: border-box;    padding: 5px;
+    line-height: 15px;" onclick="zan();" >
+		<style>
+			.r1{
+				 -moz-transform:rotate(-5deg);
+			    -webkit-transform:rotate(-5deg);
+				-o-transform:rotate(-5deg);
+			}
+
+			.r2{
+				 -moz-transform:rotate(3deg);
+			    -webkit-transform:rotate(3deg);
+				-o-transform:rotate(3deg);
+			}
+		</style>
+		<script>
+		$(function(){
+			 function state1(){
+				 $(".rotate").removeClass("r2"); 
+				 $(".rotate").addClass("r1");
+				 setTimeout(state2,150);
+			 }
+			function state2(){	   
+			     $(".rotate").removeClass("r1");
+			     $(".rotate").addClass("r2"); 
+				 setTimeout(state3,150);
+			}
+			function state3(){
+			     $(".rotate").removeClass("r2");
+				 setTimeout(state1,200);
+			}
+			state1();
+			
+		})
+		</script>
+                    <i class="fa fa-thumbs-up rotate" style="
+		color: rgb(120,120,120);font-size: 220%;"></i><p>{$list['zancount']}</p>
+	{/if}		
+                </section>
+            </section>
+        </section>
+    </section>
+    <section style="width: 82%; float: left; margin-top: 10px; line-height: 1.5em; padding: 0px; font-size: 1em; font-family: inherit; font-weight: inherit; text-decoration: inherit; color: rgb(39, 44, 51); box-sizing: border-box;">
+        <section data-color="color" style="box-sizing: border-box;">
+            <section style="opacity: 0.5;box-sizing: border-box;">
+                {$list['contact']}
+            </section>
+        </section>
+    </section>
+    <section >
+    <div>　</div>
+    <div style="font-weight: bold;"><h3 style="font-size: 22px;background-color: rgba(245,120,0,0.2);">逗值详解</h3></div>
+    <div>{php echo str_replace('||','<p>',str_replace('|||','</p>',$list['remark']))}
+    {if $row['sharex']+$row['zanx']+$row['viewx']>0}
+    	<p>其它贡献：</p>
+    	{if $row['sharex']>0}<p>分享1次得{$row['sharex']}万，共{$list['sharecount']}次，<font style="color: rgb(245,122,0);">获得逗值：{php echo $list['sharecount']*$row['sharex']}万</font>；</p>{/if}
+    	{if $row['zanx']>0}<p>点赞1次得{$row['zanx']}万，共{$list['zancount']}次，<font style="color: rgb(245,122,0);">获得逗值：{php echo $list['zancount']*$row['zanx']}万</font>；</p>{/if}
+    	{if $row['viewx']>0}<p>浏览1次得{$row['viewx']}万，共{$list['viewcount']}次，<font style="color: rgb(245,122,0);">获得逗值：{php echo $list['viewcount']*$row['viewx']}万</font>；</p>{/if}
+    {/if}
+    </div>
+
+        <p style="float:right;font-size: 80%;margin-bottom:5px;margin-right:5px;">
+        	<i class="fa fa-share-alt" style="color: rgb(245,122,0);"></i><span id="sharecount">{$list['sharecount']}</span>
+			<i class="fa fa-eye" style="color: rgb(245,122,0);"></i><span>{$list['viewcount']}</span>　
+			{php echo date('Y/m/d H:i',$list['createtime']);}
+		</p>
+    </section>
+</fieldset>
+
+
+
+<div class="top_bar" style="-webkit-transform:translate3d(0,0,0)">
+	<nav>
+		<ul id="top_menu" class="top_menu">
+			<li>
+				<a href="{php echo $this->createMobileUrl('list',array('id'=>$_GPC['id'],'fanid'=>$_GPC['fanid']),false);}">
+				<i class="fa fa-th" style="font-size:100%;"></i><label>更多逗比</label></a>
+			</li>
+			<li >
+				<a id="li_zanpk" onclick="$('#share').show();" ><i class="fa fa-share-alt" ></i><label>好友助力</label></a>
+				<a id="li_zan" onclick="zan();" ><i class="fa fa-thumbs-up" ></i><label>点个赞</label></a>
+			</li>
+			<script>
+					function zan(){
+						$.ajax({
+					url : "{php echo $this->createMobileUrl('showzan',array('id'=>$_GPC['id'],'lid'=>$_GPC['lid'],'fanid'=>$_GPC['fanid']),false);}",
+					type : 'get',
+		            dataType : 'json',
+					success : function(data){
+	                    //	alert(JSON.stringify(data));
+		                if(data.error == ''){
+	                        location.reload();
+	                    }else{
+	                        alert(data.error);
+		                }
+					},
+		            error: function(data, status, e){
+		                alert('zan error');
+		            }
+				});
+					}
+			</script>
+    </ul>
+  </nav>
+</div>
+
+<div id="share" style="position:fixed;top:0px;left:0px;width:100%;height:100%;display:none;z-index: 99">
+	<img src="../addons/msyou_facedoubi/template/style/share.jpg" onclick="$('#share').hide();" style="width:100%;height:100%;"/>
+</div>
+<div id="linjiang" style="position: fixed; bottom: 0px; left: 0px; width: 100%; height: 180px; z-index: 90; display: block; background: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(105, 112, 119)), color-stop(0.6, rgb(70, 74, 83)), to(rgb(63, 67, 78)));display:none;">
+	<div style="
+	    background-color: #444444;
+	    color: #fff;
+	    font-size: 120%;
+	    height: 32px;
+	    line-height: 32px;
+	">登记信息</div>	
+	<input type="text" id="fullname" class="form-control" name="fullname" placeholder="姓名" maxlength="20" style="width: 90%;margin: 5px;border-radius: 5px;">
+	<input type="tel" id="phonenum" class="form-control" name="phonenum" placeholder="手机号码" maxlength="20" style="width: 90%;margin: 5px;border-radius: 5px;">
+	<div id="ljbtns" style="height: 50px;line-height: 50px;">
+		<button style="height: 40px; width: 20%; margin: 0 10% 0 10%;border-radius: 5px;background-color: rgb(245,122,0);color: #fff;font-size: 120%;"  onclick="faninfo();">提交</button>
+		<button style="height: 40px; width: 20%; margin: 0 10% 0 10%;border-radius: 5px;font-size: 120%;"  onclick="$('#linjiang').hide();">取消</button>
+	</div>
+<script>
+	function faninfo(){
+		if ($('#fullname').val().length==0||$('#phonenum').val().length==0){
+			alert('请输入！');
+			return;
+		}
+		$('#ljbtns').hide();
+		$.ajax({
+			url : "{php echo $this->createMobileUrl('submitfaninfo',array('id'=>$_GPC['id'],'lid'=>$_GPC['lid'],'fanid'=>$_GPC['fanid']),false);}",
+			type : 'post',
+			data : {'fullname' : $('#fullname').val(),'phonenum':$('#phonenum').val()},
+			dataType : 'json',
+			success : function(data){
+//				alert(JSON.stringify(data));
+				if(data.error == ''){
+					location.reload();
+				}else{
+					alert(data.error);
+					$('#ljbtns').show();
+				}
+			},
+			error: function(data, status, e){
+				$('#ljbtns').show();
+				alert('zan error');
+			}
+		});
+	}
+</script>
+</div>
+<script src="../addons/msyou_facedoubi/template/style/layer/layer.js"></script>
+<script src="../addons/msyou_facedoubi/template/style/layer/extend/layer.ext.js"></script>
+<script type="text/javascript">
+//微信内置图片浏览<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	var imgsSrc = new Array();
+	function reviewImage(dsrc) {
+	    if (typeof window.WeixinJSBridge != 'undefined') {
+	        WeixinJSBridge.invoke('imagePreview', {
+	            'current' : dsrc,
+	            'urls' : imgsSrc
+	        });
+	    }else{
+			layer.photos({
+        		photos:_photos(dsrc,imgsSrc)//{ "data":[{"alt": "图片名","pid": 666,"thumb": "","src":"/ueditor/php/upload/image/20150504/1430730011139078.jpg"},{"alt": "图片名","pid": 667,"thumb": "","src":"/ueditor/php/upload/image/20150504/1430730015107136.jpg"        			}        			]}
+        		//_photos(dsrc,imgsSrc) //格式见API文档手册页
+    		});
+	    }
+	}
+	_photos=function(dsrc,imgsSrc){
+		re = new RegExp(dsrc,[""]);
+  		im= (imgsSrc.toString().replace(re,"┢").replace(/[^,┢]/g,"")).indexOf("┢")
+		m=imgsSrc.length;
+		var reval='{"data":[';
+		for(var i=0;i<m;i++){
+			if (i==0){
+				reval+='{"src":"'+imgsSrc[im]+'"}';
+			}else{
+				reval+=',{"src":"'+imgsSrc[im]+'"}';
+			}
+			im=im+1;
+			if (im==m){im=0;}
+		}
+		reval+=']}';
+		return JSON.parse(reval);
+	}
+//window.onload = function (){
+$(function(){
+	{if ($list['fanid']==$_W['member']['uid']||$zan)}
+		$("#li_zan").css('display','none');
+	{else}
+		$("#li_zanpk").css('display','none');
+	{/if}
+	$("#contact img").each(function(i){
+		var dsrc = $(this).attr("src");
+		if(dsrc){
+			imgsSrc.push(dsrc);
+			this.addEventListener("click", function(){
+				reviewImage(dsrc);
+			}, false);
+		}
+	});
+});
+	</script>
+	
+{php echo register_jssdk(false);}
+
+{template 'wxshare'}

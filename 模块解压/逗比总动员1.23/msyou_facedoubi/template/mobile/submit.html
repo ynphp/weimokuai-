@@ -1,0 +1,119 @@
+{template 'header'}
+<style>
+	body {
+		display: initial;
+		text-align: center;
+	}
+	.bottommenu{
+		position: fixed;
+    	bottom: 0px;
+    	width: 100%;
+	    height: 48px;
+	    background: rgba(0,0,0,0.48);
+	}
+	.submit{
+	    line-height: 18px;
+	    width: 100px;
+	    padding: 8px 0;
+	    margin: 5px;
+	    text-decoration: none;
+	    text-shadow: 0 1px 0 #fff;
+	    box-shadow: 0 1px 10px #d1cfd1;
+	    -moz-box-shadow: 0 1px 10px #d1cfd1;
+	    -webkit-box-shadow: 0 1px 10px #d1cfd1;
+	    border-radius: 10px 10px 10px 10px;
+	    -moz-border-radius: 10px 10px 10px 10px;
+	    -webkit-border-radius: 10px 10px 10px 10px;
+	    text-align: center;
+	    color: #000;
+	    text-shadow: 0 1px 1px white;
+	    background: #f8f8f9;
+	    background-image: -moz-linear-gradient(#f8f8f9, #dddfe1);
+	    background-image: -webkit-gradient(linear, left top, left bottom, from(#ff2222), to(#dddfe1));	
+    }
+    .contact{
+    	z-index:8;
+	    margin: 10%;
+    	margin-bottom: 100px;
+    }
+    .contact img{
+		max-height: 750px;
+    	max-width: 100%;
+    	min-width:100px;
+    	min-height:100px;
+    }
+    .contact div{
+		background: #e9eaee;
+	    border: 2px solid #ffffff;
+	    padding: 10px;
+	    margin: 0 auto;
+	    text-align: center;
+	    box-shadow: 1px 2px 6px rgba(0,0,0, 0.5);
+	    -moz-box-shadow: 1px 2px 6px rgba(0,0,0, 0.5);
+	    -webkit-box-shadow: 1px 2px 6px rgba(0,0,0, 0.5);
+    }
+    .contact div textarea{
+    	width:100%;
+    	height:150px;
+    }
+</style>
+</head>
+<body >
+<div style="background: url({php echo tomedia($row['bgurl']);}) no-repeat;background-size: 100% 100%;    height: 100%;
+    width: 100%;
+    position: fixed;top:0px;z-index:-1;"></div>
+<form action="" method="post" class="form-horizontal form">
+<div class="contact">
+	<p id="doubiimg" style="text-shadow: 1px 1px 1px white;background: url({$list['imgurl']});
+    background-position: center;
+    background-repeat: no-repeat;background-size: auto 100%;">
+	正在生成中......<br>
+	<img src="../addons/msyou_facedoubi/template/style/ajaxloading1.gif">
+	</p>
+	<div id="contactdiv" style="border-radius: 15px;display:none" >
+		<textarea id="contact" name="contact" placeholder="写点逗比宣言吧！！！"></textarea>
+	</div>
+</div>
+<div class="bottommenu">
+{if $list['issubmit']}
+<p class="submit">已提交</p>
+{else}
+<a id="submit2" class="submit" style="display:none;" href="{php echo $this->createMobileUrl('index',array('id'=>$_GPC['id'],'fanid'=>$_GPC['fanid']),false);}">再来一次</a>
+<input id="submit1" type="submit" name="submit" value="提交" class="submit" style="display:none;"/>
+<input type="hidden" name="token" value="{$_W['token']}" />
+{/if}
+</div>
+<script>
+$(function() { 
+{if $list['issubmit']}
+window.location ="{php echo $this->createMobileUrl('show',array('id'=>$_GPC['id'],'rid'=>$_GPC['rid'],'lid'=>$_GPC['lid'],'fanid'=>$_GPC['fanid']),false);}"
+{else}
+				$.ajax({
+					url : "{php echo $this->createMobileUrl('mergeshowimg',array('id'=>$_GPC['id'],'rid'=>$_GPC['rid'],'lid'=>$_GPC['lid'],'fanid'=>$_GPC['fanid']),false);}",
+					type : 'get',
+		            dataType : 'json',
+					success : function(data){
+	                    //	alert(JSON.stringify(data));
+		                if(typeof(data.error) == 'undefined'){
+	                    	//alert(JSON.stringify(data));
+	                        $("#doubiimg").html('<img src="'+data.imgurl+'.jpg" />');
+	                        $('#submit1').css("display","block");
+	                        $('#contactdiv').css("display","block");
+	                    }else{
+		                    if(data.error != ''){
+		                        $("#doubiimg").html('<h5 style="font-size:150%;">'+data.error+'</h5>');
+		                        $('#submit2').css("display","block");
+		                    }
+		                }
+					},
+		            error: function(data, status, e){
+		                alert('submit error');
+		            }
+				});
+{/if}
+});
+</script>
+</form>
+{php echo register_jssdk(false);}
+
+{template 'wxshare'}

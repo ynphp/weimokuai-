@@ -1,0 +1,91 @@
+<div id="test" style="display:none">
+submit<br>
+
+$list['fanid']:{$list['fanid']}<br>
+$_W['member']['uid']:{$_W['member']['uid']}<br>
+$zan:{$zan}<br>
+$params_zan[':fanid']:{php echo $params_zan[':fanid']}<br>
+</div>
+<div class="text-center footer" style="margin-bottom:50px;bottom:0px;position:fixed; width:100%; text-align:center; word-break:break-all;">
+	<a href="#">此功能由微妙帮提供技术支持</a>
+</div>
+<script>
+sharedata = {
+	title: '逗比总动员',
+	desc: '摆好Pose，轻松一点！逗你逗我逗大伙！！！',
+	link: "{php echo $_W['siteroot']}app/{php echo $this->createMobileUrl($_GPC['do'],array('id'=>$_GPC['id'],'lid'=>$_GPC['lid']),false);}",
+	imgUrl: "{php echo $_W['siteroot']}addons/msyou_facedoubi/icon.jpg",
+	success: function(){
+//			alert('success');
+			{if ($_GPC['do']=='show') }
+				$.ajax({
+					url : "{php echo $this->createMobileUrl('showshare',array('id'=>$_GPC['id'],'lid'=>$_GPC['lid']),false);}",
+					type : 'get',
+		            dataType : 'json',
+					success : function(data){
+	                    	//alert(JSON.stringify(data));
+		                if(data.error == ''){
+	                        $("#sharecount").html(data.val);
+	                    }else{
+	                        alert(data.error);
+		                }
+					},
+		            error: function(data, status, e){
+		                alert('sharedata error');
+		            }
+				});
+			{/if}
+	},
+	cancel: function(){
+//		alert('cancel');
+	}
+};
+
+	var p_share = {php echo json_encode($_share);};
+	if(typeof sharedata == 'undefined'){
+		sharedata = p_share;
+	} else {
+		sharedata['title'] = p_share['title'] || sharedata['title'];
+		sharedata['desc'] = p_share['desc'] || sharedata['desc'];
+		sharedata['link'] = p_share['link'] || sharedata['link'];
+		sharedata['imgUrl'] = p_share['imgUrl'] || sharedata['imgUrl'];
+	}
+
+	wx.ready(function () {
+	
+{if (empty($row))}
+	alert("活动不存在！");
+	wx.closeWindow();
+{/if}
+	
+        {if ($_GPC['do']=='submit') }
+        	wx.hideOptionMenu();
+        {else}
+        /*
+		wx.checkJsApi({
+	      jsApiList: [
+		    'onMenuShareTimeline',
+		    'onMenuShareAppMessage',
+		    'onMenuShareQQ',
+		    'onMenuShareWeibo',
+	        'getNetworkType',
+	        'previewImage',
+	        'chooseImage'
+	      ],
+	      success: function (res) {
+	        alert(JSON.stringify(res));
+	      }
+	    });
+	    */
+		wx.showOptionMenu();
+		
+		wx.onMenuShareAppMessage(sharedata);
+		wx.onMenuShareTimeline(sharedata);
+		wx.onMenuShareQQ(sharedata);
+		wx.onMenuShareWeibo(sharedata);
+		wx.onMenuShareQZone(sharedata);
+		{/if}
+	});
+</script>
+</body>
+</html>
