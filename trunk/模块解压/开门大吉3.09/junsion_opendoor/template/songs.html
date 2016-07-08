@@ -1,0 +1,262 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if $op == 'post'} class="active" {/if}><a href="{php echo $this->createWebUrl('song',array('op' =>'post'))}">增加歌曲</a></li>
+    <li {if !$op} class="active" {/if}><a href="{php echo $this->createWebUrl('song')}">歌曲列表</a></li>
+</ul>
+<style>
+th{
+	text-align: center !important;
+}
+
+td{
+	text-align: center !important;
+	white-space: normal !important;
+	word-break: break-all !important;
+}
+ .cate_edit{
+	 float: right;
+	margin-top: 12px;
+	margin-right: 50px;
+	cursor: pointer;
+	font-size: 1.3em;
+ }
+ 
+ .cate_label{
+ 	padding: 5px;
+	font-size: 1.2em;
+	background-color: green;
+ }
+</style>
+{if !$op}
+<div class="panel panel-default">
+	<div class="panel-heading"><label>歌曲库</label>
+		<select id='cate_select' style='margin-top:10px;width: auto;display: inline;' class="form-control" onchange='selectCate(this)'>
+			<option value="0">全部</option>
+			{loop $cates $c}
+			<option {if $cid == $c['id']}selected="selected"{/if} value="{$c['title']}" data-cid="{$c['id']}">{$c['title']}</option>
+			{/loop}
+		</select>
+		<span id="addCate" style="margin-top:15px;display:none">
+			<input placeholder='歌曲库' class='span2 form-control' id='new_cate'  style="width: auto;display: inline;">
+				<a class='btn btn-primary' onclick='eidtCate(0)' style='margin-top:0;margin-left:10px'>添加</a>
+				<a class='btn btn-primary' onclick='$("#addCate").hide();' style='margin-top:0;'>取消</a>
+			</span> 
+			<a class='icon-plus-sign-alt' style='margin-left:10px;cursor:pointer'>添加歌曲库</a>
+			<a class='btn btn-primary' style='cursor:pointer;margin-left: 50px;' onclick="$('#modal-module-menus-method').modal();">批量导入歌曲</a>
+			<a class='cate_edit'>编辑歌曲库</a>
+			<div style='clear:both'></div>
+			<div id="newsEdit" style="border-top: 1px solid thistle;padding-top: 10px;margin-top: 10px;display: none">
+				<span style='margin:10%;padding: 30px;'>
+					<a class='label cate_label'>歌曲库名字</a>
+						<input id='cate_name' class='span2 margin_bottom form-control' style="margin-left: 5px;width: auto;display: inline;" >
+					<a class='btn btn-primary margin_bottom' onclick='eidtCate(1)'>修改</a>
+					<input type='hidden' id='old_cate'>
+					<a class='btn btn-danger margin_bottom' onclick='eidtCate(2)'>删除</a>
+				</span>
+			</div>
+	</div>
+	<div class="panel-body" style="text-align: center;">
+        <table class="table table-hover">
+            <thead class="navbar-inner">
+                <tr>
+                    <th>歌曲名字</th>		
+                    <th>作者</th>			
+                    <th>竞猜歌曲</th>
+                    <th>答案歌曲</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody id="table_content">
+                {loop $list $l}
+                <tr>
+                    <td>{$l['name']}</td>
+                    <td>{$l['singer']}</td>
+                    <td><audio src="{php echo toimage($l['surl'])}" controls="controls"></audio></td>
+                    <td>{if $l['surl']}<audio src="{php echo toimage($l['ourl'])}" controls="controls"></audio>{/if}</td>
+                    <td>
+                    	<a href='{php echo $this->createWebUrl("song",array("op"=>"post","id"=>$l["id"]))}' class="btn btn-default btn-sm">编辑</a>
+                    	<a href='{php echo $this->createWebUrl("song",array("op"=>"delete","id"=>$l["id"]))}' onclick="return confirm('删除后将不可恢复，确定删除吗？')" class="btn btn-danger btn-sm">删除</a>
+                    </td>
+                </tr>
+                {/loop}
+            </tbody>
+        </table>
+        {$pager}
+    </div>
+</div>
+<div id="modal-module-menus-import"  class="modal fade" tabindex="-1">
+        <div class="modal-dialog" style='width: 520px;'>
+            <div class="modal-content">
+                <div style="padding: 0 15px;text-align: center;border: 1px solid gainsboro;" >
+				<div style="float: left;margin-top: 5px;color: red;" ><input onclick="$('#tips').slideToggle();" type="checkbox">显示说明</div>
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3 style="margin: 5px;">导入歌曲库</h3></div>
+                <div class="modal-body">
+                	<div id="tips" style="display: none;">
+                		<p style="color: red;text-align: center;">请严格按照歌曲库导入标准，否则无法成功导入！！</p>
+                		<p>1、首先歌曲库需要以zip格式压缩,请放在模块根目录({php echo $this->modulename})</p>
+                		<p>2、zip包内的直接是歌曲,格式如图(这里歌曲库文件名为 song )</p>
+                		<p><a target="_blank" href="../addons/{php echo $this->modulename}/template/mobile/img/1.png"><img src="../addons/{php echo $this->modulename}/template/mobile/img/1.png" style="width: 100%;"></a></p>
+                		<p>3、包内必须有songs.txt 用来记录歌曲库名和歌曲与歌名对应关系,格式如图</p>
+                		<p><a target="_blank" href="../addons/{php echo $this->modulename}/template/mobile/img/2.png"><img src="../addons/{php echo $this->modulename}/template/mobile/img/2.png" style="width: 100%;"></a></p>
+                	</div>
+                    <form action="{php echo $this->createWebUrl('song',array('op'=>'import'))}" method="post" class="form-horizontal form-modal" onsubmit="return $.trim($('#file').val())!=''">
+                        <div class="form-group" style="margin-bottom: 20px;">
+                            <label class="col-xs-12 col-sm-3 col-md-3 control-label">歌曲库文件名</label>
+                            <div class="col-sm-9">
+                                <div class="input-group" >
+									 <input type="text" placeholder="歌曲库文件名" name="file" id="file" class="form-control"
+                                       data-rule-required="true" data-rule-number="true" >
+									 <div class="input-group-addon">.zip</div>
+								</div>       
+                            </div>
+                        </div>
+                        <div style="text-align: center;" >
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button style="margin-left: 20px" type="submit" class="btn btn-primary">提交</button>
+                            <label style="margin-left: 10px;"><input type="checkbox" name="isdelete" value="1">删除压缩包</label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div><div id="modal-module-menus-qiniu"  class="modal fade" tabindex="-1">        <div class="modal-dialog" style='width: 520px;'>            <div class="modal-content">                <div style="padding: 0 15px;text-align: center;border: 1px solid gainsboro;" >				<div style="float: left;margin-top: 5px;color: red;" ><input onclick="$('#tips2').slideToggle();" type="checkbox">显示说明</div>                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3 style="margin: 5px;">导入歌曲库</h3></div>                <div class="modal-body">                	<div id="tips2" style="display: none;">                		<p style="color: red;text-align: center;">请严格按照歌曲库导入标准，否则无法成功导入！！</p>                		<p>请用一个 .txt文件 记录歌曲库名和歌曲与歌名对应关系,格式如图</p>                		<p><a target="_blank" href="../addons/{php echo $this->modulename}/template/mobile/img/2.png"><img src="../addons/{php echo $this->modulename}/template/mobile/img/2.png" style="width: 100%;"></a></p>                	</div>                    <form enctype="multipart/form-data" action="{php echo $this->createWebUrl('song',array('op'=>'import2'))}" method="post" class="form-horizontal form-modal" onsubmit="return $.trim($('#file2').val())!=''">                        <div class="form-group">                            <label class="col-xs-12 col-sm-3 col-md-3 control-label">歌曲库配置文件</label>                            <div class="col-sm-9">     							<input id="file2" type="file" name="file" class="btn btn-primary">                            </div>                        </div>                                                 <div class="form-group" style="margin-bottom: 20px;">                            <label class="col-xs-12 col-sm-3 col-md-3 control-label">外部存储目录</label>                            <div class="col-sm-9">     							<input name="qiniu" type="text" class="form-control" required="required">     							<div class="help-block">歌曲存放外部的目录<br>例:http://7xxxx.clouddn.com/songs/</div>                            </div>                        </div>                        <div style="text-align: center;" >                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>                            <button style="margin-left: 20px" type="submit" class="btn btn-primary">提交</button>                        </div>                    </form>                </div>            </div>        </div>    </div>    
+<div id="modal-module-menus-method"  class="modal fade" tabindex="-1" style="top: 20%;">        <div class="modal-dialog" style='width: 520px;'>            <div class="modal-content">                <div style="padding: 0 15px;text-align: center;border: 1px solid gainsboro;" >                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h3 style="margin: 5px;">请选择存储方式</h3></div>                <div class="modal-body">                        <div style="text-align: center;" >                            <button style="width: 100%;margin-bottom: 10px;" type="button" class="btn btn-default" data-dismiss="modal" onclick="$('#modal-module-menus-import').modal();">本地存储</button>                            <button style="width: 100%;margin-bottom: 10px;" type="submit" class="btn btn-default" data-dismiss="modal" onclick="$('#modal-module-menus-qiniu').modal();">外部存储</button>                        </div>                </div>            </div>        </div>    </div>
+<script>
+	$('.icon-plus-sign-alt').click(function(){
+		$('#addCate').show();
+	});
+	
+	$('.cate_edit').click(function(){
+		if($('#cate_select').val() != 0){
+			$("#newsEdit").toggle();
+			$('#old_cate').val($('#cate_select').val());
+			$('#cate_name').val($('#cate_select').val());
+		}
+	});
+	function deleteconfirm(){
+		return confirm("删除后将无法找回数据，确定删除吗");
+	}
+	
+	function eidtCate(type){
+		var data = {type:type,cid:$('#cate_select option:selected').attr('data-cid')};
+		if(type == 0){ //添加歌曲库
+			if($('#new_cate').val() == ''){
+				alert('请输入歌曲库名字');
+				return;
+			}
+			data['new_cate'] = $('#new_cate').val();
+		}else if(type == 1){ //修改歌曲库
+			if($('#cate_name').val() == ''){
+				alert('请输入歌曲库名字');
+				return;
+			}
+			data['new_cate'] = $('#cate_name').val();
+			data['old_cate'] = $('#old_cate').val();
+		}else if(type == 2){ //删除歌曲库
+			if(confirm('删除歌曲库，将删除该歌曲库下的所有歌曲，且数据将不能找回，确认删除吗？')){
+				data['new_cate'] = $('#cate_name').val();
+			}else return;
+		}
+		$.ajax({
+			url:'{php echo $this->createWebUrl("editcate");}',
+			type: "POST",
+			data:data,
+			dataType: "json",
+			error : function(msg) {
+				alert("发送请求失败，请重试");
+			},
+			success : function(msg) {
+				if(msg > 0){
+					if(type == 0){
+						alert("添加歌曲库成功");
+						$('#cate_select').append('<option data-cid="'+msg+'" selected="selected">'+$('#new_cate').val()+'</option>');
+						$('#table_content').empty();
+						$('#addCate').hide();
+						$('.pagination').hide();
+					}else if(type == 1){
+						alert("修改歌曲库成功");
+						$('#cate_select').find("option:selected").text($('#cate_name').val());
+						$("#newsEdit").toggle();
+					}else if(type == 2){
+						alert("删除歌曲库成功");
+						window.location.reload();
+					}
+				}else if(msg == -1){
+					alert("该歌曲库已存在");
+				}else alert("编辑歌曲库失败");
+			}
+		});
+	}
+	
+	function selectCate(obj){
+		var cate = '&cate='+$('#cate_select option:selected').attr('data-cid');
+		if($(obj).val() == '0')
+			cate = '';
+		location.href = "{php echo $this->createWebUrl('song')}"+cate;
+	}
+</script>
+{else}<style>.reback{	margin-bottom: 5px;}</style>
+<form action="" method="post" class="form form-horizontal" onsubmit="return checksubmit()">
+	<input type="hidden" name="op" value="{$op}">
+	<input type="hidden" name="id" value="{$item['id']}">
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">歌曲库</label>
+					<div class="col-sm-2 col-xs-12">
+						<select style='width: auto;display: inline;' class="form-control" name="cate">
+							{loop $cates $cate}
+							<option {if $item['cate'] == $cate['id']}selected="selected"{/if} value='{$cate["id"]}'>{$cate['title']}</option>
+							{/loop}
+						</select>
+					</div>
+				</div>
+		<div class="form-group">
+             <label class="col-xs-12 col-sm-3 col-md-2 control-label"><font color="red">*</font>歌曲名称</label>
+             <div class="col-sm-9">
+              <input type="text" class="form-control" name="name" value="{$item['name']}">
+             </div>
+       </div>              <div class="form-group">             <label class="col-xs-12 col-sm-3 col-md-2 control-label">备选答案</label>             <div class="col-sm-9">				{loop unserialize($item['reback']) $r}				<input class="form-control reback" name="reback[]" value="{$r}" type="text">				{/loop}				<a class="btn btn-warning btn-sm" onclick="onAdd(this)"><i class="fa fa-plus"></i> 添加</a>				<div class="help-block">(选择模式可用)请确保备选答案与正确答案不相同！！  若想删除备选答案，清空内容即可</div>             </div>       </div>
+       <div class="form-group">
+             <label class="col-xs-12 col-sm-3 col-md-2 control-label">作者</label>
+             <div class="col-sm-9">
+              <input type="text" class="form-control" name="singer" value="{$item['singer']}">
+             </div>
+       </div>
+		<div class="form-group">
+             <label class="col-xs-12 col-sm-3 col-md-2 control-label"><font color="red">*</font>竞猜歌曲</label>
+             <div class="col-sm-9">
+              {php load()->func('tpl')}
+              {php echo tpl_form_field_audio('surl',$item['surl'])}
+             </div>
+       </div>	
+       <div class="form-group">
+             <label class="col-xs-12 col-sm-3 col-md-2 control-label">答案歌曲</label>
+             <div class="col-sm-9">
+              {php echo tpl_form_field_audio('ourl',$item['ourl'])}
+             </div>
+       </div>
+        <div class="form-group">
+             <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+             <div class="col-sm-9">
+             	<button class="btn btn-primary" type="submit" name="submit" value="提交">提交</button>
+             	<input type="hidden" name="token" value="{$_W['token']}">
+             </div>
+       </div>
+	</div>
+</div>
+</form>
+<script>function onAdd(obj){	$(obj).before('<input class="form-control reback" name="reback[]" type="text">');}
+function checksubmit(){
+	if($.trim($('input[name="name"]').val()) == ''){
+		alert('歌曲名称必须填写！');
+		return false;
+	}
+	if($.trim($('input[name="surl"]').val()) == ''){
+		alert('竞猜歌曲必须上传！');
+		return false;
+	}
+}
+</script>
+{/if}
+{template 'common/footer'}

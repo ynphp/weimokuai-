@@ -1,0 +1,318 @@
+<script type="text/javascript">
+$('.radioBtn').click(function(){
+	$('.radioBtn').removeClass('active');
+	$(this).addClass('active');
+	$('#song').val($(this).text());
+});
+
+	var submit = 0;
+	$('#btn_submit').click(function(){
+		if(submit > 0) return;
+		var inputs = $('#info').find('input');
+		for(var i = 0;i < inputs.length; i++ ){
+			if($.trim(inputs.eq(i).val()) == ''){
+				swal('请完善您的信息！','','warning');
+				return;
+			}
+		}
+		if($('#address').length > 0 && $.trim($('#address').val()) == ''){
+			swal('请完善您的信息！','','warning');
+			return;
+		}
+		submit++;
+		$.ajax({
+			url: '{php echo $this->createMobileUrl("info",array("pid"=>$player["id"]))}',
+			type:'post',
+			data:{realname:$('#realname').val(),mobile:$('#mobile').val(),qq:$('#qq').val(),email:$('#email').val(),address:$('#address').val()},
+			success : function(msg){
+				if(msg == "1"){
+					swal('信息提交成功！','赶快玩游戏赢大奖吧，亲！','success');
+					info = false;
+					$('#info').parent().hide();
+				}else{
+					swal(msg,'','error');
+					submit = 0;
+				}
+			},
+			error : function(){
+				swal('网络请求失败，请重试!','','error');
+			},
+		});
+	});
+
+document.getElementById('orginsong').addEventListener("ended", function() {
+	location.reload();//原歌曲放完后自动下一关
+}, false)
+document.getElementById('rhythm').addEventListener("canplay", function() {
+	$('.loading').hide();
+}, false)
+	
+function gameThrough(rank){
+	//爆机
+	swal({   
+		title: '恭喜你，通关啦！',   
+		text: "当前排名："+rank,
+		type: "success",   
+		showCancelButton: true,   
+		confirmButtonColor: "#DD6B55",   
+		confirmButtonText: "重新挑战",   
+		cancelButtonText: "取消",  
+		closeOnConfirm: false,   
+	},function(isConfirm){   
+		if (isConfirm) {   
+			swal({
+				title:'重新挑战将清零成绩！',
+				text: "你确定重新挑战吗？",   
+				type: "warning",   
+				showCancelButton: true,   
+				confirmButtonColor: "#DD6B55",   
+				confirmButtonText: "果断挑战",   
+				cancelButtonText: "取消",  
+			},function(isConfirm2){
+				if (isConfirm2) {   
+					location.href="{php echo $this->createMobileUrl('game',array('rid'=>$rid,'reset'=>1))}";
+				}else location.href="{php echo $this->createMobileUrl('index',array('rid'=>$rid))}";
+			});  
+		}else {     
+			location.href="{php echo $this->createMobileUrl('index',array('rid'=>$rid))}";
+		} 
+	});
+}
+
+$('#confirm').click(function(){
+	var song = $('#song').val();
+	if($.trim(song) == ''){
+		swal('请输入歌曲名！','','error');
+		return;
+	}
+{if !$rule['aconfirm']}		swal({   
+		title: song,   
+		text: "确定你的答案吗？",   
+		type: "warning",   
+		showCancelButton: true,   
+		confirmButtonColor: "#DD6B55",   
+		confirmButtonText: "确定",   
+		cancelButtonText: "取消",  
+		closeOnConfirm: false,   
+	},function(isConfirm){   
+		if (isConfirm) {   {/if}
+			sendRecordAjax({op:'listen2',time:(new Date().getTime() - startSecond)}); //发送聆听时间
+			stop2 = 1; //停止计时
+			swal({
+				title:'开门大吉...',
+				text: "",   
+				showConfirmButton: false 
+			});  
+			window.setTimeout(function(){
+				$('.input').hide();
+				if(!isEqual($('.song').find('label').text(),song)){
+					fail(0);
+				}else{
+					openDoor();
+				}
+			},1000);
+{if !$rule['aconfirm']}		}else {     
+			$('#song').focus();
+		} 
+	});{/if}
+});
+
+function isEqual(str1,str2){
+	if(str1.toLowerCase() == str2.toLowerCase()) return true; // 正确
+	else return false; // 错误
+}
+
+var clock = $('.clock').find('font');
+var stop1 = 0;
+var stop2 = 0;
+function countDown(){ //聆听时间的倒计时
+	var time = clock.text().split(':');
+	if(clock.text() == '00:00'){
+		answer();
+		return;
+	}
+	if(time[1] == '00'){
+		time[1] = '99';
+		time[0] = parseInt(time[0]) - 1;
+		if (time[0] < 10) {
+			time[0] = "0" + time[0];
+		}
+	}else{
+		time[1] = parseInt(time[1]) - 1;
+		if (time[1] < 10) {
+			time[1] = "0" + time[1];
+		}
+	}
+	clock.text(time[0]+":"+time[1]);
+	if(!stop1) window.setTimeout(countDown,10);
+}
+function countDown2(){
+	var time = clock.text().split(':');
+	if(clock.text() == '00:00'){
+		fail(1);
+		return;
+	}
+	if(time[1] == '00'){
+		time[1] = '99';
+		time[0] = parseInt(time[0]) - 1;
+		if (time[0] < 10) {
+			time[0] = "0" + time[0];
+		}
+	}else{
+		time[1] = parseInt(time[1]) - 1;
+		if (time[1] < 10) {
+			time[1] = "0" + time[1];
+		}
+	}
+	clock.text(time[0]+":"+time[1]);
+	if(!stop2) window.setTimeout(countDown2,10);
+}
+
+function answer(){
+	document.getElementById('rhythm').pause();
+	sendRecordAjax({op:'listen1',time:(new Date().getTime() - startSecond)}); //发送聆听时间
+	stop1 = 1;
+	$('.btn').hide();
+	swal({
+			title:'请准备答题...',
+			text: "",   
+			showConfirmButton: false 
+	});  
+	window.setTimeout(function(){
+		$('.input').show();
+		clock.text("{php echo date('s',$rule['limittime']).':00'}");
+		swal.close();
+		countDown2();
+		startSecond = new Date().getTime();
+	},2000);
+}
+
+function fail(index){
+	stop2 = 1;
+	var text = "很抱歉，答案错误...";
+	if(index == 1) text = "真可惜，时间到了...";
+	swal({
+		title:'答题失败！',
+		text: text, 
+		confirmButtonColor: "#DD6B55",   
+		confirmButtonText: "再来一次!",   
+		closeOnConfirm: false,
+		type:'error'
+	},function(){
+		location.reload();
+	}); 
+}
+var info = false;
+{if ($rule['isrealname'] && empty($player['realname']) || $rule['ismobile'] && empty($player['mobile']) || $rule['isqq'] && empty($player['qq']) || $rule['isemail'] && empty($player['email']) || $rule['isaddress'] && empty($player['address'])) && !$rule['isinfo2']}
+info = true;	
+{/if}
+var startSecond = 0;
+var down = false;
+$('#listen').click(function(){
+	if(down){
+		answer();
+		return;
+	}
+	{if $rule['starttime'] > time()}
+		swal('很抱歉，该活动还未开始！','请耐心等候活动开始吧……','error');
+		return;
+	{/if}
+	{if $rule['endtime'] <= time()}
+		swal('很抱歉，该活动已经结束！','下次活动记得来参加哦，亲！','error');
+		return;
+	{/if}
+	
+		{if empty($rule['describe_limit']) && !$follow}
+		{php $url = $this->module['config']['describeurl'];}
+			{if empty($url)}
+				$('#describe').show();
+				return;
+			{else}
+				alert('请先关注公众号！');
+				location.href='{$url}';	
+				return;
+			{/if}
+		{/if}
+	
+	if(OUT){
+		swal("{if $rule['outtips']}{$rule['outtips']}{else}很抱歉，你不能参与活动{/if}",'该活动限于{$rule["province"]}{$rule["city"]}{$rule["area"]}粉丝参加','error');
+		return;
+	}
+	if(info){
+		$('#info').parent().show();
+		return;
+	}	if(parseInt($('#times').text()) <= 0){				{if $rule['isscore']}//开启积分玩法			{if $mc['credit1'] > $rule['score']}//有积分			swal({					title:'',					text: '木有次数了,消耗{$rule['score']}积分继续玩!(PS:分享给好友可获得游戏次数哦)', 					confirmButtonColor: "#DD6B55",   					confirmButtonText: "继续玩!",   					closeOnConfirm: true,								showCancelButton: true,   				cancelButtonText: "取消", 					type:'warning'				},function(isconfirm){				console.log(isconfirm);				if(isconfirm){					start({score:1});				}			}); 			{else}//没积分			swal({								title:'',					text: '木有次数了,消耗{$rule['score']}积分继续玩!(PS:分享给好友可获得游戏次数哦)', 					confirmButtonColor: "#DD6B55",   					confirmButtonText: "赚积分!",   					closeOnConfirm: false,								showCancelButton: true,   				cancelButtonText: "取消", 					type:'warning'				},function(isconfirm){				if(isconfirm){					location.href = '{$rule['scoreurl']}';				}			}); 			{/if}		{else}		swal('木有游戏次数了！','分享给好友可获得游戏次数哦！','warning')		{/if}		return;
+	}
+	{if $level > $rule['totalsong']}
+	gameThrough(parseInt('{$rankNum}'));
+	return;
+	{/if}
+	start({});
+});function start(data){	down = true;	countDown();	startSecond = new Date().getTime();	document.getElementById('rhythm').play();	sendRecordAjax(data);}
+
+function sendRecordAjax(data){
+	$.ajax({
+		url: '{php echo $this->createMobileUrl("record",$params)}',
+		type:'post',
+		data:data,
+	});
+}
+var countdownFlag = 1;
+var now = new Date();
+{if $down}countDown3();{/if}
+function countDown3(){
+	var time = $('#countdown').text().split(':');
+	if($('#countdown').text() == '00:00'){
+		time = [{$rule["more_time"]},00];
+			//发请求增加次数并且重置最后时间
+			$.ajax({
+				url:'{php echo $this->createMobileUrl("times",array("pid"=>$player["id"]))}',
+				type:'post',
+			});
+			var times = parseInt($('#times').text()) + parseInt('{$rule["more_times"]}');
+			$('#times').text(times);
+			if(times > {$rule['more_num']} && "{$rule['more_type']}" == "1"){
+				$('#down').hide();
+				countdownFlag = 0;
+			}
+	}
+	now.setMinutes(time[0]);
+	now.setSeconds(time[1]);
+	now.setTime(now.getTime() - 1000);
+	$('#countdown').text(checkTime(now.getMinutes())+':'+checkTime(now.getSeconds()));
+	if(countdownFlag == 1) window.setTimeout(countDown3,1000);
+}
+function checkTime(i){
+	if (i < 10) {
+		i = "0" + i
+	}
+	return i
+}
+
+var OUT = false;
+{if !empty($rule['province'])}
+var geolocation = new BMap.Geolocation();
+geolocation.getCurrentPosition(function(r) {
+	var address = r.address;
+    if(address.province != '{$rule["province"]}' && address.province != '{$rule["province"]}市'){
+    	OUT = true;
+    }else{
+    	{if !empty($rule['city'])}
+	    	if(address.city != '{$rule["city"]}'){
+		    	OUT = true;
+		    }
+    	{/if}
+    	{if !empty($rule['area'])}
+	    	if(address.district != '{$rule["ciareaty"]}'){
+		    	OUT = true;
+		    }
+    	{/if}
+    }
+    if(OUT) swal("{if $rule['outtips']}{$rule['outtips']}{else}很抱歉，你不能参与活动{/if}",'该活动限于{$rule["province"]}{$rule["city"]}{$rule["area"]}粉丝参加','error');
+}, {
+    enableHighAccuracy: true
+});
+{/if}
+
+	{if $ios}$('.loading').hide();{/if}
+</script>

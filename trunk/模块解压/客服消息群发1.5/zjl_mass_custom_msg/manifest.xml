@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[客服消息群发]]></name>
+		<identifie><![CDATA[zjl_mass_custom_msg]]></identifie>
+		<version><![CDATA[1.5]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[客服消息群发]]></ability>
+		<description><![CDATA[利用客服消息接口,给48小时内有交互的用户,进行消息群发]]></description>
+		<author><![CDATA[柒|柒|源|码]]></author>
+		<url><![CDATA[http://H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="客服消息群发" do="mass" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE `ims_zjl_mass_custom_msg_options` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `weid` int(10) unsigned NOT NULL,
+  `add_time` int(11) NOT NULL,
+  `type` int(10) unsigned NOT NULL,
+  `options` text NOT NULL,
+  `success_count` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `cache_name` varchar(45) NOT NULL,
+  `thread_count` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_zjl_mass_custom_msg_thread_cache` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `tid` int(10) unsigned NOT NULL,
+  `add_time` int(11) NOT NULL,
+  `option_id` int(10) unsigned NOT NULL,
+  `options` longtext NOT NULL,
+  `success_count` int(11) NOT NULL DEFAULT '0',
+  `total` int(11) NOT NULL,
+  `thread_index` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[发图测年龄]]></name>
+		<identifie><![CDATA[howold]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[发送图片测试年龄、性别]]></ability>
+		<description><![CDATA[发送图片测试年龄、性别]]></description>
+		<author><![CDATA[柒|柒|源|码]]></author>
+		<url><![CDATA[http://H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="image" />
+		</subscribes>
+		<handles>
+			<message type="image" />
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="数据管理" do="manage" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+		CREATE TABLE IF NOT EXISTS `ims_qiyue_howold` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `uniacid` int(11) NOT NULL,
+		  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+		  `picurl` varchar(255) NOT NULL,
+		  `data` text NOT NULL,
+		  `addtime` int(10) NOT NULL,
+		  PRIMARY KEY (`id`),
+		  KEY `uniacid` (`uniacid`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+	]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
