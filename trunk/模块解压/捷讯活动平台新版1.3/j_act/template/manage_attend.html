@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>签到核销后台</title>
+<meta name="format-detection" content="telephone=no, address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link href="./resource/css/bootstrap.min.css" rel="stylesheet">
+<link href="./resource/css/font-awesome.min.css" rel="stylesheet">
+<link href="./resource/css/common.css" rel="stylesheet">
+<script src="{MODULE_URL}template/js/jquery-2.1.1.min.js"></script>
+<script src="{MODULE_URL}template/js/sweetalert.min.js"></script>
+<link type="text/css" rel="stylesheet" href="{MODULE_URL}template/js/sweetalert.css"/>
+</head>
+<style>
+html{height:100%;}
+body{height:100%;background:#FFF url({MODULE_URL}template/img/bg.jpg) no-repeat;background-size: 100% 100%;}
+.jpanel{border-radius:4px;padding: 10px;background: rgba(255,255,255,0.8);text-align: left;}
+.main{width:800px;margin:20px auto 0 auto;}
+#result_box div[class^="col-sm"]{padding-top:3px;padding-bottom:3px;}
+#prizelist_box td{ padding:5px 0;}
+#user_header img{ width:80%;}
+.jtable{display:table; width:100%;}
+.jrow{display:table-row;}
+.jcell{display:table-cell; vertical-align:middle; padding:5px;}
+#result_box td{ padding:5px;}
+</style>
+<body>
+<div class="main" style="padding:10px;">
+  <div class="panel panel-info">
+    <div class="panel-heading">数据统计</div>
+    <div class="panel-body"  style="height:10%;text-align:center">
+      <div class="form-group">
+        <div class="col-sm-3"><strong>报名人数</strong></div>
+        <div class="col-sm-3"><strong>入选人数</strong></div>
+        <div class="col-sm-3"><strong>签到/核销人数</strong></div>
+        <div class="col-sm-3"><strong>付款人数</strong></div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-3">{$count_alljoin} / {if $reply['join_num']}{$reply['join_num']}{else}不限{/if}</div>
+        <div class="col-sm-3">{$count_join_in} / {if $reply['pass_num']}{$reply['pass_num']}{else}不限{/if}</div>
+        <div class="col-sm-3">{$count_join_attend} / {php echo $count_alljoin-$count_join_attend}</div>
+        <div class="col-sm-3">{$count_join_pay}</div>
+      </div>
+    </div>
+  </div>
+    <div class="panel panel-success">
+      <div class="panel-heading">搜索</div>
+      <div class="panel-body">
+        <div class="col-sm-12">
+          <div class="input-group">
+            <input type="text" class="form-control" name="keyword" id="keyword" value="k9APe0WFumJzpHQkVUYfNmKWvBKXbamyEllBD7rhDIE91aq%2F8uKIlw" placeholder="请使用扫码器接入/或者输入电话号码">
+            <span class="input-group-btn">
+            <button class="btn btn-default" onClick="checkQrcode()" type="button">搜索</button>
+            </span> </div>
+        </div>
+      </div>
+    </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">结果</div>
+    <div class="panel-body" id="result_box">
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="140" rowspan="5" align="center" valign="top" id="header">&nbsp;</td>
+          <td width="10">&nbsp;</td>
+          <td><span class="label label-info label-lg">姓名：</span> <span class="label label-primary label-lg" id="realname"></span></td>
+          <td><span class="label label-info label-lg">电话：</span> <span class="label label-primary label-lg" id="mobile"></span></td>
+          <td><span class="label label-info label-lg">报名时间：</span> <span class="label label-primary label-lg" id="createtime"></span></td>
+        </tr>
+        <tr>
+          <td width="10">&nbsp;</td>
+          <td><span class="label label-danger label-lg">审核状态：</span> <span class="label label-primary label-lg" id="status"></span></td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="10">&nbsp;</td>
+          <td><span class="label label-danger label-lg">是否支付：</span> <span class="label label-primary label-lg" id="paystatus"></span></td>
+          <td><span class="label label-info label-lg">付款金额：</span> <span class="label label-success label-lg" id="fee"></span></td>
+          <td><span class="label label-info label-lg">付款时间：</span> <span class="label label-success label-lg" id="paytime"></span></td>
+        </tr>
+        <tr>
+          <td width="10">&nbsp;</td>
+          <td><span class="label label-danger label-lg">签到状态：</span> <span class="label label-primary label-lg" id="attend"></span></td>
+          <td><span class="label label-info label-lg">签到时间：</span> <span class="label label-primary label-lg" id="endtime"></span></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="10">&nbsp;</td>
+          <td><span class="label label-danger label-lg">退款状态：</span> <span class="label label-primary label-lg" id="refundstatus"></span></td>
+          <td><span class="label label-info label-lg">退款金额：</span> <span class="label label-primary label-lg" id="refundfee"></span></td>
+          <td>&nbsp;</td>
+        </tr>
+        
+        <tr>
+          <td align="center" id="nickname">&nbsp;</td>
+          <td width="10">&nbsp;</td>
+          <td colspan="3" id="parama">
+          	{loop $field $index $val}
+              <div><span class="label label-primary">{php echo $index}:</span>
+              {if $val==2}
+              <img id="parama{php echo $index}" src="" width="40" height="40" class="viewimg"/>
+              {else}
+              <span id="parama{php echo $index}"></span>
+              {/if}
+              </div>
+            {/loop}
+          </td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td width="10">&nbsp;</td>
+          <td colspan="3"><span class="label label-primary label-lg">回调信息：</span><span id="reloadmsg"></span></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td width="10">&nbsp;</td>
+          <td colspan="3"><span class="label label-primary label-lg">备注：</span><span id="remark"></span></td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td colspan="3"><button class="btn btn-danger btn-sm" type="button" id="btnsubmit" disabled>确认签到</button> <button class="btn btn-danger btn-sm" type="button" id="btnrefune" disabled>退款</button></td>
+        </tr>
+      </table>
+
+    </div>
+  </div>
+</div>
+<script>
+$(".viewimg").on('click',function(){
+	var _src=$(this).attr("src");
+	if(!_src)return;
+	swal({title:"<img src='"+_src+"' style='width:100%'/>",html:true});
+})
+function checkQrcode(){
+	var _val=$("#keyword").val();
+	if(_val.length<1){
+		swal("请输入内容");
+		return false;
+	}
+	swal("正在查询....");
+	$.post("{php echo $this->createWebUrl('manage_attend',array('op'=>'webscancode'))}",{code:_val,aid:"{php echo $aid}"},function(data){
+		$("#keyword").val("");
+		if(data.success){
+			swal.close();
+			var _user=data.item;
+			var _uid=_user['id'];
+			for(i in _user){
+				switch(i){
+					case "avatar":
+						$("#header").html("<img src='"+_user['avatar']+"' width='120'/>");
+					break;
+					case "status":
+						if(parseInt(_user[i])){
+							$("#status").removeClass("label-primary").addClass("label-success").html("通过审核");
+						}else{
+							$("#status").removeClass("label-success").addClass("label-primary").html("审核中");
+						}
+					break;
+					case "paystatus":
+						if(parseInt(_user[i])){
+							$("#"+i).removeClass("label-primary").addClass("label-success").html("已支付");
+						}else{
+							$("#"+i).removeClass("label-success").addClass("label-primary").html("未支付");
+						}
+					break;
+					case "attend":
+						if(parseInt(_user[i])){
+							$("#"+i).attr("class","label label-primary label-lg").html("已签到");
+							$("#btnsubmit").attr({"disabled":"disabled","onclick":""});
+						}else{
+							$("#"+i).attr("class","label label-danger label-lg").html("首次签到");
+							$("#btnsubmit").removeAttr("disabled").attr("onclick","submitAttend("+_uid+")");
+						}
+					break;
+					case "refundstatus":
+						if(parseInt(_user[i])){
+							$("#"+i).attr("class","label label-primary label-lg").html("已退款");
+							$("#btnrefune").removeAttr("disabled").attr("onclick","submitRefuse("+_uid+")");
+						}else{
+							$("#"+i).attr("class","label label-danger label-lg").html("");
+							$("#btnrefune").attr({"disabled":"disabled","onclick":""});
+						}
+					break;
+					case "parama":
+						if(_user[i]){
+							for(j in _user[i]){
+								if($("#parama"+j).attr("class")=="viewimg"){
+									$("#parama"+j).attr("src",_user[i][j]);
+								}else{
+									$("#parama"+j).text(_user[i][j]);
+								}
+							}
+						}
+					break;
+					default:
+					$("#"+i).html(_user[i]);
+				}
+			}
+		}else{
+			swal(data.msg);
+		}
+	},'json');
+}
+
+function submitAttend(id){
+	if(!id){
+		swal("ID号缺失");
+		return ;
+	}
+	if(!confirm("确认签到？"))return;
+	$.post("{php echo $this->createWebUrl('manage_attend',array('op'=>'userattend','aid'=>$aid))}",{"uid":id},function(data){
+		if(data.success){
+			$("#attend").attr("class","label label-primary label-lg").html("已签到");
+			$("#endtime").html(data.endtime);
+			$("#btnsubmit").attr("disabled").removeAttr("onclick");
+			if(data.refune){
+				$("#btnrefune").attr("disabled").removeAttr("onclick");
+				$("#refundfee").attr("class","label label-primary label-lg").html(data.fee);
+			}else{
+				if(data.msg)swal(data.msg);
+			}
+		}else{
+			swal(data.msg);
+		}
+	},"json");
+}
+function submitRefuse(id){
+	if(!id){
+		swal("ID号缺失");
+		return ;
+	}
+	if(!confirm("确认退款？"))return;
+	$.post("{php echo $this->createWebUrl('manage_attend',array('op'=>'userrefune','aid'=>$aid))}",{"uid":id},function(data){
+		if(data.success){
+			$("#refundstatus").attr("class","label label-primary label-lg").html("已退款");
+			$("#refundfee").attr("class","label label-primary label-lg").html(data.fee);
+			$("#btnrefune").attr("disabled").removeAttr("onclick");
+		}else{
+			swal(data.msg);
+		}
+	},"json");
+}
+</script>

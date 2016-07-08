@@ -1,0 +1,238 @@
+﻿{template 'common/header'}
+<link href="{$_W['siteroot']}/addons/tiger_jifenbao/js/bootstrap.file-input.css" rel="stylesheet">
+<script type="text/javascript" src="{$_W['siteroot']}/addons/tiger_jifenbao/js/bootstrap.file-input.js"></script>
+<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+<div class="panel panel-default">
+   <div class="panel-heading">
+      兑换红包设置
+   </div>
+   <div class="panel-body">
+      <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">微信支付证书</label>
+            <div class="col-sm-9 col-xs-12">
+                <div class="col-md-2" style="padding:5px;"><span class="label {if $settings['nbfwxpaypath'] == ""}label-default{else}label-info{/if}"> {if $settings['nbfwxpaypath'] == ""}未上传{else}已上传{/if}</span><br/></div>
+                <input type="file" class="custom-file-input" name="nbfwpaycert">
+                <div class="help-block">请上传您的微信支付证书，文件格式应为<code>zip</code><br>内部文件应包含apiclient_cert.pem，apiclient_key.pem，rootca.pem，apiclient_cert.p12等几个文件</div>
+            </div>
+      </div>
+
+      <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否借权</label>
+                    <div class="col-xs-12 col-sm-9">
+                       <label class="checkbox-inline">
+                          <input type="radio" name="jiequan" id="optionsRadios4" value="0" {if $settings['jiequan'] == 0}checked{/if}> 关闭
+                       </label>
+                       <label class="checkbox-inline">
+                          <input type="radio" name="jiequan" id="optionsRadios4" value="1" {if $settings['jiequan'] == 1}checked{/if}> 开启
+                       </label>
+                        <span class="help-block" style="color:#ff0000">如果要使用兑换红包必须开启</span>
+                    </div>
+       </div>
+
+      <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">AppID(应用ID)</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <input type="text" name="appid" value="{$settings['appid']}" class="form-control" placeholder="微信公众平台APPID" >
+                        <span class="help-block">微信公众平台APPID</span>
+                    </div>
+       </div>
+       <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">AppSecret(应用密钥)</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" value="{$settings['secret']}" class="form-control" name="secret">
+                 <div class="help-block">认证服务号secret</div>
+            </div>
+        </div>
+
+      <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">MCHID(商户号)</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <input type="text" name="mchid" value="{$settings['mchid']}" class="form-control" placeholder="微信支付商户号(MchId)" >
+                        <span class="help-block">输入微信MCHID参数</span>
+                    </div>
+       </div>
+
+       <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">PARTNERKEY</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <input type="text" name="apikey" value="{$settings['apikey']}" class="form-control" placeholder="商户支付密钥(API密钥)" >
+                        <span class="help-block">商户支付密钥(API密钥)</span>
+                    </div>
+       </div>
+
+       <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">积分不够跳转链接</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <input type="text" name="szurl" value="{$settings['szurl']}" class="form-control" placeholder="http://去赚取更多积分" >
+                        <span class="help-block">积分商城如果粉丝积分不够，提示，去赚取更多积分，连接内容可以写怎么赚取积分的方法</span>
+                    </div>
+       </div>
+       <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">积分商城整体颜色</label>
+                <div class="col-sm-9 col-xs-12">
+                    {php echo tpl_form_field_color('szcolor',$settings['szcolor'])}
+                    <span class="help-block">主要是按钮和文字的颜色</span>
+                </div>
+       </div>
+       <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">积分商城是否开启head</label>
+            <div class="col-xs-12 col-sm-9">
+                <label class="radio-inline"><input type="radio" name="head" value="1" 
+                 {if $settings['head']==1} checked="checked" {/if}>是</label>
+                <label class="radio-inline"><input type="radio" name="head" value="0"
+                 {if empty($settings['head'])} checked="checked" {/if}>否</label>
+                  <span class="help-block">开启后就会有排行榜一样的头部</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">排行榜选择</label>
+            <div class="col-xs-12 col-sm-9">
+                <label class="radio-inline"><input type="radio" name="paihang" value="1" 
+                 {if $settings['paihang']==1} checked="checked" {/if}>积分/余额兑换排行榜</label>
+                <label class="radio-inline"><input type="radio" name="paihang" value="0"
+                 {if empty($settings['paihang'])} checked="checked" {/if}>积分/余额排行榜</label>
+                  <span class="help-block">活动刚开始可以用(积分/余额排行榜),活动开始一段时间了，可以用(积分/余额兑换排行榜)可以增加平台活动的真实性效果会更好</span>
+            </div>
+        </div>
+        <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">类型自定义</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <input type="text" name="hztype" value="{$settings['hztype']}" class="form-control" placeholder="如：积分" >
+                        <span class="help-block">如：积分、欢乐豆</span>
+                    </div>
+       </div>
+       <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">版权设置</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <input type="text" name="copyright" value="{$settings['copyright']}" class="form-control" placeholder="不设置默认公众号名称" >
+                        <span class="help-block">不设置默认公众号名称</span>
+                    </div>
+       </div>
+
+   </div>
+</div>
+<div class="panel panel-default">
+   <div class="panel-heading">
+      地区限制
+   </div>
+   <div class="panel-body">
+      <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">地区定位类型</label>
+            <div class="col-xs-12 col-sm-9">
+                <label class="radio-inline"><input type="radio" name="locationtype" value="3" 
+                 {if $settings['locationtype']==3} checked="checked" {/if}>不限制</label>
+                <label class="radio-inline"><input type="radio" name="locationtype" value="0"
+                 {if empty($settings['locationtype'])} checked="checked" {/if}>ip定位</label>
+                <label class="radio-inline"><input type="radio" name="locationtype" value="1" 
+                 {if $settings['locationtype']==1} checked="checked" {/if}>gps定位</label>
+                 <label class="radio-inline"><input type="radio" name="locationtype" value="2" 
+                 {if $settings['locationtype']==2} checked="checked" {/if}>两者同时定位(两个获取到的地址一样能才参加)</label>
+                
+                  <span class="help-block">在非wifi网络下，利用ip地址定位地区的话，不准确。利用gps定位更准确，不过页面会弹出获取用户地理信息的提示</span>
+            </div>
+        </div>
+      <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">地区限制</label>
+        <div class="col-xs-12 col-sm-9">
+            <input type="text" name="city" value="{$settings['city']}" class="form-control" placeholder="杭州市,北京市" >
+            <span class="help-block">输入杭州市就杭州地区的能参加,多地区请用 , 逗号隔开</span>
+        </div>
+     </div>
+   </div>
+</div>
+<div class="panel panel-default">
+   <div class="panel-heading">
+      <h3 class="panel-title">
+         余额提现设置
+      </h3>
+   </div>
+   <div class="panel-body">
+       <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">一天最多提现次数</label>
+            <div class="col-sm-9 col-xs-12">
+                    <input min="0" type="text" class="form-control" placeholder="例如：2" name="day_num" value="{$settings['day_num']}">
+                    <div class="help-block">1天内最多提现几次（从0点开始计算）</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">一人提现总额</label>
+            <div class="col-sm-9 col-xs-12">
+                    <input min="0" type="text" class="form-control" placeholder="例如:320" name="rmb_num" value="{$settings['rmb_num']}">
+                    <div class="help-block">一个粉丝最多提现总额</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">提现规则(内容介绍)</label>
+            <div class="col-sm-9 col-xs-12">
+                    <textarea style="height:150px;" name="txinfo" class="form-control" cols="60">{$settings['txinfo']}</textarea>
+                    <div class="help-block"><code>&lt;br&gt;</code>为换行，这里写规则，如，每个人一天可以提现几次等！</div>
+            </div>
+        </div>
+   </div>
+</div>
+<div class="panel panel-default">
+   <div class="panel-heading">
+      关注提醒设置
+   </div>
+   <div class="panel-body">
+      <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">自定义粉丝基数</label>
+                    <div class="col-sm-9 col-xs-12">
+                            <input min="0" type="number" class="form-control" placeholder="" name="tiger_jifenbao_fansnum" value="{$settings['tiger_jifenbao_fansnum']}">
+                            <div class="help-block">自定义粉丝基数+现有的微信粉丝数量的总和</div>
+                    </div>
+        </div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">关注提示信息</label>
+			<div class="col-sm-9 col-xs-12">
+				<textarea style="height:150px;" name="tiger_jifenbao_usr" class="form-control" cols="60">{$settings['tiger_jifenbao_usr']}</textarea>
+                <input type="text" name="reply" id="reply">
+	            <a href="javascript:" id="emotion">QQ表情</a>
+				<div class="help-block" style="line-height:30px;">
+                <b>参数设置：</b>
+                <br>认证订阅号设置：#领取积分#
+                <br>链接设置例如:<code>&lt;a href="#领取积分#"&gt;领取积分&lt;/a&gt;</code>
+                <br>粉丝昵称：#昵称#
+                <br>粉丝姓别：#性别#
+                <br>粉丝积分：#积分#
+                <br>粉丝余额：#余额#
+                <br>公众号名称：#公众号名称#
+                <br>虚拟总粉丝：#假粉丝数# (粉丝基数+微信系统里面的粉丝总数)
+                <br>国家：#国家#
+                <br>省份：#省#
+                <br>市/县：#市#
+                <br>链接:<code>&lt;a href="http://www.baidu.com"&gt;点击进入&lt;/a&gt;</code></div>
+			</div>
+		</div>
+        <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">例如：</label>
+			<div class="col-sm-9 col-xs-12">
+				<textarea style="height:150px;" class="form-control" cols="60">#昵称#你好
+你是#国家#-#省#-#市#的粉丝
+你是第#假粉丝数#位关注者
+感谢关注#公众号名称#！
+<a href="http://www.baidu.com">免费兑换礼品</a></textarea>
+<div class="help-block">表情获取地址：http://bj.96weixin.com/emoji/</div>
+			</div>
+	  </div>
+        <div class="form-group">
+			<div class="col-sm-10">
+				<input type="hidden" name="token" value="{$_W['token']}" /> <input
+					name="submit" value="submit" type="hidden" />
+				<hr />
+				<button class="btn btn-primary" type="submit">提交</button>
+			</div>
+		</div>
+
+   </div>
+</div>
+</form>
+
+<script>
+require(['jquery','util'], function($, util){
+	$(function(){
+		util.emotion($('#emotion'), $('#reply'));
+	});
+});
+</script>
+{template 'common/footer'}

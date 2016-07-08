@@ -1,0 +1,167 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+  <li {if $operation == 'display'}class="active"{/if}><a href="#">评论管理</a></li>
+</ul>
+<script>
+require(['bootstrap'],function($){
+	$('.btn,.tips').hover(function(){
+		$(this).tooltip('show');
+	},function(){
+		$(this).tooltip('hide');
+	});
+});
+</script>
+<style>
+.category td a{ margin-bottom:5px;}
+.grade{color:#999;}
+.red{color:#F00}
+.green{color:#0F0}
+.jtable{display:table; width:100%;}
+.jrow{display:table-row;}
+.jcell{display:table-cell; vertical-align:middle;}
+.jcell-1{ width:10%}
+.jcell-2{ width:20%}
+.jcell-3{ width:30%}
+.jcell-4{ width:40%}
+.jcell-5{ width:50%}
+.jcell-6{ width:60%}
+.jcell-7{ width:70%}
+.jcell-8{ width:80%}
+.jcell-9{ width:90%}
+.infobody div{line-height:24px;}
+.border{ border-bottom:#CCC 1px solid; padding:5px}
+.viewimg{ cursor:pointer}
+.jtablestyle{overflow:visible; word-break:break-all; text-overflow:visible;white-space:normal}
+#msgrecord .msglist{padding:10px; margin:10px 0; border:1px solid #CCC; background:#F7F7F7; border-radius:8px; text-align:left;}
+#msgrecord .msglist h2{ font-size:12px; line-height:24px; border-bottom:#CCC 1px dashed; margin:0; text-align:center; margin-bottom:5px;}
+.j_menu{position:relative;}
+</style>
+{if $operation=='display'}
+<script language="javascript" src="../addons/j_securitycode/template/js/bootstrap-tooltip.js"></script>
+<script language="javascript" src="../addons/j_securitycode/template/js/bootstrap-popover.js"></script>
+<script>
+$(function () {
+  $('[data-toggle="popover"]').popover();
+})
+</script>
+<div class="main">
+  <form action="" class="form-horizontal form">
+    <div class="panel panel-default">
+      <div class="panel-heading"> {$reply['title']} </div>
+      <div class="panel-body tl">
+        <div class="form-group">
+          <div class="col-sm-12 col-xs-12 form-inline">
+          <select name="rid" class="form-control" onChange="jumpto()">
+          	<option value="0">选择活动</option>
+            {loop $replylist $row}
+            <option value="{$row['id']}" {if $row['id']==$_GPC['aid']}selected{/if}>{$row['title']}</option>
+            {/loop}
+          </select>
+          <button disabled class="btn btn-primary" type="button">评论总数：<span class="badge">{$total}</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form action="" class="form-horizontal form">
+  <input type="hidden" name="c" value="site" />
+  <input type="hidden" name="a" value="entry" />
+  <input type="hidden" name="m" value="j_act" />
+  <input type="hidden" name="aid" value="{php echo $rid}" />
+  <input type="hidden" name="do" value="discuz" />
+    <div class="panel panel-default">
+      <div class="panel-body tl">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关键字</label>
+          <div class="col-xs-12 col-sm-8 col-lg-9">
+            <input class="form-control" name="keyword" type="text" value="{$_GPC['keyword']}">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">&nbsp;</label>
+          <div class="col-xs-12 col-sm-8 col-lg-9 form-inline">
+            <select class="form-control" name="status">
+            	<option value="0">状态</option>
+                <option value="1" {if $_GPC['status']==1} selected="selected"{/if}>待审核</option>
+                <option value="2" {if $_GPC['status']==2} selected="selected"{/if}>已审核</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">&nbsp;</label>
+          <div class=" col-xs-12 col-sm-2 col-lg-2">
+            <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="category">
+    <form action="" method="post" onsubmit="return formcheck(this)">
+      <div class="panel panel-default">
+        <div class="panel-body table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th style="width:80px">选择</th>
+                <th>活动名称</th>
+                <th>头像</th>
+                <th>内容</th>
+                <th>状态</th>
+                <th style="text-align:right">操作</th>
+              </tr>
+            </thead>
+            {php $i=1;}
+            {loop $list $row}
+            <tbody>
+            <tr >
+              <td><input type="checkbox" name="select[{$row['id']}]" value="{$row['id']}" /> {php echo $i+$start}</td>
+              <td>{php echo $actlist[$row['aid']]}</td>
+              <td><img src="{$row['avatar']}" width="80" style="max-height:80px;"/><br>{$row['nickname']}</td>
+              <td><textarea class="form-control" name="content[{$row['id']}]">{$row['content']}</textarea></td>
+              <td>{if $row['status']==0}<span class="label label-default">待审核</span>{else}<span class="label label-success">已审核</span>{/if}</td>
+              <td style="text-align:right; overflow:visible">
+              {if !$row['status']}
+              <a href="{php echo $this->createWebUrl('discuz', array('op'=>'in','uid'=> $row['id'],'aid'=>$row['aid']))}" class="btn btn-sm btn-primary"><i class="fa fa-check"/></i> 审核</a>
+              {else}
+              <a href="{php echo $this->createWebUrl('discuz', array('op'=>'out','uid'=> $row['id'],'aid'=>$row['aid']))}" class="btn btn-sm btn-default"><i class="fa fa-minus"/></i> 取消审核</a>
+              {/if}
+              <a href="{php echo $this->createWebUrl('discuz', array('op'=>'delete','uid'=>$row['id'],'aid'=>$row['aid']))}" class="btn btn-sm btn-danger" onclick="return confirm('确认删除吗，删除后，客户可以重新报名？');return false;"><i class="fa fa-trash-o"/></i> 删除</a>
+              </td>
+            </tr>
+            {php $i++}
+            {/loop}
+            </tbody>
+            <tr>
+            	<td colspan="5">{$pager}</td>
+            </tr>
+            <tr>
+              <td style="width:60px;" class="row-first"><input type="checkbox" onclick="selectall(this)"/></td>
+              <td colspan="4"><input type="submit" value="批量审核" name="plin" class="btn btn-primary" /> <input type="submit" value="批量取消审核" name="plout" class="btn btn-danger" /> <input type="submit" name="pldeal" value="批量修改" class="btn btn-info" /> <input type="hidden" name="token" value="{$_W['token']}" /></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script language="javascript">
+function jumpto(){
+	var _rid=$("select[name='rid'] option:selected").val();
+	location.href="{php echo $this->createWebUrl('discuz')}&aid="+_rid;
+}
+function selectall(obj){
+	if(obj.checked==true){
+	   $("input[name^='select']").each(function(){
+		  $(this).attr("checked",true);
+	   });
+	}else{
+		$("input[name^='select']").each(function(){
+		  $(this).attr("checked",false);
+	    });
+	}
+}
+</script>
+
+{/if}
+{template 'common/footer'} 

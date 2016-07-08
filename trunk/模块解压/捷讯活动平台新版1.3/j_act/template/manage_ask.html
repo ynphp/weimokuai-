@@ -1,0 +1,130 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+  <li {if $operation == 'post'}class="active"{/if}><a href="{php echo $this->createWebUrl('manage_ask', array('op' => 'post','aid' => $aid))}">管理活动</a></li>
+  <li {if $operation == 'asklist'}class="active"{/if}><a href="{php echo $this->createWebUrl('manage_ask', array('op' => 'asklist','aid' => $aid))}">内容列表</a></li>
+</ul>
+<script language="javascript">
+require(['bootstrap'],function($){
+	$('.btn,.tips').hover(function(){
+		$(this).tooltip('show');
+	},function(){
+		$(this).tooltip('hide');
+	});
+});
+</script>
+
+{if $operation == 'post'}
+<style>
+.jpanel .panel-heading {position:relative;}
+.jpanel .panel-collapse {width:50px;height:38px;line-height:38px;position:absolute;top:0;right:0;color: #CCC;text-align: center;background: #EEE;border-left: 1px #DDD solid;}
+</style>
+<div class="main">
+  <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+    <input type="hidden" name="aid" value="{php echo $aid}" />
+    <div class="panel panel-default jpanel">
+      <div class="panel-heading"> 提问管理 </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">扩展功能</label>
+          <div class="col-sm-9"> 
+            <a href="{php echo $this->createWebUrl('manage_ask', array('aid' => $aid,'op'=>'display'))}" class="btn btn-default" target="_blank">大屏幕</a>
+            <a href="{php echo $this->createWebUrl('manage_ask', array('aid' => $aid,'op'=>'clear'))}" class="btn btn-danger" onclick="return confirm('确认清空提问数据缓存吗？删除后不可恢复');return false;">清空缓存</a>
+          </div>
+        </div>
+      </div>
+      <div class="panel-heading">
+        <h4 class="panel-title">核心设置</h4>
+        <a class="panel-collapse" data-toggle="collapse" href="#jframe-2"> <i class="fa fa-chevron-circle-down"></i> </a> </div>
+      <div class="panel-body collapse in" id="jframe-2">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">标题</label>
+          <div class="col-sm-9">
+            <input type="text" value="{$item['title']}" class="form-control" name="title" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+          <div class="col-sm-9">
+            <label class="radio-inline">
+              <input type="radio" name="status" value="1" {if $item['status'] == 1} checked{/if} />
+              进行中</label>
+            <label class="radio-inline">
+              <input type="radio" name="status" value="2" {if $item['status'] == 2} checked{/if} />
+              暂停</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">背景图</label>
+          <div class="col-sm-9">
+            {php echo tpl_form_field_image('bg', $item['bg'])}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">每人可提问次数</label>
+          <div class="col-sm-9 form-inline">
+            <div class="input-group ">
+              <input type="text" value="{php echo intval($item['sendnum']) ? intval($item['sendnum']) : 1}" style="width:80px" class="form-control" name="sendnum">
+              <span class="input-group-addon">次</span> </div>
+            <div class="help-block">每人可提问次数，最少值为1</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">提问后提示</label>
+          <div class="col-sm-9">
+            <input type="text" value="{$item['answer']}" class="form-control" name="answer" >
+            <div class="help-block">提问后提示</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-xs-12">
+      <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+      <input type="hidden" name="token" value="{$_W['token']}" />
+    </div>
+  </form>
+</div>
+{elseif $operation == 'asklist'}
+<div class="main">
+  <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{php echo $id}" />
+    <input type="hidden" name="aid" value="{php echo $aid}" />
+    <div class="panel panel-default jpanel">
+      <div class="panel-heading">
+        <h4 class="panel-title">核心设置</h4>
+      </div>
+      <div class="panel-body collapse in" id="jframe-2">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">标题</label>
+          <div class="col-sm-9">
+            <input type="text" value="{$item['title']}" class="form-control" name="title" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">提问号</label>
+          <div class="col-sm-9 form-inline">
+            <input type="text" value="{php echo intval($item['votekey']) ? intval($item['votekey']) : 1}" style="width:80px" class="form-control" name="votekey" >
+            <div class="help-block">既是排序号，也是用于提问的提问号，提问号不能重复！！！排序由小到大</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">提问小图</label>
+          <div class="col-sm-9">{php echo tpl_form_field_image('thumb', $item['thumb']);}
+            <div class="help-block">大小建议：200*200，必须是正方形图片</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动简介</label>
+          <div class="col-sm-9"> {php echo tpl_ueditor('description', $item['description']);}
+            <div class="help-block">提问项目介绍</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-xs-12">
+      <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+      <input type="hidden" name="token" value="{$_W['token']}" />
+    </div>
+  </form>
+</div>
+{/if} 
+{template 'common/footer'} 

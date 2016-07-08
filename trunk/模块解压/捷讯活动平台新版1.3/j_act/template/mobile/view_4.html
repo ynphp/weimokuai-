@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>{$reply['title']}</title>
+	<meta name="format-detection" content="telephone=no, address=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<link href="./resource/css/bootstrap.min.css" rel="stylesheet">
+	<link href="./resource/css/font-awesome.min.css" rel="stylesheet">
+	<link href="./resource/css/animate.css" rel="stylesheet">
+	<link href="./resource/css/common.css" rel="stylesheet">
+    {php echo register_jssdk(false);}
+	<script src="{MODULE_URL}template/js/jquery-2.1.1.min.js"></script>
+    <link href="{MODULE_URL}template/mobile/css.css?{TIMESTAMP}" rel="stylesheet">
+    <script src="{MODULE_URL}template/js/sweetalert.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="{MODULE_URL}template/js/sweetalert.css"/>
+</head>
+<body>
+<style>
+#j_content{ padding:10px;}
+</style>
+<Div class="header">
+  <div class="box">
+    <div class="boxsize-2"><A href="{php echo $this->createMobileUrl('index')}"><i class="fa fa-angle-left" style="font-size:18px;font-weight:bold"></i></A></div>
+    <div class="boxsize-8">{php echo $m_title}</div>
+    <div class="boxsize-2"><A href="{php echo $this->createMobileUrl('member')}"><i class="fa fa-user" style="font-size:18px; "></i></A></div>
+  </div>
+</Div>
+<div class="fixed_first">&nbsp;</div>
+<article id="j_content">{$reply['info']}</article>
+<script language="javascript">
+//-------------//
+wx.ready(function () {
+	sharedata = {
+		title: "{$reply['title']}",
+		desc: "{$reply['description']}",
+		imgUrl:"{$_W['attachurl']}{$reply['sharecover']}",
+		link: "{$_W['siteroot']}{php echo $this->createMobileUrl('view',array('id'=>$id,'fid'=>$fans['id']))}",
+		success: function(){},
+		cancel: function(){}
+	};
+	wx.onMenuShareAppMessage(sharedata);
+	wx.onMenuShareTimeline(sharedata);
+	wx.onMenuShareQQ(sharedata);
+	wx.onMenuShareWeibo(sharedata);
+});
+</script>

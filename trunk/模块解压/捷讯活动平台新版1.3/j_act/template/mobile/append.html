@@ -1,0 +1,279 @@
+{template 'header'}
+<style>
+.panel-body img{ max-width:100%;}
+.panel-body h1,h2,h3{ font-size:18px; font-weight:bolder}
+.userlist{ padding:0;}
+.userlist ul ,.userlist ul li{ list-style:none; margin:0; padding:0;}
+.userlist ul li{ border-bottom:1px solid #CCC; padding:5px;}
+.userlist ul li:last-child{ border:none;}
+.userlist ul li .row div{ padding-left:0; padding-right:0;}
+.userlist ul li .row div:last-child{text-align:right;}
+.grade{color:#999}
+.border{ border-bottom:#DDD 1px solid;}
+.infobody div{ padding:5px 0;}
+.mainbox{ padding:10px}
+</style>
+<Div class="header">
+  <div class="box">
+    <div class="boxsize-2"><A href="javascript:history.back()"><i class="fa fa-angle-left"></i></A></div>
+    <div class="boxsize-8">手机核销</div>
+    <div class="boxsize-2"><A href="javascript:location.reload()"><i class="fa fa-refresh"></i></A></div>
+  </div>
+</Div>
+
+<div class="fixed_first">&nbsp;</div>
+<div class="mainbox">
+	<a href="javascript:qrScan()" class="btn btn-success btn-block">启动扫描</a>
+</div>
+<div class="mainbox">
+  <div class="panel panel-info">
+    <div class="panel-heading">活动签到二维码</div>
+    <div class="panel-body text-center">
+    	<img src='".$codename."' style="width:100%;" onerror="this.style.display='none'"/>
+    </div>
+  </div>
+  <div class="panel panel-info">
+    <div class="panel-heading">报名情况</div>
+    <div class="panel-body text-center">
+    	<span class="label label-info">报名：{php echo count($alljoiner)}</span>
+        <span class="label label-primary">审核：{php echo $userAry[$row['aid']]['in']}</span>
+        <span class="label label-success">签到：{php echo $userAry[$row['aid']]['attend']}</span>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">参与成员列表</div>
+    <div class="panel-body userlist">
+      <ul>
+      	{php $i=1;}
+      	{loop $list $row}
+        <li class="box">
+          <div class="boxsize-2">{php echo $i}</div>
+          <div class="boxsize-2">
+          <img src="{$row['avatar']}" width="50" height="50" class="viewimg tips" onerror="this.src='./resource/images/nopic-small.jpg'"/>
+          </div>
+          <div class="boxsize-2">
+          {$row['realname']}
+          <p>{if $row['status']==0}<span class="label label-default">审核</span>{elseif $row['status']==1}<span class="label label-success">通过</span>{/if}</p>
+          
+          </div>
+          <div class="boxsize-4">
+          <small>{$row['nickname']}</small>
+          <p>{if $row['attend']==0}<span class="label label-default">未签</span>{elseif $row['attend']==1}<span class="label label-success">签到</span>{/if}</p>
+          </div>
+          <div class="boxsize-2 text-right">
+          <div style="margin-bottom:5px"><a href="tel:{$row['mobile']}" class="btn btn-xs btn-info"><i class="fa fa-phone"></i></a></div>
+          <div><a href="javascript:showDetail({$row['id']},0)" class="btn btn-xs btn-info"><i class="fa fa-eye"></i></a></div>
+          </div>
+        </li>
+        {php $i++}
+        {/loop}
+      </ul>
+      {if $allpage>1}
+      	<button type="button" id="nextpages" class="btn btn-info btn-block" onClick="nextpage()">加载下一页</button>
+      {/if}
+    </div>
+  </div>
+</div>
+<!--窗口-->
+<div class="modal" id="myModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">人员信息</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="jtable infobody">
+        	<div class="jrow">
+              <div class="jcell jcell-3 grade border">昵称</div>
+              <div class="jcell jcell-7 text-right border" id="single_nickname"></div>
+            </div>
+            <div class="jrow">
+              <div class="jcell jcell-3 grade border">姓名</div>
+              <div class="jcell jcell-7 text-right border" id="single_realname"></div>
+            </div>
+            <div class="jrow">
+              <div class="jcell jcell-3 grade border">性别</div>
+              <div class="jcell jcell-7 text-right border" id="single_sex"></div>
+            </div>
+            <div class="jrow">
+              <div class="jcell jcell-3 grade border">电话</div>
+              <div class="jcell jcell-7 text-right border" id="single_mobile"></div>
+            </div>
+            <div class="jrow">
+              <div class="jcell jcell-3 grade border">报名状态</div>
+              <div class="jcell jcell-7 text-right border" id="single_status"></div>
+            </div>
+            <div class="jrow">
+              <div class="jcell jcell-3 grade border">报名时间</div>
+              <div class="jcell jcell-7 text-right border" id="single_createtime"></div>
+            </div>
+            {if $reply['charge']}
+            <div class="jrow">
+              <div class="jcell jcell-3 grade border">付款状态</div>
+              <div class="jcell jcell-7 text-right border" id="single_paystatus"></div>
+            </div>
+            <div class="jrow">
+              <div class="jcell jcell-3 grade border">付款金额</div>
+              <div class="jcell jcell-7 text-right border" id="single_fee"></div>
+            </div>
+            <div class="jrow">
+              <div class="jcell jcell-3 grade border">付款时间</div>
+              <div class="jcell jcell-7 text-right border" id="single_paytime"></div>
+            </div>
+            <div class="jrow">
+              <div class="jcell jcell-3 grade border">退款状态</div>
+              <div class="jcell jcell-7 text-right border" id="single_refundstatus"></div>
+            </div>
+            <div class="jrow">
+              <div class="jcell jcell-3 grade border">退款金额</div>
+              <div class="jcell jcell-7 text-right border" id="single_refundfee"></div>
+            </div>
+            {/if}
+            <div class="jrow">
+              <div class="jcell jcell-3 grade border">是否签到</div>
+              <div class="jcell jcell-7 text-right border" id="single_attend"></div>
+            </div>
+            <div class="jrow">
+              <div class="jcell jcell-3 grade border">签到时间</div>
+              <div class="jcell jcell-7 text-right border" id="single_endtime"></div>
+            </div>
+            <div class="jrow">
+              <div class="jcell jcell-3 grade border">签到回调</div>
+              <div class="jcell jcell-7 text-right border" id="single_reloadmsg"></div>
+            </div>
+            <div class="jrow">
+              <div class="jcell jcell-3 grade border">备注</div>
+              <div class="jcell jcell-7 text-right border" id="single_remark"></div>
+            </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" id="signup"  disabled>确认签到</button>
+        <button type="button" class="btn btn-info" onClick="$('#myModal').hide()">关闭</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<script language="javascript">
+wx.ready(function () {
+	$(".viewimg").on('click',function(){
+		imgsss=$(this).attr("src");
+		wx.previewImage({
+			current: imgsss,
+			urls: [imgsss]
+		});
+	});
+});
+var curpage=1;
+var allapge=parseInt("{php echo $allpage}");
+function nextpage(){
+	curpage++;
+	if(curpage>allapge)return;
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'getmobilejoinerlist','rid'=>$rid))}",{"page":curpage},function(data){
+		if(curpage>=allapge)$("#nextpages").hide();
+		if(data.success){
+			var _item=data.item;
+			if(_item.length){
+				var temp="";
+				for(i=0;i<_item.length;i++){
+					temp+='<li class="box"><div class="boxsize-2">'+($(".userlist ul li").size()+i+1)+'</div><div class="boxsize-2">';
+					temp+='<img src="'+_item[i].avatar+'" width="50" height="50" class="viewimg tips" onerror="this.src=\'./resource/images/nopic-small.jpg\'"/></div>';
+					temp+='<div class="boxsize-2">'+_item[i].realname.substr(0,4);
+					if(!parseInt(_item[i].status)){
+						temp+='<p><span class="label label-default">审核</span></p></div>';
+					}else{
+						temp+='<p><span class="label label-success">通过</span></p></div>';
+					}
+					temp+='<div class="boxsize-4"><small>'+_item[i].nickname.substr(0,4)+'</small>';
+					if(!parseInt(_item[i].attend)){
+						temp+='<p><span class="label label-default">未签</span></p></div>';
+					}else{
+						temp+='<p><span class="label label-success">签到</span></p></div>';
+					}
+					temp+='<div class="boxsize-2 text-right"><div style="margin-bottom:5px"><a href="tel:'+_item[i].mobile+'" class="btn btn-xs btn-info"><i class="fa fa-phone"></i></a></div>';
+					temp+='<div><a href="javascript:showDetail('+_item[i].id+')" class="btn btn-xs btn-info"><i class="fa fa-eye"></i></a></div></div></li>';
+				}
+				$(".userlist ul").append(temp);
+			}
+		}
+	},'json');
+}
+function qrScan(){
+	wx.scanQRCode({
+		needResult: 1, 
+		scanType: ["qrCode","barCode"],
+		success: function (res) {
+			var result = res.resultStr;
+			$.getJSON("{php echo $this->createMobileUrl('ajax',array('op'=>'scancode','rid'=>$rid))}",{"code":result},function(data){
+				if(data.success){
+					swal(data.msg);
+					showDetail(data.item.id,1);
+				}else{
+					swal('签到失败！\r\n原因:'+data.msg);
+				}
+			})
+		}
+	});
+}
+function showDetail(id,dowhat){
+	swal({title:"数据交互中",showConfirmButton: false});
+	$.getJSON("{php echo $this->createMobileUrl('ajax',array('op'=>'getsinglejoiner'))}",{uid:id},function(data){
+		swal.close();
+		if(data.success){
+			var _item=data.item;
+			if(dowhat && !parseInt(_item['attend'])){
+				$("#signup").removeAttr("disabled").attr("onClick","signUpin("+_item.id+")");
+			}else{
+				$("#signup").attr("disabled","disabled");
+			}
+			for(i in _item){
+				switch(i){
+					case "mobile":
+						$("#single_"+i).html('<a href="tel:'+_item[i]+'"  class="btn btn-xs btn-info"><i class="fa fa-phone"></i>'+_item[i]+'</a>');
+					break;
+					case "status":
+						var temp=!parseInt(_item[i]) ? '<span class="label label-default">审核中</span>' : '<span class="label label-success">通过</span>';
+						$("#single_"+i).html(temp);
+					break;
+					case "attend":
+						var temp=!parseInt(_item[i]) ? '<span class="label label-default">未签到</span>' : '<span class="label label-success">已签到</span>';
+						$("#single_"+i).html(temp);
+					break;
+					case "paystatus":
+						var temp=!parseInt(_item[i]) ? '<span class="label label-default">未支付</span>' : '<span class="label label-success">已付款</span>';
+						$("#single_"+i).html(temp);
+					break;
+					case "refundstatus":
+						var temp=parseInt(_item[i])==1 ? '<span class="label label-danger">退款成功</span>' :'<span class="label label-default">未退款</span>' ;
+						$("#single_"+i).html(temp);
+					break;
+					default:
+					$("#single_"+i).html(_item[i]);
+				}
+			}
+			$("#myModal .modal-body").css({'overflowY':'scroll','height':$(window).height()*0.6});
+			$("#myModal").show()
+		}else{
+			swal(data.msg);
+		}
+	})
+}
+function signUpin(id){
+	swal({title:"数据交互中",showConfirmButton: false});
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'attendsign'))}",{uid:id},function(data){
+		if(data.success){
+			swal({title:"系统提示",text:'签到成功',cancelButtonText:"关闭",},function(isConfirm){ 
+				location.reload();
+			});
+		}else{
+			swal(data.msg);
+		}
+	},'json');
+}
+function getLocalTime(nS) {
+	return new Date(parseInt(nS) * 1000).toLocaleString().substr(0,16);
+}
+</script>

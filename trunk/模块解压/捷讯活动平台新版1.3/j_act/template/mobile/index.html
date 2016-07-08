@@ -1,0 +1,150 @@
+{template 'header'} 
+<script src="{MODULE_URL}template/js/idangerous.swiper.min.js"></script>
+<link type="text/css" rel="stylesheet" href="{MODULE_URL}template/js/idangerous.swiper.css"/>
+{if $cfg['extend_js']}<script src="{$cfg['extend_js']}"></script>{/if}
+<style>
+.img_box{ margin-bottom:10px}
+.swiper-container,.swiper-slide {width:100%;background:#FFF;}
+.swiper-slide{ position:relative}
+.swiper-slide h2{ position:absolute; bottom:0; left:0; right:0; line-height:30px; background:rgba(0,0,0,0.6); text-align:left; padding:0 10px;color:#FFF; font-size:14px;}
+.swiper-container ol,.swiper-container ol li{ list-style:none; margin:0; padding:0;}
+.swiper-container ol{ text-align:center; padding:5px; margin-top:-30px;background:rgba(0,0,0,0.6);}
+.swiper-container ol li{ display:inline-block; width:5px; height:5px; border-radius:100px; border:#FFF 1px solid;}
+.swiper-container ol on{ background:#FFF;}
+.list_box{ padding-bottom:10px;}
+.list_box ul,.list_box ul li{ list-style:none; margin:0; padding:0;}
+.list_box ul li{position:relative;font-size:14px;color:#FFF;}
+.list_box ul li h2{text-align:center;font-size:16px; color:#FFF;position:absolute;width:100%; height:100%;z-index:2; background:rgba(0,0,0,0.3);}
+.list_box ul li img{ width:100%;}
+.btn_pageNext{ padding:0 10px; text-align:center; display:none;}
+.menu_box{ text-align:center; margin-bottom:10px;}
+.menu_box a{ display:block;color:#666;}
+.menu_box a div{ display:inline-block;border-radius:2000px; border:#666 1px solid; height:50px; width:50px;margin-bottom:5px;}
+.menu_box a div i{ margin-top:10px}
+.menu_box a h3{ font-size:14px; line-height:normal; text-align:center;}
+</style>
+<!--顶部轮换图片--> 
+{if count($advertList)}
+<div class="img_box">
+  <div class="swiper-container">
+    <div class="swiper-wrapper"> 
+      {loop $advertList $row}
+      <div class="swiper-slide" onClick="location.href='{$row['url']}'"><h2>{$row['title']}</h2><img src="{$_W['attachurl']}{$row['thumb']}" style="width:100%;"/></div>
+      {/loop} 
+    </div>
+  </div>
+</div>
+{/if} 
+<!--快捷菜单-->
+<div class="menu_box">
+  <div class="box">
+    {if $cfg['btn1_title']}
+    <div class="boxsize-3">
+    	<a href="{$cfg['btn1_link']}">
+        <div><i class="{$cfg['btn1_icon']} fa-2x"></i></div>
+        <h3>{$cfg['btn1_title']}</h3>
+        </a>
+    </div>
+    {/if}
+    {if $cfg['btn2_title']}
+    <div class="boxsize-3">
+    	<a href="{$cfg['btn2_link']}">
+        <div><i class="{$cfg['btn2_icon']} fa-2x"></i></div>
+        <h3>{$cfg['btn2_title']}</h3>
+        </a>
+    </div>
+    {/if}
+    <div class="boxsize-3">
+    	<a href="{php echo $this->createMobileUrl('member',array('op'=>3))}">
+        <div><i class="fa fa-heart-o fa-2x"></i></div>
+        <h3>我的收藏</h3>
+        </a>
+    </div>
+    <div class="boxsize-3">
+    	<a href="{php echo $this->createMobileUrl('member')}">
+        <div><i class="fa fa-user fa-2x"></i></div>
+        <h3>会员中心</h3>
+        </a>
+    </div>
+  </div>
+</div>
+<!--列表-->
+<div class="list_box">
+  <ul id="act_list">
+    {loop $list $row}
+    <li onClick="location.href='{php echo $this->createMobileUrl('view',array('id'=>$row['id']))}'">
+      <h2>{$row['title']}</h2>
+      <img src="{$_W['attachurl']}{$row['cover']}" onload="changeHeight(this)"/>
+      </li>
+    {/loop}
+  </ul>
+  {if $allpage>1}
+  <div class="btn_pageNext"></div>
+  {/if}
+</div>
+<script language="javascript">
+var li_height=0;
+var isload=false;
+var canload=true;
+var allpage=parseInt("{php echo $allpage}");
+$(function(){
+	var _w=$(window).width();
+	var _imgWidth=600,_imgHeight=300;
+	var __h=_imgHeight*_w/_imgWidth;
+	li_height=__h;
+	$(".swiper-container,.swiper-slide,.list_box ul li").height(__h);
+	var mySwiper = $('.swiper-container').swiper({
+		speed:300,
+		autoplay:3000,
+		loop: true,
+	});
+});
+$(window).scroll( function() { 
+	if ($(document).height()-($(document).scrollTop()+$(window).height())<30 && canload){
+		if(isload)return;
+		getNextPage();
+	} 
+});
+
+function changeHeight(obj){
+	$(obj).parent().find("h2").css({"height":li_height,'padding-top':li_height*0.46});
+}
+var nowPages=2;
+function getNextPage(){
+	isload=true;
+	if(nowPages>allpage){
+		canload=false;
+		return;
+	}
+	$(".btn_pageNext").text("加载更多内容中").show();
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'get_list'))}",{"page":nowPages},function(data){
+		$(".btn_pageNext").hide();
+		if(data.success){
+			nowPages++;
+			if(nowPages>allpage)canload=false;
+			var _item=data.item;
+			var _temp="";
+			for(i=0;i<_item.length;i++){
+				_temp+='<li onClick="location.href=\'{php echo $this->createMobileUrl("view")}&id='+_item[i]['id']+'\'"><h2>'+_item[i]['title']+'</h2><img src="{$_W["attachurl"]}'+_item[i]['cover']+'" onload="changeHeight(this)"/></li>';
+			}
+			$("#act_list").append(_temp);
+		}
+		isload=false;
+	},'json');
+}
+//-------------//
+wx.ready(function () {
+	sharedata = {
+		title: "{$cfg['share_title']}",
+		desc: "{$cfg['share_info']}",
+		imgUrl:"{$_W['attachurl']}{$cfg['share_img']}",
+		link: "{$_W['siteurl']}",
+		success: function(){},
+		cancel: function(){}
+	};
+	wx.onMenuShareAppMessage(sharedata);
+	wx.onMenuShareTimeline(sharedata);
+	wx.onMenuShareQQ(sharedata);
+	wx.onMenuShareWeibo(sharedata);
+});
+</script>

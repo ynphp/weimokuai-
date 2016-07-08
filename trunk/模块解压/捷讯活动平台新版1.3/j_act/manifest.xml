@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[捷讯活动平台]]></name>
+		<identifie><![CDATA[j_act]]></identifie>
+		<version><![CDATA[1.3]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[捷讯活动平台]]></ability>
+		<description><![CDATA[捷讯活动平台]]></description>
+		<author><![CDATA[来自柒柒源码h770.com]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="qr" />
+			<message type="trace" />
+		</subscribes>
+		<handles>
+			<message type="qr" />
+			<message type="trace" />
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="true" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="活动列表" do="index" state="" direct="true" />
+			<entry title="现场签到管理" do="attend" state="" direct="true" />
+		</cover>
+		<menu>
+			<entry title="活动管理" do="manage" state="" direct="false" />
+			<entry title="广告管理" do="advert" state="" direct="false" />
+			<entry title="评论" do="discuz" state="" direct="false" />
+			<entry title="使用教程" do="payteach" state="" direct="false" />
+		</menu>
+		<profile>
+			<entry title="活动记录" do="history" state="" direct="true" />
+		</profile>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_j_act_activity` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `cover` varchar(250) NOT NULL COMMENT '封面图片',
+  `sharecover` varchar(250) NOT NULL COMMENT '转发小图',
+  `title` varchar(100) NOT NULL COMMENT '活动标题',
+  `description` varchar(100) NOT NULL COMMENT '转发介绍',
+  `pcate` int(10) DEFAULT '0' COMMENT '分类',
+  `info` text NOT NULL COMMENT '活动介绍',
+  `rule` text NOT NULL COMMENT '规则描述',
+  `content` text NOT NULL COMMENT '活动完成介绍',
+  `charge` float(10,2) NOT NULL DEFAULT '0.00' COMMENT '报名费用',
+  `join_num` int(10) NOT NULL DEFAULT '0' COMMENT '报名名额',
+  `pass_num` int(10) NOT NULL DEFAULT '0' COMMENT '入选名额',
+  `joinstarttime` int(10) NOT NULL COMMENT '报名开始时间',
+  `joinendtime` int(10) NOT NULL COMMENT '报名结束时间',
+  `starttime` int(10) NOT NULL COMMENT '活动开始时间',
+  `endtime` int(10) NOT NULL DEFAULT '0' COMMENT '活动结束时间',
+  `grouptype` varchar(100) NOT NULL DEFAULT '' COMMENT '会员组要求',
+  `credit_join` int(10) NOT NULL DEFAULT '0' COMMENT '报名扣减积分',
+  `credit_in` int(10) NOT NULL DEFAULT '0' COMMENT '入选积分',
+  `credit_append` int(10) NOT NULL DEFAULT '0' COMMENT '签到积分',
+  `shopname` varchar(50) NOT NULL COMMENT '商家名称',
+  `address` varchar(250) NOT NULL COMMENT '活动地点',
+  `latitude` varchar(50) NOT NULL COMMENT '纬度',
+  `longitude` varchar(50) NOT NULL COMMENT '经度',
+  `redirectmsg` varchar(250) NOT NULL COMMENT '报名成功后回调提示',
+  `redirecturl` varchar(250) NOT NULL COMMENT '报名成功后回调',
+  `parama` varchar(1000) NOT NULL COMMENT '参数',
+  `label` varchar(10) NOT NULL COMMENT '标签',
+  `pass_condition` tinyint(1) NOT NULL DEFAULT '0' COMMENT '通过条件',
+  `share_num` int(10) NOT NULL DEFAULT '0' COMMENT '通过条件',
+  `qrcard` varchar(250) NOT NULL COMMENT '签到二维码模板',
+  `displayorder` int(10) DEFAULT '0',
+  `auto_in` tinyint(1) NOT NULL DEFAULT '0',
+  `auto_refund` tinyint(1) NOT NULL DEFAULT '0',
+  `refundfee` float(10,2) NOT NULL DEFAULT '0.00' COMMENT '退款金额',
+  `gzurl` varchar(300) NOT NULL COMMENT '引导关注页',
+  `wxcard` varchar(500) NOT NULL COMMENT '微信卡券',
+  `passcode` varchar(20) NOT NULL COMMENT '微信卡券',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_act_advert` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `title` varchar(50) NOT NULL DEFAULT '',
+  `thumb` varchar(300) NOT NULL DEFAULT '',
+  `description` varchar(200) DEFAULT NULL,
+  `url` varchar(300) NOT NULL,
+  `displayorder` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_act_ask` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `aid` int(10) unsigned NOT NULL,
+  `weid` int(10) unsigned NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `bg` varchar(300) NOT NULL COMMENT '背景',
+  `thumb` varchar(300) NOT NULL COMMENT '抽奖内容',
+  `sendnum` int(10) NOT NULL COMMENT '提问数量',
+  `answer` varchar(30) NOT NULL COMMENT '提问后回复',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_act_askresult` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `aid` int(10) NOT NULL DEFAULT '0',
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `showid` int(10) NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL,
+  `nickname` varchar(50) NOT NULL,
+  `avatar` varchar(255) NOT NULL COMMENT '头像',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `content` varchar(200) NOT NULL COMMENT '内容',
+  `remark` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`,`showid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_act_discuz` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `aid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `from_user` varchar(50) NOT NULL COMMENT '用户唯一身份ID',
+  `nickname` varchar(50) NOT NULL,
+  `avatar` varchar(255) NOT NULL COMMENT '头像',
+  `content` varchar(500) NOT NULL DEFAULT '',
+  `reply` varchar(500) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_act_joiner` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `aid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL COMMENT '用户唯一身份ID',
+  `openid` varchar(50) NOT NULL COMMENT '借用身份',
+  `mobile` varchar(20) NOT NULL,
+  `nickname` varchar(50) NOT NULL,
+  `avatar` varchar(255) NOT NULL COMMENT '头像',
+  `sex` tinyint(1) NOT NULL DEFAULT '0',
+  `realname` varchar(20) NOT NULL,
+  `parama` varchar(1000) NOT NULL COMMENT '参数',
+  `createtime` varchar(10) NOT NULL COMMENT '报名时间',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '参与状态',
+  `attend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否签到',
+  `endtime` varchar(10) NOT NULL COMMENT '签到时间',
+  `remark` varchar(200) NOT NULL COMMENT '备注',
+  `qrcodestatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否发送核销二维码',
+  `log` varchar(200) NOT NULL COMMENT '失败记录',
+  `paystatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否付款',
+  `paytime` int(10) NOT NULL DEFAULT '0' COMMENT '付款时间',
+  `fee` int(10) NOT NULL DEFAULT '0' COMMENT '付款金额',
+  `ordersn` varchar(50) NOT NULL COMMENT '商户订单号',
+  `transid` varchar(50) NOT NULL COMMENT '微信订单号',
+  `refundsn` varchar(50) NOT NULL COMMENT '退款单号',
+  `refundstatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '退款状态',
+  `refundfee` int(10) NOT NULL DEFAULT '0' COMMENT '退款金额',
+  `vip` tinyint(1) NOT NULL DEFAULT '0' COMMENT '参与状态',
+  `reloadmsg` varchar(200) NOT NULL COMMENT '签到回调信息',
+  `wxcard` varchar(50) NOT NULL COMMENT '微信卡券',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_act_love` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `aid` int(10) NOT NULL DEFAULT '0',
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_act_luckygame` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `aid` int(10) unsigned NOT NULL,
+  `vid` int(10) unsigned NOT NULL,
+  `weid` int(10) unsigned NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `option` varchar(300) NOT NULL COMMENT '抽奖内容',
+  `onlysome` tinyint(1) NOT NULL DEFAULT '0' COMMENT '只抽取特别标记的人员',
+  `msg` varchar(200) NOT NULL COMMENT '中奖提示',
+  `bg` varchar(300) NOT NULL COMMENT '抽奖内容',
+  `thumb` varchar(300) NOT NULL COMMENT '抽奖内容',
+  `topthumb` varchar(300) NOT NULL COMMENT '抽奖内容',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_act_luckywinner` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `aid` int(10) unsigned NOT NULL,
+  `lid` int(10) unsigned NOT NULL,
+  `weid` int(10) unsigned NOT NULL,
+  `from_user` varchar(50) NOT NULL,
+  `nickname` varchar(50) NOT NULL,
+  `avatar` varchar(255) NOT NULL COMMENT '头像',
+  `prize` varchar(50) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `sendstatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '发送状态',
+  `remark` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_act_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `weid` int(10) DEFAULT '0',
+  `aid` int(10) DEFAULT '0' COMMENT '外链接ID',
+  `atype` int(10) DEFAULT '0' COMMENT '链接内容',
+  `cover` varchar(250) NOT NULL COMMENT '活动图片',
+  `title` varchar(100) NOT NULL COMMENT '活动标题',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `description` varchar(100) NOT NULL COMMENT '转发介绍',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_act_visitor` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `aid` int(10) NOT NULL DEFAULT '0' COMMENT '规则ID',
+  `fid` int(10) NOT NULL DEFAULT '0' COMMENT '规则ID',
+  `from_user` varchar(50) NOT NULL COMMENT '用户唯一身份ID',
+  `openid` varchar(50) NOT NULL COMMENT '借用身份',
+  `nickname` varchar(50) NOT NULL,
+  `avatar` varchar(255) NOT NULL COMMENT '头像',
+  `sex` tinyint(1) NOT NULL DEFAULT '0',
+  `info` varchar(300) NOT NULL DEFAULT '',
+  `realname` varchar(20) NOT NULL,
+  `mobile` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_act_votegame` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `aid` int(10) unsigned NOT NULL,
+  `weid` int(10) unsigned NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `thumb` varchar(300) NOT NULL,
+  `bg` varchar(300) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `starttime` int(10) NOT NULL COMMENT '活动开始时间',
+  `endtime` int(10) NOT NULL DEFAULT '0' COMMENT '活动结束时间',
+  `votetime` int(10) NOT NULL DEFAULT '1' COMMENT '投票次数',
+  `info` text NOT NULL COMMENT '活动介绍',
+  `msg` varchar(500) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_act_voteitem` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `aid` int(10) unsigned NOT NULL,
+  `weid` int(10) unsigned NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `thumb` varchar(300) NOT NULL,
+  `description` varchar(3000) DEFAULT NULL,
+  `votekey` int(10) NOT NULL DEFAULT '0' COMMENT '投票ID',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_act_voteresult` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `aid` int(10) unsigned NOT NULL,
+  `weid` int(10) unsigned NOT NULL,
+  `from_user` varchar(50) NOT NULL,
+  `nickname` varchar(50) NOT NULL,
+  `avatar` varchar(250) NOT NULL,
+  `vid` int(10) NOT NULL DEFAULT '0' COMMENT '投票ID',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_activity_category` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '所属帐号',
+  `name` varchar(50) NOT NULL COMMENT '分类名称',
+  `description` varchar(255) NOT NULL,
+  `parentid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '上级分类ID,0为第一级',
+  `displayorder` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `enabled` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否开启',
+  `thumb` varchar(255) NOT NULL DEFAULT '',
+  `color` varchar(50) NOT NULL COMMENT '字体颜色',
+  `background` varchar(50) NOT NULL COMMENT '背景颜色',
+  `isrecommand` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_activity_lucky` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `aid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL COMMENT '用户唯一身份ID',
+  `times` int(10) NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否领奖',
+  `createtime` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_activity_msgrecord` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '所属帐号',
+  `aid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `from_user` varchar(50) NOT NULL COMMENT '用户openid',
+  `content` varchar(500) NOT NULL COMMENT '发送内容',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否开启',
+  `remark` varchar(500) NOT NULL COMMENT '发送问题',
+  `createtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_activity_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '所属帐号',
+  `aid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `ip` varchar(20) NOT NULL COMMENT 'IP地址',
+  `from_user` varchar(20) NOT NULL COMMENT '用户openid',
+  `createtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_activity_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `weid` int(10) DEFAULT '0',
+  `fid` int(10) DEFAULT '0' COMMENT '外链接ID',
+  `pcate` int(10) DEFAULT '0' COMMENT '分类',
+  `ccate` int(10) DEFAULT '0' COMMENT '分类',
+  `picture` varchar(200) NOT NULL COMMENT '活动图片',
+  `qrcode` varchar(200) NOT NULL DEFAULT '' COMMENT '二维码',
+  `clientpic` varchar(200) NOT NULL COMMENT '转发图片',
+  `title` varchar(100) NOT NULL COMMENT '活动标题',
+  `description` varchar(100) NOT NULL COMMENT '转发介绍',
+  `info` varchar(2000) NOT NULL COMMENT '活动介绍',
+  `rule` text NOT NULL COMMENT '规则描述',
+  `content` text NOT NULL COMMENT '活动完成介绍',
+  `organizer` varchar(100) NOT NULL COMMENT '活动主办方',
+  `charge` double(10,2) NOT NULL DEFAULT '0.00' COMMENT '报名费用',
+  `applicants` int(10) NOT NULL DEFAULT '0' COMMENT '报名名额',
+  `quota` int(10) NOT NULL DEFAULT '0' COMMENT '名额',
+  `joinstarttime` int(10) unsigned NOT NULL COMMENT '报名开始时间',
+  `joinendtime` int(10) unsigned NOT NULL COMMENT '报名结束时间',
+  `starttime` int(10) unsigned NOT NULL COMMENT '活动开始时间',
+  `endtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '活动结束时间',
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `appendcode` varchar(10) NOT NULL DEFAULT '',
+  `usertype` tinyint(1) NOT NULL DEFAULT '-1' COMMENT '会员组要求，-1不要求，0只允许普通粉丝，1只允许高级粉丝',
+  `credit_join` int(10) NOT NULL DEFAULT '0' COMMENT '报名送积分',
+  `credit_in` int(10) NOT NULL DEFAULT '0' COMMENT '入选积分',
+  `credit_append` int(10) NOT NULL DEFAULT '0' COMMENT '签到积分',
+  `visitied` int(10) NOT NULL DEFAULT '0' COMMENT '浏览次数',
+  `address` varchar(250) NOT NULL COMMENT '活动地点',
+  `latitude` varchar(50) NOT NULL COMMENT '纬度',
+  `longitude` varchar(50) NOT NULL COMMENT '经度',
+  `redirectmsg` varchar(250) NOT NULL COMMENT '报名成功后回调提示',
+  `redirecturl` varchar(250) NOT NULL COMMENT '报名成功后回调',
+  `parama` varchar(1000) NOT NULL COMMENT '参数',
+  `label` varchar(10) NOT NULL COMMENT '标签',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_activity_user_cache` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL COMMENT '用户唯一身份ID',
+  `openid` varchar(50) NOT NULL COMMENT '统一身份',
+  `nickname` varchar(50) NOT NULL,
+  `avatar` varchar(255) NOT NULL COMMENT '头像',
+  `gender` smallint(1) NOT NULL DEFAULT '0',
+  `mobile` varchar(20) NOT NULL,
+  `realname` varchar(20) NOT NULL,
+  `createtime` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_j_activity_winner` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `aid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL COMMENT '用户唯一身份ID',
+  `openid` varchar(50) NOT NULL COMMENT '借用身份',
+  `mobile` varchar(20) NOT NULL,
+  `nickname` varchar(50) NOT NULL,
+  `avatar` varchar(255) NOT NULL COMMENT '头像',
+  `gender` smallint(1) NOT NULL DEFAULT '0',
+  `realname` varchar(20) NOT NULL,
+  `parama` varchar(1000) NOT NULL COMMENT '参数',
+  `status` smallint(1) NOT NULL DEFAULT '0',
+  `attend` smallint(1) NOT NULL DEFAULT '0',
+  `endtime` varchar(10) NOT NULL,
+  `createtime` varchar(10) NOT NULL,
+  `message` varchar(200) NOT NULL COMMENT '通知',
+  `remark` varchar(200) NOT NULL COMMENT '备注',
+  `ordersn` varchar(50) NOT NULL COMMENT '订单号',
+  `paystatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否付款',
+  `paytime` int(10) NOT NULL DEFAULT '0' COMMENT '付款时间',
+  `transid` varchar(50) NOT NULL COMMENT '支付订单号',
+  `reloadmsg` varchar(200) NOT NULL COMMENT '签到回调信息',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

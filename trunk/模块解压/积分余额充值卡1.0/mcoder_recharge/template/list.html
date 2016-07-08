@@ -1,0 +1,140 @@
+{template 'common/header'}
+
+
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display' && $status == ''}class="active"{/if}>
+	<a href="{php echo $this->createWebUrl('mcoder_recharge', array('op' => 'display'))}">充值卡列表</a>
+	</li>
+</ul>
+
+{if $operation == 'display'}
+
+<div class="main">
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+				<input type="hidden" name="c" value="site" />
+				<input type="hidden" name="a" value="entry" />
+				<input type="hidden" name="m" value="mcoder_recharge" />
+				<input type="hidden" name="do" value="list" />
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">卡号</label>
+					<div class="col-sm-8 col-lg-9 col-xs-12">
+						<input class="form-control" name="cardno" id="" type="text" value="{$_GPC['cardno']}" placeholder="可查询卡号">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">卡金额</label>
+					<div class="col-sm-8 col-lg-9 col-xs-12">
+						<input class="form-control" name="cardamount" id="" type="text" value="{$_GPC['cardamount']}" placeholder="可查询卡金额">
+					</div>
+				</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">卡状态</label>
+				<div class="col-sm-8 col-lg-9 col-xs-12">
+					<select name="status" class="form-control">
+						<option value="">不限</option>
+						<option value="1">已使用</option>
+						<option value="0">未使用</option>
+					</select>
+				</div>
+			</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">生成时间</label>
+					<div class="col-sm-4 col-xs-12">
+						{php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d', $starttime),'endtime'=>date('Y-m-d', $endtime)));}
+					</div>
+					<div class="col-sm-4 col-lg-2">
+						<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+						<button name="export" value="export" class="btn btn-default"><i class="fa fa-download"></i> 导出数据</button>
+					</div>
+				</div>
+				<div class="form-group">
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="panel panel-default">
+		<div class="panel-body table-responsive">
+			<form id="form2" class="form-horizontal" method="post">
+			<table class="table table-hover">
+				<thead class="navbar-inner">
+				<tr>
+					<th style="width:5%;">全选</th>
+					<th style="width:5%;">ID</th>
+					<th style="width:20%;">卡号</th>
+					<th style="width:10%;">卡密</th>
+					<th style="width:10%;">充值金额</th>
+					<th style="width:10%;">生成时间</th>
+					
+					<th style="width:10%;">状态</th>
+					<th style="width:10%;">使用者</th>
+					<th style="width:10%;">使用时间</th>
+					<th style="width:10%;text-align: right;">操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				{loop $list $item}
+				<tr>
+					<td>
+						<input type="checkbox" value="{$item['tid']}" name="delete[]">
+					</td>
+					<td>{$item['tid']}</td>
+					<td>{$item['cardno']}</td>
+					<td>{$item['cardse']}</td>
+					<td>{$item['cardamount']}</td>
+					<td>{php echo date('Y-m-d H:i:s', $item['addtime'])}</td>					
+					<td><span class="label label-{$item['statuscss']}">{$item['status']}</span></td>
+					<td>{$item['openid']}</td>
+					<td>{if $item['usedtime']}{php echo date('Y-m-d H:i:s', $item['usedtime'])}{else}{/if}</td>
+					<td style="text-align:right;">
+						<a href="{php echo $this->createWebUrl('list', array('tid' => $item['tid'], 'op' => 'delete'))}" onclick="return confirm('此操作不可恢复，确认删除？');"
+						   class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i>
+					</td>
+				</tr>
+				{/loop}
+				<tr>
+				    <td colspan="7">
+                    <input type="checkbox"  onclick="var ck = this.checked;$(':checkbox').each(function(){this.checked = ck});" name=''>
+				    <input class="btn btn-primary" type="submit" value="删除" name="submit" ></td><td></td><td></td><td></td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{$pager}
+		<input type="hidden" name="c" value="site" />
+		<input type="hidden" name="a" value="entry" />
+		<input type="hidden" name="m" value="mcoder_recharge" />
+		<input type="hidden" name="do" value="list" />
+		<input type="hidden" name="op" value="delall" />
+    </form>
+<script>
+	 $('#form2').submit(function(){
+		if($(":checkbox[name='delete[]']:checked").size() > 0){
+			return confirm('删除后不可恢复，您确定删除吗？');
+		}
+		return false;
+	}); 
+</script>
+<script type="text/javascript">
+	require(['daterangepicker'], function($){
+		$('.daterange').on('apply.daterangepicker', function(ev, picker) {
+			$('#form1')[0].submit();
+		});
+	});
+</script>
+{/if}
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+{template 'common/footer'}

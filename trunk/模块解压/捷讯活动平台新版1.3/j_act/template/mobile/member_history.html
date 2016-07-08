@@ -1,0 +1,137 @@
+{template 'header'}
+<style>
+body{background:#E7E7E7}
+.header{height:50px;}
+.header,header a{color:#FFF}
+.headerbtn{display:block;line-height:50px;color:#FFF}
+.user-menu{ background:#FFF; border-top:1px solid #EEE;}
+.user-menu ul ,.user-menu ul li{ list-style:none; margin:0; padding:0;}
+.user-menu ul li{ padding:10px; border-bottom:1px solid #EEE;}
+.user-menu ul li span{float:right;}
+.list_box ul,.list_box ul li{ list-style:none; margin:0; padding:0;}
+.list_box ul li{position:relative;font-size:14px;color:#FFF; border-bottom:1px solid #CCC;line-height:18px;}
+.list_box ul li h2{text-align:center;font-size:16px; color:#FFF;position:absolute;width:100%; height:100%;z-index:2; background:rgba(0,0,0,0.3); padding:20% 0 0 0 }
+.list_box ul li img{ width:100%;}
+.list_box2 ul,.list_box2 ul li{ list-style:none; margin:0; padding:0;}
+.list_box2 ul li{background:#FFF; padding:5px;}
+.list_box2 h4{font-size:14px; font-weight:bold;}
+.p05{padding:0 5px;}
+.parama{border-top:1px solid #DDD; margin-top:10px; padding:5px 0;}
+.parama div{padding:5px 0;}
+
+</style>
+<Div class="header" style="background:#468ACE">
+  <div class="jtable">
+    <div class="jrow">
+      <div class="jcell-1"><a href="{php echo $this->createMobileUrl('index',array('v'=>TIMESTAMP))}" style="color:#FFF" class="headerbtn"><i class="fa fa-angle-left" style="font-size:20px;font-weight:bold"></i></a></div>
+      <div class="jcell-9"><IMG src="{$profile['headimgurl']}" width="40" height="40" style="margin:5px 0;border-radius:9999px"/> {$profile['nickname']} 积分：{php echo intval($hascredits[$this->credit])} <A href="javascript:location.reload()" style="display:inline"><i class="fa fa-refresh" style="font-size:20px"></i></A></div>
+    </div>
+  </div>
+</Div>
+<div class="fixed_first" style="height:10px;">&nbsp;</div>
+{if $operation==1}
+<div class="list_box2">
+  <ul>
+    {loop $list $row}
+    <li onClick="location.href='{php echo $this->createMobileUrl('view',array('id'=>$row['id']))}'">
+      <div class="jtable">
+        <div class="jrow">
+          <div class="jcell-4"><img src="{$_W['attachurl']}{$row['cover']}" style="width:100%;"/></div>
+          <div class="jcell-59">
+            <div class="p05">
+              <h4>{$row['title']}</h4>
+              <div>{if intval($row['charge']*100)}<span class="label label-warning">费用￥{$row['charge']}元</span> {if $joinList[$row['id']]['paystatus']}<span class="label label-success">已支付</span>{else}<span class="label label-info">待支付</span>{/if}{else}<span class="label label-info">免费</span>{/if}</div>
+              <div>{if TIMESTAMP<$row['joinstarttime']}<span class="label label-default">未开始</span>{/if}
+                {if TIMESTAMP>$row['joinstarttime'] && TIMESTAMP<$row['joinendtime']}<span class="label label-success">报名中</span>{/if}
+                {if TIMESTAMP>$row['joinendtime']}<span class="label label-info">报名结束</span>{/if}
+                {if TIMESTAMP<$row['starttime']}<span class="label label-default">活动未开始</span>{/if}
+                {if TIMESTAMP>$row['starttime'] && TIMESTAMP<$row['endtime']}<span class="label label-success">进行中</span>{/if}
+                {if TIMESTAMP>$row['endtime']}<span class="label label-info">活动结束</span>{/if} 
+                {if $joinList[$row['id']]['status']==1}<span class="label label-success">审核通过</span>{else}<span class="label label-info">审核中</span>{/if} </div>
+            </div>
+          </div>
+          <div class="jcell-01"><i class="fa fa-angle-right"></i></div>
+        </div>
+      </div>
+    </li>
+    {/loop}
+  </ul>
+</div>
+{elseif $operation==2}
+<div class="list_box2">
+  <ul id="act_list">
+    {loop $list $row}
+    {php $parama=json_decode($row["parama"],true)}
+    {php $field=array();}
+    {loop $parama $index $val}
+    {php $rew=explode("|#|",$val);}
+    {php $field[$index]=$rew[0];}
+    {/loop}
+    <li onClick="location.href='{php echo $this->createMobileUrl('view',array('id'=>$row['id']))}'">
+      <div class="jtable">
+        <div class="jrow">
+          <div class="jcell-4"><img src="{$_W['attachurl']}{$row['cover']}" style="width:100%;"/></div>
+          <div class="jcell-59">
+            <div class="p05">
+              <h4>{$row['title']}</h4>
+              <div>{if intval($row['charge']*100)}<span class="label label-warning">费用￥{$row['charge']}元</span> {if $joinList[$row['id']]['paystatus']}<span class="label label-success">已支付</span>{else}<span class="label label-info">待支付</span>{/if}{else}<span class="label label-info">免费</span>{/if}</div>
+              <div> {if TIMESTAMP<$row['joinstarttime']}<span class="label label-default">未开始</span>{/if}
+                {if TIMESTAMP>$row['joinstarttime'] && TIMESTAMP<$row['joinendtime']}<span class="label label-success">销售中</span>{/if}
+                {if TIMESTAMP>$row['joinendtime']}<span class="label label-info">活动结束</span>{/if}
+                {if $joinList[$row['id']]['status']==1}<span class="label label-success">购买成功</span>{else}<span class="label label-info">待支付</span>{/if} 
+              </div>
+            </div>
+          </div>
+          <div class="jcell-01"><i class="fa fa-angle-right"></i></div>
+        </div>
+      </div>
+      <div class="parama">
+      <div> <span class="label label-info">收货人</span> {$joinList[$row['id']]['realname']} <span class="label label-info">电话</span> {$joinList[$row['id']]['mobile']}</div>
+      {php $pp=json_decode($joinList[$row['id']]["parama"],true);}
+      {loop $field $index $val}
+      <div><span class="label label-info">{php echo $index}</span> {if $val!=2}{php echo $pp[$index]} {else}<img src="{$pp[$index]}" height="80"/>{/if}</div>
+      {/loop}
+      </div>
+    </li>
+    {/loop}
+  </ul>
+</div>
+{elseif $operation==3}
+<div class="list_box">
+  <ul id="act_list">
+    {loop $list $row}
+    <li onClick="location.href='{php echo $this->createMobileUrl('view',array('id'=>$row['id']))}'">
+      <h2>{$row['title']}</h2>
+      <img src="{$_W['attachurl']}{$row['cover']}" onload="changeHeight(this)"/> </li>
+    {/loop}
+  </ul>
+</div>
+{/if}
+<div class="text-center footer" style="margin:10px 0;padding-bottom:20px; width:100%; text-align:center; word-break:break-all; background:none;"> {if !empty($_W['page']['footer'])}{$_W['page']['footer']}{/if} </div>
+<div class="fixed_first">&nbsp;</div>
+<div class="footermenu">
+  <div class="jtable">
+    <div class="jrow">
+      <div class="jcell-05"></div>
+      <div class="jcell-3"><a href="{php echo $this->createMobileUrl('member',array('op'=>1))}">
+        <p><i class="fa fa-file-text-o" style="font-size:18px"></i></p>
+        我的报名</a> </div>
+      <div class="jcell-3"><a href="{php echo $this->createMobileUrl('member',array('op'=>2))}">
+        <p><i class="fa fa-shopping-cart" style="font-size:18px"></i></p>
+        我的订单</a> </div>
+      <div class="jcell-3"><a href="{php echo $this->createMobileUrl('member',array('op'=>3))}">
+        <p><i class="fa fa-heart" style="font-size:18px"></i></p>
+        我的收藏</a> </div>
+      <div class="jcell-05"></div>
+    </div>
+  </div>
+</div>
+<script language="javascript">
+function changeHeight(obj){
+	$(obj).parent().find("h2").css({"height":li_height,'padding-top':li_height*0.46});
+}
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+	WeixinJSBridge.call('hideOptionMenu');
+	WeixinJSBridge.call('hideToolbar');
+});
+</script>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[集字游戏]]></name>
+		<identifie><![CDATA[junsion_netcollect]]></identifie>
+		<version><![CDATA[2.5.6]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[集字活动，类似支付宝的集福字功能]]></ability>
+		<description><![CDATA[集字活动，类似支付宝的集福字功能]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="活动管理" do="index" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

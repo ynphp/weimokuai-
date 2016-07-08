@@ -1,0 +1,79 @@
+首先安装redis
+
+yum install redis
+
+下载redis的php扩展
+
+wget https://github.com/phpredis/phpredis/archive/2.2.6.zip
+
+
+解压
+unzip 2.2.6
+
+cd phpredis-2.2.6
+
+/www/wdlinux/php-5.3.10/bin/phpize
+
+./configure --with-php-config=/www/wdlinux/php-5.3.10/bin/php-config
+
+make
+
+make install
+
+
+
+安装结果
+
+Installing shared extensions:     /www/wdlinux/php-5.3.10/lib/php/extensions/no-debug-non-zts-20090626/
+
+
+
+添加redis到php.ini
+
+vi /www/wdlinux/etc/php.ini
+
+[redis]
+
+extension_dir="/www/wdlinux/php-5.3.10/lib/php/extensions/no-debug-non-zts-20090626/"
+
+extension=redis.so
+
+
+
+
+
+修改配置
+
+#vi /etc/redis.conf
+
+
+
+启动进程
+
+#redis-server /etc/redis.conf
+
+查看进程有没有成功启动
+
+#ps -ef | grep redis 
+
+测试输入一个键值
+
+#redis-cli set test "123456"
+
+获取键值
+
+#redis-cli get test
+
+
+
+
+
+关闭redis 
+
+# redis-cli shutdown      //关闭所有    
+
+关闭某个端口上的redis    
+
+# redis-cli -p 6397 shutdown  //关闭6397端口的redis  
+
+说明：关闭以后缓存数据会自动dump到硬盘上，硬盘地址见redis.conf中的dbfilename  dump.rdb

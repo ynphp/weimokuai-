@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[捷讯乐分享]]></name>
+		<identifie><![CDATA[j_share]]></identifie>
+		<version><![CDATA[1.5]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[捷讯乐分享]]></ability>
+		<description><![CDATA[捷讯乐分享]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="同步UNIACID" do="manage" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_j_share_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `rid` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `title` varchar(200) NOT NULL COMMENT '回复标题',
+  `cover` varchar(250) NOT NULL COMMENT '图文回复图片',
+  `shareimg` varchar(250) NOT NULL COMMENT '分享小图',
+  `description` varchar(250) NOT NULL COMMENT '图文回复描述',
+  `url` varchar(300) NOT NULL COMMENT '链接',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
