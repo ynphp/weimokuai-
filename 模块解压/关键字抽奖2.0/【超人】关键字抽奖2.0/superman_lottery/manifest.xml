@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[【超人】关键字抽奖]]></name>
+		<identifie><![CDATA[superman_lottery]]></identifie>
+		<version><![CDATA[2.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[支持创建多个抽奖活动，支持奖品中奖概率，支持中奖查询、标记领奖状态、导出等功能]]></ability>
+		<description><![CDATA[粉丝通过发送公众号关键字或点击自定义菜单（绑定关键字），参与抽奖活动]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="中奖名单" do="winner" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_superman_lottery` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL DEFAULT '0',
+  `extend` text,
+  `createtime` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_superman_lottery_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL DEFAULT '0',
+  `rid` int(10) unsigned NOT NULL DEFAULT '0',
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `total` int(11) NOT NULL DEFAULT '0',
+  `today_total` int(11) NOT NULL DEFAULT '0',
+  `prize` varchar(1000) NOT NULL DEFAULT '',
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `dateline` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniq_uniacid` (`uniacid`,`rid`,`uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_superman_lottery_prize` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL DEFAULT '0',
+  `title` varchar(100) NOT NULL DEFAULT '',
+  `name` varchar(100) NOT NULL DEFAULT '',
+  `total` int(11) NOT NULL DEFAULT '0',
+  `remain_total` int(11) NOT NULL DEFAULT '0',
+  `probability` double NOT NULL DEFAULT '0',
+  `join_play` tinyint(4) NOT NULL DEFAULT '0',
+  `displayorder` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

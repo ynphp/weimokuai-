@@ -1,0 +1,88 @@
+{template 'common/header'}
+
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li >
+            <a href="{php echo $this->createWebUrl('gameManage');}">游戏管理</a></li>
+        <li class="active" >
+            <a href="{php echo $this->createWebUrl('gameManage', array('op' => 'edit'))}">添加游戏</a>
+        </li>
+
+    </ul>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {if $item}
+                编辑游戏
+            {else}
+                添加游戏
+            {/if}
+        </div>
+
+        <div class="table-responsive panel-body">
+
+            <form action="" method="post" class="form-horizontal form">
+
+                <input type="hidden" id="gid"   name="gid" value="{$gid}">
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>游戏名称：</label>
+
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" id="gname" class="form-control span7"
+                               placeholder="" name="gname" value="{$item['gname']}">
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>游戏编码：</label>
+
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" id="gcode" class="form-control span7"
+                               placeholder="" name="gcode" value="{$item['gcode']}">
+
+                        <div class="help-block">
+                            <div class="alert alert-warning" role="alert">
+                                游戏编码，需要找对应的模块中拷贝，微赞带核销的模块中有游戏编码数字。
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p/>
+                        <input name="submit" type="submit" value="提交" class="btn btn-primary span3" />
+                        <input type="hidden" name="token" value="{$_W['token']}" />
+                    </div>
+                </div>
+
+
+            </form>
+
+
+
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+
+<script>
+    function drop_confirm(msg, url){
+        if (confirm(msg)){
+            window.location = url;
+        }
+    }
+</script>
+
+
+{template 'common/footer'}

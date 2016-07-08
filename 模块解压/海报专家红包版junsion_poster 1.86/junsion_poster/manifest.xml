@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[海报专家红包版]]></name>
+		<identifie><![CDATA[junsion_poster]]></identifie>
+		<version><![CDATA[1.8.6]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[海报专家]]></ability>
+		<description><![CDATA[海报专家]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="unsubscribe" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="图文海报" do="poster" state="" direct="false" />
+			<entry title="积分海报" do="sposter" state="" direct="false" />
+			<entry title="分享海报" do="mposter" state="" direct="false" />
+			<entry title="邀请海报" do="iposter" state="" direct="false" />
+			<entry title="礼品管理" do="gifts" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+
+
+CREATE TABLE IF NOT EXISTS `ims_junsion_poster_extra` (
+  `pid` int(11) NOT NULL DEFAULT '0',
+  `sysurl` varchar(255) DEFAULT '',
+  `urlstyle` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`pid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_junsion_poster_goods` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `title` varchar(50) DEFAULT '',
+  `description` text,
+  `thumb` varchar(250) DEFAULT '',
+  `score` int(11) DEFAULT '0',
+  `price` float(11,2) DEFAULT '0.00',
+  `type` tinyint(1) DEFAULT '0',
+  `takelimit` int(11) DEFAULT '0',
+  `totals` int(11) DEFAULT '0',
+  `displayorder` int(11) DEFAULT '0',
+  `status` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_junsion_poster_oauth` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT '0',
+  `oauthopenid` varchar(50) DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1343 ;
+
+CREATE TABLE IF NOT EXISTS `ims_junsion_poster_order` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `uid` int(11) DEFAULT '0',
+  `gid` int(11) DEFAULT '0',
+  `score` int(11) DEFAULT '0',
+  `realname` varchar(20) DEFAULT '',
+  `mobile` varchar(20) DEFAULT '',
+  `address` varchar(200) DEFAULT '',
+  `createtime` int(10) DEFAULT '0',
+  `status` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_junsion_poster_place` (
+  `pid` int(11) DEFAULT '0',
+  `uid` int(11) DEFAULT '0',
+  `province` varchar(50) DEFAULT '',
+  `city` varchar(50) DEFAULT '',
+  KEY `uid` (`uid`,`pid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_junsion_poster_poster` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `type` int(1) DEFAULT NULL,
+  `data` text,
+  `createtime` varchar(12) DEFAULT NULL,
+  `bg` varchar(200) DEFAULT NULL,
+  `doneurl` varchar(200) DEFAULT NULL,
+  `tipsurl` varchar(200) DEFAULT NULL,
+  `score` float(11,2) DEFAULT '0.00',
+  `score2` float(11,2) DEFAULT '0.00',
+  `cscore2` float(11,2) DEFAULT '0.00',
+  `pscore2` float(11,2) DEFAULT '0.00',
+  `gid` int(11) DEFAULT '0',
+  `kword` varchar(20) DEFAULT NULL,
+  `mtips` varchar(200) DEFAULT NULL,
+  `sliders` text,
+  `slideH` int(11) DEFAULT '0',
+  `cscore` float(11,2) DEFAULT '0.00',
+  `pscore` float(11,2) DEFAULT '0.00',
+  `credit` int(1) DEFAULT '0',
+  `winfo1` varchar(200) DEFAULT NULL,
+  `winfo2` varchar(200) DEFAULT NULL,
+  `winfo3` varchar(200) DEFAULT NULL,
+  `sharetitle` varchar(200) DEFAULT NULL,
+  `sharedesc` varchar(200) DEFAULT NULL,
+  `sharethumb` varchar(200) DEFAULT NULL,
+  `stitle` text,
+  `sthumb` text,
+  `sdesc` text,
+  `surl` text,
+  `questions` text,
+  `rid` int(11) DEFAULT '0',
+  `rtype` int(1) DEFAULT '0',
+  `ftips` text,
+  `utips` text,
+  `utips2` text,
+  `wtips` text,
+  `starttime` varchar(12) DEFAULT NULL,
+  `endtime` varchar(12) DEFAULT NULL,
+  `nostarttips` text,
+  `endtips` text,
+  `grouptips` text,
+  `groups` text,
+  `rscore` float(11,2) DEFAULT '0.00',
+  `rtips` text,
+  `rtitle` varchar(200) DEFAULT '',
+  `rdesc` varchar(200) DEFAULT '',
+  `rthumb` varchar(250) DEFAULT '',
+  `province` varchar(250) DEFAULT '',
+  `city` varchar(250) DEFAULT '',
+  `area` varchar(250) DEFAULT '',
+  `outtips` text,
+  `redmin` float(11,2) DEFAULT '0.00',
+  `redmethod` tinyint(1) DEFAULT '0',
+  `copyright` text,
+  `creditname` varchar(10) DEFAULT '',
+  `ptype` tinyint(1) DEFAULT '0',
+  `pstitle` varchar(200) DEFAULT '',
+  `psurl` varchar(250) DEFAULT '',
+  `psdesc` varchar(200) DEFAULT '',
+  `limittype` tinyint(1) DEFAULT '0',
+  `checktips` varchar(250) DEFAULT '',
+  `redall` float(11,2) DEFAULT '0.00',
+  `redalltips` varchar(250) DEFAULT '',
+  `redmax` float(11,2) DEFAULT '0.00',
+  `reddaynum` float(11,2) DEFAULT '0.00',
+  `redallnum` float(11,2) DEFAULT '0.00',
+  `rednumtips` varchar(250) DEFAULT '',
+  `redtitle` varchar(200) DEFAULT '',
+  `reddesc` varchar(200) DEFAULT '',
+  `redthumb` varchar(250) DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+CREATE TABLE IF NOT EXISTS `ims_junsion_poster_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT NULL,
+  `pid` int(11) DEFAULT NULL,
+  `openid` varchar(200) DEFAULT NULL,
+  `score` int(11) DEFAULT '0',
+  `surplus` int(11) DEFAULT '0',
+  `createtime` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_junsion_poster_redlog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sid` int(11) DEFAULT '0',
+  `pid` int(11) DEFAULT '0',
+  `redscore` float(11,2) DEFAULT '0.00',
+  `createtime` int(10) DEFAULT '0',
+  `status` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `sid` (`sid`),
+  KEY `pid` (`pid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=841 ;
+
+CREATE TABLE IF NOT EXISTS `ims_junsion_poster_scorelog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sid` int(11) DEFAULT '0',
+  `redscore` float(11,2) DEFAULT '0.00',
+  `createtime` int(10) DEFAULT '0',
+  `remark` varchar(20) DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `sid` (`sid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17605 ;
+
+CREATE TABLE IF NOT EXISTS `ims_junsion_poster_share` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `openid` varchar(50) DEFAULT '0',
+  `nickname` varchar(50) DEFAULT '0',
+  `avatar` varchar(200) DEFAULT NULL,
+  `score` float(11,2) DEFAULT '0.00',
+  `cscore` float(11,2) DEFAULT '0.00',
+  `pscore` float(11,2) DEFAULT '0.00',
+  `pid` int(11) DEFAULT '0',
+  `sceneid` int(11) DEFAULT '0',
+  `ticketid` varchar(200) DEFAULT NULL,
+  `url` varchar(200) DEFAULT NULL,
+  `parentid` int(11) DEFAULT '0',
+  `status` int(1) DEFAULT '0',
+  `createtime` varchar(50) DEFAULT NULL,
+  `province` varchar(50) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `hasdel` int(1) DEFAULT '0',
+  `updatetime` int(10) DEFAULT '0',
+  `redscore` float(11,2) DEFAULT '0.00',
+  `allscore` float(11,2) DEFAULT '0.00',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `openid` (`openid`,`pid`),
+  KEY `pid` (`pid`),
+  KEY `parentid` (`parentid`,`pid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6251 ;
+
+	]]></install>
+	<uninstall><![CDATA[
+	drop table ims_junsion_poster_poster;
+	drop table ims_junsion_poster_share;
+	drop table ims_junsion_poster_record;
+	drop table ims_junsion_poster_redlog;
+	drop table ims_junsion_poster_oauth;
+	drop table ims_junsion_poster_place;
+	drop table ims_junsion_poster_goods;
+	drop table ims_junsion_poster_order;
+	drop table ims_junsion_poster_extra;
+	]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{$_W['account']['name']}</title>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet"
+	href="../addons/junsion_poster/template/js/index.css?i={TIMESTAMP}">
+<link rel="stylesheet"
+	href="../addons/junsion_poster/template/js/weui.min.css?i={TIMESTAMP}">
+<script type="text/javascript"
+	src="../addons/junsion_poster/template/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript"
+	src="../addons/junsion_poster/template/js/sweetalert.min.js"></script>
+<link rel="stylesheet"
+	href="../addons/junsion_poster/template/js/sweetalert.css?i={TIMESTAMP}">
+</head>
+<body class="pace-done">
+	<div class="hd">
+		<h1 class="page_title">
+			<img style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden;"
+				src="{$fans['avatar']}">
+		</h1>
+	</div>
+	<div class="weui_cells weui_cells_split">
+		<div class="weui_cell">
+			<div class="weui_cell_bd weui_cell_primary">
+				<p>微信昵称</p>
+			</div>
+			<div class="weui_cell_ft">{$fans['nickname']}</div>
+		</div>
+		<div class="weui_cell">
+			<div class="weui_cell_bd weui_cell_primary">
+				<p>当前{$poster['creditname']}</p>
+			</div>
+			<div class="weui_cell_ft">{$credit}</div>
+		</div>
+		<div class="weui_cells weui_cells_access">
+			<a href="{php echo $this->createMobileUrl('record',array('pid'=>$pid))}"
+				class="weui_cell">
+				<div class="weui_cell_bd weui_cell_primary">
+					<p>提现记录</p>
+				</div>
+				<div class="weui_cell_ft"></div>
+			</a>
+		</div>
+	</div>
+	<a class="weui_btn weui_btn_primary" onclick="withdraw()">立即提现</a>
+	<div style="text-align: center;font-size: 15px;position: absolute;bottom: 10px;width: 100%">{$poster['copyright']}</div>
+<script type="text/javascript">
+var haswith = 0;
+function withdraw(){
+	{if $poster['redmin'] > $credit}
+		swal("","满{$poster['redmin']}元才可提现，加油吧，亲！",'warning');
+		return;
+	{/if}
+	if(haswith > 0) return;
+	haswith++;
+	$.ajax({
+		url:"{php echo $this->createMobileUrl('with',array('pid'=>$pid,'uid'=>$fans['uid']))}",
+		type:'post',
+		success:function(data){
+			data = JSON.parse(data);
+			if(data['code'] == '1'){
+				swal({
+					title:'提现成功！',
+					text: data['msg'], 
+					type:'success'
+				},function(){
+					location.reload();
+				}); 
+			}else{
+				swal("提现失败",data['msg'],'error');
+				haswith = 0;
+			}
+		}
+	});
+	
+}
+</script>
+</body>
+</html>

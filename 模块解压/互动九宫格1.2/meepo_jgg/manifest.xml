@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[互动九宫格]]></name>
+		<identifie><![CDATA[meepo_jgg]]></identifie>
+		<version><![CDATA[1.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[本模块，旨在通过现场游戏与现场粉丝互动]]></ability>
+		<description><![CDATA[本模块，旨在通过现场游戏与现场粉丝互动]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<rule>
+			<entry title="活动首页" do="actindex" state="" direct="false" />
+			<entry title="中奖管理" do="luckers" state="" direct="false" />
+		</rule>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_meepo_jgg` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) NOT NULL,
+  `weid` int(11) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `starttime` int(10) DEFAULT NULL,
+  `endtime` int(10) DEFAULT NULL,
+  `rule` varchar(5000) DEFAULT NULL,
+  `picurl` varchar(300) DEFAULT NULL,
+  `jggbg` varchar(300) DEFAULT NULL,
+  `companylogo` varchar(300) DEFAULT NULL,
+  `accountlogo` varchar(300) DEFAULT NULL,
+  `telephone` varchar(100) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `musicurl` varchar(300) NOT NULL,
+  `day_play_count` int(3) DEFAULT '0',
+  `prize_level_0` varchar(100) DEFAULT '没有中奖',
+  `prize_name_0` varchar(100) NOT NULL,
+  `prize_img_0` varchar(200) NOT NULL,
+  `prize_p_0` int(3) NOT NULL,
+  `prize_level_1` varchar(100) DEFAULT '一等奖',
+  `prize_name_1` varchar(100) NOT NULL,
+  `prize_img_1` varchar(200) NOT NULL,
+  `prize_p_1` int(3) NOT NULL DEFAULT '0',
+  `prize_num_1` int(10) NOT NULL,
+  `prize_level_2` varchar(100) DEFAULT '二等奖',
+  `prize_name_2` varchar(100) NOT NULL,
+  `prize_img_2` varchar(200) NOT NULL,
+  `prize_p_2` int(3) NOT NULL,
+  `prize_num_2` int(10) NOT NULL DEFAULT '0',
+  `prize_level_3` varchar(100) DEFAULT '三等奖',
+  `prize_name_3` varchar(100) NOT NULL,
+  `prize_img_3` varchar(200) NOT NULL,
+  `prize_p_3` int(3) NOT NULL,
+  `prize_num_3` int(10) NOT NULL DEFAULT '0',
+  `prize_level_4` varchar(100) DEFAULT '四等奖',
+  `prize_name_4` varchar(100) NOT NULL,
+  `prize_img_4` varchar(200) NOT NULL,
+  `prize_p_4` int(3) NOT NULL,
+  `prize_num_4` int(10) NOT NULL DEFAULT '0',
+  `prize_level_5` varchar(100) DEFAULT '五等奖',
+  `prize_name_5` varchar(100) NOT NULL,
+  `prize_img_5` varchar(200) NOT NULL,
+  `prize_p_5` int(3) NOT NULL,
+  `prize_num_5` int(10) NOT NULL DEFAULT '0',
+  `prize_level_6` varchar(100) DEFAULT '六等奖',
+  `prize_name_6` varchar(100) NOT NULL,
+  `prize_img_6` varchar(200) NOT NULL,
+  `prize_p_6` int(3) NOT NULL,
+  `prize_num_6` int(10) NOT NULL DEFAULT '0',
+  `prize_level_7` varchar(100) DEFAULT '七等奖',
+  `prize_name_7` varchar(100) NOT NULL,
+  `prize_img_7` varchar(200) NOT NULL,
+  `prize_p_7` int(3) NOT NULL,
+  `prize_num_7` int(10) NOT NULL DEFAULT '0',
+  `createtime` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_meepo_jgg_lucker` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) NOT NULL,
+  `weid` int(11) NOT NULL,
+  `award_name` varchar(100) NOT NULL,
+  `award_level` varchar(100) DEFAULT '一等奖',
+  `createtime` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
