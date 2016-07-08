@@ -1,0 +1,46 @@
+<?php
+    function formatQueryParaMap($paraMap, $urlencode=0){
+        $buff = "";
+        ksort($paraMap);
+        foreach ($paraMap as $k => $v) {
+            if (null != $v && "null" != $v && "sign" != $k) {
+                if ($urlencode) {
+                    $v = urlencode($v);
+                }
+                $buff .= $k . "=" . $v . "&";
+            }
+        }
+        $reqPar = '';
+        if (strlen($buff) > 0) {
+            $reqPar = substr($buff, 0, strlen($buff) - 1);
+        }
+        return $reqPar;
+    }
+    function doMobileHttpsendhongbaotest() {
+        global $_W, $_GPC;
+        echo '--begin---<br>';
+		
+        $obj_url = 'http://192.168.1.12/weiqing7/app/index.php?i=1&c=entry&do=httpsendhongbao&m=q_3354988381_hongbao&';
+        $param_arr = array('openid' => 'oI4oAuBCtPsR1YQRu8fDcNbA29U0', 
+                           'memberid' => 1, 
+                           'user_info_id' => 2, 
+                           'money' => 100, //单位分
+                           'remark' => '红包测试');
+        ksort($param_arr);
+
+        $para_str = $this->formatQueryParaMap($param_arr);
+        $para_str .= '&key=' . '服务号密钥key';
+        $para_str .= '&sign=' . strtoupper(md5($para_str));
+        
+        $obj_url .= $para_str;
+        $res = file_get_contents($obj_url);
+		
+        echo '--end---<br>';
+        print_r($res);exit;
+    }
+	
+	doMobileHttpsendhongbaotest();
+?>
+	
+	
+	
