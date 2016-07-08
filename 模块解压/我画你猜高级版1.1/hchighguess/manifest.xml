@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[我画你猜高级版]]></name>
+		<identifie><![CDATA[hchighguess]]></identifie>
+		<version><![CDATA[1.1]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[我画你猜高级版]]></ability>
+		<description><![CDATA[我画你猜高级版]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="image" />
+		</subscribes>
+		<handles>
+			<message type="image" />
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+				<menu call="getMenuTiles">
+		    <entry title="词语设置" do="words" state="" direct="false" />
+
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_hchighguess_images;
+CREATE TABLE `ims_hchighguess_images` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `wid` int(10) unsigned NOT NULL COMMENT '词条ID',
+  `rid` int(10) unsigned NOT NULL,
+  `mid` int(10) unsigned NOT NULL COMMENT '会员ID',
+  `image` varchar(255) DEFAULT NULL,
+  `createtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_hchighguess_member;
+CREATE TABLE `ims_hchighguess_member` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `rid` int(10) unsigned NOT NULL,
+  `from_user` varchar(50) DEFAULT NULL,
+  `mobile` varchar(11) NOT NULL DEFAULT '' COMMENT '手机号码',
+  `avatar` varchar(255) DEFAULT NULL,
+  `realname` varchar(50) NOT NULL DEFAULT '',
+  `createtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_hchighguess_reply;
+CREATE TABLE `ims_hchighguess_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `cover` varchar(255) DEFAULT NULL,
+  `description` text,
+  `sharetitle` varchar(255) DEFAULT NULL,
+  `sharecover` varchar(255) DEFAULT NULL,
+  `sharedescription` text,
+  `gzurl` varchar(255) DEFAULT NULL,
+  `level` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_hchighguess_selectlog;
+CREATE TABLE `ims_hchighguess_selectlog` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `wid` int(10) unsigned NOT NULL,
+  `imgid` int(10) unsigned NOT NULL,
+  `from_user` varchar(50) DEFAULT NULL,
+  `realname` varchar(50) NOT NULL DEFAULT '',
+  `image` varchar(255) DEFAULT NULL,
+  `word` varchar(20) DEFAULT NULL,
+  `createtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_hchighguess_words;
+CREATE TABLE `ims_hchighguess_words` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `word` varchar(20) DEFAULT NULL,
+  `words` varchar(100) DEFAULT NULL,
+  `createtime` int(10) unsigned NOT NULL,
+  `isopen` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

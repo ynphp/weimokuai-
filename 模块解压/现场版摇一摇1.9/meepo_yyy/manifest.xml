@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[现场版摇一摇]]></name>
+		<identifie><![CDATA[meepo_yyy]]></identifie>
+		<version><![CDATA[1.9]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[现场版摇一摇、现场增粉丝神器]]></ability>
+		<description><![CDATA[现场版摇一摇、现场增粉丝神器]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<rule>
+			<entry title="摇一摇" do="yyyindex" state="" direct="false" />
+			<entry title="中奖名单" do="yyyres" state="" direct="false" />
+		</rule>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_meepo_yyy_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `openid` varchar(255) NOT NULL,
+  `point` int(11) NOT NULL,
+  `avatar` varchar(255) NOT NULL,
+  `rid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_meepo_yyy_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `weid` int(10) NOT NULL,
+  `maxshake` int(10) NOT NULL DEFAULT '100' COMMENT '摇一摇最大摇晃次数',
+  `maxwinner` int(2) NOT NULL DEFAULT '10' COMMENT '总中奖人数',
+  `countdown` int(2) NOT NULL DEFAULT '8' COMMENT '倒计时',
+  `realman` int(10) NOT NULL DEFAULT '0' COMMENT '随即抽取人数',
+  `cover` varchar(300) NOT NULL DEFAULT '' COMMENT '封面',
+  `logo` varchar(100) NOT NULL DEFAULT '' COMMENT 'logo',
+  `background` varchar(100) NOT NULL DEFAULT '0' COMMENT '背景',
+  `description` varchar(500) NOT NULL DEFAULT '0' COMMENT '描述',
+  `rule` varchar(1000) NOT NULL DEFAULT '0' COMMENT '规则',
+  `loginpass` varchar(20) NOT NULL DEFAULT 'meepo' COMMENT '开场密码',
+  `power` varchar(20) NOT NULL DEFAULT 'meepo' COMMENT '版权',
+  `music` varchar(200) NOT NULL DEFAULT 'meepo' COMMENT '背景音乐',
+  `isopen` tinyint(1) NOT NULL DEFAULT '1' COMMENT '摇一摇状态',
+  `user1` varchar(300) NOT NULL DEFAULT '0' COMMENT '随机抽取人数',
+  `user2` varchar(300) NOT NULL DEFAULT '0' COMMENT '随机抽取人数',
+  `user3` varchar(300) NOT NULL DEFAULT '0' COMMENT '随机抽取人数',
+  `user4` varchar(300) NOT NULL DEFAULT '0' COMMENT '随机抽取人数',
+  `user5` varchar(300) NOT NULL DEFAULT '0' COMMENT '随机抽取人数',
+  `user6` varchar(300) NOT NULL DEFAULT '0' COMMENT '随机抽取人数',
+  `user7` varchar(300) NOT NULL DEFAULT '0' COMMENT '随机抽取人数',
+  `user8` varchar(300) NOT NULL DEFAULT '0' COMMENT '随机抽取人数',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_meepo_yyy_toshake` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `openid` varchar(255) NOT NULL,
+  `point` int(11) NOT NULL,
+  `avatar` varchar(255) NOT NULL,
+  `rid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

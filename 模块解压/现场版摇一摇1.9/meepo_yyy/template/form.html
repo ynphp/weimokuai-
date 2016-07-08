@@ -1,0 +1,136 @@
+<input type="hidden" name="reply_id" value="{$reply['id']}" />
+   <div class="panel panel-default">
+            <div class="panel-heading">
+                添加摇一摇活动
+            </div>
+            <div class="panel-body">
+			    <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">主持人登录密码</label>
+                    <div class="col-xs-12 col-sm-9">
+                          <input type="text" value="{$reply['loginpass']}" class="form-control" name="loginpass">
+                          <div class="help-block">主持人登录密码 默认只有主持人和管理员才可进入首页</div>
+                    </div>
+                </div>
+				 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">摇一摇背景音乐链接</label>
+                    <div class="col-xs-12 col-sm-9">
+                         <input type="text" value="{$reply['music']}" class="form-control" name="music">
+                           <div class="help-block">摇一摇背景音乐链接</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">摇一摇最大摇晃次数</label>
+                    <div class="col-xs-12 col-sm-9">
+                           <input type="text" value="{$reply['maxshake']}" class="form-control" name="maxshake">
+                           <div class="help-block">设置此值后，当有用户摇动值等于或是超过此值，则活动结束。</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动主办方名称</label>
+                    <div class="col-xs-12 col-sm-9">
+                          <input type="text" value="{$reply['power']}" class="form-control" name="power">
+                          <div class="help-block">活动主办方名称</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">开始倒计时</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <input type="text" value="{$reply['countdown']}" class="form-control" name="countdown">
+                    <div class="help-block">点击活动开始后的倒计时。单位秒</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">封面</label>
+                    <div class="col-xs-12 col-sm-9">
+                         {php echo tpl_form_field_image('cover', $reply['cover'])}
+                    </div>
+                </div>
+				 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动简介</label>
+                    <div class="col-xs-12 col-sm-9">
+                         <textarea style="height:200px;" class="form-control" id="description" name="description" cols="70">{$reply['description']}</textarea>
+                         <div class="help-block">用于图文显示的简介</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">自定义LOGO</label>
+                    <div class="col-xs-12 col-sm-9">
+						{php echo tpl_form_field_image('logo', $reply['logo']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">背景图片</label>
+                    <div class="col-xs-12 col-sm-9">
+                     	{php echo tpl_form_field_image('background', $reply['background'])}
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">随机抽取人数设置</label>
+                    <div class="col-xs-12 col-sm-9">
+                        <input type="text" value="{$reply['realman']}" class="form-control" name="realman">
+                    <div class="help-block">随机抽取人数设置 当你设置为0或者为空 都将取全部录入用户</div>
+                 </div>
+            </div>
+   </div>
+   </div>
+   <div class="panel panel-default">
+            <div class="panel-heading">
+                游戏人物自定义、合计8个人物角色 请参照默认角色自己设计
+            </div>
+            <div class="panel-body">
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">No1</label>
+                    <div class="col-xs-12 col-sm-9">
+						{php echo tpl_form_field_image('user1', $reply['user1']);}
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">No2</label>
+                    <div class="col-xs-12 col-sm-9">
+						{php echo tpl_form_field_image('user2', $reply['user2']);}
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">No3</label>
+                    <div class="col-xs-12 col-sm-9">
+						{php echo tpl_form_field_image('user3', $reply['user3']);}
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">No4</label>
+                    <div class="col-xs-12 col-sm-9">
+						{php echo tpl_form_field_image('user4', $reply['user4']);}
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">No5</label>
+                    <div class="col-xs-12 col-sm-9">
+						{php echo tpl_form_field_image('user5', $reply['user5']);}
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">No6</label>
+                    <div class="col-xs-12 col-sm-9">
+						{php echo tpl_form_field_image('user6', $reply['user6']);}
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">No7</label>
+                    <div class="col-xs-12 col-sm-9">
+						{php echo tpl_form_field_image('user7', $reply['user7']);}
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">No8</label>
+                    <div class="col-xs-12 col-sm-9">
+						{php echo tpl_form_field_image('user8', $reply['user8']);}
+                    </div>
+                </div>
+            </div>
+
+   </div>
+<script type="text/javascript">
+    require(['util'],function(util){
+        util.editor($('#rule')[0]);
+    })
+</script>

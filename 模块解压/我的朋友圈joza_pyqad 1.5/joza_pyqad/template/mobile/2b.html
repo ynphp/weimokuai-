@@ -1,0 +1,710 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>我的朋友圈</title>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="../addons/joza_pyqad/images/index.css">
+
+<script src="http://g.alicdn.com/sj/lib/jquery.min.js" type="text/javascript"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<style type="text/css">
+    * {cursor: pointer;}
+.weui_mask_transition {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0);
+    -webkit-transition: background .3s;
+    transition: background .3s;
+}
+.weui_fade_toggle {
+    background: rgba(0, 0, 0, 0.6);
+}
+.weui_actionsheet {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    -webkit-transform: translate(0, 100%);
+    -ms-transform: translate(0, 100%);
+    transform: translate(0, 100%);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    z-index: 2;
+    width: 100%;
+    background-color: #EFEFF4;
+    -webkit-transition: -webkit-transform .3s;
+    transition: transform .3s;
+}
+.weui_actionsheet_toggle {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+.weui_actionsheet_menu {
+    background-color: #FFFFFF;
+}
+.weui_actionsheet_cell:before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 1px;
+    border-top: 1px solid #D9D9D9;
+    -webkit-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    transform-origin: 0 0;
+    -webkit-transform: scaleY(0.5);
+    -ms-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+}
+.weui_actionsheet_cell:first-child:before {
+    display: none;
+}
+.weui_actionsheet_cell {
+    position: relative;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 18px;
+}
+.weui_actionsheet_cell.title {
+    color: #999;
+}
+.weui_actionsheet_action {
+    margin-top: 6px;
+    background-color: #FFFFFF;
+}
+</style>
+</head>
+<body>
+<div id="actionSheet_wrap">
+    <div class="weui_mask_transition" id="mask" style="display: none;">
+    </div>
+    <div class="weui_actionsheet" id="weui_actionsheet">
+        <div class="weui_actionsheet_menu">
+            <div class="weui_actionsheet_cell title">
+                👇选择进入你的朋友圈
+            </div>
+            <div class="weui_actionsheet_cell play_pyq" data-scene="1">
+                男版朋友圈
+            </div>
+            <div class="weui_actionsheet_cell play_pyq" data-scene="2">
+                女版朋友圈
+            </div>
+        </div>
+        <div class="weui_actionsheet_action">
+            <div class="weui_actionsheet_cell actionsheet_cancel">
+                取消
+            </div>
+        </div>
+    </div>
+</div>
+<!--  -->
+<div id="actionSheet_wrap_child">
+    <div class="weui_mask_transition" id="mask_child" style="display: none;">
+    </div>
+    <div class="weui_actionsheet" id="weui_actionsheet_child">
+        <div class="weui_actionsheet_menu">
+            <div class="weui_actionsheet_cell title">
+                👇选择你想要的版本
+            </div>
+            <div class="weui_actionsheet_cell play_type" data-type="a">
+                明星朋友圈A
+            </div>
+            <div class="weui_actionsheet_cell play_type" data-type="b">
+                明星朋友圈B
+            </div>
+            <div class="weui_actionsheet_cell play_type" data-type="c">
+                明星朋友圈C
+            </div>
+            <div class="weui_actionsheet_cell play_type" data-type="d">
+                西游朋友圈
+            </div>
+            <div class="weui_actionsheet_cell play_type" data-type="e">
+                水浒朋友圈
+            </div>
+        </div>
+        <div class="weui_actionsheet_action">
+            <div class="weui_actionsheet_cell actionsheet_cancel">
+                取消
+            </div>
+        </div>
+    </div>
+</div>
+<!--/ -->
+<div style="margin:0 auto;display:none;">
+    <img class="data-avt" src="">
+</div>
+
+
+<header>
+<img id="bg" src="../addons/joza_pyqad/images/2b/bg1.jpg">
+<p id="user-name" class="data-name">
+</p>
+<img id="avt" class="data-avt" src="">
+</header>
+<div id="main">
+    <div id="list">
+        <!--content-->
+    </div>
+    <div id="share">
+        <p>
+            （此朋友圈纯属虚构）
+        </p>
+        <div style="padding:15px;padding-bottom:20px">
+            <button id="gotoplay" onclick="showActionSheet();" class="btn btn-success btn-lg btn-block">我也要玩</button>
+            <br/>
+        </div>
+    </div>
+    <style type="text/css">
+        #abbox {
+    margin-bottom: 10px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+#abbox a.ab_btn {
+    background: none;
+    width: 100%;
+}
+#abbox a.ab_btn img {
+    width: 100%;
+    border: 1px solid #efefef;
+}
+#abbox p {
+    color: #999999;
+    text-align: center;
+    font-size: 18px; 
+    border-bottom: 1px dashed #999999;
+    margin-bottom: 20px;
+}
+        .adlabel1 {
+            background: #787878;
+            color: #FFF;
+            padding:3px 5px;
+            padding-left: 21px;
+            margin-right: 1px;
+            float:right;
+            font-size: 14px; 
+        }
+        .adlabel1 img {
+            width: 14px;
+            height: 14px;
+            margin-left: -15px;
+            position: absolute;
+        }
+        .adlabel2 {
+            background: #2b61c1;
+            color: #FFF;
+            padding:3px 5px;
+            float:right;
+            font-size: 14px; 
+        }
+    </style>
+    {if !empty($reply['ad_banner'])}
+    <div id="abbox">
+        <span class="adlabel2">赞助商广告</span>
+        <a class="ab_btn" href="{$reply['ad_url']}"><img class="noplayimg" src="{$_W['attachurl']}{$reply['ad_banner']}"></a>
+    </div>
+    {/if}
+
+    <div id="noguide" class="hide">
+    </div>
+</div>
+<script id="scene" type="text/template">
+        <ul>
+            <li>
+                <div class="po-avt-wrap">
+                    <img class="po-avt data-avt" src="">
+                </div>
+                <div class="po-cmt">
+                    <div class="po-hd">
+                        <p class="po-name"><span class="data-name"></span></p>
+                        <div class="post">
+                            <p>刚才一气之下，把微信里长得比我美的比我可爱的全删了~~</p>
+                            <p>
+                            <img class="data-avt" src="">
+                            </p>
+                        </div>
+                        <p class="time">刚刚</p><img class="c-icon" src="../addons/joza_pyqad/images/2b/pl_icon.png" />
+                    </div>
+                    <div class="r"></div>
+                    <div class="cmt-wrap">
+                        <div class="like"><img src="../addons/joza_pyqad/images/like_icon.png">周笔畅，林志玲，鹿晗，张杰，王思聪，...</div>
+                        <div class="cmt-list">
+                            <p><span>林志玲：</span>😍刷下存在感～</p>
+                            <p><span>鹿晗：</span>怎么我还能看到你的朋友圈？</p>
+                            <p><span class="data-name"></span>回复<span>鹿晗</span><span>：</span>讨厌，你是男的嘛</p>
+                            <p><span>谢娜：</span>为什么我还能看到你的朋友圈~～</p>
+                            <p><span class="data-name"></span>回复<span>谢娜</span><span>：</span>娜姐~别问为什么~~</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="po-avt-wrap">
+                    <img class="po-avt" src="../addons/joza_pyqad/images/2b/qzla1.jpg">
+                </div>
+                <div class="po-cmt">
+                    <div class="po-hd">
+                        <p class="po-name">权志龙</p>
+                        <div class="post">
+                           <p>我和水原希子已经分手了，是我提出的，请大家不要怪@<b class="data-name"></b></p>  
+                            <img class="list-img" src="../addons/joza_pyqad/images/2b/qzl3.jpg" />
+                            <img class="list-img" src="../addons/joza_pyqad/images/2b/qzl4.jpg" />
+                            <img class="list-img data-avt" src="">
+                        </div>
+                        <p class="time">1分钟前</p><img class="c-icon" src="../addons/joza_pyqad/images/2b/pl_icon.png">
+                    </div>
+                    <div class="r"></div>
+                    <div class="cmt-wrap">
+                        <div class="like"><img src="../addons/joza_pyqad/images/like_icon.png">周崇光，胡歌，鹿晗，杨幂，angelababy，范冰冰</div>
+                        <div class="cmt-list">
+                        <p><span>BIGBANG_ASIA：</span>형제 축하～</p>
+                        <p><span class="data-name"></span><span>：</span>나는 ~ 당신을 사랑합니다 ILOVEYOU!</p>
+                        <p><span>权志龙</span>回复<span class="data-name"></span><span>：</span>나는 당신을 사랑합니다 我也爱你宝宝(我中文太不好)</p>
+                        <p><span>胡歌：</span>哇～</p>
+                        <p><span>鹿晗：</span>哇～</p>
+                        <p><span>杨幂：</span>哇～</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+          <li>
+            <div class="po-avt-wrap">
+                <img class="po-avt" src="../addons/joza_pyqad/images/2b/n2.jpg">
+            </div>
+            <div class="po-cmt">
+                <div class="po-hd">
+                    <p class="po-name">鹿晗</p>
+                    <p class="post"><span class="data-name"></span>，等了你1小时喽，还不到哇。不是说好一起看《功夫熊猫3》首映嘛！
+                        <img src="../addons/joza_pyqad/images/2b/g1.jpg">
+                    </p>
+                    <p class="time">1分钟前</p>
+                    <img class="c-icon" src="../addons/joza_pyqad/images/2b/pl_icon.png">
+                </div>
+                <div class="r"></div>
+                <div class="cmt-wrap">
+                    <div class="like">
+                        <img src="../addons/joza_pyqad/images/like_icon.png">TFBOYS-王俊凯，吴亦凡，周杰伦
+                    </div>
+                    <div class="cmt-list">
+                        <p><span class="data-name"></span><span>：</span>小公举在化妆</p>
+                        <p><span>鹿晗</span>回复<span class="data-name"></span><span>：</span>小公举，我等你~</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+            <li>
+            <div class="po-avt-wrap">
+                <img class="po-avt" src="../addons/joza_pyqad/images/2b/n1.jpg">
+            </div>
+            <div class="po-cmt">
+                <div class="po-hd">
+                    <p class="po-name">都敏俊</p>
+                    <div class="post">
+                        <p>大家好！请大伙欢迎第二季《来自星星的你》的新女主角，<span class="data-name"></span></p>
+                        <p>
+                            <img class="data-avt" src="">
+                        </p>
+                    </div>
+                    <p class="time">4分钟前</p>
+                    <img class="c-icon" src="../addons/joza_pyqad/images/2b/pl_icon.png">
+                </div>
+                <div class="r"></div>
+                <div class="cmt-wrap">
+                    <div class="like">
+                        <img src="../addons/joza_pyqad/images/like_icon.png">千颂伊，GEM，张杰，<span class="data-name"></span>
+                    </div>
+                    <div class="cmt-list">
+                        <p><span>千颂伊：</span>欧巴，卡鸡嘛~</p>
+                        <p><span class="data-name"></span><span>：</span>上面那位神烦，都不想想女主现在是谁，哼。</p>
+                        <p><span>都敏俊</span>回复<span class="data-name"></span><span>：</span>别理她，吻我~💘</p>
+                    </div>
+                </div>
+            </div>
+        </li>      
+   <!-- ad 1-->
+            {if !empty($reply['ad_avatar'])}
+            <li class="ad">
+                <div class="po-avt-wrap">
+                    <img class="po-avt" src="{$_W['attachurl']}{$reply['ad_avatar']}">
+                </div>
+                <div class="po-cmt">
+                    <div class="po-hd">
+                        <p class="ads">推广<img src="../addons/joza_pyqad/images/ads.png"></p>
+                        <p class="po-name">{$reply['ad_title']}</p>
+                        <div class="post" style="padding-bottom:0px;">{$reply['ad_description']}
+                            <p><a class="ad-link" href="{$reply['ad_url']}">查看详情 <img src="../addons/joza_pyqad/images/link_icon.png"></a></p>
+                            <a href="{$reply['ad_url']}"><img class="list-img" style="margin-right:5px;" src="{$_W['attachurl']}{$reply['ad_img1']}"></a>
+                            <a href="{$reply['ad_url']}"><img class="list-img" style="margin-right:5px;" src="{$_W['attachurl']}{$reply['ad_img2']}"></a>
+                            <a href="{$reply['ad_url']}"><img class="list-img" style="margin-right:5px;" src="{$_W['attachurl']}{$reply['ad_img3']}"></a>
+                        </div>
+                        <div class="post" style="padding-bottom:0px;margin-top:0px;">
+                            <a href="{$reply['ad_url']}"><img class="list-img" style="padding-top:5px;margin-right:5px;" src="{$_W['attachurl']}{$reply['ad_img4']}"></a>
+                            <a href="{$reply['ad_url']}"><img class="list-img" style="padding-top:5px;margin-right:5px;" src="{$_W['attachurl']}{$reply['ad_img5']}"></a>
+                            <a href="{$reply['ad_url']}"><img class="list-img" style="padding-top:5px;margin-right:5px;" src="{$_W['attachurl']}{$reply['ad_img6']}"></a>
+                        </div>
+
+                        <p class="time">48分钟前</p><img class="c-icon" src="../addons/joza_pyqad/images/1a/pl_icon.png">
+                    </div>
+                    <div class="r"></div>
+                    <div class="cmt-wrap">
+                        <div class="like"><img src="../addons/joza_pyqad/images/like_icon.png">范冰冰，李晨，周杰伦，王健林，...</div>
+                        <div class="cmt-list">
+                            <p><span>范冰冰：</span>{$reply['ad_des1']}</p>
+                            <p><span>李晨</span>回复<span>范冰冰 ：</span>{$reply['ad_des2']}<img class="bq" src="../addons/joza_pyqad/images/1a/bq1.png"></p>
+                            <p><span>周杰伦：</span>{$reply['ad_des3']}</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {/if}
+
+     
+                <li>
+                <div class="po-avt-wrap">
+                    <img class="po-avt data-avt" src="">
+                </div>
+                <div class="po-cmt">
+                    <div class="po-hd">
+                        <p class="po-name"><span class="data-name"></span></p>
+                        <div class="post">
+                            <p>大家想知道如何把股票炒到1000万的秘诀吗？</p>
+                        </div>
+                        <p class="time">10分钟前</p><img class="c-icon" src="../addons/joza_pyqad/images/2b/pl_icon.png" />
+                    </div>
+                    <div class="r"></div>
+                    <div class="cmt-wrap">
+                        <div class="like"><img src="../addons/joza_pyqad/images/like_icon.png">郎咸平，刘强东，马云，王思聪</div>
+                        <div class="cmt-list">
+                            <p><span>刘强东：</span>大师，快告诉我~~</p>
+                            <p><span class="data-name"></span>回复<span>刘强东：</span>带1个亿进去！不要告诉奶茶妹，切记</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+                     <li>
+                <div class="po-avt-wrap">
+                    <img class="po-avt data-avt" src="">
+                </div>
+                <div class="po-cmt">
+                    <div class="po-hd">
+                        <p class="po-name"><span class="data-name"></span></span></p>
+                        <div class="post">
+                            <p>我真心把你们当朋友，而你们呢？呵呵<br><br><br><br>一个个全都把我当偶像！</p>
+                            <p>
+                                <img class="data-avt" src="">
+                            </p>
+                        </div>
+                        <p class="time">13分钟前</p><img class="c-icon" src="../addons/joza_pyqad/images/2b/pl_icon.png">
+                    </div>
+                    <div class="r"></div>
+                    <div class="cmt-wrap">
+                        <div class="like"><img src="../addons/joza_pyqad/images/like_icon.png">高圆圆，都敏俊，鹿晗，郑凯，李晨，王祖蓝，…</div>
+                        <div class="cmt-list">
+                        <p><span>迪丽热马-Dilraba：</span>😍偶像～</p>
+                        <p><span>鹿晗：</span>女神💘～</p>
+                        <p><span>权志龙：</span>아이돌～</p>
+                        <p><span class="data-name"></span>回复<span>鹿晗：</span>别！我真的只是把你当朋友！</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+        <li>
+            <div class="po-avt-wrap">
+                <img class="po-avt" src="../addons/joza_pyqad/images/2b/n3.jpg" />
+            </div>
+            <div class="po-cmt">
+                <div class="po-hd">
+                    <p class="po-name">
+                        TFBOYS-王俊凯
+                    </p>
+                    <div class="post">
+                        <p>明明有女朋友，我却还是一个人~</p>
+                        <img src="../addons/joza_pyqad/images/2b/g2.jpg">
+                    </div>
+                    <p class="time">15分钟前</p>
+                    <img class="c-icon" src="../addons/joza_pyqad/images/2b/pl_icon.png">
+                </div>
+                <div class="r"></div>
+                <div class="cmt-wrap">
+                    <div class="like">
+                        <img src="../addons/joza_pyqad/images/like_icon.png">TFBOYS-王俊凯 ，鹿晗，TFBOYS-易烊千玺，TFBOYS-王源，...
+                    </div>
+                    <div class="cmt-list">
+                        <p><span class="data-name"></span><span>：</span>为什么呢？</p>
+                        <p><span>TFBOYS-王俊凯</span>回复<span class="data-name"></span><span>：</span>这就是我和明明的差距啊，笨！！</p>
+                        <p><span class="data-name"></span>回复<span>TFBOYS-王俊凯：</span>。。。。</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="po-avt-wrap">
+                <img class="po-avt" src="../addons/joza_pyqad/images/2b/n4.jpg">
+            </div>
+            <div class="po-cmt">
+                <div class="po-hd">
+                    <p class="po-name">
+                        周杰伦
+                    </p>
+                    <div class="post">
+                        <p><b class="data-name"></b>小朋友，你一定要好好学习，不然就会像我现在一样——<br><br><br>要靠脸吃饭！</p>
+                        <p>
+                            <img class="list-img" src="../addons/joza_pyqad/images/2b/c2.jpg">
+                            <img class="data-avt list-img" src="">
+                        </p>
+                    </div>
+                    <p class="time">
+                        20分钟前
+                    </p>
+                    <img class="c-icon" src="../addons/joza_pyqad/images/2b/pl_icon.png">
+                </div>
+                <div class="r">
+                </div>
+                <div class="cmt-wrap">
+                    <div class="like">
+                        <img src="../addons/joza_pyqad/images/like_icon.png">
+                        蔡依琳，小猪，黑人，汪峰，范玮琪，庾澄庆
+                    </div>
+                    <div class="cmt-list">
+                        <p>
+                            <span class="data-name">
+                            </span>
+                            <span>
+                               ：
+                            </span>
+                            杰伦老师，你的小公举也是靠脸吃饭的吗？
+                        </p>
+                        <p>
+                            <span>
+                                周杰伦
+                            </span>
+                            回复
+                            <span class="data-name">
+                            </span>
+                            <span>
+                               ：
+                            </span>
+                            想多了，她是靠我吃饭的。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="po-avt-wrap">
+                <img class="po-avt" src="../addons/joza_pyqad/images/2b/n5.jpg">
+            </div>
+            <div class="po-cmt">
+                <div class="po-hd">
+                    <p class="po-name">王思聪</p>
+                    <p class="post">我宣布，我和<span class="data-name"></span>结婚了！<img class="data-avt" src=""></p>
+                    <p class="time">30分钟前</p>
+                    <img class="c-icon" src="../addons/joza_pyqad/images/2b/pl_icon.png">
+                </div>
+                <div class="r"></div>
+                <div class="cmt-wrap">
+                    <div class="like">
+                        <img src="../addons/joza_pyqad/images/like_icon.png">
+                        林更新，杨幂，angelababy，范冰冰...
+                    </div>
+                    <div class="cmt-list">
+                        <p><span>林更新：</span>呵呵。</p>
+                        <p><span class="data-name"></span><span>：</span>希望大家祝福我们！</p>
+                        <p><span>王思聪</span>回复<span class="data-name"></span><span>：</span>我从此退出娱乐圈。</p>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="po-avt-wrap">
+                <img class="po-avt" src="../addons/joza_pyqad/images/2b/a7.jpg">
+            </div>
+            <div class="po-cmt">
+                <div class="po-hd">
+                    <p class="po-name">金星</p>
+                    <p class="post">完美！<img src="{$_W['attachurl']}{$reply['ad_erweima']}"></p>
+                    <p class="time">35分钟前</p>
+                    <img class="c-icon" src="../addons/joza_pyqad/images/2b/pl_icon.png">
+                </div>
+                <div class="r"></div>
+                <div class="cmt-wrap">
+                    <div class="cmt-list">
+                        <p><span class="data-name"></span><span>：</span>星姐，求虐！</p>
+                        <p><span>金星</span>回复<span class="data-name"></span><span>：</span>你呢，人长的挺好看，就是偏偏要靠才华。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    </script>
+
+
+<script>
+        function safetostring(str) {
+            return String(str).replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+        }
+        var nickname = '{$nickname}';
+        var headimgurl = "{$avatar}";
+        var city = "{$city}";
+        if(city == ""){
+            var city = "中国";
+        }
+
+        $("#list").html($("#scene").html());
+        setTimeout(function(){
+            $(".data-name").text(safetostring(nickname));
+            $(".data-avt").attr("src",headimgurl);
+            $(".data-city").text(safetostring(city));
+
+            var cw = $('.list-img').width();
+            $('.list-img').css({'height':cw+'px'});
+        },0);
+        $(window).resize(function() {
+            var cw = $('.list-img').width();
+            $('.list-img').css({'height':cw+'px'});
+        });
+
+        $(document.body).show();
+        function hideActionSheet(weuiActionsheet, mask) {
+            weuiActionsheet.removeClass('weui_actionsheet_toggle');
+            mask.removeClass('weui_fade_toggle');
+            weuiActionsheet.on('transitionend', function () {
+                mask.hide();
+            }).on('webkitTransitionEnd', function () {
+                mask.hide();
+            })
+        }
+
+        function showActionSheet(weuiActionsheet, mask) {
+            // var mask = $('#mask');
+            // var weuiActionsheet = $('#weui_actionsheet');
+            weuiActionsheet.addClass('weui_actionsheet_toggle');
+            mask.show().addClass('weui_fade_toggle').click(function () {
+                hideActionSheet(weuiActionsheet, mask);
+            });
+            $('.actionsheet_cancel').click(function () {
+                hideActionSheet(weuiActionsheet, mask);
+            });
+            weuiActionsheet.unbind('transitionend').unbind('webkitTransitionEnd');
+        }
+
+        $('#list').not( ".noplayimg" ).on('click', function () {
+            weuiActionsheet = $('#actionSheet_wrap').children('#weui_actionsheet');
+            mask = $('#actionSheet_wrap').children('#mask');
+            showActionSheet(weuiActionsheet,mask);
+        });
+        $('img').not( ".noplayimg" ).on('click', function (e) {
+            weuiActionsheet = $('#actionSheet_wrap').children('#weui_actionsheet');
+            mask = $('#actionSheet_wrap').children('#mask');
+            showActionSheet(weuiActionsheet,mask);
+        });
+
+        $('#gotoplay').click(function(){
+            weuiActionsheet = $('#actionSheet_wrap').children('#weui_actionsheet');
+            mask = $('#actionSheet_wrap').children('#mask');
+            showActionSheet(weuiActionsheet,mask);
+        });
+
+        $('.play_pyq').unbind('click').on('click', function () {
+            weuiActionsheet = $('#actionSheet_wrap').children('#weui_actionsheet');
+            mask = $('#actionSheet_wrap').children('#mask');
+            var scene = "";
+            var scene = $(this).attr("data-scene");
+            //alert(scene);
+            hideActionSheet(weuiActionsheet, mask);
+            checktype(scene);
+            
+        });
+
+        function checktype(scene){
+            weuiActionsheet = $('#actionSheet_wrap_child').children('#weui_actionsheet_child');
+            mask = $('#actionSheet_wrap_child').children('#mask_child');
+            showActionSheet(weuiActionsheet,mask);
+
+            $('.play_type').unbind('click').click(function(){
+                var type = $(this).attr("data-type");
+                gotoplay(scene,type);
+            })
+        }
+
+ 
+        function gotoplay(scene,type) {
+            if(scene ==1){
+                if(type =="a"){
+                    var gourl = "{php echo $this->createMobileUrl('index', array('id' => $id,'s' =>'1','t'=>'a'))}";
+                }else if(type =="b"){
+                    var gourl = "{php echo $this->createMobileUrl('index', array('id' => $id,'s' =>'1','t'=>'b'))}";
+                }else if(type =="c"){
+                    var gourl = "{php echo $this->createMobileUrl('index', array('id' => $id,'s' =>'1','t'=>'c'))}";
+                }else if(type =="d"){
+                    var gourl = "{php echo $this->createMobileUrl('index', array('id' => $id,'s' =>'1','t'=>'d'))}";
+                }else if(type =="e"){
+                    var gourl = "{php echo $this->createMobileUrl('index', array('id' => $id,'s' =>'1','t'=>'e'))}";
+                }
+            }else{
+                if(type =="a"){
+                    var gourl = "{php echo $this->createMobileUrl('index', array('id' => $id,'s' =>'2','t'=>'a'))}";
+                }else if(type =="b"){
+                    var gourl = "{php echo $this->createMobileUrl('index', array('id' => $id,'s' =>'2','t'=>'b'))}";
+                }else if(type =="c"){
+                    var gourl = "{php echo $this->createMobileUrl('index', array('id' => $id,'s' =>'2','t'=>'c'))}";
+                }else if(type =="d"){
+                    var gourl = "{php echo $this->createMobileUrl('index', array('id' => $id,'s' =>'2','t'=>'d'))}";
+                }else if(type =="e"){
+                    var gourl = "{php echo $this->createMobileUrl('index', array('id' => $id,'s' =>'2','t'=>'e'))}";
+                }
+            }
+            location.href=gourl;
+            //alert(gourl);
+        };
+
+      
+        
+    </script>
+<style>
+body > span{display:none;}
+</style>
+
+</body>
+<script type="text/javascript">
+    // jssdk config 对象
+    jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig']);} || {};
+    // 是否启用调试
+    jssdkconfig.debug = false;
+    jssdkconfig.jsApiList = [
+        'checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'showOptionMenu'
+    ];
+
+    wx.config(jssdkconfig);
+    var sharedata = {
+        "imgUrl" : "{$shareimg}",
+        "link" : "{$sharelink}",
+        "desc" : "{$sharedesc}",
+        "title" : "{$sharetitle}"
+    };
+
+    wx.ready(function () {
+        wx.showOptionMenu();
+        wx.onMenuShareAppMessage(sharedata);
+        wx.onMenuShareTimeline(sharedata);
+        wx.onMenuShareQQ(sharedata);
+        wx.onMenuShareWeibo(sharedata);
+    });
+</script>
+</html>
