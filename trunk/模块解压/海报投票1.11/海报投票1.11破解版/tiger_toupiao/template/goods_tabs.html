@@ -1,0 +1,25 @@
+<style type='text/css'>
+    .topmenu { position: relative; width:100%;float:left;background:#efefef;margin-bottom:20px;}
+    .topmenu ul li a { color:#000}
+    .topmenu .dropdown-menu li a { color:#666}
+    .topmenu ul li { content:'|'}
+</style>
+<div class='topmenu'>
+    <ul class="nav navbar-nav">
+        <li>
+           <a href="{php echo $this->createWebUrl('goods');}"><i class='fa fa-home'></i> 商品管理</a> 
+        </li> 
+        <li>
+            <a href="{php echo $this->createWebUrl('dianyuan');}"><i class='fa fa-user'></i> 店员添加</a> 
+        </li> 
+        <li>
+            <a href="{php echo $this->createWebUrl('request');}"><i class='fa fa-file-text-o'></i> 兑换记录</a> 
+        </li>         
+        <li>
+            <a href="{php echo $this->createWebUrl('hexiao');}"><i class='fa fa-shopping-cart'></i> 核销记录</a> 
+        </li> 
+        <li>
+            <a href="{php echo $this->createWebUrl('dhlist');}"><i class='fa fa-money'></i> 红包兑换记录</a> 
+        </li> 
+    </ul>
+</div>

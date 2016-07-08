@@ -1,0 +1,90 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<div class="container get card">
+    <header>
+        <div class="header card">
+            <div id="card" data-role="card">
+                <div class="front" style="background-image:url({$bg});">
+                    <span class="name" style="color:{if !empty($style['cardnamecolor'])}{$style['cardnamecolor']}{else}#000000{/if}">{$style['cardname']}</span>
+                    <span class="no" style="color:#FF9812;"></span>
+                </div>
+            </div>
+        </div>
+        <div>
+            <ul class="tbox group_btn3">
+                <li>
+                    <!--<label><big>0.8</big>折</label>-->
+                </li>
+                <li><a href="{php echo $this->createMobileUrl('addmember', array('from_user' => $page_from_user))}">点击领取</a></li>
+            </ul>
+        </div>
+    </header>
+    <div class="body">
+        <ul class="list_ul">
+            <!-- 特权-->
+            {loop $privileges $item}
+            <li class="li_a">
+                <label class="label" onclick="this.parentNode.classList.toggle('on');"><i>&nbsp;</i>{$item['title']}<span>&nbsp;</span></label>
+                <ol>
+                    <h6>详细说明：</h6>
+                    {php echo htmlspecialchars_decode($item['content']);}
+                </ol>
+            </li>
+            {/loop}
+            <!-- 开卡活动-->
+            {if !empty($gift) && $gift['showgetcard'] == 1}
+            <li class="li_b">
+                <label class="label" onclick="this.parentNode.classList.toggle('on');"><i>
+                    &nbsp;</i>开卡即送<span>&nbsp;</span></label>
+                <ol>
+                    <h6>{$gift['title']}</h6>
+                    {php echo htmlspecialchars_decode($gift['content']);}
+                </ol>
+            </li>
+            {/if}
+            <!-- 生日关怀-->
+            <!-- 节日关怀-->
+            <!-- 联系电话-->
+            {if !empty($business['tel'])}
+            <li class="li_i">
+                <a class="label" href="tel:{$business['tel']} "><i>&nbsp;</i>{$business['tel']} <span>&nbsp;</span></a>
+            </li>
+            {/if}
+            <!-- 地址-->
+            {if !empty($business['address'])}
+            <li class="li_j">
+                <a href="http://api.map.baidu.com/marker?location={$business['lat']},{$business['lng']}&title={$business['place']}&name={$business['place']}&content={$business['place']}&output=html&src=weiba|weiweb">
+                    <label class="label"><i>&nbsp;</i>
+                    <p class="mutipleLine">{$business['address']}</p> <span>&nbsp;</span></label>
+                </a>
+            </li>
+            {/if}
+            <!-- 门店-->
+            <li class="li_k">
+                <a href="{php echo $this->createMobileUrl('store', array('from_user' => $page_from_user))}"><label class="label"><i>&nbsp;</i>适用门店<span>&nbsp;</span></label></a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+<script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dialog_min.js"></script>
+<script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+<script type="text/javascript">
+    var notfollowurl = "{$not_follow_url}";
+    "{if $isfollow==false}"
+        alert('请先关注公众号,再领取会员卡!', 1500);
+        if (notfollowurl != '') {
+            setTimeout("location.href='" + notfollowurl + "'", 1500);
+        }
+    "{/if}"
+</script>
+</body>
+</html>

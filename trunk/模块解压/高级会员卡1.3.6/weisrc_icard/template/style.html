@@ -1,0 +1,275 @@
+{template 'common/header'}
+{php echo $this -> set_tabbar($action);}
+
+<link href="../addons/weisrc_icard/template/css/style.css?v={TIMESTAMP}" rel="stylesheet"  type="text/css"/>
+<link href="../addons/weisrc_icard/template/css/imageselect.css?v={TIMESTAMP}" media="screen" rel="stylesheet" type="text/css"/>
+<script src="../addons/weisrc_icard/template/js/imageselect.js?v={TIMESTAMP}" type="text/javascript"></script>
+<script src="../addons/weisrc_icard/template/js/bootstrap-colorpicker.js?v={TIMESTAMP}"></script>
+
+<style>
+    .ke-inline-block {
+        display: -moz-inline-stack;
+        display: inline-block;
+        vertical-align: middle;
+        zoom: 1;
+        *display: inline;
+    }
+    .ke-clearfix {
+        zoom: 1;
+    }
+    .ke-clearfix:after {
+        content: ".";
+        display: block;
+        clear: both;
+        font-size: 0;
+        height: 0;
+        line-height: 0;
+        visibility: hidden;
+    }
+    .ke-shadow {
+        box-shadow: 1px 1px 3px #A0A0A0;
+        -moz-box-shadow: 1px 1px 3px #A0A0A0;
+        -webkit-box-shadow: 1px 1px 3px #A0A0A0;
+        filter: progid:DXImageTransform.Microsoft.Shadow(color='#A0A0A0', Direction=135, Strength=3);
+        background-color: #F0F0EE;
+    }
+
+    .ke-upload-button {
+        position: relative;
+    }
+    .ke-upload-area {
+        position: relative;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+    .ke-upload-area .ke-upload-file {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 25px;
+        padding: 0;
+        margin: 0;
+        z-index: 811212;
+        border: 0 none;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+</style>
+
+<div class="main">
+	<form action="" method="post" onsubmit="return check();" class="form-horizontal form" enctype="multipart/form-data">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                会员卡设置
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员卡样式</label>
+                    <div class="col-sm-9">
+                        <div class="card">
+                            <img id="cardbg" src="{$bg}">
+                            {if !empty($reply['show_logo'])}
+                            <img id="cardlogo" class="cardlogo" src="{$logo}" >
+                            {/if}
+                            <h1 id="card_name" style="{$reply['vipnamecolor']}">{$reply['cardname']}</h1>
+                            <strong class="pdo verify" id="card_num" ><span><em>会员卡号</em>2188 8888</span></strong>
+                        </div>
+                        <div class="cardbg">
+                            <select name="selbg">
+                                {$page_sel_bg}
+                            </select>
+                            <input type="hidden" id="hidbg" name="hidbg" value="{$reply['bg']}"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员卡名称</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="cardname" value="{$reply['cardname']}" id="cardname" class="form-control" onkeyup="DivFollowingText();">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员卡名称颜色</label>
+                    <div class="col-sm-9">
+                        {if !empty($reply['cardnamecolor'])}
+                        {php echo tpl_form_field_color('cardnamecolor', $reply['cardnamecolor']);}
+                        {else}
+                        {php echo tpl_form_field_color('cardnamecolor');}
+                        {/if}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">卡号颜色</label>
+                    <div class="col-sm-9">
+                        {if !empty($reply['cardnumcolor'])}
+                        {php echo tpl_form_field_color('cardnumcolor', $reply['cardnumcolor']);}
+                        {else}
+                        {php echo tpl_form_field_color('cardnumcolor');}
+                        {/if}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">背面内容颜色</label>
+                    <div class="col-sm-9">
+                        {if !empty($reply['contentcolor'])}
+                        {php echo tpl_form_field_color('contentcolor', $reply['contentcolor']);}
+                        {else}
+                        {php echo tpl_form_field_color('contentcolor');}
+                        {/if}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">自定义卡号</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="cardpre" value="{$reply['cardpre']}" id="cardpre" class="form-control" >
+                        <div class="help-block"><font color="red">例：ZSH100001 ZSH就是英文编号.英文编号在8位内，起始卡号必须位数字并且在9位内.</font></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">起始卡号</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="cardstart" value="{if empty($reply['cardstart'])}1000001{else}{$reply['cardstart']}{/if}" id="cardstart" class="form-control" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">显示用户头像</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline"><input type="radio" name="show_logo" id="show_logo2" value="1" {if $reply['show_logo']==1}checked{/if} /> 开启</label>
+                        <label class="radio-inline"><input type="radio" name="show_logo" id="show_logo1" value="0" {if $reply['show_logo']==0 || empty($reply)}checked{/if} /> 关闭</label>
+                        <div class="help-block">是否显示图标.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">自定义背景</label>
+                    <div class="col-sm-9">
+                        <input type="hidden" name="hidisfirst" id="hidisfirst"  value="0" />
+                        {php echo tpl_form_field_image('diybg', $reply['diybg'])}
+                        <div class="help-block">大图片建议尺寸：270像素 * 160像素</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">背面背景</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_image('backbg', $reply['backbg'])}
+                        <div class="help-block">大图片建议尺寸：270像素 * 160像素</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员卡说明</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control " name="content" cols="70" style="height: 100px;" id="reply-add-text">{if empty($reply)}1、本卡采取记名消费方式
+2、持卡人可享受会员专属优惠
+3、本卡不能与其他优惠活动同时使用
+4、持卡人可用卡内余额进行消费{else}{$reply['content']}{/if}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">领卡自定义选项</label>
+                    <div class="col-sm-9">
+                        <div style="border:1px #eee dashed; padding:10px;background:#F5F5F5;">
+                            <label for="isrealname" class="checkbox-inline"><input id="isrealname" type="checkbox" name="isrealname" value="1" checked="checked" disabled> 姓名</label>
+                            <label for="ismobile" class="checkbox-inline"><input id="ismobile" type="checkbox" name="ismobile" value="1" checked="checked" disabled> 手机</label>
+                            <label for="iscarnumber" class="checkbox-inline"><input id="iscarnumber" type="checkbox" name="iscarnumber" value="1" {if $userinfo!='' && $userinfo['iscarnumber'] == 1}checked{/if}> 车牌</label>
+                            <label for="isemail" class="checkbox-inline"><input id="isemail" type="checkbox" name="isemail" value="1" {if $userinfo!='' && $userinfo['isemail'] == 1}checked{/if}> 邮箱</label>
+                            <label for="isqq" class="checkbox-inline"><input id="isqq" type="checkbox" name="isqq" value="1" {if $userinfo!='' && $userinfo['isqq'] == 1}checked{/if}> QQ号</label>
+                            <label for="iscompany" class="checkbox-inline"><input id="iscompany" type="checkbox" name="iscompany" value="1" {if $userinfo!='' && $userinfo['iscompany'] == 1}checked{/if}> 公司</label>
+                            <label for="isoccupation" class="checkbox-inline"><input id="isoccupation" type="checkbox" name="isoccupation" value="1" {if $userinfo!='' && $userinfo['isoccupation'] == 1}checked{/if}> 职业</label>
+                            <label for="isposition" class="checkbox-inline"><input id="isposition" type="checkbox" name="isposition" value="1" {if $userinfo!='' && $userinfo['isposition'] == 1}checked{/if}> 职位</label>
+                            <label for="isaddress" class="checkbox-inline"><input id="isaddress" type="checkbox" name="isaddress" value="1" {if $userinfo!='' && $userinfo['isaddress'] == 1}checked{/if}> 地址</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交">保存设置</button>
+                <input type="hidden" name="token" value="{$_W['token']}" />
+            </div>
+        </div>
+	</form>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $('#cardnamecolor').colorpicker({
+            format: 'hex'
+        });
+        $('#cardnumcolor').colorpicker({
+            format: 'hex'
+        });
+        $('#contentcolor').colorpicker({
+            format: 'hex'
+        });
+
+
+        $('#cardnamecolor').colorpicker().on('changeColor', function(ev){
+            $('#cardnamecolor').css("background-color", ev.color.toHex());
+        });
+        $('#cardnumcolor').colorpicker().on('changeColor', function(ev){
+            $('#cardnumcolor').css("background-color", ev.color.toHex());
+        });
+        $('#contentcolor').colorpicker().on('changeColor', function(ev){
+            $('#contentcolor').css("background-color", ev.color.toHex());
+        });
+    });
+
+    $(document).ready(function(){
+        //图片下拉框
+        $('select[name=selbg]').ImageSelect({dropdownWidth:200});
+        //设置颜色
+        $('#cardnamecolor').css("background-color", "{$reply['cardnamecolor']}");
+        $("#cardnumcolor").css("background-color", "{$reply['cardnumcolor']}");
+        $("#contentcolor").css("background-color", "{$reply['contentcolor']}");
+        $('#card_name').css("color", "{$reply['cardnamecolor']}");
+        $('#card_num').css("color", "{$reply['cardnumcolor']}");
+        $('#cardbg').attr('src',"{$bg}");
+    });
+</script>
+<script type="text/javascript">
+    function DivFollowingText(){
+        $('#card_name').html($("#cardname").val());
+    }
+
+    function cardnamecoloronblur(){
+        $('#card_name').css('color',$("#cardnamecolor").val());
+        $('#cardnamecolor').css('background-color',$("#cardnamecolor").val());
+    }
+
+    function cardnumcoloronblur(){
+        $('#card_num').css('color',$("#cardnumcolor").val());
+        $('#cardnumcolor').css('background-color',$("#cardnumcolor").val());
+    }
+
+    function contentcolorblur(){
+        $('#contentcolor').css('background-color',$("#contentcolor").val());
+    }
+
+    function showlogo(){
+        if($('#logo').val() == ''){
+            $('#cardlogo').css('display','none');
+        } else {
+            $('#cardlogo').css('display','block');
+            $('#cardlogo').attr('src',$('#logo').val());
+        }
+    }
+
+    function showbg(){
+        $('#cardbg').attr('src',$('#diybg').val());
+    }
+</script>
+<script type="text/javascript">
+    function check() {
+        if($.trim($('#cardname').val()) == '') {
+            message('没有输入会员卡名称.', '', 'error');
+            return false;
+        }
+        if($.trim($('#cardname').val()).length > 20) {
+            message('会员卡名称不能多于20个字.', '', 'error');
+            return false;
+        }
+        return true;
+    }
+</script>
+{template 'common/footer'}

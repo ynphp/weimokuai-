@@ -1,0 +1,41 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<div class="container integral integran_teach">
+    <header>
+        <ul class="tbox tbox_1">
+            <li>
+                <p>&nbsp;</p>
+            </li>
+            <li>
+                <a href="javascript:;" style="padding-top:20px;"><label>积分<br>攻略</label></a>
+            </li>
+            <li>
+                <p>&nbsp;</p>
+            </li>
+        </ul>
+    </header>
+    <div class="body">
+        <article><label>赚积分指南：</label>
+            {php echo htmlspecialchars_decode($score['score_info']);}
+        </article>
+    </div>
+    {if !empty($card)}
+    {php include $this->template($this->cur_tpl.'/_footer');}
+    {/if}
+    <script type="text/javascript">
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</div>
+</body>
+</html>

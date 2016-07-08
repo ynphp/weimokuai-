@@ -1,0 +1,78 @@
+﻿{template 'common/header'}
+{php echo $this -> set_tabbar($action, 3);}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form">
+        <!--<a class="btn btn-primary" href="{php echo create_url('site/module', array('do' => 'shopinglogexcel', 'name' => 'weisrc_icard', 'cardid'=>$cardid))}">导出消费日志</a>-->
+        <!--<div style="padding-top: 15px;"></div>-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                会员卡{$title}消费日志
+            </div>
+            <div class="table-responsive panel-body">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:5%;">编号</th>
+                        <th style="width:20%;">名称</th>
+                        <th style="width:10%;">消费类型</th>
+                        <th style="width:10%;">付款方式</th>
+                        <th style="width:10%;">金额</th>
+                        <th style="width:10%;">奖励积分</th>
+                        <th style="width:17%;">门店/操作员</th>
+                        <th style="width:18%;">消费时间</th>
+                    </tr>
+                    </thead>
+                    <tbody id="level-list">
+                    {loop $list $item}
+                    <tr>
+                        <td>{$item['id']}</td>
+                        <td>
+                            {$item['title']}
+                        </td>
+                        <td>
+                    <span class="label" style="background:#e63a3a;">
+                    <!--//1现金2消费3余额4充值-->
+                    {if $item['type'] == 1}
+                        现金
+                    {else if $item['type'] == 2}
+                        消费
+                    {else if $item['type'] == 3}
+                        余额
+                    {else if $item['type'] == 4}
+                        充值
+                    {/if}
+                    </span>
+                        </td>
+                        <td>
+                    <span class="label" style="background:#4169e1;">
+                    {if $item['payment']==1}
+                        现金消费
+                    {else if $item['payment']==2}
+                        余额消费
+                    {else}
+                        在线支付
+                    {/if}
+                    </span>
+                        </td>
+                        <td>{$item['money']}</td>
+                        <td>{$item['score']}</td>
+                        <td>
+                            <font color="green">
+                                {if empty($password[$item['passwordid']])}
+                                门店总部
+                                {else}
+                                {if empty($store[$item['storeid']])}商家{else}{$store[$item['storeid']]}{/if}
+                                /{$password[$item['passwordid']]['username']}
+                                {/if}
+                            </font>
+                        </td>
+                        <td>{php echo date('Y-m-d H:i:s', $item['dateline'])}</td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+    {$pager}
+</div>

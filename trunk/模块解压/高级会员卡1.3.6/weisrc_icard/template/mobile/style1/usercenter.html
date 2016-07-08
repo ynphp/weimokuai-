@@ -1,0 +1,380 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dialog_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/helper_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<script>
+
+    function bd2() {
+        var d = new iDialog();
+        d.open({
+            classList: "valid_phone pay",
+            title: "",
+            close: "",
+            content: '<ul class="list_ul_card">\
+					<form id="form3" action="javascript:;" method="post">\
+						<li data-card>\
+							<table>\
+								<tr class="input wrapInput">\
+									<td style="width:70%;"><input type="number" name="telephone1" placeholder="发送至原手机号" maxlength="15" class="input"></td>\
+									<td>\
+										<input type="button" onclick="getVCode(this, event,\'form3\', \'telephone1\');" class="button vcode" value="获取验证码" />\
+									</td>\
+								</tr>\
+								<tr class="input wrapInput">\
+									<td>\
+										<label class="pre ml_5" style="color:#333333;"> 新手机号码：</label> \
+									</td>\
+									<td style="width:100%;">\
+										<input type="tel" name="telephone2" placeholder="请输入手机号码" maxlength="15" class="input" />\
+									</td>\
+								</tr>\
+								<tr class="input wrapInput">\
+									<td style="width:70%;"><input type="number" placeholder="发送至新手机号" maxlength="30" class="input"></td>\
+									<td>\
+										<input type="button" onclick="getVCode(this, event,\'form3\', \'telephone2\');" class="button vcode" value="获取验证码" />\
+									</td>\
+								</tr>\
+							</table>\
+						</li>\
+					</form>\
+				</ul>',
+            btns: [
+                {id: "", name: "确定", onclick: "fn.call();", fn: function (self) {
+                    var form3 = document.getElementById("form3");
+                    var obj = {
+                        code: form2.code.value
+                    };
+                    loading(true);
+                    $.ajax({
+                        url: "data/bd_tel_new.json",
+                        type: "post",
+                        data: obj,
+                        dataType: "JSON",
+                        success: function (res) {
+                            loading(false);
+                            if (1 == res.result) {
+                                self.die();
+                                alert("成功", 1500);
+                            } else {
+                                alert("失败", 1500);
+                            }
+                        }
+                    });
+                }},
+                {id: "", name: "取消", onclick: "fn.call();", fn: function (self) {
+                    self.die();
+                }}
+            ]
+        });
+    }
+
+    function bd1() {
+        var d = new iDialog();
+        d.open({
+            classList: "valid_phone pay",
+            title: "",
+            close: "",
+            content: '<ul class="list_ul_card">\
+					<form id="form1" action="javascript:;" method="post">\
+						<li data-card>\
+							<table>\
+								<tr class="input wrapInput">\
+									<td>\
+										<label class="pre ml_5" style="color:#333333;"> 手机号码：</label> \
+									</td>\
+									<td style="width:100%;">\
+										<input type="tel" name="telephone2" placeholder="请输入手机号码" maxlength="15" class="input" />\
+									</td>\
+								</tr>\
+								<tr class="input wrapInput">\
+									<td style="width:70%;"><input type="number" placeholder="发送至新手机号" maxlength="30" class="input"></td>\
+									<td>\
+										<input type="button" onclick="getVCode(this, event,\'form3\', \'telephone2\');" class="button vcode" value="获取验证码" />\
+									</td>\
+								</tr>\
+							</table>\
+						</li>\
+					</form>\
+				</ul>',
+            btns: [
+                {id: "", name: "确定", onclick: "fn.call();", fn: function (self) {
+                    var form3 = document.getElementById("form3");
+                    var obj = {
+                        code: form2.code.value
+                    };
+                    loading(true);
+                    $.ajax({
+                        url: "data/bd_tel_new.json",
+                        type: "post",
+                        data: obj,
+                        dataType: "JSON",
+                        success: function (res) {
+                            loading(false);
+                            if (1 == res.result) {
+                                self.die();
+                                alert("成功", 1500);
+                            } else {
+                                alert("失败", 1500);
+                            }
+                        }
+                    });
+                }},
+                {id: "", name: "取消", onclick: "fn.call();", fn: function (self) {
+                    self.die();
+                }}
+            ]
+        });
+    }
+</script>
+<script>
+    function bdentitymember() {
+        var d = new iDialog();
+        var html = '<ul class="list_ul_card">\
+				<form id="bdentitymember" action="javascript:;" method="post">\
+					<li data-card>\
+						<table>\
+							<tr class="input wrapInput">\
+								<td>\
+									<label class="pre" style="color:#333333;"> ：</label> \
+								</td>\
+								<td style="width:100%;">\
+									<input  name="entry_key" placeholder="" maxlength="32" class="input" />\
+								</td>\
+							</tr>\
+							<tr class="input wrapInput">\
+								<td>\
+									<label class="pre" style="color:#333333;"> 手机号码：</label> \
+								</td>\
+								<td style="width:100%;">\
+									<input type="tel" name="entry_telephone" placeholder="" maxlength="15" class="input" />\
+								</td>\
+							</tr>\
+							<tr class="input wrapInput">\
+								<td style="width:100%;">\
+									<input type="number" placeholder="验证码：" name="entry_checkcode" maxlength="10" class="input" />\
+								</td>\
+								<td>\
+								<input type="button" onclick="getReceiveMemberCardVCode(this, event,\'bdentitymember\', \'entry_telephone\',2);" class="button vcode" value="获取验证码" />\
+								</td>\
+							</tr>\
+						</table>\
+					</li>\
+				</form>\
+			</ul>';
+
+        d.open({
+            classList: "valid_phone bd",
+            title: "",
+            close: "",
+            content: html,
+            btns: [
+                {id: "", name: "确定", onclick: "fn.call();", fn: function (self) {
+                    savebdentity();
+                }},
+                {id: "", name: "取消", onclick: "fn.call();", fn: function (self) {
+                    self.die();
+                }}
+            ]
+        });
+    }
+
+    function savebdentity() {
+        loading(true);
+        //debug
+        return false;
+        $.ajax({
+            url: "",
+            type: "POST",
+            data: $("#bdentitymember").serialize(),
+            dataType: "json",
+            success: function (res) {
+                loading(false);
+                if (res.errno == 0) {
+                    alert(res.error, 1500);
+                    redirect(res.url, 1500);
+                } else {
+                    alert(res.error, 1500);
+                    loading(false);
+                }
+            }
+        });
+
+    }
+</script>
+<div class="container my">
+    <header>
+        <div class="header">
+            <a href="{php echo $this->createMobileUrl('edituserinfo')}" class="setting">
+                &nbsp;</a>
+            <div>
+                <ul class="tbox">
+                    <li>
+						<span id="upload_header">
+                            <img src="{$card['headimgurl']}" onerror="this.src='{RES}mobile/{php echo $this->cur_tpl}/images/head.png'" >
+							<!--<input type="file" accept="image/jpeg, image/jpg, image/png"-->
+                                   <!--onchange="my.changeImg(this, event, {form_action:'',base_url:''});">-->
+						</span>
+                    </li>
+                    <li>
+                        <h3>{$fans['realname']}</h3>
+                        <p>
+                            <sban>&nbsp;</sban>
+                            {$level}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <ul class="box">
+                    <li>
+                        <a href="{php echo $this->createMobileUrl('mycoupon')}">
+                            <label>优惠券</label>
+                            <span>{$coupon_count}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{php echo $this->createMobileUrl('mycoupon', array('type' => 2))}">
+                            <label>代金券</label>
+                            <span>{$coupon_count2}</span>
+                        </a>
+                    </li>
+                    <!--<li>-->
+                        <!--<a href="{php echo $this->createMobileUrl('mycoupon', array('type' => 3))}">-->
+                            <!--<label>礼品券</label>-->
+                            <!--<span>{$coupon_count3}</span>-->
+                        <!--</a>-->
+                    <!--</li>-->
+                    <li>
+                        <a href="{php echo $this->createMobileUrl('scorelist')}">
+                            <label>积分</label>
+                            <span>{$balance_score}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{php echo $this->createMobileUrl('bill')}">
+                            <label>余额</label>
+                            <span>{$coin}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="body">
+        <ul class="list_ul">
+            <div>
+                <li class="li_s">
+                    <a href="{php echo $this->createMobileUrl('mycoupon')}"><label
+                            class="label"><i>&nbsp;</i>我的优惠券({$coupon_count})<span>&nbsp;</span></label></a>
+                </li>
+                <li class="li_t">
+                    <a href="{php echo $this->createMobileUrl('mycoupon', array('type' => 2))}"><label
+                            class="label"><i>&nbsp;</i>我的代金券({$coupon_count2})<span>&nbsp;</span></label></a>
+                </li>
+                <li class="li_u">
+                    <a href="{php echo $this->createMobileUrl('MyExchange', array('type' => 1))}"><label
+                            class="label"><i>&nbsp;</i>我的礼品券({$coupon_count3})<span>&nbsp;</span></label></a>
+                </li>
+                <!--<li class="li_x">-->
+                    <!--<a href="/Webnewmemintegral/myexchangeactivity/pid/18692/wechatid/o-pbztxV0ItE_Awu6hrxkISF91eA"><label class="label"><i>&nbsp;</i>我的活动<span>&nbsp;</span></label></a>-->
+                <!--</li>-->
+                <li class="li_v">
+                    <a href="{php echo $this->createMobileUrl('bill')}"><label
+                            class="label"><i>&nbsp;</i>我的账单<span>&nbsp;</span></label></a>
+                </li>
+                <li class="li_d">
+                    <a href="{php echo $this->createMobileUrl('edituserinfo')}"><label class="label"><i>&nbsp;</i>编辑会员卡资料 <span>&nbsp;</span></label></a>
+                </li>
+            </div>
+            <div>
+                <!--<li class="li_o">-->
+                    <!--<label class="label"><i>&nbsp;</i>收货地址<a-->
+                            <!--href="/Webnewmemaddr/myaddr/pid/18692/wechatid/o-pbztxV0ItE_Awu6hrxkISF91eA" class="button">管理</a></label>-->
+                <!--</li>-->
+                <li class="li_w">
+                    <label class="label"><i>&nbsp;</i>{$fans['mobile']}</label>
+                </li>
+                <li class="li_y">
+                    <label class="label"><i>&nbsp;</i>会员卡密码<a
+                            href="{php echo $this->createMobileUrl('SetPayPass')}"
+                            class="button">修改</a></label>
+                </li>
+                <!--<li class="li_b">-->
+                    <!--<label class="label">-->
+                        <!--<i>&nbsp;</i>绑定线下会员卡<a href="javascript:bdentitymember();" class="button">绑定</a>-->
+                    <!--</label>-->
+                <!--</li>-->
+            </div>
+        </ul>
+    </div>
+    {if !empty($card)}
+    {php include $this->template($this->cur_tpl.'/_footer');}
+    {/if}
+    <script type="text/javascript">
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</div>
+
+<script type="text/javascript">
+    var intervalId, buttonObj;
+    //发送下一条短信需要间隔的秒数
+    var seconds = 60;
+    function getReceiveMemberCardVCode(clickObj, evt, formId, teleName, ch_type) {
+        var pid = 18692;
+        var form = document.getElementById(formId);
+        var req = {
+            telephone: $.trim(form[teleName].value),
+            pid: pid,
+            ch_type: ch_type
+        }
+        if (!req.telephone) {
+            alert("请输入手机号", 1000);
+            return;
+        }
+        clickObj.setAttribute("disabled", "disabled");
+        clickObj.value = "正在发送，请稍候...";
+        $.ajax({
+            url: "/Webnewmembercard/SendPhoneCheckCode/pid/18692/wechatid/o-pbztxV0ItE_Awu6hrxkISF91eA",
+            type: "post",
+            data: req,
+            dataType: "JSON",
+            success: function (res) {
+                if (0 == res.errno) {
+                    clickObj.value = '验证码发送成功';
+                    buttonObj = clickObj;
+                    intervalId = setInterval("ticker()", 1000);
+                } else {
+                    alert(res.error, 1500);
+                    return false;
+                }
+            }
+        });
+    }
+    function ticker() {
+        seconds--;
+        if (seconds > 55) {
+            //提示消息显示5秒钟
+        } else if (seconds > 0) {
+            buttonObj.value = seconds + "秒后可重新获取";
+        } else {
+            clearInterval(intervalId);
+            buttonObj.removeAttribute("disabled");
+            buttonObj.value = "获取验证码";
+            seconds = 60;
+            buttonObj = null;
+        }
+    }
+</script>
+</body>
+</html>

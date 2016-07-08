@@ -1,0 +1,315 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dialog_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/mymain.js"></script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<section id="dialoger">
+    <div class="dialogCover"></div>
+</section>
+<div class="container coupon_use{if $type==3} exchange_use{/if}">
+    <header>
+        <div>
+            <figure>
+                <figcaption>
+                    <label>{$coupon['title']}</label>
+                </figcaption>
+                <div class="img_wrap">
+                    {if $type == 1 || $type == 3}
+                    <img src="{if strstr($coupon['thumb'], 'http') || strstr($coupon['thumb'], '../addons/')}{$coupon['thumb']}{else}{$_W['attachurl']}{$coupon['thumb']}{/if}"  onerror="this.src='{RES}mobile/{php echo $this->cur_tpl}/images/youhuiquan.jpg'" style="max-height:320px;">
+                    {elseif $type == 2}
+                    <ul class="list_coupon_ul">
+                        <li>
+                            <a href="javascript:;" class="a2">
+                                <p><span>{$coupon['dmoney']}</span>元</p>
+                                <p>★订单满 {$coupon['give_value']}元可使用 </p>
+                                <p>有效期至{php echo date('Y/m/d', $coupon[endtime]);}</p>
+                            </a>
+                        </li>
+                    </ul>
+                    {/if}
+                </div>
+            </figure>
+            <div class="sn">
+                <p><label>序列号：<span>{$sncode['sncode']}</span></label></p>
+                <p><label>请提供序列号给工作人员或在当前页面消费 </label></p>
+            </div>
+        </div>
+    </header>
+    <style>
+        .body img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-right: 8px;
+            border: 1px solid #ECECEC;
+        }
+    </style>
+    <div class="body">
+        {if $type==3}
+        <article>
+            <h3>特别提示</h3>
+            <p>{php echo htmlspecialchars_decode($coupon['content']);}</p>
+        </article>
+        {else}
+        <div>
+            <form id="form_1" name="form" action="javascript:;" method="post">
+                <input name="from_user" type="hidden" value="{$from_user}">
+                <input name="sncodeid" type="hidden" value="{$sncode['id']}">
+                <ul class="list_input p_10" data-card="">
+                    <li>
+                        <div style="width:100%;font-size: 14px;padding-left: 3px;">
+                            <span style="font-weight:bolder;">适用门店:</span>{if $coupon['storeid']==0}所有门店{else}{$store['title']}{/if}
+                        </div>
+                    </li>
+                    <li class="tbox input">
+                        <div>
+                            <label class="pre">请选择支付方式：</label>
+                        </div>
+                        <div>
+                            <select id="paytype" name="paytype" class="select" style="width:100%;">
+                                <!--<option value="168">支付宝</option>-->
+                                <!--<option value="446">微支付</option>-->
+                                <!--<option value="4049">财付通</option>-->
+                                <!--<option value="8611">银联全民付</option>-->
+                                <option value="2">余额支付</option>
+                                <option value="1">现金付款</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="tbox input">
+                        <div><label class="pre">消费金额：</label></div>
+                        <div>
+                            <input type="number" name="money" class="input" placeholder="请输入实际消费金额" maxlength="10">
+                        </div>
+                    </li>
+                    <li>
+                        <div style="width:100%;color: #f00;font-size: 14px;padding-left: 3px;">
+                            提示:如果使用300-100的代金券,该消费金额输入200块。
+                        </div>
+                    </li>
+                    <li class="tbox input" id="username" >
+                        <div>
+                            <label class="pre">操作帐号：</label>
+                        </div>
+                        <div>
+                            <input type="text" placeholder="商家确认帐号" maxlength="30" class="input" name="username">
+                        </div>
+                    </li>
+                    <li class="tbox input" id="password" style="display: none;" >
+                        <div><label class="pre">商家密码：</label></div>
+                        <div>
+                            <input type="password" placeholder="商家确认密码" maxlength="30" class="input" name="password" autocomplete="off">
+                        </div>
+                    </li>
+                    <li class="tbox input" id="vcode" style="display: block;">
+                        <div>
+                            <input type="password" placeholder="会员卡密码" maxlength="30" class="input" name="pay_pass" autocomplete="off">
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        {/if}
+    </div>
+    <footer>
+        <nav class="nav_add_addr">
+            <ul class="tbox">
+                <li>
+                    <a href="{php echo $this->createMobileUrl('usercenter', array(), true)}"
+                       class="icons icons_before">&nbsp;</a>
+                </li>
+                <li class="align_right">
+                    {if $type!=3}
+                    <a href="javascript:smtpay();" class="btn">确&nbsp;&nbsp;定</a>
+                    {else}
+                    <a href="javascript:showexchange();" class="btn">兑&nbsp;&nbsp;换</a>
+                    {/if}
+                </li>
+            </ul>
+        </nav>
+    </footer>
+</div>
+<script>
+function showexchange(){
+    var d = new iDialog();
+    var payment = '';
+
+    var coupon_str = "";
+    "{loop $coupons $item}"
+    coupon_str += "<option value=\"{$item['sncodeid']}\">{$item['title']}</option>"
+    "{/loop}"
+    d.open({
+        classList: "valid_phone pay",
+        title:"",
+        close:"",
+        content:'<ul class="list_ul_card">'+
+                '<form id="form2" action="javascript:;" method="post">'+
+                '<li data-card>'+
+                '<table>'+
+                '<tr class="input wrapInput" id="username">'+
+                '<td style="width:70%;"><input type="text" placeholder="商家确认帐号：" maxlength="30" class="input" name="username"></td>'+
+                '<td>&nbsp;</td>'+
+                '</tr>'+
+                '<tr class="input wrapInput" id="password">'+
+                '<td style="width:70%;"><input type="password" placeholder="商家确认密码：" maxlength="30" class="input" name="password"></td>'+
+                '<td>&nbsp;</td>'+
+                '</tr>'+
+                '</table>'+
+                '</li>'+
+                '</form>'+
+                '</ul>',
+        btns:[
+            {id:"", name:"确定", onclick:"fn.call();", fn: function(self){
+                var form2 = document.getElementById("form2");
+                var obj = {
+                    from_user:"{$from_user}",
+                    sncodeid:"{$sncode['id']}",
+                    username: form2.username.value,
+                    password: form2.password.value
+                }
+
+                if(obj.username == ''){
+                    alert("商家确认帐号不能为空", 1500);
+                    return false;
+                }
+                if(obj.password == ''){
+                    alert("商家确认密码不能为空", 1500);
+                    return false;
+                }
+
+                loading(true);
+                $.ajax({
+                    url: "{php echo $this->createMobileUrl('UseSncode', array(), true)}",
+                    type:"post",
+                    data:obj,
+                    dataType:'json',
+                    success: function(data){
+                        loading(false);
+                        if (data.status == 0) {
+                            alert(data.message, 1500);
+                            url = "{php echo $this->createMobileUrl('index', array(), true)}";
+                            setTimeout("location.href='" + url + "'", 1000);
+                        } else {
+                            alert(data.message);
+                            return false;
+                        }
+                    }
+                });
+            }},
+            {id:"", name:"取消", onclick:"fn.call();", fn: function(selfs){
+                selfs.die();
+            }}
+        ]
+    });
+}
+</script>
+<script>
+    $("#paytype").change(function () {
+        var payid = $(this).val();
+        changePay(payid);
+    })
+
+    function changePay(payid) {
+        if (payid == 2) {//余额
+            $("#vcode").show();
+//            $("#password").hide();
+//            $("#username").hide();
+            $("#password").show();
+            $("#username").show();
+        } else if (payid == 1) {//现金
+            $("#vcode").hide();
+            $("#password").show();
+            $("#username").show();
+        } else {
+            $("#vcode").hide();
+            $("#password").hide();
+            $("#username").hide();
+        }
+    }
+
+    //选择第一条支付方式
+    $("#paytype option:first").prop("selected", 'selected');
+    changePay($("#paytype option:first").val());
+//    请到指定领奖地点领奖，确认领奖后将无法兑奖，非工作人员慎点，确定领奖吗?
+    function useexchange() {
+        confirm('<label>确认兑换吗?</label>',
+            function () {
+            loading(true);
+            from_user = "{$from_user}";
+            sncodeid = "{$sncode['id']}";
+            $.ajax({
+                url: "{php echo $this->createMobileUrl('UseSncode', array(), true)}",
+                type: "post",
+                data: {
+                    sncodeid: sncodeid,
+                    from_user:from_user
+                },
+                dataType: 'json',
+                success: function (data) {
+                    loading(false);
+                    if (data.status == 0) {
+                        alert(data.message, 1000);
+                        url = "{php echo $this->createMobileUrl('myexchange', array(), true)}";
+                        setTimeout("location.href='" + url + "'", 1000);
+                    } else {
+                        alert(data.message, 1000);
+                        return false;
+                    }
+                }
+            });
+        });
+    }
+
+
+    //提交支付
+    function smtpay() {
+        loading(true);
+        $.ajax({
+            url: "{php echo $this->createMobileUrl('UseSncode', array(), true)}",
+            type: "post",
+            data: $("#form_1").serialize(),
+            dataType: 'json',
+            success: function (data) {
+                loading(false);
+                if (data.status == 0) {
+                    alert(data.message, 1000);
+                    url = "{php echo $this->createMobileUrl('payresult', array(), true)}";
+                    setTimeout("location.href='" + url +'&billid=' + data.billid + "'", 1000);
+                } else {
+                    alert(data.message, 1000);
+                    return false;
+                }
+
+//                if (data.status == 0) {
+//                    if (data.pay_url == undefined) {
+//                        alert(data.error, 1500);
+//                        //专挑到支付成功页面
+//                        setTimeout("location.href='" + data.pay_result_url + "'", 1500);
+//                    } else {
+//                        //alert(data.pay_url);
+//                        setTimeout("location.href='" + data.pay_url + "'", 1500);
+//                    }
+//
+//                } else {
+//                    alert(data.error, 1500);
+//                    return false;
+//                }
+            }
+        });
+
+    }
+</script>
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        WeixinJSBridge.call('hideOptionMenu');
+    });
+</script>
+</body>
+</html>
