@@ -1,0 +1,59 @@
+{template 'common/header'}
+<div class="main">
+<form action="" method="post" class="form-horizontal form">
+    <ul class="nav nav-tabs">
+        <li><a href="{php echo $this->createWebUrl('imgs');}">逗比图管理</a></li>
+        {if !empty($_GPC['id']) }
+        <li><a href="{php echo $this->createWebUrl('img');}"><i class="fa fa-plus"></i> 添加 逗比图</a></li>
+        {/if}
+        <li class="active"><a>{if empty($_GPC['id']) }<i class="fa fa-plus"></i> 添加{else}<i class="fa fa-edit"></i> 修改{/if} 逗比图</a></li>
+    </ul>
+    
+ 	<div class="panel panel-default">
+    	<div class="panel-heading">
+      		逗比图设置
+    	</div>
+	    <div class="panel-body">
+	        <div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>名称</label>
+	            <div class="col-sm-9 col-xs-12">
+					<input id="title" type="text" name="title" placeholder="" class="form-control" value="{$img['title']}" />
+	        	</div>
+	        </div>
+	 		<div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label">逗比图</label>
+	            <div class="col-sm-9 col-xs-12">
+	            {php echo tpl_form_field_image('thumb',$img['thumb'],'',array('width'=> 80,'height' => 80,'thumb'=> true));}
+	            <br/>
+	            上传的逗比图必须是PNG格式，且大小为80px*80px；
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>逗比值</label>
+	            <div class="col-sm-9 col-xs-12">
+	               <input type="text" name="smileval" class="form-control" value="{$img['smileval']}" />
+	        	</div>
+	        </div>
+	    </div>
+	</div>
+    
+    <div class="form-group col-sm-12">
+		<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+		<input type="hidden" name="token" value="{$_W['token']}" />
+	</div>
+<script>
+    $('form').submit(function() {
+        if ($.trim($("#title").val()).length<=0) {
+        	//alert('请输入名称!');
+        	util.message('请输入名称!');
+            //Tip.focus("title", "请输入名称!", "right");
+            return false;
+        }
+         return true;
+    });
+</script>
+		
+</form>
+</div>
+
+{template 'common/footer'}
