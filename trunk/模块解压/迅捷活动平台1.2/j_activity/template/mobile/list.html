@@ -1,0 +1,84 @@
+{template 'header'}
+<style>
+.searchbox{ padding:10px; }
+</style>
+<nav class="navbar navbar-default header navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-3 col-sm-3 col-md-3"> <A href="./index.php?c=home&i={$_W['uniacid']}"><i class="fa fa-angle-left"></i></A> </div>
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <h1>活动列表</h1>
+      </div>
+      <div class="col-xs-3 col-sm-3 col-md-3"> <A href="#" id="scanbtn"><i class="fa fa-qrcode"></i> <span>签到</span></A> </div>
+    </div>
+  </div>
+</nav>
+<div class="fixed_first">&nbsp;</div>
+<Div class="searchbox" {if empty($keyword)} style="display:none;"{/if}>
+  <div class="input-group">
+    <input type="text" class="form-control" maxlength="10" value="{php echo $keyword}" name="keyword" placeholder="搜索活动">
+    <span class="input-group-btn">
+    <button class="btn btn-info" id="searchbtn" type="button">搜索</button>
+    </span> </div>
+</Div>
+<div> {if empty($list)}
+  <div class="alert alert-warning alert-dismissible" style="margin:10px;"> <strong>暂无您要的内容哦</strong> </div>
+  {/if}
+  <ul class="j_list_v">
+    {loop $list $row}
+    <li><a href="{php echo $this->createMobileUrl('view',array('id'=>$row['id']))}">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-3 col-sm-3  col-md-3">
+            <p><img src="{$_W['attachurl']}{$row['picture']}" style="max-width:100%" /></p>
+          </div>
+          <div class="col-xs-7 col-sm-7  col-md-7">
+            <h2>
+            {if $row['usertype']>-1}
+            <span class="label label-info">{php echo pdo_fetchcolumn("SELECT title FROM ".tablename("mc_groups")." WHERE groupid ='".$row['usertype']."'")}</span>
+            {/if}
+            {$row['title']}</h2>
+            <small>报名：{php echo date('Y-m-d',$row['joinstarttime'])} 至 {php echo date('m-d',$row['joinendtime'])}</small> <small>活动：{php echo date('Y-m-d',$row['starttime'])} 至 {php echo date('m-d',$row['endtime'])}</small> <small>介绍：{$row['description']}</small> </div>
+          <div class="col-xs-2 col-sm-2 col-md-2">
+            <p>
+            <button type="button" class="btn btn-info btn-xs">查看详情</button>
+            </p>
+          </div>
+        </div>
+      </div>
+      </a></li>
+    {/loop}
+  </ul>
+</div>
+<script>
+$("#search").on('click',function(){
+	$(".searchbox").slideToggle();
+})
+$("#searchbtn").on('click',function(){
+	var key=$('input[name="keyword"]').val();
+	location.href="../app/index.php?i={$_W['uniacid']}&c=entry&do=info&m=j_activity&keyword="+key+"&wxref=mp.weixin.qq.com#wechat_redirect";
+})
+wx.ready(function () {
+	$("#scanbtn").on('click',function(){
+		wx.scanQRCode({
+			needResult: 1, 
+			scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+			success: function (res) {
+				var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+				//alert(result)
+				strAry=result.split("#");
+				url="./index.php?i={$_W['uniacid']}&c=entry&m="+strAry[0]+"&do="+strAry[1]+"&str="+strAry[2]+"_"+strAry[3]+"&wxref=mp.weixin.qq.com#wechat_redirect";
+				//alert(url);
+				$.getJSON(url,'',function(data){
+					if(data.success){
+						alert('签到成功！');
+					}else{
+						alert('签到失败！原因:'+data.msg);
+					}
+				})
+			}
+		});
+	})
+});
+</script> 
+{template 'footer'}

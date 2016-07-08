@@ -1,0 +1,113 @@
+{template 'header'}
+<style>
+a:visited{color:#FFF;}
+.jgrade{color:#999;}
+.jred{color:#F09}
+.panel-body img{ max-width:100%;}
+.panel-body h1,h2,h3{ font-size:18px; font-weight:bolder}
+</style>
+<img src="$_W['attachurl'].$item['picture']" class="hidden" />
+<nav class="navbar navbar-default header navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-2 col-sm-2 col-md-2"> <A href="javascript:history.back()"><i class="fa fa-angle-left"></i></A> </div>
+      <div class="col-xs-8 col-sm-8 col-md-8">
+        <h1>{$item['title']}</h1>
+      </div>
+      <div class="col-xs-2 col-sm-2 col-md-2"><A href="{php echo $this->createMobileUrl('append',array('id'=>$item['id']))}">&nbsp;</A></div>
+    </div>
+  </div>
+</nav>
+<div class="fixed_first">&nbsp;</div>
+<div class="jp_10_5"> {if $item['status']==2} <a href="#" class="btn btn-info btn-block" disabled>活动已结束</a> {/if}
+  {if $item['status']==-1} <a href="#" class="btn btn-info btn-block" disabled>已停止报名</a> {/if}
+  {if $item['status']==0} <a href="#" class="btn btn-info btn-block" disabled>报名时间：{php echo date('Y-m-d',$item['joinstarttime'])} 至 {php echo date('m-d',$item['joinendtime'])}</a> {/if}
+  {if $item['status']==1}
+  {if $isjoin<0} <a href="#" class="btn btn-info btn-block" role="button" disabled>不通过</a> {elseif $isjoin==1} <a href="#" class="btn btn-info btn-block" role="button" disabled>审核中</a> {elseif $isjoin>1} <a href="#" class="btn btn-info btn-block" role="button" disabled>成功入选</a> {else} <a href="{php echo $this->createMobileUrl('reg',array('id'=>$item['id']))}" class="btn btn-info btn-block" role="button">马上报名</a> {/if}
+  {/if} </div>
+{if $item['status']==2 && $item['content']!=''}
+<div class="jp_10_5">
+  <div class="panel panel-default">
+    <div class="panel-heading">活动成果</div>
+    <div class="panel-body">{$item['content']}</div>
+  </div>
+</div>
+{/if}
+<div class="jp_10_5">
+  <div class="panel panel-default">
+    <div class="panel-heading">活动介绍</div>
+    <div class="panel-body">{$item['info']}</div>
+  </div>
+  <A id="rule"></A>
+  <div class="panel panel-default">
+    <div class="panel-heading">规则</div>
+    <div class="panel-body">{$item['rule']}</div>
+  </div>
+  {if $isjoin && $_W['openid']}
+  <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" >
+  <div class="panel panel-info">
+    <div class="panel-heading">我的报名</div>
+    <div class="panel-body">
+    	{php $member=pdo_fetch("SELECT * FROM ".tablename('j_activity_winner')." WHERE aid = '".$item['id']."' and from_user='".$_W['openid']."'");}
+        {php $p=json_decode($member['parama'],true);}
+        <div class="form-group">
+          <label class="col-xs-4 col-sm-4 col-md-4 control-label jgrade">真实姓名</label>
+          <div class="col-xs-8 col-sm-8 col-md-8">
+            {$member['realname']}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-4 col-sm-4 col-md-4 control-label jgrade">昵称</label>
+          <div class="col-xs-8 col-sm-8 col-md-8">
+           {$member['nickname']}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-4 col-sm-4 col-md-4 control-label jgrade">手机</label>
+          <div class="col-xs-8 col-sm-8 col-md-8">
+            {$member['mobile']}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-4 col-sm-4 col-md-4 control-label jgrade">性别</label>
+          <div class="col-xs-8 col-sm-8 col-md-8">
+            {if $member['gender']==0}<i class="fa fa-female"></i>{else}<i class="fa fa-male"></i>{/if}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-4 col-sm-4 col-md-4 control-label jgrade">报名状态</label>
+          <div class="col-xs-8 col-sm-8 col-md-8">
+            {if $isjoin<0}
+            <span class="label label-default">未入选</span>
+            {elseif $isjoin==1}
+            <span class="label label-info">审核中</span>
+            {elseif $isjoin==2}
+            <span class="label label-warning">恭喜您，成功入选</span>
+            {/if}
+          </div>
+        </div>
+        {php foreach($parama as $index=>$val){ }
+        <div class="form-group">
+          <label class="col-xs-4 col-sm-4 col-md-4 control-label jgrade">{php echo $index}</label>
+          <div class="col-xs-8 col-sm-8 col-md-8">
+            {if $val==1}
+            {php echo $p[$index]}
+            {else}
+            <img src="{php echo $p[$index]}" width="80" onerror="this.src='./resource/images/nopic-small.jpg'"/> 
+            {/if}
+          </div>
+        </div>
+        {php }}
+    </div>
+  </div>
+  </form>
+  {/if}
+  <div style="padding-bottom:10px"> {if $item['status']==2} <a href="#" class="btn btn-info btn-block" disabled>活动已结束</a> {/if}
+  {if $item['status']==-1} <a href="#" class="btn btn-info btn-block" disabled>已停止报名</a> {/if}
+  {if $item['status']==0} <a href="#" class="btn btn-info btn-block" disabled>报名时间：{php echo date('Y-m-d',$item['joinstarttime'])} 至 {php echo date('m-d',$item['joinendtime'])}</a> {/if}
+  {if $item['status']==1}
+  {if $_W['openid']}
+  {if $isjoin<0} <a href="#" class="btn btn-info btn-block" role="button" disabled>不通过</a> {elseif $isjoin==1} <a href="#" class="btn btn-info btn-block" role="button" disabled>审核中</a> {elseif $isjoin>1} <a href="#" class="btn btn-info btn-block" role="button" disabled>成功入选</a> {else} <a href="{php echo $this->createMobileUrl('reg',array('id'=>$item['id']))}" class="btn btn-info btn-block" role="button">马上报名</a> {/if}
+  {/if}{/if}</div>
+</div>
+{template 'footer2'}

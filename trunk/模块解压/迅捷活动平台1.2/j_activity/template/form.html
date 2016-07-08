@@ -1,0 +1,194 @@
+<div class="panel panel-default">
+  <div class="panel-heading"> 添加活动 </div>
+  <input type="hidden" name="reply_id" value="{$reply['id']}" />
+  <div class="panel-body"> {if $reply['rid']}
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">查看内容</label>
+      <div class="col-sm-9">
+        <p class="form-control-static"> <a href="{php echo $this->createWebUrl('joiner', array('id' => $reply['rid']))}" target="_blank">查看报名情况</a></p>
+      </div>
+    </div>
+    {/if}
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动标题</label>
+      <div class="col-sm-9">
+        <input type="text" value="{$reply['title']}" class="form-control" name="title" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">报名状态</label>
+      <div class="col-sm-9">
+        <label class="radio-inline">
+          <input type="radio" name="status" value="0" {if $reply['status'] == 0 || empty($reply['status'])} checked{/if} />
+          未开始</label>
+        <label class="radio-inline">
+          <input type="radio" name="status" value="1" {if $reply['status'] == 1} checked{/if} />
+          进行中</label>
+        <label class="radio-inline">
+          <input type="radio" name="status" value="2" {if $reply['status'] == 2} checked{/if} />
+          已结束</label>
+        <label class="radio-inline">
+          <input type="radio" name="status" value="-1" {if $reply['status'] == -1} checked{/if} />
+          关闭报名</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动图片</label>
+      <div class="col-sm-9"> {php echo tpl_form_field_image('picture', $reply['picture']);}
+        <div class="help-block">用于单图文回复的显示</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">转发时小图</label>
+      <div class="col-sm-9">{php echo tpl_form_field_image('clientpic', $reply['clientpic']);}
+        <div class="help-block">转发到朋友圈或者朋友时的图标</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动简介</label>
+      <div class="col-sm-9">
+        <textarea style="height:150px;" name="description" class="form-control" cols="60">{$reply['description']}</textarea>
+        <div class="help-block">用于图文显示的简介和转发到朋友圈</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">报名时段</label>
+      <div class="col-sm-9"> 
+      {php echo tpl_form_field_daterange('jointime', array('start' => date('Y-m-d', $reply['joinstarttime']),'end'=>date('Y-m-d', $reply['joinendtime'])))} </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动时段</label>
+      <div class="col-sm-9"> {php echo tpl_form_field_daterange('acttime', array('start' => date('Y-m-d', $reply['starttime']),'end'=> date('Y-m-d', $reply['endtime'])))} </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动介绍</label>
+      <div class="col-sm-9">
+        <textarea style="height:150px;" name="info" class="form-control rich-text" cols="60">{$reply['info']}</textarea>
+        <div class="help-block">活动介绍。</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动规则</label>
+      <div class="col-sm-9">
+        <textarea style="height:150px;" name="rule" class="form-control rich-text2" cols="60">{$reply['rule']}</textarea>
+        <div class="help-block">活动的相关说明和活动奖品介绍。</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label" style="color:red">成果花絮</label>
+      <div class="col-sm-9">
+        <textarea style="height:150px;" name="content" class="form-control rich-text3" cols="60">{$reply['content']}</textarea>
+        <div class="help-block">活动结束后显示。</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">报名群组</label>
+      <div class="col-sm-9">
+        <label class="radio-inline">
+          <input type="radio" name="usertype" value="-1" {if $reply['usertype'] == -1} checked{/if} />
+          无限制</label>
+          {loop $grouplist $row}
+        <label class="radio-inline">
+          <input type="radio" name="usertype" value="{$row['groupid']}" {if $reply['usertype'] == $row['groupid']} checked{/if} />
+          只有<strong>{$row['title']}</strong>可参加</label>
+          {/loop}
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">报名人数</label>
+      <div class="col-sm-9 form-inline">
+        <div class="input-group ">
+          <input type="text" value="{php echo intval($reply['applicants'])}" style="width:80px" class="form-control" name="applicants" >
+          <span class="input-group-addon">人</span> </div>
+        <div class="help-block">限制报名人数,设置0为不限制</div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">入选人数</label>
+      <div class="col-sm-9 form-inline">
+        <div class="input-group ">
+          <input type="text" value="{php echo intval($reply['quota'])}" style="width:80px" class="form-control" name="quota" >
+          <span class="input-group-addon">人</span> </div>
+        <div class="help-block">入选人数,设置0为不限制</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">积分奖励</label>
+      <div class="col-sm-9 form-inline">
+        <div class="input-group ">
+          <span class="input-group-addon">报名成功</span>
+          <input type="text" value="{php echo intval($reply['credit_join'])}" style="width:80px" class="form-control" name="credit_join" >
+          <span class="input-group-addon">分</span> </div>
+        <div class="input-group ">
+          <span class="input-group-addon">入选</span>
+          <input type="text" value="{php echo intval($reply['credit_in'])}" style="width:80px" class="form-control" name="credit_in" >
+          <span class="input-group-addon">分</span> </div>
+        <div class="input-group ">
+          <span class="input-group-addon">签到</span>
+          <input type="text" value="{php echo intval($reply['credit_append'])}" style="width:80px" class="form-control" name="credit_append" >
+          <span class="input-group-addon">分</span> </div> 
+          
+        <div class="help-block">设置0为不添加积分</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">签到验证码</label>
+      <div class="col-sm-9 form-inline">
+        <input type="text" value="{$reply['appendcode']}" style="width:160px" class="form-control" name="appendcode" >
+        <div class="help-block">验证码,请注意大小写</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">报名者其他资料</label>
+      <div class="col-sm-9 form-inline">
+        <div id="parama"></div>
+        <a href="javascript:addparama()"><i class="icon-plus-sign-alt"></i> 添加</a> </div>
+      <div class="help-block">如家庭，收入等</div>
+    </div>
+  </div>
+  <!----> 
+</div>
+</div>
+
+<script language="javascript">
+require(['jquery','util'], function($, util){
+	$(function(){
+		util.editor($('.rich-text')[0]);
+		util.editor($('.rich-text2')[0]);
+		util.editor($('.rich-text3')[0]);
+	});
+});
+var i=0;
+
+function addparama(){
+	var temp="<div><label dd='"+i+"' class='form-inline'><input class='form-control' name='parama-key-new["+i+"]' placeholder='键'/> : <select class='form-control' name='parama-val-new["+i+"]'><option value='1'>文本</option><option value='2'>图片</option></select> <a href='javascript:del("+i+")'><i class='glyphicon glyphicon-remove-circle'></i></a></label></div>";
+	$("#parama").append(temp);
+	i++;
+}
+oparama=eval({php echo $reply['parama']});
+addOldparama(oparama);
+function addOldparama(parama){
+	if(parama.length<5)return;
+	
+	for(var key in parama) {
+		temp="<div><label ddold='"+key+"' class='form-inline' ><input class='form-control' name='parama-key["+key+"]' value='"+key+"' placeholder='键'/> : ";
+		temp+="<select class='form-control' name='parama-val["+key+"]'>";
+		if(parama[key]==1){
+			temp+="<option value='1' selected>文本</option><option value='2'>图片</option>";
+		}else{
+			temp+="<option value='1'>文本</option><option value='2' selected>图片</option>";
+		}
+		
+		temp+="</select> <a href=\"javascript:delo('"+key+"')\"><i class='glyphicon glyphicon-remove-circle'></i></a></label></div>";
+		$("#parama").append(temp);
+	}
+}
+function del(obj){
+	$("label[dd='"+obj+"']").remove();
+}
+function delo(obj){
+	$("label[ddold='"+obj+"']").remove();
+}
+
+</script>
