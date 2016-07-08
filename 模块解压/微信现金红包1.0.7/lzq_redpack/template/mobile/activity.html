@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+		<title><?php echo $_title;?></title>
+		<meta http-equiv="pragma" content="no-cache">  
+		<meta http-equiv="cache-control" content="no-cache">  
+		<meta http-equiv="expires" content="0">  
+
+		<link href='<?php echo MODULE_URL."template/mobile/css/font-awesome.min.css"?>' rel="stylesheet">
+		<link rel="stylesheet" href='<?php echo MODULE_URL."template/mobile/css/sweet-alert.css"?>'>
+		<link href='<?php echo MODULE_URL."template/mobile/css/main.css"?>' rel="stylesheet">
+		<style>
+			body{
+				background:url(<?php echo $_bg?>) no-repeat;
+				background-size:100% 100%;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div id="content">
+			<div class="global-nav">
+			
+				<div class="global-nav-wrap">
+					<div class="global-nav-item">
+						<a href="#" id="comment" class="global-nav-link">
+							<i class="fa fa-fw fa-info fa-2x "></i>
+							<div class="global-nav-tip">活动说明</div>
+						</a>
+					</div>
+					<div class="global-nav-item">
+						<a href="<?php echo $_link?>" id="observer" class="global-nav-link">
+							<i class="fa fa-fw fa-user-plus fa-2x"></i>
+							<div class="global-nav-tip">一键关注</div>
+						</a>
+					</div>
+					<div class="global-nav-item">
+						<a href="<?php if($_flag==null||$_flag=='') echo $_shake;else echo '#';?>" id="shake" class="global-nav-link">
+							<i class="fa fa-fw fa-hand-o-up fa-2x"></i>
+							<div class="global-nav-tip">摇一摇</div>
+						</a>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</body>
+	
+	<script src='<?php echo MODULE_URL."template/mobile/js/jquery-2.1.1.min.js"?>'></script>
+	<script src='<?php echo MODULE_URL."template/mobile/js/sweet-alert.min.js"?>'></script>
+	
+	<script>
+		$("#comment").click(function(){
+			sweetAlert('<?php echo $_comment?>');
+			
+		});
+		$("#shake").click(function(){
+			var flag='<?php echo $_flag?>';
+			if(flag==null||flag==''){
+				//swal({title: "",text: "请至后台设置完整参数",   imageUrl: '<?php echo MODULE_URL."template/mobile/img/thumbs-up.jpg"?>' });
+				//return false;
+			}else{
+				swal({title: "",text: "<?php echo $_flag?>",   imageUrl: '<?php echo MODULE_URL."template/mobile/img/thumbs-up.jpg"?>' });
+			}
+		
+		});
+		
+	</script>
+	
+	{php echo register_jssdk(false);}
+	<script>
+	wx.ready(function () {
+		sharedata = {
+			title: '<?php echo $share_title?>',
+			desc: '<?php echo $share_description?>',
+			link: '<?php echo $share_link?>',
+			imgUrl: '<?php echo $share_icon?>',
+			success: function(){
+				swal({title: "",text: "分享成功！",   imageUrl: '<?php echo MODULE_URL."template/mobile/img/thumbs-up.jpg"?>' });
+			},
+			cancel: function(){
+				swal({title: "",text: "分享失败！",   imageUrl: '<?php echo MODULE_URL."template/mobile/img/thumbs-up.jpg"?>' });
+			}
+		};
+		wx.onMenuShareTimeline(sharedata);
+		wx.onMenuShareAppMessage(sharedata);
+		wx.onMenuShareQQ(sharedata);
+		wx.onMenuShareWeibo(sharedata);
+	});
+	</script>
+</html>

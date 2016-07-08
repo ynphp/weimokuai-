@@ -1,0 +1,1 @@
+<?php/** * * @author czt * @url http://bbs.we7.cc/ */pdo_run("DROP TABLE ".tablename('czt_wx_collection_self_record'));pdo_run("DROP TABLE ".tablename('czt_wx_collection_scan_record'));pdo_run("DROP TABLE ".tablename('czt_wx_collection_scan_class'));

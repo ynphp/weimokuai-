@@ -1,0 +1,82 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+	<li><a href="{php echo $this->createWebUrl('netshake', array('op'=>'display'));}">历史广告列表</a></li>
+	<li {if empty($id)}class="active"{/if}><a href="{php echo $this->createWebUrl('netshake', array('op'=>'edit'));}">添加广告数据</a></li>
+	{if !empty($id)}
+	<li class="active"><a href="{php echo $this->createWebUrl('netshake', array('op'=>'edit', 'id'=>$id));}">编辑广告数据</a></li>
+	{/if}
+	<li><a href="{php echo $this->createWebUrl('shakesetting', array('op'=>'edit'));}">设置活动页面</a></li>
+	<li><a href="{php echo $this->createWebUrl('sharesetting', array('op'=>'edit'));}">设置分享内容</a></li>
+</ul>
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" id="form">
+		<div class="panel panel-default">
+			<div class="panel-heading">编辑广告数据</div>
+			<div class="panel-body">
+			{if isset($advertice['id'])}
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">id</label>
+					<div class="col-xs-12 col-sm-8">
+						<input type="text" name="advertice[id]" class="form-control" value="{$advertice['id']}" readonly />
+					</div>
+				</div>
+			{/if}
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">商家图标</label>
+					<div class="col-xs-12 col-sm-8">
+						<?php echo tpl_form_field_image("advertice[icon]", $advertice['icon']);?>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">广告内容</label>
+					<div class="col-xs-12 col-sm-8">
+						<input type="text" name="advertice[content]" class="form-control" value="{$advertice['content']}" >
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">广告链接</label>
+					<div class="col-xs-12 col-sm-8">
+						<input type="text" name="advertice[url]" class="form-control" value="{$advertice['url']}" >
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 col-sm-offset-3 col-md-offset-2 col-lg-offset-2">
+						<input type="hidden" name="advertice[appid]" value="{$advertice['appid']}" />
+						<input type="hidden" name="id" value="{$advertice['id']}" />
+						<input name="submit" type="submit" value="提交" class="btn btn-primary" />
+						<input type="hidden" name="token" value="{$_W['token']}" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+require(['jquery', 'util'], function($, util){
+	$(function(){
+		$('#form').submit(function(){
+			if($('input[name="advertice[icon]"]').val() == ''){
+				util.message('请选择商家图标.');
+				return false;
+			}
+			if($('input[name="advertice[content]"]').val() == ''){
+				util.message('请填写广告内容.');
+				return false;
+			}
+			
+			if($('input[name="advertice[url]"]').val() == ''){
+				util.message('请填写广告链接.');
+				return false;
+			}
+			return true;
+		});
+	});
+});
+</script>
+
+{template 'common/footer'}

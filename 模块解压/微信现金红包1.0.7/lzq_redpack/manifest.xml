@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[微信红包]]></name>
+		<identifie><![CDATA[lzq_redpack]]></identifie>
+		<version><![CDATA[1.0.7]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[微信红包发放]]></ability>
+		<description><![CDATA[微信红包发放,用户关注后回复设置关键字触发红包发放，后台可设置基础红包金额，加成红包金额，红包发放的概率等配置！此模块旨在增加公众号粉丝，给公众号提供一种红包活动的方式！]]></description>
+		<author><![CDATA[lizhangqu]]></author>
+		<url><![CDATA[http://bbs.012wz.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="使用说明" do="useage" state="" direct="false" />
+			<entry title="数据库管理" do="redpack" state="" direct="false" />
+			<entry title="周边摇一摇" do="shake" state="" direct="false" />
+			<entry title="网页摇一摇" do="netshake" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_we7_redpack_reply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `appid` varchar(30) NOT NULL COMMENT '公众号标志',
+  `openid` varchar(40) NOT NULL COMMENT '用户标示',
+  `hasSub` tinyint(1) NOT NULL DEFAULT '0' COMMENT '曾经是否领取过',
+  `money` double NOT NULL DEFAULT 0 COMMENT '领取的金额',
+  `time` datetime NOT NULL COMMENT '领取时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_we7_redpack_advertice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `appid` varchar(30) NOT NULL COMMENT '公众号标志',
+  `icon` text NOT NULL COMMENT '商家图标',
+  `content` text NOT NULL COMMENT '广告内容',
+  `url` text NOT NULL COMMENT '广告链接',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_we7_redpack_activity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `appid` varchar(30) NOT NULL COMMENT '公众号appid',
+  `title` varchar(100) NOT NULL COMMENT '标题',
+  `bg` text NOT NULL COMMENT '背景图',
+  `link` text NOT NULL COMMENT '一键关注链接',
+  `comment` text NOT NULL COMMENT '活动介绍',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_we7_redpack_share` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `appid` varchar(30) NOT NULL COMMENT '公众号appid',
+  `title` text NOT NULL COMMENT '分享标题',
+  `description` text NOT NULL COMMENT '分享描述',
+  `icon` text NOT NULL COMMENT '分享图标',
+  `link` text NOT NULL COMMENT '分享链接',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[
+DROP TABLE ims_we7_redpack_reply;
+DROP TABLE ims_we7_redpack_advertice;
+DROP TABLE ims_we7_redpack_activity;
+DROP TABLE ims_we7_redpack_share;
+]]></uninstall>
+	<upgrade><![CDATA[
+DROP TABLE ims_we7_redpack_advertice;
+CREATE TABLE IF NOT EXISTS `ims_we7_redpack_advertice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `appid` varchar(30) NOT NULL COMMENT '公众号标志',
+  `icon` text NOT NULL COMMENT '商家图标',
+  `content` text NOT NULL COMMENT '广告内容',
+  `url` text NOT NULL COMMENT '广告链接',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_we7_redpack_activity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `appid` varchar(30) NOT NULL COMMENT '公众号appid',
+  `title` varchar(100) NOT NULL COMMENT '标题',
+  `bg` text NOT NULL COMMENT '背景图',
+  `link` text NOT NULL COMMENT '一键关注链接',
+  `comment` text NOT NULL COMMENT '活动介绍',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_we7_redpack_share` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `appid` varchar(30) NOT NULL COMMENT '公众号appid',
+  `title` text NOT NULL COMMENT '分享标题',
+  `description` text NOT NULL COMMENT '分享描述',
+  `icon` text NOT NULL COMMENT '分享图标',
+  `link` text NOT NULL COMMENT '分享链接',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+	]]></upgrade>
+</manifest>
