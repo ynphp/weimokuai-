@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[打鬼子大赛]]></name>
+		<identifie><![CDATA[str_dgz]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[打鬼子大赛]]></ability>
+		<description><![CDATA[打鬼子大赛]]></description>
+		<author><![CDATA[站长吧源码社区]]></author>
+		<url><![CDATA[http://www.admin8.co/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口" do="index" state="" direct="false" />
+		</cover>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
