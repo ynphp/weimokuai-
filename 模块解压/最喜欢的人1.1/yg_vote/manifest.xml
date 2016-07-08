@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[最喜欢的人]]></name>
+		<identifie><![CDATA[yg_vote]]></identifie>
+		<version><![CDATA[1.1]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[投票给你最喜欢的人]]></ability>
+		<description><![CDATA[投票给你最喜欢的人]]></description>
+		<author><![CDATA[宇光]]></author>
+		<url><![CDATA[http://bbs.we7.cc/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="参赛者管理" do="shopmge" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_yg_vote_info` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) DEFAULT NULL,
+  `openid` varchar(255) DEFAULT NULL,
+  `nickname` varchar(1000) DEFAULT NULL,
+  `headimgurl` varchar(1000) DEFAULT NULL,
+  `logoopenid` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_yg_vote_join` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `sname` varchar(50) DEFAULT NULL,
+  `spic` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `time` int(15) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_yg_vote_oauth` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `appid` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `secret` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE IF NOT EXISTS `ims_yg_vote_recod` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `memberid` int(11) DEFAULT NULL,
+  `openid` varchar(255) DEFAULT NULL,
+  `mobile` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `time` int(11) DEFAULT NULL,
+  `headimgurl` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_yg_vote_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT NULL,
+  `uniacid` int(10) unsigned DEFAULT NULL,
+  `title` varchar(50) DEFAULT NULL,
+  `thumb` varchar(255) DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `starttime` int(10) unsigned DEFAULT NULL,
+  `endtime` int(10) unsigned DEFAULT NULL,
+  `indexbg` varchar(255) DEFAULT NULL,
+  `mainbg` varchar(255) DEFAULT NULL,
+  `sharepic` varchar(500) DEFAULT NULL,
+  `sharedesc` varchar(255) DEFAULT NULL,
+  `sharetitle` varchar(10) NOT NULL,
+  `createtime` int(11) DEFAULT NULL,
+  `status` int(3) DEFAULT NULL,
+  `advert` varchar(5000) DEFAULT NULL,
+  `rule` mediumtext,
+  `custom` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
