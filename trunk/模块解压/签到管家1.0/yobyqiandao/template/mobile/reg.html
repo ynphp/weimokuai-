@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>改名</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta content="telephone=no" name="format-detection" />
+<meta content="email=no" name="format-detection" />
+<link rel="stylesheet" href="{$yobyurl}ui/yoby.css">
+<script src="{$yobyurl}ui/js/zepto.min.js" type="text/javascript"></script>
+
+</head>
+<body>
+<form class="f" action="index.php" method="post" style='margin-top:50px;'>
+
+<div class="f-block">
+   <label class=""></label>
+  <input type="text" name='yname' placeholder="姓名/昵称" id='yname' >
+  </div>  <input type="hidden" name="c" value="entry" />
+		<input type="hidden" name="do" value="reg" />
+		<input type="hidden" name="i" value="{$weid}" />
+		<input type="hidden" name="openid" value="{$openid}" />
+		<input type="hidden" name="uid" value="{$uid}" />
+		<input type="hidden" name="m" value="yobyqiandao" />
+        <input type="hidden" name="token" value="{$_W['token']}" />
+    	<button type="submit" name="submit" style='margin-top:50px' class="btn bg-green btn-block btn-md f-white" value='改名'>改名<span class="icon icon-right-nav"></span></button>
+</form>
+
+<script>
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+WeixinJSBridge.call('hideOptionMenu');
+});
+var cxurl = function(str){
+    var str1 =   str.toLowerCase();
+    if((str1.indexOf("http://") >= 0) )  
+{  
+    var t = true; 
+}else{
+  var t = false; 
+}
+
+return t;
+}
+	$('.f').submit(function(){
+  var yname = $('#yname').val();
+  if(isNull(yname)){
+  alert("姓名不能为空!");
+  return false;
+  }
+  if(getStringLen(yname)<2){
+  alert("姓名不能少于2个字符");
+  return false;
+  }
+    if(cxurl(yname)){
+  alert("姓名不能含网址");
+  return false;
+  }
+  
+  })
+</script>        
+
+</body>
+</html>

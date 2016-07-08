@@ -1,0 +1,229 @@
+<style type="text/css">
+.alert{width:80%;float:right;margin-right: 10%;}
+.row{margin-top: 5px;}
+</style>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingOne">
+      <h5 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">基本参数</a>
+      </h5>
+    </div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+        <input type="hidden" name="reply_id" value="{$reply['id']}" />
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动标题</label>
+          <div class="col-sm-9">
+            <input class="form-control" type="text" value="{$reply['title']}" class="span2" name="title">
+            <div class="help-block">活动的标题</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动图片</label>
+          <div class="col-sm-9">
+            {php load()->func('tpl');}
+            {php echo tpl_form_field_image('thumb',$reply['thumb'],'', $options);}
+            <div class="help-block">图文消息的缩略图</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动说明</label>
+          <div class="col-sm-9">
+            <textarea class="form-control" name="description">{$reply['description']}</textarea>
+            <div class="help-block">图文消息的简介</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动时间</label>
+          <div class="col-sm-4">
+            {php echo tpl_form_field_daterange('time', array('start'=>date('Y-m-d H:i:s',$reply['starttime']),'end'=>date('Y-m-d H:i:s',$reply['endtime'])), true)}
+            <div class="help-block">输入活动的起止时间</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动状态</label>
+          <div class="col-sm-4" style="padding-top:6px;">
+            <label>
+              <input type="radio" value="0" name="status" {if $reply['status'] == 0 }checked{/if}>结束</label>
+            <label>
+              <input type="radio" value="1" name="status" {if $reply['status'] == 1 }checked{/if}>正常</label>
+            <label>
+              <input type="radio" value="2" name="status" {if $reply['status'] == 2 }checked{/if}>暂停</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h5 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">页面设置</a>
+      </h5>
+	   </div>
+	   <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+	    <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页音乐</label>
+          <div class="col-sm-9">
+          {php echo tpl_form_field_audio('music1',$reply['music1']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">页面背景图一</label>
+          <div class="col-sm-9">
+             	{php echo tpl_form_field_image('indexpic1',$reply['indexpic1']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">音乐二</label>
+          <div class="col-sm-9">
+          
+          {php echo tpl_form_field_audio('music2',$reply['music2']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">页面背景图二</label>
+          <div class="col-sm-9">
+             	{php echo tpl_form_field_image('indexpic2',$reply['indexpic2']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">音乐三</label>
+          <div class="col-sm-9">
+          
+          {php echo tpl_form_field_audio('music3',$reply['music3']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">页面背景图三</label>
+          <div class="col-sm-9">
+             	{php echo tpl_form_field_image('indexpic3',$reply['indexpic3']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">音乐四</label>
+          <div class="col-sm-9">
+          
+          {php echo tpl_form_field_audio('music4',$reply['music4']);}
+          </div>
+     </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">页面背景图四</label>
+          <div class="col-sm-9">
+             		{php echo tpl_form_field_image('indexpic4',$reply['indexpic4']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">音乐五</label>
+          <div class="col-sm-9">
+          
+          {php echo tpl_form_field_audio('music5',$reply['music5']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">页面背景图五</label>
+          <div class="col-sm-9">
+             		{php echo tpl_form_field_image('indexpic5',$reply['indexpic5']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">音乐六</label>
+          <div class="col-sm-9">
+          
+          {php echo tpl_form_field_audio('music6',$reply['music6']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">页面背景图六</label>
+          <div class="col-sm-9">
+             	{php echo tpl_form_field_image('indexpic6',$reply['indexpic6']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">音乐七</label>
+          <div class="col-sm-9">
+          
+          {php echo tpl_form_field_audio('music7',$reply['music7']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">页面背景图七</label>
+          <div class="col-sm-9">
+             	{php echo tpl_form_field_image('indexpic7',$reply['indexpic7']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">音乐八</label>
+          <div class="col-sm-9">
+			{php echo tpl_form_field_audio('music8',$reply['music8']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">页面背景图八</label>
+          <div class="col-sm-9">
+             		{php echo tpl_form_field_image('indexpic8',$reply['indexpic8']);}
+          </div>
+        </div>
+	
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">设置广告语图片</label>
+            <div class="col-sm-9 col-xs-12">
+              {php echo tpl_form_field_image('indexmsg',$reply['indexmsg']);}
+                  
+ <div class="help-block">这是第8个页面的广告图片：内容是爱多久心知道</div>
+            </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">音乐九</label>
+          <div class="col-sm-9">
+			{php echo tpl_form_field_audio('music9',$reply['music9']);}
+          </div>
+        </div>
+		<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">页面背景图九</label>
+          <div class="col-sm-9">
+             	{php echo tpl_form_field_image('indexpic9',$reply['indexpic9']);}
+          </div>
+        </div>
+		
+		
+		 
+   </div>
+   </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="headingTwo">
+      <h5 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">分享设置</a>
+      </h5>
+	  </div>
+	  <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+      <div class="panel-body">
+	     
+           <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+            <div class="col-sm-9 col-xs-12">
+                  <input type="text" id="sharetitle" class="form-control span7" placeholder="" name="sharetitle" value="{$reply['sharetitle']}">
+            <div class="help-block">分享的文字，用户显示分享给用户的介绍!</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享描述</label>
+            <div class="col-sm-9 col-xs-12">
+                 <textarea style="height:60px;" name="sharedesc" class="form-control span7" cols="60">{$reply['sharedesc']}</textarea>
+            </div>
+        </div>
+       <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>分享图片</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_image('sharepic',$reply['sharepic']);}
+            </div>
+        </div>
+      
+    </div>
+   </div>
+  </div>
+
+
+</div>

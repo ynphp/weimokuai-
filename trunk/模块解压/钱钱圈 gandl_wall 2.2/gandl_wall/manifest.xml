@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[钱钱圈]]></name>
+		<identifie><![CDATA[gandl_wall]]></identifie>
+		<version><![CDATA[2.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[钱钱圈]]></ability>
+		<description><![CDATA[钱钱圈]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+<platform>
+<subscribes>
+<message type="text"/>
+<message type="image"/>
+<message type="voice"/>
+<message type="video"/>
+<message type="shortvideo"/>
+<message type="location"/>
+<message type="link"/>
+<message type="subscribe"/>
+<message type="unsubscribe"/>
+<message type="qr"/>
+<message type="trace"/>
+<message type="click"/>
+<message type="view"/>
+<message type="merchant_order"/>
+<message type="card_pass_check"/>
+<message type="card_not_pass_check"/>
+<message type="user_get_card"/>
+<message type="user_del_card"/>
+<message type="user_consume_card"/>
+<message type="poi_check_notify"/>
+</subscribes>
+<handles>
+<message type="image"/>
+<message type="voice"/>
+<message type="video"/>
+<message type="shortvideo"/>
+<message type="location"/>
+<message type="link"/>
+<message type="subscribe"/>
+<message type="qr"/>
+<message type="trace"/>
+<message type="click"/>
+<message type="merchant_order"/>
+<message type="text"/>
+<message type="card_pass_check"/>
+<message type="card_not_pass_check"/>
+<message type="user_get_card"/>
+<message type="user_del_card"/>
+<message type="user_consume_card"/>
+<message type="poi_check_notify"/>
+</handles>
+<rule embed="true"/>
+<card embed="true"/>
+</platform>
+<bindings>
+<menu>
+<entry title="圈子列表" do="list" state="" direct="false"/>
+<entry title="创建圈子" do="add" state="" direct="false"/>
+</menu>
+</bindings>
+<permissions></permissions>
+<install>
+<![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_gandl_wall` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `uniacid` int(11) NOT NULL,
+ `topic` varchar(255) NOT NULL COMMENT '主题',
+ `banner` varchar(255) NOT NULL COMMENT '顶部宣传图',
+ `background` varchar(255) DEFAULT NULL COMMENT '背景图',
+ `css` text COMMENT '界面样式',
+ `lang` text COMMENT '展示语言文字配置',
+ `detail` text NOT NULL COMMENT '详细规则',
+ `remark` text COMMENT '发红包说明',
+ `notice` text COMMENT '公告',
+ `start_time` int(11) NOT NULL COMMENT '活动开始日期时间',
+ `end_time` int(11) NOT NULL COMMENT '活动结束日期时间',
+ `begin_time` tinyint(2) NOT NULL COMMENT '每天开抢时间',
+ `over_time` tinyint(2) NOT NULL COMMENT '每天结束时间',
+ `city` varchar(300) DEFAULT NULL COMMENT '限制城市（多个用,号分隔）',
+ `piece_model` varchar(255) DEFAULT NULL COMMENT '开启的撒钱模型（逗号分隔1:普通，2:口令，3:组团）',
+ `groupmax` smallint(6) DEFAULT NULL COMMENT '团伙最大人数',
+ `group_rule` text COMMENT '[废弃]团伙人数的规则，每行一个。规则例：25:2（平均每份25分钱以下时，团伙上限为2人）',
+ `password` varchar(255) DEFAULT NULL COMMENT '访问密码,TODO 增加地理位置限制',
+ `cold_time` smallint(6) NOT NULL COMMENT '抢红包冷却时间(秒)',
+ `hot_rule` text NOT NULL COMMENT '发布的消息预热展示时间规则(秒)',
+ `total_min` int(11) NOT NULL COMMENT '红包总额至少钱数',
+ `total_max` int(11) NOT NULL COMMENT '红包总额最多钱数',
+ `avg_min` int(11) NOT NULL COMMENT '平均单个红包至少钱数',
+ `avg_max` smallint(6) NOT NULL COMMENT '平均单个红包最大允许为平均额下限的几倍',
+ `fee` float NOT NULL COMMENT '服务费率比例%',
+ `total_min2` int(11) NOT NULL COMMENT '红包总额至少钱数(口令模式)',
+ `total_max2` int(11) NOT NULL COMMENT '红包总额最多钱数(口令模式)',
+ `avg_min2` int(11) NOT NULL COMMENT '平均单个红包至少钱数(口令模式)',
+ `fee2` float NOT NULL COMMENT '服务费率比例%(口令模式)',
+ `total_min3` int(11) NOT NULL COMMENT '红包总额至少钱数(组团模式)',
+ `total_max3` int(11) NOT NULL COMMENT '红包总额最多钱数(组团模式)',
+ `avg_min3` int(11) NOT NULL COMMENT '平均单个红包至少钱数(组团模式)',
+ `fee3` float NOT NULL COMMENT '服务费率比例%(组团模式)',
+ `top_line` int(11) NOT NULL COMMENT '置顶线，满多少钱可自动获得置顶（0为不置顶）',
+ `transfer_min` int(11) DEFAULT NULL COMMENT '提现最小金额',
+ `fake_user` int(11) NOT NULL COMMENT '虚假参与人数',
+ `fake_money` int(11) NOT NULL COMMENT '虚假发放金额基数（分）',
+ `follow_show` varchar(255) DEFAULT NULL COMMENT '关注引导图',
+ `follow_url` varchar(255) DEFAULT NULL COMMENT '关注地址',
+ `share` text,
+ `status` tinyint(1) NOT NULL COMMENT '1:正常，2停止',
+ `create_time` int(11) NOT NULL,
+ `update_time` int(11) NOT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `id` (`id`)
+ ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ 
+ CREATE TABLE IF NOT EXISTS `ims_gandl_wall_group` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `uniacid` int(11) NOT NULL,
+ `wall_id` int(11) NOT NULL,
+ `piece_id` int(11) NOT NULL,
+ `captain_id` int(11) NOT NULL COMMENT '团长在当前圈子中的ID',
+ `mine_id` int(11) NOT NULL COMMENT '我在圈子中的ID',
+ `user_id` int(11) NOT NULL COMMENT '团队用户ID',
+ `nickname` varchar(80) DEFAULT NULL COMMENT '团员昵称',
+ `avatar` varchar(255) DEFAULT NULL COMMENT '团员头像',
+ `create_time` int(11) NOT NULL COMMENT '加入时间',
+ PRIMARY KEY (`id`)
+ ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='抢钱团表';
+ 
+ CREATE TABLE IF NOT EXISTS `ims_gandl_wall_piece` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `uniacid` int(11) NOT NULL,
+ `wall_id` int(11) NOT NULL,
+ `user_id` int(11) NOT NULL,
+ `model` tinyint(1) DEFAULT NULL COMMENT '模型(1:普通模型，2：团伙模型)',
+ `total_amount` int(11) NOT NULL COMMENT '发出总金额',
+ `total_num` int(11) NOT NULL COMMENT '发出总个数',
+ `fee` int(11) NOT NULL COMMENT '缴纳的服务费金额',
+ `title` varchar(255) NOT NULL COMMENT '标题',
+ `content` text COMMENT '内容',
+ `images` text COMMENT '图片',
+ `link` varchar(255) DEFAULT NULL COMMENT '链接',
+ `password` varchar(255) DEFAULT NULL COMMENT '抢钱口令',
+ `password_show` tinyint(1) DEFAULT NULL COMMENT '0:不显示抢钱口令，1：显示抢钱口令',
+ `group_size` smallint(6) DEFAULT NULL COMMENT '团伙人数',
+ `publish_time` int(11) DEFAULT NULL COMMENT '展示开始时间',
+ `hot_time` int(11) NOT NULL COMMENT '预热展示时间(秒)',
+ `top_level` int(11) NOT NULL COMMENT '置顶级别，超过置顶线的piece，置顶级别即为总金额数，否则为0',
+ `rob_start_time` int(11) DEFAULT NULL COMMENT '开抢时间（展示开始时间+预热展示时间）',
+ `total_pay` int(11) NOT NULL COMMENT '应付总额（分）',
+ `pay` int(11) NOT NULL COMMENT '实付总额(分)',
+ `status` tinyint(1) NOT NULL COMMENT '0:未生效（未付款），1：有效，2：下架',
+ `views` int(11) NOT NULL COMMENT '被查看的次数',
+ `links` int(11) NOT NULL COMMENT '链接被点击的次数',
+ `rob_plan` text NOT NULL COMMENT '红包分配方案',
+ `rob_amount` int(11) NOT NULL COMMENT '已被抢走的金额',
+ `rob_users` int(11) NOT NULL COMMENT '已抢的用户数',
+ `rob_end_time` int(11) DEFAULT NULL COMMENT '抢结束时间（rob_users等于total_num时）',
+ `create_time` int(11) NOT NULL COMMENT '该记录创建时间',
+ `op` tinyint(1) DEFAULT NULL COMMENT '管理员操作（0：无操作，1：禁止访问）',
+ `op_remark` text COMMENT '操作说明',
+ `op_admin` int(11) DEFAULT NULL COMMENT '操作的管理员user_id',
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `id` (`id`)
+ ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ 
+ CREATE TABLE IF NOT EXISTS `ims_gandl_wall_rob` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `uniacid` int(11) NOT NULL,
+ `wall_id` int(11) NOT NULL,
+ `piece_id` int(11) NOT NULL,
+ `user_id` int(11) NOT NULL,
+ `money` int(11) DEFAULT NULL COMMENT '抢到的金额',
+ `is_luck` int(11) DEFAULT NULL COMMENT '是否手气最佳',
+ `is_shit` int(11) DEFAULT NULL COMMENT '是否手气最差',
+ `create_time` int(11) NOT NULL COMMENT '该记录创建时间',
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `id` (`id`)
+ ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ 
+ CREATE TABLE IF NOT EXISTS `ims_gandl_wall_user` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `uniacid` int(11) NOT NULL,
+ `wall_id` int(11) NOT NULL,
+ `user_id` int(11) NOT NULL,
+ `nickname` varchar(80) DEFAULT NULL,
+ `avatar` varchar(255) DEFAULT NULL,
+ `who` tinyint(1) DEFAULT NULL COMMENT '0:未知 1:普通用户号 2：订阅号 3：认证订阅号 4：服务号 5：认证服务号',
+ `home` varchar(255) DEFAULT NULL,
+ `followed` tinyint(1) NOT NULL COMMENT '是否关注过了（未：0,1：已关注过）。这个量仅用于结合fan[''fllow'']一起判断是否首次关注',
+ `money` int(11) NOT NULL COMMENT '我的余额',
+ `money_in` int(11) NOT NULL COMMENT '我的充值总额',
+ `money_out` int(11) NOT NULL COMMENT '我的提现总额',
+ `send_times` int(11) NOT NULL COMMENT '发表次数',
+ `send_total` int(11) NOT NULL COMMENT '发出总金额',
+ `send_last_time` int(11) NOT NULL COMMENT '上次发表时间',
+ `last_city` varchar(60) DEFAULT NULL COMMENT '上次定位所在城市',
+ `rob_times` int(11) NOT NULL COMMENT '参与次数',
+ `rob_total` int(11) NOT NULL COMMENT '收到总金额',
+ `rob_last_time` int(11) NOT NULL COMMENT '上次参与时间',
+ `rob_fast` int(11) NOT NULL COMMENT '抢钱加速器（单位：秒）',
+ `rob_next_time` int(11) NOT NULL COMMENT '下次参与时间(以这个为准)',
+ `rob_luck` int(11) NOT NULL COMMENT '运气（正常应该是和收到的总金额一样，收到的越多，运气越差）',
+ `create_time` int(11) NOT NULL COMMENT '该用户记录创建时间',
+ `admin` tinyint(1) NOT NULL COMMENT '是否是管理员：0否，大于0，是',
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `id` (`id`)
+ ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ 
+ CREATE TABLE IF NOT EXISTS `ims_gandl_wall_user_help` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `uniacid` int(11) NOT NULL,
+ `wall_id` int(11) NOT NULL,
+ `help` int(11) NOT NULL COMMENT '被帮助者用户参与记录ID',
+ `helper_id` int(11) NOT NULL COMMENT '施助者ID',
+ `create_time` int(11) NOT NULL COMMENT '施助创建时间',
+ PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+ 
+ CREATE TABLE IF NOT EXISTS `ims_gandl_wall_user_transfer` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `uniacid` int(11) NOT NULL,
+ `wall_id` int(11) NOT NULL,
+ `user_id` int(11) NOT NULL,
+ `openid` varchar(100) CHARACTER SET utf8 NOT NULL COMMENT '用户的openid',
+ `money` int(11) NOT NULL COMMENT '提现金额（分）',
+ `money_before` int(11) NOT NULL COMMENT '提现前账户金额',
+ `money_after` int(11) NOT NULL COMMENT '提现后账户金额',
+ `status` tinyint(1) NOT NULL COMMENT '0：发起\n1：成功\n2：失败（未退帐）\n3：失败（已退帐）',
+ `channel` tinyint(1) DEFAULT NULL COMMENT '1:微信红包，2：企业转账',
+ `mch_billno` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '商户订单号（本系统内业务订单号）',
+ `out_billno` varchar(50) CHARACTER SET utf8 DEFAULT NULL COMMENT '外部订单号（对接系统的订单号）',
+ `out_money` int(11) DEFAULT NULL COMMENT '接口交易订单中的实际金额（分）',
+ `tag` text CHARACTER SET utf8 COMMENT '接口订单信息序列化存储',
+ `remark` text CHARACTER SET utf8,
+ `create_time` int(11) NOT NULL COMMENT '创建时间',
+ `update_time` int(11) NOT NULL COMMENT '更新时间',
+ PRIMARY KEY (`id`)
+ ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户提现记录表';
+]]>
+</install>
+<uninstall>
+<![CDATA[ 
+ ]]>
+</uninstall>
+<upgrade>
+<![CDATA[]]>
+</upgrade>
+</manifest>

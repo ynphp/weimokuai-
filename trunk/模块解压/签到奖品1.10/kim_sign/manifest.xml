@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[签到奖品]]></name>
+		<identifie><![CDATA[kim_sign]]></identifie>
+		<version><![CDATA[1.10]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[可用于签到、打卡、起床排名等活动中]]></ability>
+		<description><![CDATA[可自由设置签到时间、签到次数、奖励积分、奖励余额等]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="签到记录" do="list" state="" direct="false" />
+			<entry title="签到奖品" do="PrizesGroup" state="" direct="false" />
+			<entry title="奖品发放" do="winning" state="" direct="false" />
+		</menu>
+		<profile>
+			<entry title="签到排行" do="LeaderBoard" state="" direct="false" />
+			<entry title="我的奖品" do="MyPrize" state="" direct="false" />
+		</profile>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_kim_sign_prizes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `group_id` int(11) DEFAULT NULL COMMENT '所属组',
+  `prize_name` varchar(50) DEFAULT NULL COMMENT '奖品名称',
+  `prize_possibility` int(11) DEFAULT NULL COMMENT '奖品概率百分比',
+  `prize_code` varchar(255) DEFAULT NULL COMMENT '领奖口令',
+  `prize_validity` int(255) DEFAULT NULL COMMENT '有效期',
+  `prize_code_image` varchar(255) DEFAULT NULL COMMENT '二维码',
+  `description` text COMMENT '使用详情',
+  `prize_url` varchar(255) DEFAULT NULL COMMENT '兑奖URL',
+  `create_time` int(11) DEFAULT NULL COMMENT '添加时间',
+  `update_time` int(11) DEFAULT NULL COMMENT '最后修改时间',
+  `number` int(11) DEFAULT '1' COMMENT '总份数',
+  `issued_number` int(11) DEFAULT '0' COMMENT '已发份数',
+  `status` int(1) DEFAULT '0' COMMENT '0-未领取，-1-已发放 -2-已使用',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='签到奖品';
+CREATE TABLE IF NOT EXISTS `ims_kim_sign_prizes_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `name` varchar(50) DEFAULT NULL COMMENT '组名',
+  `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
+  `is_del` int(1) DEFAULT '0' COMMENT '删除状态 0 -未删除 -1-已删除',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='奖品分组';
+CREATE TABLE IF NOT EXISTS `ims_kim_sign_prizes_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) DEFAULT NULL COMMENT '领奖用户ID',
+  `code` varchar(255) DEFAULT NULL COMMENT '兑奖口令',
+  `prize_id` int(11) DEFAULT NULL COMMENT '奖品ID',
+  `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
+  `update_time` int(11) DEFAULT NULL COMMENT '领取时间',
+  `winning_time` int(11) DEFAULT '0' COMMENT '中奖时间',
+  `status` int(11) DEFAULT NULL COMMENT '状态 0-正常 1-中奖 -1-已发放',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='奖品发放记录';
+CREATE TABLE IF NOT EXISTS `ims_kim_sign_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL COMMENT '用户ID',
+  `time` int(11) NOT NULL COMMENT '签到时间',
+  `sum_times` int(11) NOT NULL COMMENT '总次数',
+  `rank` int(11) NOT NULL COMMENT '排名',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='签到记录';
+CREATE TABLE IF NOT EXISTS `ims_kim_sign_reply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) NOT NULL COMMENT '规则ID',
+  `overtime` text NOT NULL COMMENT '超出时间段提示',
+  `overnum` text NOT NULL COMMENT '超出次数提示',
+  `type` int(11) NOT NULL COMMENT '类型 0-普通模式 1-摇一摇',
+  `title` varchar(50) DEFAULT NULL COMMENT '回复标题',
+  `image_url` varchar(255) DEFAULT NULL COMMENT '回复图片',
+  `description` text COMMENT '描述',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='回复规则';
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

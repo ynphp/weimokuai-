@@ -1,0 +1,94 @@
+<input type="hidden" name="reply_id" value="{$reply['id']}" />
+<style type="text/css">
+.help0 { margin:0px 10px;color:#999;vertical-align: middle;}
+</style>
+<script src="http://libs.baidu.com/jquery/1.7.2/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../addons/yobyqiandao/ui/css/jquery-ui.css" />
+<script type="text/javascript" src="../addons/yobyqiandao/ui/js/jquery-ui.js"></script>
+<script type="text/javascript" src="../addons/yobyqiandao/ui/js/jquery-ui-slide.min.js"></script>
+<script type="text/javascript" src="../addons/yobyqiandao/ui/js/jquery-ui-timepicker-addon.js"></script>
+<script>
+$(function(){
+	$('#start_time').timepicker({showSecond: true,timeFormat: 'hh:mm:ss'});
+	$('#end_time').timepicker({showSecond: true,timeFormat: 'hh:mm:ss'});
+
+});
+	</script>
+<div class="alert alert-block alert-new">
+	<a class="close" data-dismiss="alert" title="关闭">x</a>
+	<h4 class="alert-heading">参数设置</h4>
+	<table>
+		<tbody>	
+			<tr>
+				<th>签到时间</th>
+				<th>
+				<input name="start_time" id="start_time" type="text" value="{$reply['start_time']}"/>
+				<input name="end_time" id="end_time" type="text" value="{$reply['end_time']}"/><br><span class="help0">填写每天签到开始和结束时间范围</span></th>
+			</tr>
+
+			<tr>
+				<th>奖励积分</th>
+				<td><input type="text" name="jifen" value="{$reply['jifen']}" class="form-control"><span class="help0">填写具体值或用逗号分开表示随机范围,默认表示随机奖励1-5分</span></td>
+			</tr>
+			<tr>
+				<th>连续2天签到</th>
+				<td><input type="text" name="jifen2" value="{$reply['jifen2']}" class="form-control"><span class="help0">默认8分</span></td>
+			</tr>
+			<tr>
+				<th>连续3天签到</th>
+				<td><input type="text" name="jifen3" value="{$reply['jifen3']}" class="form-control"><span class="help0">默认11分</span></td>
+			</tr>
+			<tr>
+				<th>连续4天签到</th>
+				<td><input type="text" name="jifen4" value="{$reply['jifen4']}" class="form-control"><span class="help0">默认15分</span></td>
+			</tr>
+			<tr>
+				<th>连续5天签到</th>
+				<td><input type="text" name="jifen5" value="{$reply['jifen5']}" class="form-control"><span class="help0">默认19分</span></td>
+			</tr>
+			<tr>
+				<th>连续6天签到</th>
+				<td><input type="text" name="jifen6" value="{$reply['jifen6']}" class="form-control"><span class="help0">默认24分</span></td>
+			</tr>
+			<tr>
+				<th>连续7天或超过7天签到</th>
+				<td><input type="text" name="jifen7" value="{$reply['jifen7']}" class="span2"><span class="help0">默认29分</span></td>
+			</tr>					
+			<tr>
+				<th>显示排行榜名次位数</th>
+				<td><input type="text" name="top10" value="{$reply['top10']}" class="form-control"><span class="help0">默认显示前十名</span></td>
+			</tr>
+
+			<tr>
+				<th>签到成功提示</th>
+				<td><input type="text" value="{$reply['oktishi']}" class="span7" name="oktishi" id="oktishi"><div class="help0">签到成功提示内容</div></td>
+			</tr>
+
+			<tr>
+				<th>签到失败提示</th>
+				<td><input type="text" value="{$reply['errortishi']}" class="form-control" name="errortishi" id="errortishi"><div class="help0">签到失败提示内容</div></td>
+			</tr>
+			<tr>
+				<th>广告1</th>
+				<th><span>标题</span><input name="ad1" type="text" value="{$ad['ad1']}" class="form-control"/><span>URL</span><input name="url1" type="text" value="{$ad['url1']}" class="form-control"/></th>
+			</tr>
+			<tr>
+				<th>广告2</th>
+				<th><span>标题</span><input name="ad2" type="text" value="{$ad['ad2']}" class="form-control"/><span>URL</span><input name="url2" type="text" value="{$ad['url2']}" class="form-control"/></th>
+			</tr>
+			<tr>
+				<th>广告3</th>
+				<th><span>标题</span><input name="ad3" type="text" value="{$ad['ad3']}" class="form-control"/><span>URL</span><input name="url3" type="text" value="{$ad['url3']}" class="form-control"/></th>
+			</tr>
+			<tr>
+				<th>广告4</th>
+				<th><span>标题</span><input name="ad4" type="text" value="{$ad['ad4']}" class="form-control"/><span>URL</span><input name="url4" type="text" value="{$ad['url4']}" class="form-control"/></th>
+			</tr>
+			<tr>
+				<th>广告5</th>
+				<th><span>标题</span><input name="ad5" type="text" value="{$ad['ad5']}" class="form-control"/><span>URL</span><input name="url5" type="text" value="{$ad['url5']}" class="form-control"/></th>
+			</tr>
+
+		</tbody>
+	</table>
+</div>
