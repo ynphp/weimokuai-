@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>收款成功</title>
+<meta name="format-detection" content="telephone=no, address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link href="./resource/css/bootstrap.min.css" rel="stylesheet">
+<link href="./resource/css/font-awesome.min.css" rel="stylesheet">
+<link href="./resource/css/animate.css" rel="stylesheet">
+<link href="./resource/css/common.css" rel="stylesheet">
+{php echo register_jssdk(false);}
+<script src="{MODULE_URL}template/js/jquery-2.1.1.min.js"></script>
+<script src="{MODULE_URL}template/js/fastclick.min.js"></script>
+<link type="text/css" rel="stylesheet" href="{MODULE_URL}template/js/weui.css"/>
+</head>
+<style>
+.weui_cell_ft{color:#F00;}
+</style>
+<body>
+<div class="weui_msg">
+  <div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i></div>
+  <div class="weui_text_area">
+    <h2 class="weui_msg_title">收款成功</h2>
+  </div>
+  <div class="weui_cells">
+    <div class="weui_cell">
+      <div class="weui_cell_bd weui_cell_primary" style="text-align:left;"> 收款金额 </div>
+      <div class="weui_cell_ft"> ￥{php echo sprintf('%.2f',($trade['total_fee']/100))} </div>
+    </div>
+    <div class="weui_cell">
+      <div class="weui_cell_bd weui_cell_primary" style="text-align:left;"> 优惠金额 </div>
+      <div class="weui_cell_ft"> ￥{php echo sprintf('%.2f',($trade['coupon_fee']/100))} </div>
+    </div>
+    <div class="weui_cell">
+      <div class="weui_cell_bd weui_cell_primary" style="text-align:left;"> 实收金额 </div>
+      <div class="weui_cell_ft"> ￥{php echo sprintf('%.2f',($trade['cash_fee']/100))} </div>
+    </div>
+  </div>
+  <div class="weui_opr_area">
+    <p class="weui_btn_area"> <a href="{php echo $this->createMobileUrl('mobile')}" class="weui_btn weui_btn_primary">确定</a></p>
+  </div>
+</div>
+<script>
+$(document).ready(function(e) {
+    
+});
+$(function() {
+  FastClick.attach(document.body);
+});
+wx.ready(function () {
+	wx.hideOptionMenu();
+});
+</script>

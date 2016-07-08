@@ -1,0 +1,26 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+  <li {if $operation == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('print', array('op' => 'display'))}">插件管理</a></li>
+</ul>
+<script>
+require(['bootstrap'],function($){
+	$('.btn').hover(function(){
+		$(this).tooltip('show');
+	},function(){
+		$(this).tooltip('hide');
+	});
+});
+</script> 
+{if $operation == 'display'}
+<div class="clearfix welcome-container">
+  <div class="page-header">
+    <h4><i class="fa fa-plane"></i> 插件列表</h4>
+  </div>
+  <div class="shortcut clearfix"> 
+  	{loop $extendlist $row}
+    <a href="{php echo $this->createWebUrl('Extension',array('extend_modal'=>$row))}" title=""> <i class="fa fa-external-link-square"></i> <span>收银台入口</span> </a>
+    {/loop} 
+  </div>
+</div>
+{/if}
+{template 'common/footer'} 

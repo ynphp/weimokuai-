@@ -1,0 +1,1925 @@
+<!DOCTYPE html><html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>weixin://private/setresult/SCENE_FETCHQUEUE&amp;eyJmdW5jIjoicHJlVmVyaWZ5SlNBUEkiLCJwYXJhbXMiOnsidmVyaWZ5SnNBcGlMaXN0IjpbImhpZGVPcHRpb25NZW51Iiwic2hvd09wdGlvbk1lbnUiLCJjaG9vc2VJbWFnZSIsInVwbG9hZEltYWdlIl0sImFwcElkIjoid3gyYWExZjZiZWFhNzE0YjdjIiwidmVyaWZ5QXBwSWQiOiJ3eDJhYTFmNmJlYWE3MTRiN2MiLCJ2ZXJpZnlTaWduVHlwZSI6InNoYTEiLCJ2ZXJpZnlUaW1lc3RhbXAiOiIxNDM3MzcwMjY2IiwidmVyaWZ5Tm9uY2VTdHIiOiJwdWx2a3k3ZXQ3cDNsNHUzajN0YWZ2cHdta3NlYzh5YyIsInZlcmlmeVNpZ25hdHVyZSI6ImJhYjg2NDM0NDg4NDNlMGIwYzkzN2U3ODkzZjU0M2JkYmIxZjkyZDIifSwiX19tc2dfdHlwZSI6ImNhbGwiLCJfX2NhbGxiYWNrX2lkIjoiMTAwMCJ9</title>
+    <style type="text/css">
+        * {
+            outline: none;
+            -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+            vertical-align: baseline;
+            font-style: normal;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+            font-family: Microsoft Yahei, Arial, Simsun, Helvetica, Segoe UI, sans-serif;
+            color: #404040;
+            background-color: #FFF;
+        }
+
+        img {
+            border: 0
+        }
+
+        ul, ol, li, dt, dl, dd {
+            text-decoration: none;
+            list-style: none;
+            vertical-align: middle;
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            color: #373737;
+            text-decoration: none;
+        }
+
+        .myMain {
+            width: 100%;
+            background-color: #FFF;
+            display: table;
+        }
+
+        .myMain .myinfoContainer {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background-image: url(/res/img/myinfoBg.jpg?t=3);
+            background-position: center bottom;
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+        }
+
+        .myMain .myinfoContainer .avatarBox {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 80px;
+            background-color: rgba(255, 255, 255, 0.8);
+            top: 26px;
+            left: 50%;
+            margin-left: -40px;
+        }
+
+        .myMain .myinfoContainer .avatar {
+            width: 76px;
+            height: 76px;
+            border-radius: 76px;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 2px;
+        }
+
+        .myMain .myinfoContainer .name {
+            position: absolute;
+            width: 80%;
+            left: 10%;
+            height: 30px;
+            line-height: 30px;
+            top: 112px;
+            text-align: center;
+            font-size: 18px;
+            color: #FFF;
+            overflow: hidden;
+        }
+
+        .myMain .myinfoContainer .signature {
+            position: absolute;
+            width: 80%;
+            left: 10%;
+            height: 20px;
+            line-height: 20px;
+            top: 144px;
+            text-align: center;
+            font-size: 14px;
+            color: #FFF;
+            overflow: hidden;
+        }
+
+        .myMain .myinfoContainer .statics {
+            position: absolute;
+            width: 251px;
+            height: 36px;
+            top: 175px;
+            left: 50%;
+            margin-left: -125.5px;
+        }
+
+        .myMain .myinfoContainer .statics .staticsItem {
+            float: left;
+            width: 62px;
+            line-height: 18px;
+            font-size: 13px;
+            text-align: center;
+            color: #FFF;
+            margin-bottom: 12px;
+        }
+
+        .myMain .myinfoContainer .statics .line {
+            float: left;
+            width: 1px;
+            height: 26px;
+            margin: 5px 0;
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        .myMain .menuBanner {
+            width: 100%;
+            height: 45px;
+            background-color: #FFF;
+            position: relative;
+        }
+
+        .myMain .menuBanner.hide {
+            display: none;
+        }
+
+        .myMain .menuBanner.fixed {
+            position: fixed;
+            top: 0px;
+            box-shadow: 0px 1px 4px #ededed;
+            z-index: 999;
+        }
+
+        .myMain .menuBanner .menuItem {
+            float: left;
+            width: 49.8%;
+            height: 25px;
+            line-height: 25px;
+            margin: 10px 0;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .myMain .menuBanner.fixed .menuItem {
+            border-right: 1px solid #ededed;
+        }
+
+        .myMain .menuBanner.fixed .menuItem:last-child {
+            border-right: none;
+        }
+
+        .myMain .menuBanner .menuItem.selected span {
+            color: #157DA4;
+        }
+
+        .myMain .menuBanner .shakeMenuItem {
+            width : 56px;
+            height: 56px;
+            background-image: url(/res/img/shakeMenu.png);
+            background-size: 100% auto;
+            background-position: center top;
+            background-repeat: no-repeat;
+            position: absolute;
+            left: 50%;
+            top: -11px;
+            margin-left: -28px;
+        }
+
+        .myMain .listContainer {
+            width: 96%;
+            margin: 0 2%;
+            display: table;
+        }
+
+        .myMain .listContainer .publishHelper {
+            width: 100%;
+            height: 120px;
+            background-image: url(/res/img/publishHelper.png?t=1);
+            background-size: auto 70%;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+        }
+
+        .myMain .listContainer .publishHelper .finger {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            bottom: 65px;
+            left: 50%;
+            margin-left: -25px;
+            background-image: url(/res/img/finger.png);
+            background-size: 70%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .myMain .listContainer.like {
+            display: none;
+        }
+
+        .myMain .listContainer .titleBanner {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+            background-image: url(/res/img/line.png);
+            background-repeat: repeat-x;
+            background-position: center;
+        }
+
+        .myMain .listContainer .titleBanner .title {
+            width: 100px;
+            margin: 0 auto;
+            height: 40px;
+            text-align: center;
+            background-color: #FFF;
+        }
+
+        .myMain .listContainer .saleBox {
+            width: 100%;
+            display: table;
+        }
+
+        .myMain .listContainer .saleBox .saleItem {
+            float: left;
+            width: 49%;
+            background-color: #FFF;
+            margin-top: 3px;
+            margin-bottom: 7px;
+        }
+
+        .myMain .listContainer .saleBox .saleItem:nth-child(2n+1) {
+            margin-left: 0;
+        }
+
+        .myMain .listContainer .saleBox .saleItem:nth-child(2n) {
+            margin-left: 2%;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleImg {
+            position: relative;
+            width: 100%;
+            height: 235px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            background-size: cover;
+            border-radius: 1px;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleImg .handle {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 32px;
+            height: 32px;
+            background-image: url(/res/img/handleIcons.png?t=2);
+            background-size: auto 100%;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleImg .handle.show {
+            background-position: 0px 0px;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleImg .handle.hide {
+            background-position: -32px 0px;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleImg .handle.unpublish {
+            background-position: -64px 0px;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleImg .handle.delete {
+            background-position: -96px 0px;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleImg .endTime {
+            position: absolute;
+            bottom: 5px;
+            right: 0px;
+            width: 93px;
+            height: 26px;
+            line-height: 26px;
+            background-image: url(/res/img/endTimeBg.png);
+            background-size: 100% 100%;
+            color: #FFF;
+            text-indent: 24px;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleImg .bought {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 74px;
+            height: 44px;
+            background-image: url(/res/img/bought.png);
+            background-size: 100% 100%;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleDesc {
+            height: 26px;
+            line-height: 26px;
+            margin: 0 2px;
+            overflow: hidden;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleDesc.hasBzj {
+            text-indent: 20px;
+            background-image: url(/res/img/shieldIcon.png);
+            background-repeat: no-repeat;
+            background-size: auto 68%;
+            background-position: left center;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleInfo  {
+            margin: 0 2px;
+            height: 18px;
+            line-height: 18px;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleDesc span,
+        .myMain .listContainer .saleBox .saleItem .saleInfo span {
+            color: #9e0006;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleInfo .bid {
+            float: left;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleInfo .statics,
+        .myMain .listContainer .saleBox .saleItem .saleInfo .endTime {
+            float: right;
+            text-align: left;
+            color: #ACACAC;
+        }
+
+        .myMain .listContainer .saleBox .saleItem .saleInfo .statics {
+            text-indent: 18px;
+            background-size: auto 70%;
+            background-position: left 40%;
+            background-repeat: no-repeat;
+            background-image: url(/res/img/popularity.png);
+        }
+
+        .myMenu {
+            position: fixed;
+            top: 9px;
+            left: 0px;
+            width: 50px;
+            height: 36px;
+            background-image: url(/res/img/my_menu.png);
+            background-size: 20px;
+            background-position: 40% center;
+            background-repeat: no-repeat;
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 0px 20px 20px 0px;
+        }
+
+        .myMenu .hasNew {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 6px;
+            background-color: #FF0000;
+            top: 1px;
+            right: 1px;
+        }
+
+        .myMenuMain {
+            position: fixed;
+            width: 100%;
+            top: 0px;
+            bottom: 0px;
+            display: none;
+            z-index: 9999;
+        }
+
+        .myMenuMain .menuMask {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #FFF;
+            opacity: 0;
+        }
+
+        .myMenuMain .menuBox {
+            position: relative;
+            width: 76%;
+            height: 100%;
+            margin-left: -76%;
+            background-color: rgba(255, 255, 255, 0.98);
+        }
+
+        .myMenuMain .menuBox .menuItem {
+            position: relative;
+            width: 100%;
+            height: 48px;
+            border-bottom: 1px solid #F0F0F0;
+        }
+
+        .myMenuMain .menuBox .menuItem:last-child {
+            border-bottom: none;
+        }
+
+        .myMenuMain .menuBox .menuItem.userinfo {
+            height: 80px;
+        }
+
+        .myMenuMain .menuBox .menuItem.userinfo .avatar {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top: 15px;
+            left: 20px;
+            border-radius: 60px;
+            background-size: 100% 100%;
+        }
+
+        .myMenuMain .menuBox .menuItem.userinfo .name {
+            position: absolute;
+            top: 15px;
+            left: 90px;
+            font-size: 16px;
+            height: 26px;
+            line-height: 26px;
+            max-width: 50%;
+            padding-right: 30px;
+            overflow: hidden;
+        }
+
+        .myMenuMain .menuBox .menuItem.userinfo .name .syncUserinfo {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            width: 26px;
+            height: 26px;
+            line-height: 26px;
+            margin-left: 4px;
+            border-radius: 2px;
+            background-image: url(/res/img/refresh.png?t=1);
+            background-repeat: no-repeat;
+            background-size: auto 50%;
+            background-position: center;
+        }
+
+        .myMenuMain .menuBox .menuItem.userinfo .signature {
+            position: absolute;
+            left: 90px;
+            bottom: 20px;
+            font-size: 14px;
+            height: 20px;
+            line-height: 20px;
+            max-width: 60%;
+            color: #878787;
+            overflow: hidden;
+        }
+
+        .myMenuMain .menuBox .menuItem .title {
+            position: absolute;
+            top: 9px;
+            left: 15px;
+            width: 140px;
+            height: 30px;
+            line-height: 30px;
+            background-image: url(/res/img/myMenuIcons.png?t=8);
+            background-size: 36px;
+            background-repeat: no-repeat;
+            text-indent: 40px;
+            font-size: 14px;
+            color: #878787;
+        }
+
+        .myMenuMain .menuBox .menuItem .desc {
+            position: absolute;
+            top: 9px;
+            right: 20px;
+            height: 30px;
+            line-height: 30px;
+            color: #888;
+        }
+
+        .myMenuMain .menuBox .menuItem .desc span {
+            color: #169ada;
+        }
+
+        .myMenuMain .menuBox .menuItem.msg .title {
+            background-position: 0px -3px;
+        }
+
+        .myMenuMain .menuBox .menuItem.balance .title {
+            background-position: 0px -364px;
+        }
+
+        .myMenuMain .menuBox .menuItem.order .title {
+            background-position: 0px -39px;
+        }
+
+        .myMenuMain .menuBox .menuItem.shop .title {
+            background-position: 0px -111px;
+        }
+
+        .myMenuMain .menuBox .menuItem.saleMsg .title {
+            background-position: 0px -292px;
+        }
+
+        .myMenuMain .menuBox .menuItem.pdInventory .title {
+            background-position: 0px -328px;
+        }
+
+        .myMenuMain .menuBox .menuItem.shake .title {
+            background-position: 0px -149px;
+        }
+
+        .myMenuMain .menuBox .menuItem.manage .title {
+            background-position: 0px -254px;
+        }
+
+        .myMenuMain .menuBox .menuItem .hasNew {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 5px;
+            background-color: #FF0000;
+            top: 16px;
+            left: 40px;
+        }
+
+        .myMenuMain .menuBox .menuBottom {
+            position: absolute;
+            width: 100%;
+            bottom: 0px;
+            height: 40px;
+        }
+
+        .myMenuMain .menuBox .menuBottom .menuItem {
+            float: right;
+            height: 30px;
+            line-height: 30px;
+            margin: 5px 0;
+            border-bottom: none;
+        }
+
+        .myMenuMain .menuBox .menuBottom .menuItem.about {
+            width: 140px;
+        }
+
+        .myMenuMain .menuBox .menuBottom .menuItem.help {
+            width: 100px;
+        }
+
+        .myMenuMain .menuBox .menuBottom .menuItem .title {
+            float: left;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 30px;
+            line-height: 30px;
+            font-size: 12px;
+        }
+
+        .myMenuMain .menuBox .menuBottom .menuItem.about .title {
+            background-position: 0px -183px;
+        }
+
+        .myMenuMain .menuBox .menuBottom .menuItem.help .title {
+            background-position: 0px -219px;
+        }
+
+        .balanceMenu{
+            position: fixed;
+            top: 9px;
+            right: 0px;
+            height: 36px;
+            line-height: 36px;
+            border-radius: 17.5px 0 0 17.5px;
+            color: #FFF;
+            text-align: center;
+            font-size: 12px;
+            background-color: rgba(0,0,0,0.2);
+            background-image: url(/res/img/wallet.png);
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: 14px center;
+            padding-left: 40px;
+            padding-right: 10px;
+            font-size:14px;
+        }
+
+        .myAdminMenu {
+            position: fixed;
+            left:0px;
+            top: 55px;
+            right: 12px;
+            width: 70px;
+            height: 36px;
+            line-height: 36px;
+            border-radius: 0px 17.5px 17.5px 0px;
+            color: #FFF;
+            text-align: center;
+            font-size: 12px;
+            background-color: rgba(0,0,0,0.2);
+        }
+    </style>
+    <script type="text/javascript" src="http://cdn.weipaitang.com/res/js/zepto.js?v=0.7.0.0"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?v=0.7.0.0"></script>
+    <script type="text/javascript">
+        var pageloadOver = false;
+
+        //下一页
+        function loadNextPage() {
+            if (pageloadOver) return;
+
+            var menuItemObj = $(".menuItem.selected");
+            var url = menuItemObj.attr('url');
+            var saleType = menuItemObj.attr('saleType');
+            var listContainerObj = $(".listContainer." + saleType);
+            var loadNextPageObj = listContainerObj.find(".loadNextPage");
+            if(loadNextPageObj.length == 0) return;
+            var page = parseInt(loadNextPageObj.attr("page"));
+            if (isNaN(page)) return;
+
+            pageloadOver = true;
+            loadNextPageObj.css("visibility", "visible");
+            $.get(url + '?page=' + page + "&ajax=true", function (html) {
+                if (html.trim()) {
+                    $(loadNextPageObj.attr("html2append")).append(html);
+                    loadNextPageObj.attr("page", page + 1);
+                    pageloadOver = false;
+                } else {
+                    loadNextPageObj.remove();
+                    pageloadOver = false;
+                }
+            });
+        }
+
+        //判断包含关系
+        function isContainsClass(child, parentClass) {
+            while (child && !$(child).hasClass(parentClass)) {
+                child = child.parentNode;
+            }
+            return ($(child).hasClass(parentClass));
+        }
+
+        $(function() {
+            window.wx && wx.config({
+                debug: false,
+                appId: "wx2aa1f6beaa714b7c",
+                timestamp: "1437370266",
+                nonceStr: "pulvky7et7p3l4u3j3tafvpwmksec8yc",
+                signature: "bab8643448843e0b0c937e7893f543bdbb1f92d2",
+                jsApiList: [
+                    "hideOptionMenu",
+                    "showOptionMenu",
+                    "chooseImage",
+                    "uploadImage"
+                ]
+            });
+
+            wx.ready(function () {
+                wx.hideOptionMenu();
+            });
+
+            //右边菜单按钮
+            $(".myMenu").on("click", function(){
+                $(".myMenuMain").show();
+                $('body').on('touchmove', function (e) {
+                    e.preventDefault();
+                });
+
+                $(".myMenuMain .menuMask").animate({opacity: 0.7}, 200);
+                $(".myMenuMain .menuBox").animate({marginLeft: "0%"}, 200, function () {
+                    $(".myMenuMain").off("touchend").on("touchend", function(e){
+                        if (!isContainsClass(e.target, 'menuItem')) {
+                            $(".myMenuMain .menuMask").animate({opacity: 0}, 200);
+                            $(".myMenuMain .menuBox").animate({marginLeft: "-76%"}, 200, function(){
+                                setTimeout(function() {
+                                    $(".myMenuMain").hide();
+                                    $('body').off('touchmove');
+                                }, 150);
+                            });
+                        }
+                    });
+                });
+            });
+
+            //菜单点击
+            $(".myMenuMain .menuItem").on("click", function(e){
+                e.preventDefault();
+                var self = $(this);
+                if(!isContainsClass(e.target, 'syncUserinfo') && self.attr('url')) {
+                    $(".myMenuMain .menuMask").animate({opacity: 0}, 200);
+                    $(".myMenuMain .menuBox").animate({marginLeft: "-76%"}, 200, function(){
+                        setTimeout(function() {
+                            $(".myMenuMain").hide();
+                            wptLoading("读取中...", function() {
+                                window.location.href = self.attr('url');
+                            }, 100);
+                        }, 150);
+                    });
+                }
+            });
+
+            //刷新用户
+            $(".syncUserinfo").on("click", function(e){
+                e.preventDefault();
+                $(".myMenuMain .menuMask").animate({opacity: 0}, 200);
+                $(".myMenuMain .menuBox").animate({marginLeft: "-76%"}, 200, function(){
+                    setTimeout(function() {
+                        $(".myMenuMain").hide();
+                        window.location.href = "/my/syncUserinfo";
+                    }, 150);
+                });
+            });
+
+            //切换
+            $(".menuBanner .menuItem").on("click", function() {
+                var self = $(this);
+                $(".menuItem").removeClass("selected");
+                var saleType = self.attr('saleType');
+                $(".menuItem[saleType='" + saleType + "']").addClass("selected");
+
+                var showObj = $(".myMain .listContainer." + saleType);
+                var hideObj = $(".myMain .listContainer." + saleType).siblings(".listContainer");
+                if(saleType == "like" && showObj.find(".saleBox.like").html().trim() == "") {
+                    wptLoading("读取中...", function () {
+                        $.get(self.attr('url'), function (html) {
+                            showObj.find(".saleBox.like").html(html);
+                            var htmlObj = $("<div>" + html + "<div>");
+                            if(htmlObj.find(".saleItem").length == 20) {
+                                showObj.append('<div class="loadNextPage" page="2" html2append=".saleBox.like"><div class="loading">加载下一页</div></div>');
+                            }
+                            $(document.body).trigger('wptLoading_view:hide');
+                            showObj.show();
+                            hideObj.hide();
+                            if(self.parent().hasClass("fixed")) {
+                                document.documentElement.scrollTop = 220;
+                                document.body.scrollTop = 220;
+                            }
+                            fixSupport();
+                        });
+                    }, 300);
+                } else {
+                    showObj.show();
+                    hideObj.hide();
+                    fixSupport();
+                }
+            });
+
+            //删除,下架,隐藏/显示
+            $(".myMain").on("click", ".handle", function(e){
+                e.preventDefault();
+                var self = $(this);
+                var saleItemObj = $(this).parents(".saleItem");
+                var uri = saleItemObj.attr("uri");
+                var status = saleItemObj.attr("status");
+                var goodsId = saleItemObj.attr("goodsId");
+
+                if(self.hasClass("delete")) {
+                    var deleteMsg = "确认删除草稿？";
+                    var deleteUrl = "/auction/goods_del?goodsId=" + goodsId;
+                    if (uri) {
+                        deleteMsg = "确认删除未支付保证金拍品？";
+                        deleteUrl = "/auction/sale_del?uri=" + uri;
+                    }
+                    $(document).off('wptConfirm_view:sure').one('wptConfirm_view:sure', function () {
+                        $.getJSON(deleteUrl, function (res) {
+                            if (res.errcode > 0) {
+                                wptAlert(res.errmsg);
+                            }else {
+                                saleItemObj.animate({opacity: 0}, 300, function () {
+                                    var parentObj = saleItemObj.parent();
+                                    if(uri) {
+                                        var newSaleItemObj = saleItemObj.remove();
+                                        newSaleItemObj.css("opacity",1);
+                                        newSaleItemObj.attr('uri','');
+                                        newSaleItemObj.attr('status','draft');
+                                        newSaleItemObj.find('.saleDesc').html(newSaleItemObj.find('.saleDesc').html().replace("[未支付保证金]", "[草稿]"));
+                                        newSaleItemObj.find('.saleImg').empty().append('<div class="handle delete"></div>');
+                                        parentObj.prepend(newSaleItemObj);
+                                    } else {
+                                        saleItemObj.remove();
+                                        if(parentObj.find(".saleItem").length == 0){
+                                            parentObj.prev(".titleBanner").remove();
+                                            parentObj.remove();
+                                        }
+                                    }
+                                    fixSupport();
+                                });
+                            }
+                        });
+                    });
+                    wptConfirm(deleteMsg);
+                } else if(self.hasClass("show")) {
+                    $(document).off('wptConfirm_view:sure').one('wptConfirm_view:sure', function () {
+                        $.getJSON("/auction/sale_toggle?uri=" + uri, function (res) {
+                            if (res.errcode > 0) {
+                                wptAlert(res.errmsg);
+                            } else {
+                                saleItemObj.find('.saleImg').empty().append('<div class="handle hide"></div>');
+                            }
+                        });
+                    });
+                    wptConfirm('确认显示此拍品？');
+                } else if(self.hasClass("hide")) {
+                    $(document).off('wptConfirm_view:sure').one('wptConfirm_view:sure', function () {
+                        $.getJSON("/auction/sale_toggle?uri=" + uri, function (res) {
+                            if (res.errcode > 0) {
+                                wptAlert(res.errmsg);
+                            } else {
+                                saleItemObj.find('.saleImg').empty().append('<div class="handle show"></div>');
+                            }
+                        });
+                    });
+                    wptConfirm('确认隐藏此拍品？');
+                } else if(self.hasClass("unpublish")) {
+                    $(document).off('wptConfirm_view:sure').one('wptConfirm_view:sure', function () {
+                        $.getJSON("/auction/sale_del?uri=" + uri, function (res) {
+                            if (res.errcode > 0) {
+                                wptAlert(res.errmsg);
+                            } else {
+                                saleItemObj.animate({opacity: 0}, 300, function () {
+                                    var parentObj = saleItemObj.parent();
+                                    var draftObj = parentObj.siblings(".saleBox.draft");
+                                    if(draftObj.length == 0) {
+                                        draftObj = '<div class="titleBanner">\
+                                                        <div class="title">待发布拍品</div>\
+                                                    </div>\
+                                                    <div class="saleBox draft"></div>';
+                                        if(status == "sale") {
+                                            parentObj.after(draftObj);
+                                        } else {
+                                            parentObj.prev(".titleBanner").before(draftObj);
+                                        }
+                                        draftObj = parentObj.siblings(".saleBox.draft");
+                                    }
+                                    var newSaleItemObj = saleItemObj.remove();
+                                    if(parentObj.find(".saleItem").length == 0) {
+                                        parentObj.prev(".titleBanner").remove();
+                                        parentObj.remove();
+                                    }
+                                    newSaleItemObj.css("opacity",1);
+                                    newSaleItemObj.attr('uri','');
+                                    newSaleItemObj.attr('status','draft');
+                                    newSaleItemObj.find('.saleDesc').html("<span>[草稿]</span>" + newSaleItemObj.find('.saleDesc').html());
+                                    newSaleItemObj.find('.saleInfo').remove();
+                                    newSaleItemObj.find('.saleImg').empty().append('<div class="handle delete"></div>');
+                                    draftObj.prepend(newSaleItemObj);
+                                    fixSupport();
+                                });
+                            }
+                        });
+                    });
+                    wptConfirm('确认下架？');
+                }
+                return false;
+            });
+
+            //点击
+            $(".myMain").on("click", ".saleItem", function (e) {
+                e.preventDefault();
+                if (isContainsClass(e.target, 'handle')) {
+                    return false;
+                }
+                var self = $(this);
+                var uri = self.attr("uri");
+                var status = self.attr("status");
+                var goodsId = self.attr("goodsId");
+
+                wptLoading("读取中...", function(){
+                    if (status == 'notpaybzj' && uri) {
+                        location.href = '/pay/bzj_seller?showwxpaytitle=1&uri=' + uri;
+                        return;
+                    }
+                    if (uri) {
+                        location.href = '/uri/' + uri;
+                        return;
+                    }
+                    if (uri == "") {
+                        location.href = '/auction/goods_publish/' + goodsId;
+                        return;
+                    }
+                }, 200);
+            });
+
+            //摇一摇
+            $(".shakeMenuItem").on("click", function(){
+                wptLoading("加载摇一摇...", function(){
+                    location.href = '/my/shake';
+                }, 200);
+            });
+
+            //加载下页
+            $(window).on('scroll', function () {
+                var sHeight = document.documentElement.scrollTop || document.body.scrollTop;
+                var wHeight = document.documentElement.clientHeight;
+                var dHeight = document.documentElement.offsetHeight;
+                if(sHeight >= 220) {
+                    $(".menuBanner.fixed").show();
+                } else {
+                    $(".menuBanner.fixed").hide();
+                }
+
+                if (dHeight - (sHeight + wHeight) < 140) {
+                    loadNextPage();
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+<div id="contentbox" style="min-height: 608px;">
+    <div class="myMain">
+        <div class="myinfoContainer">
+            <a href="/user/1506231434wn8KsW">
+                <div class="avatarBox">
+                    <div class="avatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ajNVdqHZLLAFQDtYXcLOic5feWuIYSqP4HYKz8nvia6qE7x33HoiarzDBjQOERLoEsVxjVibsIO04iaVJ32bIOUPJLw/w/132)"></div>
+                </div>
+                <div class="name">AA-Zombie(w.mamani.cn)</div>
+                <div class="signature"></div>
+            </a>
+            <div class="statics">
+                <a href="/my/attentions">
+                    <div class="staticsItem">3<br>关注</div>
+                </a>
+                <div class="line"></div>
+                <a href="/my/fans">
+                    <div class="staticsItem">0<br>粉丝</div>
+                </a>
+                <div class="line"></div>
+                <a href="/my/order">
+                    <div class="staticsItem">0<br>买入</div>
+                </a>
+                <div class="line"></div>
+                <a href="/my/sale">
+                    <div class="staticsItem">0<br>卖出</div>
+                </a>
+            </div>
+        </div>
+
+        <div class="menuBanner">
+            <div class="menuItem selected" saletype="publish" url="/my">
+                <span>我发布的</span>
+            </div>
+            <div class="menuItem" saletype="like" url="/my/getMyLikes">
+                <span>我喜欢的</span>
+            </div>
+            <div class="shakeMenuItem"></div>
+        </div>
+
+        <div class="menuBanner fixed hide">
+            <div class="menuItem selected" saletype="publish" url="/my">
+                <span>我发布的</span>
+            </div>
+            <div class="menuItem" saletype="like" url="/my/getMyLikes">
+                <span>我喜欢的</span>
+            </div>
+        </div>
+
+        <div class="listContainer publish">
+            <div class="publishHelper">
+                <div class="finger"></div>
+            </div>
+        </div>
+
+        <div class="listContainer like">
+            <div class="saleBox like">
+            </div>
+        </div>
+    </div>
+
+    <div class="myMenu">
+    </div>
+
+    <div class="myMenuMain">
+        <div class="menuMask"></div>
+        <div class="menuBox">
+            <div class="menuItem userinfo" url="/user/1506231434wn8KsW">
+                <div class="avatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ajNVdqHZLLAFQDtYXcLOic5feWuIYSqP4HYKz8nvia6qE7x33HoiarzDBjQOERLoEsVxjVibsIO04iaVJ32bIOUPJLw/w/132)"></div>
+                <div class="name">
+                    AA-Zombie(w.mamani.cn)                    <div class="syncUserinfo"></div>
+                </div>
+                <div class="signature"></div>
+            </div>
+            <div class="menuItem msg" url="/my/msg">
+                <div class="title">我的消息</div>
+                <div class="desc"><span>不错过</span>每个消息</div>
+            </div>
+            <div class="menuItem balance" url="/balance">
+                <div class="title">我的余额</div>
+                <div class="desc">余额<span> 0.00 元</span></div>
+            </div>
+            <div class="menuItem order" url="/my/order">
+                <div class="title">我的订单</div>
+                <div class="desc">买买买，<span>卖卖卖</span></div>
+            </div>
+            <div class="menuItem saleMsg" url="/auction/sendSaleMsg">
+                <div class="title">群发消息</div>
+                <div class="desc"><span>群发</span>拍品消息</div>
+            </div>
+            <div class="menuItem pdInventory" url="/userManage/productInventory">
+                <div class="title">产品库</div>
+                <div class="desc">管理<span>我的产品库</span></div>
+            </div>
+            <div class="menuItem shake" url="/my/shake">
+                <div class="title">摇一摇</div>
+                <div class="desc"><span>搜罗</span>兴趣拍品</div>
+            </div>
+            <div class="menuBottom">
+                <div class="menuItem help" url="http://mp.weixin.qq.com/s?__biz=MzAwOTIwNjA0MQ==&amp;mid=219354480&amp;idx=1&amp;sn=0f16440f065fd13e2cd2c903bcfd3dd9#rd">
+                    <div class="title">帮助中心</div>
+                </div>
+                <div class="menuItem about" url="/loading/about">
+                    <div class="title">关于微拍堂 - 0.7.0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="/balance"><div class="balanceMenu">0.00 元</div></a>
+</div>
+
+<style type="text/css">
+    .supportBanner {
+        width: 100%;
+        text-align: center;
+        height: 49px;
+        line-height: 49px;
+        font-size: 12px;
+        border-top: 1px solid #eaeae8;
+        background-color: #F8F8F8;
+        margin-top: 10px;
+        color: #888;
+        visibility: hidden;
+    }
+
+    .supportBanner a {
+        color: #F2B896
+    }
+</style>
+<script type="text/javascript">
+    function fixSupport() {
+        if ($.os.android) {
+            bodyWidth = document.body.clientWidth;
+            bodyHeight = document.documentElement.clientHeight;
+        } else {
+            bodyWidth = $(window).width();
+            bodyHeight = $(window).height();
+        }
+        var dHeight = document.documentElement.offsetHeight;
+        if (dHeight < bodyHeight) {
+            $('#contentbox').css('minHeight', bodyHeight - 60);
+        }
+        $(".supportBanner").css("visibility", "visible");
+    }
+    $(function () {
+        fixSupport();
+
+        $(document).off("wptSupport_view:fix").on("wptSupport_view:fix", function () {
+            fixSupport();
+        });
+    });
+</script>
+<div class="supportBanner" style="visibility: visible;">
+    由&nbsp;<a href="http://m.weipaitang.com/">微拍堂</a>&nbsp;免费技术支持
+</div>
+<style type="text/css">
+    .mainMenu {
+        position:fixed;
+        width: 100%;
+        height: 50px;
+        bottom: 0px;
+        background-color: #F8F8F8;
+        border-top: 1px solid #eaeae8;
+        font-size: 12px;
+    }
+
+    .mainMenu div {
+        width: 33%;
+        height: 22px;
+        line-height: 22px;
+        float: left;
+        text-align: center;
+        padding-top: 28px;
+        background-image: url(http://cdn.weipaitang.com/res/img/toolsGray.png?t=2);
+        background-repeat: no-repeat;
+        background-size: 50px auto;
+        color: #888;
+    }
+
+    .mainMenu div.selected {
+        background-image: url(http://cdn.weipaitang.com/res/img/toolsBlue.png?t=2);
+        color: #007aff;
+    }
+
+    .mainMenu a div {
+        color: #888;
+    }
+
+    .mainMenu .myHome {
+        background-position: 50% -7px;
+    }
+
+    .mainMenu .publish {
+        height: 50px;
+        padding-top: 0px;
+        background-position: 50% -64px;
+        background-size: 60px;
+    }
+
+    .mainMenu .my {
+        background-position: 50% -107px;
+    }
+</style>
+<script type="text/javascript">
+    var isMenuAnimate = false;
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+    var index = 0,
+            localIds = [],
+            serverIds = [];
+
+    //上传图片
+    function upload() {
+        if (localIds && localIds[index]) {
+            wx.uploadImage({
+                localId: localIds[index],
+                isShowProgressTips: 0,
+                success: function (res) {
+                    index++;
+                    serverIds.push(res.serverId);
+                    $(document.body).trigger('wptLoading_view:msg','正在上传...<div class="process">'+ index + " / " + localIds.length +'</div>');
+                    if (index < localIds.length) {
+                        setTimeout(upload, 300);
+                    } else {
+                        localStorage.setItem('wpt_serverIds', JSON.stringify(serverIds));
+                        localStorage.setItem('wpt_localIds', JSON.stringify(localIds));
+                        setTimeout(function () {
+                            $(document.body).trigger('wptLoading_view:hide');
+                            location.href = '/auction/goods_publish';
+                        }, 300);
+                    }
+                },
+                fail: function (res) {
+                    $(document.body).trigger('wptLoading_view:hide');
+                }
+            });
+        }
+    }
+
+    $(function () {
+        //上传图片
+        $(".mainMenu .publish").on("touchend", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if(noticeWeChatVer()) return false;
+            wx.chooseImage({
+                success: function (res) {
+                    wptLoading("正在上传...");
+                    localIds = res.localIds;
+                    setTimeout(upload, 200);
+                }
+            });
+        });
+
+        $(window).on('scroll', function() {
+            if (!isMenuAnimate) {
+                var _scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                if (_scrollTop >= 0) {
+                    var _scroll = _scrollTop - scrollTop;
+                    if (_scroll > 40 || _scroll < -20) {
+                        isMenuAnimate = true;
+                        $(".mainMenu").animate({height: _scroll > 0 ? "0px" : "50px"}, 60, function () {
+                            isMenuAnimate = false;
+                        });
+                        scrollTop = _scrollTop;
+                    }
+                }
+            }
+        });
+    });
+</script>
+<div class="mainMenu">
+    <a href="/wpt">
+        <div class="myHome">
+            首页
+        </div>
+    </a>
+    <div class="publish">
+    </div>
+    <a href="/my">
+        <div class="my selected" "="">
+        我的
+</div>
+</a>
+</div><style type="text/css">
+    .loadNextPage {
+        width: 100%;
+        height: 40px;
+        visibility: visible;
+    }
+
+    .loadNextPage .loading {
+        width: 110px;
+        height: 40px;
+        line-height: 40px;
+        margin: 0 auto;
+        background-image: url(/res/img/loadingData.gif);
+        background-size: auto 70%;
+        background-repeat: no-repeat;
+        background-position: left center;
+        text-align: center;
+        text-indent: 15px;
+    }
+
+    .wptMask {
+        position: fixed;
+        height: 100%;
+        opacity: 0;
+        top: 0px;
+        bottom: 0px;
+        width: 100%;
+        background-color: #000;
+        z-index: 1999;
+    }
+
+    .wptShare,
+    .wptAlert,
+    .wptConfirm,
+    .wptMultiConfirm,
+    .wptLoading {
+        display: none;
+    }
+
+    .wptShare .shareTip {
+        position: fixed;
+        width: 96%;
+        height: 286px;
+        magin: 0 2%;
+        top: 0px;
+        background-image: url(/res/img/share.png);
+        background-repeat: no-repeat;
+        background-position: right top;
+        background-size: auto 55%;
+        z-index: 9999;
+    }
+
+    .wptAlert .dialog,
+    .wptConfirm .dialog,
+    .wptMultiConfirm .dialog {
+        position: fixed;
+        background: #ededed;
+        width: 100%;
+        bottom: -180px;
+        z-index: 1999;
+    }
+
+    .wptAlert .dialog .tip,
+    .wptConfirm .dialog .tip,
+    .wptMultiConfirm .dialog .tip {
+        line-height: 30px;
+        padding: 10px 0px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+
+    .wptMultiConfirm .dialog .tip {
+        padding: 0;
+    }
+
+    .wptAlert .dialog .tip .msg,
+    .wptConfirm .dialog .tip .msg {
+        text-align: center;
+        line-height: 30px;
+    }
+
+    .wptAlert .dialog .tip .msg.font18,
+    .wptConfirm .dialog .tip .msg.font18 {
+        font-size: 18px;
+    }
+
+    .wptAlert .dialog .tip .msg.faq,
+    .wptConfirm .dialog .tip .msg.faq {
+        font-size: 18px;
+        background-image: url(/res/img/faq.png);
+        background-repeat: no-repeat;
+        background-position: 10px center;
+        background-size: auto 100%;
+        line-height: 30px;
+        height: 60px;
+        text-align: left;
+        padding-left: 80px;
+        padding-right: 12px;
+    }
+
+    .wptAlert .dialog .tip .msg.smallFaq,
+    .wptConfirm .dialog .tip .msg.smallFaq {
+        font-size: 18px;
+        background-image: url(/res/img/faq.png);
+        background-repeat: no-repeat;
+        background-position: 10px center;
+        background-size: auto 100%;
+        line-height: 40px;
+        height: 40px;
+        text-align: left;
+        padding-left: 60px;
+        padding-right: 12px;
+    }
+
+    .wptAlert .btns,
+    .wptConfirm .btns {
+        width: 87%;
+        margin: 0 auto;
+        padding: 15px 0px;
+    }
+
+    .wptAlert .btns .btn-confirm,
+    .wptAlert .btns .btn-cancel,
+    .wptConfirm .btns .btn-confirm,
+    .wptConfirm .btns .btn-cancel {
+        border: 1px solid #ceced1;
+        background: #f7f7f7;
+        padding: 10px 14px;
+        color: #454545;
+        border-radius: 4px;
+        width: 92%;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .wptAlert .btns .btn-green,
+    .wptConfirm .btns .btn-green {
+        background-color: #06BE04;
+        color: #fff;
+        border: none;
+    }
+
+    .wptAlert .btns .btn-cancel,
+    .wptConfirm .btns .btn-cancel {
+        background-color: #858c96;
+        margin: 22px 0 7px 0;
+        color: #fff;
+        border: none;
+    }
+
+    .wptAlert .btns .btn-delete,
+    .wptConfirm .btns .btn-delete {
+        background-color: #e95757;
+        color: #fff;
+        border: none;
+    }
+
+    .wptMultiConfirm .btns {
+        width: 100%;
+        background-color: #D4D4DC;
+    }
+
+    .wptMultiConfirm .btns .btn-confirm,
+    .wptMultiConfirm .btns .btn-cancel {
+        height: 49px;
+        line-height: 49px;
+        margin-top: 1px;
+        text-align: center;
+        font-size: 18px;
+        background-color: #F3F3F3;
+    }
+
+    .wptMultiConfirm .btns .btn-cancel{
+        margin-top: 8px;
+    }
+
+    .wptPassword {
+        position: fixed;
+        width: 100%;
+        top: 0px;
+        bottom: 0px;
+        background-color: #efeff4;
+        display: none;
+    }
+
+    .wptPassword .dialog {
+        width: 90%;
+        margin: 80px auto 0 auto;
+        height: 100px;
+    }
+
+    .wptPassword .dialog .tip {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .wptPassword .dialog .password {
+        width: 293px;
+        margin: 10px auto 0 auto;
+        height: 48px;
+        border: 1px solid #c4c4c4;
+    }
+
+    .wptPassword .dialog .password .passwordKey {
+        float: left;
+        width: 48px;
+        border-right: 1px solid #c4c4c4;
+        height: 48px;
+        line-height: 48px;
+        background-color: #FFF;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .wptPassword .dialog .password .passwordKey:last-child {
+        border-right: none;
+    }
+
+    .wptPassword .dialog .password .passwordKey .point {
+        width: 48px;
+        height: 48px;
+        background-image: url(/res/img/passwordPoint.png);
+        background-position: center;
+        background-size: 10px;
+        background-repeat: no-repeat;
+    }
+
+    .wptPassword .keyboard {
+        position: absolute;
+        width: 100%;
+        background-color: #FFF;
+        display: table;
+        bottom: 0px;
+    }
+
+    .wptPassword .keyboard ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    .wptPassword .keyboard ul,
+    .wptPassword .keyboard li {
+        text-decoration: none;
+        list-style: none;
+        vertical-align: middle;
+    }
+
+    .wptPassword .keyboard ul li {
+        width: 33.1%;
+        border-bottom: 1px solid #d2d5d8;
+        border-right: 1px solid #d2d5d8;
+        height: 50px;
+        line-height: 50px;
+        float: left;
+        font-size: 28px;
+        font-family: "Helvetica neue", Verdana, Geneva, sans-serif;
+        text-align: center;
+        background-color: #FFF;
+        color: #000;
+    }
+
+    .wptPassword .keyboard ul li:nth-child(3n) {
+        border-right: none;
+    }
+
+    .wptPassword .keyboard ul li.delete {
+        background-image: url(/res/img/backspace.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 30px;
+        background-color: #efeff4;
+    }
+
+    .wptPassword .keyboard ul li.blank {
+        background-color: #efeff4;
+        font-size: 17px;
+    }
+
+    .wptLoading {
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+        width: 100%;
+        z-index: 1999;
+    }
+
+    .wptLoading .loading{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 200px;
+        height: 80px;
+        margin-top: -40px;
+        margin-left: -100px;
+        background-color: rgba(0,0,0,0.7);
+        background-image: url(/res/img/handling.gif);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        border-radius: 2px;
+        font-size: 14px;
+        color: #FFF;
+        opacity: 0;
+        line-height: 80px;
+        text-align: center;
+        text-indent: 15px;
+        z-index: 9999;
+    }
+
+    .wptLoading .loading .process {
+        position: absolute;
+        width: 100%;
+        height: 20px;
+        bottom: 5px;
+        color: #FFF;
+        line-height: 20px;
+        font-size: 12px;
+        text-align: center;
+        text-indent: 0px;
+    }
+
+    .wptWarnning {
+        position: fixed;
+        top: 0px;
+        width: 100%;
+        background-color: rgba(0,0,0,0.7);
+        height: 105px;
+        color: #FFF;
+        line-height: 35px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .wptWarnning span.h1 {
+        color: red;
+    }
+
+    .wptWarnning a {
+        color: #FFF;
+    }
+</style>
+
+<script type="text/javascript">
+    //关注微拍堂
+    var isSubscribe = 1;
+    var hasTelephone = 0;
+    if(hasTelephone == 0 && window.location.hash == "#hasTelephone") {
+        hasTelephone = 1;
+    }
+    var sellerLevel = 1;
+    var buyerLevel = 1;
+
+    //每页数量
+    var PAGE_NUM = 5;
+    var maskIsHide = true;
+    var pushState = null;
+
+    window.onpopstate = function (event) {
+        if ($.os.android) {
+            if (pushState && pushState.backevent) {
+                $(document.body).trigger(pushState.backevent);
+            }
+            pushState = event.state;
+        }
+    };
+
+    function pushStateEvent(e) {
+        if ($.os.android) {
+            if (pushState == null) {
+                pushState = {backevent: e};
+                history.pushState(pushState, document.title, "?backevent=" + pushState.backevent.replace(/#/g, ""));
+            }
+        }
+    }
+
+    function replaceStateUrl(url) {
+        history.replaceState({url:url}, document.title, url);
+    }
+
+    //阻止touchmove事件
+    $('body').on('touchmove', function (e) {
+        if (!maskIsHide) e.preventDefault();
+    });
+
+    //微信版本升级提醒
+    function noticeWeChatVer(){
+        var weChatInfo = navigator.userAgent.match(/MicroMessenger\/([\d\.]+)/i) ;
+
+        if( !weChatInfo || weChatInfo[1] < "6.0.2" ) {
+            wptAlert("您的微信版本太老了，不能发布拍品，请升级至6.1以上版本！");
+            return true;
+        }
+        return false;
+    }
+
+    //微信关注
+    function wptSubscribe(url, msg) {
+        $(document).off('wptConfirm_view:sure').one('wptConfirm_view:sure', function () {
+            location.href = '/wpt/goToSubscribe?url=' + encodeURIComponent(url);
+        });
+        var confirmMsg = "亲，先关注我们才能出价！";
+        if(typeof msg != "undefined") {
+            confirmMsg = msg;
+        }
+        wptConfirm(confirmMsg, {text:'关注微拍堂', msgClass: 'smallFaq'});
+    }
+
+    //微信分享
+    function wptShare() {
+        maskIsHide = false;
+        $(".wptShare").show();
+        $(".wptShare .wptMask").animate({opacity: "0.7"}, 100);
+
+        $(document).off("wptShare_view:hide").one("wptShare_view:hide", function (e) {
+            maskIsHide = true;
+            $('.wptShare').hide();
+            $(".wptShare .wptMask").css("opacity", "0");
+        });
+
+        $('.wptShare').off('touchend').one('touchend', function (e) {
+            e.preventDefault();
+            $(document.body).trigger("wptShare_view:hide");
+        });
+    }
+
+    //alert
+    function wptAlert(msg, callback, onlyBtnClose) {
+        maskIsHide = false;
+
+        $(".wptAlert .tip .msg").html(msg);
+
+        $(".wptAlert").show();
+        $(".wptMask").animate({opacity: "0.4"}, 100);
+        $(".wptAlert .dialog").animate({bottom: "0px"}, 100);
+
+        pushStateEvent('wptAlert_view:hide');
+        $(document).off("wptAlert_view:hide").one("wptAlert_view:hide", function (e) {
+            maskIsHide = true;
+            $(".wptAlert .wptMask").animate({opacity: "0"}, 100);
+            var height = '-' + $(".wptAlert .dialog").height() + 'px';
+            $(".wptAlert .dialog").animate({bottom: height}, 100, function () {
+                $(".wptAlert").hide();
+            });
+        });
+
+        var closeObj = $('.wptAlert .wptMask, .wptAlert .btn-confirm');
+        if(typeof onlyBtnClose != "undefined" && onlyBtnClose == true) {
+            closeObj = $('.wptAlert .btn-confirm');
+        }
+        closeObj.off('touchend').one('touchend', function (e) {
+            e.preventDefault();
+            maskIsHide = true;
+            $(document.body).trigger("wptAlert_view:hide");
+
+            if (typeof(callback) == 'function') callback();
+        });
+    }
+
+    //confirm
+    function wptConfirm(msg, sureObj) {
+        maskIsHide = false;
+        $('.wptConfirm .tip .msg').html(msg);
+
+        if(typeof sureObj != "undefined") {
+            //确定按钮上的文字
+            sureObj.text && $('.wptConfirm .btns .sure').text(sureObj.text);
+            //确定按钮的class
+            sureObj.class && $('.wptConfirm .btns .sure').addClass(sureObj.class);
+            //描述文本class
+            sureObj.msgClass && $('.wptConfirm .tip .msg').addClass(sureObj.msgClass);
+        }
+
+        $(".wptConfirm").show();
+        $(".wptConfirm .wptMask").animate({opacity: "0.4"}, 100);
+        $(".wptConfirm .dialog").animate({bottom: "0px"}, 100);
+
+        pushStateEvent("wptConfirm_view:hide");
+        $(document).off("wptConfirm_view:hide").one("wptConfirm_view:hide", function (e) {
+            maskIsHide = true;
+            $(".wptConfirm .wptMask").animate({opacity: "0"}, 100);
+            var height = '-' + $(".wptConfirm .dialog").height() + 'px';
+            $(".wptConfirm .dialog").animate({bottom: height}, 100, function () {
+                $(".wptConfirm").hide();
+            });
+        });
+
+        $('.wptConfirm .wptMask, .wptConfirm .btn-cancel, .wptConfirm .btn-confirm').off('touchend').one('touchend', function (e) {
+            e.preventDefault();
+            $(document.body).trigger("wptConfirm_view:hide");
+
+            if ($(e.target).hasClass('sure')) {
+                $(document.body).trigger('wptConfirm_view:sure');
+            }
+        });
+    }
+
+    //multiConfirm
+    function wptMultiConfirm(msg, sureObj) {
+        maskIsHide = false;
+        $('.wptConfirm .tip .msg').html(msg);
+
+        if(typeof sureObj != "undefined") {
+            $(".wptMultiConfirm .btns .btn-cancel").before(sureObj);
+        }
+
+        $(".wptMultiConfirm").show();
+        $(".wptMultiConfirm .wptMask").animate({opacity: "0.4"}, 100);
+        $(".wptMultiConfirm .dialog").animate({bottom: "0px"}, 100);
+
+        pushStateEvent("wptMultiConfirm_view:hide");
+        $(document).off("wptMultiConfirm_view:hide").one("wptMultiConfirm_view:hide", function (e) {
+            maskIsHide = true;
+            $(".wptMultiConfirm .wptMask").animate({opacity: "0"}, 100);
+            var height = '-' + $(".wptMultiConfirm .dialog").height() + 'px';
+            $(".wptMultiConfirm .dialog").animate({bottom: height}, 100, function () {
+                $(".wptMultiConfirm").hide();
+                $(".wptMultiConfirm").find(sureObj).remove();
+            });
+        });
+
+        $('.wptMultiConfirm').off('touchend').one('touchend', '.wptMask, .btn-cancel, .btn-confirm', function (e) {
+            e.preventDefault();
+            $(document.body).trigger("wptMultiConfirm_view:hide");
+        });
+    }
+
+    //trade password
+    function wptPassword(msg, successFn, cancelFn, notCheck) {
+        if(typeof msg != "undefined") {
+            $(".wptPassword .tip").html(msg);
+        }
+        var passwordKeyIndex = 0;
+        $(".wptPassword .password .passwordKey").attr("num", "").html("");
+
+
+        $(".wptPassword .keyboard li").on("touchstart", function () {
+            if ($(this).html() == '00' || $(this).html() == '' || $(this).html() == '.') {
+                $(this).css({"background-color": "#FFF"});
+            } else {
+                $(this).css({"background-color": "#D1D5DA"});
+            }
+        });
+
+        $(".wptPassword .num").off("touchend").on("touchend", function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            if(passwordKeyIndex < 6) {
+                $(".wptPassword .password .passwordKey").eq(passwordKeyIndex).attr("num", $(this).html()).html('<div class="point"></div>');
+                passwordKeyIndex++;
+                if(passwordKeyIndex == 6) {
+                    var password = "";
+                    $(".wptPassword .password .passwordKey").each(function(i,n){
+                        password += $(n).attr("num");
+                    });
+
+                    setTimeout(function(){
+                        if(typeof notCheck != "undefined" && notCheck == true) {
+                            successFn(password);
+                        } else {
+                            $.post("/balance/checkPassword", {'password': password}, function (res) {
+                                res = JSON.parse(res);
+                                if (res.errcode == 0) {
+                                    successFn(password);
+                                } else {
+                                    wptAlert(res.errmsg, function () {
+                                        passwordKeyIndex = 0;
+                                        $(".wptPassword .password .passwordKey").attr("num", "").html("");
+                                    }, true);
+                                }
+                            });
+                        }
+                    }, 150);
+                }
+            }
+
+            if ($(this).html().length == 1 && $(this).html() != ".") {
+                $(this).css({"background-color": "#FFF"});
+            } else {
+                $(this).css({"background-color": "#D1D5DA"});
+            }
+        });
+
+        $(".wptPassword .delete").off("touchend").on("touchend", function() {
+            if(passwordKeyIndex > 0) {
+                passwordKeyIndex--;
+                $(".wptPassword .password .passwordKey").eq(passwordKeyIndex).attr("num", "").html("");
+            }
+            $(this).css({"background-color": "#D1D5DA"});
+        });
+
+        $(".wptPassword .blank").off("touchend").on("touchend", function() {
+            $(document.body).trigger("wptPassword_view:hide");
+            if(typeof cancelFn == 'function'){
+                setTimeout(function(){
+                    cancelFn();
+                }, 600);
+            }
+        });
+
+        pushStateEvent('wptPassword_view:hide');
+        $(document).off("wptPassword_view:hide").one("wptPassword_view:hide", function (e) {
+            passwordKeyIndex = 0;
+            $(".wptPassword .password .passwordKey").attr("num", "").html("");
+            $(".wptPassword").hide();
+        });
+
+        $(".wptPassword").show();
+    }
+
+    //loading
+    function wptLoading(msg, callback, time) {
+        time = typeof time == "undefined" ? 1000 : time;
+        maskIsHide = false;
+        $(".wptLoading .loading").html(msg);
+
+        $(".wptLoading").show();
+        $(".wptLoading .loading").animate({opacity: 1}, time, function(){
+            if (typeof(callback) == 'function') callback();
+        });
+
+        $(document).off("wptLoading_view:hide").one("wptLoading_view:hide", function (e) {
+            maskIsHide = true;
+            $(".wptLoading .loading").css({opacity: 0});
+            $(".wptLoading").hide();
+        });
+
+        $(document).off("wptLoading_view:msg").on("wptLoading_view:msg", function (e, msg) {
+            $(".wptLoading .loading").html(msg);
+        });
+    }
+</script>
+
+<div class="wptShare">
+    <div class="wptMask"></div>
+    <div class="shareTip"></div>
+</div>
+
+<div class="wptAlert">
+    <div class="wptMask"></div>
+    <div class="dialog">
+        <div class="tip">
+            <div class="msg"></div>
+        </div>
+        <div class="btns">
+            <div class="btn-confirm">知道了</div>
+        </div>
+    </div>
+</div>
+
+<div class="wptConfirm">
+    <div class="wptMask"></div>
+    <div class="dialog">
+        <div class="tip">
+            <div class="msg"></div>
+        </div>
+        <div class="btns">
+            <div class="btn-confirm sure">确定</div>
+            <div class="btn-cancel">取消</div>
+        </div>
+    </div>
+</div>
+
+<div class="wptMultiConfirm">
+    <div class="wptMask"></div>
+    <div class="dialog">
+        <div class="tip">
+            <div class="msg"></div>
+        </div>
+        <div class="btns">
+            <div class="btn-cancel">取消</div>
+        </div>
+    </div>
+</div>
+
+<div class="wptPassword">
+    <div class="dialog">
+        <div class="tip">请输入交易密码</div>
+        <div class="password">
+            <div class="passwordKey" num=""></div>
+            <div class="passwordKey" num=""></div>
+            <div class="passwordKey" num=""></div>
+            <div class="passwordKey" num=""></div>
+            <div class="passwordKey" num=""></div>
+            <div class="passwordKey" num=""></div>
+        </div>
+    </div>
+    <div class="keyboard">
+        <ul>
+            <li class="num">1</li>
+            <li class="num">2</li>
+            <li class="num">3</li>
+            <li class="num">4</li>
+            <li class="num">5</li>
+            <li class="num">6</li>
+            <li class="num">7</li>
+            <li class="num">8</li>
+            <li class="num">9</li>
+            <li class="blank">取 消</li>
+            <li class="num">0</li>
+            <li class="delete"></li>
+        </ul>
+    </div>
+</div>
+
+<div class="wptLoading">
+    <div class="wptMask"></div>
+    <div class="loading"></div>
+</div>
+
+<img src="http://c.cnzz.com/wapstat.php?siteid=1254153498&amp;r=http%3A%2F%2Fw.weipaitang.com%2F&amp;rnd=620762162" width="0" height="0" style="display: none;">
+
+</body></html>

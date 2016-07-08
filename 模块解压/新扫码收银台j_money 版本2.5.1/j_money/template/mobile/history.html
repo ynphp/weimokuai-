@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>收银台记录</title>
+<meta name="format-detection" content="telephone=no, address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link href="./resource/css/bootstrap.min.css" rel="stylesheet">
+<link href="./resource/css/font-awesome.min.css" rel="stylesheet">
+<link href="./resource/css/animate.css" rel="stylesheet">
+<link href="./resource/css/common.css" rel="stylesheet">
+<script src="{MODULE_URL}template/js/jquery-2.1.1.min.js"></script>
+
+</head>
+<body>
+<div class="main">
+  <div class="category">
+    <form action="" class="form-horizontal form">
+      <input type="hidden" name="c" value="entry" />
+      <input type="hidden" name="i" value="{$_W['uniacid']}" />
+      <input type="hidden" name="m" value="j_money" />
+      <input type="hidden" name="do" value="counthistory" />
+      <input type="hidden" name="token" value="{$_W['token']}" />
+      <div class="panel panel-info">
+        <div class="panel-body table-responsive">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 form-inline">
+              <div class="input-group">
+               <span class="input-group-addon">筛选条件</span>
+               <span class="input-group-btn">
+               	<select name="date" class="form-control">
+                	<option value="0">全部日期</option>
+                    {loop $datelist $row}
+                    <option value="{$row['createdate']}" {if $row['createdate']==$_GPC['date']}selected{/if}>{$row['createdate']}</option>
+                    {/loop}
+                </select>
+               </span>
+               <span class="input-group-btn"><input type="submit" class="btn btn-info" value="搜索"/></span>
+              </div>
+            </div>
+          </div>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>类型</th>
+                <th>总金额</th>
+                <th>优惠金额</th>
+                <th>实收金额</th>
+              </tr>
+            </thead>
+            <tbody>
+            	<tr>
+                	<td>微信</td>
+                    <td>￥{php echo sprintf('%.2f',($payAry['wechart']['all']/100))}元 | {php echo $payAry['wechart']['all-count']}笔</td>
+                    <td>￥{php echo sprintf('%.2f',($payAry['wechart']['coupon']/100))}元 | {php echo $payAry['wechart']['coupon-count']}笔</td>
+                    <td>￥{php echo sprintf('%.2f',($payAry['wechart']['cash_fee']/100))}元 | {php echo $payAry['wechart']['cash_fee-count']}笔</td>
+                </tr>
+                <tr>
+                	<td>支付宝</td>
+                    <td>￥{php echo sprintf('%.2f',($payAry['alipay']['all']/100))}元 | {php echo $payAry['alipay']['all-count']}笔</td>
+                    <td>￥{php echo sprintf('%.2f',($payAry['alipay']['coupon']/100))}元 | {php echo $payAry['alipay']['coupon-count']}笔</td>
+                    <td>￥{php echo sprintf('%.2f',($payAry['alipay']['cash_fee']/100))}元 | {php echo $payAry['alipay']['cash_fee-count']}笔</td>
+                </tr>
+                <tr>
+                	<td><strong>合计</strong></td>
+                    <td style="color:#F00">￥{php echo sprintf('%.2f',(($payAry['alipay']['all']+$payAry['wechart']['all'])/100))}元 | {php echo $payAry['alipay']['all-count']+$payAry['wechart']['all-count']}笔</td>
+                    <td style="color:#F00">￥{php echo sprintf('%.2f',(($payAry['alipay']['coupon']+$payAry['wechart']['coupon'])/100))}元 | {php echo $payAry['alipay']['coupon-count']+$payAry['wechart']['coupon-count']}笔</td>
+                    <td style="color:#F00">￥{php echo sprintf('%.2f',(($payAry['alipay']['cash_fee']+$payAry['wechart']['cash_fee'])/100))}元 | {php echo $payAry['alipay']['cash_fee-count']+$payAry['wechart']['cash_fee-count']}笔</td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-body table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>时间</th>
+                <th>收银员</th>
+                <th>金额计算</th>
+                <th>实收</th>
+                <th>支付方式</th>
+                <th>状态|打印</th>
+              </tr>
+            </thead>
+            <tbody>
+            {loop $list $row}
+            <tr>
+              <td>{php echo date("m-d H:i",$row['createtime'])}</td>
+              <td>{php echo $userList[$row['userid']]}</td>
+              <td>￥{php echo sprintf('%.2f',($row['total_fee']/100))} - {php echo sprintf('%.2f',($row['coupon_fee']/100))}</td>
+              <td>￥{php echo sprintf('%.2f',($row['cash_fee']/100))}</td>
+              <td>
+              {if $row['attach']=='-' || $row['attach']=='PC'}<span class="label label-info"><i class="fa fa-desktop"/></i></span>{else}<span class="label label-danger"><i class="fa fa-mobile"/></i></span>{/if}{if $row['paytype']==0} <img src="{MODULE_URL}template/img/wechart.gif" width="21"/> {php echo $data[$row['bank_type']]}{else} <img src="{MODULE_URL}template/img/alipay.gif" width="21"/> {/if}
+              </td>
+              <td>{if $row['status']==1}
+              <span class="label label-success"><i class="fa fa-check"/></i></span>
+              {if $row['isprint']==0}<a class="tips" href="javascript:" data-toggle="tooltip" data-placement="bottom" title="未打印" style="color:#F00"><i class="fa fa-print"/></i></a>{/if}
+              {else} <a class="tips" data-toggle="tooltip" data-placement="bottom" title="{$row['log']}"><span class="label label-danger"><i class="fa fa-exclamation-triangle"/></i></span></a>{/if}
+              </td>
+            </tr>
+            {/loop}
+            <tr>
+              </tbody>
+          </table>
+          <div class="text-center">
+          {$pager}
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+$(document).ready(function(e){
+	setHeight();
+	setTimeout("setHeight()",1000);
+});
+function setHeight(){
+	$("#historybox", window.top.document).height($(document).height());
+}
+</script>

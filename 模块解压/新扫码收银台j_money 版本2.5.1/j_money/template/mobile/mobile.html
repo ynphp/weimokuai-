@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>{$_W['account']['name']}移动收银台</title>
+<meta name="format-detection" content="telephone=no, address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link href="./resource/css/bootstrap.min.css" rel="stylesheet">
+<link href="./resource/css/font-awesome.min.css" rel="stylesheet">
+<link href="./resource/css/animate.css" rel="stylesheet">
+<link href="./resource/css/common.css" rel="stylesheet">
+{php echo register_jssdk(false);}
+<script src="{MODULE_URL}template/js/jquery-2.1.1.min.js"></script>
+<script src="{MODULE_URL}template/js/fastclick.min.js"></script>
+<script src="{MODULE_URL}template/js/sweetalert.min.js"></script>
+<link type="text/css" rel="stylesheet" href="{MODULE_URL}template/js/sweetalert.css"/>
+<script src="{MODULE_URL}template/js/weui.js"></script>
+<link type="text/css" rel="stylesheet" href="{MODULE_URL}template/js/weui.css"/>
+</head><body>
+<style>
+.money_screen{ background:#2D3E50;padding:10px;text-align:right;color:#FFF; display:table; width:100%;}
+.jrow{display:table-row}
+.money_show{ display:table-cell; vertical-align:bottom; font-size:30px;}
+.btn_num{ background:#E9ECF5;color:#323440; text-align:center; font-size:22px;width:100%;border-radius:0;padding:0;}
+.btn_submit{text-align:center;width:100%;border-radius:0;font-size:18px; color:#FFF;padding:0;}
+.money_keybord .row{padding:0; margin:0;border-bottom:1px solid #A9ADB6;}
+.money_keybord .row div[class^='col-xs']{padding:0; margin:0;background:#E9ECF5; border-right:1px solid #A9ADB6;}
+.money_keybord .row div[class^='col-xs']:last-child{border-right:none}
+.headbar{background:#18222C;  width:100%;position:fixed; left:0; top:0; right:0; height:48px; line-height:48px; color:#FFF;z-index:2}
+.headertable{ display:table; width:100%;}
+.headercell{ display:table-cell; vertical-align:middle; text-align:center; color:#FFF;}
+.headercell a{ height:48px; line-height:48px; display:block; text-align:center; color:#FFF;}
+</style>
+<div class="headbar">
+  <div class="headertable">
+    <div class="jrow">
+      <div class="headercell" style="width:15%"><a href="javascript:$.jweui.msg('{php echo $cfg['copyright']}')"><i class="fa fa-info-circle" style=" font-size:24px"></i></a></div>
+      <div class="headercell">&nbsp;</div>
+      <div class="headercell" style="width:15%"><a href="{php echo $this->createMobileUrl('mobile',array('op'=>'history'))}"><i class="fa fa-asterisk" style=" font-size:24px"></i> 记录</a></div>
+    </div>
+  </div>
+</div>
+<div class="money_screen">
+  <div class="jrow">
+    <div class="money_show">0</div>
+  </div>
+</div>
+<div class="money_keybord">
+  <div class="row">
+    <div class="col-xs-3">
+      <input type="button" class="btn btn-block btn_num" value="1"/>
+    </div>
+    <div class="col-xs-3">
+      <input type="button" class="btn btn-block btn_num" value="2"/>
+    </div>
+    <div class="col-xs-3">
+      <input type="button" class="btn btn-block btn_num" value="3"/>
+    </div>
+    <div class="col-xs-3">
+      <button class="btn btn-block btn_num" id="redues"><i class="fa fa-long-arrow-left"></i></button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3">
+      <input type="button" class="btn btn-block btn_num" value="4"/>
+    </div>
+    <div class="col-xs-3">
+      <input type="button" class="btn btn-block btn_num" value="5"/>
+    </div>
+    <div class="col-xs-3">
+      <input type="button" class="btn btn-block btn_num" value="6"/>
+    </div>
+    <div class="col-xs-3">
+      <input type="button" class="btn btn-block btn_submit" onClick="qrScan()" style="background:#168AE1;" value="刷卡"/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3">
+      <input type="button" class="btn btn-block btn_num" value="7"/>
+    </div>
+    <div class="col-xs-3">
+      <input type="button" class="btn btn-block btn_num" value="8"/>
+    </div>
+    <div class="col-xs-3">
+      <input type="button" class="btn btn-block btn_num" value="9"/>
+    </div>
+    <div class="col-xs-3">
+      <input type="button" class="btn btn-block btn_submit" onClick="payqrcodeali()" style="background:#EE8A2A;" value="支付宝码"/>
+    </div>
+  </div>
+  <div class="row"> 
+    <!--<div class="col-xs-3"><input type="button" class="btn btn-block btn_num" value="C" onClick=""/></div>-->
+    <div class="col-xs-6">
+      <input type="button" class="btn btn-block btn_num" value="0"/>
+    </div>
+    <div class="col-xs-3">
+      <input type="button" class="btn btn-block btn_num" value="."/>
+    </div>
+    <div class="col-xs-3">
+      <input type="button" class="btn btn-block btn_submit" onClick="payqrcodewechat()" style="background:#80B833;" value="微信码"/>
+    </div>
+  </div>
+</div>
+<input type="hidden" id="tradeno"/>
+<textarea id="debug" style="display:none;"></textarea>
+<script type="text/javascript">
+$(function() {
+  FastClick.attach(document.body);
+});
+
+$(document).ready(function(e) {
+	FastClick.attach(document.body);
+    var _rootHeight=$(window).height();
+	$(".money_show").css('height',_rootHeight*0.3-20);
+	var _h=_rootHeight*0.7/4;
+	$(".btn_num,.btn_submit").css({'height':_h});
+});
+var checkTimeout;
+var needTable=parseInt("{php echo $cfg['needtable']}");
+var isPaying=false;
+$(".btn_num").on('click',function(){
+	var vTecla=$(this).val();
+	Counter(vTecla);
+});
+$("#redues").on('click',function(){
+	var vTecla=$(".money_show");
+	if(vTecla.text().length==1){
+		vTecla.text("0");
+	}else{
+		var len=vTecla.text().length;
+		var temp=vTecla.text().substr(0,len-1);
+		vTecla.text(temp);
+	}
+})
+function Counter(obj){
+	var vTecla=obj;
+	var salida=$(".money_show");
+	if(salida.text().length>8){
+		return false;	
+	}
+	if(vTecla=='.'){
+		if(salida.text().indexOf('.')>-1){
+			salida.text(salida.text());
+		}else{
+			salida.text(salida.text()+vTecla);
+		}
+	}else if(vTecla=='0'){
+		if(salida.text()==0 && salida.text().length==1){
+			salida.text("0");
+		}else{
+			salida.text(salida.text()+vTecla);
+		}
+	}else{
+		if((salida.text()==0 && salida.text().length==1)){
+			salida.text(vTecla);
+		}else{
+			salida.text(salida.text()+vTecla);
+		} 
+	}
+	var temp=salida.text();
+	if(temp.indexOf('.')>-1){
+		var float=temp.split('.');
+		if(float[1].length>2){
+			salida.text(float[0]+'.'+float[1].substr(0,2));
+		}
+	}
+}
+function qrScan(){
+	var temp=parseFloat($(".money_show").text());
+	if(temp*100==0){
+		swal("请输入金额");
+		return;
+	}
+	var tableno="";
+	if(needTable){
+		swal({   
+			title:"请输入台号/单号",
+			type:"input",
+			html:true,
+			showLoaderOnConfirm: true,
+			showCancelButton: true,   
+			closeOnConfirm: false,
+			confirmButtonText: "确认",
+			cancelButtonText: "关闭",
+			inputPlaceholder: "请输入台号/单号" 
+			}, function(inputValue){
+			if (inputValue === false) return false;      
+			if (inputValue === "") {
+				swal.showInputError("请输入台号或者单号");     
+				return false
+			}
+			tableno=inputValue;
+			wx.scanQRCode({
+				needResult: 1, 
+				scanType: ["qrCode","barCode"],
+				success: function (res) {
+					var resultqrcode = res.resultStr;
+					swal({
+						title: "收款金额为<span style='color:#F00'>￥"+temp+"元</span>", 
+						html:true,
+						showCancelButton: true,   
+						confirmButtonText: "确认收款",
+						cancelButtonText: "关闭",
+						}, function(isConfirm){
+							if (isConfirm) {
+								if(isPaying)return;
+								isPaying=true;
+								swal({title:"请稍后",showConfirmButton:false});
+								if(resultqrcode.substr(0,1)=="1"){
+									paywechat(resultqrcode,temp,tableno);
+								}else{
+									payali(resultqrcode,temp,tableno);
+								}
+							}
+						}
+					);
+				}
+			});
+		});
+	}else{
+		wx.scanQRCode({
+			needResult: 1, 
+			scanType: ["qrCode","barCode"],
+			success: function (res) {
+				var resultqrcode = res.resultStr;
+				swal({
+					title: "收款金额为<span style='color:#F00'>￥"+temp+"元</span>", 
+					html:true,
+					showCancelButton: true,   
+					confirmButtonText: "确认收款",
+					cancelButtonText: "关闭",
+					}, function(isConfirm){
+						if (isConfirm) {
+							if(isPaying)return;
+							isPaying=true;
+							swal({title:"请稍后",showConfirmButton:false});
+							if(resultqrcode.substr(0,1)=="1"){
+								paywechat(resultqrcode,temp,tableno);
+							}else{
+								payali(resultqrcode,temp,tableno);
+							}
+						}
+					}
+				);
+			}
+		});
+	}
+	
+	
+}
+function paywechat(qrcode,fee,tableNum){
+	if(qrcode.length==0){
+		swal("请先扫描");
+		return;
+	}
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'paywechat','attach'=>'mobile'))}",{"qrcode":qrcode,"userid":"{$user['id']}","fee":fee,"old_trade_no":tableNum},function(data){
+		isPaying=false;
+		//alert(data);
+		var feedback=eval("("+data+")");
+		if(feedback.success){
+			var temp=feedback.items;
+			$("#tradeno").val(temp['out_trade_no']);
+			if(temp['result_code']=="SUCCESS"){
+				paySuccess(temp['out_trade_no']);
+			}else{
+				if(temp['err_code']=="USERPAYING"){
+					checkTimeout=setTimeout("checkpay()",5000);
+					swal({
+						title: "温馨提示",
+						text: "等待客户输入支付密码",
+						confirmButtonText: "关闭订单",
+						}, function(isConfirm){
+							if (isConfirm) {
+								clearTimeout(checkTimeout);
+								//deleteOrder(temp['out_trade_no']);
+							}
+						}
+					);
+				}
+			}
+		}else{
+			swal(feedback.msg);
+		}
+	})
+}
+function payali(qrcode,fee,tableNum){
+	if(qrcode.length==0){
+		swal("请先扫描");
+		return;
+	}
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'payalipay','attach'=>'mobile'))}",{"qrcode":qrcode,"userid":"{$user['id']}","fee":fee,"old_trade_no":tableNum},function(data){
+		isPaying=false;
+		//return;
+		var feedback=eval("("+data+")");
+		checktime=0;
+		if(feedback.success){
+			if(feedback.result){
+				$("#tradeno").val(feedback.out_trade_no);
+				checkTimeout=setTimeout("checkAlipay()",5000);
+				swal({
+					title: "温馨提示",   
+					text: "等待客户输入支付密码",
+					confirmButtonText: "关闭订单",
+					}, function(isConfirm){
+						if (isConfirm) {
+							clearTimeout(checkTimeout);
+							//deleteOrder(temp['out_trade_no']);
+						}
+					}
+				);
+			}else{
+				var temp=feedback.items;
+				$("#tradeno").val(temp['out_trade_no']);
+				paySuccess(temp['out_trade_no']);
+			}
+		}else{
+			swal(feedback.msg);
+		}
+	})
+}
+function payqrcodewechat(){
+	var temp=parseFloat($(".money_show").text());
+	var tableNum=0;
+	if(temp*100==0){
+		swal("请输入金额");
+		return;
+	}
+	var tableno="";
+	if(needTable==1){
+		swal({   
+			title:"请输入台号/单号",
+			type:"input",
+			html:true,
+			showLoaderOnConfirm: true,
+			showCancelButton: true,   
+			closeOnConfirm: false,
+			confirmButtonText: "确认",
+			cancelButtonText: "关闭",
+			inputPlaceholder: "请输入台号/单号" 
+			}, function(inputValue){
+				if (inputValue === false) return false;      
+				if (inputValue === "") {
+					swal.showInputError("请输入台号或者单号");     
+					return false
+				}
+				tableno=inputValue;
+				$.jweui.loading('show');
+				$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'qrcodewechat'))}",{"fee":temp,"old_trade_no":tableno},function(data){
+					$.jweui.loading('hide');
+					var result=eval("("+data+")");
+					if(result.success){
+						$("#tradeno").val(result.orderid);
+						swal({
+							title: "<img src='"+result.qrcode+"' onload='resetHeight()' style='width:100%' />",
+							text:"￥"+temp+"元<br>请使用微信扫一扫,有效时间8分钟",
+							confirmButtonText: "确认订单",
+							cancelButtonText: "取消",
+							showCancelButton: true,
+							html: true,
+							}, function(isConfirm){
+								if (isConfirm) {
+									checkpay();
+								}else{
+									$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'closeqrcodewechat'))}",{"orderid":result.orderid},function(data2){
+										if(!data2.success){
+											swal(result.msg);
+										}
+									},'json');
+								}
+							}
+						);
+					}else{
+						swal(result.msg);
+					}
+				})
+			}
+		);
+	}else{
+		$.jweui.loading('show');
+		$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'qrcodewechat'))}",{"fee":temp,"old_trade_no":tableno},function(data){
+			$.jweui.loading('hide');
+			var result=eval("("+data+")");
+			if(result.success){
+				$("#tradeno").val(result.orderid);
+				swal({
+					title: "<img src='"+result.qrcode+"' onload='resetHeight()' style='width:100%' />",
+					text:"￥"+temp+"元<br>请使用微信扫一扫,有效时间8分钟",
+					confirmButtonText: "确认订单",
+					cancelButtonText: "取消",
+					showCancelButton: true,
+					html: true,
+					}, function(isConfirm){
+						if (isConfirm) {
+							checkpay();
+						}else{
+							$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'closeqrcodewechat'))}",{"orderid":result.orderid},function(data2){
+								if(!data2.success){
+									swal(result.msg);
+								}
+							},'json');
+						}
+					}
+				);
+			}else{
+				swal(result.msg);
+			}
+		})
+	}
+	
+}
+function payqrcodeali(){
+	var temp=parseFloat($(".money_show").text());
+	var tableNum=0;
+	if(temp*100==0){
+		swal("请输入金额");
+		return;
+	}
+	var tableno="";
+	if(needTable==1){
+		swal({   
+			title:"请输入台号/单号",
+			type:"input",
+			html:true,
+			showLoaderOnConfirm: true,
+			showCancelButton: true,   
+			closeOnConfirm: false,
+			confirmButtonText: "确认",
+			cancelButtonText: "关闭",
+			inputPlaceholder: "请输入台号/单号" 
+			}, function(inputValue){
+				if (inputValue === false) return false;      
+				if (inputValue === "") {
+					swal.showInputError("请输入台号或者单号");     
+					return false
+				}
+				tableno=inputValue;
+				$.jweui.loading('show');
+				$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'qrcodealipay'))}",{"fee":temp,"old_trade_no":tableno},function(data){
+					//$("#debug").val(data).show();
+					$.jweui.loading('hide');
+					var result=eval("("+data+")");
+					if(result.success){
+						$("#tradeno").val(result.orderid);
+						swal({
+							title: "<img src='"+result.qrcode+"' onload='resetHeight()' style='width:100%' />",
+							text:"￥"+temp+"元<br>请使用支付宝扫一扫,有效时间5分钟",
+							confirmButtonText: "确认订单",
+							cancelButtonText: "取消",
+							showCancelButton: true,
+							html: true,
+							}, function(isConfirm){
+								if (isConfirm){
+									checkAlipay(result.orderid);
+								}
+							}
+						);
+					}else{
+						swal(result.msg);
+					}
+				});
+			}
+		);
+	}else{
+		$.jweui.loading('show');
+		$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'qrcodealipay'))}",{"fee":temp,"old_trade_no":tableno},function(data){
+			//$("#debug").val(data).show();
+			$.jweui.loading('hide');
+			var result=eval("("+data+")");
+			if(result.success){
+				$("#tradeno").val(result.orderid);
+				swal({
+					title: "<img src='"+result.qrcode+"' onload='resetHeight()' style='width:100%' />",
+					text:"￥"+temp+"元<br>请使用支付宝扫一扫,有效时间5分钟",
+					confirmButtonText: "确认订单",
+					cancelButtonText: "取消",
+					showCancelButton: true,
+					html: true,
+					}, function(isConfirm){
+						if (isConfirm){
+							checkAlipay(result.orderid);
+						}
+					}
+				);
+			}else{
+				swal(result.msg);
+			}
+		});
+	}
+	
+}
+function checkpay(){
+	var temporder=$("#tradeno").val();
+	if(!temporder){
+		swal("订单号不能为空");
+		return;
+	}
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'checwechatkpay'))}",{"orderid":temporder},function(data){
+		//$("#debug").val(data).show();
+		var feedback=eval("("+data+")");
+		if(feedback.success){
+			var temp=feedback.items;
+			if(temp['trade_state']=="SUCCESS"){
+				paySuccess(temporder);
+			}else if(temp['trade_state']=="NOTPAY" || temp['trade_state']=="USERPAYING"){
+				checkTimeout=setTimeout("checkpay()",3000);
+				swal({
+					title: "等待客户输入支付密码",
+					html:true,
+					confirmButtonText: "取消",
+					}, function(isConfirm){
+						$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'closeqrcodewechat'))}",{"orderid":temporder},function(data2){
+							if(!data2.success){
+								swal(result.msg);
+							}
+						},'json');
+					}
+				);
+			}else{
+				swal("支付失败，未知错误!");
+			}
+		}else{
+			swal(feedback.msg);
+		}
+	});
+}
+function resetHeight(){
+	$(".showSweetAlert").css('margin-top',(-1)*$(".showSweetAlert").height()/2);
+}
+function checkAlipay(orderid){
+	var temporder=orderid ? orderid : $("#tradeno").val();
+	if(!temporder){
+		alert("订单号不能为空");
+		return;
+	}
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'checkalipay'))}",{"orderid":temporder},function(data){
+		//alert(data);
+		//$("#debug").val(data).show();
+		var feedback=eval("("+data+")");
+		if(feedback.success){
+			paySuccess(temporder);
+		}else{
+			checkTimeout=setTimeout("checkAlipay()",5000);
+			swal({
+				title: feedback.msg+" ",
+				confirmButtonText: "关闭订单",
+				}, function(isConfirm){
+					if (isConfirm) {
+						clearTimeout(checkTimeout);
+					}
+				}
+			);
+		}
+	});
+}
+//支付成功；
+function paySuccess(order){
+	clearTimeout(checkTimeout);
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'marketing'))}",{"orderid":order},function(data){
+		$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'tempmsg'))}",{"orderid":order},function(data2){
+			location.href="{php echo $this->createMobileUrl('mobile',array('op'=>'paysuccess'))}&tradeid="+order;
+		});
+	});
+	
+}
+wx.ready(function () {
+	wx.hideOptionMenu();
+});
+</script> 

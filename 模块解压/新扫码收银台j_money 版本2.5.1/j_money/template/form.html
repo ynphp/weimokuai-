@@ -1,0 +1,52 @@
+<input type="hidden" name="reply_id" value="{$reply['id']}" />
+<div class="panel panel-default jpanel">
+  <div class="panel-heading"><h4 class="panel-title">回复规则设置</h4> </div>
+  <div class="panel-body"> 
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">图文标题</label>
+      <div class="col-sm-9">
+        <input type="text" value="{$reply['title']}" class="form-control"  name="title">
+        <div class="help-block">用户发送关键词返回的图文主题。</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">封面</label>
+      <div class="col-sm-9"> {php echo tpl_form_field_image('cover', $reply['cover'])}
+        <div class="help-block">建议尺寸：450*250px，仅用于图文回复</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">描述</label>
+      <div class="col-sm-9">
+        <textarea style="height:150px;" name="description" class="form-control" cols="60">{$reply['description']}</textarea>
+        <div class="help-block">用于图文显示的简介</div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动选择</label>
+      <div class="col-sm-9">
+      	<select name="aid" class="form-control"  >
+        	<option value="0">请选择内容</option>
+            {loop $list $row}
+            	<option value="{$row['id']}" {if $reply['aid']==$row['id']} selected{/if}>{$row['title']}</option>
+            {/loop}
+        </select>
+        <div class="help-block">必须先在【活动管理】中添加内容后，方能在此添加哦。</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-xs-12 col-sm-3 col-md-2 control-label">回复项目</label>
+      <div class="col-sm-9">
+      	<select name="atype" class="form-control"  >
+        	<option value="0" {if $reply['atype']==0} selected{/if}>活动详情页</option>
+            <option value="1" {if $reply['atype']==1} selected{/if}>现场投票</option>
+            <option value="2" {if $reply['atype']==2} selected{/if}>现场提问</option>
+            <option value="3" {if $reply['atype']==3} selected{/if}>现场答题</option>
+            <option value="4" {if $reply['atype']==4} selected{/if}>现场游戏</option>
+        </select>
+        <div class="help-block">回复链接的内容</div>
+      </div>
+    </div>
+  </div>
+</div>

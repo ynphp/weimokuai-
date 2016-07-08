@@ -1,0 +1,102 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+  <li {if $operation == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('joiner', array('op' => 'display','id'=>$id))}">抽奖名单</a></li>
+</ul>
+<style>
+.control-label{text-align:right;}
+</style>
+{if $operation == 'display'}
+<div class="main">
+  <form action="" method="get" class="form-horizontal form" enctype="multipart/form-data">
+    <div class="panel panel-default">
+      <input type="hidden" name="c" value="site" />
+      <input type="hidden" name="a" value="entry" />
+      <input type="hidden" name="do" value="joiner" />
+      <input type="hidden" name="m" value="j_money" />
+      <input type="hidden" name="id" value="{$id}" />
+      <div class="panel-heading"> 搜索 </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">个人信息</label>
+          <div class="col-sm-9 form-inline">
+          
+          <input type="text" name="sncode" value="{$_GPC['sncode']}" class="form-control" />
+            <select name="prizeid" class="form-control">
+            	<option value="0" >选择奖品</option>
+            	{loop $prizelist $row}
+            	<option value="{$row['id']}">{$row['level']}</option>
+                {/loop}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">&nbsp;</label>
+          <div class="col-sm-9">
+            <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="main">
+  <div class="category">
+    <form action="" method="post" onsubmit="">
+      <div class="panel panel-default">
+      
+      <div class="panel-heading">抽奖总次数：{$alljoin} 中奖人次：{$total}</div>
+        <div class="panel-body table-responsive">
+          <table class="table table-hover" id="table-list">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>奖品名称</th>
+                <th>兑奖码</th>
+                <th>抽奖时间</th>
+                <th>领奖时间</th>
+                <th style="text-align:right">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            {loop $list $row}
+            <tr>
+              <td class="row-first"><input type="checkbox" name="select[]" value="{$row['id']}" /></td>
+              <td>{$row['award']}</td>
+              <td>{if !$row["prizetype"]}{$row['sncode']}{/if}</td>
+              <td><span class="label label-default">{php echo date('Y-m-d G:i:s',$row['createtime']);}</span></td>
+              <td>{if $row['gettime']}<span class="label label-info">{php echo date('Y-m-d G:i:s',$row['gettime']);}</span>{/if}</td>
+              <td style="text-align:right">
+              {if !$row["prizetype"]}
+              {if $row['status']==0}<a href="{php echo $this->createWebUrl('joiner', array('id' => $id, 'wid' => $row['id'], 'status' => 1))}" class="btn btn-info">标记领奖</a>{elseif $row['status'] == 1}<a href="{php echo $this->createWebUrl('joiner', array('id' => $id, 'wid' => $row['id'], 'status' => 0))}" class="btn btn-default">取消领奖</a>{/if}{/if}
+              
+              </td>
+            </tr>
+            {/loop}
+            <tr>
+              <td style="width:60px;" class="row-first"><input type="checkbox" onclick="selectall(this)"/></td>
+              <td colspan="5"><!--<input type="submit" onclick="return confirm('确认删除吗？');return false;" name="delete" value="删除" class="btn btn-primary" />-->
+              <input type="submit" onclick="return confirm('全部标记为领奖吗？');return false;" name="getprize" value="标记领奖" class="btn btn-info" />
+                <input type="hidden" name="token" value="{$_W['token']}" /></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </form>
+    {$pager} </div>
+</div>
+<script>
+function selectall(obj){
+	if(obj.checked==true){
+	   $("input[name^='select']").each(function(){
+		  $(this).prop("checked",true);
+	   });
+	}else{
+		$("input[name^='select']").each(function(){
+		  $(this).prop("checked",false);
+	    });
+	}
+}
+</script>
+{/if}
+{template 'common/footer'} 

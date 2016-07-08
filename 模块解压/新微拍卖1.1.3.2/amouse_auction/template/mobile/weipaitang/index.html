@@ -1,0 +1,3964 @@
+<!DOCTYPE html><html><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>weixin://private/setresult/SCENE_FETCHQUEUE&amp;eyJmdW5jIjoicHJlVmVyaWZ5SlNBUEkiLCJwYXJhbXMiOnsidmVyaWZ5SnNBcGlMaXN0IjpbIm1lbnU6c2hhcmU6dGltZWxpbmUiLCJtZW51OnNoYXJlOmFwcG1lc3NhZ2UiLCJtZW51OnNoYXJlOnFxIiwiaGlkZU9wdGlvbk1lbnUiLCJzaG93T3B0aW9uTWVudSIsImNsb3NlV2luZG93IiwiY2hvb3NlSW1hZ2UiLCJ1cGxvYWRJbWFnZSIsImltYWdlUHJldmlldyJdLCJhcHBJZCI6Ind4MmFhMWY2YmVhYTcxNGI3YyIsInZlcmlmeUFwcElkIjoid3gyYWExZjZiZWFhNzE0YjdjIiwidmVyaWZ5U2lnblR5cGUiOiJzaGExIiwidmVyaWZ5VGltZXN0YW1wIjoiMTQzNzM2OTk5NCIsInZlcmlmeU5vbmNlU3RyIjoicXh0NTBtZnRvMnhkYTllNWFwb3ZxNjNlNHBvbjg1bjgiLCJ2ZXJpZnlTaWduYXR1cmUiOiJjZDliYjI4OWRjMjVkNGMwODEzZjA0ZjdlYTA5ZGViOGU2YTExNGYyIn0sIl9fbXNnX3R5cGUiOiJjYWxsIiwiX19jYWxsYmFja19pZCI6IjEwMDAifQ==</title>
+    <style type="text/css">
+        * {
+            outline: none;
+            -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+            vertical-align: baseline;
+            font-style: normal;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+            font-family: Microsoft Yahei, Arial, Simsun, Helvetica, Segoe UI, sans-serif;
+            color: #404040;
+            background-color: #FFF;
+        }
+
+        img {
+            border: 0
+        }
+
+        ul, ol, li, dt, dl, dd {
+            text-decoration: none;
+            list-style: none;
+            vertical-align: middle;
+            margin: 0;
+            padding: 0;
+        }
+
+        a,
+        a:visited {
+            color: #373737;
+            text-decoration: none;
+        }
+
+        .head {
+            position: relative;
+            height: 60px;
+            width: 100%;
+            background-color: #169ADA;
+        }
+
+        .head .name {
+            font-size: 20px;
+            color: #fff;
+            line-height: 60px;
+            height: 60px;
+            text-align: right;
+            margin-left: 20px;
+            margin-right: 100px;
+            overflow: hidden;
+        }
+
+        .head .avatar {
+            border: 1px solid #D5D4D4;
+            padding: 2px;
+            background: #fff;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            height: 70px;
+        }
+
+        .head .avatar a{
+            display: block;
+        }
+
+        .head .avatar img {
+            width: 70px;
+            height: 70px;
+        }
+
+        .head .tip {
+            padding: 10px 100px 0px 0px;
+            text-align: right;
+            height: 15px;
+            overflow: hidden;
+        }
+
+        .saleMain {
+            position: relative;
+            width: 94%;
+            margin: 0 3%;
+            margin-top: 40px;
+        }
+
+        .saleMain .saleItem {
+            padding-top: 13px;
+            display: table;
+            width: 100%;
+            border-top: #eaeae8 solid 1px;
+        }
+
+        .saleMain .saleItem:first-child {
+            border-top: none;
+        }
+
+        .saleMain .saleItem .avatar {
+            float: left;
+            width: 16%;
+            margin-right: 4px;
+        }
+
+        .saleMain .saleItem .avatar img {
+            border-radius: 1px;
+        }
+
+        .saleMain .saleItem .avatar .follow {
+            width: 90%;
+            height: 30px;
+            background: url(/res/img/follow.png) no-repeat 50%;
+            background-size: 100%;
+        }
+
+        .saleMain .saleInfo {
+            float: left;
+            width: 82%;
+            margin-bottom: 12px;
+        }
+
+        .saleMain .saleInfo .nickname {
+            color: #576B95;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .saleMain .saleInfo .nickname .sellerLevel {
+            float: left;
+            width: 28px;
+            height: 15px;
+            margin-top: 2px;
+            margin-right: 4px;
+            background-image: url(/res/img/sellerLevels.png);
+            background-size: 28px auto;
+            background-repeat: no-repeat;
+        }
+
+        .saleMain .saleInfo .nickname .sellerLevel.lv1 {
+            background-position: 0px 0px;
+        }
+
+        .saleMain .saleInfo .nickname .sellerLevel.lv2 {
+            background-position: 0px -15px;
+        }
+
+        .saleMain .saleInfo .nickname .sellerLevel.lv3 {
+            background-position: 0px -30px;
+        }
+
+        .saleMain .saleInfo .nickname .sellerLevel.lv4 {
+            background-position: 0px -45px;
+        }
+
+        .saleMain .saleInfo .nickname .sellerLevel.lv5 {
+            background-position: 0px -60px;
+        }
+
+        .saleMain .saleInfo .nickname .sellerLevel.lv6 {
+            background-position: 0px -75px;
+        }
+
+        .saleMain .saleInfo .nickname .sellerLevel.lv7 {
+            background-position: 0px -90px;
+        }
+
+        .saleMain .saleInfo .nickname .sellerLevel.lv8 {
+            background-position: 0px -105px;
+        }
+
+        .saleMain .saleInfo .nickname .sellerLevel.lv9 {
+            background-position: 0px -130px;
+        }
+
+        .saleMain .saleInfo .nickname .sellerLevel.lv10 {
+            background-position: 0px -145px;
+        }
+
+        .saleMain .saleInfo .nickname a,
+        .saleMain .saleInfo .nickname a:visited {
+            color: #576B95;
+            text-decoration: none;
+        }
+
+        .saleMain .saleInfo .desc {
+            line-height: 20px;
+            word-break: break-all;
+            margin: 8px 0 5px 0px;
+            font-size: 15px
+        }
+
+        .saleMain .saleInfo .imgList {
+            width: 100%;
+            display: table;
+        }
+
+        .saleMain .saleInfo .imgList div {
+            float: left;
+            width: 80px;
+            height: 80px;
+            margin: 1px;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover
+        }
+
+        .saleMain .saleInfo .imgList div.clickImg {
+            opacity: 0.5;
+        }
+
+        .saleMain .saleInfo .createTime,
+        .saleMain .saleInfo .stateInfo {
+            width: 100%;
+            height: 26px;
+            line-height: 26px;
+            padding: 6px 0 2px 0;
+        }
+
+        .saleMain .saleInfo .createTime.freePost {
+            text-indent: 37px;
+            background-image: url(/res/img/freepost.png?t=2);
+            background-repeat: no-repeat;
+            background-position: left 11px;
+            background-size: auto 16px;
+        }
+
+        .saleMain .saleInfo .createTime .hasBzj {
+            vertical-align: middle;
+            margin: -2px 1px 0 0;
+            height: 16px;
+        }
+
+        .saleMain .saleInfo .createTime .saleDel,
+        .saleMain .saleInfo .createTime .saleToggle {
+            margin-left: 5px;
+            color: #60729A;
+        }
+
+        .saleMain .saleInfo .likeIt,
+        .saleMain .saleInfo .popularity {
+            background-image: url(/res/img/liked.png?t=1);
+            background-position: right 50%;
+            background-repeat: no-repeat;
+            width: auto;
+            height: 26px;
+            float: right;
+            background-size: 16px;
+            padding: 0 22px 0 16px;
+            line-height: 26px;
+            font-size: 13px;
+            color: #999;
+            text-indent: 0px;
+        }
+
+        .saleMain .saleInfo .likeIt.liked {
+            background-image: url(/res/img/like.png?t=1);
+        }
+
+        .saleMain .saleInfo .popularity {
+            background-image: url(/res/img/popularity.png);
+        }
+
+        .saleMain .saleInfo .likeBox {
+            background-color: #f6f6f6;
+            position: relative;
+            padding: 6px 0 0 0;
+            text-align: center;
+            margin-top: 6px;
+            display: table;
+            width: 100%;
+            max-height: 57px;
+        }
+
+        .saleMain .saleInfo .likeBox:after {
+            content: '';
+            position: absolute;
+            border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #F0F1F2 rgba(0, 0, 0, 0);
+            border-style: solid;
+            border-width: 6px;
+            height: 0;
+            width: 0;
+            top: -12px;
+            left: 8px;
+        }
+
+        .saleMain .saleInfo .likeBox .likeRow {
+            float: left;
+            overflow: hidden;
+            height: 25.9px;
+            margin-bottom: 5px;
+            margin-left: 5px;
+            clear: both;
+        }
+
+        .saleMain .saleInfo .likeBox .likeAvatar,
+        .saleMain .saleInfo .likeBox .getMoreLike {
+            height: 25.9px;
+            width: 25.9px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            float: left;
+            border-radius: 1px;
+            margin: 0 0 5px 5px;
+        }
+
+        .saleMain .saleInfo .likeBox .likeRow .likeAvatar,
+        .saleMain .saleInfo .likeBox .getMoreLike {
+            margin-bottom: 0;
+        }
+
+        .saleMain .saleInfo .likeBox .likeRow .likeAvatar:first-child {
+            margin-left: 0;
+        }
+
+        .saleMain .saleInfo .likeBox .getMoreLike {
+            margin: 0 0 5px 5px;
+            border: 1px solid #9a9da5;
+            color: #9a9da5;
+            width: 24px;
+            height: 24px;
+            line-height: 24px;
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        .saleMain .saleInfo .likeBox .getMoreLike:empty {
+            background: url(/res/img/up.png) no-repeat 50%;
+            background-size: 50%;
+        }
+
+        .saleMain .saleInfo .tmpLikeBox {
+            display: none;
+        }
+
+        .saleMain .saleInfo .stateInfo .state {
+            position: relative;
+            float: left;
+            background-color: #780018;
+            color: #FFF;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .saleMain .saleInfo .stateInfo .state.end {
+            background-color: #CCC;
+            color: #FFF;
+        }
+
+        .saleMain .saleInfo .stateInfo .state i {
+            position: absolute;
+            right: -8px;
+            color: #780018;
+            font-size: 26px;
+            line-height: 26px;
+            z-index: -1;
+        }
+
+        .saleMain .saleInfo .stateInfo .endTime {
+            float: right;
+        }
+
+        .saleMain .saleInfo .stateInfo .endTime em {
+            color: #780018;
+            font-size: 16px;
+            padding: 0 2px;
+        }
+
+        .saleMain .saleInfo .countdownTip{
+            clear: both;
+            float: right;
+            height: 16px;
+            line-height: 16px;
+            padding-left: 16px;
+            background: url(/res/img/attentionRed.png) no-repeat 0 50%;
+            background-size: 14px;
+            display: none;
+        }
+
+        .saleMain .saleInfo .bidBtns {
+            width: 100%;
+            display: table;
+        }
+
+        .saleMain .saleInfo .bidBtns .price {
+            display: none;
+        }
+
+        .saleMain .saleInfo .bidBtns .bidBtn,
+        .saleMain .saleInfo .bidBtns .shareBtnLayer div,
+        .saleMain .saleInfo .bidBtns .saleEndBtn {
+            width: 100%;
+            height: 40px;
+            color: #fff;
+            border-radius: 2px;
+            text-align: center;
+            line-height: 40px;
+            font-size: 16px;
+            margin-top: 6px;
+            background-color: #06BC07;
+        }
+
+        .saleMain .saleInfo .bidBtns .saleEndBtn {
+            background-color: #ccc;
+        }
+
+        .saleMain .saleInfo .bidBtns .updateBid {
+            position: relative;
+        }
+
+        .saleMain .saleInfo .bidBtns .shareBtnLayer{
+            display: table;
+            width: 100%;
+        }
+
+        .saleMain .saleInfo .bidBtns .shareBtnLayer div{
+            background-color: #1ab6ef;
+            width: 49%;
+            float: left;
+        }
+        .saleMain .saleInfo .bidBtns .shareBtnLayer .sendMultiMsgBtn{
+            float: right;
+        }
+
+        .saleMain .saleInfo .bidBtns .updateBid button {
+            position: absolute;
+            left: -53px;
+            color: #0067BD;
+            top: -40px;
+            height: 40px;
+            width: 50px;
+            text-align: center;
+            border: none;
+            background: none;
+            outline: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .saleMain .saleInfo .bidBtns .updateBid i {
+            color: #999;
+            font-size: 12px;
+            display: block
+        }
+
+        .saleMain .saleInfo .bidList {
+            background: #F0F1F2;
+            width: 99.6%;
+        }
+
+        .saleMain .saleInfo .bidList .ddli {
+            border-bottom: 1px solid #eaeae8;
+            width: 96%;
+            margin: 0 2%;
+            padding: 7px 0px;
+            height: 50px;
+            overflow: hidden;
+        }
+
+        .saleMain .saleInfo .bidList .ddli:first-child {
+            margin-top: 8px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli:last-child {
+            margin-bottom: 2px;
+            border-bottom: none;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .state {
+            float: right;
+            text-align: right;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .state .bidTime {
+            color: #737373;
+            float: right;
+            width: 120px;
+            margin: 36px 0px 0px -20px;
+            position: absolute;
+            height: 18px;
+            line-height: 18px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .state .bidState {
+            width: 100px;
+            float: right;
+            border-radius: 3px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .state .bidState span {
+            display: block;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .state .bidState .bidOut {
+            width: 100px;
+            height: 30px;
+            background-image: url(/res/img/out.png?t=1);
+            background-position: right center;
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+            margin-top: -2px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .state .bidState .bidLeader {
+            width: 100px;
+            height: 33px;
+            background-image: url(/res/img/leader.png?t=1);
+            background-position: right center;
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+            margin-top: -2px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .state .bidState .bidDeal {
+            width: 100px;
+            height: 38px;
+            background-image: url(/res/img/deal.png?t=1);
+            background-position: right center;
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+            margin-top: -2px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .avatar {
+            float: left;
+            width: 50px;
+            height: 50px;
+            margin-right: 7px;
+            position: relative;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .avatar img {
+            width: 50px;
+            height: 50px;
+            border: none;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .avatar .buyerLevels {
+            position: absolute;
+            width: 50px;
+            height: 13px;
+            bottom: 0px;
+            left: 0px;
+            background-image: url(/res/img/buyerLevels.png?t=4);
+            background-size: 50px auto;
+            background-repeat: no-repeat;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .avatar .buyerLevels.lv1 {
+            background-position: 0px 0px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .avatar .buyerLevels.lv2 {
+            background-position: 0px -13px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .avatar .buyerLevels.lv3 {
+            background-position: 0px -26px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .avatar .buyerLevels.lv4 {
+            background-position: 0px -39px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .avatar .buyerLevels.lv5 {
+            background-position: 0px -52px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .avatar .buyerLevels.lv6 {
+            background-position: 0px -65px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .avatar .buyerLevels.lv7 {
+            background-position: 0px -78px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .avatar .buyerLevels.lv8 {
+            background-position: 0px -91px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .avatar .buyerLevels.lv9 {
+            background-position: 0px -104px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .avatar .buyerLevels.lv10 {
+            background-position: 0px -117px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .bidUser {
+            line-height: 25px;
+            font-size: 13px;
+            font-weight: bold;
+            white-space: nowrap;
+            color: #576B95;
+            float: left;
+            width: 50px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .bidUser .name {
+            line-height: 20px;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .bidUser .name a {
+            color: #576B95;
+        }
+
+        .saleMain .saleInfo .bidList .ddli .bidUser .price {
+            line-height: 20px;
+            margin-top: 10px;
+            font-size: 15px;
+            color: #780018;
+        }
+
+        .saleMain .saleInfo .bidList .bidMore {
+            text-align: center;
+            height: 32px;
+            line-height: 32px;
+            margin-bottom: 2px;
+        }
+
+        .saleMain .saleInfo .moneyInfo,
+        .saleMain .saleInfo .moneyInfoExtend {
+            font-size: 12px;
+            display: table;
+            width: 100%;
+            margin-top: 7px;
+            color: #999;
+        }
+
+        .saleMain .saleInfo .moneyInfo div,
+        .saleMain .saleInfo .moneyInfoExtend div {
+            float: left;
+            width: 33%;
+            display: -webkit-box; /* 老版本语法: Safari,  iOS, Android browser, older WebKit browsers.  */
+            display: -webkit-flex; /* 新版本语法： Chrome 21+ */
+            display: flex; /* 新版本语法： Opera 12.1, Firefox 22+ */
+            /*水平居中*/
+            /*老版本语法*/
+            -webkit-box-pack: center;
+            /*新版本语法*/
+            -webkit-justify-content: center;
+            justify-content: center;
+            height: 12px;
+        }
+
+        .saleMain .saleInfo .moneyInfo div:nth-child(2) {
+            border: 1px solid #cfd1d4;
+            border-width: 0 1px;
+        }
+
+        .saleMain .saleInfo .moneyInfoExtend div:nth-child(2) {
+            border: 1px solid #cfd1d4;
+            border-width: 0 0 0 1px;
+            width: 66%;
+        }
+
+        .saleMain .saleInfo .moneyInfo div span,
+        .saleMain .saleInfo .moneyInfoExtend div span {
+            background-image: url(/res/img/qi.png?t=2);
+            background-repeat: no-repeat;
+            background-size: 12px;
+            text-indent: 15px;
+            display: block;
+            line-height: 12px;
+        }
+
+        .saleMain .saleInfo .moneyInfo div:nth-child(2) span {
+            background-image: url(/res/img/jia.png?t=2);
+        }
+
+        .saleMain .saleInfo .moneyInfo div:last-child span {
+            background-image: url(/res/img/bao.png?t=2);
+        }
+
+        .saleMain .saleInfo .moneyInfoExtend div span.yan {
+            background-image: url(/res/img/yan.png);
+        }
+
+        .saleMain .saleInfo .moneyInfoExtend div span.yikoujia {
+            background-image: url(/res/img/yikoujia.png);
+            background-size: 29px 12px;
+            text-indent: 33px;
+        }
+
+        .goShake, .shopEmpty {
+            position: absolute;
+            top: 85px;
+            bottom: 51px;
+            display: block;
+            width: 100%;
+            background: url(/res/img/text.png?t=1) no-repeat 50%;
+            background-size: 200px auto;
+        }
+
+        .shopEmpty {
+            background-image: url(/res/img/shopEmpty.png);
+        }
+    </style>
+    <script type="text/javascript" src="http://cdn.weipaitang.com/res/js/zepto.js?v=0.7.0.0"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?v=0.7.0.0"></script>
+    <script type="text/javascript">
+        var pageloadOver = false;
+
+        function loadNextPage() {
+            if (pageloadOver) return;
+
+            var page = parseInt($(".loadNextPage").attr("page"));
+            if (isNaN(page)) return;
+
+            pageloadOver = true;
+            $(".loadNextPage").css("visibility", "visible");
+            var url = "/wpt";
+            $.get(url + '?page=' + page + "&ajax=true", function (html) {
+                if (html.trim()) {
+                    $($(".loadNextPage").attr("html2append")).append(html);
+                    $(".loadNextPage").attr("page", page + 1);
+                    pageloadOver = false;
+                } else {
+                    $(".loadNextPage").remove();
+                }
+            });
+        }
+
+        var wxShare = {
+            title: '微拍堂',
+            desc: '欢迎光临微拍堂!',
+            link: 'http://w.weipaitang.com/wpt',
+            imgUrl: 'http://w.weipaitang.com/res/img/logo256.jpg',
+            trigger: function (res) {
+                //监听Menu中的按钮点击时触发的方法，该方法仅支持Menu中的相关接口。
+            },
+            success: function (res) {
+                //分享成功回调
+                if (typeof(saleId) != 'undefined' && saleId > 0) {
+                    $.getJSON('/wpt/noticeFriends?saleId=' + saleId, function (data) {
+                    });
+                }
+                $(document.body).trigger("wptShare_view:hide");
+            },
+            cancel: function (res) {
+            },
+            fail: function (res) {
+            }
+        };
+
+        $(function () {
+            window.wx && wx.config({
+                debug: false,
+                appId: "wx2aa1f6beaa714b7c",
+                timestamp: "1437369994",
+                nonceStr: "qxt50mfto2xda9e5apovq63e4pon85n8",
+                signature: "cd9bb289dc25d4c0813f04f7ea09deb8e6a114f2",
+                jsApiList: [
+                    "onMenuShareTimeline",
+                    "onMenuShareAppMessage",
+                    "onMenuShareQQ",
+                    "hideOptionMenu",
+                    "showOptionMenu",
+                    "closeWindow",
+                    "chooseImage",
+                    "uploadImage",
+                    "previewImage"
+                ]
+            });
+
+            wx.ready(function () {
+                wx.hideOptionMenu();
+            });
+
+            //加载下页
+            $(window).on('scroll', function () {
+                var sHeight = document.documentElement.scrollTop || document.body.scrollTop;
+                var wHeight = document.documentElement.clientHeight;
+                var dHeight = document.documentElement.offsetHeight;
+                if (dHeight - (sHeight + wHeight) < 140) {
+                    loadNextPage();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="contentbox">
+    <div class="head">
+        <div class="name">AA-Zombie(w.mamani.cn)</div>
+        <div class="avatar">
+            <a href="/my">
+                <img src="http://cdn.weipaitang.com/mmopen/ajNVdqHZLLAFQDtYXcLOic5feWuIYSqP4HYKz8nvia6qE7x33HoiarzDBjQOERLoEsVxjVibsIO04iaVJ32bIOUPJLw/w/132">
+            </a>
+        </div>
+        <div class="tip">微拍堂,展示已订阅的卖家拍品</div>
+    </div>
+    <script type="text/javascript">
+        var saleId = 539316,
+                lastPost = '',
+                lastPostTime = 0,
+                saleEndTimeArr = {};
+
+        //格式化数字
+        function number_format(n) {
+            var ns = n.toString();
+            var mm = ns.match(/\d{1,3}(?=(\d{3})+$)/g);
+            if (mm == null) return ns;
+            mm.push(ns.replace(mm.join(""), ""));
+            return mm.join(",");
+        }
+
+        //拍卖倒计时
+        function saleEndTimeout(key) {
+            var endTime = saleEndTimeArr['time_' + key] - saleEndTimeArr[key];
+            saleEndTimeArr[key] += 1;
+            var hour = parseInt(endTime / 3600);
+            var minute = parseInt((endTime - hour * 3600) / 60);
+            var sec = endTime - hour * 3600 - minute * 60;
+            if (endTime <= 0) {
+                var saleId = key.replace('saleEndTime_', '');
+                refreshBid(saleId, function(lastBid){
+                    if(lastBid) {
+                        return;
+                    }
+                    var stateInfo = $("." + key).parent();
+                    stateInfo.siblings('.bidBtns').html('<div class="saleEndBtn">拍卖已结束</div>');
+                    stateInfo.remove();
+                    clearInterval(saleEndTimeArr["setInterval_" + key]);
+                });
+                return;
+            }else if(endTime < 300){
+                $("." + key).parent().find('.countdownTip').show();
+            }else{
+                $("." + key).parent().find('.countdownTip').hide();
+            }
+            $("." + key + " span").html('<em>' + hour + '</em>时<em>' + minute + '</em>分<em>' + sec + '</em>');
+        }
+
+        //出价后显示
+        function prependBid(data, sid) {
+            var bidTemplate = $("#bidTemplate").html();
+            var bidList = $(".sale" + sid + " .bidList");
+
+            for (var index in data.bidList) {
+                (function (index) {
+                    setTimeout(function () {
+                        var bidArr = data.bidList[index];
+                        var bidLeader = $(".sale" + sid + " .bidLeader");
+                        bidLeader.removeClass("bidLeader").addClass("bidOut");
+
+                        var bidHtml = bidTemplate;
+                        bidHtml = bidHtml.replace(/\{0\}/g, bidArr.createTime.replace(/^\d*(\d\d)-/, "$1-")).replace(/\{1\}/g, 'src="' + bidArr.headimgurl + '"');
+                        if(bidArr.userinfoUri){
+                            bidHtml = bidHtml.replace(/\{4\}/g, bidArr.userinfoUri + "#buyer");
+                        }else{
+                            bidHtml = bidHtml.replace(/\/user\/\{4\}/g, 'javascript:void(0);');
+                        }
+                        bidHtml = bidHtml.replace(/\{2\}/g, bidArr.nickname).replace(/\{3\}/g, number_format(bidArr.price));
+                        bidHtml = bidHtml.replace(/\{5\}/g, 'lv' + bidArr.buyerLevel);
+
+                        bidList.prepend(bidHtml);
+                        $(".sale" + sid + " .bidList .ddli:nth-child(1)").animate({height: "50px"}, 200);
+                    }, index * 400);
+                })(index);
+            }
+        }
+
+        //用户出价
+        function bid(nowBid, lastBid) {
+            if (!nowBid) {
+                wptAlert("价格输入错误!");
+                return;
+            }
+            if (nowBid < lastBid) {
+                wptAlert("出价不能低于领先价!");
+                return;
+            }
+
+            //防止短时间重复出价
+            var post_url = "/wpt/bid?bid=" + nowBid + "&saleId=" + saleId + "&lastBid=" + lastBid;
+            var post_time = Date.now();
+            if (post_time - lastPostTime > 3500 * 1) {
+                lastPost = '';
+            }
+            if (post_url == lastPost) {
+                return;
+            }
+            lastPost = post_url;
+            lastPostTime = post_time;
+
+            $.getJSON(post_url, function (data) {
+                var errcode = parseInt(data.errcode);
+                if (errcode > 0) {
+                    if(errcode == 40000) {
+                        $(document).off('wptConfirm_view:sure').one('wptConfirm_view:sure', function () {
+                            location.href = '/pay/bzj_buyer?showwxpaytitle=1&uri=' + data.uri + '&lastBid=' + data.bid;
+                        });
+                        wptConfirm('本商家已设置出价保护，您本次出价需支付保证金。<br />如违约，保证金将扣除并纳入微拍堂公益基金。', {text: '支付保证金', class: "btn-green"});
+                    } else if(errcode == 4000) {
+                        $(document).off('wptConfirm_view:sure').one('wptConfirm_view:sure', function () {
+                            location.href = '/pay/bzj_buyer?showwxpaytitle=1&uri=' + data.uri + '&lastBid=' + data.bid;
+                        });
+                        wptConfirm('由于您违约过多，本次出价需支付保证金。<br />如违约，保证金将扣除并纳入微拍堂公益基金。', {text: '支付保证金', class: "btn-green"});
+                    } else if (errcode == 400) {
+                        location.href = '/pay/bzj_buyer?showwxpaytitle=1&uri=' + data.uri + '&lastBid=' + data.bid;
+                    } else {
+                        if (data['lastBid']) {
+                            refreshBid(saleId);
+                        }
+                        wptAlert(data.errmsg);
+                    }
+                    return;
+                }
+
+                saleEndTimeArr['saleEndTime_' + saleId] = 1;
+                if (data['lastTime']) {
+                    saleEndTimeArr['time_saleEndTime_' + saleId] = data.lastTime;
+                }else{
+                    saleEndTimeArr['time_saleEndTime_' + saleId] = 0;
+                }
+
+                $(document.body).trigger("fixednum_view:hide");
+                prependBid(data, saleId);
+
+                if (hasTelephone == 1) {
+                    $(document).off('wptConfirm_view:sure').one('wptConfirm_view:sure', function () {
+                        wptLoading('填写电话号码', function () {
+                            location.href = '/my/edit_userinfo/telephone?refer=' + encodeURIComponent(location.href)
+                        });
+                    });
+                    wptConfirm('您已成功出价，请填写手机号码，便于卖家联系', {text: '填写手机号码', msgClass: 'Faq'});
+                }
+            });
+        }
+
+        //刷新最新出价
+        function refreshBid(sid, cb) {
+            cb = typeof cb == "undefined" ? function () {} : cb;
+            var lastBid = $(".sale" + sid + " .bidList .ddli .price").attr("money");
+            if (lastBid != undefined) {
+                lastBid = parseInt(lastBid.replace(/,/g, ''));
+            } else {
+                lastBid = 0;
+            }
+
+            var nowTime = new Date();
+            nowTime = nowTime.getHours() + ':' + (nowTime.getMinutes() < 10 ? 0 : '') + nowTime.getMinutes() + ':' + (nowTime.getSeconds() < 10 ? 0 : '') + nowTime.getSeconds();
+            $(".sale" + sid + " .newbidTM").html(nowTime);
+
+            var post_url = "/wpt/refreshBid?saleId=" + sid + "&lastBid=" + lastBid;
+            $.getJSON(post_url, function (data) {
+                if (parseInt(data.errcode) == 0) {
+                    //倒计时
+                    saleEndTimeArr['saleEndTime_' + sid] = 1;
+                    if (data.endTime) {
+                        saleEndTimeArr['time_saleEndTime_' + sid] = data.endTime;
+                    }else{
+                        saleEndTimeArr['time_saleEndTime_' + sid] = 0;
+                    }
+
+                    $(document.body).trigger("fixednum_view:lastNum", data.lastBid);
+                    prependBid(data, sid);
+                    (data.endTime > 0) && cb(data.lastBid);
+                } else {
+                    cb();
+                }
+            });
+        }
+
+        function likeBoxSlide(html, likeBox) {
+            likeBox.css({display: 'block', overflow: 'hidden'});
+            likeBox.html(html);
+            likeBox.animate({maxHeight: 316}, 300, function () {
+                likeBox.css({display: 'table', overflow: 'visible'});
+            });
+        }
+
+        var fixednum_extend = {
+            tip: function(txt){
+                txt = parseInt(txt);
+                if(!txt){
+                    return '';
+                }
+                var fixedPriceObj = $('.fixednumMain .fixedPrice');
+                if(fixedPriceObj.length > 0){
+                    var fixedPrice = fixedPriceObj.attr('fixedPrice');
+                    if(txt >= fixedPrice) {
+                        return '一口价立即成交！';
+                    }
+                }
+                return '';
+            }
+        };
+
+        $(function () {
+            //出价按钮
+            $(".saleMain").on("click", ".bidBtn", function () {
+                var self = $(this);
+                //有保证金的拍卖不需要关注就能出价
+                if (!isSubscribe && $(this).parents(".saleItem").find(".hasBzj").length == 0) {
+                    wptSubscribe('http://w.weipaitang.com/');
+                    return;
+                }
+
+                if (!hasTelephone) {
+                    $(document).off('wptConfirm_view:sure').one('wptConfirm_view:sure', function () {
+                        wptLoading('填写电话号码', function () {
+                            location.href = '/my/edit_userinfo/telephone?refer=' + encodeURIComponent(location.href)
+                        });
+                    });
+                    wptConfirm('填写手机号码，便于卖家联系', {text: '填写手机号码', msgClass: 'smallFaq'});
+                    return;
+                }
+
+                saleId = $(this).attr("saleId");
+                if ($(".saleEndTime_" + saleId).length == 0) {
+                    wptAlert($(".sale" + saleId + " .stateInfo .state").text());
+                    return;
+                }
+
+                var fixedPrice = $(this).attr("fixedPrice");
+                var increase = $(this).attr("increase");
+                var bidbzj = $(this).attr("bidbzj");
+                refreshBid(saleId, function (lastBid) {
+                    if (typeof lastBid == "undefined") {
+                        lastBid = $(".sale" + saleId + " .bidList .ddli .price").attr("money");
+
+                        if (lastBid == undefined) {
+                            lastBid = self.siblings(".price").html();
+                        }
+                        lastBid = parseInt(lastBid.replace(/,/g, ''));
+                    }
+                    $(document.body).trigger("fixednum_view:show", [lastBid, parseInt(fixedPrice), parseInt(increase), parseInt(bidbzj)]);
+                });
+            });
+
+            //更新出价按钮
+            $(".saleMain").on("click", '.updateBid', function (e) {
+                var sid = $(this).attr('saleId');
+                refreshBid(sid);
+            });
+
+            //查看更多出价
+            $(".saleMain").on("click", ".bidMore", function () {
+                var self = $(this);
+                var page = parseInt(self.attr("page"));
+                if (isNaN(page)) return;
+
+                var id = self.attr("id");
+                var sid = id.replace("sale", "");
+
+                $(this).html("加载中...");
+                $.get("/wpt/getMoreBid?saleId=" + sid + '&page=' + page, function (html) {
+                    if (html) {
+                        self.before(html);
+                        var ddli = $(html).filter('.ddli').length;
+                        if (ddli < PAGE_NUM) {
+                            self.remove();
+                        } else {
+                            self.html("查看更多");
+                        }
+                        self.attr("page", parseInt(page) + 1);
+                    } else {
+                        self.remove();
+                    }
+                });
+            });
+
+            //拍品删除
+            $(".saleMain").on("click", ".saleDel", function () {
+                var uri = $(this).attr("uri");
+
+                $(document).off('wptConfirm_view:sure').one('wptConfirm_view:sure', function () {
+                    $.getJSON("/auction/sale_del?uri=" + uri, function (res) {
+                        if (res.errcode > 0) {
+                            wptAlert(res.errmsg);
+                        } else {
+                            wptAlert(res.errmsg, function () {
+                                location.href = '/my';
+                            });
+                        }
+                    });
+                });
+                wptConfirm('确认下架？');
+            });
+
+            //拍品隐藏/显示
+            $(".saleMain").on("click", ".saleToggle", function () {
+                var self = $(this);
+                var uri = self.attr("uri");
+                var action = self.text();
+
+                $(document).off('wptConfirm_view:sure').one('wptConfirm_view:sure', function () {
+                    $.getJSON("/auction/sale_toggle?uri=" + uri, function (res) {
+                        if (res.errcode > 0) {
+                            wptAlert(res.errmsg);
+                        } else {
+                            self.text(action == "隐藏" ? "显示" : "隐藏");
+                        }
+                    });
+                });
+                wptConfirm('确认' + action + '？');
+            });
+
+            //图片预览
+            $(".saleMain").on("click", ".imgList div", function (e) {
+                var self = this;
+                e.preventDefault();
+                $(this).toggleClass("clickImg");
+                var imgdiv = $(this).parent('.imgList').find("div");
+                var urls = [];
+                if (imgdiv) {
+                    imgdiv.forEach(function (v, k) {
+                        var url = $(v).css('backgroundImage').replace(/url\((.*)?\/w\/\d{2,3}\)/ig, "$1/w/640");
+                        urls.push(url);
+                    });
+                }
+                setTimeout(function () {
+                    if (urls) {
+                        wx.previewImage({
+                            current: urls[$(self).index()],
+                            urls: urls
+                        });
+                    }
+                    $(self).toggleClass("clickImg");
+                }, 100);
+            });
+
+            //分享按钮
+            $(".saleMain").on("click", ".shareBtn", function () {
+                if (hasTelephone) {
+                    var baseurl = location.protocol + '//' + location.host;
+                    //赋值saleId, 回调时候 用到
+                    saleId = $(this).attr("saleId");
+
+                    wx.showOptionMenu();
+                    //分享内容赋值
+                    wxShare.title = "【" + $(".head .name").html() + "】的微拍堂开拍喽！";
+                    wxShare.link = baseurl + $(this).attr("uri");
+                    wxShare.imgUrl = $(this).attr("img");
+                    wxShare.desc = $(".sale" + $(this).attr("saleId") + " .desc").text().trim();
+                    wx.onMenuShareAppMessage(wxShare);
+                    wx.onMenuShareTimeline({
+                        title: wxShare.desc,
+                        desc: '',
+                        link: wxShare.link,
+                        imgUrl: wxShare.imgUrl,
+                        success: wxShare.success
+                    });
+
+                    wptShare();
+                } else {
+                    $(document).off('wptConfirm_view:sure').one('wptConfirm_view:sure', function () {
+                        wptLoading('填写电话号码', function () {
+                            location.href = '/my/edit_userinfo/telephone?refer=' + encodeURIComponent(location.href)
+                        });
+                    });
+                    wptConfirm('填写手机号码，便于买家联系', {text: '填写手机号码', msgClass: 'faq'});
+                }
+            });
+
+            //群发通知
+            $(".saleMain").on("click", ".sendMultiMsgBtn", function () {
+                var uri = $(this).attr("uri");
+                wptLoading('群发通知', function () {
+                    location.href = '/auction/sendSaleMsg?uri=' + uri;
+                });
+            });
+
+            //绑定出价事件
+            $(document).off('fixednum_view:confirm').on('fixednum_view:confirm', function (e, data) {
+                if((data.fixedPrice > 0 && data.num - data.fixedPrice > 3 * data.increase)
+                        || (data.fixedPrice > 0 && data.num < data.fixedPrice && data.num - data.lastNum > 3 * data.increase)
+                        || (data.fixedPrice == 0 && data.num - data.lastNum > 3 * data.increase)) {
+                    if(buyerLevel > 1 || data.bidbzj > 0 || data.increase < 30) {
+                        $(document).off('wptConfirm_view:sure').one('wptConfirm_view:sure', function () {
+                            bid(data.num, data.lastNum);
+                        });
+                        if (data.fixedPrice > 0 && data.num - data.fixedPrice > 3 * data.increase) {
+                            wptConfirm('亲，您的出价已远远高于一口价 <br/> 您确认要出价？');
+                        } else {
+                            wptConfirm('亲，您的出价已超加价幅度的3倍 <br/> 您确认要出价？');
+                        }
+                    } else {
+                        wptAlert("任性的亲，出价太高了，考虑下重新出价！");
+                    }
+                } else {
+                    bid(data.num, data.lastNum);
+                }
+            });
+
+            //围观
+            $('.saleMain').on('click', '.likeIt', function () {
+                var self = $(this);
+                //关注过才能点赞
+                var subscribeMsg = "亲，先关注我们才能围观！";
+                if (!isSubscribe) {
+                    wptSubscribe('http://w.weipaitang.com/', subscribeMsg);
+                    return;
+                }
+                var uri = self.attr('saleuri');
+                if (!uri || self.hasClass('liked')) {
+                    return;
+                }
+                self.addClass('liked');
+
+                var url = '/wpt/likeIt/' + uri;
+                $.getJSON(url, function (res) {
+                    if (!res.errcode) {
+                        var likeBox = $('#likeBox_' + uri);
+                        var likeIt = $('#likeIt_' + uri);
+                        likeBox.show();
+                        var likeTotal = parseInt(likeIt.html());
+                        if (!likeTotal) {
+                            likeTotal = 0;
+                        }
+                        var likeAvatar = likeBox.find('label').first().find('.likeAvatar');
+                        var _likeAvatar = '<a href="/user/1506231434wn8KsW#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ajNVdqHZLLAFQDtYXcLOic5feWuIYSqP4HYKz8nvia6qE7x33HoiarzDBjQOERLoEsVxjVibsIO04iaVJ32bIOUPJLw/w/64)"></a>'
+                        if (likeAvatar.length > 0) {
+                            likeAvatar.first().before(_likeAvatar);
+                        } else {
+                            likeBox.find('label').first().html(_likeAvatar);
+                        }
+
+                        likeIt.html(++likeTotal);
+
+                        var popularity = likeIt.siblings('.popularity');
+                        var popularityNum = popularity.html() || 0;
+                        popularity.html(popularityNum * 1 + 10);
+                    } else {
+                        if(res.errcode != 401) {
+                            wptAlert(res.errmsg);
+                        }
+                    }
+                });
+            });
+
+            //获取所有点赞列表
+            $('.saleMain').on('click', '.getMoreLike', function () {
+                var self = $(this);
+                var uri = self.attr('saleuri');
+                if (!uri) {
+                    return;
+                }
+                var likeBox = $('#likeBox_' + uri);
+                var tmpLikeBox = $('#tmpLikeBox_' + uri);
+                if (!self.html()) {
+                    var html = tmpLikeBox.html();
+                    tmpLikeBox.html(likeBox.html());
+                    likeBox.html(html);
+                    likeBox.css({maxHeight: 62});
+                } else {
+                    var html = tmpLikeBox.html();
+                    tmpLikeBox.html(likeBox.html());
+                    if (html) {
+                        likeBoxSlide(html, likeBox);
+                    } else {
+                        var url = '/wpt/getMoreLike/' + uri;
+                        $.getJSON(url, function (res) {
+                            if (!res.errcode) {
+                                var html = '';
+                                res.likeList.forEach(function (e) {
+                                    html += '<a href="' + e.userinfoUri + '#buyer" class="likeAvatar" style="background-image: url(' + e.headimgurl + ')"></a>';
+                                });
+                                html += '<div class="getMoreLike" saleuri="' + uri + '"></div>';
+                                likeBoxSlide(html, likeBox);
+                            } else {
+                                wptAlert(res.errmsg);
+                            }
+                        });
+                    }
+                }
+            });
+
+            $('.saleMain').on('click', '.follow', function(e){
+                e.preventDefault();
+                var self = $(this);
+                var data = 'userinfoUri=' + self.attr('userinfoUri') + '&ajax=1';
+                $.get('/user/attention', data, function (res) {
+                    self.animate({"opacity": 0}, 300, function(){
+                        self.remove();
+                    });
+                });
+            });
+        });
+    </script>
+
+    <div class="saleMain">
+        <div class="saleItem sale539316">
+            <div class="avatar">
+                <a href="/user/1507131532ayeJqX">
+                    <img src="http://cdn.weipaitang.com/mmopen/MqiaJDRvAVTRicGtYicoE5wla9zN7wibm6k6O9yp6pMAJW893s8t02Y8QC73KfyRemf7qMCm7e8WAx27yC8CuXfOudy8gqUcEibhj/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/1507131532ayeJqX">
+                        <div class="sellerLevel lv1"></div>
+                        帝豪珠宝阁            </a>
+                </div>
+
+                <div class="desc">
+                    极品铜顺发精雕金蟾吊坠，尺寸27*18*13，喜欢的别错过哦        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/g_Hz-xOYZyK4RBO7mpNhnZNdJ7FumHMtvnoj9KtYaatDXxAogck0TkzurZI3R395/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/aZNqb6edypcXnR6eF8yKn-bxIQ2FkB0-TA0k1lKEqhzOdAbSxHkIpE_cwac1DdjA/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/b2LfGLY0BhRh9OLtQU0pr1aAF9Mk7CG-paai1y6CIjMLzQrF0hcMmWwwYreAQUK-/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/12m17pXXtdbZHhBAv-JhT8cN-IqQ-Jfk96D0-1OeD7EsrRUn60Hu4J6TalRMFq9D/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/5DODthPcKH2OcVGH3wUhMeZQTfRQeTBLGty5D8t19SYBRWLTytrTOZRRRBGlxJLt/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/375jOVcKBTsfO4cTUwH-IoK7ekmq_93t7NFdI7jzDtQp0eULdbifYMI4dLrxmd3_/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/3OlwfoXnzG46ePlrP_GAtG6Rd4rrBi0WviuMgGbF9ZZepwFXBk9Y1UU1KDWvW_Rk/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/PntYQ6xf9FW2_SSLS9dRKG3C6wrDfW9A64ueSEIE7f0rhJuOp7PhMd60S-b272Qo/w/240)"></div>
+                </div>
+
+                <div class="createTime freePost">
+                    <span style="color:#999">07月14日</span>
+                    <div id="likeIt_1507141209bIGFnY" class="likeIt" saleuri="1507141209bIGFnY">51</div>
+                    <div class="popularity">707</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507141209bIGFnY">
+                    <label class="likeRow">
+                        <a href="/user/15052420126LuSqT#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/IfiaZrunb4tSibk9GWGqpbcN9S8fCVYzRr3MomWF4EPV7NsGe8ucaeUCoF1dM4kOgW6GlOszojw5lQWNPXDMupH1RfdCp9Fjr5/w/64)"></a>
+                        <a href="/user/1506041307rNURoD#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/GPyw0pGicibl6pria6FzWHFjgC43pDwXGOcbn4icUg6xpWU5EsQuWjmYwn9ejBkUm88mlmeXChiaUYKkzc7AU9Y6gj2BnUdtKicxIR/w/64)"></a>
+                        <a href="/user/1507102348Y7TNQO#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/GPyw0pGicibl5iaN555ibdbyTzQ2CSWjpDua1ogVaV9ib3GBlbicXm2GTwfXtskQe6yCbRIsumZ93mRc4fyib6Rs8eZoU8fnQr8oibZe/w/64)"></a>
+                        <a href="/user/1506281925oJuSNY#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/PiajxSqBRaEKuUKWPN51T9rOCl0lK4CyA3ywRxoHNSzQ1tDOsNGe7ib7OdC4zCq1tmo3KAQQ80h6IrmTfNx7rkQg/w/64)"></a>
+                        <a href="/user/15052821108JhsaK#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/Q3auHgzwzM4bKCjTnBVhnGTSMDmGJ4liaI7LLID2FTvyxialj9bAKvqx82z5OspTIhYHgxapB3bpuMUTCfTJ3GdnicmL8HmmXAkvTTjGoddN4c/w/64)"></a>
+                        <a href="/user/1506251450zvHjM5#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/Ft6wbuZZPr0LiaMAX6XFzSIbL4MNEfOcr9AsBu4LqmGiba5zvJKT4SYOspB6XhB9D7g8Ck0qeticSmibnpiaFOpdKk5MpqJbM2YN7/w/64)"></a>
+                        <a href="/user/1506281527gyvCKg#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ktEAs3350uTTBokJic5aGv1NKtN5Zqurd6ZXZPwyAXZhF7ibBcaRWms1d5xtRqJ8PkjpzOYQBKrw8rJ8ZcdAzH3EopESk0gkibO/w/64)"></a>
+                        <a href="/user/1506211510ZybACm#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/L33UbnCrTUyaan2ED3CuQUjk43FjS62aBSF1y5h7VAgMFicbeW3F5uMzkpweQjicVnYWacMrCk77ia9icVr7ibPSpbodON2EZfn4t/w/64)"></a>
+                        <a href="/user/1506241233O0iCOf#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7FicgibhBqavTjYCD05rliciaAnNSzeI3jN8GIz1Zz1SsV8XNNI6Nf2AcjWu14EcQpZnxJbTchGAgp7Q/w/64)"></a>
+                    </label>
+                    <label class="likeRow">
+                        <a href="/user/1507051923gsmzQe#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ktEAs3350uTTBokJic5aGv895fqemMX2leqmYeM40gVb1DtHTfEvDw2chJa7DPrkAvmtKNdic7hib7EVSO0ZEdU4fDV3QXn8fTT/w/64)"></a>
+                        <a href="/user/1506161542pqZrB6#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/Q3auHgzwzM4HERRh3OnE4IicV9Tsmy1mUEyicZ8mhticRoqR5QU7OJ3PKniaSAWrSicvATRqrSLFD6qIEfX9w1sSHKfFHGAqFibkPQL2H2GZPvibnU/w/64)"></a>
+                        <a href="/user/1507102141Y3VrjW#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/IfiaZrunb4tS7EJJY2msygspMyn7mtY1Wx1nibVuR1IxiblcX0Vuutkxq2ASzqmVUL9RSxEaeCXu0GVyfPafL2WrQ/w/64)"></a>
+                        <a href="/user/1506252329RctoYD#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/IfiaZrunb4tRqYTJleWj2uY4l8WbhkH6ibffyta2ia5Odp96YdIjtkXtYrvHruK0McQW5zbV2asGeZqvnWibKZP2NccD7ibzdn7Sc/w/64)"></a>
+                        <a href="/user/1504131936chJEAU#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/IfiaZrunb4tQU0bZU6icl7ic43GTichvfX4ib3b5UunwlPaFs1aXAjsDzekLmq9738Vv7f2gELEZhaKSdXQA8a1CQUwLCd3aaMNbL/w/64)"></a>
+                        <a href="/user/1506072234XbmCVj#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/MqiaJDRvAVTThMA4tguSPf1HU3aGYZj1rZ0A59ctsnwXoWYyVbL3kJH2pdQATmjtBktjAPV942rJ8AQM4KY0XjbUC8TUB4E0A/w/64)"></a>
+                        <a href="/user/1506281002BTmXy2#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/GPyw0pGicibl6vAR7oQVmYS3tGLSQf6TkYribricV4kqc5E1qQlp5rgibxycfiaib7l0qbya7vNb8tyohicQSw4RMjygqsticvAsHsa5v/w/64)"></a>
+                        <a href="/user/1506301239pnlexM#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ktEAs3350uTTBokJic5aGviblicoicHwcrmicCO5JofChvBmojXn6Zic4o31AdgfPmqeYE0OopLZB71jib5rOYOITrqhcIiadzfVD4N3/w/64)"></a>
+                    </label>
+                    <div class="getMoreLike" saleuri="1507141209bIGFnY">...</div>
+                </div>
+                <div id="tmpLikeBox_1507141209bIGFnY" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月14日 15:05 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥200元</span></div>
+                    <div><span>￥50元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-14 14:57:00</div>
+                            <div class="bidState"><span class="bidDeal"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/1507060753LRygJk#buyer"><img src="http://cdn.weipaitang.com/mmopen/ktEAs3350uTTBokJic5aGv9hsp1bGdYibxWQZ8uZ3EDGvibA7gPsYy5wsVp2ftqmicuIPM5N77Nuiaj7u9xkmjcjjd6SUKdtKeaTk/w/64"></a>
+                            <div class="buyerLevels lv1"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/1507060753LRygJk#buyer">福中知福</a>
+                            </div>
+                            <div class="price" money="350">￥350元</div>
+                        </div>
+                    </div>
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-14 13:02:49</div>
+                            <div class="bidState"><span class="bidOut"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/1507141257O9TKT8#buyer"><img src="http://cdn.weipaitang.com/mmopen/L33UbnCrTUyaan2ED3CuQVaf3TFkPwE8iafSVftUa4ybRApZVicfO7FUPak4vj9MULAZGx0lH2sDQiaqYpVJPYfzdqtY3UsSjYO/w/64"></a>
+                            <div class="buyerLevels lv1"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/1507141257O9TKT8#buyer">*Crystal*</a>
+                            </div>
+                            <div class="price" money="300">￥300元</div>
+                        </div>
+                    </div>
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-14 12:25:37</div>
+                            <div class="bidState"><span class="bidOut"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/150714122442FEo6#buyer"><img src="http://cdn.weipaitang.com/mmopen/MqiaJDRvAVTRicGtYicoE5wlUw3l9MQb1n6iaLPhgZ6mEv3UNAtNrAKT5UZOO3Jt8O35sOwcnkeYWsYxicYBf06MoRJv9sMyl7QOG/w/64"></a>
+                            <div class="buyerLevels lv1"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/150714122442FEo6#buyer">A水木清石珠宝A</a>
+                            </div>
+                            <div class="price" money="250">￥250元</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale516500">
+            <div class="avatar">
+                <a href="/user/1507121526yUFtTe">
+                    <img src="http://cdn.weipaitang.com/mmopen/ktEAs3350uTTBokJic5aGv0Wymbic1Y2EV6Yq1pfDtD285YwibNLZU3G8ThLtEYVrqiaoqeFzfarJh4n6h2OZjFlbhBrKictd2POB/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/1507121526yUFtTe">
+                        <div class="sellerLevel lv1"></div>
+                        [永和斋玉坊工作室]            </a>
+                </div>
+
+                <div class="desc">
+                    紫玉髓.60圈口        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/YuqSZDRUXQDv9SRuVnEzbf-APZ2b5CzEWpM4Ye8h9TtDoobyzaiyuu026G8IBZer/w/240)"></div>
+                </div>
+
+                <div class="createTime freePost">
+                    <img src="/res/img/baozhengjin.png?t=3" class="hasBzj">
+                    <span style="color:#999">07月13日</span>
+                    <div id="likeIt_1507130543PPBlIC" class="likeIt" saleuri="1507130543PPBlIC">85</div>
+                    <div class="popularity">1140</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507130543PPBlIC">
+                    <label class="likeRow">
+                        <a href="/user/1504272346wOA5rt#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/IfiaZrunb4tQ2b7qrqibic61o98OZibjQJAq2ycDKcv5zU4a7KQ4UJ7XtS4iahSyJ3KBd20tMSsuZOCDINJHNlHayoXeo0iaBxLypm/w/64)"></a>
+                        <a href="/user/1506301239pnlexM#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ktEAs3350uTTBokJic5aGviblicoicHwcrmicCO5JofChvBmojXn6Zic4o31AdgfPmqeYE0OopLZB71jib5rOYOITrqhcIiadzfVD4N3/w/64)"></a>
+                        <a href="/user/1506291230KhQ3fZ#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ktEAs3350uQxAMHuwkxVeSXtuiaf3yrxsicvm8UPJ8kiaPyb4bSElO7DXibiaQ0y9z1065iaenvkD2LspGNj49srmfMjJQplzXfaey/w/64)"></a>
+                        <a href="/user/1506221959qz9mit#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/GPyw0pGicibl73OSiaEFwryMibNh5k2xJyPH0eKjkRB4dHKWgvF6I7PicMsZaibG8zs3qFFWudXMg89rlLW3AGxh3n6g/w/64)"></a>
+                        <a href="/user/1506221119oZxpUY#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7U1kTJFicicXibh2Jra9hIia42NrSh64rXghTvBywnvNKFwic6ficxv8QWJcBbRnfNPGfMwxW5qwQTj78g/w/64)"></a>
+                        <a href="/user/1506171833llpZ29#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/IfiaZrunb4tQU0bZU6icl7icw8aY8qz9kH6vA2hwNe7hWPjhv6vTictstlVAichO7brrY3DzO0lErYCBly1EJxTj0ia4SeJboabSqA/w/64)"></a>
+                        <a href="/user/1504281918zmCWlB#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ktEAs3350uSWFgtA6I83Ry3qiaLcVZUlmWXV5ap9Dsx2Cb3ltnwkjKZdPRrC2oTSpaYFc3SdsDComdDLcWspG810QsTZd7njs/w/64)"></a>
+                        <a href="/user/1506271336ghrXJz#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/IfiaZrunb4tQI7e7F3ZmQ1vlPlfhmYNL4JZvdu1FKO3vzLTBSLibPwaUNibBfqV622Teex8WFKqibib1LvGIB7MJrIM1b0qibyiczfM/w/64)"></a>
+                        <a href="/user/1506082150UZ35fK#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/IfiaZrunb4tQI7e7F3ZmQ1vEnrlZkZ0MQt16IWlkTYbgqeyBEzjyasM17Uw5Le7ak3fH2EaiclasibPvP4YfXsjIaOzHtgEjHvd/w/64)"></a>
+                    </label>
+                    <label class="likeRow">
+                        <a href="/user/1506221741aKCQnh#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/Q3auHgzwzM6ME1mgpPAkvicWOeoGhicEicDgFZ5e2hlnBjWvd2LCZY5eO8IORAgJcuStY3FEJopGOqvbbhDicP7YN3AcrP5D04zC0M6I5veL2gc/w/64)"></a>
+                        <a href="/user/1506092215082uLV#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/MqiaJDRvAVTR5etymZFE8euKibY60F4qzTw0aic6GUwiaYw2uNwyMMEvo3gU0G5SUvmJmx9CFSGFtTke83X6n9OtDGukSadFKKVp/w/64)"></a>
+                        <a href="/user/1504131936chJEAU#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/IfiaZrunb4tQU0bZU6icl7ic43GTichvfX4ib3b5UunwlPaFs1aXAjsDzekLmq9738Vv7f2gELEZhaKSdXQA8a1CQUwLCd3aaMNbL/w/64)"></a>
+                        <a href="/user/1506241226QopQlb#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ktEAs3350uSJC4GBYsQNhdW9Y09r8wYe9tU7hMtfMeBZb7nRibFr0ficYDy6W93d6DHVDhtojQiaOQMEdqepjV6hibF9nbyjdKnh/w/64)"></a>
+                        <a href="/user/15070113243xewF5#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ktEAs3350uTTBokJic5aGv1j1PuyGtI59Qn9SrTTzobc6dibFMaVrzeWE93hRHOJg8ryUKWPiclKbsBmoVSZKE1Np95qJhKiafzc/w/64)"></a>
+                        <a href="/user/1505181953RjL31I#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ktEAs3350uSKcdY0ZCc2xHEuricIDtC94EiblHicQRjhBbc85yzC6lTMZdgCbWmRnneGCE1iaUjpXQ1P8VfkR5ec5A/w/64)"></a>
+                        <a href="/user/1506192221OWEGfj#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/IfiaZrunb4tQI7e7F3ZmQ1lMvS7tbumGCHCRU6JKzzV9mCDb90UPo5YxCJMYzuxMsQNojJu2yeCAGABicGCXxEr4bGHdlQT7wz/w/64)"></a>
+                        <a href="/user/15071419158C6Gyg#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ktEAs3350uTTBokJic5aGv6ae6JmiaTPEkELXb1cxCeG2iabs8n5Z5cLNBldNJdvZvsK6lHwoiazerXwYMZ3TqGgsn0pVyonKV8t/w/64)"></a>
+                    </label>
+                    <div class="getMoreLike" saleuri="1507130543PPBlIC">...</div>
+                </div>
+                <div id="tmpLikeBox_1507130543PPBlIC" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月14日 20:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥0元</span></div>
+                    <div><span>￥100元</span></div>
+                    <div><span>￥100元</span></div>
+                </div>
+                <div class="bidList">
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-14 08:52:27</div>
+                            <div class="bidState"><span class="bidDeal"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/1507131451vbsog3#buyer"><img src="http://cdn.weipaitang.com/mmopen/GPyw0pGicibl7192y4eibib2QTtjP8IDmtcazD0znficvHDFLVJPvickG6DgtribSakcCNkI4MZZia9PicicQibDjNGzkS0gQ/w/64"></a>
+                            <div class="buyerLevels lv1"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/1507131451vbsog3#buyer">Boss Zhan...</a>
+                            </div>
+                            <div class="price" money="100">￥100元</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale484566">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    拍卖1号:原矿无优化高瓷白蓝顶珠，无坑无裂！尺寸：19x12mm。克重：4.5克！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/xnvdK3gcSiaf4knfB5zdVQGEKtddEffS7J2Ed67_WzAdUnNaSiMTuo7OQ1PtPrf8/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/BhxOgC2bF6pM3I-LI4tlLrtiSDogULE_h0YdLeWnKlneIlKKR7wlULWlwAQ2WrZ9/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/Dt-crdqRJ5dWM94KBy6Mz5HhdgGXYCQrE0pwb7v_urKeF24o_4iiH-4HwNHVY2nS/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/aAqZbJ5nsgDQDYADVn9tXMCrHGikj7qaKs0EiZbwOsQBAB0CjZfLFJc5OMB-wll_/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/JrsLlRSNN-xbB2-0t8CC5io-rdTsAMXyYqz3uL6D41V0LrXkCrKoiiqUJERPNDgN/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/iQ_ujhddgIarLc-iWCmq0lxNswvU-nJ14wL-SQlx5IkZ10-SElAmq-nA1nMT7MZ5/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/MpEyzmyiPfLAe7nJ3W5FEYkpD1Hw-eehfV3rPwvS6zcp8PDxRnF-2A2zxWRmMZCy/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/OgZMlc1zGiLFAdOtLTMbyE_PENchu7qlzsbAI4Xaob7yze7G61iEtukgQYM4Vczs/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月11日</span>
+                    <div id="likeIt_1507111103l1444j" class="likeIt" saleuri="1507111103l1444j">2</div>
+                    <div class="popularity">21</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507111103l1444j">
+                    <label class="likeRow">
+                        <a href="/user/1506081624Qwh7Fs#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ajNVdqHZLLDicVd4XDGh2tjCBeTw7mCC3wQt5aEibjhy8xJjQj1tqFpaz6lpsT6JdKeNLACElJgGjv78FfMkSPkg/w/64)"></a>
+                        <a href="/user/1505201158XXiDAK#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/MqiaJDRvAVTRicGtYicoE5wlZ06cibnDMOtE5FQIhYEezQW4HystBPIIQGA7mJTWuaCxXNKQSe50JcjOawkQdKFMegaiazgldF4PW/w/64)"></a>
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507111103l1444j" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月11日 17:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥300元</span></div>
+                    <div><span>￥50元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale425657">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    拍卖3号:高瓷白蓝顶珠，原矿无优化，无坑无裂，天然猫眼！尺寸：19x13mm。克重：4.5克！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/dK1Q4WyOKXzPN6CdJIeulLZ2cP5978JH3W_A3eXtTDczvdiWc9WerC4HYA0yFgol/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/_ZOwIpZwhUMdsKptgVEZz_tY_6yvPuiBXEsAX0RDnAmS0sk3qOU1M8gmrCL-keml/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/LBApdVHCn3BChJLX-wLtEA0Kw2byXHnUZ0LyvO0cVYQWhHTiZjalgtXUrv56nzWG/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/I19j3pWZ4ujZn7dECFS6f-yE-n5qpWefOg6NdyqvTaGQKzNRgfJlBL-xCFuFu5ZH/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/9TAp8gHsqymphmnDFB5AXEhLf7l9HOIZix3UysuSDSu-wM7dRp1LFZKv7egPFxQh/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/EtFWnoGWlzvYoGZHAmTFHQRs9N9MsxoXOz_2Qj-SxSYGJZnidYn2FAo9lIu_dDlP/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/j9rjw0O1_9hAF55yF3G8ZHRi6V8ktd50yjF6ix-mT5OQ6IhIR6jHUsj1ZqSkknsu/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/81dIecV4A8B5qsgdOm9ZFSXuGoSD-xNVPyYVE6tRGhOMcHPEKgtTxvKnFe5tzeW5/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月07日</span>
+                    <div id="likeIt_1507071721br4JDp" class="likeIt" saleuri="1507071721br4JDp">1</div>
+                    <div class="popularity">33</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507071721br4JDp">
+                    <label class="likeRow">
+                        <a href="/user/1506022142xMO2MS#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ajNVdqHZLLAh7Hab8lDEJUr8hicrkicO7ic8R5s6YfkllkOlsh8cndVpLEXahQDcdsSVFgYXbGUl4g6M8rWvPQdAQ/w/64)"></a>
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507071721br4JDp" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月07日 21:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥300元</span></div>
+                    <div><span>￥30元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale425617">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    拍卖2号:原矿高瓷草绿桶珠，顶珠勒子，尺寸：18.5x10mm。克重：2.6克！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/SnGS36u-NqCUf5lrfluZXrReUQGj2oqDIs2Xj7lYO6MQ2gtEziz21u7oLbVwbrO8/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/9wk5EMRFdNujrUrn-v934H7_DAdTZVHNO3st-zgP_RJu4pZm9ATCJArT7a5HV9Dc/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/-Z-3ZwJVYKJzwquYZQ36TT-z5hw0-pJqT07jQAtEyNOE-FhSBML7CPqQArlO-n6n/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/XcZEKWEnJea3kxs1D3wFDnIhtUZo-hYFsXNBnNa0H1D31N0AgDorEZs06cBkYvQj/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/JzoV7B8FWX8tYdKAIIghCXb4shEzK_fbP5FmKEOQvduKp-55VPBMQMCXa98xySWy/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/9xKN7iWbalAyUhjyuqcn9gTmXi6IZ6QiQQ5VXDhmG4qmZRiTdjf5OxKRc064zMyj/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/eAoTCFn_pM0ekN5xYm36fGYSGO_sH7MroejecWS0Fk-haXBMYEkMVRnA7rbmHdgM/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/OOgyHLIYOrOZJSVcsVyAv3mgceVLx3DW-0m6oKOpy4v5Ghoie1SJvwZtK_RHSw_z/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/PSOyR98lyJjBxFWDIB2YmFzjbKZOMOi5RxdjjtphIiE2cIgu-AxPwdDsDXbwGzqU/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月07日</span>
+                    <div id="likeIt_1507071718a2N4NC" class="likeIt" saleuri="1507071718a2N4NC">0</div>
+                    <div class="popularity">9</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507071718a2N4NC" style="display: none">
+                    <label class="likeRow">
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507071718a2N4NC" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月07日 20:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥180元</span></div>
+                    <div><span>￥30元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale425597">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    拍卖1号:原矿无优化高瓷小桶！尺寸：13.5x11mm。重量：2.7克！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/QsEGMEbYKTAxoYchcFtIp3HkjylLN4W_JH4t0F5tv2rXBHF6OUxkDPuYSaawr7OP/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/rodtRZajTjCvgMi_kDDbnRMTXA5U50ohxOz0_nAfz8jLNbFROxq-QXY_XUHZBhy4/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/odwy13wGYhrcOezC9gUZO3Zbbso2VdcfvT12cazA68bptvGzm_vfpo_BRYk-qeF_/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/EdDH6k_acm4Ydjctc8glh0GV6D8Fn8k-_6kOm_bjNg2vUEJrLDCX-pXylcaf2q4A/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/7BsVQop5V4CuTcxJOQ6Gkhr47oRfELFWCFujhSKncmQNv4Y-P1L-OQW3SsmipCpT/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/tytJiSnVW3BBVW3UarZvuA_GZ6udVzkDwObpV9a6QsZ78A_X-l3ln6U9L5VvkBfq/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/1YGEyWIPc3Ka9J6CUBq351oNMiSPdksM1837nzIvxz-CG-Ovs0VuIsR_zPEOrxE1/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/mseBdmDSbNjOetVOW-GE-jNtCsVFNza39rGodp1uETQULGwOrF1-_G62PjE2cDJH/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月07日</span>
+                    <div id="likeIt_1507071716pUmbdn" class="likeIt" saleuri="1507071716pUmbdn">0</div>
+                    <div class="popularity">10</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507071716pUmbdn" style="display: none">
+                    <label class="likeRow">
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507071716pUmbdn" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月07日 20:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥100元</span></div>
+                    <div><span>￥30元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-07 18:25:34</div>
+                            <div class="bidState"><span class="bidDeal"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/15062219549pKMIq#buyer"><img src="http://cdn.weipaitang.com/mmopen/MqiaJDRvAVTRicGtYicoE5wlXE1S8wCG4kb2opK8XnX7vv3icGqdIYedhicrToYC5ZYCHChOE9ianFRbhYfCcpAnqu8vJPDu7cpzj5/w/64"></a>
+                            <div class="buyerLevels lv4"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/15062219549pKMIq#buyer">悟</a>
+                            </div>
+                            <div class="price" money="100">￥100元</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale409997">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    福利2号:高瓷顶珠一枚！原矿无优化，干净无坑无裂！尺寸：16x11mm。克重：3.2克！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/QmbiY4X0qQmGCpzcsL96u-eCB7fKMXC98vkP_Q5ZAQQgaAD-HO2i6ICtPe4LmHqT/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/d3cqSr51ZpqRvSUDH_mBeNlyIuIMLCCCMULlYHDMpKZli37Ch7OMWGb0C2sYE-JV/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/BXA17OX7ZuZqeuJwpNrVpCAn0_uTalrgStekIuITqrF03YU9NjGLmDqhltMELnFH/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/-f9WzE6QIefTatmxzrjALsmqm9xgZzbuMOiL8qyt1mCXkfb9FN2r3JBhCjYON4Tj/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/SpP0JXdVumWGFJY8jDXcAtxQk7WNB5L_W8Wz3IWvgrsjX9OrRc7H9Aswm_c7DdIG/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/dUmbf6rV1FSfPNx8YtvU7vGerMIv6By4BzZKtWh_BpE3pQodOTVvu6_tUsOyUEfE/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/Cyl2W0RpGKbl3DJ2_Rc-b0pJQ3LrdRvPr48OkUx72YIn2l1BRaoQTLTmA6hLNiZz/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/pv3lmYRri2KMQ6mDSgOBJST_SP2Mk3svKMNFCim5p1rwqTNRUD56Qhex4NZCT_1h/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月06日</span>
+                    <div id="likeIt_1507061636z0gWWu" class="likeIt" saleuri="1507061636z0gWWu">0</div>
+                    <div class="popularity">34</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507061636z0gWWu" style="display: none">
+                    <label class="likeRow">
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507061636z0gWWu" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月06日 20:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥200元</span></div>
+                    <div><span>￥30元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-06 19:20:03</div>
+                            <div class="bidState"><span class="bidDeal"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/1506141358l0z854#buyer"><img src="http://cdn.weipaitang.com/mmopen/MqiaJDRvAVTRicGtYicoE5wlZkwqHYEysSkTkOQH6hQo0KiashDqaFnIzddprbjGeict9uxn9Y1YhT0A8gwic0zFsnp6N7SmPRrGjE/w/64"></a>
+                            <div class="buyerLevels lv1"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/1506141358l0z854#buyer">其其</a>
+                            </div>
+                            <div class="price" money="260">￥260元</div>
+                        </div>
+                    </div>
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-06 18:50:14</div>
+                            <div class="bidState"><span class="bidOut"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/1506231757HQXXz9#buyer"><img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM4IEUXEKLXn9uYqicncz4NdiaXlnBN2zMYB8TZ8kVDFYR6sKYFasicfwFhIQXFsNgfNSXrSicuRdqPGiaA/w/64"></a>
+                            <div class="buyerLevels lv1"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/1506231757HQXXz9#buyer">zero♥霖</a>
+                            </div>
+                            <div class="price" money="230">￥230元</div>
+                        </div>
+                    </div>
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-06 16:39:44</div>
+                            <div class="bidState"><span class="bidOut"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/1506122336KzXWag#buyer"><img src="http://cdn.weipaitang.com/mmopen/GPyw0pGicibl6pria6FzWHFjpSHaNb1ZxM9FIqgQNPx9XqJUU2Sq4qiaibm1lEGqDIiazCya2BqlMj6gnPNzVufa1JYrtH9wQvicTP1/w/64"></a>
+                            <div class="buyerLevels lv3"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/1506122336KzXWag#buyer">蛮头</a>
+                            </div>
+                            <div class="price" money="200">￥200元</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale407080">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    福利1号:高瓷隔片一对！原矿无优化干净！无坑无裂！尺寸：11.5mm。克重：2.7克！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/_as9FkS2Z6Ci18EwGS5UjjOCHJgp_mt_iN3xFvKB_XPZaTsA_hXokJGxBwRs8FD3/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/YlCFKw9GWWx_78fG3x2NrDEMQLkzWc42qis2my9kgr3S25AVP972WkXItyiyX0wc/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/nOgeQ2xnz7mlTYCbUWGyMzVPMa0FgFfV7p_CgYlFtO3JtIoPh4F28_o-fpO4diZR/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/4nR0GhinFtvUbMcjDulMIeOsRKDRqO4RrYDeyh1TWr2OeNe4rfguHxHFiUS7RujY/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/uT8jcGIU8PgLx10rrlEVN_UpsyfH41EypTPEwu9i8hYNYz89Suhpc2SEIWXQlm8x/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/2k4vtrPeUsYsepRK1ONeYdSBj1vN6FLpLlOscmBgTs3n_fXoEAccS9-eSn5KxN7i/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/nkGzgRREchIgnZVGSnj1o6eCw-AWmuvG2Szwkk8AT-1KJxN1WdRS9-gA3kR_SHQC/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月06日</span>
+                    <div id="likeIt_1507061301cuXHVz" class="likeIt" saleuri="1507061301cuXHVz">1</div>
+                    <div class="popularity">29</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507061301cuXHVz">
+                    <label class="likeRow">
+                        <a href="/user/1506081624Qwh7Fs#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ajNVdqHZLLDicVd4XDGh2tjCBeTw7mCC3wQt5aEibjhy8xJjQj1tqFpaz6lpsT6JdKeNLACElJgGjv78FfMkSPkg/w/64)"></a>
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507061301cuXHVz" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月06日 16:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥100元</span></div>
+                    <div><span>￥20元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-06 15:13:23</div>
+                            <div class="bidState"><span class="bidDeal"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/1506231757HQXXz9#buyer"><img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM4IEUXEKLXn9uYqicncz4NdiaXlnBN2zMYB8TZ8kVDFYR6sKYFasicfwFhIQXFsNgfNSXrSicuRdqPGiaA/w/64"></a>
+                            <div class="buyerLevels lv1"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/1506231757HQXXz9#buyer">zero♥霖</a>
+                            </div>
+                            <div class="price" money="130">￥130元</div>
+                        </div>
+                    </div>
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-06 13:53:54</div>
+                            <div class="bidState"><span class="bidOut"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/15062314324LyJ97#buyer"><img src="http://cdn.weipaitang.com/mmopen/L33UbnCrTUyaan2ED3CuQbYF4bRtVCdZJrYy51hDfTIDquRfQYUhdPNugUkiazGG9ib7WCVjtW8sEoGCpjVJ2l2NZiaZLF54js1/w/64"></a>
+                            <div class="buyerLevels lv1"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/15062314324LyJ97#buyer">A诚信翡翠</a>
+                            </div>
+                            <div class="price" money="100">￥100元</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale396189">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    拍卖4号:辣椒绿俏色顶珠！原矿无优化，无坑无裂，尺寸：23x15mm。克重；8.1克！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/R5-E-_Ansb4uFlnSoGimc-H7OadVy4lgqYv3Ry4mWrdPT-lAGB71dc-zcvWFshPc/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/R2tk3DuQ9NAWrNQ7x_Uywfw_5N1aShmBNFXERGqiIqiARxHa3RtSxy7nm1WPXQtA/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/8WymwrxathYkDep26SILAqfddBMtTreTbQtRuwh452zhuZO2jt4ZPAr1sU5IE31v/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/B-g1Gn7Wy_EuHQ4S1IfKb5pSGrDxsM4tsUiXS_4ka3hlBrnLMzA8wYQODs7DEEAC/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/wpQEl7hMU1Th2LuBaUOf08PUdEJj5mCyAHQytEM0WTjacEhNlFHBF9jP2fEHyGQU/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/3YdejHFXK9l4BvcmxhLkAcHCCIIt5QR-LS8qH_N5pjSw19h5iPHjaFImfRihiv4R/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/jjWwUf85GJMh5-mJwVklVkSUzyDHkY7_MHBCPZbfJbGMcukrSzBnvej0JpMJvXda/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/69pxJPwGSJdDbit4wWuWr8CENqz5-xrrD0SiyjW_5tQTBd3RtD48zmyT86I1GhHX/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月05日</span>
+                    <div id="likeIt_1507051744LUNLJS" class="likeIt" saleuri="1507051744LUNLJS">0</div>
+                    <div class="popularity">14</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507051744LUNLJS" style="display: none">
+                    <label class="likeRow">
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507051744LUNLJS" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月05日 21:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥480元</span></div>
+                    <div><span>￥30元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale393645">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    拍卖3号：高瓷墩子鼓珠一枚！顶珠勒子都很好！对孔：15.5。直径：14。重量：5.4克！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/wBHuL0YqaqFqgD8litB-dFpH0fWtfByIo_FsqE9GKDr-0RVanaV0Lw8WDHseXfar/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/za3UvmEITBM5UYvnDnHtceL3lA6hkHeS9bdbKC1wFxr9NCR6PE4r_mBjp0qHq-xx/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/j7wK_xhi89mXA5ZFehqQsPAJHHi1cZzgyAkYGAuDBF-AtaXhsXfDystxxq3kzsnQ/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/GoYCJcECmxatI9mt-49sMPY-5RzlmX5giV8Q9at9Dh7ZRw_HZlJQV1tN0p9uhGrI/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/bnoKIDTxBamhgvTEsudXlaEzxVMfeFZc4UBgRaNUfkSLC8utMmARMg9M0PLpz3X7/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/nPUSuz-VIS1bJLupgbLEc4YWklNR9Zh85jM6MZti5FFDGL_ICq-hnuqnljNZit6b/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/o4HMgWqglQyyUoooHGuQuE3vKTHojhvF4uxCX1FZ7R2PhBCCUoUOvSA8P3tSiLMG/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/kFhuA4grI-yU0dC81O8iLGdE1U0CiKk1o2puL-O-xT2rqiOxPgNwt_BVTCJgmD9z/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/3Qi1a8QNTMPqbUfWUS6sEtRrggsVDmgEFdPnzGk_Ilw1ejyZG655avGCnrblkueb/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月05日</span>
+                    <div id="likeIt_1507051419uAtdyX" class="likeIt" saleuri="1507051419uAtdyX">1</div>
+                    <div class="popularity">24</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507051419uAtdyX">
+                    <label class="likeRow">
+                        <a href="/user/1506081828AwaXCb#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/MqiaJDRvAVTR5feML0N6bPeQGST5Mzh0geOSKgzkhqq62KfZR8o0eHiaDFOohlwP39UyxZJArzqiarBxcdEmgyibHmneUQfmynxl/w/64)"></a>
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507051419uAtdyX" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月05日 17:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥200元</span></div>
+                    <div><span>￥30元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-05 16:10:33</div>
+                            <div class="bidState"><span class="bidDeal"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/1506231757HQXXz9#buyer"><img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM4IEUXEKLXn9uYqicncz4NdiaXlnBN2zMYB8TZ8kVDFYR6sKYFasicfwFhIQXFsNgfNSXrSicuRdqPGiaA/w/64"></a>
+                            <div class="buyerLevels lv1"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/1506231757HQXXz9#buyer">zero♥霖</a>
+                            </div>
+                            <div class="price" money="230">￥230元</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale392916">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    拍卖2号:高瓷顶珠一枚！原矿无优化，无坑无裂。对孔20.5。直径13.5。克重：6.2克！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/18LfNu41Z5ubARrmDQgGii86I7ew4mWW8GdBkgW4PrrCkHennORCk1bAllGlBGdH/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/-1tSKaICsENm85AhCp_I8yUkE5-dDwjHvBQLcOUUYdSMkbYdGyV_ZptMDkqpukXu/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/yjrpuoBPIzy69whHeg8ENeK7xfS2IljsQ7MmhDXXidTDZdQaJbMuqrw3lXXPiZ5Y/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/86O0oWeVYnGFjfRYgtrtEjUdOhwe4I751R4OTggGhjCcgohd6MgRSm7z5o1THqDH/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/BJY1J-fVUd4ySaezLSixFaTsjcVPdQaWQ02i7p7JxAKJFLs_xhzmy_4Ify4Wl6iY/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/A_jKAagKHqZz-KjkKU6maU9-sfeE-DKUmgrSPCYmiNszxmQ4ChFDkTYXWKAmhUiC/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/GB-SWvTEt0-xii0sX70C3MP2Fy0_F5U5PGWQD0xqDtmecB7Dj4qS8K_10YlxAqyA/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/NZVz-AieTpePQWX0ChFDikL0-lipKgGJXyJ0z1f6gZUAMOTj-hDDNwHUDiR0J-lh/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月05日</span>
+                    <div id="likeIt_1507051324vFtQLk" class="likeIt" saleuri="1507051324vFtQLk">2</div>
+                    <div class="popularity">42</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507051324vFtQLk">
+                    <label class="likeRow">
+                        <a href="/user/1506192118LLlSL3#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ktEAs3350uTTBokJic5aGv97wNibGDRphgqjpNlv65MbABjYTsXRcCrzLAVCVwnoPzDY9A7p1CfJC8MiccoXQojKoCRRgII0g4D/w/64)"></a>
+                        <a href="/user/1505201158XXiDAK#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/MqiaJDRvAVTRicGtYicoE5wlZ06cibnDMOtE5FQIhYEezQW4HystBPIIQGA7mJTWuaCxXNKQSe50JcjOawkQdKFMegaiazgldF4PW/w/64)"></a>
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507051324vFtQLk" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月05日 17:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥280元</span></div>
+                    <div><span>￥30元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-05 16:47:42</div>
+                            <div class="bidState"><span class="bidDeal"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/1506201632Fe1uUe#buyer"><img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7WlHuPClMDB6GYQ813VMMLrkXFlmaicFv21pqhyqiadHxfrC5nyZdaAlzVNPDaJmcwXu94F0Y9cp76r81vu6N5micxfupgEm3BfY/w/64"></a>
+                            <div class="buyerLevels lv1"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/1506201632Fe1uUe#buyer">顽石品茗</a>
+                            </div>
+                            <div class="price" money="310">￥310元</div>
+                        </div>
+                    </div>
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-05 13:59:07</div>
+                            <div class="bidState"><span class="bidOut"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/1506192118LLlSL3#buyer"><img src="http://cdn.weipaitang.com/mmopen/ktEAs3350uTTBokJic5aGv97wNibGDRphgqjpNlv65MbABjYTsXRcCrzLAVCVwnoPzDY9A7p1CfJC8MiccoXQojKoCRRgII0g4D/w/64"></a>
+                            <div class="buyerLevels lv2"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/1506192118LLlSL3#buyer">如果</a>
+                            </div>
+                            <div class="price" money="280">￥280元</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale392059">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    拍卖1号:原矿高瓷无优化顶珠一枚！干净无坑无裂！尺寸：27.5x13.5mm。克重：8.1克！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/n1ika3cPm6Km03dKipE0il_rpq3XFD-O90I9XR5eyjrhiom7gg1yKphuTKwPwvZC/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/HNpga7tFdWIXPEiSroJsWS5bBXa0GV-azj7trKQKEdwZZ5K9fKL0GOpkq5JycZTB/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/3fCHMVQrRMilsHf5vIWneRoVJDlHS2huhId-k6ghTiGu26lMZPOl1F7UVMHakVZa/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/ms7hjCN7iY9VtE5eT2eiT3-a8cG-ab_-kO6cjOKisRzsvF97jl-Aio3_n7pE_CHN/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/q7fjNCFYokIrMuRVHjH6_dw1Dml7nCe5JOuYma9mx1on9jTNoJo0vNBF7KlQ1tVH/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/yve30vKoYWtnYW3lxgaduSaiOb4f0FUKhLRZh0DOdP6VKPNPgmoRKz2SV0_xzEs7/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/m_vVhcHfcQ-SBQ9w8YXLL-nw8C4PuB-xWqm8cqu48X9q_P5IzkdEirItxngfjI5t/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/ks52VxNrcSUn575UOBFcqbNY75q8ro0usr1zlR4xRciRHY33YaL7j-QHZPh7wnDV/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/ArXG4yyrMmGRmqSTWvd2Ry_iwKGZ-79jiKkvo74oDFrpKaYScU3LbgxTxkh3BQS_/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月05日</span>
+                    <div id="likeIt_1507051228jyvgJ5" class="likeIt" saleuri="1507051228jyvgJ5">1</div>
+                    <div class="popularity">32</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507051228jyvgJ5">
+                    <label class="likeRow">
+                        <a href="/user/1505201158XXiDAK#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/MqiaJDRvAVTRicGtYicoE5wlZ06cibnDMOtE5FQIhYEezQW4HystBPIIQGA7mJTWuaCxXNKQSe50JcjOawkQdKFMegaiazgldF4PW/w/64)"></a>
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507051228jyvgJ5" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月05日 17:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥300元</span></div>
+                    <div><span>￥30元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-05 12:46:04</div>
+                            <div class="bidState"><span class="bidDeal"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/1505132107W1bPud#buyer"><img src="http://cdn.weipaitang.com/mmopen/PiajxSqBRaEIWxZsCIcLHqCqRW6XVWyicr99jibb5BfSPSAaLwJd5HqliaPstTC4YAVqyV6VUTT6drSVzuFrmmrt0Q/w/64"></a>
+                            <div class="buyerLevels lv1"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/1505132107W1bPud#buyer">笑而不语</a>
+                            </div>
+                            <div class="price" money="300">￥300元</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale356923">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    喜漏拍7号:高瓷菜籽黄配对腰珠！原矿无优化&nbsp;&nbsp;对孔19。直径10。克重：5.6克！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/pgAZVvXhz-6iemq-h3UZGFnaHE4dTOG-ortg7ewyDpkh3jrf_LNA5Iw2dW4jm4P2/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/WecxszTcMSLW87lpd5RxtoAA0xQ8CsJnvFVT4ZcfjIhkmX_w4sPoaOEKphN8GaW9/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/nmkWAu7cZtvzDQ6UxlFPHcu9TtIEB05jZzApwUHrYi04RlMOudTL-GKVmNy1RMjA/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/EdPwG8CDWYrXWGMz2RQZoDUIihhxQ8q56IT1fbVhhZFSlE_WdvoH5Yu9JEmbMu0c/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/WOYFoAmQ0LAqM01ViuQGjCjYNpo3HxCdxUW5aI7h-T25c_oiP_fOUenY_-yLWIwS/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/X7hKNTpRlHWbO3JcI9pxZG7wsa2wa5DD4kPUmpsKInfhpDeXXWOBwmKC2YRF3PyK/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/m67atz0f5iTERkKUgtlvW_4LNmFReOHsUqn_Bou73rrs9p34_rdUhPa454_BxGuJ/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/QidIi0H5oUbOGvK2x9GjHukmMHiL8KSBuWTnTW8JmdFJNGFUhgOl6cmWDg1kDc3r/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月02日</span>
+                    <div id="likeIt_1507021856uT8Unf" class="likeIt" saleuri="1507021856uT8Unf">0</div>
+                    <div class="popularity">2</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507021856uT8Unf" style="display: none">
+                    <label class="likeRow">
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507021856uT8Unf" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月02日 21:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥180元</span></div>
+                    <div><span>￥50元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale356875">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    喜漏拍6号:配对腰珠，天然阿尔卑斯奶糖！对孔&nbsp;17。直径&nbsp;10&nbsp;&nbsp;重量5.4克！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/gJqWZB7HgsOd-A_uzEIS_7qOfvA0s09RQfxkFDwSP9cItM2lDZRLw4YFI-2d2A6g/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/0KVyaub1oQg8EcsKakCNK-j0ugtSUZNqYXiVXOaepZc1HzgrJ3EInMbuXedccvUq/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/SoB1jZxlVEamYj-SoQTsNMx1TKDOkWuz4O1iw1-si2Q-W-qYDGda0ZMdMQQWDqFo/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/fNJZtUrPrT_BFzH28inVhUUkeXr6uzhwuDwogxkOOvg5FpYD7Fo_znu7FKckjtAH/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/HEWPHrFfgIqeJHYENBH1V1JSGEHkNS7z2RhU5ko1vXpLYETksUIRHAawbTO5bw2M/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/9lJAZ5cP40JvzREI413g_sG1_Ogerl2P8ZTvhZag0SPgZj2dXsRToOUUc7z_1U80/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/X9_ufuJFZPfi0RfqnNda2bZccaPymEqxZRkEwxZqtbrLdvv4eu571LUyO2nigq_S/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/IcIQfTBTTjf_t8gqpncvqBzhHPsByt91DHug0ToOTAhuy7ZjvFEgXwlXp-ky5-uA/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/dfCmqyiXZn-jLEE4s1UJOxemLFOfGeMa4EwqfLqMmOaY2jT6gLmIVzs6Dw5Zf1EJ/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月02日</span>
+                    <div id="likeIt_15070218522xBmPa" class="likeIt" saleuri="15070218522xBmPa">0</div>
+                    <div class="popularity">1</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_15070218522xBmPa" style="display: none">
+                    <label class="likeRow">
+                    </label>
+                </div>
+                <div id="tmpLikeBox_15070218522xBmPa" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月02日 21:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥260元</span></div>
+                    <div><span>￥100元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale350688">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    喜漏拍4号:纯银口碑，内胆全部纯银，杯盖镶嵌绿松石，高大上的气场感觉，送朋友送爱人送丈母娘孝顺父母的不二之选！商场一摸一样的一个杯子是多少？还没有松石噢！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/XnPMltAglZZQb-FV0R1fFX4nfi5__3GNk0QCb245nzgxRr0YyFT6yNeX8CEamSLg/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/6rUNoqVLvcxvEOh1ZKeMKUj7B5hELywXqJbOjAbXXR15fYb_GECAVzWzIMn23uTS/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/WhkXzsf7c3MS6hBxfZZKSpHNFyiQbsx9-hWbjVYmWtpJBhlFdR17xUFpmlz3gREL/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/BeOAb_ZBr0_4REX6LUDZ235GynmeWCpztU0XGUqZtdwTtnTRHbh6NCSXgjEOgoYn/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/LtEIzh9EtGH-rqrZTMp_28A3xB-RCSn15G5uGdQtbOc585nGYG7-Njzrreuos0Pu/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/KZ7CtRsFVKqXIonzW5_UZ8wM3-c4xAZrRE_DzbWpq7vR14u-4nmF1ZsWBVi8xoRm/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/QnBVlj716pfAOXLlt5HGHZakV50qiYZ7HVOFVm6YgqGvJkYrclZNTbgNc_5KoFyA/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/zKpf0bcUraCUImCCcwIy0RYhaE_2WZW2pMlaSj3NEdr1Qh1Z7_446FDrFoN-QdW8/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/2Ei6ilQQQmi_gZ8UyVrcCUPca_nlAfRl7JtzBBrTAZg0_tkEaSmLeD0o8DZ7oc1f/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月02日</span>
+                    <div id="likeIt_1507021014ZpQEMu" class="likeIt" saleuri="1507021014ZpQEMu">1</div>
+                    <div class="popularity">26</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507021014ZpQEMu">
+                    <label class="likeRow">
+                        <a href="/user/1506171448rQ4m1k#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/GPyw0pGicibl6qTAqaQzUL7NCQaqTBI5I8c2Zh4z0nmCKN4jh9EmgiadmnU8Jky11oMH9SFpXjje2IN6okk2B30uw/w/64)"></a>
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507021014ZpQEMu" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月02日 13:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥680元</span></div>
+                    <div><span>￥100元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale350487">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    喜漏拍3号:老工艺封蜡随性贝贝！做挂坠做背云都好的！这是个天然形成的脚丫子，又意：知足常乐！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/FHFdyuuWiJcQeVbgV9baTsYNuRygjO2Um9cS7YuURmzxM8CYBG3K8J-9AFAkYTQG/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/eKiSu32b-6TvIP5numq_qZFoJp7NJBmXloCOOPmL_d8SqKlsh3T-tm5SiMHehc1q/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/mAFsQoIJibMJEeAo19n12hSc7MBBpiso-P62EeUVzNaGSQNiVS3ZaQKLAXhJlgTU/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/dzwOex6YjCdSFdWK3y5eBDuoXmrc2bBQLfxJoFxcLW94Yg-PXT7wyNoSHgEYo6D0/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/Q4Z5BJKy5xC0ccdhsUswEizliyYn4oTg4uFbhqWlDl1EUrhJoh8nx6BaH4G2GVry/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/kNoFWcboNAxSu9k0CGBEwNV3Ap4UyHGzLUnLbyCy2k0eKYD8T8HZuNt1vikGUwhf/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月02日</span>
+                    <div id="likeIt_150702095917MXGn" class="likeIt" saleuri="150702095917MXGn">3</div>
+                    <div class="popularity">32</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_150702095917MXGn">
+                    <label class="likeRow">
+                        <a href="/user/1505201158XXiDAK#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/MqiaJDRvAVTRicGtYicoE5wlZ06cibnDMOtE5FQIhYEezQW4HystBPIIQGA7mJTWuaCxXNKQSe50JcjOawkQdKFMegaiazgldF4PW/w/64)"></a>
+                        <a href="/user/1505151054UvBSDl#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/ktEAs3350uTTBokJic5aGv5ibkibZ9TCso3QDiagNiaC7El9YA4ZV6KTf25wVsiahVCgFo85hpZloX5unmFTjtnwyc7wWGc0Yrmibmt/w/64)"></a>
+                        <a href="/user/1506071436ZlnpDL#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/qRO92RMXT6MbnLe8I3Wfp63Kib2N9jfQbjFxRjf15cUjM7tQ0bx2M5FBXCCmPibowsXUUnDIBxSxAvD2SFgANkDVpVR8XQvLFZ/w/64)"></a>
+                    </label>
+                </div>
+                <div id="tmpLikeBox_150702095917MXGn" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月02日 12:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥0元</span></div>
+                    <div><span>￥50元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale344520">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    再来一大漏！高瓷老军绿腰珠！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/X1shiL_Lm83jnjTELvuuFwIBhxVy8cFdA01c_4ErrBakvkp_cYYxDUC3H93MQ7dL/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/XrRAbTwtKZA04DsYEuimUZWkZ_Q_3NHzlphAII0hOx51WdIMwYdbgGrfhY4hSEcy/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/N-6pWS64t0nA6a68f9JaLk4q6QNJRJTEtivUaR0wugiNSkQcEOMe5TRJbhBpEQlu/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/ojGjsYYZawLF64lYfqH5RNmAO8KEQb4nmgXwSykVrh0SRcXQnNEZhYC-g4Peghpr/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/EmOHlVdwYeZVHiem6Uk1C_MI8OcoMDT4MQPJwx3NByGEoYzH_sllKoZClh7EsUbU/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/TJClObXbfK9IgoEmLQ7Cyf57fNZ3hoA7vjWGdO_KaQmh-89c5ee0nmZT72ZLvpgM/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月01日</span>
+                    <div id="likeIt_1507011928c3Z5y8" class="likeIt" saleuri="1507011928c3Z5y8">0</div>
+                    <div class="popularity">1</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507011928c3Z5y8" style="display: none">
+                    <label class="likeRow">
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507011928c3Z5y8" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月01日 22:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥150元</span></div>
+                    <div><span>￥50元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale344368">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    打对桶珠！将军绿，做腰珠的首选，原矿无优化高瓷！尺寸：16.5x11mm。克重：7克！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/_zDi5rW4b99s63zelTe6JLk5eMxP5U-DJAEM5ZvO_qrk_F6JzS8e-PzIhMnVQv6S/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/_g8Rm055vcL9xSOxOlwAerUEllUqNIuzouIPkLPnZeUEPgwmLvkySUB0dqwmxy-C/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/pqhbl_niGANnc_Kh9qr_oS890uSx89m5ENxir2X1-bJvvB6fTjkyaI0IVHGS-JEh/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/Gud9BDDV0-RcvGWSnmA1KfFgHTLt3xYJWs8n64TGQhn-Hzs5suhWrbEOMW6Enksx/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/nmtFU9JNjfHPxVzFy47ftZXLHoUQEY0xBN1OPkMFiyBwiZiFEskVICz3kCHHkIdO/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/l87idu1Nwp3B9URPoqPA5-i_69e2DQJpi-Of3AtVYOgzt8ANYufY_fcNKBzFAMsM/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/GGZtSRRhE3wKah6CC514VEpqXxmDNU3aPM_YjMdm-y1MemUA9JXSls_n65SGj81B/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/nUKce00QZssUliKAfqV4ZVvqvc2Zng2MvJSdhHHSTNgJX7rCiN-dYYO_gUxpPoiR/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/tIV3mF3gS4uSUj15zOGGI8twTo5VNc8fII9tRcyUvVGdrbL4HXg2b_pBOI29iwZT/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月01日</span>
+                    <div id="likeIt_1507011913g25Knw" class="likeIt" saleuri="1507011913g25Knw">0</div>
+                    <div class="popularity">1</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507011913g25Knw" style="display: none">
+                    <label class="likeRow">
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507011913g25Knw" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月01日 22:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥190元</span></div>
+                    <div><span>￥50元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale337669">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    原矿三无雕刻小佛！做背云标配！萌萌哒！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/hGSP0GY7CBtFcfmcb2z6C89kv-f2kYVjiNfosbxSGig4x-S8AsHfjFnMhLvOJ538/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/N85viaCrUhhMZTq-zhq1G9OMURtqRWHlyuOJNHvfFRtX00ikzKBmZdspDwnpHwJn/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/yG5mYQwwLZprf9Igy21ADpO62KF2ZGlqXoAs_Adu-rdbh5im6JXlr2dQJuWH_hNG/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/_iLnXB1ZcHGwHoTvN6A0Ly9hTxVoK0GaJ38XdZbNRZO-7IyYFnumWOxGuutlY7aV/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/OLbrBY_GHRd9bGXSaxy_ov_G1CiUuTBRQBQxlosVec9vvwavYjZp1WKAhioCsIct/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/cugtJ1pwwJpLGMau6MxO3AoBt3K0fSGmLRbZknQej-1eTL4VKH6TXsH38ENhrHKc/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/-cKfBdAUR_zJor6R_Y9nFCjmB2PZb-1AJtgdaQBONJUHBvlzdz7o_WFw-Yub_-Jg/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/HENGfVX7q3XzauY7ZxB9b8BQgDkq0HPY3vuueO-LCbBVo4LHdcRBgUBvI3X7Rfky/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月01日</span>
+                    <div id="likeIt_1507010934f9DvxE" class="likeIt" saleuri="1507010934f9DvxE">1</div>
+                    <div class="popularity">11</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507010934f9DvxE">
+                    <label class="likeRow">
+                        <a href="/user/15052314425yTqxM#buyer" class="likeAvatar" style="background-image: url(http://cdn.weipaitang.com/mmopen/IfiaZrunb4tRVndcRQGr8FicKy4ibCIVKZqQwYUPkAh15D1dYs9kZ2iayrW0fYwe2CEUygdR3bUUB1ibEV0iavGsh9BKPEUayMziapW/w/64)"></a>
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507010934f9DvxE" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月01日 12:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥300元</span></div>
+                    <div><span>￥30元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                </div>
+            </div>
+        </div>
+        <div class="saleItem sale337629">
+            <div class="avatar">
+                <a href="/user/15062312319ZY5E1">
+                    <img src="http://cdn.weipaitang.com/mmopen/Q3auHgzwzM7NHHK2PacvmLJWfmnmic6cYHeJCaJpLPh5xATZBp7zkOWOQD0aR8EFmJ0BsphSd79boDebC9oZN3g/w/96" width="90%">
+                </a>
+            </div>
+            <div class="saleInfo">
+                <div class="nickname">
+                    <a href="/user/15062312319ZY5E1">
+                        <div class="sellerLevel lv1"></div>
+                        吖_松石女王。（招代理）            </a>
+                </div>
+
+                <div class="desc">
+                    原矿毛料！随便拿去做个什么都好！价又优吖！        </div>
+
+                <div class="imgList">
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/vhzY4WB19By0jH4gLCZIIMOm6SvCjaBABNp0gaWl6znoQUxzSkdzjSJcPlYCuWU0/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/GsoRz8u0c8i-UVNCU6jteaiVDu6UDwfGjAOAfSrNRXRvY_c5Mk07wapVuLEAlVkM/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/vLJZGKd14mnUJH6y5Z7_wq4eyy4A5dClxObKEBBhBJAWHBdQZyqaWBPnxgkOSHG1/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/urK6K4UoKedTt0LV5lIzdZhiwE2ROYc72-m-pthTdkbo7DUeYySXAMPW9LAfpmyi/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/V1h5YbkwUocjz9h3IwmrkGG5Ws_DWlAaqyV-8Tot06JLvvnm1V-eNCtioYZnFzc2/w/240)"></div>
+                    <div style="background-image: url(http://cdn.weipaitang.com/img/3AKo4SrlfxjpM29B8fEJYtgwEM79a_89tDWx4By289cDB-E3i9jSrPwxs204YH1l/w/240)"></div>
+                </div>
+
+                <div class="createTime">
+                    <span style="color:#999">07月01日</span>
+                    <div id="likeIt_1507010931XAVLDr" class="likeIt" saleuri="1507010931XAVLDr">0</div>
+                    <div class="popularity">7</div>
+                </div>
+
+                <div class="likeBox" id="likeBox_1507010931XAVLDr" style="display: none">
+                    <label class="likeRow">
+                    </label>
+                </div>
+                <div id="tmpLikeBox_1507010931XAVLDr" class="tmpLikeBox"></div>
+                <div class="bidBtns">
+                    <div class="saleEndBtn">7月01日 12:00 拍卖结束</div>
+                </div>
+                <div class="moneyInfo">
+                    <div><span>￥100元</span></div>
+                    <div><span>￥30元</span></div>
+                    <div><span>￥0元</span></div>
+                </div>
+                <div class="bidList">
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-01 11:53:09</div>
+                            <div class="bidState"><span class="bidDeal"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/15062219549pKMIq#buyer"><img src="http://cdn.weipaitang.com/mmopen/MqiaJDRvAVTRicGtYicoE5wlXE1S8wCG4kb2opK8XnX7vv3icGqdIYedhicrToYC5ZYCHChOE9ianFRbhYfCcpAnqu8vJPDu7cpzj5/w/64"></a>
+                            <div class="buyerLevels lv4"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/15062219549pKMIq#buyer">悟</a>
+                            </div>
+                            <div class="price" money="378">￥378元</div>
+                        </div>
+                    </div>
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-01 11:52:31</div>
+                            <div class="bidState"><span class="bidOut"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/1506271313lIHE1W#buyer"><img src="http://cdn.weipaitang.com/mmopen/ktEAs3350uTTBokJic5aGv1MvichBgeDqA4PsiaGId4V7yeILVhKk0QldOuTOv1m39Hs9KMP4JJnWEZcQLSWf7HqxuW2131LHmS/w/64"></a>
+                            <div class="buyerLevels lv1"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/1506271313lIHE1W#buyer">大痦子先森的柔情丶</a>
+                            </div>
+                            <div class="price" money="348">￥348元</div>
+                        </div>
+                    </div>
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-01 11:48:46</div>
+                            <div class="bidState"><span class="bidOut"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/15062219549pKMIq#buyer"><img src="http://cdn.weipaitang.com/mmopen/MqiaJDRvAVTRicGtYicoE5wlXE1S8wCG4kb2opK8XnX7vv3icGqdIYedhicrToYC5ZYCHChOE9ianFRbhYfCcpAnqu8vJPDu7cpzj5/w/64"></a>
+                            <div class="buyerLevels lv4"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/15062219549pKMIq#buyer">悟</a>
+                            </div>
+                            <div class="price" money="318">￥318元</div>
+                        </div>
+                    </div>
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-01 11:47:57</div>
+                            <div class="bidState"><span class="bidOut"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/1506271313lIHE1W#buyer"><img src="http://cdn.weipaitang.com/mmopen/ktEAs3350uTTBokJic5aGv1MvichBgeDqA4PsiaGId4V7yeILVhKk0QldOuTOv1m39Hs9KMP4JJnWEZcQLSWf7HqxuW2131LHmS/w/64"></a>
+                            <div class="buyerLevels lv1"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/1506271313lIHE1W#buyer">大痦子先森的柔情丶</a>
+                            </div>
+                            <div class="price" money="288">￥288元</div>
+                        </div>
+                    </div>
+                    <div class="ddli">
+                        <div class="state">
+                            <div class="bidTime">15-07-01 11:46:15</div>
+                            <div class="bidState"><span class="bidOut"></span></div>
+                        </div>
+                        <div class="avatar">
+                            <a href="/user/15062219549pKMIq#buyer"><img src="http://cdn.weipaitang.com/mmopen/MqiaJDRvAVTRicGtYicoE5wlXE1S8wCG4kb2opK8XnX7vv3icGqdIYedhicrToYC5ZYCHChOE9ianFRbhYfCcpAnqu8vJPDu7cpzj5/w/64"></a>
+                            <div class="buyerLevels lv4"></div>
+                        </div>
+                        <div class="bidUser">
+                            <div class="name">
+                                <a href="/user/15062219549pKMIq#buyer">悟</a>
+                            </div>
+                            <div class="price" money="258">￥258元</div>
+                        </div>
+                    </div>
+                    <div class="bidMore" page="2" id="sale337629">
+                        查看更多
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="bidTemplate" style="display: none;">
+        <div class="ddli" style="height: 0px;">
+            <div class="state">
+                <div class="bidTime">{0}</div>
+                <div class="bidState"><span class="bidLeader"></span></div>
+            </div>
+            <div class="avatar">
+                <a href="/user/{4}"><img {1}=""></a>
+                <div class="buyerLevels {5}"></div>
+            </div>
+            <div class="bidUser">
+                <div class="name"><a href="/user/{4}">{2}</a></div>
+                <div class="price" money="{3}">￥{3}元</div>
+            </div>
+        </div>
+    </div>        <div class="loadNextPage" page="3" html2append=".saleMain" style="visibility: visible;">
+    <div class="loading">加载下一页</div>
+</div>
+    <style type="text/css">
+        .fixednumMask {
+            position: fixed;
+            width: 100%;
+            opacity: 0;
+            top: 0px;
+            bottom: 0px;
+            background-color: #000;
+            display: none;
+            z-index: 999;
+        }
+
+        .fixednumMain {
+            position: fixed;
+            bottom: -410px;
+            left: 0px;
+            z-index: 1199;
+            background: #F0F0F0;
+            width: 100%;
+            display: none;
+        }
+
+        .fixednumMain .tipBanner {
+            height: 42px;
+            width: 100%;
+            background: #F0F0F0;
+            border-top: 1px solid #cacaca;
+            font-size: 16px;
+        }
+
+        .fixednumMain .tipBanner span.title,
+        .fixednumMain .priceBanner span.title {
+            line-height: 42px;
+            float: left;
+            text-indent: 10px;
+            min-width: 65px
+        }
+
+        .fixednumMain .tipBanner .last,
+        .fixednumMain .priceBanner .editTxt {
+            float: left;
+            width: 60%;
+            height: 30px;
+            line-height: 30px;
+            margin: 6px 0;
+            color: #7596D9;
+            text-indent: 4px;
+            overflow: hidden;
+            font-size: 20px;
+            font-family: "Helvetica neue", Verdana, Geneva, sans-serif;
+        }
+
+        .fixednumMain .tipBanner .close {
+            float: right;
+            width: 42px;
+            height: 42px;
+            background-image: url(/res/img/close.png);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 28px;
+        }
+
+        .fixednumMain .tipBanner .finish{
+            float:right;
+            width:42px;
+            height:42px;
+            background-size:30px;
+            line-height:40px;
+            font-size:16px;
+            color:#007aff;
+        }
+
+        .fixednumMain .priceBanner {
+            background: #fff;
+            height: 42px;
+            line-height: 42px;
+            font-size: 16px;
+            width: 100%;
+            position: relative;
+        }
+
+        .fixednumMain .priceBanner .editTxt .hover {
+            border-right: 2px solid red;
+        }
+
+        .fixednumMain .priceBanner .tips {
+            color: #999;
+            font-size: 14px;
+            margin-right: 10px;
+            overflow: hidden;
+            height: 42px;
+            position: absolute;
+            right: 0;
+            top: 0
+        }
+
+        .fixednumMain .btnBanner {
+            margin: 0 auto;
+            width: 96%;
+            padding: 10px 0px;
+            display: table;
+        }
+
+        .fixednumMain .btnBanner .confirmBtn,
+        .fixednumMain .btnBanner .fixedPrice  {
+            background: #06BE04;
+            padding: 2.5% 0;
+            border-radius: 4px;
+            width: 66%;
+            text-align: center;
+            font-size: 18px;
+            color: #fff;
+            border: none;
+            float: left;
+            height: 24px;
+            line-height: 24px;
+        }
+
+        .fixednumMain .btnBanner .fixedPrice {
+            background: #01B7F0;
+            width: 32%;
+            float: left;
+            margin-right: 2%;
+            font-size: 14px;
+            height: 24px;
+            line-height: 24px;
+        }
+
+        .fixednumMain .btnBanner .confirmBtn:only-child{
+            padding: 10px 0;
+            width: 100%;
+        }
+
+        .fixednumMain .numkey {
+            width: 100%;
+            background: #fff;
+            display: table;
+        }
+
+        .fixednumMain .numkey ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        .fixednumMain .numkey ul,
+        .fixednumMain .numkey li {
+            text-decoration: none;
+            list-style: none;
+            vertical-align: middle;
+        }
+
+        .fixednumMain .numkey ul li {
+            width: 33.1%;
+            border-bottom: 1px solid #b3b3b3;
+            border-right: 1px solid #b3b3b3;
+            height: 50px;
+            float: left;
+            font-size: 28px;
+            font-family: "Helvetica neue", Verdana, Geneva, sans-serif;
+            text-align: center;
+            background: #fff;
+        }
+
+        .fixednumMain .numkey ul li:nth-child(3n) {
+            border-right: none;
+        }
+
+        .fixednumMain .numkey ul li.delete {
+            background-image: url(/res/img/backspace.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 30px;
+            background-color: #D1D5DA;
+        }
+
+        .fixednumMain .numkey ul li.othernum {
+            background-color: #D1D5DA;
+            line-height: 50px;
+        }
+
+        .fixednumMain .numkey ul li div {
+            color: #000;
+        }
+
+        .fixednumMain .numkey ul li span {
+            position: relative;
+            font-size: 12px;
+            top: -18px;
+            color: #000;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var focusEditTxt;
+
+        //格式化数字
+        function number_format(n) {
+            var ns = n.toString();
+            var mm = ns.match(/\d{1,3}(?=(\d{3})+$)/g);
+            if (mm == null) return ns;
+            mm.push(ns.replace(mm.join(""), ""));
+            return mm.join(",");
+        }
+
+        function showFixednum_view(txt, fixedPrice, increase, bidbzj) {
+            maskIsHide = false;
+            $(".fixednumMain .last").html(number_format(txt) + "元");
+            $(".fixednumMain .editTxt").attr("lastNum", txt);
+            $(".fixednumMain .editTxt").attr("fixedPrice", fixedPrice);
+            $(".fixednumMain .editTxt").attr("increase", increase);
+            $(".fixednumMain .editTxt").attr("bidbzj", bidbzj);
+            $(".fixednumMain .editTxt").find('span').html("");
+            $(".fixednumMain .fixedPrice").remove();
+            if(fixedPrice){
+                $(".fixednumMain .confirmBtn").before('<div class="fixedPrice" fixedPrice="' + fixedPrice + '">一口价￥' + number_format(fixedPrice) + '</div>');
+            }
+            $(".fixednumMask").show().animate({
+                opacity: 0.382
+            }, 100);
+
+            $(".fixednumMain").show().animate({
+                bottom: '0px'
+            }, 100, 'ease-in-out');
+        }
+
+        function hideFixednum_view() {
+            maskIsHide = true;
+            $(".fixednumMain .tips").html('');
+            $(".fixednumMain").animate({
+                bottom: '-400px'
+            }, 150, function () {
+                $(".fixednumMain, .fixednumMask").hide();
+            });
+        }
+
+
+        $(function () {
+            $(document).on('fixednum_view:focus', function (e, editObj) {
+                focusEditTxt = $(editObj);
+            });
+
+            $(document).on('fixednum_view:hide', function (e) {
+                hideFixednum_view();
+            });
+
+            $(document).on('fixednum_view:show', function (e, txt, fixedPrice, increase, bidbzj) {
+                showFixednum_view(txt, fixedPrice, increase, bidbzj);
+            });
+
+            $(document).on('fixednum_view:lastNum', function (e, txt) {
+                $(".fixednumMain .editTxt").attr("lastNum", txt);
+                $(".fixednumMain .last").html(number_format(txt) + "元");
+            });
+
+            $(".fixednumMain").on("click", function (e) {
+                e.preventDefault();
+            });
+
+            $(".fixednumMain .close, .tipBanner .finish, .fixednumMask").on("click", function (e) {
+                e.preventDefault();
+                if($(this).hasClass("finish")) {
+                    if (typeof fixednum_extend != 'undefined') {
+                        if (typeof fixednum_extend.finish == 'function') {
+                            if(!fixednum_extend.finish()) {
+                                return;
+                            }
+                        }
+                    }
+                }
+                hideFixednum_view();
+            });
+
+            $(".fixednumMain .numkey ul li").on("touchstart", function () {
+                if ($(this).html() == '00' || $(this).html() == '' || $(this).html() == '.') {
+                    $(this).css({"background-color": "#FFF"});
+                } else {
+                    $(this).css({"background-color": "#D1D5DA"});
+                }
+            });
+
+            $(".fixednumMain .numkey ul li.num").on("touchend", function () {
+                var clickNum = $(this).find("div").html();
+                if (clickNum == null) {
+                    clickNum = $(this).html();
+                }
+
+                var content = focusEditTxt.find('span').html() + clickNum;
+                if(typeof fixednum_extend != 'undefined'){
+                    if(typeof fixednum_extend.tip == 'function'){
+                        $(".fixednumMain .tips").html(fixednum_extend.tip(content));
+                    }
+
+                    if(typeof fixednum_extend.format == 'function'){
+                        content = fixednum_extend.format(content);
+                    }
+                }
+                focusEditTxt.find('span').html(content);
+
+                if (clickNum.length == 1 && clickNum != ".") {
+                    $(this).css({"background-color": "#FFF"});
+                } else {
+                    $(this).css({"background-color": "#D1D5DA"});
+                }
+            });
+
+            $(".fixednumMain .numkey ul li.delete").on("touchend", function () {
+                var content = focusEditTxt.find('span').html();
+                var content = content.substr(0, content.length - 1);
+
+                if(typeof fixednum_extend != 'undefined'){
+                    //tip函数直接返回需要显示的描述，无描述需返回''
+                    if(typeof fixednum_extend.tip == 'function'){
+                        $(".fixednumMain .tips").html(fixednum_extend.tip(content));
+                    }
+
+                    if(typeof fixednum_extend.format == 'function'){
+                        content = fixednum_extend.format(content);
+                    }
+                }
+                focusEditTxt.find('span').html(content);
+
+                $(this).css({"background-color": "#D1D5DA"});
+            });
+            $(".fixednumMain .editTxt").on("click", function (e) {
+                e.preventDefault();
+                $(this).find('span').removeClass("hover").addClass("hover");
+                focusEditTxt = $(this);
+            });
+
+            $(".fixednumMain .confirmBtn").on("touchend", function (e) {
+                e.preventDefault();
+                var num = parseInt(focusEditTxt.find('span').html());
+                var lastNum = focusEditTxt.attr("lastNum");
+                var fixedPrice = focusEditTxt.attr("fixedPrice");
+                var increase = focusEditTxt.attr("increase");
+                var bidbzj = focusEditTxt.attr("bidbzj");
+
+                $(document.body).trigger("fixednum_view:confirm", {'num': num, 'lastNum': lastNum, 'fixedPrice': fixedPrice, 'increase': increase, 'bidbzj': bidbzj});
+            });
+
+            focusEditTxt = $(".fixednumMain .editTxt");
+
+            $(".fixednumMain").on("click", ".fixedPrice", function (e) {
+                e.preventDefault();
+                var fixedPrice = $(this).attr('fixedPrice');
+                focusEditTxt.find('span').html(fixedPrice);
+                $(".fixednumMain .tips").html(fixednum_extend.tip(fixedPrice));
+            });
+        });
+    </script>
+
+    <div class="fixednumMask"></div>
+
+    <div class="fixednumMain">
+        <div class="tipBanner">
+            <span class="title">领先价</span>
+            <div class="last"></div>
+            <div class="close"></div>
+        </div>
+
+        <div class="priceBanner">
+            <span class="title">出价</span>
+            <div class="editTxt"><span class="hover"></span></div>
+            <div class="tips"></div>
+        </div>
+
+        <div class="btnBanner">
+            <div class="confirmBtn">出价</div>
+        </div>
+        <div class="numkey">
+            <ul>
+                <li class="num">
+                    <div>1</div>
+                    <span></span>
+                </li>
+                <li class="num">
+                    <div>2</div>
+                    <span>ABC</span>
+                </li>
+                <li class="num">
+                    <div>3</div>
+                    <span>DEF</span>
+                </li>
+                <li class="num">
+                    <div>4</div>
+                    <span>GHI</span>
+                </li>
+                <li class="num">
+                    <div>5</div>
+                    <span>JKL</span>
+                </li>
+                <li class="num">
+                    <div>6</div>
+                    <span>MNO</span>
+                </li>
+                <li class="num">
+                    <div>7</div>
+                    <span>PQRS</span>
+                </li>
+                <li class="num">
+                    <div>8</div>
+                    <span>TUV</span>
+                </li>
+                <li class="num">
+                    <div>9</div>
+                    <span>WXYZ</span>
+                </li>
+                <li class="num othernum">00</li>
+                <li class="num" style="line-height: 50px;">0</li>
+                <li class="delete"></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<style type="text/css">
+    .supportBanner {
+        width: 100%;
+        text-align: center;
+        height: 49px;
+        line-height: 49px;
+        font-size: 12px;
+        border-top: 1px solid #eaeae8;
+        background-color: #F8F8F8;
+        margin-top: 10px;
+        color: #888;
+        visibility: hidden;
+    }
+
+    .supportBanner a {
+        color: #F2B896
+    }
+</style>
+<script type="text/javascript">
+    function fixSupport() {
+        if ($.os.android) {
+            bodyWidth = document.body.clientWidth;
+            bodyHeight = document.documentElement.clientHeight;
+        } else {
+            bodyWidth = $(window).width();
+            bodyHeight = $(window).height();
+        }
+        var dHeight = document.documentElement.offsetHeight;
+        if (dHeight < bodyHeight) {
+            $('#contentbox').css('minHeight', bodyHeight - 60);
+        }
+        $(".supportBanner").css("visibility", "visible");
+    }
+    $(function () {
+        fixSupport();
+
+        $(document).off("wptSupport_view:fix").on("wptSupport_view:fix", function () {
+            fixSupport();
+        });
+    });
+</script>
+<div class="supportBanner" style="visibility: visible;">
+    由&nbsp;<a href="http://m.weipaitang.com/">微拍堂</a>&nbsp;免费技术支持
+</div>
+<style type="text/css">
+    .mainMenu {
+        position:fixed;
+        width: 100%;
+        height: 50px;
+        bottom: 0px;
+        background-color: #F8F8F8;
+        border-top: 1px solid #eaeae8;
+        font-size: 12px;
+    }
+
+    .mainMenu div {
+        width: 33%;
+        height: 22px;
+        line-height: 22px;
+        float: left;
+        text-align: center;
+        padding-top: 28px;
+        background-image: url(http://cdn.weipaitang.com/res/img/toolsGray.png?t=2);
+        background-repeat: no-repeat;
+        background-size: 50px auto;
+        color: #888;
+    }
+
+    .mainMenu div.selected {
+        background-image: url(http://cdn.weipaitang.com/res/img/toolsBlue.png?t=2);
+        color: #007aff;
+    }
+
+    .mainMenu a div {
+        color: #888;
+    }
+
+    .mainMenu .myHome {
+        background-position: 50% -7px;
+    }
+
+    .mainMenu .publish {
+        height: 50px;
+        padding-top: 0px;
+        background-position: 50% -64px;
+        background-size: 60px;
+    }
+
+    .mainMenu .my {
+        background-position: 50% -107px;
+    }
+</style>
+<script type="text/javascript">
+    var isMenuAnimate = false;
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+    var index = 0,
+            localIds = [],
+            serverIds = [];
+
+    //上传图片
+    function upload() {
+        if (localIds && localIds[index]) {
+            wx.uploadImage({
+                localId: localIds[index],
+                isShowProgressTips: 0,
+                success: function (res) {
+                    index++;
+                    serverIds.push(res.serverId);
+                    $(document.body).trigger('wptLoading_view:msg','正在上传...<div class="process">'+ index + " / " + localIds.length +'</div>');
+                    if (index < localIds.length) {
+                        setTimeout(upload, 300);
+                    } else {
+                        localStorage.setItem('wpt_serverIds', JSON.stringify(serverIds));
+                        localStorage.setItem('wpt_localIds', JSON.stringify(localIds));
+                        setTimeout(function () {
+                            $(document.body).trigger('wptLoading_view:hide');
+                            location.href = '/auction/goods_publish';
+                        }, 300);
+                    }
+                },
+                fail: function (res) {
+                    $(document.body).trigger('wptLoading_view:hide');
+                }
+            });
+        }
+    }
+
+    $(function () {
+        //上传图片
+        $(".mainMenu .publish").on("touchend", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if(noticeWeChatVer()) return false;
+            wx.chooseImage({
+                success: function (res) {
+                    wptLoading("正在上传...");
+                    localIds = res.localIds;
+                    setTimeout(upload, 200);
+                }
+            });
+        });
+
+        $(window).on('scroll', function() {
+            if (!isMenuAnimate) {
+                var _scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                if (_scrollTop >= 0) {
+                    var _scroll = _scrollTop - scrollTop;
+                    if (_scroll > 40 || _scroll < -20) {
+                        isMenuAnimate = true;
+                        $(".mainMenu").animate({height: _scroll > 0 ? "0px" : "50px"}, 60, function () {
+                            isMenuAnimate = false;
+                        });
+                        scrollTop = _scrollTop;
+                    }
+                }
+            }
+        });
+    });
+</script>
+<div class="mainMenu" style="height: 0px;">
+    <a href="/wpt">
+        <div class="myHome selected">
+            首页
+        </div>
+    </a>
+    <div class="publish">
+    </div>
+    <a href="/my">
+        <div class="my" "="">
+        我的
+</div>
+</a>
+</div><style type="text/css">
+    .loadNextPage {
+        width: 100%;
+        height: 40px;
+        visibility: visible;
+    }
+
+    .loadNextPage .loading {
+        width: 110px;
+        height: 40px;
+        line-height: 40px;
+        margin: 0 auto;
+        background-image: url(/res/img/loadingData.gif);
+        background-size: auto 70%;
+        background-repeat: no-repeat;
+        background-position: left center;
+        text-align: center;
+        text-indent: 15px;
+    }
+
+    .wptMask {
+        position: fixed;
+        height: 100%;
+        opacity: 0;
+        top: 0px;
+        bottom: 0px;
+        width: 100%;
+        background-color: #000;
+        z-index: 1999;
+    }
+
+    .wptShare,
+    .wptAlert,
+    .wptConfirm,
+    .wptMultiConfirm,
+    .wptLoading {
+        display: none;
+    }
+
+    .wptShare .shareTip {
+        position: fixed;
+        width: 96%;
+        height: 286px;
+        magin: 0 2%;
+        top: 0px;
+        background-image: url(/res/img/share.png);
+        background-repeat: no-repeat;
+        background-position: right top;
+        background-size: auto 55%;
+        z-index: 9999;
+    }
+
+    .wptAlert .dialog,
+    .wptConfirm .dialog,
+    .wptMultiConfirm .dialog {
+        position: fixed;
+        background: #ededed;
+        width: 100%;
+        bottom: -180px;
+        z-index: 1999;
+    }
+
+    .wptAlert .dialog .tip,
+    .wptConfirm .dialog .tip,
+    .wptMultiConfirm .dialog .tip {
+        line-height: 30px;
+        padding: 10px 0px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+
+    .wptMultiConfirm .dialog .tip {
+        padding: 0;
+    }
+
+    .wptAlert .dialog .tip .msg,
+    .wptConfirm .dialog .tip .msg {
+        text-align: center;
+        line-height: 30px;
+    }
+
+    .wptAlert .dialog .tip .msg.font18,
+    .wptConfirm .dialog .tip .msg.font18 {
+        font-size: 18px;
+    }
+
+    .wptAlert .dialog .tip .msg.faq,
+    .wptConfirm .dialog .tip .msg.faq {
+        font-size: 18px;
+        background-image: url(/res/img/faq.png);
+        background-repeat: no-repeat;
+        background-position: 10px center;
+        background-size: auto 100%;
+        line-height: 30px;
+        height: 60px;
+        text-align: left;
+        padding-left: 80px;
+        padding-right: 12px;
+    }
+
+    .wptAlert .dialog .tip .msg.smallFaq,
+    .wptConfirm .dialog .tip .msg.smallFaq {
+        font-size: 18px;
+        background-image: url(/res/img/faq.png);
+        background-repeat: no-repeat;
+        background-position: 10px center;
+        background-size: auto 100%;
+        line-height: 40px;
+        height: 40px;
+        text-align: left;
+        padding-left: 60px;
+        padding-right: 12px;
+    }
+
+    .wptAlert .btns,
+    .wptConfirm .btns {
+        width: 87%;
+        margin: 0 auto;
+        padding: 15px 0px;
+    }
+
+    .wptAlert .btns .btn-confirm,
+    .wptAlert .btns .btn-cancel,
+    .wptConfirm .btns .btn-confirm,
+    .wptConfirm .btns .btn-cancel {
+        border: 1px solid #ceced1;
+        background: #f7f7f7;
+        padding: 10px 14px;
+        color: #454545;
+        border-radius: 4px;
+        width: 92%;
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .wptAlert .btns .btn-green,
+    .wptConfirm .btns .btn-green {
+        background-color: #06BE04;
+        color: #fff;
+        border: none;
+    }
+
+    .wptAlert .btns .btn-cancel,
+    .wptConfirm .btns .btn-cancel {
+        background-color: #858c96;
+        margin: 22px 0 7px 0;
+        color: #fff;
+        border: none;
+    }
+
+    .wptAlert .btns .btn-delete,
+    .wptConfirm .btns .btn-delete {
+        background-color: #e95757;
+        color: #fff;
+        border: none;
+    }
+
+    .wptMultiConfirm .btns {
+        width: 100%;
+        background-color: #D4D4DC;
+    }
+
+    .wptMultiConfirm .btns .btn-confirm,
+    .wptMultiConfirm .btns .btn-cancel {
+        height: 49px;
+        line-height: 49px;
+        margin-top: 1px;
+        text-align: center;
+        font-size: 18px;
+        background-color: #F3F3F3;
+    }
+
+    .wptMultiConfirm .btns .btn-cancel{
+        margin-top: 8px;
+    }
+
+    .wptPassword {
+        position: fixed;
+        width: 100%;
+        top: 0px;
+        bottom: 0px;
+        background-color: #efeff4;
+        display: none;
+    }
+
+    .wptPassword .dialog {
+        width: 90%;
+        margin: 80px auto 0 auto;
+        height: 100px;
+    }
+
+    .wptPassword .dialog .tip {
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .wptPassword .dialog .password {
+        width: 293px;
+        margin: 10px auto 0 auto;
+        height: 48px;
+        border: 1px solid #c4c4c4;
+    }
+
+    .wptPassword .dialog .password .passwordKey {
+        float: left;
+        width: 48px;
+        border-right: 1px solid #c4c4c4;
+        height: 48px;
+        line-height: 48px;
+        background-color: #FFF;
+        text-align: center;
+        font-size: 20px;
+    }
+
+    .wptPassword .dialog .password .passwordKey:last-child {
+        border-right: none;
+    }
+
+    .wptPassword .dialog .password .passwordKey .point {
+        width: 48px;
+        height: 48px;
+        background-image: url(/res/img/passwordPoint.png);
+        background-position: center;
+        background-size: 10px;
+        background-repeat: no-repeat;
+    }
+
+    .wptPassword .keyboard {
+        position: absolute;
+        width: 100%;
+        background-color: #FFF;
+        display: table;
+        bottom: 0px;
+    }
+
+    .wptPassword .keyboard ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    .wptPassword .keyboard ul,
+    .wptPassword .keyboard li {
+        text-decoration: none;
+        list-style: none;
+        vertical-align: middle;
+    }
+
+    .wptPassword .keyboard ul li {
+        width: 33.1%;
+        border-bottom: 1px solid #d2d5d8;
+        border-right: 1px solid #d2d5d8;
+        height: 50px;
+        line-height: 50px;
+        float: left;
+        font-size: 28px;
+        font-family: "Helvetica neue", Verdana, Geneva, sans-serif;
+        text-align: center;
+        background-color: #FFF;
+        color: #000;
+    }
+
+    .wptPassword .keyboard ul li:nth-child(3n) {
+        border-right: none;
+    }
+
+    .wptPassword .keyboard ul li.delete {
+        background-image: url(/res/img/backspace.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 30px;
+        background-color: #efeff4;
+    }
+
+    .wptPassword .keyboard ul li.blank {
+        background-color: #efeff4;
+        font-size: 17px;
+    }
+
+    .wptLoading {
+        position: fixed;
+        top: 0px;
+        bottom: 0px;
+        width: 100%;
+        z-index: 1999;
+    }
+
+    .wptLoading .loading{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 200px;
+        height: 80px;
+        margin-top: -40px;
+        margin-left: -100px;
+        background-color: rgba(0,0,0,0.7);
+        background-image: url(/res/img/handling.gif);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        border-radius: 2px;
+        font-size: 14px;
+        color: #FFF;
+        opacity: 0;
+        line-height: 80px;
+        text-align: center;
+        text-indent: 15px;
+        z-index: 9999;
+    }
+
+    .wptLoading .loading .process {
+        position: absolute;
+        width: 100%;
+        height: 20px;
+        bottom: 5px;
+        color: #FFF;
+        line-height: 20px;
+        font-size: 12px;
+        text-align: center;
+        text-indent: 0px;
+    }
+
+    .wptWarnning {
+        position: fixed;
+        top: 0px;
+        width: 100%;
+        background-color: rgba(0,0,0,0.7);
+        height: 105px;
+        color: #FFF;
+        line-height: 35px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .wptWarnning span.h1 {
+        color: red;
+    }
+
+    .wptWarnning a {
+        color: #FFF;
+    }
+</style>
+
+<script type="text/javascript">
+    //关注微拍堂
+    var isSubscribe = 1;
+    var hasTelephone = 0;
+    if(hasTelephone == 0 && window.location.hash == "#hasTelephone") {
+        hasTelephone = 1;
+    }
+    var sellerLevel = 1;
+    var buyerLevel = 1;
+
+    //每页数量
+    var PAGE_NUM = 5;
+    var maskIsHide = true;
+    var pushState = null;
+
+    window.onpopstate = function (event) {
+        if ($.os.android) {
+            if (pushState && pushState.backevent) {
+                $(document.body).trigger(pushState.backevent);
+            }
+            pushState = event.state;
+        }
+    };
+
+    function pushStateEvent(e) {
+        if ($.os.android) {
+            if (pushState == null) {
+                pushState = {backevent: e};
+                history.pushState(pushState, document.title, "?backevent=" + pushState.backevent.replace(/#/g, ""));
+            }
+        }
+    }
+
+    function replaceStateUrl(url) {
+        history.replaceState({url:url}, document.title, url);
+    }
+
+    //阻止touchmove事件
+    $('body').on('touchmove', function (e) {
+        if (!maskIsHide) e.preventDefault();
+    });
+
+    //微信版本升级提醒
+    function noticeWeChatVer(){
+        var weChatInfo = navigator.userAgent.match(/MicroMessenger\/([\d\.]+)/i) ;
+
+        if( !weChatInfo || weChatInfo[1] < "6.0.2" ) {
+            wptAlert("您的微信版本太老了，不能发布拍品，请升级至6.1以上版本！");
+            return true;
+        }
+        return false;
+    }
+
+    //微信关注
+    function wptSubscribe(url, msg) {
+        $(document).off('wptConfirm_view:sure').one('wptConfirm_view:sure', function () {
+            location.href = '/wpt/goToSubscribe?url=' + encodeURIComponent(url);
+        });
+        var confirmMsg = "亲，先关注我们才能出价！";
+        if(typeof msg != "undefined") {
+            confirmMsg = msg;
+        }
+        wptConfirm(confirmMsg, {text:'关注微拍堂', msgClass: 'smallFaq'});
+    }
+
+    //微信分享
+    function wptShare() {
+        maskIsHide = false;
+        $(".wptShare").show();
+        $(".wptShare .wptMask").animate({opacity: "0.7"}, 100);
+
+        $(document).off("wptShare_view:hide").one("wptShare_view:hide", function (e) {
+            maskIsHide = true;
+            $('.wptShare').hide();
+            $(".wptShare .wptMask").css("opacity", "0");
+        });
+
+        $('.wptShare').off('touchend').one('touchend', function (e) {
+            e.preventDefault();
+            $(document.body).trigger("wptShare_view:hide");
+        });
+    }
+
+    //alert
+    function wptAlert(msg, callback, onlyBtnClose) {
+        maskIsHide = false;
+
+        $(".wptAlert .tip .msg").html(msg);
+
+        $(".wptAlert").show();
+        $(".wptMask").animate({opacity: "0.4"}, 100);
+        $(".wptAlert .dialog").animate({bottom: "0px"}, 100);
+
+        pushStateEvent('wptAlert_view:hide');
+        $(document).off("wptAlert_view:hide").one("wptAlert_view:hide", function (e) {
+            maskIsHide = true;
+            $(".wptAlert .wptMask").animate({opacity: "0"}, 100);
+            var height = '-' + $(".wptAlert .dialog").height() + 'px';
+            $(".wptAlert .dialog").animate({bottom: height}, 100, function () {
+                $(".wptAlert").hide();
+            });
+        });
+
+        var closeObj = $('.wptAlert .wptMask, .wptAlert .btn-confirm');
+        if(typeof onlyBtnClose != "undefined" && onlyBtnClose == true) {
+            closeObj = $('.wptAlert .btn-confirm');
+        }
+        closeObj.off('touchend').one('touchend', function (e) {
+            e.preventDefault();
+            maskIsHide = true;
+            $(document.body).trigger("wptAlert_view:hide");
+
+            if (typeof(callback) == 'function') callback();
+        });
+    }
+
+    //confirm
+    function wptConfirm(msg, sureObj) {
+        maskIsHide = false;
+        $('.wptConfirm .tip .msg').html(msg);
+
+        if(typeof sureObj != "undefined") {
+            //确定按钮上的文字
+            sureObj.text && $('.wptConfirm .btns .sure').text(sureObj.text);
+            //确定按钮的class
+            sureObj.class && $('.wptConfirm .btns .sure').addClass(sureObj.class);
+            //描述文本class
+            sureObj.msgClass && $('.wptConfirm .tip .msg').addClass(sureObj.msgClass);
+        }
+
+        $(".wptConfirm").show();
+        $(".wptConfirm .wptMask").animate({opacity: "0.4"}, 100);
+        $(".wptConfirm .dialog").animate({bottom: "0px"}, 100);
+
+        pushStateEvent("wptConfirm_view:hide");
+        $(document).off("wptConfirm_view:hide").one("wptConfirm_view:hide", function (e) {
+            maskIsHide = true;
+            $(".wptConfirm .wptMask").animate({opacity: "0"}, 100);
+            var height = '-' + $(".wptConfirm .dialog").height() + 'px';
+            $(".wptConfirm .dialog").animate({bottom: height}, 100, function () {
+                $(".wptConfirm").hide();
+            });
+        });
+
+        $('.wptConfirm .wptMask, .wptConfirm .btn-cancel, .wptConfirm .btn-confirm').off('touchend').one('touchend', function (e) {
+            e.preventDefault();
+            $(document.body).trigger("wptConfirm_view:hide");
+
+            if ($(e.target).hasClass('sure')) {
+                $(document.body).trigger('wptConfirm_view:sure');
+            }
+        });
+    }
+
+    //multiConfirm
+    function wptMultiConfirm(msg, sureObj) {
+        maskIsHide = false;
+        $('.wptConfirm .tip .msg').html(msg);
+
+        if(typeof sureObj != "undefined") {
+            $(".wptMultiConfirm .btns .btn-cancel").before(sureObj);
+        }
+
+        $(".wptMultiConfirm").show();
+        $(".wptMultiConfirm .wptMask").animate({opacity: "0.4"}, 100);
+        $(".wptMultiConfirm .dialog").animate({bottom: "0px"}, 100);
+
+        pushStateEvent("wptMultiConfirm_view:hide");
+        $(document).off("wptMultiConfirm_view:hide").one("wptMultiConfirm_view:hide", function (e) {
+            maskIsHide = true;
+            $(".wptMultiConfirm .wptMask").animate({opacity: "0"}, 100);
+            var height = '-' + $(".wptMultiConfirm .dialog").height() + 'px';
+            $(".wptMultiConfirm .dialog").animate({bottom: height}, 100, function () {
+                $(".wptMultiConfirm").hide();
+                $(".wptMultiConfirm").find(sureObj).remove();
+            });
+        });
+
+        $('.wptMultiConfirm').off('touchend').one('touchend', '.wptMask, .btn-cancel, .btn-confirm', function (e) {
+            e.preventDefault();
+            $(document.body).trigger("wptMultiConfirm_view:hide");
+        });
+    }
+
+    //trade password
+    function wptPassword(msg, successFn, cancelFn, notCheck) {
+        if(typeof msg != "undefined") {
+            $(".wptPassword .tip").html(msg);
+        }
+        var passwordKeyIndex = 0;
+        $(".wptPassword .password .passwordKey").attr("num", "").html("");
+
+
+        $(".wptPassword .keyboard li").on("touchstart", function () {
+            if ($(this).html() == '00' || $(this).html() == '' || $(this).html() == '.') {
+                $(this).css({"background-color": "#FFF"});
+            } else {
+                $(this).css({"background-color": "#D1D5DA"});
+            }
+        });
+
+        $(".wptPassword .num").off("touchend").on("touchend", function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            if(passwordKeyIndex < 6) {
+                $(".wptPassword .password .passwordKey").eq(passwordKeyIndex).attr("num", $(this).html()).html('<div class="point"></div>');
+                passwordKeyIndex++;
+                if(passwordKeyIndex == 6) {
+                    var password = "";
+                    $(".wptPassword .password .passwordKey").each(function(i,n){
+                        password += $(n).attr("num");
+                    });
+
+                    setTimeout(function(){
+                        if(typeof notCheck != "undefined" && notCheck == true) {
+                            successFn(password);
+                        } else {
+                            $.post("/balance/checkPassword", {'password': password}, function (res) {
+                                res = JSON.parse(res);
+                                if (res.errcode == 0) {
+                                    successFn(password);
+                                } else {
+                                    wptAlert(res.errmsg, function () {
+                                        passwordKeyIndex = 0;
+                                        $(".wptPassword .password .passwordKey").attr("num", "").html("");
+                                    }, true);
+                                }
+                            });
+                        }
+                    }, 150);
+                }
+            }
+
+            if ($(this).html().length == 1 && $(this).html() != ".") {
+                $(this).css({"background-color": "#FFF"});
+            } else {
+                $(this).css({"background-color": "#D1D5DA"});
+            }
+        });
+
+        $(".wptPassword .delete").off("touchend").on("touchend", function() {
+            if(passwordKeyIndex > 0) {
+                passwordKeyIndex--;
+                $(".wptPassword .password .passwordKey").eq(passwordKeyIndex).attr("num", "").html("");
+            }
+            $(this).css({"background-color": "#D1D5DA"});
+        });
+
+        $(".wptPassword .blank").off("touchend").on("touchend", function() {
+            $(document.body).trigger("wptPassword_view:hide");
+            if(typeof cancelFn == 'function'){
+                setTimeout(function(){
+                    cancelFn();
+                }, 600);
+            }
+        });
+
+        pushStateEvent('wptPassword_view:hide');
+        $(document).off("wptPassword_view:hide").one("wptPassword_view:hide", function (e) {
+            passwordKeyIndex = 0;
+            $(".wptPassword .password .passwordKey").attr("num", "").html("");
+            $(".wptPassword").hide();
+        });
+
+        $(".wptPassword").show();
+    }
+
+    //loading
+    function wptLoading(msg, callback, time) {
+        time = typeof time == "undefined" ? 1000 : time;
+        maskIsHide = false;
+        $(".wptLoading .loading").html(msg);
+
+        $(".wptLoading").show();
+        $(".wptLoading .loading").animate({opacity: 1}, time, function(){
+            if (typeof(callback) == 'function') callback();
+        });
+
+        $(document).off("wptLoading_view:hide").one("wptLoading_view:hide", function (e) {
+            maskIsHide = true;
+            $(".wptLoading .loading").css({opacity: 0});
+            $(".wptLoading").hide();
+        });
+
+        $(document).off("wptLoading_view:msg").on("wptLoading_view:msg", function (e, msg) {
+            $(".wptLoading .loading").html(msg);
+        });
+    }
+</script>
+
+<div class="wptShare">
+    <div class="wptMask"></div>
+    <div class="shareTip"></div>
+</div>
+
+<div class="wptAlert">
+    <div class="wptMask"></div>
+    <div class="dialog">
+        <div class="tip">
+            <div class="msg"></div>
+        </div>
+        <div class="btns">
+            <div class="btn-confirm">知道了</div>
+        </div>
+    </div>
+</div>
+
+<div class="wptConfirm">
+    <div class="wptMask"></div>
+    <div class="dialog">
+        <div class="tip">
+            <div class="msg"></div>
+        </div>
+        <div class="btns">
+            <div class="btn-confirm sure">确定</div>
+            <div class="btn-cancel">取消</div>
+        </div>
+    </div>
+</div>
+
+<div class="wptMultiConfirm">
+    <div class="wptMask"></div>
+    <div class="dialog">
+        <div class="tip">
+            <div class="msg"></div>
+        </div>
+        <div class="btns">
+            <div class="btn-cancel">取消</div>
+        </div>
+    </div>
+</div>
+
+<div class="wptPassword">
+    <div class="dialog">
+        <div class="tip">请输入交易密码</div>
+        <div class="password">
+            <div class="passwordKey" num=""></div>
+            <div class="passwordKey" num=""></div>
+            <div class="passwordKey" num=""></div>
+            <div class="passwordKey" num=""></div>
+            <div class="passwordKey" num=""></div>
+            <div class="passwordKey" num=""></div>
+        </div>
+    </div>
+    <div class="keyboard">
+        <ul>
+            <li class="num">1</li>
+            <li class="num">2</li>
+            <li class="num">3</li>
+            <li class="num">4</li>
+            <li class="num">5</li>
+            <li class="num">6</li>
+            <li class="num">7</li>
+            <li class="num">8</li>
+            <li class="num">9</li>
+            <li class="blank">取 消</li>
+            <li class="num">0</li>
+            <li class="delete"></li>
+        </ul>
+    </div>
+</div>
+
+<div class="wptLoading">
+    <div class="wptMask"></div>
+    <div class="loading"></div>
+</div>
+
+<img src="http://c.cnzz.com/wapstat.php?siteid=1254153498&amp;r=http%3A%2F%2Fw.weipaitang.com%2Fweixin%2Fscope%3Fcode%3D031fd16a73fcda7abf942b333974d13S%26state%3DWyIiXQ%253D%253D&amp;rnd=1383795167" width="0" height="0" style="display: none;">
+
+</body></html>

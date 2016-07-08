@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[新智能聊天机器人]]></name>
+		<identifie><![CDATA[n1ce_more]]></identifie>
+		<version><![CDATA[2.1]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[简单智能的聊天机器人]]></ability>
+		<description><![CDATA[简单智能的聊天机器人，增加粉丝黏度]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_n1ce_more_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '规则id',
+  `win` varchar(255) NOT NULL COMMENT '进入聊天提示语',
+  `lose` varchar(255) NOT NULL COMMENT '退出聊天关键字',
+  `draw` varchar(255) NOT NULL COMMENT '退出聊天提示语',
+  `rule` varchar(255) NOT NULL COMMENT '图灵API',
+  `ad` varchar(255) NOT NULL COMMENT '广告名称',
+  `aurl` varchar(255) NOT NULL COMMENT '广告链接',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

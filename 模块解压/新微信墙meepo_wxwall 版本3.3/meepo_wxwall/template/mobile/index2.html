@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="cn_ZH">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content=" initial-scale=1.0,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    
+    <title>{$title}</title>
+
+    <link rel="stylesheet" href="{TEMPLATE_PATH}css/pure.css" />
+    <link rel="stylesheet" href="/WechatWall{TEMPLATE_PATH}css/index.css?v=0.032" />
+    <script src="{TEMPLATE_PATH}js/jquery-2.1.1.min.js"></script>
+    <script src="/WechatWall{TEMPLATE_PATH}js/index.js?v=0.91"></script>
+    <style>
+    #close_one {
+		background-image: url({php echo TEMPLATE_PATH}images/close.png);
+		background-repeat: no-repeat;
+		background-size: 20px;
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		float: right;
+		position: relative;
+		top: -4px;
+		left: -16px;
+		cursor: pointer;
+	}
+    .comment {
+		background-image: url({php echo TEMPLATE_PATH}images/comment.png);
+		background-size: 18px;
+		background-repeat: no-repeat;
+		padding-left: 22px;
+		padding-right: 4px;
+		padding-top: 0;
+		padding-bottom: 6px;
+		font-size: 12px;
+		background-position: 0 0;
+		cursor: pointer;
+		color: #eee;
+		float: right;
+	}
+	.export {
+		background-image: url({php echo TEMPLATE_PATH}images/out.png);
+		background-size: 18px;
+		background-repeat: no-repeat;
+		padding-left: 22px;
+		padding-right: 4px;
+		padding-bottom: 6px;
+		padding-top: 0px;
+		font-size: 12px;
+		background-position: 0 0;
+		cursor: pointer;
+		color: #eee;
+		float: left;
+		margin-left: 4px;
+		vertical-align: baseline;
+	}
+    </style>
+</head>
+<body class="pure-skin-yang">
+    <canvas id="snow_canvas" style="position:fixed;z-index: 5000; top:0px;left:0px;pointer-events:none;"></canvas>
+    <div id="outer">
+    <header>
+        <h1>{$title}</h1>
+        <nav data-url="{php echo $this->createMobileUrl('index',array('act'=>'getContent','i'=>$_W['uniacid']))}">
+        <span data-eid="0" style="border-top:2px rgba(215, 41, 80, .85) solid;width:20%" class="">全部</span><span data-eid="1" style="border-top:2px rgba(239, 112, 39, .85) solid;width:20%" class="">表白</span><span data-eid="2" style="border-top:2px rgba(0, 175, 215, .85) solid;width:20%" class="">吐槽</span><span data-eid="3" style="border-top:2px rgba(229, 182, 0, .85) solid;width:20%" class="">心愿</span>        </nav>
+    </header>
+
+    <div id="post_box">
+        <fieldset>
+            <legend>想说点什么呢~</legend>
+            <form id="post_form" class="pure-form" action="{php echo $this->createMobileUrl('index',array('act'=>'postContent'))}" method="post">
+                <textarea class="content_input auto_height" name="post_content" id="post_content" rows="1" maxlength="300" placeholder="在这里说呢~"></textarea>
+                <div class="post_op">
+                    <label style="display:inline-block">发布在: <select name="post_class" id="post_class">
+                        <!-- <option value="1" selected="selected">栏目1</option> -->
+                    <option value="1">表白</option><option value="2">吐槽</option><option value="3">心愿</option>                    </select></label>
+                    <input type="text" class="nick_input" id="post_nick" name="post_nick" maxlength="12" placeholder="昵称" />
+                    <button class="pure-button pure-button-primary">发布</button>
+                </div>
+            </form>
+        </fieldset>
+    </div>
+
+    <div class="contents">
+        <ul id="items" data-comment-url="{php echo $this->createMobileUrl('index',array('act'=>'postComment'))}" data-comment-data-url="{php echo $this->createMobileUrl('index',array('act'=>'getComment'))}">
+        </ul>
+        <div id="get_more_data" class="pure-button pure-button-primary">查看更多</div>
+    </div>
+
+
+    <footer>
+        <div class="copy_str">{$wx_name} {$wx_num}</div>
+    </footer>
+    <!-- outer -->
+    </div>
+    
+    <div id="one_out" data-url="{php echo $this->createMobileUrl('index',array('act'=>'getOne'))}">
+        <div id="one_ex">
+            <span id="close_one"></span>
+            <div id="one">
+                <p style="text-align: center">请稍候……</p>
+            </div>
+        </div>
+    </div>
+    <div id="bubble_out"><div id="bubble"></div></div>
+    <div onclick="this.style.display='none'" id="share-wx"><p style="text-align: right; padding-left: 10px;"><img src="{TEMPLATE_PATH}images/share_to.png" id="share-wx-img" style="max-width: 280px; padding-right: 25px;"></p></div>
+    <img src="{TEMPLATE_PATH}images/bg.jpg" alt="background" id="background_img" />
+    <!-- <img src="{TEMPLATE_PATH}images/qx.jpg?1" alt="background" id="background_img" /> -->
+<script type="text/javascript">
+<!--
+window.shareData = {   
+           "imgUrl": '{php echo $share_img}', 
+            "timeLineLink": location.href,
+            "sendFriendLink": location.href,
+            "weiboLink": location.href,
+            "tTitle": '{php echo $share_title}',
+            "tContent": '{php echo $share_content}',
+            "fTitle": '{php echo $share_title}', 
+            "fContent": '{php echo $share_content}',
+            "wContent": '{php echo $share_content}'
+    };
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady(){
+    WeixinJSBridge.on('menu:share:appmessage', function(argv){
+        WeixinJSBridge.invoke('sendAppMessage', {
+            "img_url": window.shareData.imgUrl,
+            // "img_width": "640",
+            // "img_height": "640", 
+            "link": window.shareData.sendFriendLink,
+            "desc": window.shareData.fContent,
+            "title": window.shareData.fTitle
+        }, function(res){
+                    _report('send_msg', res.err_msg);
+                })
+        });
+
+    // 分享到朋友圈 
+    WeixinJSBridge.on('menu:share:timeline', function(argv){
+        WeixinJSBridge.invoke('shareTimeline', {
+            "img_url": window.shareData.imgUrl,
+            "img_width": "640",
+            "img_height": "640", 
+            "link": window.shareData.timeLineLink,
+            "desc": window.shareData.tContent,
+            "title": window.shareData.tTitle
+        }, function(res){
+                _report('timeline', res.err_msg);
+        });
+    });
+
+
+    // 分享到微博 
+    WeixinJSBridge.on('menu:share:weibo', function(argv){
+        WeixinJSBridge.invoke('shareWeibo', { 
+            "content": window.shareData.wContent,
+            "url": window.shareData.weiboLink,
+        }, function (res) { 
+                _report('weibo', res.err_msg);
+            });
+    });
+
+}, false)
+//-->
+</script>
+
+<div style="display: none">
+
+</div>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{template 'common/header'}
+<div class="main">
+{php load()->func('tpl');}
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1">
+		<div class="panel panel-default">
+			<div class="panel-heading">参数设置</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">图灵API&nbsp; KEY</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="rule" class="form-control" value="{$settings['rule']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">进入聊天提示语</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="win" class="form-control" value="{$settings['win']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">退出聊天关键字</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="lose" class="form-control" value="{$settings['lose']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">退出聊天提示语</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="draw" class="form-control" value="{$settings['draw']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">广告名称</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="ad" class="form-control" value="{$settings['ad']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">广告位1</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="aurl" class="form-control" value="{$settings['aurl']}" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+</div>
+{template 'common/footer'}

@@ -1,0 +1,91 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+  <li {if $operation == 'post'}class="active"{/if}><a href="{php echo $this->createWebUrl('card', array('op' => 'post'))}">添加卡券</a></li>
+  <li {if $operation == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('card', array('op' => 'display'))}">管理卡券</a></li>
+</ul>
+<script>
+require(['bootstrap'],function($){
+	$('.btn').hover(function(){
+		$(this).tooltip('show');
+	},function(){
+		$(this).tooltip('hide');
+	});
+});
+</script> 
+{if $operation == 'post'}
+<div class="main">
+  <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{php echo $id}" />
+    <div class="panel panel-default">
+      <div class="panel-heading"> 卡券管理 </div>
+      <div class="panel-body"> 
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">卡券名称</label>
+          <div class="col-sm-9 col-xs-12">
+            <input type="text" name="title" class="form-control" value="{$item['title']}" />
+            <div class="help-block"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">卡券ID</label>
+          <div class="col-sm-9 col-xs-12">
+            <input type="text" name="cardid" class="form-control" value="{$item['cardid']}" />
+            <div class="help-block">请先到卡券管理中获取【卡券ID】 <a href="./index.php?c=wechat&a=card&do=list" target="_blank">卡券中心</a></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">使用说明</label>
+          <div class="col-sm-9 col-xs-12">
+            <input type="text" name="description" class="form-control" value="{$item['description']}" />
+            <div class="help-block"></div>
+          </div>
+        </div>
+        
+
+      </div>
+    </div>
+    <div class="form-group col-xs-12">
+      <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" onclick="return checkform();return false" />
+      <input type="hidden" name="token" value="{$_W['token']}" />
+    </div>
+  </form>
+</div>
+{elseif $operation == 'display'}
+<div class="main">
+  <div class="category">
+    <form action="" method="post" onsubmit="return formcheck(this)">
+      <div class="panel panel-default">
+        <div class="panel-body table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th style="width:30px;">#</th>
+                <th>卡券名称</th>
+                <th>卡券ID</th>
+                <th>使用说明</th>
+                <th style="text-align:right">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+            {loop $list $row}
+            <tr>
+              <td></td>
+              <td>{$row['title']}</td>
+              <td>{$row['cardid']}</td>
+              <td>{$row['description']}</td>
+              <td style="text-align:right">
+              <a href="{php echo $this->createWebUrl('card',array('op' => 'post', 'id' => $row['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="编辑"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+              <a href="{php echo $this->createWebUrl('card',array('op' => 'delete', 'id' => $row['id']))}" onclick="return confirm('确实删除吗？');return false;"  class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a>
+              </td>
+            </tr>
+            {/loop}
+            <tr>
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{/if}
+{template 'common/footer'} 

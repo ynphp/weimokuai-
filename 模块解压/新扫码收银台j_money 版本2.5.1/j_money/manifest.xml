@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[新扫码收银台]]></name>
+		<identifie><![CDATA[j_money]]></identifie>
+		<version><![CDATA[2.5.1]]></version>
+		<type><![CDATA[biz]]></type>
+		<ability><![CDATA[新扫码收银台]]></ability>
+		<description><![CDATA[新扫码收银台]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<menu>
+		      <entry title="扩展按钮" do="extendbtn" state="" direct="false" />
+			  <entry title="抽奖设置" do="lottery" state="" direct="false" />
+			  <entry title="文章营销" do="artcle" state="" direct="false" />
+			  <entry title="小票打印模板" do="print" state="" direct="false" />
+			  <entry title="收银记录" do="history" state="" direct="false" />
+			  <entry title="营销活动" do="function" state="" direct="false" />
+			  <entry title="收银员管理" do="member" state="" direct="false" />
+		</menu>
+		<cover>
+		      <entry title="收银台入口" do="index" state="" direct="false" />
+		</cover>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_j_money_award` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `gid` int(10) unsigned NOT NULL COMMENT '活动ID',
+  `level` varchar(255) DEFAULT NULL COMMENT '奖品等级',
+  `thumb` varchar(255) DEFAULT NULL COMMENT '奖品图片',
+  `prizetype` tinyint(1) NOT NULL DEFAULT '0' COMMENT '奖品类型，0实物，1红包，2卡券',
+  `leavel` int(10) NOT NULL COMMENT '奖品级别',
+  `title` varchar(50) NOT NULL COMMENT '奖品名称',
+  `isprize` tinyint(1) NOT NULL DEFAULT '0',
+  `renum` int(10) NOT NULL DEFAULT '0' COMMENT '数量',
+  `total` int(10) NOT NULL DEFAULT '0' COMMENT '数量',
+  `probalilty` varchar(5) NOT NULL COMMENT '概率单位%',
+  `deg` int(5) NOT NULL COMMENT '角度',
+  `description` varchar(100) NOT NULL DEFAULT '' COMMENT '描述',
+  `credit` int(11) NOT NULL COMMENT '奖励积分',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=7 ;
+
+CREATE TABLE IF NOT EXISTS `ims_j_money_carduser` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL DEFAULT '0',
+  `title` varchar(50) NOT NULL COMMENT '回复标题',
+  `sub_title` varchar(50) NOT NULL COMMENT '回复标题',
+  `type` varchar(20) NOT NULL COMMENT '回复标题',
+  `extra` varchar(50) NOT NULL COMMENT '回复标题',
+  `openid` varchar(50) NOT NULL COMMENT '回复标题',
+  `userid` int(10) NOT NULL COMMENT '收银员账号',
+  `cardid` varchar(50) NOT NULL DEFAULT '',
+  `code` varchar(30) NOT NULL DEFAULT '',
+  `createtime` int(10) NOT NULL DEFAULT '0',
+  `description` varchar(200) NOT NULL COMMENT '卡券作用',
+  `groupid` int(10) NOT NULL DEFAULT '0' COMMENT '所属组别',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_j_money_extend` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '所属帐号',
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `btnname` varchar(50) NOT NULL COMMENT '按钮名称',
+  `btnurl` varchar(300) NOT NULL COMMENT '连接',
+  `jsurl` varchar(300) NOT NULL COMMENT 'js文件',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_j_money_group` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '所属帐号',
+  `companyname` varchar(50) NOT NULL COMMENT '公司名称',
+  `description` varchar(100) NOT NULL COMMENT '描述',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_j_money_lottery` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `gid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `aid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '奖品ID',
+  `isprize` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1为中奖',
+  `prizetype` tinyint(1) NOT NULL DEFAULT '0' COMMENT '奖品类型，0实物，1红包，2卡券',
+  `award` varchar(100) NOT NULL DEFAULT '' COMMENT '奖品名称',
+  `description` varchar(200) NOT NULL DEFAULT '' COMMENT '中奖信息描述',
+  `from_user` varchar(50) NOT NULL COMMENT '用户唯一身份ID',
+  `realname` varchar(20) NOT NULL COMMENT '用户名称',
+  `mobile` varchar(11) NOT NULL COMMENT '电话号码',
+  `status` tinyint(1) NOT NULL COMMENT '0未领奖，1已领奖',
+  `sncode` varchar(200) NOT NULL COMMENT '兑奖码，0为兑奖码，1为金额，2卡券ID',
+  `createtime` int(11) NOT NULL DEFAULT '0' COMMENT '参与日期',
+  `gettime` int(11) NOT NULL DEFAULT '0' COMMENT '领奖日期',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_j_money_lotterygame` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `thumb` varchar(200) NOT NULL COMMENT '活动图片',
+  `clientpic` varchar(200) NOT NULL COMMENT '活动图片',
+  `description` varchar(255) NOT NULL DEFAULT '',
+  `title` varchar(255) NOT NULL,
+  `zppic` varchar(200) NOT NULL COMMENT '转盘图片',
+  `pointer` varchar(200) NOT NULL COMMENT '指针图片',
+  `rule` varchar(2000) DEFAULT NULL COMMENT '活动描述',
+  `starttime` int(10) NOT NULL,
+  `endtime` int(10) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '开启/关闭',
+  `sharedes` varchar(50) NOT NULL COMMENT '关注连接',
+  `gzurl` varchar(300) NOT NULL COMMENT '关注连接',
+  `thumb_bg` varchar(300) NOT NULL COMMENT '活动图片',
+  `thumb_pointer` varchar(300) NOT NULL COMMENT '活动图片',
+  `bgcolor` varchar(10) NOT NULL COMMENT '活动图片',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=2 ;
+
+CREATE TABLE IF NOT EXISTS `ims_j_money_marketing` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '所属帐号',
+  `title` varchar(50) NOT NULL COMMENT '活动标题',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `starttime` int(10) NOT NULL COMMENT '开始时间',
+  `gameid` int(10) NOT NULL DEFAULT '0' COMMENT '大转盘游戏rid',
+  `endtime` int(10) NOT NULL COMMENT '结束时间',
+  `hour` varchar(50) NOT NULL COMMENT '活动时间段',
+  `num` int(10) NOT NULL COMMENT '人数设置',
+  `favorabletype` tinyint(1) NOT NULL DEFAULT '0' COMMENT '优惠类别',
+  `condition_fee` int(10) NOT NULL DEFAULT '0' COMMENT '满多少元',
+  `favorable` varchar(100) NOT NULL COMMENT '优惠',
+  `gid` int(10) NOT NULL COMMENT '游戏id',
+  `isallnum` tinyint(1) NOT NULL DEFAULT '0' COMMENT '人数设置为每天，还是总人数',
+  `condition` tinyint(1) NOT NULL DEFAULT '0' COMMENT '条件',
+  `condition_member` varchar(100) NOT NULL COMMENT '优惠',
+  `condition_attendtime` int(10) NOT NULL DEFAULT '0' COMMENT '关注天数',
+  `displayorder` int(10) NOT NULL DEFAULT '0' COMMENT '优先级',
+  `description` varchar(100) NOT NULL COMMENT '描述',
+  `isint` tinyint(1) NOT NULL DEFAULT '0' COMMENT '取整',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=2 ;
+
+CREATE TABLE IF NOT EXISTS `ims_j_money_print` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '所属帐号',
+  `pcate` tinyint(1) NOT NULL DEFAULT '0' COMMENT '类型',
+  `title` varchar(50) NOT NULL COMMENT '标题',
+  `pagewidth` int(10) NOT NULL DEFAULT '0' COMMENT '标题',
+  `pageheight` int(10) NOT NULL DEFAULT '0' COMMENT '标题',
+  `content` text COMMENT '打印内容',
+  `isdefault` tinyint(1) NOT NULL DEFAULT '0' COMMENT '默认模板',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_j_money_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL DEFAULT '0',
+  `rid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gameid` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `title` varchar(200) NOT NULL COMMENT '回复标题',
+  `cover` varchar(250) NOT NULL COMMENT '图文回复图片',
+  `description` varchar(250) NOT NULL COMMENT '图文回复描述',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=5 ;
+
+CREATE TABLE IF NOT EXISTS `ims_j_money_reward` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '所属帐号',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `completed` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `out_trade_no` varchar(32) NOT NULL COMMENT '商户订单号',
+  `openid` varchar(50) NOT NULL COMMENT '身份辨识号',
+  `marketid` int(10) NOT NULL DEFAULT '0' COMMENT '所属帐号',
+  `condition` tinyint(1) NOT NULL DEFAULT '0' COMMENT '条件',
+  `favorabletype` tinyint(1) NOT NULL DEFAULT '0' COMMENT '优惠类别',
+  `favorable` varchar(100) NOT NULL COMMENT '优惠',
+  `reward` varchar(50) NOT NULL DEFAULT '0' COMMENT '获得优惠',
+  `createtime` int(10) NOT NULL DEFAULT '0' COMMENT '订单时刻',
+  `endtime` int(10) NOT NULL DEFAULT '0' COMMENT '订单时刻',
+  `gettype` tinyint(1) NOT NULL DEFAULT '0' COMMENT '获取方式',
+  `log` varchar(200) NOT NULL COMMENT '日志',
+  `marketing_log` varchar(200) NOT NULL COMMENT '营销方案内容',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_j_money_trade` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '所属帐号',
+  `userid` int(10) NOT NULL COMMENT '收银员账号',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `paytype` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `openid` varchar(50) NOT NULL COMMENT '身份辨识号',
+  `is_subscribe` varchar(1) NOT NULL COMMENT '是否关注',
+  `trade_type` varchar(16) NOT NULL COMMENT '交易类型',
+  `bank_type` varchar(16) NOT NULL COMMENT '付款银行',
+  `fee_type` varchar(16) NOT NULL COMMENT '货币类型',
+  `total_fee` int(10) NOT NULL COMMENT '总金额',
+  `cash_fee_type` varchar(10) NOT NULL COMMENT '货币类型',
+  `cash_fee` int(10) NOT NULL COMMENT '实际支付金额',
+  `coupon_fee` int(10) NOT NULL COMMENT '代金券或立减优惠金额<=订单总金额，订单总金额-代金券或立减优惠金额=现金支付金额',
+  `transaction_id` varchar(64) NOT NULL COMMENT '微信支付订单号',
+  `out_trade_no` varchar(64) NOT NULL COMMENT '商户订单号',
+  `attach` varchar(128) NOT NULL COMMENT '商家数据包',
+  `time_end` varchar(14) NOT NULL COMMENT '身份辨识号',
+  `isconfirm` tinyint(1) NOT NULL DEFAULT '0' COMMENT '二次查询状态',
+  `marketing` int(10) NOT NULL DEFAULT '0' COMMENT '营销方案',
+  `marketing_log` varchar(200) NOT NULL COMMENT '营销方案内容',
+  `log` varchar(200) NOT NULL COMMENT '日志',
+  `createtime` int(10) NOT NULL COMMENT '订单时刻',
+  `createdate` varchar(20) NOT NULL COMMENT '订单日期',
+  `isprint` tinyint(1) NOT NULL DEFAULT '0' COMMENT '打印',
+  `old_trade_no` varchar(50) NOT NULL COMMENT '旧单号',
+  `groupid` int(10) NOT NULL DEFAULT '0' COMMENT '所属组别',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_j_money_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '所属帐号',
+  `useracount` varchar(50) NOT NULL COMMENT '登陆账号',
+  `pcate` int(10) NOT NULL DEFAULT '0' COMMENT '所属团队',
+  `realname` varchar(50) NOT NULL COMMENT '姓名',
+  `mobile` varchar(20) NOT NULL COMMENT '电话',
+  `password` varchar(50) NOT NULL COMMENT '密码',
+  `login_pc` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'PC端登录',
+  `login_m` tinyint(1) NOT NULL DEFAULT '0' COMMENT '手机端登录',
+  `createtime` int(10) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `lasttime` int(10) NOT NULL DEFAULT '0' COMMENT '最后登录时间',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `openid` varchar(50) NOT NULL COMMENT 'openid',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+    ]]></install>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
