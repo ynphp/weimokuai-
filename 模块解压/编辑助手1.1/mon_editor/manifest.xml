@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<manifest xmlns="http://www.012wz.com" versionCode="0.5,0.51,0.52">
+
+	<application setting="false">
+
+		<name><![CDATA[编辑助手]]></name>
+
+		<identifie><![CDATA[mon_editor]]></identifie>
+
+		<version><![CDATA[1.1]]></version>
+
+		<type><![CDATA[activity]]></type>
+
+		<ability><![CDATA[编辑助手]]></ability>
+
+		<description><![CDATA[编辑助手]]></description>
+
+		<author><![CDATA[柒|柒|源|码 H770.com]]></author>
+
+		<url><![CDATA[]]></url>
+
+	</application>
+
+	<platform>
+
+		<subscribes>
+
+		</subscribes>
+
+		<handles>
+
+
+
+		</handles>
+
+
+
+	</platform>
+
+	<bindings>
+
+		<menu>
+
+			<entry title="编辑助手" do="index" state="" />
+
+
+
+		</menu>
+
+	</bindings>
+
+
+
+	<install>
+
+	</install>
+
+	<uninstall></uninstall>
+
+	<upgrade></upgrade>
+
+</manifest>
