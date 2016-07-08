@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://bbs.heirui.cn" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[到此一游]]></name>
+		<identifie><![CDATA[junsion_feelings]]></identifie>
+		<version><![CDATA[1.3]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[到此一游]]></ability>
+		<description><![CDATA[到此一游]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="应用场景" do="index" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+	CREATE TABLE IF NOT EXISTS `ims_junsion_feelings_rule`(
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`weid` int(11) NOT NULL,
+		`slideH` int(11) NOT NULL,
+		`title` varchar(50) NOT NULL,
+		`sliders` text,
+		`defaultImg` varchar(200) DEFAULT '',
+		`checked1` tinyint(1) DEFAULT 0,
+		`checked2` tinyint(1) DEFAULT 0,
+		`type` tinyint(1) DEFAULT 0 COMMENT '0不用关注 1必须关注 2七天临时 3永久二维码',
+		`btns` text,
+		`bgcolor` varchar(10) DEFAULT '#efefef',
+		`createtime` int(10) DEFAULT 0,
+		PRIMARY KEY (`id`)
+	 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+	 
+	 CREATE TABLE IF NOT EXISTS `ims_junsion_feelings_qrcode`(
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`rid` int(11) NOT NULL,
+		`title` varchar(50) NOT NULL,
+		`qid` int(11) NOT NULL,
+		PRIMARY KEY (`id`)
+	 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+	 
+	 CREATE TABLE IF NOT EXISTS `ims_junsion_feelings_record`(
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`qid` int(11) NOT NULL,
+		`rid` int(11) NOT NULL,
+		`openid` varchar(50) NOT NULL,
+		`nickname` varchar(50) NOT NULL,
+		`avatar` varchar(200) NOT NULL,
+		`uploadImg` varchar(200) DEFAULT '',
+		`word` varchar(200) DEFAULT '',
+		`checked` tinyint(1) DEFAULT 0,
+		`createtime` int(10) DEFAULT 0,
+		PRIMARY KEY (`id`),
+		KEY `qid` (`qid`),
+		KEY `rid` (`rid`)
+	 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+	 
+	 CREATE TABLE IF NOT EXISTS `ims_junsion_feelings_comment`(
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		`rid` int(11) NOT NULL,
+		`reid` int(11) NOT NULL,
+		`nickname` varchar(50) NOT NULL,
+		`avatar` varchar(200) NOT NULL,
+		`openid` varchar(200) NOT NULL,
+		`words` text,
+		`goods` tinyint(1) DEFAULT 0,
+		`checked` tinyint(1) DEFAULT 0,
+		`createtime` int(10) DEFAULT 0,
+		PRIMARY KEY (`id`),
+		KEY `rid` (`rid`),
+		KEY `reid` (`reid`)
+	 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+	
+	]]></install>
+	<uninstall><![CDATA[
+	drop table ims_junsion_feelings_rule;
+	drop table ims_junsion_feelings_qrcode;
+	drop table ims_junsion_feelings_record;
+	drop table ims_junsion_feelings_comment;
+	]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

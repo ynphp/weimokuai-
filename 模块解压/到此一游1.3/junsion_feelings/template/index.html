@@ -1,0 +1,295 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if $op == 'post'}class="active"{/if}><a href="{php echo $this->createWebUrl('index', array('op' => 'post'));}">添加应用场景</a></li>
+	<li {if !$op}class="active"{/if}><a href="{php echo $this->createWebUrl('index');}">应用场景列表</a></li>
+</ul>
+<style>
+.table th{text-align: center !important;}
+.table td{text-align: center !important;}
+.table td span{display:inline-block;margin-top:4px;}
+.table td input{margin-bottom:0;}
+.red{color:red;font-weight:bold}
+</style>
+{if !$op}
+<div class="main">
+    <div style="padding:15px;background: white;">
+
+        <table class="table table-hover">
+
+            <thead class="navbar-inner">
+
+                <tr>
+					<th>场景名称</th>
+					<th>创建时间</th>
+                    <th>操作</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {loop $list $l}
+
+                <tr>
+					<td>{$l['title']}</td>
+					<td>{php echo date('Y-m-d H:i',$l['createtime'])}</td>
+					<td>
+						<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('index',array('op'=>'post','id'=>$l['id']))}">编辑</a>
+						<a href="{php echo $this->createWebUrl('qrcode',array('rid'=>$l['id']))}" class="btn btn-warning btn-sm">参与({$l['counts']})</a> 
+						<a class="btn btn-success btn-sm" href="{php echo $this->createWebUrl('index',array('op'=>'qrcode','id'=>$l['id']))}">下载二维码</a>
+						<a onclick="return confirm('删除后数据将不可恢复，确定删除吗？')" class="btn btn-danger btn-sm" href="{php echo $this->createWebUrl('del',array('rid'=>$l['id']))}">删除</a>
+					</td>
+                </tr>
+
+                {/loop}
+
+            </tbody>
+
+        </table>
+
+        {$pager}
+
+    </div>
+
+</div>
+{else}
+<style>
+
+.item{
+
+		padding: 10px;
+
+		border: 1px solid gainsboro;
+
+		margin: 5px;
+
+		width: 330px;
+
+		float: left;
+
+		position: relative;
+
+		text-align: center;
+
+	}
+
+	
+
+	.item img{
+
+		width: 100%;
+
+	}
+
+	
+
+	.item input{
+
+		margin-top: 10px;
+
+		display: inline;
+
+	}
+
+	
+
+	.item input[type=text]{
+
+		width: 65%;
+
+	}
+
+	.item input[type=number]{
+
+		width: 30%;
+
+		margin-right: 2%;
+
+	}
+
+	
+
+	.item span{
+
+		position: absolute;
+
+		right: 0;
+
+		font-size: 25px;
+
+		color: red;
+
+	}
+
+	.item span:hover{
+
+		font-size: 30px;
+
+		border: 1px solid gainsboro;
+
+		border-radius: 5px;
+
+		background: black;
+
+		cursor: pointer;
+
+	}
+
+	.img_group p{
+
+		text-align: center;
+
+	}
+</style>
+{php load()->func('tpl');}
+<form action="" method="post" class="form form-horizontal">
+<div class="panel panel-default">
+	<div class="panel-heading">场景设置</div>
+	<div class="panel-body">
+	<input type="hidden" name="id" value="{$item['id']}">
+		<div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 control-label"> 场景名称</label>
+            <div class="col-sm-10 col-xs-12">
+               	<input type="text" class="form-control" name="title" required="required" value="{$item['title']}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 control-label"> 上传默认图片</label>
+            <div class="col-sm-10 col-xs-12">
+               	{php echo tpl_form_field_image('defaultImg',$item['defaultImg']);}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 control-label"> 背景颜色</label>
+            <div class="col-sm-10 col-xs-12">
+               	{php echo tpl_form_field_color('bgcolor',$item['bgcolor']);}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 control-label" style="padding-top: 0;"> 参与条件</label>
+            <div class="col-sm-10 col-xs-12">
+             {if $item['type'] < 2}  	
+             	<label><input type="radio" name="type" value='0' checked> 不用关注</label>
+               	<label style="margin-left: 20px;"><input type="radio" name="type" value='1' {if $item['type']==1}checked{/if}> 必须关注</label>
+             {/if}
+           <!--   {if $item['type']>1 || empty($item)}  	
+             	<label style="margin-left: 20px;"><input type="radio" name="type" value='2' {if $item['type']==2}checked{/if}> 七天参数二维码</label>
+               	<label style="margin-left: 20px;"><input type="radio" name="type" value='3' {if $item['type']==3}checked{/if}> 永久参数二维码</label>
+               {/if} 
+               	<div class="help-block">注意：选择后将不可修改</div>
+               	-->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 control-label"> 二维码标识</label>
+            <div class="col-sm-10 col-xs-12">
+               	<input type="text" class="form-control" required="required" name="qrcode" value="{$item['qrcode']}">
+               	<div class="help-block">每个二维码的名称，方便于管理，多个请以分号(;)隔开，生成二维码以这里数量为准;</div>
+               	<div class="help-block">生成后尽量不要删除，尽量只往后面增加，否则会影响数据</div>
+               	<div class="help-block">例如： 'A桌;B桌;C桌;D桌' 将生成4张二维码</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 control-label"> 是否审核</label>
+            <div class="col-sm-10 col-xs-12">
+               <label><input name='checked1' type="checkbox" value="1" {if $item['checked1']}checked{/if}> 上传审核</label>
+               <label style="margin-left: 10px;"><input name='checked2' type="checkbox" value="1" {if $item['checked2']}checked{/if}> 评论审核</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-2 col-md-2 control-label"> 前端附加按钮</label>
+            <div class="col-sm-10 col-xs-12">
+            <div id="demo" style="display: none;">
+            	<div class="input-group" style="margin-bottom: 10px;">
+               		<div class="input-group-addon">按钮文字</div>
+               		<input class="form-control" maxlength="4" type="text" name="btitle[]">
+               		<div class="input-group-addon">链接</div>
+               		{php echo tpl_form_field_link('burl[]','');}
+               	</div>
+            </div>
+            {loop unserialize($item['btns']) $b}
+               	<div class="input-group" style="margin-bottom: 10px;">
+               		<div class="input-group-addon">按钮文字</div>
+               		<input class="form-control"  maxlength="4" type="text" name="btitle[]" value="{$b['title']}">
+               		<div class="input-group-addon">链接</div>
+               		{php echo tpl_form_field_link('burl[]',$b['url']);}
+               	</div>
+             {/loop}
+             <a class='btn btn-warning btn-sm' onclick="onAdd(this)"><i class="fa fa-plus"></i>增加附加按钮</a>
+            </div>
+        </div>
+	</div>
+</div>
+<div class="panel panel-default setting">
+	<div class="panel-heading">
+		幻灯片
+	</div>
+	<div class="panel-body">
+				<span id="selectimage1" class="btn btn-primary"><i class="icon-plus"></i> 上传图片</span>
+					<div class="input-group" style="display: inline-table;width: 220px;vertical-align: middle;">
+						 <span class="input-group-addon">幻灯片高度</span>
+                        <input class="form-control" type="number" maxlength="3" min="0"  name="slideH" value="{if $item}{$item['slideH']}{else}110{/if}">
+                        <span class="input-group-addon">像素</span>
+                    </div>
+				<div id="listimage1" style="margin-top: 10px;">
+				{loop $slider $p}
+					<div class="item">
+						<span onclick="$(this).parent().remove()" class="glyphicon glyphicon-remove-circle"></span>
+						<img src="{php echo toimage($p['picurl'])}">
+						<input name="picurl[{$p['id']}]" value="{$p['picurl']}" type="hidden">
+						<input placeholder="排序" class="form-control" name="displayorder[{$p['id']}]" type="number"  min="0" value="{$p['displayorder']}">
+						<input placeholder="链接地址" class="form-control" name="link[{$p['id']}]" type="text" value="{$p['link']}">
+					</div>
+				{/loop}
+				</div>
+     </div>
+ </div>
+ <button class="btn btn-primary" name="submit" value="提交" style="margin-bottom: 50px;">提交</button>
+ <input type="hidden" name="token" value="{$_W['token']}">
+</form>
+<script type="text/javascript">
+
+	function onAdd(obj){
+		$(obj).before($('#demo').html());
+	}
+
+	require(['jquery', 'util'], function($, util){
+
+		$(function(){
+
+			// 对象绑定点击事件
+
+			$('#selectimage1').click(function(){
+
+				util.uploadMultiPictures(function(list){
+
+					// your code here
+
+					for(var i=0; i<list.length; i++){
+
+						var s = '<div class="item"><span onclick="$(this).parent().remove()" class="glyphicon glyphicon-remove-circle"></span>';
+
+						s += '<img src="'+list[i]['url']+'">';
+
+						s += '<input name="picurl[]" type="hidden" value="'+list[i]['filename']+'">';
+
+						s += '<input placeholder="排序" class="form-control" name="displayorder[]" type="number" min="0" value="0">';
+
+						s += '<input placeholder="跳转链接" class="form-control" name="link[]" type="text"></div>';
+
+						$('#listimage1').append(s);
+
+					}
+
+				});
+
+			});
+
+		});
+
+	});
+</script>
+{/if}
+
+
+{template 'common/footer'}

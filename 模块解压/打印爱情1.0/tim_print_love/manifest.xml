@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[打印爱情]]></name>
+		<identifie><![CDATA[tim_print_love]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[打印爱情，输出美好的回忆]]></ability>
+		<description><![CDATA[打印爱情，输出美好的回忆]]></description>
+		<author><![CDATA[柒.柒.源.码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="进入打印爱情" do="Cover1" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="全局设置" do="Set" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_tim_print_love` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `text_img1` varchar(200) DEFAULT NULL,
+  `text_img2` varchar(200) DEFAULT NULL,
+  `text_img3` varchar(200) DEFAULT NULL,
+  `text_img4` varchar(200) DEFAULT NULL,
+  `text_img5` varchar(200) DEFAULT NULL,
+  `text_img6` varchar(200) DEFAULT NULL,
+  `vedio_link` varchar(200) DEFAULT NULL,
+  `share_title` varchar(100) DEFAULT NULL,
+  `share_icon` varchar(200) DEFAULT NULL,
+  `share_content` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
