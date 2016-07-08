@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[摇一摇·周边红包]]></name>
+		<identifie><![CDATA[n1ce_shake]]></identifie>
+		<version><![CDATA[1.6]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[摇一摇·周边红包]]></ability>
+		<description><![CDATA[摇一摇·周边红包]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="摇一摇红包设置" do="Lottery" state="" direct="false" />
+			<entry title="摇红包说明" do="System" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+	 CREATE TABLE IF NOT EXISTS `ims_n1ce_shake_acts` (
+  `act_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `uniacid` int(11) unsigned NOT NULL,
+  `title` varchar(20) NOT NULL DEFAULT '' COMMENT '抽奖活动名称',
+  `desc` varchar(20) NOT NULL DEFAULT '' COMMENT '抽奖活动描述',
+  `onoff` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '抽奖开关',
+  `begin_time` int(10) unsigned NOT NULL COMMENT '抽奖活动开始时间',
+  `expire_time` int(10) unsigned NOT NULL COMMENT '抽奖活动结束时间',
+  `total` int(10) unsigned NOT NULL COMMENT '红包总数',
+  `usebefore` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '已添加红包统计',
+  `jump_url` varchar(120) NOT NULL DEFAULT '' COMMENT '跳转到',
+  `lottery_id` varchar(80) NOT NULL DEFAULT '' COMMENT '生成的红包活动id',
+  `page_id` int(11) unsigned NOT NULL COMMENT '生成的模板页面ID',
+  PRIMARY KEY (`act_id`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_n1ce_shake_before` (
+  `before_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `uniacid` int(10) unsigned NOT NULL COMMENT 'uniacid',
+  `mch_billno` varchar(32) NOT NULL DEFAULT '' COMMENT '商户订单号',
+  `send_name` varchar(32) NOT NULL DEFAULT '' COMMENT '商户名称',
+  `hb_type` varchar(16) NOT NULL DEFAULT 'NORMAL' COMMENT '红包类型',
+  `total_amount` int(11) unsigned NOT NULL COMMENT '总金额',
+  `total_num` int(11) unsigned NOT NULL COMMENT '红包发放总人数(普通红包填1，裂变红包必须大于1)',
+  `amt_type` varchar(32) NOT NULL DEFAULT '' COMMENT '红包金额设置方式',
+  `wishing` varchar(16) NOT NULL DEFAULT '' COMMENT '红包祝福语',
+  `act_name` varchar(32) NOT NULL DEFAULT '' COMMENT '活动名称',
+  `remark` varchar(32) NOT NULL DEFAULT '' COMMENT '备注',
+  `risk_cntl` varchar(32) NOT NULL DEFAULT '' COMMENT '风控设置',
+  `result_code` varchar(16) NOT NULL DEFAULT '' COMMENT '业务结果',
+  `err_code` varchar(32) NOT NULL DEFAULT '' COMMENT '错误代码',
+  `ticket` varchar(200) NOT NULL DEFAULT '' COMMENT 'Ticket',
+  `detail_id` varchar(80) NOT NULL DEFAULT '' COMMENT '红包订单号',
+  `enabled` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '使用状态 0不可用 1可用',
+  `expire` int(10) unsigned NOT NULL COMMENT '过期时间',
+  `act_id` int(11) unsigned NOT NULL COMMENT '所属活动',
+  `created` int(11) NOT NULL COMMENT '申请时间',
+  PRIMARY KEY (`before_id`),
+  KEY `uniacid` (`uniacid`,`act_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+	]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,256 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li><a href="{php echo $this->createWebUrl('api');}">接口参数</a></li>
+    <li  class="active"><a href="{php echo $this->createWebUrl('activity');}">活动设置</a></li>
+    <li><a href="{php echo $this->createWebUrl('winner');}">红包记录</a></li>
+</ul>
+<script>
+    require(['angular', 'bootstrap', 'underscore', 'util'], function(angular, $, _, u){
+        $(function(){
+            u.editor($('.richtext')[0]);
+        });
+        angular.module('app', []).controller('formPanel', function($scope, $http){
+            $scope.activity = {php echo json_encode($activity)};
+            $scope.submit = function() {
+                var message = '';
+                if($.trim($scope.activity.title) == '') {
+                    message += '必须输入活动名称<br>';
+                }
+                if($.trim($scope.activity.title).length > 10) {
+                    message += '活动名称不能大于10个字符<br>';
+                }
+                if($.trim($scope.activity.provider) == '') {
+                    message += '必须输入红包提供商名称<br>';
+                }
+                if($.trim($scope.activity.wish) == '') {
+                    message += '必须输入红包祝福语<br>';
+                }
+                if($.trim($scope.activity.remark) == '') {
+                    message += '必须输入红包说明<br>';
+                }
+                if($.trim($(':text[name=image]').val()) == '') {
+                    message += '必须输入红包分享图片<br>';
+                }
+                if($.trim($(':text[name=stitle]').val()) == '') {
+                    message += '必须输入红包分享标题<br>';
+                }
+                if($.trim($('textarea[name=content]').val()) == '') {
+                    message += '必须输入红包分享文案<br>';
+                }
+                $scope.activity.fee.downline = parseInt($scope.activity.fee.downline);
+                $scope.activity.fee.upline = parseInt($scope.activity.fee.upline);
+                if(isNaN($scope.activity.fee.downline) || isNaN($scope.activity.fee.upline) || $scope.activity.fee.downline > $scope.activity.fee.upline) {
+                    message += '红包金额输入有误<br>';
+                }
+                if(message) {
+                    u.message(message);
+                    return false;
+                }
+                $('#theform')[0].submit();
+            }
+        });
+        angular.bootstrap(document, ['app']);
+    });
+</script>
+<div class="clearfix">
+    <form id="theform" class="form form-horizontal ng-cloak" action="" method="post" ng-controller="formPanel">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                活动设置
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="title" class="form-control" ng-model="activity.title">
+                        <span class="help-block">这次领红包活动的名称</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动时间</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {php echo tpl_form_field_daterange('time', $activity['time'], true)}
+                        <span class="help-block">活动的时间范围, 其他时间活动将不能访问</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动规则</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <textarea name="rule" class="form-control richtext" rows="5" ng-model="activity.rule"></textarea>
+                       <!-- <span class="help-block">换行用{php echo htmlentities("</br>")}</span>-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">关注引导页</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="attention" class="form-control" ng-model="activity.attention">
+                        <span class="help-block">用户未关注时提示关注的页面</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">每天可以摇奖的次数</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="daynumber" class="form-control" ng-model="activity.daynumber">
+                        <!--<span class="help-block">为0表示不限制</span>-->
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">每天分享最多可以增加的次数</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="sharenumber" class="form-control" ng-model="activity.sharenumber">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="col-xs-12 col-sm-3 col-md-2 control-label">活动期间可以摇奖次数</label>-->
+                    <!--<div class="col-sm-9 col-xs-12">-->
+                        <!--<input type="text" name="actnumber" class="form-control" ng-model="activity.actnumber">-->
+                        <!--<span class="help-block">为0表示不限制</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">中奖次数</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="winnernum" class="form-control" ng-model="activity.winnernum">
+                        <span class="help-block">用户在活动期间中奖次数</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">多少积分可摇一次</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="pointnum" class="form-control" ng-model="activity.pointnum">
+                        <span class="help-block">积分增加次数</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">积分摇奖次数限制</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="pointlimit" class="form-control" ng-model="activity.pointlimit">
+                        <span class="help-block">积分兑换次数限制</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包提供商名称</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="provider" class="form-control" ng-model="activity.provider">
+                        <span class="help-block">红包提供商名称, 请参考最终效果预览</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包祝福语</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="wish" class="form-control" ng-model="activity.wish">
+                        <span class="help-block">红包祝福语, 请参考最终效果预览</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包说明</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <textarea name="remark" class="form-control" rows="5" ng-model="activity.remark"></textarea>
+                        <span class="help-block">红包说明, 请参考最终效果预览</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">中奖概率</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {loop  $activity['fee']['downline'] $index $value}
+                        <div class="row row-fix" style="margin-bottom: 10px;">
+                            <div class="col-sm-4 col-xs-2">
+                                <div class="input-group">
+                                    <input type="text" name="fee[downline][]" class="form-control" value="{php echo $activity['fee']['downline'][$index];}">
+                                    <span class="input-group-addon" style="border-left:none;border-right:none;">至</span>
+                                    <input type="text" name="fee[upline][]" class="form-control" value="{php echo $activity['fee']['upline'][$index];}">
+                                    <span class="input-group-addon">{if $activity['fee']['model'][$index]==1}元{else}积分{/if}</span>
+                                </div>
+                            </div>
+                            <div  class="col-sm-3 col-xs-2">
+                                <input type="text" name="fee[probability][]" class="form-control" value="{php echo $activity['fee']['probability'][$index];}"  placeholder="摇到的概率" >
+                            </div><div style="vertical-align: middle;margin-top:8px;">%&nbsp;&nbsp;<a href="#" onclick="return deleteprice(this)">删除</a></div>
+                            <input type="hidden" name="fee[model][]" value="{php echo $activity['fee']['model'][$index];}"/>
+                        </div>
+
+                         {/loop}
+                        <input id="addbtn" type="button" value="新增红包" class="btn btn-primary btn-block" style="width:50%;" onclick="javascript:addprice(this,1)" />
+                        <input type="button" value="新增积分" class="btn btn-primary btn-block" style="width:50%;" onclick="javascript:addprice(this,2)" />
+                        <span class="help-block">红包金额范围, 用户每次摇到的金额和概率</span>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包内容预览</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="alert alert-info">红包消息: 你参加 <mark>抢红包活动</mark>，成功获得 <mark>{{activity.provider}}</mark> 赠送的红包。<mark>{{activity.remark}}</mark></div>
+                        <div class="alert alert-info">拆开红包: 你成功领取了 <mark>{{activity.provider}}</mark> 发放的红包。 红包金额：<mark>1</mark> 元  <mark>{{activity.wish}}</mark></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                红包分享信息
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享的图片</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {php echo tpl_form_field_image('image', $activity['image'])}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享的标题</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="stitle" class="form-control" ng-model="activity.stitle">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享文案</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <textarea name="content" class="form-control" rows="5">{$activity['content']}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-md-2 col-lg-1">
+                        <input type="button" value="保存" class="btn btn-primary btn-block" ng-click="submit();" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <script>
+
+            function addprice(t,m){
+                var  pre = "";
+                if(m == 1){
+                    pre = "元";
+                }else{
+                    pre = "积分";
+                }
+                var content = '<div class="row row-fix" style="margin-bottom: 10px;">'+
+                        '<div class="col-sm-4 col-xs-2">'+
+                        '<div class="input-group">'+
+                        '<input type="text" name="fee[downline][]" class="form-control">'+
+                        '<span class="input-group-addon" style="border-left:none;border-right:none;">至</span>'+
+                        '<input type="text" name="fee[upline][]" class="form-control">'+
+                        '<span class="input-group-addon">'+pre+'</span>'+
+                        '</div>'+
+                        '</div>'+
+                        '<div  class="col-sm-3 col-xs-2">'+
+                        '<input type="text" name="fee[probability][]" class="form-control" placeholder="摇到的概率" >'+
+                        '</div><div style="vertical-align: middle;margin-top:8px;">%&nbsp;&nbsp;<a href="#" onclick="return deleteprice(this)">删除</a></div>'+
+                        '<input type="hidden" name="fee[model][]" value="'+m+'"/>'+
+                        '</div>';
+                $("#addbtn").before(content);
+            }
+            function deleteprice(d){
+                $(d).parent().parent().remove();
+                return false;
+            }
+
+
+
+        </script>
+{template 'common/footer'}

@@ -1,0 +1,41 @@
+<div data-role="footer" data-position="fixed" data-theme="a" style="position: fixed">
+    <div data-role="navbar">
+        <ul>
+            <li><a href="{php echo $this->createMobileUrl('list')}" data-ajax="false" data-icon="home" >首页</a></li>
+            <li><a href="{php echo $this->createMobileUrl('rule')}" data-ajax="false" data-icon="star" >活动规则</a></li>
+            <li><a href="{php echo $this->createMobileUrl('getaward')}" data-ajax="false"  data-icon="mail">奖品兑换</a></li>
+        </ul>
+    </div>
+</div>
+<script>
+    wx.ready(function () {
+        sharedata = {
+            title: "{$_share['title']}",
+            desc: "{$_share['content']}",
+            link: "{$_share['link']}",
+            imgUrl: "{$_share['imgUrl']}",
+            success: function(){
+                $.ajax({
+                    url: "{php echo $this->createMobileUrl('ajaxaddyiy')}",
+                    dataType: "json",
+                    ansyc: false,
+                    success: function (data) {
+                        if(data.code == -1){
+                            alert('您分享兑换积分次数已经用完');
+                        }else{
+                            alert('分享兑换成功！您还剩'+data.sharenumber+"分享兑换机会");
+                        }
+                    }
+                });
+                $(".winner").hide();
+                $(".message").hide();
+
+            },
+            cancel: function(){
+
+            }
+        };
+        wx.onMenuShareAppMessage(sharedata);
+        wx.onMenuShareTimeline(sharedata);
+    });
+</script>

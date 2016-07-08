@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0311)http://b.qianduan.com/Mammon/Index?inviteCode=LLHANRSD&inviteOpeinId=oXd9-jkRwFijWDNrpqeD6J2NItf8&friendUrl=http://wx.qlogo.cn/mmopen/3zbIsPfpdYIZLHWiae7QbEAeOLiauqLJtr7Kkq293fX2EiciaGUia5cgTE6l12Da7cE7BwkYicRBq8YrfaTuE8oj1QCg/0&friendNickName=My%E4%B9%90%E6%B4%BE&code=041c4ba9619158b2a048c74b4a250b8X&state=-1 -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>{$actdetail[title]}-排行榜www.tmd9.com</title>
+    <link rel="stylesheet" href="../addons/enjoy_guess/public/css/style.css">
+</head>
+<body>
+    <div class="header">
+        <div class="banner">
+
+      <img class="img01" src="../addons/enjoy_guess/public/images/banner2.png" alt="">
+
+        </div><!--/banner-->
+
+    
+    <section class="se1">
+    {php $i=1}
+    {loop $rolls $item}
+    
+         <div class="para02 clearInlGap">
+          <div class="winner theFirstLev">
+            <div class="avatar">
+              <div class="inner">
+                <img src="{php echo tomedia($item[img])}" alt="用户头像">
+              </div>
+            </div><!--/avatar-->
+            <div class="info">第{php echo $i}名</div><!--/info-->
+          </div><!--/winner-->
+          <div class="part-r">
+            <p>{$item[nickname]}猜中{$item[title]}，金额是<b>{$item[money]}</b>元，{$item[comment]}</p>
+          </div><!--/part-r-->
+        </div><!--/para02-->
+        {php $i++}
+{/loop}
+        <div class="main_list">
+        <!--  
+          <div class="msg-item grid">
+            <div class="grid-1-6 tAr">
+              <div class="msger">
+                <div class="avatar">
+                  <img src="./my_files/avatar_4.jpg" alt="头像">
+                </div>
+              </div>
+            </div>
+            <div class="grid-5-6">
+              <div class="msg-box">
+                <div class="inner">
+                  <p>暂时没有累加奖金，继续加油哦！喊好友们帮你点一下，坐等收钱，太轻松啦！</p>
+                </div>
+              </div>
+            </div>
+          </div>-->
+            <a class="btn01 btnShare mt30 wd-full" href="javascript:;" onclick="history.go(-1)">返回</a>
+
+        </div>
+        <section class="sec-actiRule">
+            <h1 class="title">活动规则</h1>
+            <ul class="rule-list">
+           {php echo htmlspecialchars_decode($actdetail[rule])}
+            </ul>
+        </section><!--/sec-actiRule-->
+    </section>
+    <!--弹框-->
+    <div class="mask close" style="overflow: hidden; display: none;">
+    </div>
+    <div id="shareGuideWx" class="guideBox guideBox-2" style="overflow: hidden; display: none;">
+        <div class="inner">
+            <img src="./my_files/guide_share_ios.png" alt="操作指引(微信): 分享到朋友圈">
+        </div>
+        <!--/inner-->
+    </div>
+    <!--/guideBox-->
+    <div id="dlGuideIOS" class="guideBox">
+        <div class="inner">
+            <img src="./my_files/guide_download_ios.png" alt="下载指引: IOS">
+        </div>
+        <!--/inner-->
+    </div>
+    <!--/guideBox-->
+    <div id="dlGuideAndroid" class="guideBox">
+        <div class="inner">
+            <img src="./my_files/guide_download_android.png" alt="下载指引: 安卓">
+        </div>
+        <!--/inner-->
+    </div>
+        <script src="./my_files/zepto.min.js"></script>
+    <script src="../addons/enjoy_guess/public/js/main.js"></script>
+    <script src="./my_files/fx.js" type="text/javascript"></script>
+    <script src="./my_files/selector.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./my_files/jquery-1.7.1.min.js"></script><script type="text/javascript" src="./my_files/jweixin-1.0.0.js"></script><script type="text/javascript" src="./my_files/WxConfig.js"></script><script type="text/javascript" src="./my_files/comBaidu.js"></script>
+    <!--/guideBox-->
+
+
+
+
+</div></body></html>

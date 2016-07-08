@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[一键导航]]></name>
+		<identifie><![CDATA[yhc_onenavi]]></identifie>
+		<version><![CDATA[1.1]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[手指点一点，自动规划路线到目的地]]></ability>
+		<description><![CDATA[手指点一点，自动规划路线到目的地]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="location" />
+		</subscribes>
+		<handles>
+			<message type="location" />
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_yhc_onenavi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) DEFAULT NULL,
+  `uniacid` int(11) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL COMMENT '标题',
+  `lat` varchar(20) DEFAULT NULL COMMENT '坐标经度',
+  `lng` varchar(20) DEFAULT NULL COMMENT '坐标维度',
+  PRIMARY KEY (`id`),
+  KEY `rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

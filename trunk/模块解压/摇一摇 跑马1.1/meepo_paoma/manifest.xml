@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[摇一摇跑马]]></name>
+		<identifie><![CDATA[meepo_paoma]]></identifie>
+		<version><![CDATA[1.1]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[跑马比赛]]></ability>
+		<description><![CDATA[跑马比赛]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<rule>
+			<entry title="跑马首页" do="yyyindex" state="" direct="false" />
+			<entry title="活动管理" do="manage" state="" direct="false" />
+		</rule>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_meepo_paoma_activity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(5) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `pnum` int(10) NOT NULL DEFAULT '3',
+  `createtime` int(12) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_meepo_paoma_reply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(5) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` varchar(500) NOT NULL,
+  `cover` varchar(300) NOT NULL,
+  `loginpass` varchar(20) NOT NULL DEFAULT 'meepo' COMMENT '开场密码',
+  `ready_time` int(10) NOT NULL DEFAULT '10' COMMENT '倒计时秒数',
+  `slogan_list` text NOT NULL COMMENT '顶部标语',
+  `qr` varchar(300) NOT NULL COMMENT 'qr',
+  `maxshake` int(10) NOT NULL DEFAULT '100' COMMENT '顶部标语',
+  `bg` varchar(300) NOT NULL COMMENT 'qr',
+  `roundbg` varchar(300) NOT NULL COMMENT 'roundbg',
+  `roundcolor` varchar(300) NOT NULL COMMENT 'COLOR',
+  `awardsame` int(10) NOT NULL DEFAULT '1' COMMENT '顶部标语',
+  `appbg` varchar(300) NOT NULL COMMENT 'roundbg',
+  `logo_top` varchar(300) NOT NULL COMMENT 'roundbg',
+  `logo_bottom` varchar(300) NOT NULL COMMENT 'roundbg',
+  `acceleration` int(10) NOT NULL DEFAULT '4000' COMMENT '顶部标语',
+  `shake_cup` varchar(300) NOT NULL COMMENT 'COLOR',
+  `gameovermusic` varchar(300) NOT NULL COMMENT 'COLOR',
+  `ma1` varchar(300) NOT NULL COMMENT 'COLOR',
+  `ma2` varchar(300) NOT NULL COMMENT 'COLOR',
+  `tutu` varchar(300) NOT NULL COMMENT 'COLOR',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_meepo_paoma_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `rotate_id` int(11) NOT NULL,
+  `openid` varchar(100) NOT NULL,
+  `nickname` varchar(100) NOT NULL,
+  `avatar` varchar(300) NOT NULL,
+  `point` int(10) NOT NULL DEFAULT '0',
+  `createtime` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

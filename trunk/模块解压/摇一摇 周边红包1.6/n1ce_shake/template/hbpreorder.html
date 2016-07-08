@@ -1,0 +1,114 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+    <li class="active"><a href="{php echo $this->createWebUrl('Hbpreorder', array('act_id' => $act_id));}">红包预下单列表</a></li>
+    <li><a href="{php echo $this->createWebUrl('HbpreorderAdd', array('act_id' => $act_id));}">预下单生成</a></li>
+    <li><a href="{php echo $this->createWebUrl('Lottery');}">返回活动列表</a></li>
+</ul>
+
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="progress progress-striped active">
+				<div class="progress-bar progress-success">
+				</div>
+			</div>
+			<div class="alert alert-dismissable alert-warning">
+				 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h4>
+					摇一摇周边红包须知!
+				</h4> <strong>红包操作流程为：</strong> 「预下单生成」 - 「一键下单」 - 「一键导入红包」 <a href="http://mp.weixin.qq.com/wiki/12/9738788d171724b080b52f6e41490cb4.html#.E6.91.87.E4.B8.80.E6.91.87.E7.BA.A2.E5.8C.85.E8.AF.B4.E6.98.8E" class="alert-link">微信开发文档说明</a><br/>
+				<strong>红包去向：</strong>「预下单生成」 - 「一键下单进行支付」 - 「一键导入红包」- 「72小时内没有摇完」-「红包金额退回微支付账户中」
+			</div>
+			<div class="row clearfix">
+				<div class="col-md-4 column">
+					 <a href="{php echo $this->createWebUrl('HbpreorderSync', array('act_id' => $act_id)); }" ><button type="button" class="btn btn-default btn-info active btn-block">一键下单</button></a>
+					<p class="text-info text-left">
+						<br/>
+						 <strong>一键下单说明:</strong><br/><br/> <font color="red">将「预下单生成」的红包订单提交到微支付服务器中，届时请确保微支付帐号中有足够的金额进行支付！</font>
+					</p>
+				</div>
+				<div class="col-md-4 column">
+					<a href="{php echo $this->createWebUrl('HbpreorderImport', array('act_id' => $act_id)); }"> <button type="button" class="btn btn-default btn-warning active btn-block">一键导入红包</button></a>
+					<p class="text-warning">
+						<br/>
+						 <strong>一键导入红包说明:</strong><br/><br/> <font color="black">将「一键下单成功」的红包，加入到远程摇红包活动中去，让用户可以抽取到。否则72小时后，红包金额退回微支付账户中。</font>
+					</p>
+				</div>
+				<div class="col-md-4 column">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="main">
+    <div class="category">
+        <form action="" method="post">
+            <div class="panel panel-default">
+                <div class="panel-body table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="120">ID</th>
+                            <th>商户名称</th>
+                            <th width="180">红包类型</th>
+                            <th width="120">总金额</th>
+                            <th width="150">发放人数</th>
+                            <th width="150">可用状态</th>
+                            <th width="150">申请时间</th>
+                            <th width="150">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {loop $lists $row}
+                        <tr>
+                            <td>
+                                <label>
+                                    <input type="checkbox" name="before_id[]" value="{$row['before_id']}">
+                                    {$row['before_id']}
+                                </label></td>
+                            <td>{$row['send_name']}</td>
+                            <td>
+                                {if $row['hb_type'] == 'NORMAL'}
+                                    <span class="label label-primary">普通红包</span>
+                                {else}
+                                    <span class="label label-info">裂变红包</span>
+                                {/if}
+                            </td>
+                            <td>{php echo $row['total_amount'] / 100; }元</td>
+                            <td>{$row['total_num']}</td>
+                            <td>
+                                {if $row['mch_billno']}
+                                    {if $row['enabled'] == 1 && $row['expire'] <= TIMESTAMP }
+                                        <span class="label label-warning">已过期</span>
+                                    {elseif $row['enabled'] == 1 && $row['expire'] > TIMESTAMP}
+                                        <span class="label label-success">待导入</span>
+                                    {elseif $row['enabled'] == 0}
+                                        <span class="label label-danger">已导入</span>
+                                    {/if}
+                                {else}
+                                    <span class="label label-warning">待下单</span>
+                                {/if}
+                            </td>
+                            <td>{php echo date('m/d H:i', $row['created']); }</td>
+                            <td>
+                                {if $row['enabled'] == 1 && $row['mch_billno']}
+                                <a href="{php echo $this->createWebUrl('AddToLottery', array('act_id' => $act_id, 'before_id' => $row['before_id'])); }" class="btn btn-primary btn-sm" title="创建红包活动">
+                                    <i class="glyphicon glyphicon-plus"></i> 到红包活动
+                                </a>
+                                {/if}
+                            </td>
+                        </tr>
+                        {/loop}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{$pager}
+
+{template 'common/footer'}

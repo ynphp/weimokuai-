@@ -1,0 +1,142 @@
+@charset "utf-8";
+html, body {
+    font-family: "微软雅黑";
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+img, div, ul, li, p, h3 {
+    margin: 0;
+    padding: 0;
+}
+.hide {
+    display: none;
+}
+.fl {
+    float: left;
+}
+.page {
+    height: 100%;
+    width: 100%;
+}
+.page_bg img {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}
+img {
+    border: 0 none;
+    outline-width: 0;
+    vertical-align: top;
+    width: 100%;
+}
+.page {
+    background: url("images/bg2.jpg") no-repeat scroll center top / 150% auto rgba(0, 0, 0, 0);
+    height: auto;
+    overflow: hidden;
+}
+.page .wrap {
+}
+.content {
+    min-height: 100%;
+    width: 100%;
+}
+.t_yao img {
+    margin-left: 13%;
+    margin-top: 20px;
+    width: 60%;
+}
+.yun {
+    margin-left: 13%;
+    margin-top: 10px;
+    width: 75%;
+}
+.qian {
+    bottom: 22%;
+    margin-left: 32%;
+    position: absolute;
+    width: 46%;
+    z-index: 2;
+}
+.qian li {
+    float: left;
+    width: 11%;
+}
+.t_1 {
+    margin-right: 2px;
+    transform: rotate(348deg);
+}
+.t_2 {
+    transform: rotate(355deg);
+}
+.t_3 {
+    transform: rotate(1deg);
+}
+.t_4 {
+    transform: rotate(4deg);
+}
+.t_5 {
+    margin-left: 2px;
+    transform: rotate(358deg);
+}
+.t_6 {
+    transform: rotate(5deg);
+}
+.t_7 {
+    margin-left: 3px;
+    transform: rotate(13deg);
+}
+.zan {
+    margin-left: 7%;
+    width: 86%;
+}
+.zan img {
+    padding: 10px 0;
+    width: 100%;
+}
+.share {
+    margin-left: 18%;
+    padding-top: 10px;
+    width: 64%;
+}
+.share img {
+    width: 100%;
+}
+.share div {
+    width: 45%;
+}
+.s_1 {
+    float: left;
+}
+.s_1 {
+    float: right;
+}
+.info {
+    padding-top: 10px;
+}
+.info img {
+    width: 100%;
+}
+.button {
+    margin-left: 30%;
+    width: 40%;
+}
+.share_f img {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+}
+.bao {
+    bottom: 0;
+    margin-left: 27%;
+    position: absolute;
+    width: 46%;
+    z-index: 10;
+}

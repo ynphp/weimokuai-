@@ -1,0 +1,92 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+    <li><a href="{php echo $this->createWebUrl('Hbpreorder', array('act_id' => $act_id));}">红包预下单列表</a></li>
+    <li class="active"><a href="{php echo $this->createWebUrl('HbpreorderAdd', array('act_id' => $act_id));}">预下单生成</a></li>
+    <li><a href="{php echo $this->createWebUrl('Lottery');}">返回活动列表</a></li>
+</ul>
+
+<div class="clearfix">
+    <form class="form-horizontal form" action="" method="post">
+        <div class="panel panel-default">
+            <div class="panel-heading">预下单信息</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">商户名称</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" name="send_name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">单个红包金额</label>
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10" style="padding: 0">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="total_amount[]" placeholder="红包金额">
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="total[]" placeholder="发放数量">
+                                    <span class="input-group-addon">枚</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="total_num[]" placeholder="裂变人数">
+                                    <span class="input-group-addon">人</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="help-block" style="padding-left: 15px;"><font color="red">请自行计算红包金额以及数量，红包金额不允许少于1元！普通红包裂变人数请填写1人</font></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">红包祝福语</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" name="wishing">
+                        <div class="help-block">红包祝福语，展示在红包页面</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">活动名称</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" name="act_name">
+                        <div class="help-block">请保持六个字左右！</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">备注</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <textarea name="remark" class="form-control" rows="5"></textarea>
+                        <div class="help-block">备注信息，在不支持原生红包的微信版本中展示在红包消息</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">风控设置</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <select class="form-control" name="risk_cntl">
+                            <option value="NORMAL">正常情况</option>
+                            <option value="IGN_FREQ_LMT">忽略防刷限制，强制发放</option>
+                            <option value="IGN_DAY_LMT">忽略单用户日限额限制，强制发放</option>
+                            <option value="IGN_FREQ_DAY_LMT">忽略防刷和单用户日限额限制，强制发放</option>
+                        </select>
+                        <div class="help-block">如无特殊要求，请设为NORMAL。若忽略某项风险控制，可能造成资金损失，请谨慎使用。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group margin-bottom">
+            <div class="col-sm-12">
+                <input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+                <input type="hidden" name="token" value="{$_W['token']}"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+{template 'common/footer'}

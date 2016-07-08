@@ -1,0 +1,164 @@
+#yaoyiyao{
+    animation:yaoyiyao 0.3s  ease infinite alternate;   /*myfirst 为动画名称  5S 表示动画进行时间 forwards表示保持动画截止状态*/
+    -moz-animation:yaoyiyao 0.3s  ease infinite alternate;    /* Firefox */
+    -webkit-animation:yaoyiyao 0.3s ease infinite  alternate;   /* Safari and Chrome */
+    -o-animation:yaoyiyao 0.3s ease infinite  alternate;    /* Opera */
+}
+
+@keyframes  yaoyiyao{
+    0% {transform:rotate(-20deg);-webkit-transform:rotate(-20deg)}
+    30% {transform:rotate(0deg);-webkit-transform:rotate(0deg)}
+    60% {transform:rotate(15deg);-webkit-transform:rotate(15deg)}
+    100% {transform:rotate(30deg);-webkit-transform:rotate(30deg)}
+}
+@-webkit-keyframes  yaoyiyao{
+    0% {transform:rotate(-20deg);-webkit-transform:rotate(-20deg)}
+    30% {transform:rotate(0deg);-webkit-transform:rotate(0deg)}
+    60% {transform:rotate(15deg);-webkit-transform:rotate(15deg)}
+    100% {transform:rotate(30deg);-webkit-transform:rotate(30deg)}
+}
+body{
+    padding:0px;
+    margin:0px;
+
+}
+.div-page{
+    background-image:url("../image/bg.jpg");
+    background-repeat:no-repeat;
+    background-size: cover;
+}
+.page{
+    width:100%;
+    position: absolute;
+/*    background-color: hotpink;*/
+    text-align: center;
+    padding-bottom: 50px;
+}
+.page h2{
+    color: white;
+    margin-top:20%
+}
+.round{
+    width:180px;
+    height:180px;
+  /*  background-color: white;
+    border: 1px solid #CCCCCC;*/
+    margin-top:36%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    text-align: center;
+
+}
+
+.round img{
+    width:70%;
+    margin-top:20px;
+}
+.yyy{
+    display: block;
+    padding-top:10px;
+    font-size: 21px;
+    color:white;
+    font-weight: bold;
+}
+.info{
+    width:80%;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 5px;
+    padding:10px;
+    background-color: white;
+    border: 1px solid #CCCCCC;
+    margin-top:30px;
+    opacity:0.6;
+    text-align: left;
+    color:#333130;
+    box-shadow: 1px 1px 1px #CCCCCC;
+
+}
+.info h3{
+    padding-bottom: 5px;
+   border-bottom: 2px #ff1493 solid;
+    color: #ff1493;
+}
+
+.winner,.message{
+    background-color: white;
+    position: absolute;
+    z-index: 9999;
+    width:90%;
+
+    margin:auto;
+    top:50%;
+    left:5%;
+    border:1px solid #666666;
+    border-radius: 5px;
+}
+
+.winner_title,.message_title{
+    display: block;
+    width:100%;
+    margin:15px 0 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: red;
+}
+.winner_desc{
+    display: block;
+    width:100%;
+    margin:10px 0 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: hotpink;
+}
+.winnerbtn{
+    width: 100%;
+    margin-top:10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.winner_sure{
+    width:100px;
+
+}
+.winner_share{
+    width:100px;
+}
+.intext{
+    width:80%;
+    height:30px;
+    border:1px solid gray;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+.submit-btn{
+     width:50%;
+     background-color: red;
+     height:50px;
+     color:white;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border:0;
+}
+.hide{
+    display: none;
+}
+/*
+分享*/
+.shareimg{
+    width:100%;
+    height:100%;
+    background-image:url("../image/guide.png");
+    background-repeat:no-repeat;
+    background-size: 100% auto;
+    background-color:black;
+    z-index: 9999;
+    position: fixed;
+    top:0px;
+    opacity:0.8;
+
+}

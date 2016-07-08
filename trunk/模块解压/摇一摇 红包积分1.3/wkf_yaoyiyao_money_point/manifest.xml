@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[摇一摇红包积分]]></name>
+		<identifie><![CDATA[wkf_yaoyiyao_money_point]]></identifie>
+		<version><![CDATA[1.3]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[摇一摇红包积分]]></ability>
+		<description><![CDATA[摇一摇红包积分]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口设置" do="list" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="红包参数设置" do="api" state="" direct="false" />
+			<entry title="活动设置" do="activity" state="" direct="false" />
+			<entry title="领取记录" do="winner" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_yaoyiyao_money_point_winner` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `wid` int(10) DEFAULT NULL,
+  `openid` varchar(50) DEFAULT NULL,
+  `uid` int(10) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `is_get` tinyint(2) DEFAULT NULL,
+  `time` varchar(30) DEFAULT NULL,
+  `model` tinyint(2) DEFAULT NULL COMMENT '1为金额 2为积分 ',
+  `isshare` tinyint(2) DEFAULT '0' COMMENT '1为分享',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	CREATE TABLE IF NOT EXISTS `ims_yaoyiyao_money_point_share` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `wid` int(10) DEFAULT NULL,
+  `openid` varchar(50) DEFAULT NULL,
+  `sharenum` int(5) DEFAULT NULL,
+  `pointnum` int(5) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_yaoyiyao_money_point_record` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `wid` int(10) DEFAULT NULL,
+  `openid` varchar(50) DEFAULT NULL,
+  `price` decimal(10,2) DEFAULT NULL,
+  `log` varchar(100) DEFAULT NULL,
+  `status` tinyint(2) DEFAULT NULL,
+  `success_t` varchar(30) DEFAULT NULL,
+  `model` tinyint(2) DEFAULT NULL,
+  `nickname` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

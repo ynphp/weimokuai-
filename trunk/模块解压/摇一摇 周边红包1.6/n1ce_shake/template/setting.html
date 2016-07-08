@@ -1,0 +1,45 @@
+{template 'common/header'}
+
+<div class="clearfix">
+    <form class="form-horizontal form" action="" method="post">
+        <div class="panel panel-default">
+            <div class="panel-heading">支付证书配置</div>
+            <div class="panel-body">
+                <div class="alert alert-warning" role="alert">
+                    如果您还未曾配置过支付参数，请先移步【<a href="{php echo $_W['siteroot'] . 'web/index.php?c=profile&a=payment'; }">支付参数</a>】进行配置！
+                </div>
+                {if !$data['CURLOPT_SSLCERT'] or !$data['CURLOPT_SSLKEY'] or !$data['CURLOPT_CAINFO']}
+                    <div class="alert alert-warning" role="alert">以下信息请从微支付中下载对应的证书，文本方式打开复制到表单保存。</div>
+                {else}
+                    <div class="alert alert-info" role="alert">您已保存过相关信息！系统将会隐藏证书信息，以确保证书信息不会泄露！</div>
+                {/if}
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">apiclient_cert</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <textarea name="CURLOPT_SSLCERT" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">apiclient_key</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <textarea name="CURLOPT_SSLKEY" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">rootca</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <textarea name="CURLOPT_CAINFO" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group margin-bottom">
+            <div class="col-sm-12">
+                <input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+                <input type="hidden" name="token" value="{$_W['token']}"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+{template 'common/footer'}

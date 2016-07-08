@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>摇一摇接口</title>
+</head>
+<body>
+<script type="text/javascript" src="http://zb.weixin.qq.com/app/shakehb/BeaconShakehbJsBridge.js"></script>
+<script type="text/javascript">
+    BeaconShakehbJsBridge.ready(function () {
+        //跳转到抽红包页面
+        BeaconShakehbJsBridge.invoke('jumpHongbao', {
+            lottery_id: "{$actInfo['lottery_id']}",
+            noncestr: "{$noncestr}",
+            openid: "{$_W['openid']}",
+            sign: "{$sign}"
+        });
+    });
+</script>
+</body>
+</html>
