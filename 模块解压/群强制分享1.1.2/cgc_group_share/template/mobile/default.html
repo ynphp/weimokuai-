@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<style>
+h1,h2,div,body,img,a{margin: 0;padding: 0;}
+body{font-size:16px;line-height:1.5;font-family: "微软雅黑","Lucida Grande",STHeiti,Verdana,Arial,Times,serif;background:#f0eff4;}
+img{ border:0 none; }
+a{text-decoration:none;font-weight:normal;color:#333333;}
+ul{list-style: unset;list-style-type:decimal;}
+
+.top{width:100%;background:#ffffff;margin:0 auto;text-align: center;padding:30px 0 24px;}
+.top img{width:90px;border-radius:5px;}
+.top h2{font-weight: normal;font-size:18px;margin-top:7px;}
+.top span{color:#878787;}
+
+.bot{width:100%;border-top: 1px solid #bebebe;}
+.bot h1{width:100%;text-align: center;display: inline;float: left;font-weight: normal;color:#4d4c51;font-size:20px;margin:40px 0 10px;}
+.bot a{width:54%;display: inline;float: left;margin:15px 23% 25px;background:#04be01;color:#ffffff;text-align: center;padding:8px 0;border-radius:5px;font-size:18px;}
+.bot ul{color:#b5b4b9;display: inline;float: left;margin-left:10px;margin-right:30px;}
+</style>
+<title>群聊邀请</title>
+<script src="{STYLE_PATH}/share.js"></script>
+<script src="{STYLE_PATH}/jquery.min.js"></script>
+<script src="{STYLE_PATH}/jm.js"></script>
+<script src="{STYLE_PATH}/jquery-weui.js"></script>
+
+<link rel="stylesheet" type="text/css" href="{STYLE_PATH}/weui.min.css">
+<link rel="stylesheet" type="text/css" href="{STYLE_PATH}/jquery-weui.css">
+  
+</head>
+<style type="text/css">
+		.fenxiang_zdy{
+			display:block;
+			position:fixed;
+			z-index:1;
+			background:rgba(0,0,0,.8);
+			width:100%;
+			height:100%;
+			
+			top:0px;
+			left:0px;
+		}
+		.fenxiang_zdy img{
+			width:100%;
+			height:40%;
+			display:block;
+			position:fixed;
+			top:30px;
+			
+		}	
+</style>
+ {php echo register_jssdk(false);}
+<body>
+	<div class="top">
+		<img src="{if empty($settings['top_logo'])}{STYLE_PATH}/qun_meilv.jpg{else}{php echo tomedia($settings['top_logo'])}{/if}">
+		<script>
+		
+	     window.shareData = {
+	             "imgUrl": "{php echo tomedia($settings['share_thumb'])}",
+	             "sendFriendLink": "{$settings['share_url']}",
+	             "timeLineLink": "{$settings['share_url']}",
+	             "desc": "{$settings['share_desc']}",
+	             "fTitle": "{$settings['share_title']}"
+
+	         };
+
+	        var share_time=0;
+	     
+	         wx.ready(function () {
+	             wx.onMenuShareAppMessage({
+	                 title: window.shareData.fTitle,
+	                 desc: window.shareData.desc,
+	                 link: window.shareData.sendFriendLink,
+	                 imgUrl: window.shareData.imgUrl,
+	                 success: function () {
+	                	// $(".fenxiang_zdy").hide();
+	                     share_time++;
+	                     if(share_time<{$settings['share_num']})
+	                     {
+	                         $.alert('分享成功！请再分享' + ({$settings['share_num']}-share_time) + '次！');
+	                     }
+	                     else
+	                     {
+
+	                    	 $.alert('分享成功！');
+	                         location.href = "{$settings['succ_url']}";
+	                     }
+
+
+	                 },
+	                 cancel: function () {
+	                 }
+	             });
+
+	             wx.onMenuShareTimeline({
+	                 title: window.shareData.fTitle,
+	                 desc: window.shareData.desc,
+	                 link: window.shareData.timeLineLink,
+	                 imgUrl: window.shareData.imgUrl,
+	                 success: function () {
+	                    // alert("\u8981\u5206\u4eab\u5230\u5fae\u4fe1\u7fa4\u624d\u884c\u54e6\uff01");
+	                 },
+	                 cancel: function () {
+	                 }
+	             });
+
+
+
+	             wx.hideMenuItems({
+	                 menuList: [
+	                     'menuItem:exposeArticle'
+	                     , 'menuItem:setFont'
+	                     , 'menuItem:dayMode'
+	                     , 'menuItem:nightMode'
+	                     , 'menuItem:profile'
+	                     , 'menuItem:share:qq'
+	                     , 'menuItem:share:weiboApp'
+	                     , 'menuItem:favorite'
+	                     , 'menuItem:share:facebook'
+	                     , 'menuItem:share:QZone'
+	                     , 'menuItem:jsDebug'
+	                     , 'menuItem:editTag'
+	                     , 'menuItem:delete'
+	                     , 'menuItem:copyUrl'
+	                     , 'menuItem:originPage'
+	                     , 'menuItem:readMode'
+	                     , 'menuItem:openWithQQBrowser'
+	                     , 'menuItem:openWithSafari'
+	                     , 'menuItem:share:email'
+	                     , 'menuItem:exposeArticle'
+	                     , 'menuItem:brand'
+	                    
+	                 ],
+	                 success: function (res) {
+	                 },
+	                 fail: function (res) {
+	                 }
+	             });
+	         });
+		
+		
+		
+		
+
+		function random(min,max){
+			return Math.floor(min+Math.random()*(max-min));
+		}
+
+		</script>
+		<h2>{$settings['group_name']}</h2>
+		<span><br>{$group_num}人</span>
+	</div>
+	<div class="bot">
+			<h1>你的朋友邀请你加入群聊</h1>
+			<a class='bon'>加入群聊</a>
+	</div>
+
+	
+	<div class="fenxiang_zdy" style="display:none;">
+		<img src="{STYLE_PATH}/share.png">
+		<div class="clear"></div>
+	</div>
+	<script>
+	
+	 $(".bon").click(function (event) {
+		 {if empty($settings['share_num'])}
+		   window.location.href="{$settings['succ_url']}";
+		   return false;
+		 {/if}
+        $(".fenxiang_zdy").show();
+     });
+	 
+	  $(".fenxiang_zdy").click(function (event) {
+       // $(".fenxiang_zdy").hide();
+        });	
+	</script>
+
+</body></html>

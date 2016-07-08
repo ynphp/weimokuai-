@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[其他-各种装逼神器集一身]]></name>
+		<identifie><![CDATA[nihaoqkl_mixeds   ]]></identifie>
+		<version><![CDATA[1.0.1]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[各种装逼神器集一身]]></ability>
+		<description><![CDATA[各种装逼神器集一身]]></description>
+		<author><![CDATA[土豆]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="豪车提车入口" do="car"  state="" direct="false" />
+			<entry title="豪车购单入口" do="car2"  state="" direct="false" />
+			<entry title="表白入口" do="biaobai"  state="" direct="false" />
+			<entry title="请假条入口" do="qingjiatiao"  state="" direct="false" />
+			<entry title="结婚证入口" do="marry"  state="" direct="false" />
+			<entry title="离婚证入口" do="marry2"  state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="环境检测" do="check" state="" direct="false" />
+		</menu>
+	</bindings>	
+		<install><![CDATA[
+
+	]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.ivfen.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[群强制分享]]></name>
+		<identifie><![CDATA[cgc_group_share]]></identifie>
+		<version><![CDATA[1.1.2]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[群强制分享]]></ability>
+		<description><![CDATA[群强制分享]]></description>
+		<author><![CDATA[不错吧]]></author>
+		<url><![CDATA[http://www.bcb5.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口设置" do="enter" state="" direct="false" />
+		</cover>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[update.php]]></upgrade>
+</manifest>
