@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[全民来植树]]></name>
+		<identifie><![CDATA[weisrc_tree]]></identifie>
+		<version><![CDATA[1.2.1]]></version>
+		<type><![CDATA[activity ]]></type>
+		<ability><![CDATA[全民来植树]]></ability>
+		<description><![CDATA[全民来植树]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+
+		<menu>
+	<entry title="活动管理" do="manage" state="" direct="false" />
+		</menu>
+	</bindings>
+
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>
