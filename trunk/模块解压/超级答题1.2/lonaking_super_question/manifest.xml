@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[超级答题]]></name>
+		<identifie><![CDATA[lonaking_super_question]]></identifie>
+		<version><![CDATA[1.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[一款超牛逼的答题模块]]></ability>
+		<description><![CDATA[一款超牛逼的答题模块]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="link" />
+			<message type="click" />
+			<message type="view" />
+		</subscribes>
+		<handles>
+			<message type="link" />
+			<message type="click" />
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="true" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="活动引导" do="Index" state="" direct="false" />
+			<entry title="用户排名" do="PersonRankPage" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="活动管理" do="ActivityManage" state="" direct="false" />
+			<entry title="问题管理" do="QuestionManage" state="" direct="false" />
+			<entry title="战队管理" do="TeamManage" state="" direct="false" />
+			<entry title="玩家管理" do="PlayerManage" state="" direct="false" />
+			<entry title="游戏记录" do="RecordManage" state="" direct="false" />
+			<entry title="广告管理" do="AdManage" state="" direct="false" />
+			<entry title="游戏记录" do="RecordManage" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_lonaking_super_question_activity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主健',
+  `uniacid` int(11) DEFAULT NULL COMMENT '微信号',
+  `activity_num` varchar(100) DEFAULT '' COMMENT '活动编号',
+  `name` varchar(255) DEFAULT '' COMMENT '活动标题',
+  `activity_type` tinyint(1) DEFAULT '1' COMMENT '1:普通答题，单人模式  2:普通答题，求助模式  3 团队答题，现场模式',
+  `pic` varchar(225) DEFAULT NULL COMMENT '活动图片',
+  `start_time` date NOT NULL COMMENT '开始时间',
+  `end_time` date NOT NULL DEFAULT '0000-00-00' COMMENT '结束时间',
+  `play_times` int(11) DEFAULT '0' COMMENT '游戏总次数',
+  `play_limit` int(11) DEFAULT '1' COMMENT '允许玩的次数',
+  `help_limit` int(11) DEFAULT '1' COMMENT '每个用户允许帮助同一个游戏记录几次，默认为1次',
+  `limit_type` tinyint(1) DEFAULT '1' COMMENT '限制单位：1. 按天 2.按活动',
+  `virtual_times` int(11) DEFAULT '0' COMMENT '虚拟已经玩了多少次',
+  `score` int(11) DEFAULT '0' COMMENT '可用积分',
+  `share_times` int(11) DEFAULT '0' COMMENT '分享次数',
+  `copyright` varchar(100) DEFAULT NULL COMMENT '版权',
+  `rule` text COMMENT '规则',
+  `score_rule` text COMMENT '积分规则',
+  `analyse_message` text COMMENT '分析规则',
+  `question_count` int(11) DEFAULT '0' COMMENT '问题总数',
+  `bg_pic` varchar(255) DEFAULT NULL COMMENT '背景图片',
+  `theme_pic` varchar(255) DEFAULT NULL COMMENT '主题图片',
+  `logo_pic` varchar(255) DEFAULT NULL COMMENT '右上角logo',
+  `current` tinyint(1) DEFAULT '0' COMMENT '是否当前活动',
+  `ad_end_page` int(11) DEFAULT NULL COMMENT '结束页面广告',
+  `button_buttom` int(11) DEFAULT '30' COMMENT '距离底部按钮',
+  `share_logo` varchar(255) DEFAULT '' COMMENT '分享logo',
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+CREATE TABLE IF NOT EXISTS `ims_lonaking_super_question_activity_question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `activity_id` int(11) DEFAULT NULL,
+  `question_id` int(11) DEFAULT NULL,
+  `question_score` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+CREATE TABLE IF NOT EXISTS `ims_lonaking_super_question_ad` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT '' COMMENT '广告名',
+  `image` varchar(255) DEFAULT '' COMMENT '广告图片',
+  `url` varchar(255) DEFAULT '' COMMENT '广告链接',
+  `type` tinyint(2) DEFAULT '1' COMMENT '类别 默认为1',
+  `delay` int(5) DEFAULT '5' COMMENT '延迟 默认为5',
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+CREATE TABLE IF NOT EXISTS `ims_lonaking_super_question_player` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `openid` varchar(128) DEFAULT NULL COMMENT 'openid',
+  `nickname` varchar(100) DEFAULT NULL COMMENT '昵称',
+  `headimgurl` varchar(255) DEFAULT '' COMMENT '头像',
+  `uid` int(11) DEFAULT NULL COMMENT '微擎uid，可能为空',
+  `play_times` int(11) DEFAULT '0' COMMENT '游戏总次数',
+  `share_times` int(11) DEFAULT '0' COMMENT '分享次数',
+  `total_score` int(11) DEFAULT '0' COMMENT '游戏总分，可能为负',
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+CREATE TABLE IF NOT EXISTS `ims_lonaking_super_question_question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `question_num` varchar(100) DEFAULT '',
+  `title` varchar(255) DEFAULT '',
+  `pic` varchar(255) DEFAULT '' COMMENT '题目图片',
+  `bg_pic` varchar(255) DEFAULT '' COMMENT '背景图，建议虚化',
+  `option_a` varchar(255) DEFAULT '',
+  `option_b` varchar(255) DEFAULT '',
+  `option_c` varchar(255) DEFAULT '',
+  `option_d` varchar(255) DEFAULT '',
+  `option_e` varchar(255) DEFAULT '',
+  `right_answer` varchar(2) DEFAULT '',
+  `score` int(10) DEFAULT '0',
+  `de_score` int(10) DEFAULT '0' COMMENT '扣除积分',
+  `ad_id` int(11) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+CREATE TABLE IF NOT EXISTS `ims_lonaking_super_question_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `uniacid` int(11) DEFAULT NULL COMMENT '公众号id',
+  `record_number` varchar(128) DEFAULT '' COMMENT '活动编号',
+  `openid` varchar(255) DEFAULT '' COMMENT '玩家openid',
+  `player_id` int(11) DEFAULT NULL,
+  `type` tinyint(1) DEFAULT '1' COMMENT '类型，1普通模式 2 帮助好友答题 3 团队模式',
+  `is_captain` tinyint(1) DEFAULT '0' COMMENT '是否是队长 0不是 1是',
+  `uid` int(11) DEFAULT NULL COMMENT '玩家uid',
+  `right` int(10) DEFAULT '0' COMMENT '正确次数',
+  `wrong` int(10) DEFAULT '0' COMMENT '错误次数',
+  `right_ids` varchar(255) DEFAULT '' COMMENT '正确的id们，用逗号隔开',
+  `wrong_ids` varchar(255) DEFAULT '' COMMENT '错误的id们，用逗号隔开',
+  `score` int(10) DEFAULT '0' COMMENT '得分',
+  `max` tinyint(1) DEFAULT '0' COMMENT '最高成绩，排名取此',
+  `activity_id` int(11) DEFAULT NULL COMMENT '活动id',
+  `activity_name` varchar(255) DEFAULT NULL COMMENT '活动名称',
+  `answer_seconds` int(11) DEFAULT '0' COMMENT '答题用时',
+  `shared` int(11) DEFAULT '0' COMMENT '分享次数',
+  `is_help` tinyint(1) DEFAULT '0' COMMENT '是否是帮助别人答题：0不是 1是',
+  `help_record_id` int(11) DEFAULT NULL COMMENT '帮助的是哪一个游戏记录',
+  `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
+  `update_time` int(11) DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+CREATE TABLE IF NOT EXISTS `ims_lonaking_super_question_team` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `member_count` int(1) DEFAULT '0',
+  `logo` varchar(255) DEFAULT NULL,
+  `captain_id` int(11) DEFAULT NULL,
+  `activity_times` int(11) DEFAULT '0',
+  `score` int(11) DEFAULT '0',
+  `question_count` int(11) DEFAULT '0',
+  `start_time` int(11) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
