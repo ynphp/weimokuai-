@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[超级防伪码]]></name>
+		<identifie><![CDATA[super_securitycode]]></identifie>
+		<version><![CDATA[3.0]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[超级防伪码]]></ability>
+		<description><![CDATA[超级防伪码]]></description>
+		<author><![CDATA[柒|柒|源|码]]></author>
+		<url><![CDATA[http://H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="防伪码导出" do="output" state="" direct="false" />
+			<entry title="防伪码导入" do="insert" state="" direct="false" />
+			<entry title="生成防伪码" do="create" state="" direct="false" />
+			<entry title="防伪码列表" do="list" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_super_securitycode_data_10` (
+  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `code` varchar(100) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `factory` varchar(500) NOT NULL,
+  `creditname` varchar(20) NOT NULL,
+  `creditnum` int(10) unsigned NOT NULL,
+  `creditstatus` tinyint(1) unsigned NOT NULL,
+  `status` tinyint(1) unsigned NOT NULL,
+  `stime` int(10) unsigned NOT NULL,
+  `createtime` decimal(11,0) NOT NULL,
+  `num` int(10) NOT NULL,
+  `tourl` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_super_securitycode_data_moban` (
+  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `code` varchar(100) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `factory` varchar(500) NOT NULL,
+  `creditname` varchar(20) NOT NULL,
+  `creditnum` int(10) unsigned NOT NULL,
+  `creditstatus` tinyint(1) unsigned NOT NULL,
+  `status` tinyint(1) unsigned NOT NULL,
+  `stime` int(10) unsigned NOT NULL,
+  `createtime` decimal(11,0) NOT NULL,
+  `num` int(10) NOT NULL,
+  `tourl` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+
+CREATE TABLE IF NOT EXISTS `ims_super_securitycode_logs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `openid` varchar(50) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `status` tinyint(1) unsigned NOT NULL,
+  `createtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+
+CREATE TABLE IF NOT EXISTS `ims_super_securitycode_reply` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `rid` int(10) NOT NULL,
+  `weid` int(10) NOT NULL,
+  `Reply` varchar(1000) NOT NULL,
+  `Integral` int(10) NOT NULL,
+  `tnumber` int(10) NOT NULL,
+  `Failure` varchar(1000) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

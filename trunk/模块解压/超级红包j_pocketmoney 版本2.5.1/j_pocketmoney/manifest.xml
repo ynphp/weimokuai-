@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[超级红包]]></name>
+		<identifie><![CDATA[j_pocketmoney]]></identifie>
+		<version><![CDATA[2.5.1]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[企业支付的微信红包]]></ability>
+		<description><![CDATA[微信红包，企业支付，范围无上限下限-借用版本]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<rule>
+			<entry title="领取者管理" do="user" />
+			<entry title="发放记录" do="record" />
+		</rule>
+		<menu>
+			<entry title="广告管理" do="advert" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_j_pocketmoney_ad` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `title` varchar(50) NOT NULL DEFAULT '',
+  `thumb` varchar(300) NOT NULL DEFAULT '',
+  `description` varchar(100) DEFAULT NULL,
+  `url` varchar(300) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE IF NOT EXISTS `ims_j_pocketmoney_fans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT NULL,
+  `from_user` varchar(50) NOT NULL,
+  `openid` varchar(40) NOT NULL DEFAULT '',
+  `nickname` varchar(40) NOT NULL DEFAULT '',
+  `language` varchar(20) NOT NULL DEFAULT '',
+  `sex` varchar(2) DEFAULT '',
+  `headimgurl` varchar(300) NOT NULL DEFAULT '',
+  `country` varchar(20) NOT NULL DEFAULT '',
+  `province` varchar(20) NOT NULL DEFAULT '',
+  `city` varchar(50) NOT NULL DEFAULT '',
+  `subscribe` tinyint(2) NOT NULL DEFAULT '0',
+  `subscribe_once` int(10) NOT NULL DEFAULT '0',
+  `subscribe_time` int(10) DEFAULT NULL,
+  `remark` varchar(400) DEFAULT NULL,
+  `vnums` int(11) DEFAULT '1' COMMENT '浏览数量',
+  `unums` int(11) DEFAULT '0' COMMENT '用户数量',
+  `hnums` int(11) DEFAULT '0' COMMENT '发放红包数量',
+  `upid` int(11) DEFAULT NULL,
+  `ip` varchar(25) DEFAULT NULL,
+  `issend` tinyint(1) DEFAULT NULL,
+  `rid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`,`openid`,`from_user`),
+  KEY `proxy` (`openid`),
+  KEY `nickname` (`language`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE IF NOT EXISTS `ims_j_pocketmoney_records` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `from_user` varchar(50) NOT NULL,
+  `fee` varchar(20) NOT NULL DEFAULT '',
+  `log` varchar(500) NOT NULL DEFAULT '',
+  `created` int(10) unsigned NOT NULL,
+  `completed` int(10) unsigned NOT NULL DEFAULT '0',
+  `province` varchar(20) DEFAULT NULL,
+  `city` varchar(20) DEFAULT NULL,
+  `nickname` varchar(50) DEFAULT NULL,
+  `headimgurl` varchar(300) DEFAULT NULL,
+  `kouhao` varchar(100) DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL,
+  `rid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`,`from_user`),
+  KEY `uid` (`from_user`) USING BTREE,
+  KEY `status` (`status`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE IF NOT EXISTS `ims_j_pocketmoney_reply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) NOT NULL DEFAULT '0',
+  `weid` int(11) NOT NULL DEFAULT '0',
+  `title` varchar(100) DEFAULT NULL,
+  `cover` varchar(255) DEFAULT NULL COMMENT '图文封面',
+  `shareimg` varchar(255) DEFAULT NULL COMMENT '转发小图',
+  `pageback` varchar(255) DEFAULT NULL COMMENT '游戏背景图',
+  `description` varchar(255) DEFAULT NULL,
+  `info` varchar(2000) DEFAULT NULL,
+  `gzurl` varchar(255) DEFAULT NULL,
+  `smurl` varchar(255) DEFAULT NULL,
+  `arealimit` varchar(50) DEFAULT NULL,
+  `packremark` varchar(20) DEFAULT NULL,
+  `neednums` int(11) NOT NULL DEFAULT '10',
+  `firstmin` int(11) NOT NULL DEFAULT '0',
+  `firstmax` int(11) NOT NULL DEFAULT '2',
+  `secondmin` int(11) NOT NULL DEFAULT '0',
+  `secondmax` int(11) NOT NULL DEFAULT '2',
+  `starttime` int(11) NOT NULL DEFAULT '0',
+  `endtime` int(11) NOT NULL DEFAULT '0',
+  `appid` varchar(100) DEFAULT NULL,
+  `secret` varchar(100) DEFAULT NULL,
+  `mchid` varchar(20) DEFAULT NULL,
+  `ip` varchar(25) DEFAULT NULL,
+  `signkey` varchar(32) DEFAULT NULL,
+  `totalfee` int(10) DEFAULT '0',
+  `remainfee` int(10) DEFAULT '0',
+  `showfee` int(10) DEFAULT '0',
+  `gametype` tinyint(1) DEFAULT '0' COMMENT '游戏模式',
+  `maxnums` int(11) DEFAULT '1' COMMENT '最大领取数量',
+  `sharetofriend` tinyint(1) DEFAULT '0',
+  `sharetotimeline` tinyint(1) DEFAULT '0',
+  `adlist` varchar(100) DEFAULT NULL,
+  `rootca` tinyint(1) DEFAULT '0',
+  `apiclient_cert` tinyint(1) DEFAULT '0',
+  `apiclient_key` tinyint(1) DEFAULT '0',
+  `comefrom` varchar(300) NOT NULL COMMENT '来源页面',
+  `credittype` varchar(20) NOT NULL COMMENT '积分类别',
+  `credit` int(10) NOT NULL DEFAULT '0' COMMENT '积分抽奖',
+  `groupid` int(10) NOT NULL DEFAULT '0' COMMENT '分组抽奖',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+	]]></install>
+	<uninstall><![CDATA[
+	]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
