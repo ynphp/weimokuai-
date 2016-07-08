@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[捕鱼达人]]></name>
+		<identifie><![CDATA[lonaking_fishjoy]]></identifie>
+		<version><![CDATA[0.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[一款搭配积分商城使用的游戏模块]]></ability>
+		<description><![CDATA[一款搭配积分商城使用的游戏模块]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="shortvideo" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+			<message type="qr" />
+			<message type="click" />
+			<message type="view" />
+		</subscribes>
+		<handles>
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="shortvideo" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="click" />
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="游戏引导" do="Index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="用户管理" do="PlayerManage" state="" direct="false" />
+			<entry title="游戏记录" do="RecordManage" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_lonaking_fishjoy_player` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `token` varchar(225) DEFAULT '' COMMENT 'token',
+  `openid` varchar(128) DEFAULT NULL COMMENT 'openid',
+  `nickname` varchar(100) DEFAULT NULL COMMENT '昵称',
+  `uid` int(11) DEFAULT NULL COMMENT '粉丝id',
+  `play_times` int(11) DEFAULT '0' COMMENT '游戏总次数',
+  `total_score` int(11) DEFAULT '0' COMMENT '总得分',
+  `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
+  `update_time` int(11) DEFAULT NULL COMMENT '游戏时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_lonaking_fishjoy_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `uniacid` int(11) DEFAULT NULL COMMENT '公众号id',
+  `player_id` int(11) DEFAULT NULL,
+  `uid` int(11) DEFAULT NULL COMMENT '玩家uid',
+  `openid` varchar(255) DEFAULT '' COMMENT '玩家openid',
+  `nickname` varchar(30) DEFAULT '' COMMENT '昵称',
+  `score` int(10) DEFAULT '0' COMMENT '得分',
+  `play_time` int(11) DEFAULT '1' COMMENT '第几次游戏',
+  `shared` tinyint(1) DEFAULT '0' COMMENT '是否分享了 0否 1是',
+  `create_time` int(11) DEFAULT NULL COMMENT '创建时间',
+  `update_time` int(11) DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
