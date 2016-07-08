@@ -1,0 +1,127 @@
+<div class="col-sm-12">
+	<input type="hidden" name="id" value="{$reply['id']}">
+	<input type="hidden" name="marry_id" value="{$reply['marry_id']}">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			选择婚礼
+		</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<div class="col-sm-4">
+					<button id="btn_add_marry" type="button" class="btn btn-primary">
+						<span class="glyphicon glyphicon-plus"></span>选择婚礼
+					</button>
+				</div>
+			</div>
+			<div id="form-group" class="form-group" style="{if count($reply)<1}display:none{/if}">
+				<div class="col-sm-6">
+					<div class="panel panel-default">
+						<div class="panel-heading" style="overflow: hidden;height:250px">
+							<h4 id="s_title" class="form-control-static">{php echo empty($reply['s_title'])?$reply['title']:$reply['s_title'];}</h4>
+							<img id="pic" class="img-rounded" src="{$_W['attachurl']}{$reply['pic']}"  style="width:100%;margin-top:0.8em;">	
+										
+						</div>
+						<!-- <div class="panel-footer" style="border-top:0;">
+							<a href="{php if(!empty($reply['marry_id'])) echo $this->createMobileUrl('Marry',array('id'=>$reply['marry_id']));}" target="_blank" class="btn btn-defualt btn-block">点击查看</a>
+						</div> -->
+						<p id="s_des" style="margin: 0;padding: 10px 15px;background-color: #f5f5f5;">{$reply['s_des']}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="dialog" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h3>选择婚礼</h3>
+			</div>
+			<div class="modal-body">
+            	 <div class="form-group">
+				 	<label class="col-sm-2 control-label">关键字</label>
+					<div class="col-sm-8">
+                    	<input type="text" class="form-control" name="keyword" value="" id="search-kw" />
+                    </div>
+                    <label class="col-sm-2"><button type="button" class="btn btn-default" onclick="search_entry();">搜索</button></label>    
+				</div>
+				<table class="table table-hover" style="min-width:0">
+					<thead class="navbar-inner">
+						<tr>
+		                    <th width="70%" align="center" style="text-align:center;">婚礼标题</th>
+							<th width="15%" align="center" style="text-align:center;">婚礼日期</th>
+							<th width="15%" style="text-align:center;">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{loop $list $row}
+						<tr>			
+							<td align="center" style="text-align:center;">{$row['title']}</td>
+							<td align="center" style="font-size:12px; color:#666; text-align:center;">{php echo date('Y-m-d',$row['date']);}</td>
+							<td style="text-align:center;">
+								<a  data-id="{$row['id']}" data-title="{$row['title']}" data-s_des="{$row['s_des']}" data-pic="{$row['pic']}" data-s_title="{$row['s_title']}" href="javascript:;" class="btn btn-default btn-sm" title="选择"><i class="fa fa-plus"></i></a>   
+	                        </td>
+						</tr>
+						{/loop}
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+</div>
+<script>
+	window.initReplyController = function($scope) {
+		
+	};
+	window.validateReplyForm = function(form, $, _, util, $scope) {
+		
+		return true;
+	};
+	function search_entry() {
+		var kw = $.trim($('#search-kw').val());
+		$.post('{php echo $this->createWebUrl('search');}', {keyword: kw}, function(data){
+			if (data) {
+				var data=JSON.parse(data);
+				if (data.length>0) {
+					var html='';
+					for(var i=0; i<data.length; i++)  {  
+						var date = new Date(parseInt(data[i].date) * 1000);
+						var year = date.getFullYear();
+						var month = date.getMonth()+1;
+						var day = date.getDate();
+						html+='<tr>\
+							<td align="center" style="text-align:center;">'+data[i].title+'</td>\
+							<td align="center" style="font-size:12px; color:#666; text-align:center;">'+[year,month,day].join('-')+'</td>\
+							<td style="text-align:center;">\
+								<a data-id="'+data[i].id+'" data-title="'+data[i].title+'" data-s_des="'+data[i].s_des+'" data-pic="'+data[i].pic+'" data-s_title="'+data[i].s_title+'" href="javascript:;" class="btn btn-default btn-sm" title="选择"><i class="fa fa-plus"></i></a>\
+	                        </td>\
+							</tr>';
+					}  
+ 					$('#dialog tbody').empty().append(html);
+				};
+			};
+
+		});
+	}
+	require(['jquery','util'], function($, util){
+		$(function(){
+			$('#btn_add_marry').bind('click', function(){
+				$('#dialog').modal('show');
+			})
+			$('#dialog tbody').on('click','a', function (event) {
+				var title=$(this).attr('data-s_title')||$(this).attr('data-title');
+				var pic=$(this).attr('data-pic');
+				var id=$(this).attr('data-id');
+				var des=$(this).attr('data-s_des');
+				$('#pic').attr('src','{$_W['attachurl']}'+pic);
+				$('#s_title').text(title);
+				$('#s_des').text(des);
+				$('input[name="marry_id"]').val(id);
+				$('#form-group').show();
+				$('#dialog').modal('hide');
+			});
+		})
+	})
+</script>

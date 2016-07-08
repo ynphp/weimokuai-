@@ -1,0 +1,6 @@
+本模块功能含美容美发类技师介绍，预约功能
+自由设置预约时段及数量，剩余可预约数。
+
+1.将本目录下jquery 复制到 app/resource/js/lib/  和 web/resource/js/lib/ 下覆盖 (不会影响原有功能，仅在jquery中增加了json插件)
+
+2.将本目录上传至addon 目录下，查看manifest.xml中 xmlns 值是否与其它模块的相应值是否一致（不同系统可能使用不同的值，否则安装时查找不到）

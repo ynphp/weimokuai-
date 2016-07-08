@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[美容美发(预约服务)]]></name>
+		<identifie><![CDATA[bm_meifa]]></identifie>
+		<version><![CDATA[1.5]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[自定义服务项目，发型师介绍，并实现在线预约。]]></ability>
+		<description><![CDATA[自定义服务项目，发型师介绍，并实现在线预约。]]></description>
+		<author><![CDATA[Shirne]]></author>
+		<url><![CDATA[http://H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="image" />
+		</handles>
+	</platform>
+	<bindings>
+	 <menu>
+			<entry title="技师管理" do="project" state="" direct="false" />
+			<entry title="预约管理" do="orders" state="" direct="false" />
+		</menu>
+    <home>
+      <entry title="在线预约" do="list" state="" direct="false" />
+    </home>
+    <profile>
+      <entry title="我的预约" do="mylist" state="" direct="false" />
+    </profile>
+    <cover>
+      <entry title="在线预约" do="list" state="" direct="false" />
+    </cover>
+	</bindings>
+	<install><![CDATA[
+
+
+
+CREATE TABLE IF NOT EXISTS `ims_meifa_comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `sort` int(11) NOT NULL,
+  `title` varchar(60) NOT NULL,
+  `lead_name` varchar(30) NOT NULL,
+  `lead_position` varchar(30) NOT NULL,
+  `lead_picurl` varchar(100) NOT NULL,
+  `info` varchar(300) NOT NULL,
+  `department_id` int(11) NOT NULL,
+  `comm_content` varchar(300) NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_meifa_project` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `sort` int(11) NOT NULL,
+  `ser_name` varchar(30) NOT NULL,
+  `position` varchar(30) NOT NULL,
+  `picurl` varchar(100) NOT NULL,
+  `kbox` varchar(50) NOT NULL,
+  `price` int(11) NOT NULL,
+  `project_info` text NOT NULL,
+  `isshow` tinyint(4) NOT NULL,
+  `srvtime` text NOT NULL,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `ims_meifa_reservation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `openid` varchar(100) NOT NULL,
+  `truename` varchar(20) NOT NULL,
+  `mobile` varchar(12) NOT NULL,
+  `ser_name` varchar(30) NOT NULL,
+  `info` varchar(100) NOT NULL,
+  `createtime` int(11) NOT NULL,
+  `remate` tinyint(4) NOT NULL,
+  `reid` int(11) NOT NULL,
+  `kfinfo` varchar(100) NOT NULL DEFAULT '',
+  `position` varchar(18) NOT NULL DEFAULT '',
+  `sex` char(1) NOT NULL,
+  `restime` varchar(50) NOT NULL,
+  `project_id` int(10) NOT NULL,
+  `isdel` tinyint(4) DEFAULT 0,
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+
+	]]></install>
+	<uninstall><![CDATA[
+	DROP TABLE IF EXISTS `ims_meifa_comments`;
+	DROP TABLE IF EXISTS `ims_meifa_project`;
+	DROP TABLE IF EXISTS `ims_meifa_reservation`;
+	]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

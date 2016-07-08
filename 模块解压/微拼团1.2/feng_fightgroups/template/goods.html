@@ -1,0 +1,76 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li class="active"><a href="{php echo $this->createWebUrl('goods', array('op'=>'display'));}">商品列表</a>
+	</li>
+	<li><a href="{php echo $this->createWebUrl('goods', array('op'=>'edit'));}">添加商品</a>
+	</li>
+</ul>
+<div class="panel panel-default">
+	<div class="panel-heading">商品列表</div>
+	<div class="panel-body">
+		<div class="table-responsive panel-body">
+			<table class="table table-hover" style="min-width: 300px;">
+				<thead class="navbar-inner">
+					<tr>
+						<th class="col-sm-1">商品ID</th>
+						<th class="col-sm-2">名称</th>
+						<th class="col-sm-1">图片</th>
+					<!--	<th class="col-sm-1">分类</th>-->
+						<!--<th class="col-sm-1">商品货号</th>-->
+						<th class="col-sm-1">商品库存</th>
+						<th class="col-sm-1">团购价</th>
+						<th class="col-sm-1">单买价</th>
+						<th class="col-sm-1">起团人数</th>
+						<th class="col-sm-1">团购限时</th>
+						<th class="col-sm-3">简介</th>
+						<!--<th class="col-sm-2">上架时间</th>-->
+						<!--<th class="col-sm-1">上架</th>-->
+						<!--<th class="col-sm-1">热卖</th>-->
+						<!--<th class="col-sm-1">编辑</th>-->
+						<th class="col-sm-2 text-right">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $goodses $goodsid $goods}
+					<tr>
+						<td>{$goods['id']}</td>
+						<td>{$goods['gname']}</td>
+						<td>
+							<image src="{php echo tomedia($goods['gimg']);}" style="max-width: 48px; max-height: 48px; border: 1px dotted gray">
+						</td>
+						<!--<td>{$goods['fk_typeid']}</td>
+						<td>{$goods['gsn']}</td>-->
+						<td>{$goods['gnum']}</td>
+						<td>{$goods['gprice']}</td>
+						<td>{$goods['oprice']}</td>
+						<td>{$goods['groupnum']}人</td>
+						<td>{$goods['endtime']}小时</td>
+						<td>{$goods['gdesc']}</td>
+						<!--<td>{php echo date('Y-m-d H:i', $goods['gubtime']);}</td>-->
+						<!--<td>{if $goods['isshow']==0}<span class="label label-danger">未上架</span>{else}<span class="label label-success">已上架</span>{/if}</td>-->
+						<!--<td>{if $goods['ishot']==0}<span class="label label-danger">热卖</span>{else}<span class="label label-success"></span>{/if}</td>-->
+						<!--<td>
+						</td>-->
+						<td class="text-right">
+							<a href="{php echo $this->createWebUrl('goods', array('op'=>'edit', 'id'=>$goods['id']));}" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑"><i class="fa fa-pencil"></i></a>
+							<a href="{php echo $this->createWebUrl('goods',array('op'=>'delete','id'=>$goods['id']));}" onclick="return confirm('此操作不可恢复，确认删除？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="删除"><i class="fa fa-times"></i>
+							</a>
+						</td>
+					</tr>
+					{/loop}
+					{if empty($goodses)}		
+					<tr>
+						<td colspan="8">
+							尚未添加商品
+						</td>
+					</tr>
+					{/if}
+				</tbody>
+			</table>
+			{$pager}
+		</div>
+	</div>
+</div>
+</div>
+
+{template 'common/footer'}

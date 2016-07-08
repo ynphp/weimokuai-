@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+        <title>有爱大声说出来</title>
+        <link href="{MODULE_URL}template/css/style.css" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="{$_W['siteroot']}app/resource/js/lib/jquery-1.11.1.min.js"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    </head>
+    <script type="text/javascript">
+$(document).ready(function(){
+    $("#content_more").click(function(){
+         site_module.get_content_list($(this).attr('page'));
+         $(this).attr('page', parseInt($(this).attr('page')) + 1);
+    });
+});
+var site_module = {
+    options : {
+        pagesize : 10,
+        get_content_callback : false,
+        base_url : "{php echo $this->createMobileUrl('cexpresspage')}",
+
+    },
+    //获取内容列表信息
+    get_content_list : function(page){
+        $.ajax({
+            url : this.options.base_url,
+            dataType : 'JSON',
+            data:{page:page, pagesize:this.options.pagesize},
+            success:function(data){
+                    
+
+                      $("#content").append(data);
+                      if (!data) {
+                        $("#content_more").html('没信息了');
+                      };
+            }       
+        });
+    }
+};
+</script>
+<style type="text/css">
+    #content_more {
+    display: block;
+    width: 60px;
+    height: 20px;
+    color: #fff;
+    text-align: center;
+    border:1px solid #54bcde;
+    background: #54bcde;
+    line-height: 20px;
+    margin: 0 auto;
+    border-radius: 2px;
+    }
+</style>
+<body>
+	<header>
+        <div class="logo" style="width:90%; color:white; font-size:10px;text-align:center;">  
+         <img src="{MODULE_URL}template/img/whiteheart.png" style="float:left" />大学表白墙
+        </div>
+		<nav class="vertical menu">
+            <ul>
+                <li><a href="{php echo $this->createMobileUrl('index',array('op'=> 'add'))}" style="font-weight:bold"> 点我发布表白</a></li>
+                <li style=" margin:5px 0; text-align:center;" >
+                <form  method="post" action="">
+                <input type="text" name="keyword" value="{$_GPC['keyword']}"  placeholder="搜索我有没有被表白" style="width:70%;border:none;color:#999;" />
+                <input type="submit" value="搜索"  style="font-size:16px;margin:0px;padding:0px;" >
+                </form>   
+                </li>
+            </ul>
+        </nav> 
+        <div class="clear"></div>
+    </header> 
+    {if empty($list)}   
+
+    <div style='margin:30px auto;text-align:center;color:#c8bcb5'>您还没有被表白哦！</div>
+
+    {else}
+    <div class="content">
+        {loop $list $item}
+        <article class="underline">
+    
+			<h2><span style="color:#78c1e5">TO：&nbsp;{$item['receiver']}</span></h2>
+			<p> {$item['content']}</p>
+            <div class="date"><span>FROM：{$item['sender']}</span></div>
+            
+        </article>
+       {/loop}
+    {/if}
+          
+  </div> 
+  {if $count>9} 
+  <div class="content" id='content'></div>
+	<div class="more" style='margin:30px 0px;'>
+    <a id="content_more"  href="javascript:;" title="查看更多" page="2" >下一页</a>
+    </div>
+    {/if}
+   
+<div class="clear"></div>
+ 	<div style="font-size: 12px;line-height: 24px;width: 100%;text-align: center;color: #444;margin-top: 10px;">
+        {$_W['account']['name']}
+    </div>
+</body>
+</html>

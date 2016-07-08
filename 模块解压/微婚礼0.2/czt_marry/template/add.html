@@ -1,0 +1,126 @@
+{template 'common/header'}
+<style>
+.field label{float:left;margin:0 !important; width:140px;}
+</style>
+<div class="main">
+	<ul class="nav nav-tabs">
+		<li><a href="{php echo $this->createWebUrl('list');}">婚礼列表</a></li>
+		<li class="active"><a href="#">{php if (empty($id)) echo '添加'; else echo '编辑';}婚礼</a></li>
+	</ul>
+	<div class="panel panel panel-default">
+		<div class="panel-heading">{php if (empty($id)) echo '添加'; else echo '编辑';}婚礼</div>
+		<div class="panel-body">
+			<form action="" method="post" class="form-horizontal" role="form" id="form1">
+			<div class="form-group">
+				<label class="col-xs-13 col-sm-2 col-md-2 col-lg-1 control-label">婚礼标题</label>
+				<div class="col-sm-8">
+					<input class="form-control" name="title" id="" type="text" value="{$item['title']}">&nbsp;&nbsp;婚礼标题，例如：新郎名字&新娘名字
+				</div>	
+			</div>
+			<div class="form-group">
+				<label class="col-xs-13 col-sm-2 col-md-2 col-lg-1 control-label">婚礼日期</label>
+				<div class="col-sm-4 col-xs-6">{php echo tpl_form_field_date('date', !empty($item['date']) ? date('Y-m-d H:i',$item['date']) : date('Y-m-d H:i'),1)}</div>
+				
+			</div>
+			<div class="form-group">
+				<label class="col-xs-13 col-sm-2 col-md-2 col-lg-1 control-label">新人婚纱图片</label>
+				<div class="col-sm-8">
+					{php echo tpl_form_field_image('pic', $item['pic']);}
+				</div>	
+			</div>
+			<div class="form-group">
+				<label class="col-xs-13 col-sm-2 col-md-2 col-lg-1 control-label">背景图片</label>
+				<div class="col-sm-8">
+					{php echo tpl_form_field_image('bg', $item['bg']);}
+				</div>	
+			</div>
+			<div class="form-group">
+				<label class="col-xs-13 col-sm-2 col-md-2 col-lg-1 control-label">背景音乐</label>
+				<div class="col-sm-8">
+					{php echo tpl_form_field_audio('music', $item['music'], $options = array());} 
+				</div>	
+			</div>
+			<div class="form-group">
+				<label class="col-xs-13 col-sm-2 col-md-2 col-lg-1 control-label">地点</label>
+				<div class="col-sm-8">
+					{php echo tpl_form_field_coordinate('coordinate', $item['coordinate']);} 
+				</div>	
+			</div>
+			<div class="form-group">
+				<label class="col-xs-13 col-sm-2 col-md-2 col-lg-1 control-label">婚礼概要</label>
+				<div class="col-sm-8">
+					<textarea name="info" class="form-control richtext" cols="70" rows="10">
+					{if empty($item['info'])}
+						<h2>婚礼概要</h2>
+						<p> 日期：<br />
+						二零一四年十二月十一日<br />
+						地址：<br />
+						xxx<br />
+						<br />
+						联系电话：<br />
+						（新郎）15888888888<br />
+						（新娘）15888888888<br />
+						<br />
+						</p>
+						<h2>相关事项</h2>
+						<p> 恭候时间<br />
+						下午 18：00 <br />
+						<br />
+						入席时间 <br />
+						下午 19：00 <br />
+						<br />
+						</p>
+						<h2>诚邀您参加我们的婚礼</h2>
+					{else}
+						{$item['info']}  
+					{/if}
+          		</textarea>&nbsp;&nbsp;填写婚礼的时间、地点、人物等相关信息
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-13 col-sm-2 col-md-2 col-lg-1 control-label">相册</label>
+				<div class="col-sm-8">
+				{php echo tpl_form_field_multi_image('album',$item['album'])}
+				</div>	
+			</div>
+			<div class="form-group">
+				<label class="col-xs-13 col-sm-2 col-md-2 col-lg-1 control-label">转发标题</label>
+				<div class="col-sm-8">
+					<input class="form-control" name="s_title" id="" type="text" value="{$item['s_title']}">&nbsp;&nbsp;转发给朋友和朋友圈时显示的标题，例如：新郎名字&新娘名字诚邀您参加我们的婚礼!
+				</div>	
+			</div>
+			<div class="form-group">
+				<label class="col-xs-13 col-sm-2 col-md-2 col-lg-1 control-label">转发描述</label>
+				<div class="col-sm-8">
+					<input class="form-control" name="s_des" id="" type="text" value="{$item['s_des']}">&nbsp;&nbsp;转发给朋友和朋友圈时显示的描述，例如：诚邀您参加我们的婚礼！时间：xxxx-xx-xx
+				</div>	
+			</div>
+			<div class="form-group">
+				<label class="col-xs-13 col-sm-2 col-md-2 col-lg-1 control-label">转发图标</label>
+				<div class="col-sm-8">
+					{php echo tpl_form_field_image('s_icon', $item['s_icon']);}&nbsp;&nbsp;转发给朋友和朋友圈时显示的图标，大小建议40x40 
+				</div>	
+			</div>
+			<div class="form-group">
+				<div class="col-sm-8">
+					<input type="submit" name="submit" value="提交" class="btn btn-primary">
+					<input type="hidden" name="token" value="{$_W['token']}" />
+				</div>		
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	require(['jquery', 'util'], function($, u){
+		u.editor($('.richtext')[0]);
+		$("#form1").submit(function(){
+			if($(":text[name='title']").val() == '') {
+				u.message('请填写婚礼标题', '', 'error');
+				return false;
+			}
+			return true;
+		});
+	});
+</script>
+{template 'common/footer'}

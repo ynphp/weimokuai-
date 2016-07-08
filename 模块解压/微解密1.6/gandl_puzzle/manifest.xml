@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微解密]]></name>
+		<identifie><![CDATA[gandl_puzzle]]></identifie>
+		<version><![CDATA[1.6]]></version>
+		<type><![CDATA[yx]]></type>
+		<ability><![CDATA[活动主办方设置一些线索，粉丝们通过互换来搜集线索，在活动规定时间内根据线索的提示指引提交答案，答对者获得奖励]]></ability>
+		<description><![CDATA[1，活动主办方在后台创建活动（设计一个谜底和若干条线索） 2，通过公众账号群发等方式通知粉丝参加 3，参与者进入活动页面后都会随机获得一条线索 4，参与者分享该活动给好友，并和好友互换线索 5，参与者在活动有效时间内根据搜集到的线索猜出谜底]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="解密活动列表" do="list" state="" direct="false" />
+			<entry title="创建解密活动" do="add" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_gandl_puzzle` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `topic` varchar(255) NOT NULL COMMENT '主题',
+  `cover` varchar(255) NOT NULL COMMENT '封面文件路径',
+  `detail` text NOT NULL COMMENT '中奖人数',
+  `award` int(11) NOT NULL,
+  `award_remark` text NOT NULL COMMENT '宝藏获取说明',
+  `start_time` int(11) NOT NULL,
+  `end_time` int(11) NOT NULL,
+  `type` tinyint(2) NOT NULL,
+  `keys` text NOT NULL,
+  `keys_least` int(11) NOT NULL COMMENT '至少找到N个线索才能回答',
+  `truth` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '正确答案',
+  `truth_options` text,
+  `truth_remark` text NOT NULL COMMENT '答案解释说明',
+  `share` text,
+  `ad` text,
+  `status` tinyint(1) NOT NULL COMMENT '1:正常，2停止',
+  `create_time` int(11) NOT NULL,
+  `update_time` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_gandl_puzzle_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `puzzle_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `clue_idx` int(11) NOT NULL COMMENT '我的随机线索序号',
+  `clue_con` varchar(255) NOT NULL COMMENT '我的随机线索内容',
+  `clues` text COMMENT '我收集到的线索序号，用,分隔',
+  `froms` text COMMENT '我收集到的线索来源',
+  `answer` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `answer_time` int(11) DEFAULT NULL,
+  `join_channel` tinyint(2) DEFAULT NULL,
+  `join_channel_id` int(11) DEFAULT NULL,
+  `join_time` int(11) NOT NULL,
+  `rank` int(11) NOT NULL COMMENT '排名缓存（主要用于快速对用户显示其排名）：0无排名，>=1排名',
+  `award_code` varchar(255) DEFAULT NULL COMMENT '中奖码',
+  `award_time` int(11) DEFAULT NULL COMMENT '领奖时间',
+  `award_remark` text COMMENT '领奖备注',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

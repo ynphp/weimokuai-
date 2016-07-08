@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[微婚礼]]></name>
+		<identifie><![CDATA[czt_marry]]></identifie>
+		<version><![CDATA[0.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[结婚喜帖发送]]></ability>
+		<description><![CDATA[结婚喜帖发送]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="婚礼管理" do="list" state="" direct="false" />
+			<entry title="添加婚礼" do="add" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_czt_marry` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `s_title` varchar(200) NOT NULL,
+  `s_icon` varchar(1000) NOT NULL,
+  `s_des` varchar(1000) NOT NULL,
+  `info` text NOT NULL,
+  `date` int(11) NOT NULL,
+  `music` varchar(1000) NOT NULL,
+  `pic` varchar(1000) NOT NULL,
+  `bg` varchar(1000) NOT NULL,
+  `album` text NOT NULL,
+  `coordinate` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_czt_marry_reply` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `marry_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
