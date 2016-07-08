@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+<title>达人中心</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../addons/hc_fxdaren/style/img/mobi.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="max-age=0" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="Description" content="分享达人" />
+<meta name="Keywords" content="分享达人" />
+</head>
+<body style="background-image:url(../addons/hc_fxdaren/style/img/bg.jpg);">
+<section class="main animated fadeInDown">
+	<div class="main-box">
+		<div class="activity-list">
+		{php $time=time()}
+			{loop $rule_list  $a}
+			<div class="regular activity-box">
+				<h1>{$a['title']}</h1>
+				<figure class="figure"><a href="{php echo $this->createMobileUrl('Enter',array('rid'=>$a['rid']))}" class="enter"> <img src="{$_W['attachurl']}{$a['picture']}" alt="" /></a> </figure>
+				<p class="activity-rule"><span>活动奖励</span>{$a['description']}</p>
+				<p class="activity-rule"><span>奖励规则</span>浏览量达到{$a['award_rule']}人</p>
+				<p class="activity-btn fn-clear"> 
+				<a href="{php echo $this->createMobileUrl('Enter',array('rid'=>$a['rid']))}" class="enter">进入活动</a> 
+				<a href="{php echo $this->createMobileUrl('View',array('rid'=>$a['rid']))}" class="rule-btn">查看规则</a> </p>
+				{if $time < $a['start_time']  }<i class="icon icon-start"></i>{/if}
+				{if $time > $a['end_time']  }<i class="icon icon-end"></i>{/if}
+				{if $time > $a['start_time'] && $time< $a['end_time'] }<i class="icon icon-hot"></i>{/if}
+			</div>
+			{/loop}
+		</div>
+		<a href="{php echo $this->createMobileUrl('Introduce')}" class="more fn-clear">
+		<h1 class="know-more"></h1>
+		<i class="icon-right-open-big"></i> </a> 
+	</div>
+</section>
+<footer class="foot"><style>
+#copyright {width: 100%;height: 50px;line-height: 50px;text-align:center; color:#333;font-size: 15px;}
+</style>
+<div id="copyright" style="color:#fff;">技术支持：{$_W['account']['name']}</div></footer>
+<nav class="nav fn-clear"> 
+	<a href="{php echo $this->createMobileUrl('Share')}" class="active"><i class="icon-award"></i>达人活动</a> 
+	<a href="{php echo $this->createMobileUrl('Myactivity')}"><i class="icon-inbox"></i>我的活动</a> 
+	<a href="{php echo $this->createMobileUrl('Home')}"><i class="icon-user-1"></i>个人中心</a> 
+</nav>
+<script src="http://g.tbcdn.cn/kissy/m/0.2.0/mini-full-min.js"></script> 
+<!--<script src="../addons/hc_fxdaren/style/img/mobi.js"></script>-->
+</body>
+</html>

@@ -1,0 +1,241 @@
+{template 'common/header'}
+{php echo $this -> set_tabbar($action, 4);}
+{if $operation == 'display'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" onsubmit="return formcheck(this)">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-primary" href="{php echo $this->createWebUrl('gift', array('op' => 'post'))}"><i class="fa fa-plus"></i> 添加开卡即送</a>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="table-responsive panel-body">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:10%;">显示顺序</th>
+                        <th style="width:30%;">活动名称</th>
+                        <th style="width:10%;">赠送类型</th>
+                        <th style="width:25%;">时间</th>
+                        <th style="width:10%;">状态</th>
+                        <th style="width:15%;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="level-list">
+                    {loop $gifts $item}
+                    <tr>
+                        <td><input type="text" class="form-control" name="displayorder[{$item['id']}]" value="{$item['displayorder']}"></td>
+                        <td>{$item['title']}</td>
+                        <td>
+                            积分
+                        </td>
+                        <td>
+                            生效时间：{php echo date('Y-m-d H:i:s', $item[starttime]);}<br/>
+                            过期时间：{php echo date('Y-m-d H:i:s', $item[endtime]);}
+                        </td>
+                        <td>
+                            {if TIMESTAMP<$item['starttime']}
+                            <span class="label label-default">未开始</span>
+                            {elseif TIMESTAMP>$item['starttime'] && TIMESTAMP<$item['endtime']}
+                            {if $item['status'] == 1}
+                            <span class="label label-success" >已开启</span>
+                            {else}
+                            <span class="label label-danger" >已关闭</span>
+                            {/if}
+                            {else}
+                            <span class="label label-default">已结束</span>
+                            {/if}
+                        </td>
+                        <td>
+                            {if TIMESTAMP>$item['starttime'] && TIMESTAMP<$item['endtime']}
+                            {if $item['status'] == 0}
+                            <a class="btn btn-default btn-sm" style="color:green;" href="{php echo $this->createWebUrl('gift', array('op' => 'check', 'id' => $item['id'], 'status' => $item['status']))}"><i class="fa fa-play"></i></a>
+                            {else}
+                            <a class="btn btn-default btn-sm" style="color:red;" href="{php echo $this->createWebUrl('gift', array('op' => 'check', 'id' => $item['id'], 'status' => $item['status']))}"><i class="fa fa-stop"></i></a>
+                            {/if}
+                            {/if}
+                            <a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('gift', array('op' => 'post', 'id' => $item['id']))}"><i class="fa fa-pencil"></i></a>
+                            <a class="btn btn-default btn-sm" onclick="return confirm('确认删除吗？');return false;" href="{php echo $this->createWebUrl('gift', array('op' => 'delete', 'id' => $item['id']))}"><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7">
+                            <input name="submit" type="submit" class="btn btn-primary" value="批量排序">
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </form>
+    {$pager}
+</div>
+{else if $operation == 'post'}
+<div class="main">
+    <form action="" method="post" onsubmit="return check();" class="form-horizontal form" enctype="multipart/form-data">
+        <input type="hidden" id="id" name="id" value="{$reply['id']}"/>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {$title}
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动名称</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="title" value="{$reply['title']}" id="title" class="form-control" placeholder="请输入活动名称"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动开始时间</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_date('starttime', $starttime, true)}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动结束时间</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_date('endtime', $endtime, true)}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动策略</label>
+                    <div class="col-sm-9">
+                         <input type="text" name="score" value="{$reply['score']}" id="score" class="form-control" style="width:80px;" placeholder=""/>
+                        <div class="help-block">开卡赠送积分</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">在领卡界面展示</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" name="showgetcard" value="1" {if empty($reply)}checked="checked"{elseif $reply['showgetcard']==1}checked="checked"{/if} />展示
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="showgetcard" value="0" {if $reply['showgetcard']==0}checked="checked"{/if} />隐藏
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="tr_content" {if $reply['showgetcard']==0}style="display:none;"{/if} >
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">使用说明</label>
+                    <div class="col-sm-9">
+                        <textarea style="height:200px; width:600px;" class="richtext form-control" name="content" id="content">{$reply['content']}</textarea>
+                        <div class="help-block"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交">保存设置</button>
+                <input type="hidden" name="token" value="{$_W['token']}"/>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $(":radio[name='showgetcard']").click(function () {
+            var $this = $(this);
+            if($(this).val() == 0){
+                $("#tr_content").hide();
+            } else {
+                $("#tr_content").show();
+            }
+        });
+    });
+
+    function check() {
+        if($.trim($('#title').val()) == '') {
+            message('没有输入活动标题.', '', 'error');
+            return false;
+        }
+        if($.trim($('#title').val()).length > 30) {
+            message('标题不能多于30个字.', '', 'error');
+            return false;
+        }
+        var score = $.trim($('#score').val());
+        if(score == '') {
+            message('没有输入赠送积分.', '', 'error');
+            return false;
+        }
+        if(isNaN(score)){
+            message('赠送积分必须为数字.', '', 'error');
+            return false;
+        }
+        return true;
+    }
+</script>
+<script type="text/javascript">
+    kindeditor($('.richtext-clone'));
+    kindeditorUploadBtn($('#btnpicture'));
+</script>
+<script type="text/javascript">
+    $('#date-range').daterangepicker({
+        format: 'YYYY-MM-DD H:m',
+        startDate: $(':hidden[name=starttime]').val(),
+        endDate: $(':hidden[name=endtime]').val(),
+        startTime:$(':hidden[name=starttime]').val(),
+        endTime:$(':hidden[name=endtime]').val(),
+        locale: {
+            applyLabel: '确定',
+            cancelLabel: '取消',
+            fromLabel: '从',
+            toLabel: '至',
+            weekLabel: '周',
+            customRangeLabel: '日期范围',
+            daysOfWeek: moment()._lang._weekdaysMin.slice(),
+            monthNames: moment()._lang._monthsShort.slice(),
+            firstDay: 0
+        }
+    }, function(start, end){
+        $('#date-range .date-title').html(start.format('YYYY-MM-DD H:m') + ' 至 ' + end.format('YYYY-MM-DD H:m'));
+        $(':hidden[name=starttime]').val(start.format('YYYY-MM-DD H:m'));
+        $(':hidden[name=endtime]').val(end.format('YYYY-MM-DD H:m'));
+    });
+</script>
+<script type="text/javascript" src="./resource/script/kindeditor/kindeditor-min.js"></script>
+<script type="text/javascript" src="./resource/script/kindeditor/lang/zh_CN.js"></script>
+<link type="text/css" rel="stylesheet" href="./resource/script/kindeditor/themes/default/default.css" />
+<script>
+    var editor = KindEditor.editor({
+        allowFileManager : true,
+        uploadJson : "./index.php?act=attachment&do=upload",
+        fileManagerJson : "./index.php?act=attachment&do=manager",
+        afterUpload : function(url, data) {
+        }
+    });
+    $("#upload-image-thumb").click(function() {
+        editor.loadPlugin("image", function() {
+            editor.plugin.imageDialog({
+                tabIndex : 1,
+                imageUrl : $("#upload-image-url-thumb").val(),
+                clickFn : function(url) {
+                    editor.hideDialog();
+                    var val = url;
+                    if(url.toLowerCase().indexOf("http://") == -1 && url.toLowerCase().indexOf("https://") == -1) {
+                        var filename = /images(.*)/.exec(url);
+                        if(filename && filename[0]) {
+                            val = filename[0];
+                        }
+                    }
+                    $("#upload-image-url-thumb-old").val($("#upload-image-url-thumb").val());
+                    $("#upload-image-url-thumb").val(val);
+                    $("#upload-image-preview-thumb").html('<img src="'+url+'" width="80px;" />');
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    require(['jquery', 'util'], function ($, u) {
+        $(function () {
+            u.editor($('.richtext')[0]);
+        });
+    });
+</script>
+{/if}
+{template 'common/footer'}

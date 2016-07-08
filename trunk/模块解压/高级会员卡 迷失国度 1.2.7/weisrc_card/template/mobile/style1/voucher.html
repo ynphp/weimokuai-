@@ -1,0 +1,236 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dialog_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/mymain.js"></script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<script>
+    $().ready(function () {
+        $("#nav_1 a").on("touchstart touchend mouseover mouseout", function (e) {
+            switch (e.type) {
+                case "touchstart":
+                case "mouseover":
+                    this.classList.add("hover");
+                    break;
+                case "touchend":
+                case "mouseout":
+                    this.classList.remove("hover");
+                    break;
+            }
+        });
+    });
+
+    function getCoupon(id, type) {
+        loading(true);
+        $.ajax({
+            url: "/Webnewmemberscore/ReceiveCoupon/pid/1071/wechatid/osXr8jhe5nzI0v2N6h6FpkUBx0GI",
+            type: "POST",
+            data: {cou_id: id, type: type},
+            dataType: "json",
+            success: function (html) {
+                loading(false);
+                if (html.status == 1) {
+                    alert(html.msg, 1500);
+                    setTimeout("location.reload()", 1500);
+                } else {
+                    alert(html.msg, 1500)
+                }
+            }
+        });
+    }
+</script>
+<div class="container coupon">
+    <header>
+        <nav id="nav_1" class="p_10">
+            <ul class="box" style="width:300px;">
+                <li>
+                    <a href="/Webnewmemberscore/ListCoupon/pid/1071/wechatid/osXr8jhe5nzI0v2N6h6FpkUBx0GI/types/1">优惠券</a>
+                </li>
+                <li><a href="/Webnewmemberscore/ListVoucher/pid/1071/wechatid/osXr8jhe5nzI0v2N6h6FpkUBx0GI" class="on">代金券</a>
+                </li>
+                <li>
+                    <a href="/Webnewmemberscore/ListCoupon/pid/1071/wechatid/osXr8jhe5nzI0v2N6h6FpkUBx0GI/types/3">礼品券</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="body">
+        <ul class="list_coupon_ul">
+
+        </ul>
+    </div>
+    <footer>
+        <nav class="nav">
+            <ul class="box">
+                <li>
+                    <a href="/Webnewmemberscore/index/pid/1071/wechatid/osXr8jhe5nzI0v2N6h6FpkUBx0GI" class="on">
+                        <p class="card"></p>
+                        <span>会员卡</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Webnewmemannounce/notice?pid=1071&amp;wechatid=osXr8jhe5nzI0v2N6h6FpkUBx0GI">
+                        <p id="Js-msg-num" class="msg"></p>
+                        <span>消息</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Webnewmemintegral/signin/pid/1071/wechatid/osXr8jhe5nzI0v2N6h6FpkUBx0GI">
+                        <p class="sign"></p>
+                        <span>签到</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Webnewmemberscore/share/pid/1071/wechatid/osXr8jhe5nzI0v2N6h6FpkUBx0GI">
+                        <p class="share"></p>
+                        <span>分享</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Webnewmemberscore/my/pid/1071/wechatid/osXr8jhe5nzI0v2N6h6FpkUBx0GI" class="my ">
+                        <p class="my"></p>
+                        <span>我的</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </footer>
+    <script type="text/javascript">
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+
+
+    </script>
+</div>
+<script type="text/javascript">
+    (function () {
+        var wtj = document.createElement('script');
+        wtj.type = 'text/javascript';
+        wtj.async = true;
+        wtj.src = 'http://tj.weimob.com/wtj.js?url=' + encodeURIComponent(location.href);
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wtj, s);
+    })();
+    function weimobAfterShare(shareFromWechatId, sendFriendLink, shareToPlatform) {
+        var wmShare = document.createElement('script');
+        wmShare.type = 'text/javascript';
+        wmShare.async = true;
+        wmShare.src = 'http://tj.weimob.com/api-share.js?fromWechatId=' + shareFromWechatId + '&shareToPlatform=';
+        wmShare.src += shareToPlatform + '&pid=1071&sendFriendLink=' + encodeURIComponent(sendFriendLink);
+        var stj = document.getElementsByTagName('script')[0];
+        stj.parentNode.insertBefore(wmShare, stj);
+    }
+
+    /**
+     * 默认分享出去的数据
+     *
+     */
+    function getShareImageUrl() {
+
+        var share_imgurl = "http://www.weimob.com/templates/kindeditor/attached/1c/38/3c/image/20130828/20130828125505_22850.jpg";
+        if ("" == share_imgurl) {
+            var shareImgObj = document.getElementsByClassName("shareImgUrl")[0];
+            if ('undefined' != typeof(shareImgObj)) {
+                share_imgurl = shareImgObj.src;
+            }
+        }
+        return share_imgurl;
+    }
+
+    window.shareData = window.shareData || {
+        "timeLineLink": "http://1071.m.weimob.com/Webnewmemberscore/ListVoucher?pid=1071&wechatid=fromUsername",
+        "sendFriendLink": "http://1071.m.weimob.com/Webnewmemberscore/ListVoucher?pid=1071&wechatid=fromUsername",
+        "weiboLink": "http://1071.m.weimob.com/Webnewmemberscore/ListVoucher?pid=1071&wechatid=fromUsername",
+        "tTitle": '会员卡优惠',
+        "tContent": '会员优惠多多领完为止，大家快来抢吧',
+        "fTitle": '会员卡优惠',
+        "fContent": '会员优惠多多领完为止，大家快来抢吧',
+        "wContent": '会员优惠多多领完为止，大家快来抢吧'}
+
+
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        // 发送给好友
+        WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+            WeixinJSBridge.invoke('sendAppMessage', {
+                "img_url": getShareImageUrl(),
+                "img_width": "640",
+                "img_height": "640",
+                "link": window.shareData.sendFriendLink,
+                "desc": window.shareData.fContent,
+                "title": window.shareData.fTitle
+            }, function (res) {
+                if ('send_app_msg:cancel' != res.err_msg) {
+                    weimobAfterShare("osXr8jhe5nzI0v2N6h6FpkUBx0GI", window.shareData.sendFriendLink, 'appmessage');
+                }
+                //_report('send_msg', res.err_msg);
+            })
+        });
+
+        // 分享到朋友圈
+        WeixinJSBridge.on('menu:share:timeline', function (argv) {
+            WeixinJSBridge.invoke('shareTimeline', {
+                "img_url": getShareImageUrl(),
+                "img_width": "640",
+                "img_height": "640",
+                "link": window.shareData.timeLineLink,
+                "desc": window.shareData.tContent,
+                "title": window.shareData.tTitle
+            }, function (res) {
+                if ('share_timeline:cancel' != res.err_msg) {
+                    //如果用户没有取消
+                    weimobAfterShare("osXr8jhe5nzI0v2N6h6FpkUBx0GI", window.shareData.timeLineLink, 'timeline');
+                }
+                //_report('timeline', res.err_msg);
+            });
+        });
+
+        // 分享到微博
+        WeixinJSBridge.on('menu:share:weibo', function (argv) {
+            WeixinJSBridge.invoke('shareWeibo', {
+                "content": window.shareData.wContent,
+                "url": window.shareData.weiboLink
+            }, function (res) {
+                if ('share_weibo:cancel' != res.err_msg) {
+                    weimobAfterShare("osXr8jhe5nzI0v2N6h6FpkUBx0GI", window.shareData.weiboLink, 'weibo');
+                }
+                //_report('weibo', res.err_msg);
+            });
+        });
+    }, false);
+</script>
+<script type="text/javascript" src="http://kf.weimob.com/js/ChatFloat.js"></script>
+<script type="text/javascript">
+    new ChatFloat({
+        AId: '1071',
+        openid: "osXr8jhe5nzI0v2N6h6FpkUBx0GI",
+        top: 150,
+        right: 0,
+        IsTest: false
+    });
+</script>
+
+
+<script type="text/javascript" src="http://stc.weimob.com/src/st/share_channel.js?v=10101010"></script>
+<script type="text/javascript" src="http://stc.weimob.com/src/st/base64.js?v=10101011"></script>
+<script type="text/javascript" src="http://stc.weimob.com/src/st/st.js?v=10101011"></script>
+<script type="text/javascript">
+    //使用案例如###如若上线请到研发群找我@赵增煜###
+    st.push("_triggerEvent", {
+        "is_statistic_on": "on", //开关
+        "statisticServerPath": "http://statistic.weimob.com/wm.js", //统计地址
+        "memcServerPath": "http://statistic.weimob.com/memc?cmd=get", //缓存地址
+        "stat_action": "loadPage",  //统计动作类型
+        "stat_optValue": ""    //参数值
+    });
+</script>
+<script src="http://statistic.weimob.com/wm.js?StatType=qudao&amp;url=http%3A%2F%2F1071.m.weimob.com%2FWebnewmemberscore%2FListVoucher%2Fpid%2F1071%2Fwechatid%2FosXr8jhe5nzI0v2N6h6FpkUBx0GI&amp;stat_bid=&amp;stat_pid=&amp;stat_action_seq_id=&amp;stat_webtype=&amp;stat_module=&amp;stat_time=1416389863&amp;stat_action=loadPage&amp;stat_optValue="></script>
+</body>
+</html>

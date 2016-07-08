@@ -1,0 +1,103 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css?v=1" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dialog_min.js"></script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<script>
+    function exchange(id, point) {
+        confirm('<label>扣除积分：<span>' + point + '</span></lael>', function () {
+            loading(true);
+            $.ajax({
+                url: "{php echo $this->createMobileUrl('UseExchange')}",
+                type: "post",
+                data: {
+                    id: id,
+                    from_user:"{$from_user}"
+                },
+                dataType: "JSON",
+                success: function (data) {
+                    loading(false);
+                    //兑换成功，请到我的礼品券中查看
+                    //此活动您已经兑换过，活动期间最多只能兑换2次!
+                    if (data.status == 1) {
+                        alert(data.message, 1500);
+                        setTimeout("location.reload()", 1500);
+                    } else {
+                        alert(data.message, 1500)
+                    }
+                }
+            });
+        });
+    }
+</script>
+<style>
+    .list_exchange {
+        padding-top: 10px;
+    }
+    .list_exchange li[data-card]:first-of-type {
+        margin-top: 0;
+    }
+</style>
+<style>
+    .tbox_other {
+        width: 100%;
+    }
+    .tbox_other > * {
+        height: 100%;
+        display: table-cell;
+        vertical-align: top;
+    }
+    .tbox_other > *:last-child {
+        width: 100%;
+    }
+</style>
+
+<div class="container exchange {if empty($exchanges)}none{/if}">
+    <div class="body">
+        <ul class="list_exchange">
+            {loop $exchanges $item}
+            <li data-card="" onclick="this.classList.toggle('on');">
+                <header>
+                    <ul class="tbox_other">
+                        <li>
+                            <h5>{$item['title']} </h5>
+                            <p>有效期至{php echo date('Y年m月d日', $item[endtime]);} </p>
+                        </li>
+                    </ul>
+                </header>
+                <section>
+                    <div>
+                        <figure>
+                            <img src="{if strstr($item['thumb'], 'http') || strstr($item['thumb'], '../addons/')}{$item['thumb']}{else}{$_W['attachurl']}{$item['thumb']}{/if}"  onerror="this.src='{RES}mobile/{php echo $this->cur_tpl}/images/youhuiquan.jpg'">
+                        </figure>
+                        <article class="p">{php echo htmlspecialchars_decode($item['content']);}</article>
+                    </div>
+                </section>
+                <footer>
+                    <dl class="box">
+                        <dd><label><big>{$item['needscore']}</big>积分</label></dd>
+                        <dd><a href="javascript:;" onclick="exchange({$item['id']}, {$item['needscore']});">立即兑换</a></dd>
+                    </dl>
+                </footer>
+            </li>
+            {/loop}
+        </ul>
+    </div>
+    {if !empty($card)}
+    {php include $this->template($this->cur_tpl.'/_footer');}
+    {/if}
+    <script type="text/javascript">
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</div>
+</body>
+</html>

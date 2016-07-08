@@ -1,0 +1,160 @@
+{template 'common/header'}
+{php echo $this -> set_tabbar($action, 1);}
+{if $operation == 'display'}
+<div class="main">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <a class="btn btn-primary" href="{php echo $this->createWebUrl('privilege', array('op' => 'post'))}"><i class="fa fa-plus"></i> 添加特权</a>
+        </div>
+    </div>
+    <form action="" method="post" class="form-horizontal form">
+        <div class="panel panel-default">
+
+            <div class="table-responsive panel-body">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:10%;">显示顺序</th>
+                        <th style="width:20%">特权时间</th>
+                        <th style="width:40%">标题</th>
+                        <th style="width:10%;">所属人群</th>
+                        <th style="width:10%;">状态</th>
+                        <th style="width:10%;">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="level-list">
+                    {loop $gifts $gift}
+                    <tr>
+                        <td><input type="text" class="form-control" name="displayorder[{$gift['id']}]" value="{$gift['displayorder']}"></td>
+                        <td>
+                            {php echo date('Y-m-d H:i:s', $gift[starttime]);}<br/>
+                            {php echo date('Y-m-d H:i:s', $gift[endtime]);}
+                        </td>
+                        <td>{$gift['title']}</td>
+                        <td>
+                            {php $levellist = explode(',', $gift['levelids']);}
+                            {if in_array(0, $levellist)}
+                            <span class="label" style="background:#4169e1;">所有会员</span>
+                            {else}
+                            {loop $levellist $item}
+                            <span class="label" style="background:#4169e1;">{$levelarr[$item]}</span>
+                            {/loop}
+                            {/if}
+                        </td>
+                        <td>
+                            {if TIMESTAMP<$gift['starttime']}<span class="label label-danger">未开始</span>
+                            {elseif TIMESTAMP>$gift['starttime'] && TIMESTAMP<$gift['endtime']}<span class="label label-success">进行中</span>
+                            {else}<span class="label label-danger">已结束</span>{/if}
+                        </td>
+                        <td>
+                            <a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('privilege', array('op' => 'post', 'id' => $gift['id']))}"><i class="fa fa-pencil"></i></a>
+                            <a class="btn btn-default btn-sm" onclick="return confirm('确认删除吗？');return false;" href="{php echo $this->createWebUrl('privilege', array('op' => 'delete', 'id' => $gift['id']))}"><i class="fa fa-times"></i></a></td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="7">
+                            <input name="submit" type="submit" class="btn btn-primary" value="批量排序">
+                            <input type="hidden" name="token" value="{$_W['token']}" />
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </form>
+    {$pager}
+</div>
+{elseif $operation == 'post'}
+<div class="main">
+    <form action="" method="post" onsubmit="return check();" class="form-horizontal form" enctype="multipart/form-data">
+        <input type="hidden" id="id" name="id" value="{$reply['id']}"/>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+               特权编辑
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">标题</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="title" value="{$reply['title']}" id="title" class="form-control" placeholder="请输入标题"/>
+                        <div class="help-block">不超过30个字符</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">选择人群</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="checkbox" name="levelids[]" value="0" {if !empty($levelarr)}{if in_array(0, $levelarr)}checked{/if}{/if}> 所有会员
+                        </label>
+                        {loop $levels $level}
+                        <label class="radio-inline">
+                            <input type="checkbox" name="levelids[]" value="{$level['id']}" {if !empty($levelarr)}{if in_array($level['id'], $levelarr)}checked{/if}{/if}> {$level['levelname']}
+                        </label>
+                        {/loop}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">开始时间</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_date('starttime', $starttime, true)}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">结束时间</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_date('endtime', $endtime, true)}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">使用说明</label>
+                    <div class="col-sm-9">
+                        <textarea style="height:200px; width:600px;" class="richtext form-control" name="content" id="content">
+                            {if empty($reply)}
+                            <p style="margin-top: 0px; margin-bottom: 0px; outline: 0px; padding: 0px; line-height: 20px;">
+                                <span style="margin: 0px; outline: 0px; padding: 0px; color: rgb(0, 153, 0);">1、持本卡可享受全店9.5折优惠</span></p>
+                            <p style="margin-top: 0px; margin-bottom: 0px; outline: 0px; padding: 0px; line-height: 20px;">
+                                <span style="margin: 0px; outline: 0px; padding: 0px; color: rgb(0, 153, 0);">2、持本卡可领取会员特有优惠券或代金券</span></p>
+                            <p style="margin-top: 0px; margin-bottom: 0px; outline: 0px; padding: 0px; line-height: 20px;">
+                                <span style="margin: 0px; outline: 0px; padding: 0px; color: rgb(0, 153, 0);">3、本卡为积分储值卡，不可兑换</span></p>{else}{$reply['content']}{/if}
+                        </textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="displayorder" value="{if empty($reply)}0{else}{$reply['displayorder']}{/if}" id="displayorder" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交">提交</button>
+                <input type="hidden" name="token" value="{$_W['token']}" />
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function check() {
+        if($.trim($('#title').val()) == '') {
+            message('没有输入标题.', '', 'error');
+            return false;
+        }
+        if($.trim($('#title').val()).length > 30) {
+            message('标题不能多于30个字.', '', 'error');
+            return false;
+        }
+        return true;
+    }
+
+    require(['jquery', 'util'], function ($, u) {
+        $(function () {
+            u.editor($('.richtext')[0]);
+        });
+    });
+</script>
+{/if}
+{template 'common/footer'}

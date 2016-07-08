@@ -1,0 +1,92 @@
+<input type="hidden" name="reply_id" value="{$reply['id']}" />
+<div class="panel panel-danger">
+	<div class="panel-heading">
+		定义图文回复相关参数
+	</div>
+	<div class="panel-body">
+	   <div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">回复标题</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="title" value="{$reply['title']}">
+				<span class="help-block">图文消息标题</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">回复图片</label>
+			
+			<div class="col-sm-9">
+				{php echo tpl_form_field_image('thumb', $reply['thumb']);}
+				<span class="help-block">图文消息图片</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">回复描述</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="description" value="{$reply['description']}">
+				<span class="help-block">回复描述</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">页面logo</label>
+			
+			<div class="col-sm-9">
+				{php echo tpl_form_field_image('logo', $reply['logo']);}
+				<span class="help-block">页面logo</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享提示页广告</label>
+			
+			<div class="col-sm-9">
+				{php echo tpl_form_field_image('ad', $reply['ad']);}
+				<span class="help-block">分享提示页广告（推荐尺寸：330*85px 透明背景的png图片）</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">广告标题</label>
+			
+			<div class="col-sm-9">
+				{php echo tpl_form_field_image('ad_title', $reply['ad_title']);}
+				<span class="help-block">分享提示页广告（推荐尺寸：545*110px 透明背景的png图片）</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">广告内容</label>
+			
+			<div class="col-sm-9">
+				{php echo tpl_form_field_image('ad_content', $reply['ad_content']);}
+				<span class="help-block">分享提示页广告（推荐尺寸宽度545px，高度任意，透明背景的png图片）</span>
+			</div>
+		</div>
+</div>
+</div>
+<div class="panel panel-info">
+	<div class="panel-heading">
+		定义分享相关参数
+	</div>
+	
+	<div class="panel-body">
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="sharetitle" value="{$reply['sharetitle']}">
+				<span class="help-block">分享标题</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享显示的图片</label>
+			
+			<div class="col-sm-9">
+				{php echo tpl_form_field_image('sharepicurl', $reply['sharepicurl']);}
+				<span class="help-block">分享显示的图片</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享显示内容</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="sharecontent" value="{$reply['sharecontent']}">
+				<span class="help-block">分享显示内容</span>
+			</div>
+		</div>
+</div>
+</div>

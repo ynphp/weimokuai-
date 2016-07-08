@@ -1,0 +1,56 @@
+﻿{template 'common/header'}
+{php echo $this -> set_tabbar($action, 3);}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" onsubmit="return formcheck(this)">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                会员充值日志
+            </div>
+            <div class="table-responsive panel-body">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:5%;">编号</th>
+                        <th style="width:15%;">卡号</th>
+                        <th style="width:10%;">用户名</th>
+                        <th style="width:10%;">充值类型</th>
+                        <th style="width:10%;">充值数量</th>
+                        <th style="width:17%;">原因</th>
+                        <th style="width:15%;">操作门店</th>
+                        <th style="width:18%;">操作时间</th>
+                    </tr>
+                    </thead>
+                    <tbody id="level-list">
+                    {loop $list $item}
+                    <tr>
+                        <td style="width:40px;">{$item['id']}</td>
+                        <td><a href="{php echo $this->createWebUrl('rechargelog', array('cardid' => $item['cardid']))}">{$item['cardnumber']}</a></td>
+                        <td>{$fans[$item['from_user']]['realname']}</td>
+                        <td>{if $item['type']==2}积分{else}金额{/if}</td>
+                        <td>{if $item['type']==1 || $item['type']==3}<font color="#f00">{$item['score']}</font>{else}{$item['score']}{/if}
+                        </td>
+                        <td>{$item['remark']}</td>
+                        <td>
+                            <font color="green">
+                                {if empty($password[$item['passwordid']])}
+                                门店总部
+                                {else}
+                                {if empty($stores[$item['storeid']]['title'])}
+                                商家
+                                {else}
+                                {$stores[$item['storeid']]['title']}
+                                {/if}
+                                /{$password[$item['passwordid']]['username']}
+                                {/if}
+                            </font>
+                        </td>
+                        <td>{php echo date('Y-m-d H:i:s', $item['dateline'])}</td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+    {$pager}
+</div>

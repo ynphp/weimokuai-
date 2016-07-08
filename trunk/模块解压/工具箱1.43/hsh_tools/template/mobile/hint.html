@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>消息通知 - 赤水好生活</title>
+	<meta name="format-detection" content="telephone=no, address=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+	<meta name="apple-touch-fullscreen" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<link href="http://w.hshcs.com/app/resource/css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://w.hshcs.com/app/resource/css/font-awesome.min.css" rel="stylesheet">
+	<link href="http://w.hshcs.com/app/resource/css/animate.css" rel="stylesheet">
+	<link href="http://w.hshcs.com/app/resource/css/common.css" rel="stylesheet">
+	<link href="http://w.hshcs.com/app/index.php?i=1&c=utility&a=style&" rel="stylesheet">
+	<script type="text/javascript" src="http://w.hshcs.com/app/resource/js/lib/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+	<script type="text/javascript">
+	var goUrl="{php echo $gourl;}";
+	wx.config({	
+		debug: false,
+		appId: '{php echo $signPackage["appId"];}',
+		timestamp: {php echo $signPackage["timestamp"];},
+		nonceStr: '{php echo $signPackage["nonceStr"];}',
+		signature: '{php echo $signPackage["signature"];}',
+		jsApiList:[
+			'hideOptionMenu',
+			'closeWindow',
+		],
+	});
+	</script>
+	
+	<link rel="shortcut icon" href="http://w.hshcs.com/attachment/images/global/MicroEngine.ico" type="images/x-icon">
+</head>
+<body>
+<div style="position:absolute; height: 50%; width: 80%; overflow:auto; margin:auto; top: -100px; left: 0; bottom: 0; right: 0;  ">
+	<h3 class="text-center" style="line-height: 1.5em; color: #ff9900;">{php echo $msg;}</h3>
+</div>
+<div class="container navbar-fixed-bottom" style="margin:20px;">
+	<button class="btn btn-large btn-primary btn-block " id="confirmButton" disabled="disabled" > 正在初始化... </button>
+</div>
+<script type="text/javascript">
+	wx.ready(function () {
+		$('#confirmButton').removeAttr("disabled");
+		$('#confirmButton').html(" 确认并关闭 ");
+		document.querySelector('#confirmButton').onclick = function () {
+			wx.closeWindow();
+		};
+	});
+
+</script>
+	
+	<script>
+		$(function(){
+			if($('.quick')!=null && $('.quick')!=''){
+				var h = $('.quick').height()+'px';
+				$('body').css("padding-bottom",h);
+			}else{
+				$('body').css("padding-bottom","0");
+			}
+		})
+	</script>
+</body>
+</html>

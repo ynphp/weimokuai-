@@ -1,0 +1,21 @@
+{php $bootstrap_type = 3;}
+{template 'header'}
+<div class="tabbable">
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <div class="mobile-div img-rounded">
+                <div class="mobile-hd" style="border-bottom:0;">收银台</div>
+                <div class="mobile-li">订单名称：{$params['title']}</div>
+                <div class="mobile-li">支付金额：{php echo sprintf('%.2f', $params['fee']);}<span class="muted"> 元</span></div>
+                <div class="mobile-li" style="padding:5px;">
+                    <form action="{php echo create_url('mobile/cash/alipay', array('weid' => $_W['uniacid']));}" method="post">
+                        <input type="hidden" name="params" value="{php echo base64_encode(json_encode($params));}" />
+                        <button class="btn btn-block btn-primary btn-success" type="submit" name="alipay">支付宝支付</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{template 'footer'}

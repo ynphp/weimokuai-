@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{$reply['jiesaoTitle']}</title>
+<meta http-equiv=Content-Type content="text/html;charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<!DOCTYPE html>
+<html>
+ <head> 
+  <script type="text/javascript">
+    var sampling = Math.random() < 0.001;
+    var page_begintime = (+new Date());
+
+    (sampling) && ((new Image()).src = "http://isdspeed.qq.com/cgi-bin/r.cgi?flag1=7839&flag2=7&flag3=8&15=1000&r=" + Math.random());
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<script type="text/css">
+.button2 {
+	font-size: 16px;
+	padding: 8px 0;
+	border: 1px solid #adadab;
+	color: #000000;
+	background-color: #e8e8e8;
+	background-image: linear-gradient(to top, #dbdbdb, #f4f4f4);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.45), inset 0 1px 1px #efefef;
+	text-shadow: 0.5px 0.5px 1px #fff;
+	text-align: center;
+	border-radius: 3px;
+	width: 100%;
+}
+#share_1 {
+float: left;
+width: 49%;
+display: block;
+}
+</script>
+<style type="text/css">
+#foot{position:fixed;bottom:0px;width:100%;}
+</style>
+
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="format-detection" content="telephone=no" />
+	   
+  <title>{$reply['jiesaoTitle']}</title> 
+  
+  <link rel="stylesheet" type="text/css" href="../addons/hc_fxdaren/style/img/article.css" />
+  	<link href="../addons/hc_fxdaren/template/images/activity-style.css" rel="stylesheet" type="text/css">
+ </head> 
+ <body id="activity-detail" class="zh_CN " style="z-index:888"> 
+				 <div id="mcover" onclick="document.getElementById('mcover').style.display='none';"  style="display:none;position:absolute;width:100%;height:100%"><img src="../addons/hc_fxdaren/images/sharePic.png" style="height: 99%;z-index: 99999;display:absolute;" alt="" id="foot"/></div>
+  <script type="text/javascript">
+        var write_sceen_time = (+new Date());
+        (sampling) && ((new Image()).src = "http://isdspeed.qq.com/cgi-bin/r.cgi?flag1=7839&flag2=7&flag3=8&16=1000&r=" + Math.random());
+    </script> 
+	 
+  <div class="rich_media"> 
+   <div class="rich_media_inner"> 
+    <h2 class="rich_media_title" id="activity-name"> {$reply['jiesaoTitle']} </h2> 
+    <div class="rich_media_meta_list"> 
+	<em id="post-date" class="rich_media_meta text">{php echo date('Y-m-d',$reply['start_time'])}</em>
+     <a class="rich_media_meta link nickname" href="javascript:void(0);" id="post-user">{$_W['account']['name']}</a> 
+    </div> 
+
+{$reply['jiesao']}
+
+
+	<div class="rich_media_tool" id="js_toobar">
+    <div id="js_read_area" class="media_tool_meta link_primary meta_primary" style="display: block;">阅读 <span id="readNum">100000+</span></div>
+	<a style="display: inline;" class="media_tool_meta meta_primary link_primary meta_praise praised" href="javascript:void(0);" id="like" like="1">
+    <i class="icon_praise_gray"></i><span class="praise_num" id="likeNum" onclick=" dianzhan()">999</span>
+   </a>
+    <a id="js_report_article" class="media_tool_meta link_primary meta_extra" href="javascript:void(0);">举报</a>
+    </div>
+	<div id="js_ad_area">     
+	<div class="rich_media_extra" id="gdt_area">         
+	<div class="line_tips_wrp">             
+	<span class="line_tips">推广</span>         
+	</div>          
+	<a href="{$reply['tuiguangurl']}">                          
+	<img class="appmsg_banner" src="{$_W['attachurl']}{$reply['picture2']}">             
+	<div class="ad_msg_mask" style="display:none;" id="loading_b2qnqwsqwedp601">                 
+	<img src="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/images/icon/common/icon_loading_white1ef6d4.gif">             
+	</div>                     
+	</a>     
+	</div>   
+	</div>
+	<input type="hidden" name="from_user" value="{$fromuser}" id="from_user">
+	<!--
+	<div class="text" id="content">
+    <div id="mess_share">
+      <div id="share_1">
+        <button class="button2" style="	font-size: 16px;padding: 8px 0;border: 1px solid #adadab;color: #000000;background-color: #e8e8e8;background-image: linear-gradient(to top, #dbdbdb, #f4f4f4);box-shadow: 0 1px 1px rgba(0, 0, 0, 0.45), inset 0 1px 1px #efefef;text-shadow: 0.5px 0.5px 1px #fff;text-align: center;border-radius: 3px;width: 100%;" onclick="document.getElementById('mcover').style.display='block';">&nbsp;分享好友 </button>
+      </div>
+      <div class="clr"></div>
+    </div>
+  </div>
+-->
+<script type="text/javascript">
+//显示分享按钮
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+WeixinJSBridge.call(showOptionMenu);
+});
+</script>
+
+<script type="text/javascript">
+//显示分享按钮
+function dianzhan(){
+	alert('点赞数已满！');
+}
+</script>
+
+
+
+<script type="text/javascript">
+//显示分享按钮
+var fromuser = document.getElementById('from_user').value;
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {	
+
+	window.shareData = {
+		"imgUrl": "http://wx.weixiamen.cn/resource/attachment/images/4/2014/12/V6p2D21404xuia1Ph4XhHuVT41HXTp.png",
+		"timeLineLink": "{$staturl}",
+		"sendFriendLink": "{$staturl}",
+		"weiboLink": "{$staturl}",
+		"tTitle": "{$reply[jiesaoTitle]}",
+		"tContent": "{$reply[description]}",
+		"fTitle": "{$reply[jiesaoTitle]}",
+		"fContent": "{$reply[description]}",
+		"wContent": "{$reply[description]}"
+	};
+	// 发送给好友
+	WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+		WeixinJSBridge.invoke('sendAppMessage', {
+			"img_url": window.shareData.imgUrl,
+			"img_width": "640",
+			"img_height": "640",
+			"link": window.shareData.sendFriendLink,
+			"desc": window.shareData.fContent,
+			"title": window.shareData.fTitle
+		}, function (res) {
+			_report('send_msg', res.err_msg);
+		})
+	});
+
+	// 分享到朋友圈
+	WeixinJSBridge.on('menu:share:timeline', function (argv) {
+		WeixinJSBridge.invoke('shareTimeline', {
+			"img_url": window.shareData.imgUrl,
+			"img_width": "640",
+			"img_height": "640",
+			"link": window.shareData.timeLineLink,
+			"desc": window.shareData.tContent,
+			"title": window.shareData.tTitle
+		}, function (res) {
+			_report('timeline', res.err_msg);
+		});
+	});
+
+	// 分享到微博
+	WeixinJSBridge.on('menu:share:weibo', function (argv) {
+		WeixinJSBridge.invoke('shareWeibo', {
+			"content": window.shareData.wContent,
+			"url": window.shareData.weiboLink
+		}, function (res) {
+			_report('weibo', res.err_msg);
+		});
+	});
+}, false);
+</script>
+</body>
+</html>

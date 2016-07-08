@@ -1,0 +1,124 @@
+{template 'common/header'}
+{php 	load()->func('tpl');}
+
+	<ul class="nav nav-tabs">
+	    <li class="active"><a  href="{php echo $this->createWebUrl('fansgroup')}">粉丝分组</a></li>
+	    <li ><a href="{php echo $this->createWebUrl('fansgroup',array('op'=>'edit'))}">添加分组</a></li>
+	</ul>
+
+{if $operation == 'display'}
+
+
+<div class="main">
+  <div class="row-fluid" style="padding-bottom: 13px;">
+                                <div class="span8 control-group">
+<a class="btn btn-default"  href="{php echo $this->createWebUrl('fansgroup',array('op'=>'sync'))}">
+<i class="icon-download-alt"></i>同步粉丝分组</a>
+                                </div>
+                            </div>
+       <div class="panel panel-default">
+	<div class="panel-body">
+
+
+	<div style="padding:15px;">
+
+		<table class="table table-hover">
+
+			<thead class="navbar-inner">
+
+				<tr>
+
+					<th style="width:40px;">分组id</th>
+					<th style="width:40px;">场景id</th>
+	               <th style="width:40px;">分组名称</th>
+					<th style="width:60px;">用户数</th>
+					<th style="width:90px;">创建时间</th>
+
+					<th style="width:40px; text-align:right;">操作</th>
+
+				</tr>
+
+			</thead>
+
+			<tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['group_id']}</td>
+                    <td>{$item['name']}</td>
+					<td>{$item['count']}</td>
+					<td>{php echo date('Y-m-d H:i:s', $item['createtime'])}</td>
+
+					<td style="text-align:right;">
+					<a href="{php echo $this->createWebUrl('fansgroup', array('op' => 'edit', 'id' => $item['id']))}">编辑</a>
+					<a href="{php echo $this->createWebUrl('fansgroup', array('op' => 'del', 'group_id' => $item['group_id']))}">删除</a>
+					</td>
+
+				</tr>
+
+				{/loop}
+
+			</tbody>
+
+		</table>
+
+		{$pager}
+
+	</div>
+
+</div>
+
+
+
+{elseif $operation == 'edit'}
+
+<div class="main">
+<div class="panel panel-default">
+
+	<div class="panel-body table-responsive">
+	<form class="form-horizontal form" action="" method="post" enctype="multipart/form-data" onsubmit="return formcheck(this)">
+         <input type="hidden" class="form-control" name="id" value="{$item['id']}" />
+	   
+	    <div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝分组名称</label>
+		<div class="col-sm-9 col-xs-12">
+			<input type="text" name="name" class="form-control" value="{$item['name']}" >
+		
+		</div>
+	</div>
+	
+	   
+	    <div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝分组id</label>
+		<div class="col-sm-9 col-xs-12">
+			<input type="text" name="group_id" class="form-control" value="{$item['group_id']}" readonly >
+		
+		</div>
+	</div>
+	
+	   <div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝分组描述</label>
+		<div class="col-sm-9 col-xs-12">
+			<input type="text" name="group_desc" class="form-control" value="{$item['group_desc']}" >
+		
+		</div>
+	</div>
+	
+	
+
+        </div>
+		<div class="form-group col-sm-12">
+
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+
+			<input type="hidden" name="token" value="{$_W['token']}" />
+
+		</div>
+		</form>
+		</div>
+</div>
+{/if}
+
+
+
+{template 'common/footer'}
+

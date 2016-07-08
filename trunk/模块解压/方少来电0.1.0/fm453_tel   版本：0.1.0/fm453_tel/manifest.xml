@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[方少来电]]></name>
+		<identifie><![CDATA[fm453_tel]]></identifie>
+		<version><![CDATA[0.1.0]]></version>
+		<type><![CDATA[customer]]></type>
+		<ability><![CDATA[虚拟来电,点击接听后跳转到指定页面]]></ability>
+		<description><![CDATA[柒柒源码]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="来电入口" do="tel" state="" direct="true" />
+		</cover>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

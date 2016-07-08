@@ -1,0 +1,40 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<div class="container success">
+    <header>
+        <div class="desc tbox">
+            <div>
+                <span class="img">&nbsp;</span>
+            </div>
+            <div>
+                <label>
+                    付款成功！<br>
+                    付款金额
+                    <r>
+                        {$bill['money']}
+                    </r>
+                    元
+                </label>
+            </div>
+        </div>
+    </header>
+    <div class="body">
+        <div class="group_btn2">
+            <h6>余额：<label>{$coin}元</label></h6>
+            <ul>
+                <li>
+                    <a href="{php echo $this->createMobileUrl('index')}" class="btn">确&nbsp;&nbsp;定</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

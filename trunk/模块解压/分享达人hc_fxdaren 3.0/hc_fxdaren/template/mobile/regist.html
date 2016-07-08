@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<title>达人注册</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../addons/hc_fxdaren/style/img/mobi.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="max-age=0" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="Description" content="分享达人" />
+<meta name="Keywords" content="分享达人" />
+</head>
+<body  style="background:none; background-color:#0062a4;background-image:url(../addons/hc_fxdaren/style/img/bg.jpg);">
+<section class="main animated fadeInDown">
+<form method="post" action="{php echo $this->createMobileUrl('regist',array(),true)}">
+		
+			<!--<input type='hidden' name='do' value='regist' />-->
+			
+			<input type="hidden" name="id" id="id" value="{$member['id']}" >
+  <div class="register-box">
+    <h1 class="register-logo"></h1>
+    <div class="regular register-input">
+      <p class="fn-clear">
+        <label for="name"><i class="icon-user"></i></label>
+        <input type="text" class="input" id="realname" name="realname" value="{$member['realname']}" placeholder="请输入姓名"  />
+      </p>
+      <p class="fn-clear">
+        <label for="phone"><i class="icon-mobile"></i></label>
+        <input type="text" class="input" id="mobile" name="mobile" value="{$member['mobile']}" placeholder="请输入电话"  />
+      </p>
+    </div>
+    <p class="register-btn">
+      {if $member['mobile']}<input type="submit" value="修改" name="submit" data-action="doreg/aid/169/"  class="btn" id="J_submitReg"/>{else}
+	  <input type="submit" value="注册" name="submit" data-action="doreg/aid/169/"  class="btn" id="J_submitReg"/>{/if}
+    </p>
+    <p class="tips"><a href="{php echo $this->createMobileUrl('what')}" target="_blank">什么是分享达人?</a></p>
+    <p class="tips"><a href="{php echo $this->createMobileUrl('how')}" target="_blank">如何玩转达人?</a></p>
+  </div>
+  </form>
+<footer class="foot footer"><style>
+#copyright {width: 100%;height: 50px;line-height: 50px;text-align:center; color:#333;font-size: 15px;}
+</style>
+<div id="copyright" style="color:#fff;">技术支持：{$_W['account']['name']}</div></footer>
+</section>
+<script src="http://g.tbcdn.cn/kissy/m/0.2.0/mini-full-min.js"></script> 
+<script src="../addons/hc_fxdaren/style/img/mobi.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[二维码管理]]></name>
+		<identifie><![CDATA[junsion_qrcode]]></identifie>
+		<version><![CDATA[1.2]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[二维码管理]]></ability>
+		<description><![CDATA[二维码管理]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="二维码管理" do="index" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_junsion_qrcode_cate` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `status` int(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_junsion_qrcode_qrcode` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `logo` varchar(200) DEFAULT NULL,
+  `cate` int(11) DEFAULT '0',
+  `url` varchar(200) DEFAULT NULL,
+  `deadline` varchar(30) DEFAULT NULL,
+  `status` int(1) DEFAULT '0',
+  `must_fans` int(1) DEFAULT '0',
+  `comment` text,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_junsion_qrcode_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT NULL,
+  `qid` int(11) DEFAULT '0' COMMENT '二维码ID',
+  `nickname` varchar(200) DEFAULT NULL,
+  `openid` varchar(200) DEFAULT NULL,
+  `createtime` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

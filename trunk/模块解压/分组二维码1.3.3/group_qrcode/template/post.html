@@ -1,0 +1,110 @@
+{template 'common/header'}
+	<ul class="nav nav-tabs">
+		<li><a href="{php echo $this->createWebUrl('manage')}">管理二维码</a></li>
+		<li class="active"><a href="{php echo $this->createWebUrl('manage',array('op'=>'create'))}">生成二维码</a></li>
+	</ul>
+	<div class="clearfix">
+		<form class="form-horizontal form" action="" method="post" id="form1">
+			<input type="hidden" name="id" value="{$row['id']}" />
+			<input type="hidden" name="acid" value="{$row['acid']}" />
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					生成二维码
+				</div>
+				<div class="panel-body">
+				
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">场景名称</label>
+						<div class="col-sm-9 col-xs-12">
+							<input type="text" id="scene-name" class="form-control" placeholder="" name="scene-name" value="{$row['name']}" />
+						</div>
+					</div>
+					{if empty($id)}
+					<div class="form-group">
+		<label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝分组</label>
+						<div class="col-sm-9 col-xs-12">
+					<select name="group_id" class="form-control" name="group_id">
+
+						{loop $fansgroup $key $value}
+						<option value="{$value[group_id]}" {if $row['group_id'] == $value[group_id]} selected="selected" {/if}>{$value['name']}</option>
+						{/loop}
+					</select>
+				</div>
+			</div>
+				{/if}
+				
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-12">
+						<button type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交">提交</button>
+						<input type="hidden" name="token" value="{$_W['token']}" />
+				</div>
+			</div>
+		</form>
+	</div>
+<script type="text/javascript">
+	require(['jquery', 'util'], function($, u){
+		$("#form1").submit(function(){
+		/* 	if(!$("select[name='acid']").val()) {
+				u.message('请选择公众号！', '', 'error');
+				return false;
+			} */
+			if($(":text[name='scene-name']").val() == '') {
+				u.message('抱歉，场景名称为必填项，请返回修改！', '', 'error');
+				return false;
+			}
+		/* 	if($(":text[name='keyword']").val() == '') {
+				u.message('抱歉，场景管理关键字为必填项，请返回修改！', '', 'error');
+				return false;
+			} */
+			if($("#radio_1").attr("checked") == "checked") {
+				if ($(":text[name='expire-seconds']").val() == '') {
+					u.message('抱歉，临时二维码过期时间为必填项，请返回修改！', '', 'error');
+					return false;
+				}
+				var r2 = /^\+?[1-9][0-9]*$/;
+				if(!r2.test($(":text[name='expire-seconds']").val())){
+					u.message('抱歉，临时二维码过期时间必须为正整数，请返回修改！', '', 'error');
+					return false;
+				}
+				if(parseInt($(":text[name='expire-seconds']").val())<30 || parseInt($(":text[name='expire-seconds']").val())>604800) {
+					u.message('抱歉，临时二维码过期时间必须在30-604800秒之间，请返回修改！', '', 'error');
+					return false;
+				}
+			}
+			return true;
+		});
+	});
+
+
+function formcheck(form) {
+	if (form['scene-name'].value == '') {
+		message('抱歉，场景名称为必填项，请返回修改！', '', 'error');
+		return false;
+	}
+/* 	if (form['keyword'].value == '') {
+		message('抱歉，场景管理关键字为必填项，请返回修改！', '', 'error');
+		return false;
+	} */
+
+	if($("#radio_1").attr("checked") == "checked") {
+		if (form['expire-seconds'].value == '') {
+			message('抱歉，临时二维码过期时间为必填项，请返回修改！', '', 'error');
+			return false;
+		}
+		var r2 = /^\+?[1-9][0-9]*$/;
+		if(!r2.test(form['expire-seconds'].value)){
+			message('抱歉，临时二维码过期时间必须为正整数，请返回修改！', '', 'error');
+			return false;
+		}
+		if(parseInt(form['expire-seconds'].value)<30 || parseInt(form['expire-seconds'].value)>604800) {
+			message('抱歉，临时二维码过期时间必须在30-604800秒之间，请返回修改！', '', 'error');
+			return false;
+		}
+		
+	}
+	return true;
+}
+</script>
+{template 'common/footer'}

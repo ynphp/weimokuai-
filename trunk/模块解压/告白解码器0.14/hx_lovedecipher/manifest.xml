@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[告白解码器]]></name>
+		<identifie><![CDATA[hx_lovedecipher]]></identifie>
+		<version><![CDATA[0.14]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[告白解码器，最炫酷的告白方式，学霸必备]]></ability>
+		<description><![CDATA[告白解码器，最炫酷的告白方式，学霸必备]]></description>
+		<author><![CDATA[柒|柒|源|码分享]]></author>
+		<url><![CDATA[http://H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+		</menu>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_hx_lovedecipher_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT NULL,
+  `uniacid` int(11) unsigned DEFAULT NULL,
+  `title` varchar(50) NOT NULL,
+  `thumb` varchar(200) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `ad` varchar(200) NOT NULL,
+  `ad_title` varchar(50) NOT NULL,
+  `ad_content` varchar(255) NOT NULL,
+  `sharetitle` varchar(200) NOT NULL,
+  `sharepicurl` varchar(200) NOT NULL,
+  `sharecontent` varchar(255) NOT NULL,
+  `url` varchar(200) NOT NULL,
+  `logo` varchar(200) NOT NULL,
+  `createtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_hx_lovedecipher_data` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL,
+  `reply_id` int(11) unsigned NOT NULL,
+  `openid` int(11) unsigned NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `department` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `createtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

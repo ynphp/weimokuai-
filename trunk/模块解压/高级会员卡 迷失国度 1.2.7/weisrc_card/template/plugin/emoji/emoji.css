@@ -1,0 +1,44 @@
+.icons { display:inline-block;
+    width:33px;
+    height:20px;
+    background:url(../../mobile/style1/images/icons1.png) no-repeat -5px -10px;
+    -webkit-background-size:40px auto;
+    float: left;
+}
+
+.icon-on {
+    background-color: black;opacity: 0.4;
+}
+
+.li_a{background-position: -5px -10px;}
+.li_b{background-position: -5px -50px;}
+.li_c{background-position: -5px -90px;}
+.li_d{background-position: -5px -130px;}
+.li_e{background-position: -5px -170px;}
+
+.li_f{background-position: -5px -210px;}
+.li_g{background-position: -5px -250px;}
+.li_h{background-position: -5px -290px;}
+
+.li_i{background-position: -5px -330px;}
+.li_j{background-position: -5px -370px;}
+.li_k{background-position: -5px -410px;}
+
+.li_l{background-position: -5px -450px;}
+.li_m{background-position: -5px -490px;}
+.li_n{background-position: -5px -530px;}
+.li_o{background-position: -5px -570px;}
+.li_p{background-position: -5px -610px;}
+.li_q{background-position: -5px -650px;}
+
+.li_r{background-position: -5px -690px;}
+.li_s{background-position: -5px -730px;}
+.li_t{background-position: -5px -770px;}
+
+.li_u{background-position: -5px -810px;}
+.li_v{background-position: -5px -850px;}
+.li_w{background-position: -5px -890px;}
+
+.li_x{background-position: -5px -930px;}
+.li_y{background-position: -5px -970px;}
+.li_z{background-position: -5px -1010px;}

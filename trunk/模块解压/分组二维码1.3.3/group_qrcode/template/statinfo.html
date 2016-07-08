@@ -1,0 +1,134 @@
+{template 'common/header'}
+<script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.2.min.js"></script>
+<style type="text/css">
+#container {
+	height: 400px;
+}
+</style>
+		<script type="text/javascript">
+$(function () {
+	var options = {
+	        title: {
+	            text: '粉丝分组',
+	            x: -20
+	        },
+	        subtitle: {
+	            text: '粉丝分组',
+	            x: -20
+	        },
+	        xAxis: {
+	            categories: [{php echo "'".implode("','",$dayarr)."'";}]
+	        },
+	        yAxis: {
+	            title: {
+	                text: '粉丝数量'
+	            },
+	            plotLines: [{
+	                value: 0,
+	                width: 1,
+	                color: '#808080'
+	            }]
+	        },
+	        tooltip: {
+	            valueSuffix: '个'
+	        },
+	        legend: {
+	            layout: 'vertical',
+	            align: 'right',
+	            verticalAlign: 'middle',
+	            borderWidth: 0
+	        },
+	        series: []
+	        
+	    }
+		
+     options.series = new Array();
+     var i=0;
+    {loop $group_arr $key  $item}
+       options.series[i] = new Object();
+       options.series[i].name ='{php echo $fansgroup[$key]['name']}';
+       options.series[i].data = new Array({php echo implode(",",array_values($item))});
+       i++;
+    {/loop}
+    chart = $('#container').highcharts(options);
+});
+
+		</script>
+
+	<ul class="nav nav-tabs">
+	    <li><a href="{php echo $this->createWebUrl('manage')}">管理二维码</a></li>
+		<li class="active"><a href="">扫描统计</a></li>
+		  <li><a href="{php echo $this->createWebUrl('top')}">分组排行</a></li>
+	</ul>
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form">			
+			<input type="hidden" name="c" value="site" />
+			<input type="hidden" name="a" value="entry" />
+			<input type="hidden" name="m" value="group_qrcode" />
+			<input type="hidden" name="do" value="statistics" />
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">粉丝分组</label>
+				<div class="col-sm-8 col-lg-9 col-xs-12">
+					<select name="group_id" class="form-control" id="group_id">
+						<option value="-1" {if ($_GPC['group_id']=="-1" || !isset($_GPC['group_id']))} selected="selected" {/if}>不限</option>
+						{loop $fansgroup $key $type}
+						<option value="{$key}" {if isset($_GPC['group_id']) and $_GPC['group_id'] == $key} selected="selected" {/if}>{$type['name']}</option>
+						{/loop}
+					</select>
+					
+			</div>
+			</div>
+			
+			
+					
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关注</label>
+				<div class="col-sm-8 col-lg-9 col-xs-12">
+					<select name="type" class="form-control" id="type">
+						<option value="0" {if (empty($_GPC['type']))} selected="selected" {/if}>不限</option>
+			           <option value="1" {if ($_GPC['type'])=="1"} selected="selected" {/if}>关注</option>
+			           
+		                 <option value="3" {if ($_GPC['type'])=="3"} selected="selected" {/if}>取消关注</option>
+					</select>
+					
+			</div>
+				
+			</div>
+			
+				<div class="form-group">
+						<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">日期范围</label>
+				<div class="col-sm-8 col-lg-9 col-xs-12">
+						{php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d', $starttime),'endtime'=>date('Y-m-d', $endtime)));}
+					</div>
+					<div class="pull-right col-xs-12 col-sm-3 col-lg-2">
+						<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+					</div>
+				</div>				
+			</form>
+		</div>
+	</div>
+	
+	<div class="panel panel-default">
+		<div class="panel-heading">详细数据&nbsp;&nbsp;&nbsp;&nbsp;
+		  <span class="text-muted" style="color:red;">扫描人数：{$total},
+		   关注人数:{$totalguanzhu},取消关注人数:{$totalnoguanzhu}</span>
+		</div>		
+		
+		<div class="table-responsive panel-body">
+	       <div id="container"></div>
+		</div>
+	</div>
+<script type="text/javascript">
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+<script language='javascript' src='../addons/group_qrcode/template/style/js/highcharts.js'></script>
+<script language='javascript' src='../addons/group_qrcode/template/style/js/exporting.js'></script>
+{template 'common/footer'}

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8" />
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css?v=1" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/font-awesome.css" media="all" />
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dialog_min.js"></script>
+    <style>
+        .header .card {
+            width:280px;
+            height:165px;
+            margin: 0 auto;
+            position: relative;
+            -webkit-perspective: 300;
+            -moz-perspective: 300;
+            -ms-perspective: 300;
+            perspective: 300;
+        }
+
+        .header .card.on .front {
+            -webkit-transform: rotateY(180deg);
+            -moz-transform: rotateY(180deg);
+            -ms-transform: rotateY(180deg);
+        }
+
+        header .card.on .back {
+            -webkit-transform: rotateY(0deg);
+            -moz-transform: rotateY(0deg);
+            -ms-transform: rotateY(0deg);
+        }
+
+        .header .card .front, .header .card .back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            -ms-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-transition: all .7s ease-in-out;
+            -moz-transition: all .7s ease-in-out;
+            -ms-transition: all .7s ease-in-out;
+            transition: all .7s ease-in-out;
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -ms-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .header .card .front {
+            -webkit-transform: rotateY(0deg);
+            -moz-transform: rotateY(0deg);
+            -ms-transform: rotateY(0deg);
+        }
+
+        .header .card .back {
+            white-space: normal;
+            line-height:20px;
+            -webkit-transform: rotateY(-180deg);
+            -moz-transform: rotateY(-180deg);
+            -ms-transform: rotateY(-180deg);
+        }
+
+        .header.card .back h3{
+            font-size:14px;
+            font-weight: 100;
+        }
+
+        .header.card .back label.addr{
+            position:absolute;
+            bottom:10px;
+        }
+
+        .header .card .fg {
+            padding:10px;
+            border-radius: 9px;
+            margin: 0 auto;
+            position: relative;
+            width:260px;
+            height:145px;
+            -webkit-background-size: 100% 100%;
+            background-size:100% 100%;
+            background-position: 0 0;
+            background-repeat: no-repeat;
+        }
+
+        .header .card .fg img:nth-child(1) {
+            margin-top: 39px;
+            max-width: 185px;
+            max-height: 65px;
+            max-width: 260px;
+            max-height:145px;
+        }
+
+        .header .card .fg .fc {
+            width:260px;
+            height:145px;
+            position: relative;
+        }
+
+        .header .card .fg .fc .cname {
+            text-align: left;
+            width: 208px;
+            height: 16px;
+            margin: 0 0 89px 0;
+            line-height: 16px;
+            font-size: 10px;
+            font-weight: bold;
+            position: absolute;
+            top: -96px;
+            left: 12px;
+        }
+
+        .header .card .fg .fc .n {
+            position: absolute;
+            top: 18px;
+            left: 182px;
+        }
+
+        .header.card .fg .name{
+            top:15px;
+            right:10px;
+            width:120px;
+            height:50px;
+            overflow: hidden;
+            line-height:20px;
+            font-size:16px;
+            font-weight: bold;
+            color:#ffffff;
+            text-align:right;
+            position: absolute;
+        }
+        .header.card .fg .name2{
+            top:40px;
+            right:10px;
+            width:120px;
+            height:50px;
+            overflow: hidden;
+            line-height:20px;
+            font-size:14px;
+            /*font-weight: bold;*/
+            color:#ffffff;
+            text-align:right;
+            position: absolute;
+        }
+
+        .header.card .fg .no{
+            bottom:43px;
+            right:10px;
+            text-align:right;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width:200px;
+            font-size:14px;
+            color:#ffffff;
+            text-overflow:ellipsis;
+            position:absolute;
+        }
+
+        .header.card .fg .no2{
+            bottom:18px;
+            right:10px;
+            text-align:right;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width:200px;
+            font-size:14px;
+            color:#ffffff;
+            text-overflow:ellipsis;
+            position:absolute;
+        }
+
+        .header.card .fg .no3{
+            bottom:18px;
+            left:10px;
+            text-align:right;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width:200px;
+            font-size:14px;
+            color:#ffffff;
+            text-overflow:ellipsis;
+            position:absolute;
+        }
+
+        .logo {
+            display: inline-block;
+            top:20px;
+            left: 10px;
+            /*width:80px;*/
+            /*height:80px;*/
+            width:90px;
+            height:90px;
+            margin:0px 10px;
+            border-radius:60px;
+            border:2px solid #adc5ce;
+            -webkit-box-sizing:border-box;
+            position: absolute;
+            overflow:hidden;
+        }
+
+        .logo img {
+            width:100%;
+            height:100%;
+            border-radius:60px;
+        }
+
+        .header .card .fg .info {
+            height: 83px;
+            padding-top: 2px;
+        }
+
+        .header .card .fg .info .addr, .header .card .fg .info .tel {
+            display: block;
+            text-align: left;
+            color: #666;
+            font-size: 14px;
+            margin-left: 12px;
+            padding: 0 20px 12px 23px;
+            line-height: 18px;
+            background-position: 0 2px;
+            background-repeat: no-repeat;
+            -webkit-background-size: 13px 13px;
+            background-size: 13px 13px;
+        }
+
+        .header .card .fg .info .addr {
+            background-image: url('{RES}mobile/{php echo $this->cur_tpl}/images/icon_addr.png');
+        }
+
+        .header .card .fg .info .tel {
+            background-image: url('{RES}mobile/{php echo $this->cur_tpl}/images/icon_tel.png');
+        }
+
+        .header .card .fg .keywords {
+            color: white;
+        }
+
+        .mask {
+            width: 100%;
+            height: 100%;
+            opacity: 0.6;
+            background-color: #000;
+            position: absolute;
+            display: none;
+            z-index: 9999999;
+        }
+
+        .cardShare{ background:url({RES}/images/share.png) right 0px no-repeat; width:100%; height:100%; background-size:contain; }
+
+        #mcover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 20000;
+        }
+        #mcover img {
+            position: fixed;
+            right: 18px;
+            top: 5px;
+            /*width: 260px!important;*/
+            /*height: 180px!important;*/
+            width: 100%!important;
+            /*height: 180px!important;*/
+            z-index: 20001;
+        }
+    </style>
+    {php echo register_jssdk(false);}
+</head>
+<body onselectstart="return true;" ondragstart="return false;">
+<script>
+    function charge(){
+        var d = new iDialog();
+        var payment = '';
+        payment +='<option value="1">现金充值</option>';
+//        payment +='<option value="446">微支付</option>';
+//        payment +='<option value="4049">财付通</option>';
+        d.open({
+            classList: "valid_phone charge",
+            title:"",
+            close:"",
+            content:'<ul class="list_ul_card">'+
+                    '<form id="form1" action="javascript:;" method="post">'+
+                    '<li data-card>'+
+                    '<table>'+
+                    '<tr class="input wrapInput">'+
+                    '<td><label class="pre" style="color:#333333;">充值金额(单位:元)：</label></td>'+
+                    '<td style="width:100%;"><input type="number" name="money" placeholder="请输入整形数字" maxlength="15" class="input" /></td>'+
+                    '</tr><tr><td colspan="2" style="height:15px;"></td></tr>'+
+                    '<tr class="input wrapInput">'+
+                    '<td><label class="pre pl_10" style="color:#333333;">充值方式:</label></td>'+
+                    '<td style="width:100%;" colspan="2">'+
+                    '<select name="paytype" class="select">'+
+                    payment+
+                    '</select>'+
+                    '</td>'+
+                    '</tr>'+
+                    '<tr class="input wrapInput">'+
+                    '<td><label class="pre" style="color:#333333;">商家帐号：</label></td>'+
+                    '<td style="width:100%;"><input type="text" name="username" placeholder="请输入商家帐号" maxlength="15" class="input" /></td>'+
+                    '</tr>' +
+                    '<tr class="input wrapInput">'+
+                    '<td><label class="pre" style="color:#333333;">确认密码：</label></td>'+
+                    '<td style="width:100%;"><input type="password" name="password" placeholder="请输入确认密码" maxlength="15" class="input" /></td>'+
+                    '</tr>' +
+                    '</table>'+
+                    '</li>'+
+                    '</form>'+
+                    '</ul>',
+            btns:[
+                {id:"", name:"确定", onclick:"fn.call();", fn: function(self){
+                    var form1 = document.getElementById("form1");
+                    var obj = {
+                        from_user:"{$from_user}",
+                        money: form1.money.value,
+                        paytype: form1.paytype.value,
+                        username: form1.username.value,
+                        password: form1.password.value
+                    }
+                    if(parseFloat(obj.money) <=0 ){
+                        alert("请输入正确的充值金额", 1500);
+                        return false;
+                    }
+                    loading(true);
+                    $.ajax({
+                        url: "{php echo $this->createMobileUrl('RechargeIng')}",
+                        type:"post",
+                        data: obj,
+                        dataType: 'json',
+                        success: function(data){
+                            loading(false);
+                            if (data.status == 0) {
+                                alert(data.message, 1500);
+                                setTimeout("window.top.location.reload()", 1000);
+                            } else {
+                                alert(data.message, 3000);
+                                return false;
+                            }
+                        }
+                    });
+                }},
+                {id:"", name:"取消", onclick:"fn.call();", fn: function(self){
+                    self.die();
+                }}
+            ]
+        });
+    }
+    function pay(){
+        var d = new iDialog();
+        var payment = '';
+//        payment += '<option value="168">' + '支付宝'+'</option>';
+//        payment += '<option value="446">' + '微支付'+'</option>';
+//        payment += '<option value="4049">' + '财付通'+'</option>';
+        var coupon_str = "";
+        "{loop $coupons $item}"
+        coupon_str += "<option value=\"{$item['sncodeid']}\">{$item['title']}</option>"
+        "{/loop}"
+        d.open({
+            classList: "valid_phone pay",
+            title:"",
+            close:"",
+            content:'<ul class="list_ul_card">'+
+                    '<form id="form2" action="javascript:;" method="post">'+
+                    '<li data-card>'+
+                    '<table>'+
+//                    '<tr class="input wrapInput">'+
+//                    '<td></td>'+
+//                    '<td style="width:100%;" colspan="2">'+
+//                    '<select name="store" class="select">'+
+//                    '<option value="0">请选择消费门店：</option>'+
+//                    '<option value="68">洞庭楚香</option>'+
+//                    '<option value="1644"></option>'+
+//                    '</select>'+
+//                    '</td>'+
+//                    '</tr>'+
+                    '<tr class="input wrapInput">'+
+                    '<td></td>'+
+                    '<td style="width:100%;" colspan="2">'+
+                    '<select name="discount" class="select">'+
+                    '<option value="0">请选择所需优惠：</option>'+
+                    coupon_str +
+                    '</select>'+
+                    '</td>'+
+                    '</tr>'+
+                    '<tr class="input wrapInput">'+
+                    '<td></td>'+
+                    '<td style="width:100%;" colspan="2">'+
+                    '<select name="paytype" class="select" onChange="SelectCode(this);">'+
+                    '<option value="0">请选择支付方式：</option>'+
+                    payment+
+                    '<option value="2">余额支付 </option>'+
+                    '<option value="1">现金付款 </option>'+
+                    '</select>'+
+                    '</td>'+
+                    '</tr>'+
+                    '<tr class="input wrapInput">'+
+                    '<td>'+
+                    '<label class="pre ml_5" style="color:#333333;"> 消费金额：</label> '+
+                    '</td>'+
+                    '<td style="width:100%;">'+
+                    '<input name="money" type="number" placeholder="请输入实际消费金额" maxlength="15" class="input" />'+
+                    '</td>'+
+                    '</tr>'+
+                    '<tr class="wrapInput">'+
+                    '<td style="width:100%;color: #f00;font-size: 14px;">'+
+                    '提示:如果使用优惠券或者代金券,该金额为使用300-100的代金券,该消费金额输入200块。'+
+                    '</td>'+
+                    '<td></td>'+
+                    '</tr>'+
+//                    '<tr class="input wrapInput" id="vcode">'+
+//                    '<td style="width:70%;"><input type="number" placeholder="验证码：" maxlength="30" class="input" name="vcode"></td>'+
+//                    '<td>'+
+//                    '<input  class="button vcode" type="button" id="codeing" onclick="getReceiveMemberCardVCode(this);" style="width:120px;" value="获取验证码" />'+
+//                    '</td>'+
+//                    '</tr>'+
+                    '<tr class="input wrapInput" id="username" style="display:none">'+
+                    '<td style="width:70%;"><input type="text" placeholder="商家确认帐号：" maxlength="30" class="input" name="username"></td>'+
+                    '<td>&nbsp;</td>'+
+                    '</tr>'+
+                    '<tr class="input wrapInput" id="password" style="display:none">'+
+                    '<td style="width:70%;"><input type="password" placeholder="商家确认密码：" maxlength="30" class="input" name="password"></td>'+
+                    '<td>&nbsp;</td>'+
+                    '</tr>'+
+                    '<tr class="input wrapInput" id="vcode" style="display:none">'+
+                    '<td style="width:70%;"><input type="password" placeholder="会员卡确认密码：" maxlength="30" class="input" name="pay_pass"></td>'+
+                    '<td>&nbsp;</td>'+
+                    '</tr>'+
+                    '</table>'+
+                    '</li>'+
+                    '</form>'+
+                    '</ul>',
+            btns:[
+                {id:"", name:"确定", onclick:"fn.call();", fn: function(self){
+                    var form2 = document.getElementById("form2");
+                    var obj = {
+                        from_user:"{$from_user}",
+                        discount: form2.discount.value,
+                        paytype: form2.paytype.value,
+                        money: form2.money.value,
+                        //validCode: form2.vcode.value,//验证码
+                        username: form2.username.value,
+                        password: form2.password.value,
+                        pay_pass: form2.pay_pass.value
+
+                    }
+
+                    if(obj.paytype == 0){
+                        alert("请选择支付方式", 1500);
+                        return false;
+                    }else if(obj.paytype == 2){
+                        if(obj.username == ''){
+                            alert("商家确认帐号不能为空", 1500);
+                            return false;
+                        }
+                        if(obj.password == ''){
+                            alert("商家确认密码不能为空", 1500);
+                            return false;
+                        }
+                        if(obj.pay_pass == ''){
+                            alert("会员卡确认密码不能为空", 1500);
+                            return false;
+                        }
+//                        if(obj.validCode == ''){
+//                            alert("验证码不能为空", 1500);
+//                            return false;
+//                        }
+                    }else if(obj.paytype == 1){
+                        if(obj.username == ''){
+                            alert("商家确认帐号不能为空", 1500);
+                            return false;
+                        }
+                        if(obj.password == ''){
+                            alert("商家确认密码不能为空", 1500);
+                            return false;
+                        }
+                    }
+                    if(parseFloat(obj.money) <= 0){
+                        alert("请输入正确的充值金额",1500);
+                        return false;
+                    }
+                    loading(true);
+                    $.ajax({
+                        url: "{php echo $this->createMobileUrl('billing', array(), true)}",
+                        type:"post",
+                        data:obj,
+                        dataType:'json',
+                        success: function(data){
+                            loading(false);
+                            if (data.status == 0) {
+                                alert(data.message, 1500);
+//                                url = "{php echo $this->createMobileUrl('index')}";
+//                                setTimeout("location.href='" + url + "'", 1000);
+                                setTimeout("window.top.location.reload()", 1000);
+                            } else {
+                                alert(data.message, 1500);
+                                return false;
+                            }
+                        }
+                    });
+                }},
+                {id:"", name:"取消", onclick:"fn.call();", fn: function(selfs){
+                    selfs.die();
+                }}
+            ]
+        });
+    }
+    $(document).ready(function(){
+        $("#codeing").on(function(){
+            alert("请输入正确的充值金额",1500);
+        });
+    });
+</script>
+<!--<div class="mask"><div class="cardShare"></div></div>-->
+<div id="mcover" onclick="$(this).hide()" style="display:none"><img src="{RES}/images/share.png"></div>
+<div class="container card">
+    <header>
+        <div class="header card">
+            <div id="card" class="card " data-side="1" onclick="this.classList.toggle('on');">
+                <div class="front">
+                    <figure class="fg" style="background-image: url({$bg});">
+                        {if !empty($style['show_logo'])}
+                        <span class="logo">
+                            <img src="{$card['headimgurl']}" onerror="this.src='{RES}mobile/{php echo $this->cur_tpl}/images/head.png'" style="margin: 0px;">
+                        </span>
+                        {/if}
+                        <span class="name" style="color:{if !empty($style['cardnamecolor'])}{$style['cardnamecolor']}{else}#000000{/if}">{$style['cardname']}</span>
+                        <span class="name2" style="color:{if !empty($style['cardnamecolor'])}{$style['cardnamecolor']}{else}#000000{/if}">{$level['levelname']}</span>
+                        <span class="no" style="color: {if !empty($style['cardnumcolor'])}{$style['cardnumcolor']}{else}#000000{/if}">{$nickname}</span>
+                        <span class="no2" style="color: {if !empty($style['cardnumcolor'])}{$style['cardnumcolor']}{else}#000000{/if}">{if !empty($card)}{$card['cardnumber']}{/if}</span>
+                        <span class="no3" style="color: {if !empty($style['cardnumcolor'])}{$style['cardnumcolor']}{else}#000000{/if};text-align: left;">
+                            余额：{$coin} 积分：{$balance_score}
+                        </span>
+                    </figure>
+                </div>
+                <div class="back">
+                    <figure class="fg" style="background-image: url({$backbg});font-weight:bolder;">
+                        <span style="color:{if !empty($style['contentcolor'])}{$style['contentcolor']}{else}#000000{/if}">
+                        <h3>使用说明：</h3>
+                        <!--<pre style="white-space:pre-line;height: 84px;overflow:hidden;">-->
+                        <!--1、本卡采取记名消费方式-->
+                        <!--2、持卡人可享受的会员专属优惠-->
+                        <!--3、本卡不能与其他优惠活动同时使用-->
+                        <!--4、持卡人可用卡内余额进行消费-->
+                        <!--</pre>-->
+                        <!--<label class="addr">地址：上海市市辖区杨浦区上海市杨浦区政益路28号1106-1109室</label>-->
+                        <pre style="white-space:pre-line;height: 84px;overflow:hidden;">
+                            {$style['content']}
+                        </pre>
+                        <label class="addr">地址：{$business['address']}</label>
+                        </span>
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <div>
+            <ul class="box group_btn">
+                <li><a href="javascript:charge();" >充值</a></li>
+                <li><a href="javascript:pay();" >付款</a></li>
+                <!--<li><a href="#" onclick='$("#mcover").show();'>邀请</a></li>-->
+                <!--<li><a href="#" onclick='$("#mcover").show();'>签到</a></li>-->
+            </ul>
+        </div>
+    </header>
+    <div class="body">
+        <ul class="list_ul">
+            <div>
+                {loop $privileges $item}
+                <li class="li_a">
+                    <label class="label" onclick="this.parentNode.classList.toggle('on');"><i>&nbsp;</i>{$item['title']}<span>&nbsp;</span></label>
+                    <ol>
+                        <h6>详细说明：</h6>
+                        {php echo htmlspecialchars_decode($item['content']);}
+                    </ol>
+                </li>
+                {/loop}
+                <li class="li_b">
+                    <a href="{php echo $this->createMobileUrl('coupon')}"><label class="label"><i>&nbsp;</i>会员优惠<span>&nbsp;</span></label></a>
+                </li>
+                <li class="li_c">
+                    <a href="{php echo $this->createMobileUrl('exchangelist')}"><label class="label"><i>&nbsp;</i>积分兑换<span>&nbsp;</span></label></a>
+                </li>
+                <li class="li_d">
+                    <a href="{php echo $this->createMobileUrl('edituserinfo')}"><label class="label"><i>&nbsp;</i>完善会员卡资料 <span>&nbsp;</span></label></a>
+                </li>
+                <!--<li class="li_e">-->
+                    <!--<label class="label" onclick="this.parentNode.classList.toggle('on');"><i>&nbsp;</i>三八妇女节<span>&nbsp;</span></label>-->
+                    <!--<ol>-->
+                        <!--<h6>详细说明：</h6>-->
+                        <!--三八妇女节赠送100积分-->
+                    <!--</ol>-->
+                <!--</li>-->
+            </div>
+            {if !empty($menus)}
+            <div>
+                {loop $menus $menu}
+                <li class="{$menu['icon']}">
+                    <a href="{$menu['url']}"><label class="label"><i class="{$menu['icon']}">&nbsp;</i>{$menu['title']}<span>&nbsp;</span></label></a>
+                </li>
+                {/loop}
+            </div>
+            {/if}
+            <div>
+                {if !empty($business['tel'])}
+                <li class="li_i">
+                    <a class="label" href="tel:{$business['tel']} "><i>&nbsp;</i>{$business['tel']} <span>&nbsp;</span></a>
+                </li>
+                {/if}
+                {if !empty($business['address'])}
+                <li class="li_j">
+                    <a href="http://api.map.baidu.com/marker?location={$business['lat']},{$business['lng']}&title={$business['place']}&name={$business['place']}&content={$business['place']}&output=html&src=weiba|weiweb"><label class="label"><i>&nbsp;</i><p class="mutipleLine">{$business['address']}</p> <span>&nbsp;</span></label>
+                    </a>
+                </li>
+                {/if}
+                <!-- 门店-->
+                <li class="li_k">
+                    <a href="{php echo $this->createMobileUrl('store')}"><label class="label"><i>&nbsp;</i>适用门店<span>&nbsp;</span></label></a>
+                </li>
+            </div>
+        </ul>
+    </div>
+    {if !empty($card)}
+    {php include $this->template($this->cur_tpl.'/_footer');}
+    {/if}
+    <script type="text/javascript">
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</div>
+<script>
+    wx.ready(function () {
+        sharedata = {
+            title: '{$share_title}',
+            desc: '{$share_desc}',
+            link: '{$share_url}',
+            imgUrl: '{$share_image}',
+            cancelurl: '{$share_cancel}',
+            success: function(){
+                //alert('感谢分享');
+            },
+            cancel: function(){
+                if (shareData.cancelurl != '') {
+                    alert(shareData.cancelurl);
+                }
+            }
+        };
+        wx.onMenuShareAppMessage(sharedata);
+        wx.onMenuShareTimeline(sharedata);
+    });
+</script>
+
+<script type="text/javascript">
+    var intervalId,buttonObj;
+    //发送下一条短信需要间隔的秒数
+    var seconds = 60;
+    function getReceiveMemberCardVCode(clickObj){
+        var form = document.getElementById("form2");
+        var pid = 1071;
+        var wechatid = "osXr8jiIm4HVEnuN28FShCPvg2k4";
+        var phone = "13623009194";
+        var req = {
+            telephone: $.trim(phone),
+            pid:pid,
+            price:form.money.value,
+            wechatid:wechatid
+        }
+        if(!req.telephone){
+            alert("请输入手机号", 1000);return;
+        }
+        clickObj.setAttribute("disabled", "disabled");
+        clickObj.value = "正在发送，请稍候...";
+        $.ajax({
+            url: "",
+            type:"post",
+            data:req,
+            dataType:"JSON",
+            success: function(res){
+                if(0 == res.errno){
+                    clickObj.value = '验证码发送成功';
+                    buttonObj = clickObj;
+                    intervalId = setInterval("ticker()",1000);
+                }else{
+                    alert(res.error, 1500);return false;
+                }
+            }
+        });
+    }
+    function ticker(){
+        seconds --;
+        if(seconds > 55){
+            //提示消息显示5秒钟
+        }else if(seconds>0){
+            buttonObj.value = seconds+"秒后可重新获取";
+        }else{
+            clearInterval(intervalId);
+            buttonObj.removeAttribute("disabled");
+            buttonObj.value = "获取验证码";
+            seconds = 60;
+            buttonObj = null;
+        }
+    }
+
+    function SelectCode(obj){
+        var val = $(obj).val();
+        if(val == 2){
+            $("#vcode").show();
+        } else {
+            $("#vcode").hide();
+        }
+
+        if(val == 1 || val == 2){
+            $("#password").show();
+            $("#username").show();
+        }else{
+            $("#password").hide();
+            $("#username").hide();
+        }
+    }
+    <!--xiaolian-->
+</script>
+</body>
+</html>

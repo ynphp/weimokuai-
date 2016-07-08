@@ -1,0 +1,69 @@
+{template 'common/header'}
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4>分享显示设置<small>设定分享记录是否显示以及显示多少条记录，这个设置是针对当前公众号的</small></h4>
+			</div>
+			<!--<div class="form-group" style="padding-top:10px;">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">显示方式</label>
+				<div class="col-sm-5">
+					<input type="text" name="protectdate" class="form-control" value="{$settings['protectdate']}" />
+					<span class="help-block">0,默认无限制,比如设为15天,15天这个客户状态没有更新,则这个手机号可再次提交,同时手机前端将不会再显示此客户信息.
+				,保护客户名单不会被再提交</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">显示方式</label>
+				<div class="col-sm-5">
+					<label class="radio-inline">
+						<input type="radio" name="share_show" value="1" {if $settings['share_show'] == '1'}checked="true"{/if}> 公开显示
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="share_show" value="0" {if $settings['share_show'] == '0'}checked="true"{/if}>参与显示
+					</label>
+					<div class="help-block">是否公开还是参与可查看积分排名。</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">显示记录数</label>
+				<div class="col-sm-5">
+					<input type="text" name="share_show_num" class="form-control" value="{$settings['share_show_num']}" />
+				</div>
+			</div>-->
+			<!--<div class="form-group" style="padding-top:10px;">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关注链接</label>
+				<div class="col-sm-5">
+					<input type="text" name="guanzhuurl" class="form-control" value="{$settings['guanzhuurl']}" />
+				</div>
+			</div>-->
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">了解达人</label>
+				<div class="col-sm-5">
+					<textarea style="height:200px;" class="form-control" name="introduce" id="reply-add">{$settings['introduce']}</textarea>					
+					<div class="help-block">用于显示在个人中心的了解达人页面</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">如何玩转达人</label>
+				<div class="col-sm-5">
+					<textarea style="height:200px;" class="form-control" name="play" id="reply-add-text">{$settings['play']}</textarea>					
+					<div class="help-block">用于显示在个人中心的如何了解达人页面</div>
+				</div>
+			</div>
+			<div class="form-group col-sm-12">
+				<input type="hidden" name="token" value="{$_W['token']}" />
+				<input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript" >
+require(['jquery', 'util'], function($, u){
+	$(function(){
+		u.editor($('#reply-add')[0]);
+		u.editor($('#reply-add-text')[0]);
+	});
+});
+</script>
+{template 'common/footer'}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[工具箱]]></name>
+		<identifie><![CDATA[hsh_tools]]></identifie>
+		<version><![CDATA[1.43]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[工具箱]]></ability>
+		<description><![CDATA[工具箱,现包括模板消息管理,建议预约,短链接跳转,带授权功能]]></description>
+		<author><![CDATA[柒|柒|源|码]]></author>
+		<url><![CDATA[http://H770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="view" />
+			<message type="enter" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="enter" />
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="模板消息管理" do="TemplateMessage" state="" direct="false" />
+			<entry title="简易预约通知设置" do="NoticeSetting" state="" direct="false" />
+			<entry title="短链跳转管理" do="RedirectSetting" state="" direct="false" />
+			<entry title="相关说明" do="explain" state="" direct="false" />
+		</menu>
+		<function>
+			<entry title="微站独立功能" do="wzdlgn" state="" direct="false" />
+		</function>
+	</bindings>
+	<install><![CDATA[script/install.php]]></install>
+	<uninstall><![CDATA[script/uninstall.php]]></uninstall>
+	<upgrade><![CDATA[script/upgrade.php]]></upgrade>
+</manifest>

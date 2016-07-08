@@ -1,0 +1,144 @@
+{template 'common/header'}
+<style>
+.sub-search input,.sub-search select{margin-bottom:0;}
+</style>
+
+    <div class="main">
+		<div class="stat">
+			<div class="stat-div">
+				<div class="navbar navbar-static-top">
+					<div class="navbar-inner">
+						<span class="brand">分享达人管理</span>						
+					</div>
+				</div>
+			<div class="sub-item">
+					<form action="{php echo $this->createWebUrl('searchaward',array('id'=>$id,'rid'=>$rid))}" method="post">
+					<input type="hidden" name="c" value="site" />
+					<input type="hidden" name="a" value="entry" />
+					<input type="hidden" name="m" value="hc_fxdaren" />
+					<input type="hidden" name="do" value="searchaward" />
+					<input type="hidden" name="profilevalue" value="{$profilevalue}" />
+					<input type="hidden" name="profile" value="{$profile}" />
+					<input type="hidden" name="id" value="{$id}" />
+					<table class="table sub-search">
+						<tr>
+							<td style="width:220px;">
+								<select name="profile" class="form-control">
+									<option value="" selected="selected" name="select" >请选择搜索用户资料</option>
+									<option {if $_GPC['profile'] == 'mobile'}selected{/if} value="mobile">分享人手机号码</option>
+									<option {if $_GPC['profile'] == 'title'}selected{/if} value="title">分享数量（输入n查找分享数量达到n以上的用户）</option>
+								</select>
+							</td>
+							<td>
+								<input type="text" name="profilevalue" style="width:320px;" value="{$_GPC['profilevalue']}" class="form-control" />
+							</td>
+						</tr>
+						<tr>
+							<td><input type="submit" name="search" value="搜索" class="btn btn-primary" /></td>
+						</tr>
+					</table>
+					</form>
+				</div>
+				<div class="sub-item" id="table-list">
+					<h4 class="sub-title">分享达人详细数据  |  总数:{$total}</h4>
+					<form action="" method="post" onsubmit="">
+					<div class="sub-content">
+						<table class="table table-hover">
+							<thead class="navbar-inner">
+								<tr>
+									<th class="row-first">选择</td>
+									<th>姓名<i></i></th>
+									<th>电话<i></i></th>					
+									<!--<th>from_user<i></i></th>-->
+									<th>规则ID<i></i></th>
+									<!--<th style="width:100px;">规则名称<i></i></th>-->
+									<th>分享量<i></i></th>
+									<th>最后分享时间<i></i></th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+							{php $i=1;}
+								{loop $list_share $row}
+								<tr>
+									<td class="row-first"><input type="checkbox" name="select[]" value="{$row['id']}" /></td>
+									<td>{$row['realname']}</td>
+									<td>{$row['mobile']}</td>
+									<!--<td>{$row['from_user']}</td>-->
+									<td>{$row['rid']}</td>
+									<!--<td>{$row['title']}</td>-->
+									<td class="row-hover">{$row['sharenum']}</td>
+									<td>{php echo date('Y-m-d H:i:s', $row[sharetime]);}</td>
+									<td style="width:60px;font-size:12px; color:#666;">
+														{if $row['status']}
+				<!--	<a href="{php echo $this->createWebUrl('dos', array('ac' => 'sharelist', 'rid' => $row['rid'], 'id' => $row['id'], 'status' => 0));}" class="">未屏蔽</a>
+				{else}
+					<a href="{php echo $this->createWebUrl('dos', array('ac' => 'sharelist', 'rid' => $row['rid'], 'id' => $row['id'], 'status' => 1));}" class="">已屏蔽</a>
+				{/if}-->
+				{if $row['isaward'] ==0 }
+					<a href="{php echo $this->createWebUrl('getaward', array('rid' => $row['rid'], 'id' => $row['id'], 'isaward' => 1));}" class="" onclick="return confirm('确认标记用户领奖？');return false;">未领奖</a>
+				{else}
+					<a href="{php echo $this->createWebUrl('getaward', array('rid' => $row['rid'], 'id' => $row['id'], 'isaward' => 0));}" class="" onclick="return confirm('确认取消用户领奖？');return false;">已领奖</a>
+				{/if}
+									</td>
+								</tr>
+								{php $i++;}
+								{/loop}
+							</tbody>
+						</table>
+						<table class="table">
+							<tr>
+								<td style="width:40px;" class="row-first"><input type="checkbox" onclick="selectall(this, 'select');" /></td>
+								<td>
+									<input type="submit" name="delete" value="删除" class="btn btn-primary" />
+									<input type="hidden" name="token" value="{$_W['token']}" />
+								</td>
+							</tr>
+						</table>
+					</div>
+				</form>
+				{$pager}
+				</div>
+			</div>
+		</div>
+    </div>
+
+<script>
+$(function() {
+	//详细数据相关操作
+	var tdIndex;
+	$("#table-list thead").delegate("th", "mouseover", function(){
+		if($(this).find("i").hasClass("")) {
+			$("#table-list thead th").each(function() {
+				if($(this).find("i").hasClass("icon-sort")) $(this).find("i").attr("class", "");
+			});
+			$("#table-list thead th").eq($(this).index()).find("i").addClass("icon-sort");
+		}
+	});
+	$("#table-list thead th").click(function() {
+		if($(this).find("i").length>0) {
+			var a = $(this).find("i");
+			if(a.hasClass("icon-sort") || a.hasClass("icon-caret-up")) { //递减排序
+				/*
+					数据处理代码位置
+				*/
+				$("#table-list thead th i").attr("class", "");
+				a.addClass("icon-caret-down");
+			} else if(a.hasClass("icon-caret-down")) { //递增排序
+				/*
+					数据处理代码位置
+				*/
+				$("#table-list thead th i").attr("class", "");
+				a.addClass("icon-caret-up");
+			}
+			$("#table-list thead th,#table-list tbody:eq(0) td").removeClass("row-hover");
+			$(this).addClass("row-hover");
+			tdIndex = $(this).index();
+			$("#table-list tbody:eq(0) tr").each(function() {
+				$(this).find("td").eq(tdIndex).addClass("row-hover");
+			});
+		}
+	});
+});
+</script>
+{template 'common/footer'}

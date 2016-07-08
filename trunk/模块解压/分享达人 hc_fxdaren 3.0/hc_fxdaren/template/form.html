@@ -1,0 +1,181 @@
+<input type="hidden" name="reply_id" value="{$reply['id']}" />
+<div class="panel panel-default">
+<a class="close" data-dismiss="alert">×</a>
+    <div class="panel-heading">
+        分享达人活动设置
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动标题</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="text" name="title" class="form-control" value="{$reply['title']}">
+            </div>
+        </div>
+    </div>
+	<div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">奖励积分</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="text" name="credit" class="form-control" value="{$reply['credit']}">
+            </div>
+        </div>
+    </div>
+	<div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动时间</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_daterange('actime', array('start'=>date('Y-m-d', $reply['start_time']), 'end'=>date('Y-m-d', $reply['end_time'])))}
+            </div>
+        </div>
+    </div>
+	<div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">图文消息图片</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_image('picture', $reply['picture']);}
+            </div>
+        </div>
+    </div>
+	<div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动奖励</label>
+            <div class="col-sm-9 col-xs-12">
+               <textarea style="height:50px;" name="description" class="form-control" >{$reply['description']}</textarea>
+            </div>
+        </div>
+    </div>
+		<div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">奖励规则</label>
+            <div class="col-sm-1 col-xs-12" style="  width: 16.333333%;">
+               浏览量达到
+            </div>
+			<div class="col-sm-1 col-xs-12">
+               <input type="text" value="{$reply['award_rule']}" class="form-control" name="award_rule" placeholder="填次数">
+            </div>
+			<div class="col-sm-1 col-xs-12">
+               次
+            </div>
+        </div>
+    </div>
+	<div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">奖品数量</label>
+            <div class="col-sm-9 col-xs-12">
+               <input type="text" class="form-control" name="award_num" value="{$reply['award_num']}">
+            </div>
+        </div>
+    </div>
+	{if !empty($rid)}
+	<div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">已奖励奖品数量</label>
+            <div class="col-sm-9 col-xs-12">
+               <input type="text" class="form-control"  value="{$awardnum}" readonly="readonly">
+            </div>
+        </div>
+    </div>
+	{/if}
+
+	<div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动规则</label>
+            <div class="col-sm-9 col-xs-12">
+               <textarea style="height:200px;" class="form-control" name="activity_rule" id="activity_rule">{$reply['activity_rule']}</textarea>
+            </div>
+        </div>
+    </div>
+	<div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动介绍标题</label>
+            <div class="col-sm-9 col-xs-12">
+               <input type="text" name="jiesaoTitle" class="form-control"  value="{$reply['jiesaoTitle']}">
+            </div>
+        </div>
+    </div>
+	<div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动介绍</label>
+            <div class="col-sm-9 col-xs-12">
+               <textarea style="height:200px;" class="form-control" name="jiesao" id="jiesao">{$reply['jiesao']}</textarea>
+            </div>
+        </div>
+    </div>
+	<div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">转发描述</label>
+            <div class="col-sm-9 col-xs-12">
+               <textarea style="height:50px;" name="description2" class="form-control" >{$reply['description2']}</textarea>
+            </div>
+        </div>
+    </div>
+	<div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">底部广告栏图片</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_image('picture2', $reply['picture2']);}
+            </div>
+        </div>
+    </div>
+	<div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">推广图片链接</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="text" name="tuiguangurl" value="{$reply['tuiguangurl']}" class="form-control"> 
+            </div>
+        </div>
+    </div>
+	
+</div>
+
+<!--		
+			{if $reply['status']}
+				<a id="jinyong" href="{php echo create_url('site/module/status', array('name' => 'share','rid' => $reply['rid'], 'status' => 0))}" onclick="return ajaxopen(this.href)" class="btn btn-primary module-button-switch">禁用</a>
+			{else}
+				<a id="qiyong" href="{php echo create_url('site/module/status', array('name' => 'share','rid' => $reply['rid'], 'status' => 1))}" onclick="return ajaxopen(this.href);" class="btn btn-danger module-button-switch">启用</a>
+			{/if}
+-->		
+			<!--<tr>
+				<th></th>
+				<td><a href="{php echo $this->createWebUrl('ShareDataDetail', array('id' => $reply['rid']))}" >查看分享详细数据</a> </td>
+			</tr>-->
+	
+ 			<!--<tr>
+				<th>奖励规则</th>
+				<td>
+					<textarea style="height:50px;" name="award_rule" class="span7" cols="60">{$reply['award_rule']}</textarea>
+					<div class="help-block">如浏览量达到20</div>
+				</td>
+			</tr>-->
+		<!--<tr>
+		<th>下方推广区图片</th>
+				<td>
+					<div id="" class="uneditable-input reply-edit-cover">
+						<div class="detail">
+							<span class="pull-right">大图片建议尺寸：640像素 * 320像素</span>
+							<input type="button" id="share-picture2" fieldname="picture2{$namesuffix}" class="btn btn-mini reply-edit-cover-upload" value="<i class='icon-upload-alt'></i> 上传" style="" />
+							<button type="button" class="btn btn-mini reply-news-edit-cover-remove" id="upload-delete" onclick="doDeleteItemImage(this, '{php echo create_url('site/module/deleteimage', array('id' => $reply['id'], 'name' => 'share'))}')" style="{if empty($reply['picture2'])} display:none;{/if}"><i class="icon-remove"></i> 删除</button>
+						</div>
+						{if !empty($reply['picture2'])}
+						<input type="hidden" name="picture2-old" value="{$reply['picture2']}">
+						<div id="upload-file-view" class="upload-view">
+							<input type="hidden" id="share-picture2-value" value="{$reply[picture2]}">
+							<img width="100" src="{$_W['attachurl']}{$reply['picture2']}">&nbsp;&nbsp;
+						</div>
+						{else}
+						<div id="upload-file-view"></div>
+						{/if}
+					</div>
+				</td>
+			</tr>-->
+<script type="text/javascript">
+$('#qiyong, #jinyong').click(function () {
+	setTimeout("history.go(0)",500);	
+});
+require(['jquery', 'util'], function($, u){
+	$(function(){
+		u.editor($('#jiesao')[0]);
+		u.editor($('#activity_rule')[0]);
+	});
+});
+</script>
