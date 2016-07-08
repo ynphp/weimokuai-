@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://1b52u58599.51mypc.cn/app/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>微信扫码</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<link rel="stylesheet" type="text/css" href="{STYLE_PATH}/css1.css">
+<style>
+.copyright{ width: 100%; font-size: 16px; text-align: center; background:#FFFFFF; padding:2% 0; }
+</style>
+</head>
+<body>
+<div class="title"></div>
+<div class="ewm"><img style="width:100%;" src="{$qrcode}"></div>
+<div class="ewm_text"><img src="{STYLE_PATH}/ewm_text.png"></div>
+<div class="add_wx">
+	<div class="add_text">
+	请长按 [ <span>扫描二维码</span> ]  添加好友
+	</div>
+</div>
+<div class="wx_top">
+	<div class="wx_con">
+		<div class="tx"></div>
+		<div class="text"><div class="name"></div><span class="add">
+		{$city}</span></div>
+	</div>
+	<div class="pyq_nr">
+		<style>.pyq_nr{ width:94%; padding: 2% 3%; overflow: hidden; }.pyq_nr dl{ width: 100%; float: left; margin-top: 1%; }.pyq_nr dl dt{ width: 18%; float: left; height: 26px; font-size: 26px; font-weight: bold; }.pyq_nr dl dt span{ font-size: 16px; font-weight: normal; }.pyq_nr  .pic{ width: 30%;float: left;  }.pyq_nr  .pic img{ width: 90%; }.pyq_nr .wz{ width: 51%; float: left;  }.pyq_nr .wz .p01{height: 65px; overflow: hidden; }.pyq_nr .total{ width: 100%; float: left; color: #888; }</style>
+			{if  !empty($settings['friend_circle'])}
+			{php $i=1;}
+		
+			{loop $settings['friend_circle'] $friend_circle_item}
+			
+				<dl>
+				<dt>{if $i==1}今天 {else if $i==3}昨天{/if}</dt>
+				
+				{php $i++;}
+				<dd class="pic"><img src="{$friend_circle_item['friend_circle_pic']}"></dd>
+				<dd class="wz">
+				<p class="p01">{$friend_circle_item['friend_circle_content']}</p>
+				<p class="total">共{$friend_circle_item['friend_circle_num']}张</p>
+				</dd>
+			     </dl>
+				{/loop}
+			{else}
+			<dl>
+				<dt>今天</dt>
+				<dd class="pic"><img src="{STYLE_PATH}/pyq.jpg"></dd>
+				<dd class="wz">
+				<p class="p01">鞋子买了好几个月终于有衣服配了。还蛮好看的。看了心情好好啊啊</p>
+				<p class="total">共2张</p>
+				</dd>
+			</dl>
+			<dl>
+				<dt></dt>
+				<dd class="pic"><img src="{STYLE_PATH}/03.jpg"></dd>
+				<dd class="wz">
+				<p class="p01">陪麻麻看会电视  她是湖南台的忠实粉丝哦</p>
+				<p class="total">共1张</p>
+				</dd>
+			</dl>
+			<dl>
+				<dt>昨天</dt>
+				<dd class="pic"><img src="{STYLE_PATH}/02.jpg"></dd>
+				<dd class="wz">
+				<p class="p01">听说今年流行这样吃西瓜</p>
+				<p class="total">共1张</p>
+				</dd>
+			</dl>
+			<dl>
+				<dt></dt>
+				<dd class="pic"><img src="{STYLE_PATH}/06.jpg"></dd>
+				<dd class="wz">
+				<p class="p01">颜色太单调了 得添点颜色，美美哒</p>
+				<p class="total">共2张</p>
+				</dd>
+			</dl>
+			<dl>
+				<dt></dt>
+				<dd class="pic"><img src="{STYLE_PATH}/08.jpg"></dd>
+				<dd class="wz">
+				<p class="p01"></p>
+				<p class="total">共2张</p>
+				</dd>
+			</dl>
+			<dl>
+				<dt><span></span></dt>
+				<dd class="pic"><img src="{STYLE_PATH}/05.jpg"></dd>
+				<dd class="wz">
+				<p class="p01">陪麻麻一起去shopping</p>
+				<p class="total">共1张</p>
+				</dd>
+			</dl>
+			<dl>
+				<dt></dt>
+				<dd class="pic"><img src="{STYLE_PATH}/07.jpg"></dd>
+				<dd class="wz">
+				<p class="p01">爷爷 爷爷 爷爷......有点辣眼睛</p>
+				<p class="total">共1张</p>
+				</dd>
+			</dl>
+			{/if}
+    </div>
+</div>
+<div class="more"><a href="javascript:;" onclick="if(confirm(&#39;请加微信号 查看更多照片&#39;)){document.body.scrollTop=0;}else{document.body.scrollTop=0;}">查看更多</a></div>
+
+
+{if  !empty($settings['copyright'])}
+<div class="copyright">{$settings['copyright']}</div>
+{/if}
+
+{php echo register_jssdk(false);}
+	<script>
+		
+	     window.shareData = {
+	             "imgUrl": "{php echo tomedia($settings['share_thumb'])}",
+	             "sendFriendLink": "{$settings['share_url']}",
+	             "timeLineLink": "{$settings['share_url']}",
+	             "desc": "{$settings['share_desc']}",
+	             "fTitle": "{$settings['share_title']}"
+
+	         };
+
+	    
+	     
+	         wx.ready(function () {
+	             wx.onMenuShareAppMessage({
+	                 title: window.shareData.fTitle,
+	                 desc: window.shareData.desc,
+	                 link: window.shareData.sendFriendLink,
+	                 imgUrl: window.shareData.imgUrl,
+	                 success: function () {
+	             
+	                
+	                 },
+	                 cancel: function () {
+	                 }
+	             });
+
+	             wx.onMenuShareTimeline({
+	                 title: window.shareData.fTitle,
+	                 desc: window.shareData.desc,
+	                 link: window.shareData.timeLineLink,
+	                 imgUrl: window.shareData.imgUrl,
+	                 success: function () {
+	                    // alert("\u8981\u5206\u4eab\u5230\u5fae\u4fe1\u7fa4\u624d\u884c\u54e6\uff01");
+	                 },
+	                 cancel: function () {
+	                 }
+	             });
+
+
+
+	             wx.hideMenuItems({
+	                 menuList: [
+	                     'menuItem:exposeArticle'
+	                     , 'menuItem:setFont'
+	                     , 'menuItem:dayMode'
+	                     , 'menuItem:nightMode'
+	                     , 'menuItem:profile'
+	                     , 'menuItem:share:qq'
+	                     , 'menuItem:share:weiboApp'
+	                     , 'menuItem:favorite'
+	                     , 'menuItem:share:facebook'
+	                     , 'menuItem:share:QZone'
+	                     , 'menuItem:jsDebug'
+	                     , 'menuItem:editTag'
+	                     , 'menuItem:delete'
+	                     , 'menuItem:copyUrl'
+	                     , 'menuItem:originPage'
+	                     , 'menuItem:readMode'
+	                     , 'menuItem:openWithQQBrowser'
+	                     , 'menuItem:openWithSafari'
+	                     , 'menuItem:share:email'
+	                     , 'menuItem:exposeArticle'
+	                     , 'menuItem:brand'
+	                    
+	                 ],
+	                 success: function (res) {
+	                 },
+	                 fail: function (res) {
+	                 }
+	             });
+	         });
+		
+		
+		
+	
+
+		</script>
+
+</body></html>

