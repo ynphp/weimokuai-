@@ -1,0 +1,193 @@
+{template 'common/header'}
+{template 'common'}
+
+<ul class="nav nav-tabs">
+<li><a onclick="history.go(-1)">返回</a></li> 
+	<li {if $op == 'display'} class="active" {/if}><a href="{php echo $this->createWebUrl('roll',array('op' =>'display','gid'=>$gid))}">中奖用户列表</a></li>
+	<li{if empty($gift['id']) && $op == 'post'} class="active" {/if}><a href="{php echo $this->createWebUrl('roll',array('op' =>'post','gid'=>$gid))}">添加中奖名单</a></li>
+	{if !empty($gift['id']) && $op== 'post'} <li class="active"><a href="{php echo $this->createWebUrl('roll',array('op' =>'post','id'=>$roll['id'],'gid'=>$gid))}">编辑中奖用户信息</a></li> {/if}
+</ul>
+
+{if $op == 'display'}
+<div class="clearfix">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            中奖名单列表
+        </div>
+        <div class="table-responsive panel-body">
+            <table class="table table-hover" style="width:auto;">
+                <tr>
+                    <th style="width:100px;">红包编号</th>
+                    <th style="width:120px;">红包名称</th>
+                    <th style="width:100px;">头像</th>
+                    <th style="width:100px;">昵称</th>
+                    <th style="width:100px;">猜中金额</th>
+                    <th style="width:80px;">虚拟名单</th>
+                    <th style="width:100px;">伯乐</th>
+                    <th style="width:80px;">伯乐奖金</th>
+                    <th style="width:200px;"></th>
+                </tr>
+                {loop $rolls $row}
+                <tr>
+                    <td>
+                        <p class="form-control-static">
+                            
+                              <span class="label label-info">{$row['rid']}</span>
+                        </p>
+                    </td>
+                     <td>
+                        <p class="form-control-static">
+                            {$row['title']}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="form-control-static">
+                            
+                             <img width="50px" src="{php echo tomedia($row['img'])}"/>
+                        </p>
+                    </td>
+                     <td>
+                        <p class="form-control-static">
+                            {$row['nickname']}
+                        </p>
+                    </td>
+                     <td>
+                        <p class="form-control-static">
+                            {$row['money']}
+                        </p>
+                    </td>
+                    <td>
+                        <p class="form-control-static">
+                        {if !empty($row['uid'])}
+                        <span class="label label-success">否</span>
+					{else}<span class="label label-danger">是</span>{/if}
+                           
+                        </p>
+                    </td>
+                      <td>
+                        <p class="form-control-static">
+                            {$row['bname']}
+                        </p>
+                    </td>
+                      <td>
+                        <p class="form-control-static">
+                            {$row['bmoney']}
+                        </p>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group btn-group-sm">
+                            <a class="btn btn-default" href="{php echo $this->createWebUrl('roll', array('op'=>'post', 'id'=>$row['id'],'gid'=>$gid))}"><i class="fa fa-edit"></i> 编辑</a>
+                            <a class="btn btn-default" href="{php echo $this->createWebUrl('roll', array('op'=>'delete', 'id'=>$row['id'],'gid'=>$gid))}" onclick="return confirm('删除用户名单, 如果活动已经结束, 请不要进行删除.') && confirm('删除前已确定了解后果?');"><i class="fa fa-remove"></i> 删除</a>
+                        </div>
+                    </td>
+                </tr>
+                {/loop}
+            </table>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-default" href="{php echo $this->createWebUrl('roll', array('op'=>'post','gid'=>$gid))}">新增名单</a>
+        </div>
+    </div>
+</div>
+{elseif $op == 'post'}
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit='return formcheck()'>
+		<input type="hidden" name="id" value="{$rolls['id']}" />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				用户名单设置
+			</div>
+			<div class="panel-body">
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">红包编号</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text"  name="rid" class="form-control" value="{$rolls['rid']}" />
+                        <span class="help-block">如果红包不存在，请不要填写红包编号</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>红包名称</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='title' name="title" class="form-control" value="{$rolls['title']}" />
+                      
+					</div>
+				</div>
+								<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>头像</label>
+					<div class="col-sm-9 col-xs-12" id="img">
+						{php echo tpl_form_field_image('img', $rolls['img'])}
+					</div>
+				</div>
+								<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>昵称</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="nickname" id="nickname" class="form-control" value="{$rolls['nickname']}" />
+					</div>
+				</div>
+							
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>猜中金额</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="input-group input-medium">
+							<input type="text" name="money" class="form-control input-medium" value="{$rolls['money']}" />
+							<span class="input-group-addon">元</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">UID</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="input-group input-medium">
+							<input type="text" name="uid" id='uid' class="form-control" value="{$rolls['uid']}" />
+							 <span class="help-block">如果是虚拟中奖名单，UID请不要填写</span>
+						</div>
+					</div>
+				</div>
+
+		</div>
+	</div>
+	<div class="form-group col-sm-12">
+		<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" onclick="return formcheck()" />
+		<input type="hidden" name="token" value="{$_W['token']}" />
+	</div>
+	</form>
+</div>
+<script>
+$("#dcode").change(function(){
+	var dcode=$("#dcode").val();
+	var gid="{$_GET[gid]}";
+	$.ajax({
+		type:'post',
+		url:"{php echo $this->createWeburl('roll')}",
+		dataType:"JSON",
+		data:{dcode:dcode,gid:gid},
+		success:function(data){
+			//alert(data.nickname);
+			if(data){
+				//回写
+				$("#nickname").val(data.nickname);
+				$("#uid").val(data.uid);
+				$("#img").text(" ");
+				$("#img").html("<img src='"+data.avatar+"'/>");
+				$("#img").append("<input name='img' type='hidden' value="+data.avatar+"/>");
+			}
+
+		}
+		
+	})
+	
+	
+	
+})
+
+
+</script>
+
+
+
+
+
+{/if}
+
+{template 'common/footer'}

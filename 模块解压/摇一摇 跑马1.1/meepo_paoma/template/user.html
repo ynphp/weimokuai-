@@ -1,0 +1,71 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+<li {if $op=='list'}class="active"{/if}><a href="{php echo $this->createWebUrl('user', array('id' => $id,'rotate_id'=>$rotate_id))}">粉丝管理</a></li>
+<li><a href="{php echo $this->createWebUrl('manage', array('id' => $id))}">轮数管理</a></li>
+</ul>
+
+{if $op == 'list'}
+<form action="" method="post" class="form-horizontal" role="form" ng-controller="formCtrl" id="form2">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			粉丝管理
+		</div>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover" style="display:auto;">
+				<thead class="navbar-inner">
+					<tr>
+					   <th style="width:2em;">选？</th>
+					   <th style="width:20em;">粉丝昵称</th>
+					   <th style="width:10em;">摇一摇点数</th>
+					   <th style="width:10em;">时间</th>
+                       <th style="width:40em;">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $lists $key $item}
+					<tr>
+						<td><input type="checkbox" name="select[]" value="{php echo $item['id']}"></td>
+						
+					  	<td class="row-hover">
+					         <img src="{$item['avatar']}" width=30px height=30px/>
+					        {$item['nickname']}
+					     </td>
+                        <td>{$item['point']}</td>
+						<td>{$item['createtime']}</td>
+						<td >
+							<a class="btn btn-danger" href="{php echo $this->createWebUrl('user',array('op'=>'delete','id'=>$id,'rotate_id'=>$rotate_id,'user_id'=>$item['id']))}"
+								ng-mouseenter="tooltip()" data-toggle="tooltip" data-placement="top" title="删除粉丝">删除粉丝
+								<i class="fa fa-times"></i>
+							</a>
+						</td>
+					</tr>
+					{/loop}
+				</tbody>
+				<tr>
+					<td><input type="checkbox" onclick="var ck = this.checked;$(':checkbox').each(function(){this.checked = ck});"></td>
+                    <td colspan="12">
+                        <input type="submit" class="btn btn-danger" name="delete" value="删除选定" />
+						
+						<input type="hidden" name="token" value="{$_W['token']}">
+                    </td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+</form>
+{$pager}
+<script>
+	require(['angular', 'jquery', 'util'], function(angular, $, util){
+
+		var app = angular.module('app', []);
+		app.controller('formCtrl', function($scope,$http){
+			$scope.tooltip = function(){
+		      $('[data-toggle="tooltip"]').tooltip();
+		    }
+		});
+		angular.bootstrap(document, ['app']);
+	});
+</script>
+{/if}
+{template 'common/footer'}

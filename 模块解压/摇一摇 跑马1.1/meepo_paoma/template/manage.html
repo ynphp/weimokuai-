@@ -1,0 +1,164 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+<li {if $op=='list'}class="active"{/if}><a href="{php echo $this->createWebUrl('manage', array('id' => $id))}">轮数管理</a></li>
+{if $op=='post' && !empty($rotate_id)}<li class="active"><a href="{php echo $this->createWebUrl('manage', array('op'=>'post','id' => $id))}">添加轮数</a></li>{/if}
+<li {if $op=='post' && empty($rotate_id)}class="active"{/if}><a href="{php echo $this->createWebUrl('manage', array('op'=>'post','id' => $id))}">添加轮数</a></li>
+
+</ul>
+
+{if $op == 'list'}
+<form action="" method="post" class="form-horizontal" role="form" ng-controller="formCtrl" id="form2">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			轮数管理<br/>
+			<span class="label label-danger">
+			
+			大屏幕地址
+			<br/>
+			规则: 功能选项--->跑马首页 
+			</span>
+		</div>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover" style="display:auto;">
+				<thead class="navbar-inner">
+					<tr>
+					   <th style="width:2em;">选？</th>
+					   <th style="width:20em;">活动名称</th>
+					   <th style="width:5em;">轮数</th>
+					   <th style="width:10em;">奖励人数</th>
+					   <th style="width:10em;">当前状态</th>
+                       <th style="width:40em;">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $lists $key $item}
+					<tr>
+						<td><input type="checkbox" name="select[]" value="{php echo $item['id']}"></td>
+						
+					  	<td>{$reply['title']}</td>
+                        <td>{php echo $key + 1}</td>
+						<td>{if $item['pnum'] == '1'}冠军{elseif $item['pnum']=='2'}两强{elseif $item['pnum']=='3'}三甲{else}全部{/if}</td>
+						<td>{if $item['status'] == '0'}<span class="label label-success">未开始</span>{elseif $item['status']=='1'}<span class="label label-danger">正在进行</span>{else}<span class="label label-info">已结束</span>{/if}</td>
+						<td >
+						    <a class="btn btn-primary" data-toggle="dropdown" aria-expanded="false" onclick="displayUrl({$item['id']});">活动相关</a>
+							<a class="btn btn-success" href="{php echo $this->createWebUrl('user',array('id'=>$id,'rotate_id'=>$item['id']))}"
+								ng-mouseenter="tooltip()" data-toggle="tooltip" data-placement="top" title="粉丝管理">粉丝管理
+								<i class="fa fa-edit"></i>
+							</a>
+							<a class="btn btn-danger" href="{php echo $this->createWebUrl('manage',array('op'=>'post','id'=>$id,'rotate_id'=>$item['id']))}"
+								ng-mouseenter="tooltip()" data-toggle="tooltip" data-placement="top" title="编辑本轮">编辑本轮
+								<i class="fa fa-times"></i>
+							</a>
+							<a class="btn btn-danger" href="{php echo $this->createWebUrl('manage',array('op'=>'delete','id'=>$id,'rotate_id'=>$item['id']))}"
+								ng-mouseenter="tooltip()" data-toggle="tooltip" data-placement="top" title="删除本轮">删除本轮
+								<i class="fa fa-times"></i>
+							</a>
+						</td>
+					</tr>
+					{/loop}
+				</tbody>
+				<tr>
+					<td><input type="checkbox" onclick="var ck = this.checked;$(':checkbox').each(function(){this.checked = ck});"></td>
+                    <td colspan="12">
+                        <input type="submit" class="btn btn-danger" name="delete" value="删除选定" />
+						<!--input type="submit" class="btn btn-pramary" name="upload" value="导出选定数据" />
+                        <input type="submit" class="btn btn-pramary" name="uploadall" value="导出所有数据" /-->
+						<input type="hidden" name="token" value="{$_W['token']}">
+                    </td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+</form>
+<script>
+            function displayUrl(actid) {
+                require(['jquery', 'util'], function($, u) {
+				  var url = "{php echo $this->createWebUrl('manage',array('op'=>'ajax','id'=>$id))}&rotate_id="+actid;
+					$.post(url, function(data){
+					  var data  = JSON.parse(data);  
+						 
+                         content = '<p class="form-control-static" style="word-break:break-all">参与本轮粉丝数量:<font color=red size=5em>' + data.user + '</font> 人</p>';
+                    var footer =
+                            '<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>';
+                            var diaobj = u.dialog('本轮数据', content, footer);
+							diaobj.find('.btn-default').click(function() {
+								diaobj.modal('hide');
+							});
+							diaobj.modal('show');
+					});
+                   
+                });
+            }
+            
+        </script>
+{$pager}
+<script>
+	require(['angular', 'jquery', 'util'], function(angular, $, util){
+
+		var app = angular.module('app', []);
+		app.controller('formCtrl', function($scope,$http){
+			$scope.tooltip = function(){
+		      $('[data-toggle="tooltip"]').tooltip();
+		    }
+		});
+		angular.bootstrap(document, ['app']);
+	});
+</script>
+{elseif $op == 'post'}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		{if empty($rotate_id)}添加{else}编辑{/if}轮数
+		<br/>
+		<span class="label label-danger">此轮结束标准释义：冠军:代表有一个摇到终点、将结束游戏，类推两强、三甲、前10。选择全部或者前10将按照选择钱前10的模式运行。但是在此轮游戏结束时web端有个查看本轮全部排名的按钮</span>
+	</div>
+	<form id="reply-form" class="form-horizontal form"  method="post" enctype="multipart/form-data">
+	<div class="panel-body">
+<form id="reply-form" class="form-horizontal form"  method="post" enctype="multipart/form-data">
+	<div class="panel-body">
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">游戏状态</label>
+			<div class="col-sm-9">
+				<label class="radio-inline">
+					<input type="radio" name="status" value="0" id="xh" {if $activity['status'] == 0}checked="true"{/if}>未开始
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="status" value="1" id="xh"  {if $activity['status'] == 1}checked="true"{/if}>正进行
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="status" value="2" id="xh"  {if $activity['status'] == 2}checked="true"{/if}>已结束
+				</label>
+				
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">结束游戏标准</label>
+			<div class="col-sm-9">
+				<label class="radio-inline">
+					<input type="radio" name="pnum" value="1" id="xh" {if $activity['pnum'] == 1}checked="true"{/if}>逐冠军
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="pnum" value="2" id="xh"  {if $activity['pnum'] == 2}checked="true"{/if}>争两强
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="pnum" value="3" id="xh"  {if $activity['pnum'] == 3}checked="true"{/if}>挤三甲
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="pnum" value="10" id="xh"  {if $activity['pnum'] == 10}checked="true"{/if}>前10
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="pnum" value="100" id="xh"  {if $activity['pnum'] == 100}checked="true"{/if}>全部
+				</label>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-12">
+				<input name="submit" type="submit" value="保存" class="btn btn-primary btn-success" />
+				<input type="hidden" name="rotate_id" value="{$activity['id']}" />
+				<input type="hidden" name="token" value="{$_W['token']}" />
+			</div>
+		</div>
+</form>
+</div>
+{/if}
+{template 'common/footer'}

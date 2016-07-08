@@ -1,0 +1,55 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+    <li class="active"><a href="{php echo $this->createWebUrl('lottery');}">返回活动管理</a></li>
+</ul>
+
+<p class="bg-primary" style="padding: 10px">
+    请在下列预下红包中，选择红包加入到「{$actInfo['title']}」活动中！
+</p>
+
+<div class="main">
+    <div class="category">
+        <form action="" method="post">
+            <input type="hidden" name="act_id" value="{$act_id}">
+            <div class="panel panel-default">
+                <div class="panel-body table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="120">ID</th>
+                            <th>红包活动名称</th>
+                            <th width="200">过期时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {loop $befores $row}
+                        <tr>
+                            <td>
+                                <label>
+                                    <input type="checkbox" name="before_id[]" value="{$row['before_id']}">
+                                    {$row['before_id']}</label></td>
+                            <td>{$row['act_name']}</td>
+                            <td>{php echo date('Y/m/d H:i:s', $row['expire']); }</td>
+                        </tr>
+                        {/loop}
+                        </tbody>
+                    </table>
+                    <table class="table table-hover">
+                        <tr>
+                            <td class="text-left">
+                                <input type="checkbox" id="selectAll" onclick="var ck = this.checked;$(':checkbox').each(function(){this.checked = ck});">
+                                <a class="btn btn-success" onclick="$('#selectAll').click();">全选</a>
+                                <input type="hidden" name="token" value="{$_W['token']}" />
+                                <input type="submit" class="btn btn-primary span2" name="submit" value="加入到「{$actInfo['title']}」活动" onclick="return confirm('确认操作么？');return false;" /> &nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{$pager}
+
+{template 'common/footer'}

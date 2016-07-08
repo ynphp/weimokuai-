@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[摇一摇引导]]></name>
+		<identifie><![CDATA[mon_shake]]></identifie>
+		<version><![CDATA[1.0.5]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[摇一摇有礼]]></ability>
+		<description><![CDATA[摇一摇有礼]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="摇一摇管理" do="shakeManage" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_mon_shake` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) NOT NULL,
+  `weid` int(11) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `starttime` int(10) DEFAULT NULL,
+  `endtime` int(10) DEFAULT NULL,
+  `shake_follow_enable` int(1) DEFAULT NULL,
+  `follow_url` varchar(200) DEFAULT NULL,
+  `new_title` varchar(200) DEFAULT NULL,
+  `new_icon` varchar(200) DEFAULT NULL,
+  `new_content` varchar(200) DEFAULT NULL,
+  `share_title` varchar(200) DEFAULT NULL,
+  `share_icon` varchar(200) DEFAULT NULL,
+  `share_content` varchar(200) DEFAULT NULL,
+  `createtime` int(10) DEFAULT NULL,
+  `updatetime` int(10) DEFAULT NULL,
+  `view_count` int(10) DEFAULT NULL,
+  `prize` varchar(2000) DEFAULT NULL,
+  `top_banner` varchar(500) DEFAULT NULL,
+  `top_banner_url` varchar(500) DEFAULT NULL,
+  `section1_bg` varchar(500) DEFAULT NULL,
+  `section1_layer5_1` varchar(500) DEFAULT NULL,
+  `section1_layer3_2` varchar(500) DEFAULT NULL,
+  `section1_layer6_3` varchar(500) DEFAULT NULL,
+  `section1_layer7_4` varchar(500) DEFAULT NULL,
+  `section1_layer9_5` varchar(500) DEFAULT NULL,
+  `section2_bg` varchar(500) DEFAULT NULL,
+  `section2_layer16_1` varchar(500) DEFAULT NULL,
+  `section2_layer18_2` varchar(500) DEFAULT NULL,
+  `section2_layer31_3` varchar(500) DEFAULT NULL,
+  `section2_layer17_4` varchar(500) DEFAULT NULL,
+  `good_dlg_bg` varchar(500) DEFAULT NULL,
+  `buy_btn_url` varchar(500) DEFAULT NULL,
+  `section3_bg` varchar(500) DEFAULT NULL,
+  `section3_layer15_1` varchar(500) DEFAULT NULL,
+  `section3_layer11_2` varchar(500) DEFAULT NULL,
+  `section3_layer14_3` varchar(500) DEFAULT NULL,
+  `section3_erweima` varchar(500) DEFAULT NULL,
+  `follow_dlg_tip` varchar(500) DEFAULT NULL,
+  `follow_btn_name` varchar(20) DEFAULT NULL,
+  `shake_day_limit` int(3) DEFAULT '0',
+  `total_limit` int(3) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_mon_shake_prize` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sid` int(10) DEFAULT NULL,
+  `pname` varchar(50) DEFAULT NULL,
+  `pimg` varchar(250) DEFAULT NULL,
+  `p_url` varchar(250) DEFAULT NULL,
+  `pb` int(10) DEFAULT '0',
+  `display_order` int(3) DEFAULT NULL,
+  `pb_count` int(3) DEFAULT NULL,
+  `createtime` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_mon_shake_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sid` int(10) NOT NULL,
+  `pid` int(10) NOT NULL,
+  `openid` varchar(200) NOT NULL,
+  `nickname` varchar(100) NOT NULL,
+  `headimgurl` varchar(200) NOT NULL,
+  `prize` varchar(2000) DEFAULT NULL,
+  `createtime` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

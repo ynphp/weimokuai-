@@ -1,0 +1,203 @@
+<input type="hidden" name="reply_id" value="{$reply['id']}" />
+   <div class="panel panel-default">
+            <div class="panel-heading">
+                图文消息设置
+            </div>
+            <div class="panel-body">
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动标题</label>
+                    <div class="col-xs-12 col-sm-9">
+                          <input type="text" value="{$reply['title']}" class="form-control" name="title">
+                          <div class="help-block"> 活动标题</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">封面</label>
+                    <div class="col-xs-12 col-sm-9">
+                         {php echo tpl_form_field_image('cover', $reply['cover'])}
+                    </div>
+                </div>
+				 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动简介</label>
+                    <div class="col-xs-12 col-sm-9">
+                         <textarea style="height:200px;" class="form-control" id="description" name="description" cols="70">{$reply['description']}</textarea>
+                         <div class="help-block">用于图文显示的简介</div>
+                    </div>
+                </div>
+				
+            </div>
+         </div>
+
+   <div class="panel panel-default">
+            <div class="panel-heading">
+                基本设置
+            </div>
+            <div class="panel-body">
+			    <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">马儿跳跃图</label>
+                    <div class="col-xs-12 col-sm-9">
+                         {php echo tpl_form_field_image('ma1', $reply['ma1'])}
+						 <div class="help-block">规格:60*60 png</div>
+                    </div>
+					
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">马儿停顿图</label>
+                    <div class="col-xs-12 col-sm-9">
+                         {php echo tpl_form_field_image('ma2', $reply['ma2'])}
+						 <div class="help-block">规格:60*60 png</div>
+                    </div>
+					
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">马儿脚印图</label>
+                    <div class="col-xs-12 col-sm-9">
+                         {php echo tpl_form_field_image('tutu', $reply['tutu'])}
+						 <div class="help-block">规格:120*60 png</div>
+                    </div>
+					
+                </div>
+			    <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">公众号二维码</label>
+                    <div class="col-xs-12 col-sm-9">
+                         {php echo tpl_form_field_image('qr', $reply['qr'])}
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">主持人登录密码</label>
+                    <div class="col-xs-12 col-sm-9">
+                          <input type="text" value="{$reply['loginpass']}" class="form-control" name="loginpass">
+                          <div class="help-block">主持人登录密码 默认只有主持人和管理员才可进入首页</div>
+                    </div>
+                </div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>活动倒计时</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="input-group">
+							<input type="text" name="ready_time" id="ready_time" class="form_time form-control"
+								   value="{if $reply['ready_time']}{$reply['ready_time']}{else}10{/if}">
+											<span class="input-group-addon">
+											   秒
+											</span>
+						</div>
+
+					</div>
+				</div>
+				<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否准许重复中奖</label>
+			<div class="col-sm-9">
+				<label class="radio-inline">
+					<input type="radio" name="awardsame" value="1" id="xh" {if $reply['awardsame'] == 1}checked="true"{/if}>否
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="awardsame" value="0" id="xh"  {if $reply['awardsame'] == 0}checked="true"{/if}>是
+				</label>
+				
+				
+			</div>
+		</div>
+		<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页顶部logo</label>
+                    <div class="col-xs-12 col-sm-9">
+                         {php echo tpl_form_field_image('logo_top', $reply['logo_top'])}
+                         <div class="help-block">规格:280*75 png</div>
+                    </div>
+					
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页底部logo</label>
+                    <div class="col-xs-12 col-sm-9">
+                         {php echo tpl_form_field_image('logo_bottom', $reply['logo_bottom'])}
+                         <div class="help-block">规格:165*50 png</div>
+                    </div>
+					
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">web背景图片</label>
+                    <div class="col-xs-12 col-sm-9">
+                         {php echo tpl_form_field_image('bg', $reply['bg'])}
+                          <div class="help-block">规格:1920*1080</div>
+                    </div>
+					
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">app背景图片</label>
+                    <div class="col-xs-12 col-sm-9">
+                         {php echo tpl_form_field_image('appbg', $reply['appbg'])}
+                         <div class="help-block">规格:424*424 png</div>
+                    </div>
+					
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">跑马轨道主色</label>
+                    <div class="col-xs-12 col-sm-9">
+                         {php echo tpl_form_field_color('roundcolor', $reply['roundcolor'])}
+                         <div class="help-block">根据背景主色、定位轨道颜色</div>
+                    </div>
+					
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">跑马轨道背景图片</label>
+                    <div class="col-xs-12 col-sm-9">
+                         {php echo tpl_form_field_image('roundbg', $reply['roundbg'])}
+                         <div class="help-block">规格:400*400 png</div>
+                    </div>
+					
+                </div>
+				 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">游戏开始后顶部标语</label>
+                    <div class="col-xs-12 col-sm-9">
+                         <textarea style="height:200px;" class="form-control" id="slogan_list" name="slogan_list" cols="70">{$reply['slogan_list']}</textarea>
+                         <div class="help-block">标语之间请以#隔开、如: 大力摇#再大力,再大力</div>
+                    </div>
+                </div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>摇一摇点数设置</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="input-group">
+							<input type="text" name="maxshake" id="maxshake" class="form_time form-control"
+								   value="{if $reply['maxshake']}{$reply['maxshake']}{else}100{/if}">
+											<span class="input-group-addon">
+											   个
+											</span>
+						</div>
+
+					</div>
+				</div>
+				<!--div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>摇一摇重力加速度</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="input-group">
+							<input type="text" name="acceleration" id="acceleration" class="form_time form-control"
+								   value="{if !empty($reply['acceleration'])}{$reply['acceleration']}{else}4000{/if}">
+											<span class="input-group-addon">
+											   g
+									</span>
+										
+						</div>
+                        <div class="help-block">值越大点数增加的越慢，最小不小于4000</div>	
+					</div>
+				</div-->
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">前三甲领奖台图片</label>
+                    <div class="col-xs-12 col-sm-9">
+                         {php echo tpl_form_field_image('shake_cup', $reply['shake_cup'])}
+                         <div class="help-block">规格:500*174 png</div>
+                    </div>
+					
+                </div>
+				<div class="form-group">
+							<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 游戏结束音乐链接</label>
+							<div class="col-sm-9 col-xs-12">
+							{php echo tpl_form_field_audio('gameovermusic',$reply['gameovermusic'])}
+				
+			               </div>
+		      </div>
+            </div>
+         </div>
+  
+<script type="text/javascript">
+    require(['util'],function(util){
+        util.editor($('#rule')[0]);
+    })
+</script>

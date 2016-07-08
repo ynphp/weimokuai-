@@ -1,0 +1,19 @@
+{template 'common/header'}
+
+<form action="" method="post" >
+  
+  <div class="form-group">
+    <label>广告链接</label>
+    <input type="text" name='link' class="form-control" value='{$accounts['link']}'>
+  </div>
+  <div class="form-group">
+    <label>广告图片</label>
+    {php echo tpl_form_field_image('img',$accounts['img']);}
+  </div>
+ 
+
+    
+  <input name="token" type="hidden" value="{$_W['token']}" />
+  <input type="submit" name="submit" value="保存" />
+</form>
+{template 'common/footer'}

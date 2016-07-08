@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>摇一摇，测你的下半年财运</title>
+
+    <link rel="stylesheet" type="text/css" href="../addons/dk_yao/template/mobile/dkfile/reset.css">
+    <link rel="stylesheet" type="text/css" href="../addons/dk_yao/template/mobile/dkfile/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="../addons/dk_yao/template/mobile/dkfile/animations.css">
+    <link rel="stylesheet" type="text/css" href="../addons/dk_yao/template/mobile/dkfile/style.css">
+	
+<style type="text/css">
+ 
+ 
+.hand-animate { -webkit-animation: hand_move infinite 2s; }
+.result {  color: #fff;  width: 100%; opacity: 0;
+        -webkit-transition: all 1s;
+           -moz-transition: all 1s;
+            -ms-transition: all 1s;
+             -o-transition: all 1s;
+                transition: all 1s; }
+.result-show { opacity: 1; }
+
+ @-webkit-keyframes hand_move {
+        0% {
+            -webkit-transform: rotate(0);
+               -moz-transform: rotate(0);
+                -ms-transform: rotate(0);
+                 -o-transform: rotate(0);
+                    transform: rotate(0); }
+        50% {
+            -webkit-transform: rotate(15deg);
+               -moz-transform: rotate(15deg);
+                -ms-transform: rotate(15deg);
+                 -o-transform: rotate(15deg);
+                    transform: rotate(15deg); }
+        100% {
+            -webkit-transform: rotate(0);
+               -moz-transform: rotate(0);
+                -ms-transform: rotate(0);
+                 -o-transform: rotate(0);
+                    transform: rotate(0); }
+    }
+</style>
+<script language="javascript">
+ function shares() 
+{ 
+    alert("右上角点分享咯，我就不弹图片了");
+} 
+</script>
+</head>
+
+<body>
+
+<div class="content page" >
+    <div class="page page_1 page-current" id='hand'>
+        <div class="wrap">
+            <div class="page_bg"><img src="../addons/dk_yao/template/mobile/dkfile/images/bg.jpg"></div>
+            <div class="t_yao"><img class="animated infinite shake" id="shake" src="../addons/dk_yao/template/mobile/dkfile/images/r_1.png"></div>
+            <div class="yun"><img src="../addons/dk_yao/template/mobile/dkfile/images/r_2.png"></div>
+            <div class="qian">
+                <ul>
+                    <li><img class="lot1s" src="../addons/dk_yao/template/mobile/dkfile/images/img_stick.png"></li>
+                    <li><img class="lot2s" src="../addons/dk_yao/template/mobile/dkfile/images/img_stick.png"></li>
+                    <li><img class="lot3s" src="../addons/dk_yao/template/mobile/dkfile/images/img_stick.png"></li>
+                    <li><img class="lot4s" src="../addons/dk_yao/template/mobile/dkfile/images/img_stick.png"></li>
+                    <li><img class="lot5s" src="../addons/dk_yao/template/mobile/dkfile/images/img_stick.png"></li>
+                    <li><img class="lot6s" src="../addons/dk_yao/template/mobile/dkfile/images/img_stick.png"></li>
+                    <li><img class="lot7s" src="../addons/dk_yao/template/mobile/dkfile/images/img_stick.png"></li>
+                </ul>
+            </div>
+            <div class="bao"><img class="" src="../addons/dk_yao/template/mobile/dkfile/images/r_3.png"></div>
+            <audio id="bgsound"><source src="../addons/dk_yao/template/mobile/dkfile/images/eff_shake.mp3"> </audio>
+        </div>
+    </div>
+    <!-- 第二页-->
+    <div class="page page_2 hide" id='hand2'>
+        <div class="wrap">
+            <div class="page_bg">
+            
+            </div>
+
+            <div class="zan animated bounceInDown" id="result"> </div>
+            <div class="share">
+                <div class="s_1 animated fadeIn pt-page-delay200" onclick='shares()'><img src="../addons/dk_yao/template/mobile/dkfile/images/share.png"></div>
+              
+                <div class="s_2 animated fadeIn pt-page-delay200" >
+                    <a href="index.html">
+                    <img style="z-index:10000" src="../addons/dk_yao/template/mobile/dkfile/images/more.png">
+                    </a>
+                </div>
+				
+              
+            </div>
+			
+            
+			
+			<div width="100%" style="text-align:center"><a href='{$accounts[link]}'><img src="{php echo tomedia($accounts[img]);}" style="width:80%;"></a></div>
+            
+            
+            
+        </div>
+    </div>
+    <!-- 第二页结束-->
+    
+</div>
+
+ 
+<script src="../addons/dk_yao/template/mobile/dkfile/shake.js"></script>
+<script>
+window.onload = function() {
+    var myShakeEvent = new Shake({
+        threshold: 15
+    });
+
+    myShakeEvent.start();
+
+    window.addEventListener('shake', shakeEventDidOccur, false);
+
+    function shakeEventDidOccur () {
+		var result = document.getElementById("result");
+		result.className = "result";
+		var hands = document.getElementById("hand");
+		hands.style.display="none";
+		var hands2 = document.getElementById("hand2");
+		hands2.style.display="block";
+		var arr = ['<img src=../addons/dk_yao/template/mobile/dkfile/images/im_1.jpg />','<img src=../addons/dk_yao/template/mobile/dkfile/images/im_2.jpg />','<img src=../addons/dk_yao/template/mobile/dkfile/images/im_3.jpg />','<img src=../addons/dk_yao/template/mobile/dkfile/images/im_4.jpg />','<img src=../addons/dk_yao/template/mobile/dkfile/images/im_5.jpg />','<img src=../addons/dk_yao/template/mobile/dkfile/images/im_6.jpg />','<img src=../addons/dk_yao/template/mobile/dkfile/images/im_7.jpg />','<img src=../addons/dk_yao/template/mobile/dkfile/images/im_8.jpg />','<img src=../addons/dk_yao/template/mobile/dkfile/images/im_9.jpg />','<img src=../addons/dk_yao/template/mobile/dkfile/images/im_10.jpg />'];
+		var num = Math.floor(Math.random()*4);
+		result.innerHTML = arr[num];
+		setTimeout(function(){
+            result.className = "result result-show";
+        }, 1000);
+    }
+};
+</script>
+
+ 
+</body>
+</html>

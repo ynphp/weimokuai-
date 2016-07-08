@@ -1,0 +1,102 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+    <li><a href="{php echo $this->createWebUrl('lottery');}">活动管理</a></li>
+    <li class="active"><a href="{php echo $this->createWebUrl('lotteryadd');}">活动添加</a></li>
+</ul>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="alert alert-success alert-dismissable">
+				 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h4>
+					添加活动前须知：
+				</h4> <strong>摇红包组件是否开通！</strong>请登录摇周边后台 - 开发者支持 - 检查摇红包组件是否获得  <a href="https://zb.weixin.qq.com" class="alert-link">点我查看>>></a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="clearfix">
+    <form class="form-horizontal form" action="" method="post">
+        <div class="panel panel-default">
+            <div class="panel-heading">红包活动信息</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">是否使用模板</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <select class="form-control" name="use_template">
+                            <option value="1">使用</option>
+                            <option value="2">不使用</option>
+                        </select>
+                        <div class="help-block">模版即交互流程图中的红包加载页，使用模板用户不需要点击可自动打开红包；不使用模版需自行开发HTML5页面，并在页面调用红包jsapi</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">模板LOGO</label>
+                    <div class="col-sm-8 col-xs-12">
+                        {php echo tpl_form_field_image('logo_url'); }
+                        <div class="help-block">不使用模板时可不加。展示在摇一摇界面的消息图标。图片尺寸为120x120。</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">抽奖活动名称</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" name="title">
+                        <div class="help-block">最长6个汉字，12个英文字母。</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">抽奖活动描述</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" name="desc">
+                        <div class="help-block">最长7个汉字，14个英文字母。</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">抽奖开关</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active">
+                                <input type="radio" name="onoff" value="1" autocomplete="off" checked> 开启
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="onoff" value="0" autocomplete="off"> 关闭
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">起止时间</label>
+                    <div class="col-sm-8 col-xs-12">
+                        {php echo tpl_form_field_daterange('time', '', true); }
+                        <div class="help-block">红包活动有效期最长为91天!</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">红包总数</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" name="total">
+                        <div class="help-block">
+                            红包总数是录入红包ticket总数的上限，因此红包总数应该大于等于预下单时红包ticket总数！
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">跳转页面</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" name="jump_url">
+                        <div class="help-block">红包关注界面后可以跳转到第三方自定义的页面</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group margin-bottom">
+            <div class="col-sm-12">
+                <input name="submit" type="submit" value="创建红包活动" class="btn btn-primary col-lg-1">
+                <input type="hidden" name="token" value="{$_W['token']}"/>
+            </div>
+        </div>
+    </form>
+</div>
+
+{template 'common/footer'}

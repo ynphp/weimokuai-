@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0311)http://b.qianduan.com/Mammon/Index?inviteCode=LLHANRSD&inviteOpeinId=oXd9-jkRwFijWDNrpqeD6J2NItf8&friendUrl=http://wx.qlogo.cn/mmopen/3zbIsPfpdYIZLHWiae7QbEAeOLiauqLJtr7Kkq293fX2EiciaGUia5cgTE6l12Da7cE7BwkYicRBq8YrfaTuE8oj1QCg/0&friendNickName=My%E4%B9%90%E6%B4%BE&code=0015372794d7b9541319054148ca156s&state=-1 -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+   
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="pragma" content="no-cache">  
+    <meta http-equiv="cache-control" content="no-cache">  
+   <meta http-equiv="expires" content="0">  
+    <title>{$actdetail[title]}www.tmd9.com</title>
+             {php echo register_jssdk(false);}
+    <link rel="stylesheet" href="../addons/enjoy_guess/public/css/style.css">
+        <script type="text/javascript" src="../addons/enjoy_guess/public/js/jquery.min.js"></script>
+</head>
+<body class="index">
+    <header class="header">
+    <img class="wd-full" src="{php echo tomedia($actdetail[apic])}" alt="">
+  </header>
+    <main class="main-con" role="main">
+   <section class="sec-ranking">
+      <h2 class="title">
+     <a href="{php echo $this->createMobileUrl('rank')}">   <span class="txt">财神榜</span></a>
+      </h2>
+      <div class="winners">
+        <ul class="winners-list clearInlGap">
+        {php $i=1;}
+{loop $rolls $item}
+
+          <li class="winner theFirstLev">
+            <div class="avatar">
+             <span class="serial-num">{php echo $i}</span>
+              <div class="inner">
+                <img src="{php echo tomedia($item[img])}" alt="">
+              </div>
+            </div><!--/avatar-->
+            <div class="info">
+         {php $i++}    
+              <span class="prize">￥<strong>{$item[money]}</strong></span>
+            </div><!--/info-->
+          </li><!--/winner-->
+{/loop}
+        </ul><!--/winners-list-->
+      </div><!--/winners-->
+    </section><!--/sec-ranking-->
+    {loop $reds $item}
+                    <div class="messages">
+      <div class="msg-item grid">
+        <div class="grid-1-6 tAr">
+          <div class="msger">
+            <div class="avatar">
+              <img src="{php echo tomedia($item[img])}" alt="">
+            </div><!--/avatar-->
+            <p class="name">{$item[title]}</p>
+          </div><!--/msger-->
+        </div>
+        <div class="grid-5-6">
+          <div class="msg-box">
+            <div class="inner">
+            {if $item[status]==0}
+               <p style="width:80%;float:left;">快来看看{$item[joinnum]}人都猜错过什么金额，你猜中的机会很大哦，还等什么呢</p>
+               <a class="link01 udLine" 
+               style="width:20%;float:left;text-decoration:none;border-radius:0.5rem;letter-spacing:2px;background: rgba(217,55,16,0.8);
+               color:#fff;padding:0.75rem 0.5rem;text-align:center;" 
+               href="{php echo $this->createMobileUrl('detail',array('rid'=>$item['id']))}">我也<br>要猜</a>
+               {else}
+               <p style="width:80%;float:left;">大红包已经被人猜走了,快来看看Ta是怎么PK下{$item[joinnum]}人的</p>
+               <a class="link01 udLine"
+              style="width:20%;float:left;text-decoration:none;border-radius:0.5rem;letter-spacing:2px;background: rgba(0,0,0,0.5);
+               color:#fff;padding:0.75rem 0.5rem;text-align:center;" 
+                href="{php echo $this->createMobileUrl('detail',array('rid'=>$item['id']))}">看看<br>是谁</a>
+               {/if}
+               
+            </div><!--/inner-->
+          </div><!--/msg-box-->
+        </div>
+      </div><!--/msg-item-->
+    </div><!--/messages-->
+    {/loop}
+
+   <!--   <a class="btn01 thiBoxTrig tapToClose"  data-target="actiRule" href="javascript:;">查看规则</a>-->
+   <p class="tip01">*本活动由<a href="{$actdetail[sucai]}" style="text-decoration: underline;color:#d93710">{$_W[account][name]}</a>提供支持</p>
+   <div style="height:6rem;"></div>
+    <div class="fixed-wrap fixed-b">
+            <a class="btn01 thiBoxTrig tapToClose" style="width:45%;float:left;margin:0.6rem 3.3%;" data-target="actiRule" href="javascript:;">查看规则</a>
+             <a class="btn01 wd-full" style="width:45%;float:left;margin:0.6rem 0" href="{php echo $this->createMobileUrl('entry')}">换一批</a></div>
+
+      <!--弹框-->
+  <div class="mask"></div>
+  <div id="getCash" class="thickbox type01">
+    <div class="inner">
+      <div class="top-bar">
+        <div class="zh-logo02 vt mr10"></div>
+        <div class="yq-logo02 vt"></div>
+        <a class="close02" href="javascript:;"></a>
+      </div><!--/top-bar-->
+      <div class="cont tAc">
+        <img class="img01" src="./index_files/img01.gif" alt="">
+        <p class="tip04">赢1000元奖金，手速一定要快！</p>
+          <div class="form-item01">
+            <input class="inp-txt01 inp-txt01-2 tAc" id="HelpTempMoblie" onkeyup="this.value=this.value.replace(/\D/g,&#39;&#39;)" onafterpaste="this.value=this.value.replace(/\D/g,&#39;&#39;)" type="text" placeholder="输入手机号码" maxlength="11">
+            <!--错误提示-->
+            <p class="veriTip veriTip-2" style="display:none" id="HelpTempMoblieError">手机号码错误</p>
+          </div><!--/form-item01 -->
+        <a class="btn01 btn01-2 wd-full" href="http://b.qianduan.com/Mammon/Index?inviteCode=LLHANRSD&inviteOpeinId=oXd9-jkRwFijWDNrpqeD6J2NItf8&friendUrl=http://wx.qlogo.cn/mmopen/3zbIsPfpdYIZLHWiae7QbEAeOLiauqLJtr7Kkq293fX2EiciaGUia5cgTE6l12Da7cE7BwkYicRBq8YrfaTuE8oj1QCg/0&friendNickName=My%E4%B9%90%E6%B4%BE&code=0015372794d7b9541319054148ca156s&state=-1#" id="QdBtnHelp">领取现金</a>
+      </div><!--/cont-->
+    </div>
+  </div><!--/thickbox-->
+ <div id="actiRule" class="thickbox type02">
+    <div class="inner">
+      <section class="sec-actiRule">
+        <!--<h1 class="title">活动规则</h1>-->
+        <ul class="rule-list">
+          {php echo htmlspecialchars_decode($actdetail[rule])}
+        </ul>
+        <a class="close03" href="javascript:;"></a>
+      </section><!--/sec-actiRule-->
+    </div><!--/inner-->
+  </div><!--/thickbox-->
+         </main>
+    <script src="../addons/enjoy_guess/public/js/main.js"></script>
+    <script src="../addons/enjoy_guess/public/js/zepto.min.js"></script>
+<script type="text/javascript">
+wx.ready(function () {
+    sharedata = {
+    	title : "{$sharetitle}",
+   		link :  "{$sharelink}",
+   		desc : "{$sharecontent}",
+    	imgUrl:"{php echo tomedia($actdetail[share_icon])}",
+      success: function(){
+    	// ajax返回加机会
+      },
+      cancel: function(){
+    	//  alert(2);
+      }
+    };
+    wx.onMenuShareAppMessage(sharedata);
+    wx.onMenuShareTimeline(sharedata);
+    wx.onMenuShareQQ(sharedata);
+    wx.onMenuShareWeibo(sharedata);
+  });
+  
+  
+
+</script>
+
+
+</body></html>

@@ -1,0 +1,93 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+    <li class="active"><a href="{php echo $this->createWebUrl('lottery');}">活动列表</a></li>
+    <li><a href="{php echo $this->createWebUrl('lotteryadd');}">添加活动</a></li>
+</ul>
+
+<div class="alert alert-warning" role="alert">
+    <b>注意:</b> 添加完活动后，一定要录入红包信息！ 否则无法抽取红包。
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">筛选</div>
+    <div class="panel-body">
+        <form action="./index.php" method="get" class="form-horizontal ng-pristine ng-valid" role="form">
+            <input type="hidden" name="c" value="site">
+            <input type="hidden" name="a" value="entry">
+            <input type="hidden" name="do" value="lottery">
+            <input type="hidden" name="m" value="weidu_redpark">
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">关键词</label>
+                <div class="col-sm-9 col-md-8 col-lg-5 col-xs-12">
+                    <input type="text" class="form-control" name="keyword" value="{$keyword}">
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-2 col-lg-3">
+                    <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+                    {if $keyword}
+                    <a href="{php echo $this->createWebUrl('lottery'); }" class="btn btn-danger"><i class="glyphicon glyphicon-th-list"></i> 返回列表</a>
+                    {/if}
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="main">
+    <div class="category">
+        <form action="" method="post">
+            <div class="panel panel-default">
+                <div class="panel-body table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th width="100">ID</th>
+                            <th>活动名称</th>
+                            <th width="180">开关</th>
+                            <th width="350">起止时间</th>
+                            <th width="150">红包数量</th>
+                            <th width="220">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {loop $lists $row}
+                        <tr>
+                            <td>{$row['act_id']}</td>
+                            <td>{$row['title']}</td>
+                            <td title="点击切换活动状态">
+                                {if $row['onoff'] == 1}
+                                    <a href="{php echo $this->createWebUrl('LotteryOnOff', array('act_id' => $row['act_id'])); }"><span class="label label-success">开启</span></a>
+                                {else}
+                                    <a href="{php echo $this->createWebUrl('LotteryOnOff', array('act_id' => $row['act_id'])); }"><span class="label label-danger">关闭</span></a>
+                                {/if}
+                            </td>
+                            <td>
+                                {if $row['expire_time'] < TIMESTAMP}<del>{/if}
+                                {php echo date('m/d H:i', $row['begin_time']); }
+                                -
+                                {php echo date('m/d H:i', $row['expire_time']); }
+                                {if $row['expire_time'] < TIMESTAMP}</del>{/if}
+                            </td>
+                            <td>{$row['usebefore']} / {$row['total']}</td>
+                            <td>
+                                <a href="{php echo $this->createWebUrl('Hbpreorder', array('act_id' => $row['act_id'])); }" class="btn btn-primary btn-sm" title="添加预下单红包到活动中">
+                                    <i class="glyphicon glyphicon-th-list"></i> 红包列表
+                                </a>
+                                {if $row['expire_time'] > TIMESTAMP}
+                                <a href="{php echo $this->createWebUrl('HbpreorderAdd', array('act_id' => $row['act_id'])); }" class="btn btn-primary btn-sm" title="添加预下单红包到活动中">
+                                    <i class="glyphicon glyphicon-plus"></i> 红包预下单
+                                </a>
+                                {/if}
+                            </td>
+                        </tr>
+                        {/loop}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{$pager}
+
+{template 'common/footer'}
