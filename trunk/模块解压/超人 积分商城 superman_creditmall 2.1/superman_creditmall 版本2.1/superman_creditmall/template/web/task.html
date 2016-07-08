@@ -1,0 +1,14 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if $act == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('task');}">任务列表</a></li>
+	<li {if $act == 'add'}class="active"{/if}><a href="{php echo $this->createWebUrl('task', array('act' => 'add'));}">添加任务</a></li>
+	{if $act == 'edit' && isset($_GPC['id'])}<li class="active"><a href="{php echo $this->createWebUrl('task', array('act' => 'edit', 'id' => $id));}">编辑任务</a></li>{/if}
+</ul>
+{if $act == 'display'}
+	{template 'web/task-display'}
+{else if $act == 'add'}
+	{template 'web/task-add'}
+{else if $act == 'edit'}
+	{template 'web/task-edit'}
+{/if}
+{template 'common/footer'}

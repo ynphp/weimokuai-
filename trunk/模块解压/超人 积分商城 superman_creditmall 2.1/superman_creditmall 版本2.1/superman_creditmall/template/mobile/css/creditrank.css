@@ -1,0 +1,81 @@
+/*
+ * re-define
+ */
+.superpage_creditrank .list-block {
+    padding: 0 10px;
+    margin: 0;
+}
+.superpage_creditrank .list-block ul li:nth-child(even) {
+    background: #ececec;
+}
+.superpage_creditrank .list-block .list-button {
+    line-height: 3rem;
+}
+.superpage_creditrank .list-block .item-link.list-button {
+    text-align: left;
+}
+
+/* creditrank */
+.superpage_creditrank {
+    background-color: #ffcd02;
+}
+.superpage_creditrank .creditrank_top_bg {
+    background-image:url('/addons/superman_creditmall/template/mobile/images/creditrank_top_bg.png');
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    height: 170px;
+}
+.superpage_creditrank .myranking {
+    width: 50px;
+    position: relative;
+    top: 28px;
+    left: 49%;
+    color: #a34616;
+    text-align: center;
+}
+.superpage_creditrank .ranking {
+    position: absolute;
+    top: 113px;
+    color: #ffffff;
+    text-align: center;
+}
+.superpage_creditrank .weekranking {
+    width: 24%;
+    left: 0;
+}
+.superpage_creditrank .monthranking {
+    width: 80px;
+    margin-left: -40px;
+    left: 50%;
+}
+.superpage_creditrank .totalranking {
+    width: 24%;
+    right: 0;
+}
+
+.superpage_creditrank .update_title {
+    text-align: center;
+    color: #ffffff;
+    margin: 10px 0;
+}
+.superpage_creditrank .avatar_wrap {
+    width: 40px;
+}
+.superpage_creditrank .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    vertical-align:middle;
+}
+.superpage_creditrank .ranking_top_bg {
+    background-image:url('/addons/superman_creditmall/template/mobile/images/creditrank_ranking_top_bg.png');
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    height: 17px;
+}
+.superpage_creditrank .ranking_bottom_bg {
+    background-image:url('/addons/superman_creditmall/template/mobile/images/creditrank_ranking_bottom_bg.png');
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    height: 65px;
+}

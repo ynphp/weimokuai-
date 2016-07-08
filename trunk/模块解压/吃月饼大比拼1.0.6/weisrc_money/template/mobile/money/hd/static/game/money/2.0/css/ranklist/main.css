@@ -1,0 +1,22 @@
+.pop {position: absolute; width:100%; height:100%; left:0; top:0; z-index:9999; background-color:rgba(0,0,0,.8); display:none;}
+.pop .wrap {padding:10px;}
+.pop .wrap .tip-img {text-align:center;}
+.pop .wrap .title {background-color:#49c7f6; color:#FFF; padding:10px 0; text-align:center; font-size:18px; position:relative; z-index:6;}
+.pop .wrap #icon-close {position:absolute; right:5px; width:25px; height:25px; cursor:pointer; top:8px;}
+.pop .wrap #icon-gameover {position: absolute;right: 5px;width: 100px;height: 30px;top: 0px; display:none;}
+.pop .box {background-color:#FFF; border-radius:10px; overflow:hidden; margin:10px auto;}
+.pop .box .content {padding:10px; text-align:left; font-size:13px; line-height:1.5;}
+.pop#rankinglist .wrap {width:90%; padding:0; z-index:99999; height:90%; margin:20px auto; background-color:#FFF; position:relative; border-radius:10px; overflow:hidden;}
+#ranking-list {position:absolute; width:100%; top:43px; bottom:0px; left:0; border-radius:15px; overflow:hidden;}
+.pop#rankinglist {text-align:left;}
+.pop#rankinglist .inner {position:absolute; width:100%;}
+.pop#rankinglist .inner ul li {padding:10px 5px; height:auto; overflow:hidden;} 
+.pop#rankinglist .inner ul li:nth-child(2n+1) {background-color:#fff9de;}
+.pop#rankinglist .inner ul li.more {text-align:center;}
+.pop#rankinglist .inner span {display:inline-block; vertical-align:middle; height:40px; line-height:40px; color:#000000;}
+.pop#rankinglist .inner span.n {width:40px; text-align:center; margin-right:5px; color:#7f3906; font-size:16px;}
+.pop#rankinglist .inner span.n img {width:30px; height:30px; vertical-align:middle; margin-top:-2px;}
+.pop#rankinglist .inner span.thumb {width:36px; height:36px; border:2px solid #ffe59f; border-radius:5px; overflow:hidden; margin-right:10px;}
+.pop#rankinglist .inner span.thumb img {width:36px; height:36px;}
+.pop#rankinglist .inner span.gold-num {background:url(../../images/ranklist/icon-gold.png) right center no-repeat; padding-right:35px; float:right; margin-right:10px; color:#e20000;}
+

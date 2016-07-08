@@ -1,0 +1,18 @@
+<nav class="bar bar-tab">
+	<a class="tab-item {if $do=='home'}active{/if}" href="{php echo $this->createMobileUrl('home')}">
+		<span class="icon icon-home"></span>
+		<span class="tab-label">首页</span>
+	</a>
+	<a class="tab-item {if $do=='exchangerank'}active{/if}" href="{php echo $this->createMobileUrl('exchangerank')}">
+		<span class="icon icon-gift"></span>
+		<span class="tab-label">兑换排行</span>
+	</a>
+	<a class="tab-item {if $do=='task'}active{/if}" href="{php echo $this->createMobileUrl('task')}">
+		<span class="icon icon-app"></span>
+		<span class="tab-label">任务中心</span>
+	</a>
+	<a class="tab-item {if $do=='profile'}active{/if}" href="{php echo $this->createMobileUrl('profile')}">
+		<span class="icon icon-me"></span>
+		<span class="tab-label">个人中心</span>
+	</a>
+</nav>

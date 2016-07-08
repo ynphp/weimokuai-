@@ -1,0 +1,80 @@
+{template 'common/header'}
+<div class='container'
+     style='padding: 0 5px 10px; margin: 0; width: 100%'>
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="{php echo $this->createWebUrl('Sysset', array('op' => 'post'));}">参数设置</a></li>
+    </ul>
+    <div class="panel panel-success">
+        <div class="panel-heading">参数设置</div>
+        <div class="panel-body">
+            <form class="form-horizontal" action="" method="post">
+                <input type="hidden" id="isoauth_hid" name="status_hid" value="{$set['isoauth']}"/> 
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启评论</label>
+                    <div class="col-sm-9">
+                        <input type="radio" name="iscomment" value="1" id="iscomment_02"{if $set['iscomment']=='1'}checked="true"{/if}>
+                        <label for="iscomment_02">开启</label>
+                        <input type="radio" name="iscomment" value="0" id="iscomment_01"{if $set['iscomment']=='0'}checked="true"{/if}>
+                        <label for="iscomment_01">关闭</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否开启评论审核</label>
+                    <div class="col-sm-9">
+                        <input type="radio" name="iscommentstatus" value="1" id="iscomment_02"{if $set['iscommentstatus']=='1'}checked="true"{/if}>
+                        <label for="iscomment_02">开启</label>
+                        <input type="radio" name="iscommentstatus" value="0" id="iscomment_01"{if $set['iscommentstatus']=='0'}checked="true"{/if}>
+                        <label for="iscomment_01">关闭</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否获取昵称</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="radio" name="isget" value="1" id="form-oauth-0"  {if $set['isget'] == 1}checked="true"{/if}  /> 是
+                        <input type="radio" name="isget" value="0" id="form-oauth-1"  {if $set['isget'] == 0}checked="true"{/if}  /> 否
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                
+               <!-- <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">联系电话</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="tellphone" value="{$set['tellphone']}" class="form-control">
+                    </div>
+                </div>
+                -->
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">评论增加积分</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="plcredit" value="{$set['plcredit']}" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享后被阅读增加积分</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="ydcredit" value="{$set['ydcredit']}" class="form-control">
+                    </div>
+                </div>
+                
+              <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享增加积分</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="fxcredit" value="{$set['fxcredit']}" class="form-control">
+                    </div>
+                </div>-->
+               
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input name="token" type="hidden" value="{$_W['token']}" />
+                        <button type="submit" class="btn btn-success col-sm-2" name="submit" value="提交">
+                            <i class="fa fa-check-circle"></i> 提交
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+<style>
+	.task_icon {
+		width: 36px;
+		height: 36px;
+	}
+</style>
+<div class="panel panel-info">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="" method="post" class="form-horizontal" role="form">
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 control-label">任务类型</label>
+				<div class="col-sm-8 col-md-8 col-lg-8 col-xs-12">
+					<select name="type" class="form-control">
+						<option value="0">全部</option>
+						{loop $types $type}
+						<option value="{$type['id']}" {if $type['id']==$_GPC['type']}selected{/if}>{$type['title']}</option>
+						{/loop}
+					</select>
+				</div>
+				<div class="pull-right col-xs-12 col-sm-2 col-md-2 col-lg-2">
+					<button class="btn btn-default"><i class="fa fa-search"></i>搜索</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<form action="" method="post">
+	<div class="panel panel-default">
+		<div class="table-responsive panel-body">
+			<table class="table table-hover">
+				<thead>
+				<tr>
+					<th style="width:80px">排序</th>
+					<th width="60">图标</th>
+					<th>名称</th>
+					<th>时间</th>
+					<th>标识</th>
+					<th>奖励</th>
+					<th>是否开启</th>
+					<th style="width:100px;">操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				{loop $list $item}
+				<tr>
+					<td>
+						<input type="text" class="form-control text-center" name="displayorder[{$item['id']}]" value="{$item['displayorder']}">
+					</td>
+					<td>
+						<img class="task_icon" src="{$item['icon']}" style="border-radius: 50%"/>
+					</td>
+					<td>
+						{$item['title']}
+					</td>
+					<td>
+						{if !$item['starttime']&&!$item['endtime']}不限制
+						{else}
+							{if !$item['starttime']}不限制{else}{$item['starttime']}{/if} - <br>
+							{if !$item['endtime']}不限制{else}{$item['endtime']}{/if}
+						{/if}
+					</td>
+					<td>
+						{$item['name']}
+					</td>
+					<td>
+						{$item['award']}{$item['credit_title']}
+					</td>
+					<td>
+						<input type="checkbox" value="{$item['isshow']}" data-id="{$item['id']}" data-field="isshow" {if $item['isshow'] == 1}checked{/if} name="isshow[]"/>
+					</td>
+					<td>
+						<a href="{php echo $this->createWebUrl('task', array('act' => 'edit','id' => $item['id']));}" title="编辑" data-toggle="tooltip" data-placement="top" class="btn btn-default btn-sm"><i class="fa fa-edit"></i></a>
+						<a onclick="return confirm('此操作不可恢复，确认吗？'); return false;" href="{php echo $this->createWebUrl('task', array('act' => 'delete','id' => $item['id']));}" title="删除" data-toggle="tooltip" data-placement="top" class="btn btn-default btn-sm"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{$pager}
+	<input name="submit" type="submit" value="更新排序" class="btn btn-primary col-lg-1" />
+	<input type="hidden" name="token" value="{$_W['token']}" />
+</form>
+<script type="text/javascript">
+	require(['jquery', 'bootstrap', 'util', 'bootstrap.switch'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+
+		$(':checkbox').bootstrapSwitch();
+		$(':checkbox').on('switchChange.bootstrapSwitch', function(e, state){
+			var t = $(this);
+			var id = t.attr('data-id');
+			var field = t.attr('data-field');
+			var value = this.checked ? 1 : 0;
+			$.post(location.href, {_method: 'switch', id: id, field: field, value: value}, function(resp){
+				if(resp != 'success') {
+					util.message(resp);
+				}
+			});
+		});
+	});
+</script>

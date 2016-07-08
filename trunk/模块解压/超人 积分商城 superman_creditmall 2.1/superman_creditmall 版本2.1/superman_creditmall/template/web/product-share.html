@@ -1,0 +1,34 @@
+<div class="alert alert-info">
+	<strong>商品分享获得积分流程：</strong>
+	<ol>
+		<li>领取分享任务；</li>
+		<li>进入分享商品列表；</li>
+		<li>选择分享商品，点击分享按钮；</li>
+		<li>进入分享页面；</li>
+		<li>根据分享提示，点击分享给好友；</li>
+		<li>好友收到分享消息，打开分享商品页面；</li>
+		<li>获得积分；</li>
+	</ol>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">积分类型</label>
+	<div class="col-sm-8 col-xs-12">
+		<select name="share_credit_type" class="form-control" {if superman_is_redpack($item['type'])}disabled{/if}>
+			{loop $credit_type $key $ct}
+			{if $ct['enabled'] == 1}
+			<option value="{$key}" {if $item['share_credit_type']==$key}selected{/if}>{$ct['title']}</option>
+			{/if}
+			{/loop}
+		</select>
+		<span class="help-block">分享该商品所得的积分类型</span>
+		<span class="help-block redpack_tips" style="color: red; {if !superman_is_redpack($item['type'])}display: none{/if}">红包类型商品不支持分享</span>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">积分数</label>
+	<div class="col-sm-8 col-xs-12">
+		<input type="text" class="form-control" name="share_credit" value="{$item['share_credit']}" {if superman_is_redpack($item['type'])}disabled{/if}>
+		<span class="help-block">分享该商品所得的积分数量</span>
+		<span class="help-block redpack_tips" style="color: red; {if !superman_is_redpack($item['type'])}display: none{/if}">红包类型商品不支持分享</span>
+	</div>
+</div>

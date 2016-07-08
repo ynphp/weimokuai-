@@ -1,0 +1,68 @@
+<div class="content-block-title clearfix">
+	<span class="pull-left font8">
+		{$product_types[$type]['title']}
+		<span class="font6">{$product_types[$type]['name']}</span>
+	</span>
+	<span class="pull-right font8">
+		<a href="{php echo $this->createMobileUrl('list', array('type' => $type))}">更多</a>
+	</span>
+</div>
+<div class="home_list">
+	{loop $li $index $item}
+	{php $index+=1;}
+	{if $index % 2 != 0}
+	<div class="row">
+	{/if}
+		<div class="col-50 item_wrap">
+			<a href="{php echo $this->createMobileUrl('detail', array('id' => $item['id']))}">
+				<div class="item_img">
+					<img src="{$item['cover']}" onerror="this.src='{php echo superman_img_placeholder()}'"/>
+					{if $item['activity_time']['end'] && strtotime($item['activity_time']['end']) < TIMESTAMP}
+					<div class="product_prompt">
+						<div>
+							<span>已结束</span>
+						</div>
+					</div>
+					{else if $item['activity_time']['start'] && strtotime($item['activity_time']['start']) > TIMESTAMP}
+					<div class="product_prompt">
+						<div>
+							<span>未开始</span>
+						</div>
+					</div>
+					{else if $item['total'] <= 0}
+					<div class="product_prompt">
+						<div>
+							<span>已被抢光</span>
+						</div>
+					</div>
+					{/if}
+				</div>
+				<div class="text-overflow font7">
+					{$item['title']}
+				</div>
+				<div class="item_info clearfix font6">
+					{if $item['type']==1}
+					<span class="pull-left">{$item['sales']}人已兑换</span>
+					{else if $item['type']==7}
+					<span class="pull-left">{$item['sales']}人已秒杀</span>
+					{else if $item['type']==2}
+					<span class="pull-left">{$item['joined_total']}人已出价</span>
+					{/if}
+					<span class="pull-right">
+						{if $item['price']>0}
+						<span class="credit_color">{$item['credit']}</span>{$item['credit_title']}+<span class="credit_color">{$item['price']}</span>元
+						{else}
+						<span class="credit_color">{$item['credit']}</span>{$item['credit_title']}
+						{/if}
+					</span>
+				</div>
+			</a>
+		</div>
+	{if $index % 2 == 0}
+	</div>
+	{/if}
+	{/loop}
+	{if count($li) % 2 != 0}
+	</div>
+	{/if}
+</div>

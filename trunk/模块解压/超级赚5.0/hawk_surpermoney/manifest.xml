@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[超级赚]]></name>
+		<identifie><![CDATA[hawk_surpermoney]]></identifie>
+		<version><![CDATA[5.0]]></version>
+		<type><![CDATA[wz]]></type>
+		<ability><![CDATA[自媒体时代，可以赚钱的公众号营销利器]]></ability>
+		<description><![CDATA[充分挖掘公众号自媒体潜能，为自己吸引粉丝的同时，通过公众号为他人推广，从粉丝中获取更大的商机]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="view" />
+			<message type="enter" />
+		</subscribes>
+		<handles>
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="enter" />
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="超级赚首页" do="list" state="" direct="false" />
+		</cover>
+		<rule>
+			<entry title="超级赚" do="list" state="" direct="false" />
+		</rule>
+		<menu>
+			<entry title="使用说明" do="entry" state="" direct="false" />
+			<entry title="内容管理" do="money" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="超级赚" do="list" state="" direct="false" />
+		</home>
+		<profile>
+			<entry title="超级赚" do="list" state="" direct="false" />
+		</profile>
+		<shortcut>
+			<entry title="超级赚" do="list" state="" direct="false" />
+		</shortcut>
+	</bindings>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

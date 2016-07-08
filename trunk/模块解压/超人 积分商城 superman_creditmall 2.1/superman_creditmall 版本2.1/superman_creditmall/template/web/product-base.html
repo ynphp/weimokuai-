@@ -1,0 +1,142 @@
+<div class="form-group">
+	<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style='color:red'>*</span>商品名称</label>
+	<div class="col-sm-8 col-xs-12">
+		<input type="text" class="form-control" placeholder="" name="title" value="{$item['title']}">
+		<span class="help-block">商品名称</span>
+	</div>
+</div>
+<style>
+	.product_type, .product_type option {
+		color: #5bc0de;
+	}
+	.product_type option:disabled {
+		color: #ccc;
+	}
+</style>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style='color:red'>*</span>商品类型</label>
+	<div class="col-sm-8 col-xs-12">
+		<select name="type" class="form-control product_type" {if $item['id']}disabled{/if}>
+			{loop $product_types $pt}
+			<option value="{$pt['id']}" {if !$pt['enable']}disabled{/if} {if $item['type']==$pt['id']}selected{/if}>{$pt['name']}</option>
+			{/loop}
+		</select>
+		<span class="help-block">
+			不可选择类型暂不支持，请关注后续版本更新
+			{if !$item['id']}<span style="color: red; margin-left: 10px;">注意：商品类型选择后不能修改</span>{/if}
+		</span>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style='color:red'>*</span>出售时间</label>
+	<div class="col-sm-8 col-xs-12">
+		<label style="font-weight: normal">
+			<input name="activity_time_limit" data-id="activity_time_wrap" type="checkbox" {if !isset($item['id'])||($item['start_time']==0)}checked{/if}> 不限制
+		</label>
+		<div id="activity_time_wrap" {if !isset($item['id'])||($item['start_time']==0)}style="display:none"{/if}>
+			{php echo tpl_form_field_daterange('activity_time', $item['activity_time'], true);}
+		</div>
+		<span class="help-block">勾选不限制后，将商品购买将不检查商品出售的期限，否则商品将只在出售时间内可购买</span>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style='color:red'>*</span>积分类型</label>
+	<div class="col-sm-8 col-xs-12">
+		<select name="credit_type" class="form-control">
+			{loop $credit_type $key $ct}
+			{if $ct['enabled'] == 1}
+			<option value="{$key}" {if $item['credit_type']==$key}selected{/if}>{$ct['title']}</option>
+			{/if}
+			{/loop}
+		</select>
+		<span class="help-block">兑换该商品花费积分的类型</span>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style='color:red'>*</span><span class="credit_title"></span></label>
+	<div class="col-sm-8 col-xs-12">
+		<div class="input-group col-sm-8">
+			<input type="text" class="form-control" placeholder="" name="credit" value="{$item['credit']}">
+			<span class="input-group-addon credit_title"></span>
+		</div>
+		<span class="help-block">兑换该商品花费的积分数</span>
+	</div>
+</div>
+<div id="auction_wrap" class="form-group" style="{if $item['type'] != 2}display: none{/if}">
+	<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">竞拍加价</label>
+	<div class="col-sm-8 col-xs-12">
+		<div class="input-group col-sm-8">
+			<input type="text" class="form-control" placeholder="" name="extend[auction_credit]" value="{if isset($item['extend']['auction_credit'])}{$item['extend']['auction_credit']}{else}10{/if}">
+			<span class="input-group-addon credit_title"></span>
+		</div>
+		<span class="help-block">每次竞拍加价积分限制，如填写10，则每次参与竞拍最少需要10<span class="credit_title"></span>，不填写或0则不限制</span>
+	</div>
+</div>
+<div id="redpack_wrap" class="form-group" style="{if !superman_is_redpack($item['type'])}display: none{/if}">
+	<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style='color:red'>*</span>红包金额</label>
+	<div class="col-sm-8 col-xs-12">
+		<div class="input-group col-sm-8">
+			<input type="text" min="1" max="200" class="form-control" placeholder="" name="extend[redpack_amount]" value="{if isset($item['extend']['redpack_amount'])}{$item['extend']['redpack_amount']}{else}1{/if}">
+			<span class="input-group-addon">元</span>
+		</div>
+		<span class="help-block">每个红包包含的金额（人民币），设置红包兑换后，请确保微信支付商户账户中有足够的余额，否则会导致兑换红包失败</span>
+		<span class="help-block">红包金额最小为1元，最大为200元</span>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">价格</label>
+	<div class="col-sm-8 col-xs-12">
+		<div class="input-group col-sm-8">
+			<input type="text" class="form-control" placeholder="" name="price" value="{$item['price']}">
+			<span class="input-group-addon">元</span>
+		</div>
+		<span class="help-block">兑换该商品花费的余额积分（现金），如果是积分全额兑换，此处不填即可，如大于0时，商品售价显示格式为：100<span class="credit_title"></span>+10元</span>
+		<span class="help-block">设置价格参数，需开启微信支付，方可兑换商品</span>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">市场价</label>
+	<div class="col-sm-8 col-xs-12">
+		<div class="input-group col-sm-8">
+			<input type="text" class="form-control" name="market_price" value="{$item['market_price']}" />
+			<span class="input-group-addon">元</span>
+		</div>
+		<span class="help-block">市场价，仅作展示用参考，非实际价格</span>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style='color:red'>*</span>库存</label>
+	<div class="col-sm-8 col-xs-12">
+		<input type="text" class="form-control" placeholder="" name="total" {if isset($item['virtual_total'])}value="{$item['virtual_total']}" disabled {else}value="{$item['total']}"{/if}>
+		<span class="help-block">虚拟商品根据虚拟商品列表中商品数量为准，不可自定义，为0时显示已兑完</span>
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">封面</label>
+	<div class="col-sm-8 col-xs-12">
+		{php echo tpl_form_field_image('cover', $item['cover'])}
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+	<div class="col-sm-9 col-xs-12">
+		<span class="help-block">微信红包商品类型，默认为空时，自动调用系统红包图片，建议图片上传尺寸：190像素 * 220像素</span>
+		<span class="help-block">其他商品类型，建议图片上传尺寸：360像素 * 200像素</span>
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">相册</label>
+	<div class="col-sm-8 col-xs-12">
+		<!--<style>-->
+		<!--.multi-img-details .multi-item {height: auto; max-height: 150px;}-->
+		<!--</style>-->
+		{php echo tpl_form_field_multi_image('album', $item['album'])}
+	</div>
+</div>
+<div class="form-group">
+	<label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+	<div class="col-sm-9 col-xs-12">
+		<span class="help-block">建议图片上传尺寸：360像素 * 200像素，红包类型商品无需上传相册图片</span>
+	</div>
+</div>
