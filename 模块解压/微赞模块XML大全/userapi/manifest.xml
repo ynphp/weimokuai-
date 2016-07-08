@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[自定义接口回复]]></name>
+		<identifie><![CDATA[userapi]]></identifie>
+		<version><![CDATA[1.1]]></version>
+		<type><![CDATA[system]]></type>
+		<ability><![CDATA[更方便的第三方接口设置]]></ability>
+		<description><![CDATA[自定义接口又称第三方接口，可以让开发者更方便的接入微赞系统，高效的与微信公众平台进行对接整合。]]></description>
+		<author><![CDATA[Weizan Team]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_userapi_cache;
+CREATE TABLE `ims_userapi_cache` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(32) NOT NULL,
+  `content` text NOT NULL,
+  `lastupdate` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_userapi_reply;
+CREATE TABLE `ims_userapi_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL,
+  `description` varchar(300) NOT NULL DEFAULT '',
+  `apiurl` varchar(300) NOT NULL DEFAULT '',
+  `token` varchar(32) NOT NULL DEFAULT '',
+  `default_text` varchar(100) NOT NULL DEFAULT '',
+  `cachetime` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `rid` (`rid`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

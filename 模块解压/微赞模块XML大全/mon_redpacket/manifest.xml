@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[攒红包]]></name>
+		<identifie><![CDATA[mon_redpacket]]></identifie>
+		<version><![CDATA[1.4]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[邀请好友红包活动！]]></ability>
+		<description><![CDATA[邀请好友红包活动！]]></description>
+		<author><![CDATA[codeMonkey qq:631872807]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="红包活动管理" do="packet" state="" direct="false" />
+			<entry title="授权接口设置" do="setting" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

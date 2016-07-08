@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[UNIONID粉丝互通]]></name>
+		<identifie><![CDATA[bf_shell]]></identifie>
+		<version><![CDATA[4.3]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[通过配置可以实现A公众号和B公众号粉丝互通]]></ability>
+		<description><![CDATA[通过配置可以实现A公众号和B公众号粉丝互通]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

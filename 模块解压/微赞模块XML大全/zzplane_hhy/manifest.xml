@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[粽子大战]]></name>
+		<identifie><![CDATA[zzplane_hhy]]></identifie>
+		<version><![CDATA[4.3]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[粽子大战，模仿飞机大战]]></ability>
+		<description><![CDATA[粽子大战，模仿飞机大战]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口设置" do="from" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="参数设置" do="setting" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

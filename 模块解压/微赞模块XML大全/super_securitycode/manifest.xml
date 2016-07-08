@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[超级防伪码]]></name>
+		<identifie><![CDATA[super_securitycode]]></identifie>
+		<version><![CDATA[3.6]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[超级防伪码]]></ability>
+		<description><![CDATA[超级防伪码]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="防伪码列表" do="list" state="" direct="false" />
+			<entry title="生成防伪码" do="create" state="" direct="false" />
+			<entry title="防伪码导入" do="insert" state="" direct="false" />
+			<entry title="防伪码导出" do="list" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_super_securitycode_data_moban;
+CREATE TABLE `ims_super_securitycode_data_moban` (
+  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `code` varchar(100) NOT NULL,
+  `type` varchar(100) NOT NULL,
+  `brand` varchar(20) DEFAULT NULL,
+  `spec` varchar(20) DEFAULT NULL,
+  `weight` varchar(20) DEFAULT NULL,
+  `factory` varchar(500) NOT NULL,
+  `remarks` varchar(100) DEFAULT NULL,
+  `creditname` varchar(20) NOT NULL,
+  `creditnum` int(10) unsigned NOT NULL,
+  `creditstatus` tinyint(1) unsigned NOT NULL,
+  `status` tinyint(1) unsigned NOT NULL,
+  `stime` int(10) unsigned NOT NULL,
+  `createtime` decimal(11,0) NOT NULL,
+  `num` int(10) NOT NULL,
+  `tourl` varchar(500) DEFAULT NULL,
+  `img_banner` varchar(500) DEFAULT NULL,
+  `img_logo` varchar(500) DEFAULT NULL COMMENT '图片',
+  `video` varchar(500) DEFAULT NULL COMMENT '视频',
+  `buyurl` varchar(500) DEFAULT NULL COMMENT '购买链接',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_super_securitycode_logs;
+CREATE TABLE `ims_super_securitycode_logs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `openid` varchar(50) NOT NULL,
+  `code` varchar(50) NOT NULL,
+  `status` tinyint(1) unsigned NOT NULL,
+  `createtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_super_securitycode_reply;
+CREATE TABLE `ims_super_securitycode_reply` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `rid` int(10) NOT NULL,
+  `weid` int(10) NOT NULL,
+  `Reply` varchar(1000) NOT NULL,
+  `Integral` int(10) NOT NULL,
+  `tnumber` int(10) NOT NULL,
+  `Failure` varchar(1000) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

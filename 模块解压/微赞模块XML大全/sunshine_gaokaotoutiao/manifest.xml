@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[高考头条]]></name>
+		<identifie><![CDATA[sunshine_gaokaotoutiao]]></identifie>
+		<version><![CDATA[4.3]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[高考头条,让上头条更简单，我也要上头条！]]></ability>
+		<description><![CDATA[高考头条,让上头条更简单，我也要上头条！]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="规则配置" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="素材管理" do="manage" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

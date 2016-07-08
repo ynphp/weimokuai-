@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微汽车]]></name>
+		<identifie><![CDATA[we7_car]]></identifie>
+		<version><![CDATA[2.8.6]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[微汽车]]></ability>
+		<description><![CDATA[微汽车]]></description>
+		<author><![CDATA[www.H770.com]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="汽车首页入口设置" do="index" state="" direct="false" />
+			<entry title="汽车车型入口设置" do="series" state="" direct="false" />
+			<entry title="车主关怀入口设置" do="guanhuai" state="" direct="false" />
+			<entry title="意见回馈入口设置" do="message" state="" direct="false" />
+			<entry title="实用工具入口设置" do="tool" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="汽车首页设置" do="index" state="" direct="false" />
+			<entry title="汽车品牌管理" do="brand" state="" direct="false" />
+			<entry title="汽车车系管理" do="series" state="" direct="false" />
+			<entry title="汽车车型管理" do="type" state="" direct="false" />
+			<entry title="预约管理" do="yuyue" state="" direct="false" />
+			<entry title="车主关怀管理" do="guanhuai" state="" direct="false" />
+			<entry title="销售客服管理" do="kefu" state="" direct="false" />
+			<entry title="汽车资讯管理" do="news" state="" direct="false" />
+			<entry title="车型相册管理" do="album" state="" direct="false" />
+			<entry title="意见回馈管理" do="message" state="" direct="false" />
+			<entry title="实用工具设置" do="tool" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="汽车首页" do="index" state="" direct="false" />
+			<entry title="汽车车型" do="series" state="" direct="false" />
+			<entry title="预约试驾" do="yuyue" state="1" direct="false" />
+			<entry title="预约保养" do="yuyue" state="2" direct="false" />
+			<entry title="车主关怀" do="guanhuai" state="" direct="false" />
+			<entry title="销售客服" do="kefu" state="" direct="false" />
+			<entry title="意见回馈" do="message" state="" direct="false" />
+			<entry title="实用工具" do="tool" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[天天签到]]></name>
+		<identifie><![CDATA[zmcn_sign]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[customer]]></type>
+		<ability><![CDATA[用户每天签到，送积分，增加用户对公众号的粘性]]></ability>
+		<description><![CDATA[用户每天签到，送积分，增加用户对公众号的粘性]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

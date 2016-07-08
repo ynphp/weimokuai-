@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[切粽子]]></name>
+		<identifie><![CDATA[cut_zongzi]]></identifie>
+		<version><![CDATA[2.6]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[由切水果游戏改编，应景即将到来的端午节]]></ability>
+		<description><![CDATA[①根据切水果改造。\n②认证服务号可设置要求玩游戏者关注后才能玩游戏\n③认证订阅号可通过借用oauth权限实现要求玩游戏者关注后才能玩游戏（认证订阅号、认证服务号需绑定微信开放平台）\n④可自定义关注图片\n⑤可查看参与记录（可查看参与者详细信息，可与参与者对话]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="游戏入口" do="rule1" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="游戏设置" do="setting" state="" direct="false" />
+			<entry title="参与记录" do="records" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_cut_zongzi_billboard;
+CREATE TABLE `ims_cut_zongzi_billboard` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `openid` varchar(255) DEFAULT NULL,
+  `score` varchar(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_cut_zongzi_settings;
+CREATE TABLE `ims_cut_zongzi_settings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `setting_key` varchar(255) NOT NULL,
+  `setting_value` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

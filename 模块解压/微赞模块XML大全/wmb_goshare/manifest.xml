@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[集分享]]></name>
+		<identifie><![CDATA[wmb_goshare]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[集分享]]></ability>
+		<description><![CDATA[集分享兑奖活动展示商业信息]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="主题列表管理员入口" do="list" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="奖品信息管理" do="giftset" state="" direct="false" />
+			<entry title="奖品兑换管理" do="membergift" state="" direct="false" />
+			<entry title="奖品分组管理" do="giftgroupset" state="" direct="false" />
+			<entry title="主题活动管理" do="themeset" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_wmb_goshare_convert;
+CREATE TABLE `ims_wmb_goshare_convert` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `themeid` int(11) NOT NULL,
+  `themename` varchar(200) NOT NULL,
+  `openid` varchar(200) NOT NULL,
+  `giftid` int(11) NOT NULL,
+  `giftname` varchar(100) NOT NULL,
+  `code` varchar(100) NOT NULL,
+  `codetime` varchar(100) NOT NULL,
+  `istake` int(2) NOT NULL,
+  `cookieid` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_wmb_goshare_cookie;
+CREATE TABLE `ims_wmb_goshare_cookie` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `themeid` int(11) NOT NULL,
+  `openid` varchar(200) NOT NULL,
+  `cookieid` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_wmb_goshare_gift;
+CREATE TABLE `ims_wmb_goshare_gift` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `themeid` int(11) NOT NULL,
+  `groupid` int(11) NOT NULL,
+  `groupname` varchar(200) NOT NULL,
+  `stdname` varchar(100) NOT NULL,
+  `unit` varchar(10) NOT NULL,
+  `desc` varchar(100) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `needscore` int(11) NOT NULL,
+  `sort` int(11) NOT NULL,
+  `left` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_wmb_goshare_giftgroup;
+CREATE TABLE `ims_wmb_goshare_giftgroup` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `themeid` int(11) NOT NULL,
+  `themename` varchar(200) NOT NULL,
+  `groupname` varchar(100) NOT NULL,
+  `groupstate` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_wmb_goshare_member;
+CREATE TABLE `ims_wmb_goshare_member` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `openid` varchar(200) NOT NULL,
+  `themeid` int(11) NOT NULL,
+  `score` int(11) NOT NULL,
+  `cookieid` varchar(200) NOT NULL,
+  `helpid` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_wmb_goshare_theme;
+CREATE TABLE `ims_wmb_goshare_theme` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `groupid` int(11) NOT NULL,
+  `groupname` varchar(200) NOT NULL,
+  `themename` varchar(100) NOT NULL,
+  `headtitle` varchar(200) NOT NULL,
+  `themetitle` varchar(1000) NOT NULL,
+  `themelogo` varchar(512) NOT NULL,
+  `undertaker` varchar(200) NOT NULL,
+  `ad1` varchar(200) NOT NULL,
+  `ad1content` varchar(1000) NOT NULL,
+  `ad2` varchar(200) NOT NULL,
+  `ad2content` varchar(1000) NOT NULL,
+  `ad3` varchar(200) NOT NULL,
+  `ad3content` varchar(1000) NOT NULL,
+  `ad3pic` varchar(512) NOT NULL,
+  `url` varchar(1000) NOT NULL,
+  `place` varchar(200) NOT NULL,
+  `tel` varchar(30) NOT NULL,
+  `begintime` date NOT NULL,
+  `endtime` date NOT NULL,
+  `footpic` varchar(512) NOT NULL,
+  `overtitle` varchar(1000) NOT NULL,
+  `sharepic` varchar(512) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_wmb_goshare_transmit;
+CREATE TABLE `ims_wmb_goshare_transmit` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `themeid` int(11) NOT NULL,
+  `openid` varchar(200) NOT NULL,
+  `helpid` varchar(200) NOT NULL,
+  `cookieid` varchar(200) NOT NULL,
+  `helpcookid` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

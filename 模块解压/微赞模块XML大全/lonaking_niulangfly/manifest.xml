@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[牛郎追织女]]></name>
+		<identifie><![CDATA[lonaking_niulangfly]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[牛郎追织女]]></ability>
+		<description><![CDATA[牛郎追织女一款小游戏]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="游戏设置" do="play" state="" direct="false" />
+		</cover>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微信邮件]]></name>
+		<identifie><![CDATA[zam_weimails]]></identifie>
+		<version><![CDATA[1.19]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[微信邮件,粉丝邮件订阅与发送]]></ability>
+		<description><![CDATA[本模块旨在方便粉丝需求各种资料 公众号可通过提供便利 将必要资料发送至粉丝绑定邮箱内 支持翻页 支持各种类型的文件上传]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="image" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="附件管理" do="list" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

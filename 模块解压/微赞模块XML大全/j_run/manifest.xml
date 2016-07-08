@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[约跑有礼]]></name>
+		<identifie><![CDATA[j_run]]></identifie>
+		<version><![CDATA[3.5]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[约跑互动性强，使用场景广泛]]></ability>
+		<description><![CDATA[可以使用不同的场景，好玩，有可以涨份]]></description>
+		<author><![CDATA[roman]]></author>
+		<url><![CDATA[#]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="产品核销" do="collect" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="广告管理理" do="advert" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_j_run_ad;
+CREATE TABLE `ims_j_run_ad` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `title` varchar(50) NOT NULL DEFAULT '',
+  `thumb` varchar(300) NOT NULL DEFAULT '',
+  `description` varchar(100) DEFAULT NULL,
+  `url` varchar(300) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_j_run_admin;
+CREATE TABLE `ims_j_run_admin` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) NOT NULL DEFAULT '0',
+  `weid` int(10) unsigned NOT NULL,
+  `from_user` varchar(80) NOT NULL,
+  `nickname` varchar(80) NOT NULL,
+  `headimgurl` varchar(255) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_j_run_convert;
+CREATE TABLE `ims_j_run_convert` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `rid` int(11) NOT NULL DEFAULT '0',
+  `openid` varchar(200) NOT NULL,
+  `uid` int(11) NOT NULL DEFAULT '0',
+  `nickname` varchar(200) NOT NULL,
+  `giftid` int(11) NOT NULL DEFAULT '0',
+  `giftname` varchar(50) NOT NULL,
+  `createtime` int(11) NOT NULL DEFAULT '0',
+  `istaken` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_j_run_gift;
+CREATE TABLE `ims_j_run_gift` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `rid` int(11) NOT NULL DEFAULT '0',
+  `title` varchar(200) NOT NULL,
+  `thumb` varchar(250) NOT NULL,
+  `need` int(11) NOT NULL DEFAULT '0',
+  `total` int(11) NOT NULL DEFAULT '0',
+  `remain` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_j_run_member;
+CREATE TABLE `ims_j_run_member` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) NOT NULL COMMENT '主题id',
+  `weid` int(11) NOT NULL,
+  `from_user` varchar(100) NOT NULL,
+  `openid` varchar(100) NOT NULL,
+  `unionid` varchar(100) NOT NULL,
+  `distance` int(11) NOT NULL DEFAULT '0',
+  `helpid` int(11) NOT NULL DEFAULT '0',
+  `nickname` varchar(100) NOT NULL,
+  `sex` tinyint(1) NOT NULL DEFAULT '0',
+  `headimgurl` varchar(255) NOT NULL,
+  `time` int(13) DEFAULT NULL,
+  `enable` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_j_run_reply;
+CREATE TABLE `ims_j_run_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `rid` int(10) unsigned NOT NULL DEFAULT '0',
+  `gametype` tinyint(1) NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `title` varchar(200) NOT NULL COMMENT '回复标题',
+  `cover` varchar(250) NOT NULL COMMENT '图文回复图片',
+  `description` varchar(250) NOT NULL COMMENT '图文回复描述',
+  `starttime` int(10) NOT NULL DEFAULT '0',
+  `endtime` int(10) NOT NULL DEFAULT '0',
+  `rule` mediumtext COMMENT '游戏规则',
+  `thumb_top` varchar(250) DEFAULT NULL COMMENT '顶部图片',
+  `thumb_share` varchar(250) DEFAULT NULL COMMENT '分享小图',
+  `thumb_end` varchar(250) DEFAULT NULL COMMENT '终点图标',
+  `gzurl` varchar(500) DEFAULT NULL COMMENT '关注连接',
+  `ranking` int(10) NOT NULL DEFAULT '0' COMMENT '奖励多少人',
+  `need` int(10) NOT NULL DEFAULT '0' COMMENT '需要跑多远',
+  `gift` varchar(50) NOT NULL COMMENT '奖品',
+  `adlist` varchar(50) NOT NULL COMMENT '广告',
+  `code` varchar(50) NOT NULL COMMENT '手机端登陆',
+  `gametime` int(2) NOT NULL DEFAULT '10' COMMENT '游戏时间',
+  `copyright` varchar(100) NOT NULL COMMENT '版权',
+  `slogan` varchar(500) NOT NULL COMMENT '口号',
+  `img_loadImg` varchar(250) DEFAULT NULL COMMENT '分享小图',
+  `img_personImg` varchar(250) DEFAULT NULL COMMENT '分享小图',
+  `img_personsImg` varchar(250) DEFAULT NULL COMMENT '分享小图',
+  `img_treeImage` varchar(250) DEFAULT NULL COMMENT '分享小图',
+  `img_green` varchar(250) DEFAULT NULL COMMENT '分享小图',
+  `img_road` varchar(250) DEFAULT NULL COMMENT '分享小图',
+  `img_sun` varchar(250) DEFAULT NULL COMMENT '分享小图',
+  `img_cloud1` varchar(250) DEFAULT NULL COMMENT '分享小图',
+  `img_cloud2` varchar(250) DEFAULT NULL COMMENT '分享小图',
+  `img_cloud3` varchar(250) DEFAULT NULL COMMENT '分享小图',
+  `img_fullbg` varchar(250) DEFAULT NULL COMMENT '分享小图',
+  `img_personImg_girl` varchar(250) DEFAULT NULL COMMENT '分享小图',
+  `img_personsImg_girl` varchar(250) DEFAULT NULL COMMENT '分享小图',
+  `open_bg` tinyint(1) NOT NULL DEFAULT '0',
+  `ad` varchar(250) DEFAULT NULL COMMENT '广告语',
+  `music` varchar(250) DEFAULT NULL COMMENT '背景音乐',
+  `modol` tinyint(1) NOT NULL DEFAULT '0',
+  `speed` varchar(10) DEFAULT NULL COMMENT '加速度',
+  `speedStep` varchar(10) DEFAULT NULL COMMENT '步速',
+  `issex` tinyint(1) NOT NULL DEFAULT '0',
+  `share_title` varchar(250) DEFAULT NULL COMMENT '分享文字',
+  `helpnum` int(3) NOT NULL DEFAULT '0' COMMENT '助力限制人数',
+  `appid` varchar(250) DEFAULT NULL COMMENT 'appid',
+  `secret` varchar(250) DEFAULT NULL COMMENT 'secret',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

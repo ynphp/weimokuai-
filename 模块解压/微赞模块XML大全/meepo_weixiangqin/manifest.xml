@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微相亲]]></name>
+		<identifie><![CDATA[meepo_weixiangqin]]></identifie>
+		<version><![CDATA[8.2]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[微相亲/红娘/有缘网/世纪佳缘]]></ability>
+		<description><![CDATA[微相亲/红娘/有缘网/世纪佳缘]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[bbs.b2ctui.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="image" />
+			<message type="location" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="微相亲入口设置" do="alllist" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="审核机制" do="list" state="" direct="false" />
+			<entry title="审核开关" do="onoff" state="" direct="false" />
+			<entry title="推荐申请" do="tjapply" state="" direct="false" />
+			<entry title="包月记录" do="baoyuerecord" state="" direct="false" />
+			<entry title="基本设置" do="set" state="" direct="false" />
+			<entry title="图片管理" do="photolist" state="" direct="false" />
+			<entry title="聊天记录" do="chatcontent" state="" direct="false" />
+			<entry title="充值记录" do="payrecord" state="" direct="false" />
+			<entry title="兑换记录" do="exchangerecord" state="" direct="false" />
+			<entry title="幻灯片管理" do="slide" state="" direct="false" />
+			<entry title="相亲活动列表" do="Display" state="" direct="false" />
+			<entry title="新建相亲活动" do="Post" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

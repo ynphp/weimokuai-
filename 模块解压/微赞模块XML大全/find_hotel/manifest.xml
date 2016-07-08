@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[找酒店]]></name>
+		<identifie><![CDATA[find_hotel]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[找酒店]]></ability>
+		<description><![CDATA[发送关键字，然后发送位置信息就会返回相应信息]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

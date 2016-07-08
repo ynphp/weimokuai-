@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[送贺卡]]></name>
+		<identifie><![CDATA[wl_heka]]></identifie>
+		<version><![CDATA[1.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[新年贺卡，生日贺卡，同窗贺卡]]></ability>
+		<description><![CDATA[新年贺卡，生日贺卡，同窗贺卡]]></description>
+		<author><![CDATA[微赞 &amp; www.H770.com]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="贺卡管理" do="list" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="" do="" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

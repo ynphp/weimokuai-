@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微信照片测年龄]]></name>
+		<identifie><![CDATA[tybike_face4age]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[发照片测年龄]]></ability>
+		<description><![CDATA[好玩的微信发照片测年龄，吸粉利器]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

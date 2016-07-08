@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[砸蛋]]></name>
+		<identifie><![CDATA[we7_egg]]></identifie>
+		<version><![CDATA[1.4.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[趣味性抽奖类营销功能]]></ability>
+		<description><![CDATA[砸蛋抽奖可以增强粉丝与公众号的互动、提升公众号的黏性，让你在短时间内迅速引爆人气。]]></description>
+		<author><![CDATA[www.H770.com]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<home>
+			<entry title="" do="" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

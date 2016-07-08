@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[拆红包]]></name>
+		<identifie><![CDATA[qiyue_luckymoney]]></identifie>
+		<version><![CDATA[1.06]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[拆红包活动开始啦]]></ability>
+		<description><![CDATA[拆红包活动开始啦]]></description>
+		<author><![CDATA[冯齐跃]]></author>
+		<url><![CDATA[http://010XR.COM/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="click" />
+			<message type="view" />
+		</subscribes>
+		<handles>
+			<message type="click" />
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_qiyue_luckymoney;
+CREATE TABLE `ims_qiyue_luckymoney` (
+  `rid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `title` varchar(20) NOT NULL DEFAULT '',
+  `description` varchar(200) NOT NULL DEFAULT '',
+  `picurl` varchar(200) NOT NULL DEFAULT '',
+  `starttime` int(10) DEFAULT '0',
+  `endtime` int(10) DEFAULT '0',
+  `logourl` varchar(200) NOT NULL DEFAULT '',
+  `musicurl` varchar(200) NOT NULL DEFAULT '',
+  `ruletxt` varchar(300) NOT NULL DEFAULT '',
+  `viewnum` int(11) DEFAULT '0',
+  `fansnum` int(11) DEFAULT '0',
+  `sharenum` int(11) DEFAULT '0',
+  `share_imgurl` varchar(100) DEFAULT '',
+  `share_title` varchar(100) DEFAULT '',
+  `share_desc` varchar(200) DEFAULT '',
+  `share_link` varchar(200) DEFAULT '',
+  PRIMARY KEY (`rid`),
+  KEY `uniacid` (`rid`,`uniacid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_qiyue_luckymoney_fans;
+CREATE TABLE `ims_qiyue_luckymoney_fans` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT '0',
+  `uid` int(10) unsigned DEFAULT '0',
+  `nickname` varchar(30) DEFAULT '',
+  `avatar` varchar(250) DEFAULT '',
+  `mobile` char(11) DEFAULT '',
+  `viewnum` int(11) DEFAULT '0',
+  `opennum` tinyint(5) NOT NULL DEFAULT '0',
+  `friends` text NOT NULL,
+  `prize` varchar(50) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `rid` (`rid`,`uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

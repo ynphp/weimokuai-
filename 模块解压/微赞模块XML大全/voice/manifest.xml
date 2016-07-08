@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[基本语音回复]]></name>
+		<identifie><![CDATA[voice]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[system]]></type>
+		<ability><![CDATA[提供语音回复]]></ability>
+		<description><![CDATA[在回复规则中可选择具有语音的回复内容，并根据用户所设置的特定关键字精准的返回给粉丝语音。]]></description>
+		<author><![CDATA[Weizan Team]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_voice_reply;
+CREATE TABLE `ims_voice_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `mediaid` varchar(255) NOT NULL,
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

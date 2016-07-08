@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[摇一摇中奖]]></name>
+		<identifie><![CDATA[we7_shake]]></identifie>
+		<version><![CDATA[1.4]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[摇一摇中奖]]></ability>
+		<description><![CDATA[摇一摇中奖]]></description>
+		<author><![CDATA[微动力]]></author>
+		<url><![CDATA[http://www.b2ctui.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<home>
+			<entry title="摇一摇中奖" do="detail" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

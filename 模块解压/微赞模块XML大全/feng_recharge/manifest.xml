@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[拼团余额充值]]></name>
+		<identifie><![CDATA[feng_recharge]]></identifie>
+		<version><![CDATA[2.1]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[拼团余额充值]]></ability>
+		<description><![CDATA[拼团余额充值]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="true" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="充值入口" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="充值记录" do="order" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

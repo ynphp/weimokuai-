@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[美丽景区]]></name>
+		<identifie><![CDATA[bm_attraction]]></identifie>
+		<version><![CDATA[1.2]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[美丽景区]]></ability>
+		<description><![CDATA[景区视频与图文介绍、自助语音导游、地图展示等。]]></description>
+		<author><![CDATA[美丽心情]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="景点管理" do="classify" state="" direct="false" />
+			<entry title="其他重要景点" do="other" state="" direct="false" />
+			<entry title="幻灯片管理" do="slide" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_bm_attraction_slide;
+CREATE TABLE `ims_bm_attraction_slide` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT NULL,
+  `hs_pic` text COMMENT '幻灯图片',
+  `createtime` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

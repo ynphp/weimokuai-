@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[预约与调查]]></name>
+		<identifie><![CDATA[we7_research]]></identifie>
+		<version><![CDATA[1.0.6]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[可以快速生成调查表单或则预约记录]]></ability>
+		<description><![CDATA[]]></description>
+		<author><![CDATA[微动力]]></author>
+		<url><![CDATA[#]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="预约活动列表" do="display" state="" direct="false" />
+			<entry title="新建预约活动" do="post" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="" do="" state="" direct="false" />
+		</home>
+		<profile>
+			<entry title="我的预约调查" do="myresearch" state="" direct="false" />
+		</profile>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

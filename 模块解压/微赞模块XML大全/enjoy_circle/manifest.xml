@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[我和明星一个圈]]></name>
+		<identifie><![CDATA[enjoy_circle]]></identifie>
+		<version><![CDATA[4.6]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[我和明星一个圈]]></ability>
+		<description><![CDATA[我和明星一个圈]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="朋友圈入口" do="entry" state="data" direct="false" />
+		</cover>
+		<menu>
+			<entry title="活动设置" do="act" state="data" direct="false" />
+			<entry title="话题管理" do="topic" state="data" direct="false" />
+			<entry title="粉丝管理" do="fans" state="data" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_enjoy_circle_comment;
+CREATE TABLE `ims_enjoy_circle_comment` (
+  `cid` int(255) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(50) DEFAULT NULL,
+  `tid` int(255) DEFAULT NULL,
+  `comment` varchar(10000) DEFAULT NULL,
+  `nickname` varchar(50) DEFAULT NULL,
+  `avatar` varchar(200) DEFAULT NULL,
+  `cuid` int(200) DEFAULT '0',
+  `hot` int(50) DEFAULT '0',
+  `createtime` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`cid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_enjoy_circle_fans;
+CREATE TABLE `ims_enjoy_circle_fans` (
+  `uid` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL,
+  `openid` varchar(40) NOT NULL DEFAULT '',
+  `proxy` varchar(40) NOT NULL DEFAULT '',
+  `unionid` varchar(40) NOT NULL DEFAULT '',
+  `nickname` varchar(20) NOT NULL DEFAULT '',
+  `gender` varchar(2) DEFAULT '',
+  `state` varchar(20) NOT NULL DEFAULT '',
+  `city` varchar(20) NOT NULL DEFAULT '',
+  `country` varchar(20) NOT NULL DEFAULT '',
+  `avatar` varchar(500) NOT NULL DEFAULT '',
+  `puid` int(20) DEFAULT NULL,
+  `black` int(2) NOT NULL DEFAULT '0',
+  `ip` varchar(50) DEFAULT NULL,
+  `subscribe` int(2) DEFAULT NULL,
+  `subscribe_time` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`uid`),
+  KEY `uniacid` (`uniacid`),
+  KEY `openid` (`openid`),
+  KEY `proxy` (`proxy`),
+  KEY `nickname` (`nickname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_enjoy_circle_reply;
+CREATE TABLE `ims_enjoy_circle_reply` (
+  `id` int(50) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(20) DEFAULT NULL,
+  `title` varchar(200) DEFAULT NULL,
+  `sucai` varchar(200) DEFAULT NULL,
+  `exurl` varchar(500) DEFAULT NULL,
+  `expic` varchar(200) DEFAULT NULL,
+  `extitle` varchar(200) DEFAULT NULL,
+  `share_icon` varchar(200) DEFAULT NULL,
+  `share_title` varchar(200) DEFAULT NULL,
+  `share_content` varchar(200) DEFAULT NULL,
+  `ewm` varchar(200) DEFAULT NULL,
+  `bgpic` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_enjoy_circle_topic;
+CREATE TABLE `ims_enjoy_circle_topic` (
+  `tid` int(255) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(50) NOT NULL,
+  `title` varchar(1000) DEFAULT NULL,
+  `nickname` varchar(50) DEFAULT NULL,
+  `avatar` varchar(200) DEFAULT NULL,
+  `pic` varchar(200) DEFAULT NULL,
+  `hot` int(100) DEFAULT NULL,
+  `zan` varchar(500) DEFAULT NULL,
+  `cuid` int(200) DEFAULT '0',
+  `joinnum` int(200) DEFAULT NULL,
+  `createtime` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`tid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

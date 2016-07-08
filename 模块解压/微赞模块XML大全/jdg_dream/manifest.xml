@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[为梦想举杯]]></name>
+		<identifie><![CDATA[jdg_dream]]></identifie>
+		<version><![CDATA[0.3]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[为梦想举杯]]></ability>
+		<description><![CDATA[给自己或他人许愿祝福', '给自己或他人许愿祝福]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="梦想管理" do="manage" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[新版文字回复]]></name>
+		<identifie><![CDATA[abc_basic]]></identifie>
+		<version><![CDATA[4.3]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[新版文字回复]]></ability>
+		<description><![CDATA[新版文字回复]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[www.H770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[约跑有礼]]></name>
+		<identifie><![CDATA[wmb_run]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[约跑有礼兑奖活动展示商业信息]]></ability>
+		<description><![CDATA[约跑有礼兑奖活动展示商业信息]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="主题入口" do="list" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="主题活动管理" do="themeset" state="" direct="false" />
+			<entry title="奖品信息管理" do="giftset" state="" direct="false" />
+			<entry title="奖品兑换管理" do="membergift" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_wmb_run_convert;
+CREATE TABLE `ims_wmb_run_convert` (
+  `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `uniacid` int(11) NOT NULL,
+  `themeid` int(11) NOT NULL,
+  `themename` varchar(200) NOT NULL,
+  `openid` varchar(200) NOT NULL,
+  `giftid` int(11) NOT NULL,
+  `giftname` varchar(100) NOT NULL,
+  `code` varchar(100) NOT NULL,
+  `codetime` varchar(100) NOT NULL,
+  `istake` int(2) NOT NULL,
+  `tel` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_wmb_run_gift;
+CREATE TABLE `ims_wmb_run_gift` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `uniacid` int(11) NOT NULL,
+  `unit` varchar(10) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `need` int(11) NOT NULL,
+  `left` int(11) NOT NULL,
+  `desc` varchar(500) NOT NULL,
+  `stdname` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_wmb_run_member;
+CREATE TABLE `ims_wmb_run_member` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `openid` varchar(200) NOT NULL,
+  `themeid` int(11) NOT NULL COMMENT '主题id',
+  `distance` int(11) NOT NULL DEFAULT '0',
+  `helpid` varchar(200) NOT NULL,
+  `nickname` varchar(100) NOT NULL,
+  `headimgurl` varchar(255) NOT NULL,
+  `time` int(13) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=443 DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_wmb_run_reply;
+CREATE TABLE `ims_wmb_run_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL DEFAULT '0',
+  `bid` int(10) unsigned NOT NULL,
+  `new_pic` varchar(200) NOT NULL,
+  `news_content` varchar(500) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_rid` (`rid`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_wmb_run_theme;
+CREATE TABLE `ims_wmb_run_theme` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `uniacid` int(11) NOT NULL,
+  `themename` varchar(100) NOT NULL,
+  `headtitle` varchar(200) NOT NULL,
+  `themelogo` varchar(512) NOT NULL,
+  `place` varchar(200) NOT NULL,
+  `tel` varchar(30) NOT NULL,
+  `begintime` varchar(200) NOT NULL,
+  `endtime` varchar(200) NOT NULL,
+  `undertaker` varchar(200) NOT NULL,
+  `overtitle` varchar(1000) NOT NULL,
+  `giftid` int(11) NOT NULL,
+  `therule` mediumtext COMMENT '游戏规则',
+  `toppicture` varchar(1024) DEFAULT NULL COMMENT '顶部图片',
+  `flink` varchar(500) DEFAULT NULL COMMENT '关注连接',
+  `endpic` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

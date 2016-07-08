@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微社区-便民服务]]></name>
+		<identifie><![CDATA[fl_wsq_bmfw]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[可以搜集小区附近的便民服务，以方便用户使用]]></ability>
+		<description><![CDATA[可以搜集小区附近的便民服务，以方便用户使用]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="申请管理" do="regList" state="" direct="false" />
+			<entry title="商家管理" do="list" state="" direct="false" />
+			<entry title="前台入口" do="homesetting" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="周边商家" do="lists" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

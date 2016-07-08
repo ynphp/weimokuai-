@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[Coreball]]></name>
+		<identifie><![CDATA[lee_coreball]]></identifie>
+		<version><![CDATA[2.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[Coreball,一款热门休闲游戏。]]></ability>
+		<description><![CDATA[Coreball,一款热门休闲游戏。]]></description>
+		<author><![CDATA[Cloudus Team]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="首页入口设置" do="index" state="" direct="false" />
+		</cover>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

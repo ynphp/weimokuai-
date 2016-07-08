@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[惊悚摩天楼]]></name>
+		<identifie><![CDATA[wdl_motianlou]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[惊悚摩天楼]]></ability>
+		<description><![CDATA[不是一般难度的游戏，真正考验你的数学、物理技能、甚至建筑技能。胆小者慎入]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="游戏配置" do="play" state="" direct="false" />
+		</cover>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

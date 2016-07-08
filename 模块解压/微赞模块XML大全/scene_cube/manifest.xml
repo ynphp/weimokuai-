@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[场景魔方]]></name>
+		<identifie><![CDATA[scene_cube]]></identifie>
+		<version><![CDATA[2.6]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[商业信息华丽展示，高级授权]]></ability>
+		<description><![CDATA[商业信息华丽展示，高级授权]]></description>
+		<author><![CDATA[微动力]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="场景菜单" do="manager" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_scene_cube_app;
+CREATE TABLE `ims_scene_cube_app` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `listorder` int(11) NOT NULL,
+  `iden` varchar(50) NOT NULL,
+  `price` int(11) NOT NULL,
+  `title` varchar(300) NOT NULL DEFAULT '',
+  `thumb` varchar(300) NOT NULL,
+  `qrcode` varchar(300) NOT NULL,
+  `author` varchar(300) NOT NULL,
+  `series` varchar(50) NOT NULL,
+  `isshow` tinyint(2) NOT NULL,
+  `create_time` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_scene_cube_book;
+CREATE TABLE `ims_scene_cube_book` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL DEFAULT '0',
+  `list_id` int(11) NOT NULL,
+  `from_user` varchar(50) NOT NULL DEFAULT '',
+  `str1` varchar(200) NOT NULL DEFAULT '',
+  `str2` varchar(200) NOT NULL DEFAULT '',
+  `str3` varchar(200) NOT NULL DEFAULT '',
+  `status` tinyint(4) NOT NULL,
+  `create_time` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_scene_cube_comment;
+CREATE TABLE `ims_scene_cube_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `list_id` int(11) NOT NULL,
+  `from` varchar(10) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `create_time` int(10) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `from_user` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_scene_cube_list;
+CREATE TABLE `ims_scene_cube_list` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `title` varchar(50) NOT NULL DEFAULT '',
+  `s_id` int(11) NOT NULL,
+  `iden` varchar(50) NOT NULL,
+  `cover` varchar(300) NOT NULL,
+  `cover_title` varchar(50) NOT NULL,
+  `cover_subtitle` varchar(50) DEFAULT NULL,
+  `cover1` varchar(300) NOT NULL,
+  `cover2` varchar(300) NOT NULL,
+  `thumb` varchar(300) NOT NULL,
+  `share_title` varchar(200) NOT NULL DEFAULT '',
+  `share_thumb` varchar(300) NOT NULL DEFAULT '',
+  `share_content` varchar(1000) NOT NULL,
+  `share_cb_url` varchar(500) NOT NULL,
+  `share_cb_tel` varchar(20) NOT NULL,
+  `diyurl` varchar(100) NOT NULL DEFAULT '',
+  `share_cover` varchar(300) NOT NULL DEFAULT '',
+  `share_url` varchar(300) NOT NULL DEFAULT '',
+  `share_txt` varchar(500) NOT NULL DEFAULT '',
+  `share_button` varchar(300) NOT NULL,
+  `share_tips` varchar(300) NOT NULL,
+  `reply_title` varchar(50) NOT NULL,
+  `reply_thumb` varchar(300) NOT NULL,
+  `reply_description` varchar(1000) NOT NULL,
+  `isadvanced` int(3) NOT NULL DEFAULT '0',
+  `advanced_thumb` varchar(300) NOT NULL,
+  `email` varchar(300) NOT NULL DEFAULT '',
+  `emailtitle` varchar(100) NOT NULL,
+  `first_type` tinyint(2) NOT NULL,
+  `first_btn_select` varchar(10) NOT NULL,
+  `first_btn_value` varchar(500) NOT NULL,
+  `bg_music_switch` tinyint(4) NOT NULL,
+  `bg_music_icon` tinyint(4) NOT NULL,
+  `bg_music_url` varchar(300) NOT NULL,
+  `start_time` int(10) NOT NULL,
+  `end_time` int(10) NOT NULL,
+  `hits` int(10) NOT NULL,
+  `shares` int(10) NOT NULL,
+  `tongji` varchar(1000) NOT NULL,
+  `isyuyue` tinyint(1) NOT NULL DEFAULT '0',
+  `iscomment` tinyint(1) NOT NULL DEFAULT '0',
+  `isdemo` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_scene_cube_manage;
+CREATE TABLE `ims_scene_cube_manage` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `appid` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `appnums` int(11) NOT NULL,
+  `start_time` int(10) NOT NULL,
+  `end_time` int(10) NOT NULL,
+  `create_time` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_scene_cube_page;
+CREATE TABLE `ims_scene_cube_page` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `list_id` varchar(50) NOT NULL DEFAULT '',
+  `listorder` int(11) NOT NULL,
+  `m_type` tinyint(4) NOT NULL,
+  `thumb` varchar(300) NOT NULL,
+  `param` text NOT NULL,
+  `create_time` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_scene_cube_reply;
+CREATE TABLE `ims_scene_cube_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL DEFAULT '0',
+  `list_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

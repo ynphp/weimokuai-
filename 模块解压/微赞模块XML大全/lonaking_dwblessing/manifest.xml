@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[端午祝福]]></name>
+		<identifie><![CDATA[lonaking_dwblessing]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[端午祝福朋友圈分享吸粉利器]]></ability>
+		<description><![CDATA[端午祝福朋友圈分享吸粉利器]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

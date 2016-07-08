@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[授权管家]]></name>
+		<identifie><![CDATA[yobyauth]]></identifie>
+		<version><![CDATA[3.0]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[管理授权,认证,获得用户信息,头像,关注推送,排名等]]></ability>
+		<description><![CDATA[管理授权,认证,获得用户信息,头像,关注推送,排名等]]></description>
+		<author><![CDATA[yboy]]></author>
+		<url><![CDATA[http://s.www.H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="subscribe" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="授权入口" do="fm" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="授权管理" do="auth" state="" direct="false" />
+			<entry title="欢迎管理" do="welcome" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_yobyauth_auth;
+CREATE TABLE `ims_yobyauth_auth` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL COMMENT '微信编号',
+  `openid` varchar(128) DEFAULT NULL COMMENT '借调openid',
+  `from_user` varchar(128) DEFAULT NULL COMMENT '获取openid',
+  `num` int(10) DEFAULT NULL COMMENT '关注排名',
+  PRIMARY KEY (`id`),
+  KEY `openid` (`openid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_yobyauth_base;
+CREATE TABLE `ims_yobyauth_base` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `num` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_yobyauth_top;
+CREATE TABLE `ims_yobyauth_top` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `title` varchar(200) DEFAULT NULL COMMENT '标题',
+  `url` varchar(256) DEFAULT NULL,
+  `img` varchar(300) DEFAULT NULL COMMENT '图片',
+  `sorting` mediumint(6) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

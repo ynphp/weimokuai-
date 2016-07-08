@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[消息通知中心]]></name>
+		<identifie><![CDATA[microb_notifier]]></identifie>
+		<version><![CDATA[1.9.5]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[当前支持微信消息, 官方商城的支付成功提示]]></ability>
+		<description><![CDATA[当前支持微信消息, 官方商城的支付成功提示]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="订单提交成功通知" do="submit" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

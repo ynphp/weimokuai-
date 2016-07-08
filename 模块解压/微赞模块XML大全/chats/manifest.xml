@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[发送客服消息]]></name>
+		<identifie><![CDATA[chats]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[system]]></type>
+		<ability><![CDATA[公众号可以在粉丝最后发送消息的48小时内无限制发送消息]]></ability>
+		<description><![CDATA[]]></description>
+		<author><![CDATA[Weizan Team]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

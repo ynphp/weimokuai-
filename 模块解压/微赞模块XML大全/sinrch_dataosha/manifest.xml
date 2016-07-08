@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[大逃杀]]></name>
+		<identifie><![CDATA[sinrch_dataosha]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[大逃杀微信小游戏]]></ability>
+		<description><![CDATA[大逃杀微信小游戏]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="大逃杀入口" do="Battle" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="参数设置" do="setting" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_sinrch_dataosha_setting;
+CREATE TABLE `ims_sinrch_dataosha_setting` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL,
+  `subscribe_num` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `subscribe_skill` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `subscribe_url` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `subscribe_game` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `share_title` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `share_desc` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `photo` varchar(255) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

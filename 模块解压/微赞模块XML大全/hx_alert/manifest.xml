@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[弹死你]]></name>
+		<identifie><![CDATA[hx_alert]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[用一种TA无法拒绝的方式跟TA对话！定制“弹框整蛊”，发给好友，弹死TA！]]></ability>
+		<description><![CDATA[用一种TA无法拒绝的方式跟TA对话！定制“弹框整蛊”，发给好友，弹死TA！]]></description>
+		<author><![CDATA[微动力]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_hx_alert_list;
+CREATE TABLE `ims_hx_alert_list` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL,
+  `weid` int(10) unsigned NOT NULL COMMENT '公众号ID',
+  `title` varchar(50) DEFAULT NULL,
+  `loops` int(10) unsigned NOT NULL COMMENT '循环次数',
+  `items` text NOT NULL COMMENT '弹出文字',
+  `createtime` int(10) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_hx_alert_reply;
+CREATE TABLE `ims_hx_alert_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `title` varchar(50) DEFAULT NULL,
+  `picture` varchar(100) NOT NULL COMMENT '活动图片',
+  `description` varchar(200) NOT NULL COMMENT '活动描述',
+  `gzurl` varchar(255) NOT NULL,
+  `createtime` int(10) unsigned NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

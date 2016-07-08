@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://h770.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微视频]]></name>
+		<identifie><![CDATA[quickvideo]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[微视频]]></ability>
+		<description><![CDATA[微视频]]></description>
+		<author><![CDATA[微动力]]></author>
+		<url><![CDATA[bbs.b2ctui.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="视频中心" do="Center" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="片段管理" do="Video" state="" direct="false" />
+			<entry title="专辑管理" do="Tape" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="" do="" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_quickvideo_reply;
+CREATE TABLE `ims_quickvideo_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL,
+  `tape_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_quickvideo_tape;
+CREATE TABLE `ims_quickvideo_tape` (
+  `tape_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(1024) NOT NULL,
+  `logo` varchar(512) NOT NULL,
+  `background` varchar(512) NOT NULL,
+  `explain` mediumtext,
+  `video_ids` varchar(1024) NOT NULL,
+  `video_ids_seq` varchar(1024) NOT NULL,
+  `weid` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`tape_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_quickvideo_video;
+CREATE TABLE `ims_quickvideo_video` (
+  `video_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `title` varchar(1024) NOT NULL,
+  `author` varchar(1024) NOT NULL,
+  `cover` varchar(1024) NOT NULL,
+  `url` mediumtext NOT NULL,
+  `lyrics` mediumtext,
+  `explain` mediumtext,
+  `credit_cost` int(10) unsigned NOT NULL COMMENT '视频消耗积分',
+  PRIMARY KEY (`video_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[微折扣]]></name>
+		<identifie><![CDATA[kasen_zhekou]]></identifie>
+		<version><![CDATA[1.1]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[商店线上线下结合，微信关注获取折扣券，到店消费]]></ability>
+		<description><![CDATA[商店线上线下结合，微信关注获取折扣券，到店消费]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="view" />
+			<message type="enter" />
+		</subscribes>
+		<handles>
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="enter" />
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="封面" do="Coverts" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="增加券类型" do="AddType" state="" direct="false" />
+			<entry title="优惠券类型" do="Type" state="" direct="false" />
+			<entry title="优惠券管理" do="Admin" state="" direct="false" />
+			<entry title="优惠券添加" do="Add" state="" direct="false" />
+			<entry title="优惠券使用" do="Use" state="" direct="false" />
+			<entry title="生成优惠券" do="Produce" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_ks_key` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(9999) NOT NULL,
+  `use` int(11) NOT NULL,
+  `pid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=gbk AUTO_INCREMENT=11 ;
+CREATE TABLE IF NOT EXISTS `ims_ks_key_game` (
+  `pid` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(9999) NOT NULL,
+  PRIMARY KEY (`pid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=gbk AUTO_INCREMENT=2 ;
+CREATE TABLE IF NOT EXISTS `ims_ks_yhq` (
+  `pid` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(999) NOT NULL,
+  `desc` varchar(9999) NOT NULL,
+  `code` varchar(500) NOT NULL,
+  `images` varchar(999) NOT NULL,
+  `link` varchar(999) NOT NULL,
+  PRIMARY KEY (`pid`),
+  UNIQUE KEY `code` (`code`),
+  KEY `pid` (`pid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=gbk AUTO_INCREMENT=12 ;
+CREATE TABLE IF NOT EXISTS `ims_ks_yhq_code` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` varchar(500) NOT NULL,
+  `pid` int(11) NOT NULL,
+  `use` int(11) NOT NULL DEFAULT '0',
+  `void` int(11) NOT NULL DEFAULT '0',
+  `send` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `code` (`code`)
+) ENGINE=MyISAM  DEFAULT CHARSET=gbk AUTO_INCREMENT=109 ;
+CREATE TABLE IF NOT EXISTS `ims_ks_yhq_set` (
+  `iid` int(11) NOT NULL AUTO_INCREMENT,
+  `img` varchar(999) NOT NULL,
+  PRIMARY KEY (`iid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=gbk AUTO_INCREMENT=2 ;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
