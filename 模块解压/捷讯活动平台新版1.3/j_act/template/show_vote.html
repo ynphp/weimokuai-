@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>投票</title>
+<meta name="format-detection" content="telephone=no, address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link href="./resource/css/bootstrap.min.css" rel="stylesheet">
+<link href="./resource/css/font-awesome.min.css" rel="stylesheet">
+<link href="./resource/css/common.css" rel="stylesheet">
+<script src="{MODULE_URL}template/js/jquery-2.1.1.min.js"></script>
+<script src="{MODULE_URL}template/js/sweetalert.min.js"></script>
+<link type="text/css" rel="stylesheet" href="{MODULE_URL}template/js/sweetalert.css"/>
+</head>
+<style>
+html{height:100%;}
+body{height:100%;background:#FFF url({if $item['bg']}{$_W['attachurl']}{$item['bg']}{else}{MODULE_URL}template/img/bg.jpg{/if}) no-repeat;background-size: 100% 100%;}
+.vote_root{ width:800px; margin:10px auto;}
+.vote_header{display:table; width:100%;color:#FFF; text-align:center; height:100px;}
+.vote_body{ padding:10px 0;width:100%;}
+.vote_foot{padding:10px 0;display:table;color:#FFF;width:100%;}
+.markser{background:rgba(0,0,0,0.6);position:absolute;z-index:9; width:100%; left:0; top:0; height:100%; display:none;}
+.infobox{background:#FFF;position:absolute;z-index:10; width:800px;display:none; padding:10px;top:110px; border-radius:8px; overflow-y:scroll; border:10px solid #FFF;}
+ul.vole_list,ul.vole_list li{margin:0;list-style:none; padding:0;text-align:left;}
+ul.vole_list li{background:#F9B72A; border-radius:99px; width:100%; margin-bottom:3px; padding:2px}
+ul.vole_list li:nth-child(2n){background:#CE8D06;}
+ul.vole_list li .list_img{border-radius:999px; background:#FFF;padding:2px; display:inline-block; width:100px; text-align:left; padding-right:10px}
+ul.vole_list li .list_img img{ width:30px; height:30px; border-radius:999px; margin-right:10px;}
+ul.vole_list li .list_label{float:right; line-height:30px; font-size:20px; font-weight:bold; color:#D72400;}
+ul.vole_list li h2{ margin:0;padding:3px 5px 0 5px;line-height:30px;font-size:18px;display:inline-block; width:140px;text-overflow:ellipsis; overflow:hidden; white-space:nowrap;}
+ul.vole_list li .list_progress{width:540px;float:right;height:34px;line-height:34px;padding:3px 3px 0 0;}
+ul.vole_list li .list_progress .progress{ height:30px;line-height:30px;border-radius:999px;}
+ul.vole_list li .list_progress .progress .progress-bar{ height:30px;line-height:30px;font-size:20px;border-radius:999px;}
+
+.jtable{ display:table; width:100%;}
+.jrow{ display:table-row;}
+.jcell{display:table-cell; vertical-align:middle;}
+/**/
+ul.vole_list2,ul.vole_list2 li{ margin:0; list-style:none; padding:0; text-align:center;}
+ul.vole_list2 li{display:inline-block;width:18%;padding:5px;margin:6px;position:relative;background:#FFF; border-radius:8px}
+.list_label2{position:absolute;top:5px;left:0; background:#F9B72A; border-bottom-right-radius:4px;border-top-right-radius:4px; color:#FFF; padding:3px 5px;}
+ul.vole_list2 li h2{ margin:0; padding:8px 0; text-align:center; font-size:14px; font-weight:normal;}
+ul.vole_list2 li .list_img {overflow:hidden; position:relative}
+ul.vole_list2 li .list_img img{ width:100%;}
+ul.vole_list2 li .list_label{ position:absolute; top:-1px; left:-1px; padding:3px 0 0 3px; color:#FFF; font-size:14px;}
+ul.vole_list2 li .list_progress2{ padding:0 5px 5px 5px;}
+ul.vole_list2 li .list_progress2 .progress{height:16px; border-radius:10px}
+</style>
+<body>
+<div class="vote_root">
+  <div class="vote_header" style="background:url({$_W['attachurl']}{$item['thumb']}) no-repeat; background-size:100% 100%;">
+    <div class="jrow">
+      <div class="jcell" style=" vertical-align:middle;text-align:right;height:100px; padding-right:10px"><img src="{$_W['attachurl']}qrcode_{php echo pdo_fetchcolumn("SELECT acid FROM ".tablename('account')." WHERE uniacid=:uniacid ",array(':uniacid'=>$_W['uniacid']))}.jpg" width="80" onClick="showInfo(0,this)" /></div>
+    </div>
+  </div>
+  <div class="vote_body"> 
+  {if count($list_vote)>5}
+    <ul class="vole_list">
+      {loop $list_vote $row}
+      <li id="vote_{$row['votekey']}" onClick="showInfo(1,{$row['id']})" >
+        <div class="jtable">
+          <div class="jrow">
+            <div class="jcell" style="width:100px">
+              <div class="list_img"> <span class="list_label">#{$row['votekey']}</span> <img src="{$_W['attachurl']}{$row['thumb']}" onerror="this.src='../addons/j_act/template/img/heading.jpg'"/> </div>
+            </div>
+            <div class="jcell" style="width:120px">
+              <h2>{$row['title']}</h2>
+            </div>
+            <div class="jcell" style="width:550px; text-align:right">
+              <div class="list_progress">
+                <div class="progress" style="margin:0">
+                  <div class="progress-bar progress-bar-info progress-bar-striped" votekey="{$row['votekey']}" role="progressbar" style="width:0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      {/loop}
+    </ul>
+    {else}
+    <div class="jtable">
+      <div class="jrow">
+        <div class="jcell" id="votebody" style="vertical-align:middle; width:100%;">
+          <ul class="vole_list2">
+            {loop $list_vote $row}
+            <li id="vote_{$row['votekey']}">
+              <div class="list_img">
+                <div class="list_label2">{$row['votekey']}</div>
+                <img src="{$_W['attachurl']}{$row['thumb']}" onerror="this.src='../addons/j_act/template/img/heading.jpg'" onClick="showInfo(1,{$row['id']})" style="border-radius:8px"/></div>
+              <h2>{$row['title']}</h2>
+              <div class="list_progress2">
+                <div class="progress" style="margin:0">
+                  <div class="progress-bar progress-bar-info progress-bar-striped" votekey="{$row['votekey']}" role="progressbar" style="width:0%">0</div>
+                </div>
+              </div>
+            </li>
+            {/loop}
+          </ul>
+        </div>
+      </div>
+    </div>
+    {/if} </div>
+  <div class="vote_foot">
+    <div class="jrow">
+      <div class="jcell" style="font-size:16px;">回复：“投票#号码”即可投票<span id="showid"></span></div>
+      <div class="jcell" style="text-align:right"> {if $item['status']==1}
+        <button type="button" id="i-btn-start" onClick="start(0)" class="btn btn-default"><i class="fa fa-pause"></i></button>
+        {else}
+        <button type="button" id="i-btn-start" onClick="start(1)" class="btn btn-default"><i class="fa fa-play"></i></button>
+        {/if} </div>
+    </div>
+  </div>
+</div>
+<!---->
+<div class="markser"></div>
+<div class="infobox"></div>
+<div class="rootinfo" style="display:none">{$item['info']}</div>
+<script>
+var _windowH=$(window).height();
+var _windowW=$(window).width();
+$(document).ready(function(e) {
+    if($("#votebody").size())$("#votebody").height(_windowH-240);
+});
+var time=0;
+var isGetResult=parseInt("{if $item['status']==1}1{else}0{/if}");
+var timerGet;
+
+timerGet=setInterval(getVoteResult,2500);
+function getVoteResult(){
+	if(!isGetResult)return;
+	time++;
+	$("#showid").html(time);
+	$.post("{php echo $this->createWebUrl('manage_vote',array('op'=>'getvoteresult','aid'=>$aid))}",function(data){
+		if(data.success){
+			var _allvoter=data.votercount;
+			var _allvote=data.votecount;
+			var _item=data.result;
+			var objectList = new Array();
+			for(var key in _item){
+				objectList.push(new Persion(key,_item[key]));
+				var r=parseInt(_item[key]/_allvote *100)+"%";
+				$("#vote_"+key+" .progress-bar").css('width',r).text(_item[key]);
+			}
+			/*objectList.sort(function(a,b){return b.vote-a.vote});
+			$("div[role='progressbar']").each(function(index, element) {
+				var _id=parseInt($(this).attr("votekey"));
+                if(_id==parseInt(objectList[0]['name'])){
+					$(this).attr("class","progress-bar progress-bar-danger progress-bar-striped")
+				}else if(_id==parseInt(objectList[1]['name'])){
+					$(this).attr("class","progress-bar progress-bar-success progress-bar-striped")
+				}else if(_id==parseInt(objectList[2]['name'])){
+					$(this).attr("class","progress-bar progress-bar-warning progress-bar-striped")
+				}else{
+					$(this).attr("class","progress-bar progress-bar-info progress-bar-striped")
+				}
+            });*/
+			console.log(objectList[0]['name']);
+		}
+	},'json');
+}
+function Persion(name,vote){
+	this.name=name;
+	this.vote=vote;
+}
+function start(ids){
+	$.post("{php echo $this->createWebUrl('manage_vote',array('op'=>'changestatus','aid'=>$aid))}",{"status":ids},function(data){
+		if(data.success){
+			if(ids==0){
+				isGetResult=0;
+				$("#i-btn-start").html("<i class='fa fa-play'>").attr("onClick","start(1)");
+			}else{
+				isGetResult=1;
+				$("#i-btn-start").html("<i class='fa fa-pause'>").attr("onClick","start(0)");
+			}
+		}
+	},'json');
+}
+function showInfo(type,txt){
+	$(".markser").show();
+	var _h=_windowH-200;
+	$(".infobox").height(_h).css("left",(_windowW-800)/2);
+	$(".markser").on('click',function(){
+		$(".markser").hide();
+		$(".infobox").hide();
+	});
+	if(!type){
+		var temp=$(".rootinfo").html();
+		$(".infobox").html(temp).show();
+	}else{
+		$.post("{php echo $this->createWebUrl('manage_vote',array('op'=>'getiteminfo','aid'=>$aid))}",{'tid':txt},function(data){
+			$(".infobox").html(data).show();
+		});
+	}
+}
+</script>

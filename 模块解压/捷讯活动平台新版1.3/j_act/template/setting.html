@@ -1,0 +1,235 @@
+{template 'common/header'} 
+<script>
+require(['bootstrap.switch', 'util'], function($, u){
+	$(function(){
+		$('.make-switch').bootstrapSwitch();
+	});
+});
+</script>
+<div class="main">
+  <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1">
+    <div class="panel panel-default">
+      <div class="panel-heading">列表分享参数</div>
+      <div class="panel-body">
+      	<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动平台标题</label>
+          <div class="col-sm-9">
+            <input type="text" name="title" value="{$settings['title']}" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+          <div class="col-sm-9">
+            <input type="text" name="share_title" value="{$settings['share_title']}" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享简介</label>
+          <div class="col-sm-9">
+            <input type="text" name="share_info" value="{$settings['share_info']}" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">图片</label>
+          <div class="col-sm-9">{php echo tpl_form_field_image('share_img',$settings['share_img'], '', array('width'=>120,'height'=>120,))}</div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">统一关注素材</label>
+          <div class="col-sm-9">
+            <input type="text" name="gzurl" value="{$settings['gzurl']}" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">积分不足时跳转</label>
+          <div class="col-sm-9">
+            <input type="text" name="jfurl" value="{$settings['jfurl']}" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">会员等级跳转</label>
+          <div class="col-sm-9">
+            <input type="text" name="sjurl" value="{$settings['sjurl']}" class="form-control"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">列表按钮</div>
+      <div class="panel-body">
+      	<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">扩展按钮一</label>
+          <div class="col-sm-9 form-inline">
+            <input type="text" id="icon_ipt" class="form-control" value="{$settings['btn1_icon']}" name="btn1_icon"><a class="btn btn-default" id="icon_show1"><i class="{$settings['btn1_icon']}"></i></a><a href="javascript:" class="btn btn-default" id="icon">选取icon</a><br>
+            <input type="text" value="{$settings['btn1_title']}" maxlength="5" class="form-control" name="btn1_title" placeholder="按钮名称"/><br>
+            <input type="text" value="{$settings['btn1_link']}" class="form-control" name="btn1_link" style="width:80%" placeholder="链接"/>
+            <div class="help-block"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">扩展按钮二</label>
+          <div class="col-sm-9 form-inline">
+            <input type="text" id="icon_ipt2" class="form-control" value="{$settings['btn2_icon']}" name="btn2_icon"><a class="btn btn-default" id="icon_show2"><i class="{$settings['btn2_icon']}"></i></a><a href="javascript:" class="btn btn-default" id="icon2">选取icon</a><br>
+            <input type="text" value="{$settings['btn2_title']}" maxlength="5" class="form-control" name="btn2_title" placeholder="按钮名称"/><br>
+            <input type="text" value="{$settings['btn2_link']}" class="form-control" name="btn2_link" style="width:80%" placeholder="链接"/>
+            <div class="help-block"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">扩展JS</label>
+          <div class="col-sm-9">
+            <input type="text" value="{$settings['extend_js']}" class="form-control" name="extend_js"/>
+            <div class="help-block">用于扩展页面的js内容，填写JS的路径，相对|绝对路径均可</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">服务号借用参数</div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否启用</label>
+          <div class="col-sm-9 form-inline">
+            <label class="radio-inline">
+              <input type="radio" name="user_oauth" value="0" {if $settings['user_oauth'] == 0 || empty($settings['user_oauth'])} checked{/if} />
+              关闭</label>
+            <label class="radio-inline">
+              <input type="radio" name="user_oauth" value="1" {if $settings['user_oauth'] == 1} checked{/if} />
+              启用</label>
+            <div class="help-block">如您是认证服务号，也必须填写！</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">AppId</label>
+          <div class="col-sm-9">
+            <input type="text" name="appid" value="{$settings['appid']}" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">AppSecret</label>
+          <div class="col-sm-9">
+            <input type="text" name="appsecret" value="{$settings['appsecret']}" class="form-control"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+     <div class="panel panel-default">
+      <div class="panel-heading">模板消息通知（注意：只能是认证服务号方能使用。本功能无法借用）</div>
+      <div class="panel-body">
+      	<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">模板ID</label>
+          <div class="col-sm-9 ">
+            <input type="text" value="{$settings['msg_id']}" class="form-control" name="msg_id">
+            <div class="help-block">请在模板消息库中，选择行业【IT科技/互联网|电子商务】，搜索【名称】<b>客户参与活动通知</b>并添加，添加后将【模板ID】复制到上方</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">发送单位名称</label>
+          <div class="col-sm-9 ">
+            <input type="text" value="{$settings['msg_shopname']}" class="form-control" name="msg_shopname">
+            <div class="help-block">请填写自己平台的名称。</div>
+          </div>
+        </div>
+      </div>
+      </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">支付功能【必须自身是认证服务号方能使用】</div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户名称</label>
+          <div class="col-sm-9 ">
+            <input type="text" value="{$settings['pay_name']}" class="form-control" name="pay_name">
+            <div class="help-block">商户名称,不能多于6个中文字</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户号</label>
+          <div class="col-sm-9">
+            <input type="text" value="{$settings['pay_mchid']}" class="form-control" name="pay_mchid">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户密钥</label>
+          <div class="col-sm-9">
+            <input type="text" value="{$settings['pay_signkey']}" class="form-control" name="pay_signkey">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">IP</label>
+          <div class="col-sm-9">
+            <input type="text" value="{$settings['pay_ip']}" class="form-control" name="pay_ip">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户证书</label>
+          <div class="col-sm-9">
+            <button type="button" class="btn btn-default" onClick="$('#rootca').click()">{if $settings['rootca']}{$settings['rootca']}{else}上传{/if}</button>
+            请上传rootca.pem
+            <input type="hidden" name="rootca2" value="{$settings['rootca']}"/>
+            <input type="file" name="rootca" id="rootca"  style="display:none;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户证书</label>
+          <div class="col-sm-9">
+            <button type="button" class="btn btn-default" onClick="$('#apiclient_cert').click()">{if $settings['apiclient_cert']}{$settings['apiclient_cert']}{else}上传{/if}</button>
+            请上传apiclient_cert.pem
+            <input type="hidden" name="apiclient_cert2" value="{$settings['apiclient_cert']}"/>
+            <input type="file" name="apiclient_cert" value="{$settings['apiclient_cert']}" id="apiclient_cert" style="display:none;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户证书</label>
+          <div class="col-sm-9">
+            <button type="button" class="btn btn-default" onClick="$('#apiclient_key').click()">{if $settings['apiclient_key']}{$settings['apiclient_key']}{else}上传{/if}</button>
+            请上传apiclient_key.pem
+            <input type="hidden" name="apiclient_key2" value="{$settings['apiclient_key']}"/>
+            <input type="file" name="apiclient_key" id="apiclient_key" style="display:none;">
+          </div>
+        </div>
+      </div>
+      </div>
+     <div class="panel panel-default">
+      <div class="panel-heading">支付功能验证</div>
+      <div class="panel-body">
+      	<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否启用</label>
+          <div class="col-sm-9 form-inline">
+            <label class="radio-inline">
+              <input type="radio" name="paycheck" value="0" {if $settings['paycheck'] == 0 || empty($settings['paycheck'])} checked{/if} />
+              关闭</label>
+            <label class="radio-inline">
+              <input type="radio" name="paycheck" value="1" {if $settings['paycheck'] == 1} checked{/if} />
+              启用</label>
+            <div class="help-block">在上线前，用于检测支付参数的设置。查看设置问题</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-sm-12">
+      <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+      <input type="hidden" name="token" value="{$_W['token']}" />
+    </div>
+  </form>
+</div>
+<script>
+require(['jquery','util'], function($, util){
+	$(function(){
+		$('#icon,#icon2').click(function(){
+			var types=$(this).attr("id");
+			util.iconBrowser(function(ico){
+				
+				if(types=="icon"){
+					$('#icon_ipt').val(ico);
+					$('#icon_show1 i').attr("class",ico);
+				}else{
+					$('#icon_ipt2').val(ico);
+					$('#icon_show2 i').attr("class",ico);
+				}
+				
+			});
+		});
+	});
+});
+</script>
+{template 'common/footer'}

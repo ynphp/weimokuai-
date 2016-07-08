@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>{$reply['title']}</title>
+	<meta name="format-detection" content="telephone=no, address=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<link href="./resource/css/bootstrap.min.css" rel="stylesheet">
+	<link href="./resource/css/font-awesome.min.css" rel="stylesheet">
+	<link href="./resource/css/animate.css" rel="stylesheet">
+	<link href="./resource/css/common.css" rel="stylesheet">
+	<link href="{url 'utility/style'}" rel="stylesheet">
+    
+    {php echo register_jssdk(false);}
+	<script type="text/javascript" src="./resource/js/lib/jquery-1.11.1.min.js"></script>
+</head>
+<body>
+<style>
+html{ height:100%;}
+body{height:100%; overflow:hidden;}
+.img{width:1px; height:1px; position:absolute;top:-9999px;}
+#iframepage{ overflow-y:scroll}
+</style>
+<iframe src="{$reply['url']}" id="iframepage" frameborder="0" marginheight="0" marginwidth="0"></iframe> 
+<img src="{$_W['attachurl']}{$reply['shareimg']}" class="img"/>
+<script>
+$(document).ready(function(e) {
+	alert(1)
+    var _w=$(window).width();
+	var _h=$(window).height();
+	$(document).height(_h);
+	$("#iframepage").css({'height':_h,"width":_w});
+});
+wx.ready(function () {
+	sharedata = {
+		title: "{$reply['title']}",
+		desc: "{$reply['description']}",
+		imgUrl:"{$_W['attachurl']}{$reply['shareimg']}",
+		link: "{$_W['siteurl']}",
+		success: function(){},
+		cancel: function(){}
+	};
+	wx.onMenuShareAppMessage(sharedata);
+	wx.onMenuShareTimeline({
+		title: sharedata.desc, // 分享标题
+		link: sharedata.link, // 分享链接
+		imgUrl: sharedata.imgUrl, // 分享图标
+		success: function () {},
+		cancel: function () {}
+	});
+	wx.onMenuShareQQ(sharedata);
+	wx.onMenuShareWeibo(sharedata);
+});
+</script>

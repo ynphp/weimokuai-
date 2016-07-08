@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>{$reply['title']}</title>
+	<meta name="format-detection" content="telephone=no, address=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-touch-fullscreen" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<link href="./resource/css/bootstrap.min.css" rel="stylesheet">
+	<link href="./resource/css/font-awesome.min.css" rel="stylesheet">
+	<link href="./resource/css/animate.css" rel="stylesheet">
+	<link href="./resource/css/common.css" rel="stylesheet">
+    {php echo register_jssdk(false);}
+	<script src="{MODULE_URL}template/js/jquery-2.1.1.min.js"></script>
+    <link href="{MODULE_URL}template/mobile/css.css?{TIMESTAMP}" rel="stylesheet">
+    <script src="{MODULE_URL}template/js/sweetalert.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="{MODULE_URL}template/js/sweetalert.css"/>
+</head>
+<body>
+<style>
+
+#j_content{ padding:10px 20px;}
+ul.listjoiner,ul.listjoiner li{ margin:0; padding:0; list-style:none; background:#FFF;}
+ul.listjoiner{border:1px solid #EEE;}
+ul.listjoiner li{ padding:10px; line-height:40px; border-bottom:#EEE 1px solid;}
+ul.listjoiner li img{ width:40px; height:40px; margin-right:10px; border-radius:99px;}
+</style>
+<Div class="header">
+  <div class="box">
+    <div class="boxsize-2"><A href="{php echo $this->createMobileUrl('view',array('id'=>$id))}"><i class="fa fa-angle-left" style="font-size:18px;font-weight:bold"></i></A></div>
+    <div class="boxsize-8">{php echo $m_title}</div>
+    <div class="boxsize-2">&nbsp;</div>
+  </div>
+</Div>
+<div class="fixed_first">&nbsp;</div>
+
+<article id="j_content">
+<ul class="listjoiner">
+{loop $list $row}
+<li><img src="{$row['avatar']}" width="40" onerror="this.src='../addons/j_act/template/img/heading.jpg'"/> {$row['nickname']}</li>
+{/loop}
+</ul>
+<div class="j_nonalbox" id="nextdiscuzbtn"><button type="button" class="btn btn-sm btn-block btn-info"  onClick="nextDiscuz()">点击加载更多</button></div>
+</article>
+<script language="javascript">
+var curdiscuzIndex=1;
+var alldiscuzpage=parseInt("{php echo $allpage}");
+function nextDiscuz(){
+	curdiscuzIndex++;
+	if(curdiscuzIndex>=alldiscuzpage)$("#nextdiscuzbtn").hide();
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'getmorejoiner','id'=>$id,'status'=>$status))}",{"page":curdiscuzIndex},function(data){
+		if(data.success){
+			var _item=data.items;
+			var temp="";
+			for(i=0;i<_item.length;i++){
+				temp+='<li><img src="'+_item[i].avatar+'" width="40" onerror="this.src=\'../addons/j_act/template/img/heading.jpg\'"/> '+_item[i]['nickname']+'</li>';
+			}
+			$(".listjoiner").append(temp);
+		}
+	},'json');
+}
+wx.ready(function () {
+	sharedata = {
+		title: "{$reply['title']}",
+		desc: "{$reply['description']}",
+		imgUrl:"{$_W['attachurl']}{$reply['sharecover']}",
+		link: "{$_W['siteurl']}",
+		success: function(){},
+		cancel: function(){}
+	};
+	wx.onMenuShareAppMessage(sharedata);
+	wx.onMenuShareTimeline(sharedata);
+	wx.onMenuShareQQ(sharedata);
+	wx.onMenuShareWeibo(sharedata);
+});
+</script>

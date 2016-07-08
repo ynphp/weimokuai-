@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[街拍秀]]></name>
+		<identifie><![CDATA[danwu_show]]></identifie>
+		<version><![CDATA[1.5]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[粉丝街拍、发表心情等展示、粉丝们可以给他们点赞、可以分享粉丝的心情等等]]></ability>
+		<description><![CDATA[粉丝街拍、发表心情等展示、粉丝们可以给他们点赞、可以分享粉丝的心情等等]]></description>
+		<author><![CDATA[柒|柒|源|码]]></author>
+		<url><![CDATA[http://H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="首页" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="粉丝管理" do="manage" state="" direct="false" />
+			<entry title="图片管理" do="imagesmanage" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,272 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+  <li {if $operation == 'post'}class="active"{/if}><a href="{php echo $this->createWebUrl('manage_vote', array('op' => 'post','aid' => $aid))}">管理活动</a></li>
+  <li {if $operation == 'voteitem'}class="active"{/if}><a href="{php echo $this->createWebUrl('manage_vote', array('op' => 'voteitem','aid' => $aid))}">添加投票项</a></li>
+  <li><a href="javascript:dealOrder()">投票项目排列</a></li>
+</ul>
+<script language="javascript">
+require(['bootstrap'],function($){
+	$('.btn,.tips').hover(function(){
+		$(this).tooltip('show');
+	},function(){
+		$(this).tooltip('hide');
+	});
+});
+
+function dealOrder(){
+	$('#myOrder').modal('show');
+}
+function moveOption(diretion){
+	if(diretion==1){
+		if(!$("#order_old option:selected").length){
+			alert("请点击左框选择你需要移动的内容");
+			return false;
+		}
+		var temp="";
+		$("#order_old option:selected").each(function(index, element) {
+            var oid=$(this).attr("oid");
+			temp+='<option oid="'+oid+'" onDblClick="moveOption(3)" value="'+oid+'">'+$(this).text()+'</option>';
+        });
+		$("#order_new").append(temp);
+		$("#order_old option:selected").remove();
+	}else if(diretion==2){
+		$("#order_old option").each(function(index, element) {
+            var oid=$(this).attr("oid");
+			temp+='<option oid="'+oid+'" onDblClick="moveOption(3)" value="'+oid+'">'+$(this).text()+'</option>';
+        });
+		$("#order_new").append(temp);
+		$("#order_old option").remove();
+	}else if(diretion==3){
+		if(!$("#order_new option:selected").length){
+			alert("请点击右框选择你需要移动的内容");
+			return false;
+		}
+		var temp="";
+		$("#order_new option:selected").each(function(index, element) {
+            var oid=$(this).attr("oid");
+			temp+='<option oid="'+oid+'" onDblClick="moveOption(1)" value="'+oid+'">'+$(this).text()+'</option>';
+        });
+		$("#order_old").append(temp);
+		$("#order_new option:selected").remove();
+	}else if(diretion==4){
+		$("#order_new option").each(function(index, element) {
+            var oid=$(this).attr("oid");
+			temp+='<option oid="'+oid+'" onDblClick="moveOption(1)" value="'+oid+'">'+$(this).text()+'</option>';
+        });
+		$("#order_old").append(temp);
+		$("#order_new option").remove();
+	}
+}
+function addOrder(){
+	if($("#order_old option").length>0){
+		alert("还有内容没有进行排序");
+		return;
+	}
+	var ary_key=[];
+	var allcount=$("#order_new option").length;
+	$("#order_new option").each(function(index, element) {
+        ary_key.push($(this).val());
+    });
+	var _postData=ary_key.join("#");
+	$.post("{php echo $this->createWebUrl('manage_vote',array('op'=>'addvoteitemorder','aid'=>$aid))}",{"data":_postData},function(data){
+		if(data.success){
+			location.reload();
+		}
+	},'json');
+}
+</script>
+<div class="modal fade" id="myOrder" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">排列顺序</h4>
+      </div>
+      <div class="modal-body">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="45%"><select id="order_old" name="order_old" size="20" multiple style="width:90%;height:300px">
+              	{loop $list_vote $rew}
+                <option oid="{$rew['id']}" onDblClick="moveOption(1)"  value="{$rew['id']}">{$rew['title']}</option>
+                {/loop}
+              </select></td>
+            <td><button type="button" class="btn btn-default btn-block" onClick="moveOption(1)">&gt;</button>
+              <button type="button" class="btn btn-info btn-block" onClick="moveOption(2)">&gt;&gt;</button>
+              <button type="button" class="btn btn-default btn-block" onClick="moveOption(3)">&lt;</button>
+              <button type="button" class="btn btn-info btn-block" onClick="moveOption(4)">&lt;&lt;</button></td>
+            <td width="45%" style="text-align:right"><select id="order_new" name="order_new" size="20" multiple style="width:90%;height:300px">
+              </select></td>
+          </tr>
+          <tr>
+            <td colspan="3">左边为目前的顺序，右边为目标顺序。请点选左边的内容，通过中间的按钮移动到右边。可以按住‘shift’或者‘Ctrl’键进行多选。</td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" id="map_lng" class="form-control" />
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" onClick="addOrder()">确认</button>
+      </div>
+    </div>
+  </div>
+</div>
+{if $operation == 'post'}
+<style>
+.jpanel .panel-heading {position:relative;}
+.jpanel .panel-collapse {width:50px;height:38px;line-height:38px;position:absolute;top:0;right:0;color: #CCC;text-align: center;background: #EEE;border-left: 1px #DDD solid;}
+</style>
+<div class="main">
+  <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+    <input type="hidden" name="aid" value="{php echo $aid}" />
+    <div class="panel panel-default jpanel">
+      <div class="panel-heading"> 投票管理 </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">扩展功能</label>
+          <div class="col-sm-9"> 
+            <a href="{php echo $this->createWebUrl('manage_vote', array('aid' => $aid))}" class="btn btn-default" target="_blank">大屏幕</a>
+            <a href="{php echo $this->createWebUrl('manage_vote', array('aid' => $aid,'op'=>'clear'))}" class="btn btn-danger" onclick="return confirm('确认清空投票数据缓存吗？删除后不可恢复');return false;">清空缓存</a>
+          </div>
+        </div>
+      </div>
+      <div class="panel-heading">
+        <h4 class="panel-title">核心设置</h4>
+        <a class="panel-collapse" data-toggle="collapse" href="#jframe-2"> <i class="fa fa-chevron-circle-down"></i> </a> </div>
+      <div class="panel-body collapse in" id="jframe-2">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">标题</label>
+          <div class="col-sm-9">
+            <input type="text" value="{$item['title']}" class="form-control" name="title" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+          <div class="col-sm-9">
+            <label class="radio-inline">
+              <input type="radio" name="status" value="1" {if $item['status'] == 1} checked{/if} />
+              进行中</label>
+            <label class="radio-inline">
+              <input type="radio" name="status" value="2" {if $item['status'] == 2} checked{/if} />
+              暂停</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动时段</label>
+          <div class="col-sm-9"> {php echo tpl_form_field_daterange('acttime', array('start' => date('Y-m-d H:i', $item['starttime']),'end'=> date('Y-m-d H:i', $item['endtime'])),true)} </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">每人可投票次数</label>
+          <div class="col-sm-9 form-inline">
+            <div class="input-group ">
+              <input type="text" value="{php echo intval($item['votetime']) ? intval($item['votetime']) : 1}" style="width:80px" class="form-control" name="votetime" >
+              <span class="input-group-addon">次</span> </div>
+            <div class="help-block">每人可投票次数，最少值为1</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">投票后提示</label>
+          <div class="col-sm-9">
+            <input type="text" value="{$item['msg']}" class="form-control" name="msg" >
+            <div class="help-block">投票后提示</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">顶部图片</label>
+          <div class="col-sm-9"> {php echo tpl_form_field_image('thumb', $item['thumb']);}
+            <div class="help-block">活动列表大图800*100px</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">背景图片</label>
+          <div class="col-sm-9"> {php echo tpl_form_field_image('bg', $item['bg']);}
+            <div class="help-block">活动列表大图1960*1225px</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动简介</label>
+          <div class="col-sm-9"> {php echo tpl_ueditor('info', $item['info']);}
+            <div class="help-block">投票活动介绍</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-heading">
+        <h4 class="panel-title">投票项目</h4>
+      </div>
+      <div class="panel-body table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>投票号</th>
+              <th>活动图片</th>
+              <th>标题</th>
+              <th style="text-align:right">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+          	{loop $list_vote $row}
+            <Tr>
+            	<td>#{$row['votekey']}</td>
+                <td><img src="{$_W['attachurl']}{$row['thumb']}" width="80" onerror="this.src='../addons/j_act/template/img/heading.jpg'"/></td>
+                <td>{$row['title']}</td>
+                <td style="text-align:right">
+                <a href="{php echo $this->createWebUrl('manage_vote', array('op'=>'voteitem','id'=>$row['id'],'aid'=>$aid))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="编辑"><i class="fa fa-edit"></i></a>
+                <a href="{php echo $this->createWebUrl('manage_vote', array('op'=>'deletevoteitem','id'=>$row['id'],'aid'=>$aid))}" onclick="return confirm('确认删除吗？删除后不可恢复');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a>
+                </td>
+            </Tr>
+            {/loop}
+          </tbody>
+        </table>
+        <div><a href="{php echo $this->createWebUrl('manage_vote', array('op' => 'voteitem','aid' => $aid))}">添加投票项</a></div>
+      </div>
+    </div>
+    <div class="form-group col-xs-12">
+      <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+      <input type="hidden" name="token" value="{$_W['token']}" />
+    </div>
+  </form>
+</div>
+{elseif $operation == 'voteitem'}
+<div class="main">
+  <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{php echo $id}" />
+    <input type="hidden" name="aid" value="{php echo $aid}" />
+    <div class="panel panel-default jpanel">
+      <div class="panel-heading">
+        <h4 class="panel-title">核心设置</h4>
+      </div>
+      <div class="panel-body collapse in" id="jframe-2">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">标题</label>
+          <div class="col-sm-9">
+            <input type="text" value="{$item['title']}" class="form-control" name="title" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">投票号</label>
+          <div class="col-sm-9 form-inline">
+            <input type="text" value="{php echo intval($item['votekey']) ? intval($item['votekey']) : 1}" style="width:80px" class="form-control" name="votekey" >
+            <div class="help-block">既是排序号，也是用于投票的投票号，投票号不能重复！！！排序由小到大</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">投票小图</label>
+          <div class="col-sm-9">{php echo tpl_form_field_image('thumb', $item['thumb']);}
+            <div class="help-block">大小建议：200*200，必须是正方形图片</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">简介</label>
+          <div class="col-sm-9"> {php echo tpl_ueditor('description', $item['description']);}
+            <div class="help-block">投票项目介绍</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-xs-12">
+      <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+      <input type="hidden" name="token" value="{$_W['token']}" />
+    </div>
+  </form>
+</div>
+{/if} 
+{template 'common/footer'} 

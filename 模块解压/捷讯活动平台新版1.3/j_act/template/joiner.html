@@ -1,0 +1,469 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+  <li {if $operation == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('joiner',array('aid'=>$rid))}">管理参与者</a></li>
+</ul>
+<script>
+require(['bootstrap'],function($){
+	$('.btn,.tips').hover(function(){
+		$(this).tooltip('show');
+	},function(){
+		$(this).tooltip('hide');
+	});
+});
+</script>
+<style>
+.category td a{ margin-bottom:5px;}
+.grade{color:#999;}
+.red{color:#F00}
+.green{color:#0F0}
+.jtable{display:table; width:100%;}
+.jrow{display:table-row;}
+.jcell{display:table-cell; vertical-align:middle;}
+.jcell-1{ width:10%}
+.jcell-2{ width:20%}
+.jcell-3{ width:30%}
+.jcell-4{ width:40%}
+.jcell-5{ width:50%}
+.jcell-6{ width:60%}
+.jcell-7{ width:70%}
+.jcell-8{ width:80%}
+.jcell-9{ width:90%}
+.infobody div{line-height:24px;}
+.border{ border-bottom:#CCC 1px solid; padding:5px}
+.viewimg{ cursor:pointer}
+.jtablestyle{overflow:visible; word-break:break-all; text-overflow:visible;white-space:normal}
+#msgrecord .msglist{padding:10px; margin:10px 0; border:1px solid #CCC; background:#F7F7F7; border-radius:8px; text-align:left;}
+#msgrecord .msglist h2{ font-size:12px; line-height:24px; border-bottom:#CCC 1px dashed; margin:0; text-align:center; margin-bottom:5px;}
+.j_menu{position:relative;}
+</style>
+{if $operation=='display'}
+<script language="javascript" src="../addons/j_securitycode/template/js/bootstrap-tooltip.js"></script>
+<script language="javascript" src="../addons/j_securitycode/template/js/bootstrap-popover.js"></script>
+<script>
+$(function () {
+  $('[data-toggle="popover"]').popover();
+})
+</script>
+<div class="main">
+  <form action="" class="form-horizontal form">
+    <div class="panel panel-default">
+      <div class="panel-heading"> {$reply['title']} </div>
+      <div class="panel-body tl">
+        <div class="form-group ">
+          <div class="col-sm-6 col-xs-6"> <span>报名时间：</span> {php echo date('Y-m-d',$reply['joinstarttime'])} 至 {php echo date('m-d',$reply['joinendtime'])} </div>
+          <div class="col-sm-6 col-xs-6"> <span>活动举行时间：</span> {php echo date('Y-m-d',$reply['starttime'])} 至 {php echo date('m-d',$reply['endtime'])} </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 col-xs-12">
+          <button disabled class="btn btn-primary" type="button">报名人数：<span class="badge">{$total}</span> | {if empty($reply['join_num'])}不限{else}<span class="badge">{$reply['join_num']}</span>{/if}</button>
+          <button disabled class="btn btn-info" type="button">审核人数：<span class="badge">{$pass_on_num}</span> | <span class="badge">{php echo $total-$pass_on_num}</span> | {if empty($reply['pass_num'])}不限{else}<span class="badge">{$reply['pass_num']}</span>{/if}</button>
+          <button disabled class="btn btn-warning" type="button">支付金额：￥{$reply['charge']}元 | <span class="badge">{$pay_num}</span> | <span class="badge">{php echo $total-$pay_num}</span> | {if empty($reply['pass_num'])}不限{else}<span class="badge">{$reply['pass_num']}</span>{/if}</button>
+          <button disabled class="btn btn-success" type="button">签到人数：<span class="badge">{$attend_num}</span> | <span class="badge">{php echo $total-$attend_num}</span></button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12 col-xs-12"><a href="{php echo $this->createWebUrl('joiner',array('aid'=>$rid,'op'=>'export'))}" class="btn btn-info" target="_blank">导出EXCEL</a> <a href="javascript:showbox();" class="btn btn-danger">批量导入修改</a></div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <form action="" class="form-horizontal form">
+  <input type="hidden" name="c" value="site" />
+  <input type="hidden" name="a" value="entry" />
+  <input type="hidden" name="m" value="j_act" />
+  <input type="hidden" name="aid" value="{php echo $rid}" />
+  <input type="hidden" name="do" value="joiner" />
+    <div class="panel panel-default">
+      <div class="panel-body tl">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关键字</label>
+          <div class="col-xs-12 col-sm-8 col-lg-9">
+            <input class="form-control" name="keyword" type="text" value="{$_GPC['keyword']}">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">&nbsp;</label>
+          <div class="col-xs-12 col-sm-8 col-lg-9 form-inline">
+            <select class="form-control" name="gender">
+            	<option value="0">性别</option>
+                <option value="1" {if $_GPC['gender']==1} selected="selected"{/if}>先生</option>
+                <option value="2" {if $_GPC['gender']==2} selected="selected"{/if}>女士</option>
+            </select>
+            <select class="form-control" name="attend">
+            	<option value="0">签到状态</option>
+                <option value="2" {if $_GPC['attend']==2} selected="selected"{/if}>已签到</option>
+                <option value="1" {if $_GPC['attend']==1} selected="selected"{/if}>未签到</option>
+            </select>
+            <select class="form-control" name="status">
+            	<option value="0">状态</option>
+                <option value="1" {if $_GPC['status']==1} selected="selected"{/if}>待审核</option>
+                <option value="2" {if $_GPC['status']==2} selected="selected"{/if}>入选</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">&nbsp;</label>
+          <div class=" col-xs-12 col-sm-2 col-lg-2">
+            <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="category">
+    <form action="" method="post" onsubmit="return formcheck(this)">
+      <div class="panel panel-default">
+      <div class="panel-heading"> 
+      排序：
+      <a href="{php echo $siteurl.'&order=1'}" class="btn {if $_GPC['order']==1 || empty($_GPC['order'])}btn-info{else}btn-default{/if}">按报名先后</a> 
+      <a href="{php echo $siteurl.'&order=2'}" class="btn {if $_GPC['order']==2}btn-info{else}btn-default{/if}">按报名后先</a> 
+      <a href="{php echo $siteurl.'&order=3'}" class="btn {if $_GPC['order']==3}btn-info{else}btn-default{/if}">按付款先后</a>   
+      <a href="{php echo $siteurl.'&order=4'}" class="btn {if $_GPC['order']==4}btn-info{else}btn-default{/if}">按付款后先</a>
+      <a href="{php echo $siteurl.'&order=5'}" class="btn {if $_GPC['order']==5}btn-info{else}btn-default{/if}">按签到先后</a>
+      <a href="{php echo $siteurl.'&order=6'}" class="btn {if $_GPC['order']==6}btn-info{else}btn-default{/if}">按签到后先</a> 
+      </div>
+        <div class="panel-body table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th style="width:80px">选择</th>
+                <th style="width:90px">头像</th>
+                <th style="width:120px">姓名/电话</th>
+                <th>详情</th>
+                <th style="width:90px">费用</th>
+                <th>时间</th>
+                <th style="width:70px">状态</th>
+                <th style="width:60px">二维码</th>
+                <th style="width:60px">提示</th>
+                <th style="text-align:right">操作</th>
+              </tr>
+            </thead>
+            {php $i=1;}
+            {loop $list $row}
+            {php $p=json_decode($row['parama'],true);}
+            <tbody>
+            <tr >
+              <td><input type="checkbox" name="select[]" value="{$row['id']}" /> {php echo $i+$start}</td>
+              <td style="text-align:center">
+              <img src="{$row['avatar']}" width="80" style="max-height:80px;"/><br>
+              {$row['nickname']}<br>
+              {if $row['sex']==1}<span class="label label-danger">先生</span>{else}<span class="label label-success">女士</span>{/if}
+              </td>
+              <td>{$row['realname']}<br>{$row['mobile']}</td>
+              <td>
+              {loop $field $index $val}
+                <div><span class="grade">{php echo $index}:</span> 
+                {if $val==2}
+                <img src="{php echo $p[$index]}" width="40" height="40" class="viewimg"/>
+                {else}{php echo $p[$index]}{/if}
+                </div>
+              {/loop}
+              <div><span class="grade">签到回调:</span>{$row['reloadmsg']}</div>
+              <div><span class="grade">备注内容:</span>{$row['remark']}</div></td>
+              <td>{if $reply['charge']}<span class="label label-info">￥ {php echo sprintf('%.2f', $row['fee'] / 100)}</span>{else}<span class="label label-default">免费</span>{/if}</td>
+              <td>
+              <span class="label label-info tips"  data-toggle="tooltip" data-placement="bottom" title="{php echo date('m/d H:i',$row['createtime'])}">报名时间</span>
+              <div>{if $row['paystatus']}<span class="label label-info tips" data-toggle="tooltip" data-placement="bottom" title="{php echo date('m/d H:i',$row['paytime'])}">已付款</span>{else}<span class="label label-default">未付款</span>{/if}</div>
+              <div>{if $row['attend']}<span class="label label-success tips" data-toggle="tooltip" data-placement="bottom" title="{php echo date('m/d H:i',$row['endtime'])}">已签到</span>{else}<span class="label label-default">未签到</span>{/if}</div>
+              <div>{if $row['refundstatus']}<span class="label label-success">已退款：￥{php echo sprintf('%.2f', $row['refundfee'] / 100)}</span>{elseif $row['refundstatus']==-1}<span class="label label-danger">退款失败</span>{/if}</div>
+              </td>
+              <td>{if $row['status']==0}<span class="label label-default">待审核</span>{else}<span class="label label-success">入选</span>{/if}</td>
+              <td>
+              {if $row['qrcodestatus']==1}
+              <span class="label label-success">已发</span>
+              {elseif $row['qrcodestatus']==0}
+              <span class="label label-default">未发</span>
+              {else}
+              <span class="label label-danger">失败</span>
+              {/if}
+              </td>
+              <td>{if $row['log']}<span class="label label-danger" data-container="body"  data-toggle="popover" data-placement="top" data-content="{$row['log']}"><i class="fa fa-exclamation-triangle"></i></span>{/if}</td>
+              <td style="text-align:right; overflow:visible">
+              <div class="j_menu">
+              <div class="dropdown">
+                <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu{$row['id']}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">功能按钮<span class="caret"></span></button>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu{$row['id']}">
+                  
+                  <li><a href="{php echo $this->createWebUrl('joiner', array('op'=>'in', 'uid'=> $row['id'],'aid'=>$rid,'issend'=>1))}"><i class="fa fa-check"/></i> 审核并发签到二维码</a></li>
+                  {if !$row['status']}
+                  <li><a href="{php echo $this->createWebUrl('joiner',array('op'=>'in','uid'=>$row['id'],'aid'=>$rid))}"><i class="fa fa-check"/></i> 仅审核</a></li>
+                  {else}
+                  <li role="separator" class="divider"></li>
+                  <li><a href="{php echo $this->createWebUrl('joiner', array('op'=>'out','uid'=> $row['id'],'aid'=>$rid,'issend'=>1))}"><i class="fa fa-minus"/></i> 取消审核(通知客户)</a></li>
+                  <li><a href="{php echo $this->createWebUrl('joiner', array('op'=>'out','uid'=> $row['id'],'aid'=>$rid))}"><i class="fa fa-minus"/></i> 取消审核(不发送通知)</a></li>
+                  {/if}
+                  <li role="separator" class="divider"></li>
+                  {if $row['fee'] && $row['paystatus'] && $row['refundstatus']<1}
+                  <li><a href="{php echo $this->createWebUrl('joiner', array('op'=>'refused','uid'=>$row['id'],'aid'=>$rid))}" onclick="return confirm('确认退款吗？款项将马上退回给客户');return false;"><i class="fa fa-money"/></i> 退款</a></li>
+                  {/if}
+                  <li role="separator" class="divider"></li>
+                  <li><a href="javascript:markSign({$row['id']})"><i class="fa fa-eidt"/></i> 编辑回调/备注</a></li>
+                  <li><a href="javascript:sendmessage({$row['id']})"><i class="fa fa-comment-o"/></i> 发送信息</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="{php echo $this->createWebUrl('joiner', array('op' => 'delete', 'uid' => $row['id'],'aid' => $rid))}" onclick="return confirm('确认删除吗，删除后，客户可以重新报名？');return false;"><i class="fa fa-trash-o"/></i> 删除</a></li>
+                </ul>
+              </div>
+              </div>
+              </td>
+            </tr>
+            {php $i++}
+            {/loop}
+            </tbody>
+            <tr>
+            	<td colspan="10">{$pager}</td>
+            </tr>
+            <tr>
+              <td style="width:60px;" class="row-first"><input type="checkbox" onclick="selectall(this)"/></td>
+              <td colspan="9"><input type="button" value="群发信息" onclick="sendmessagetoall()" class="btn btn-primary" />
+                <input type="hidden" name="token" value="{$_W['token']}" /></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div id="imgviewbox" style="display:none;position:absolute;z-index:3;max-width:400px;max-height:400px;"></div>
+<div id="increate" class="modal fade">
+<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">导入文件</h4>
+      </div>
+      <div class="modal-body">
+        <button type="button" class="btn btn-default" onClick="$('#csvfile').click();">上传csv格式文件</button>
+        <input type="file" name="csvfile" id="csvfile" style="display:none;">
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="submit" name="submit"  value="submit"class="btn btn-primary">开始导入</button>
+        <input type="hidden" name="token" value="{$_W['token']}" />
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+<!--编辑框-->
+<div class="modal fade" id="editbox" tabindex="0" role="dialog" aria-hidden="true">
+<form action="" class="form-horizontal form">
+<input type="hidden" name="user_id" id="user_id" value="" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="col-sm-3 col-xs-3">签到信息</div>
+          <div class="col-sm-9 col-xs-9"><input type="text" class="form-control" name="reloadmsg" id="reloadmsg" ></div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-3 col-xs-3">备注</div>
+          <div class="col-sm-9 col-xs-9"><textarea style="height:150px;" name="remark" id="remark" class="form-control"></textarea></div>
+        </div>
+      </div>
+      <div class="modal-footer"><button type="button" class="btn btn-info" onclick="saveMarksign()">保存</button></div>
+    </div>
+  </div>
+  </form>
+</div>
+<!--发送信息给单个客户-->
+<div class="modal fade" id="sendmessage" tabindex="-1" role="dialog" aria-hidden="true">
+<form action=""  class="form-horizontal form">
+<input type="hidden" name="openid" value="" />
+<input type="hidden" name="msgtpye" value="text" />
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><span class="pull-right"><button type="button" class="btn btn-default btn-block" data-dismiss="modal"><i class="fa fa-times"></i></button></span>信息通知</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="form-group">
+          <div class="col-sm-2 col-xs-2">发送消息</div>
+          <div class="col-sm-10 col-xs-10"><textarea name="content" rows="3" class="form-control"></textarea></div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-2 col-xs-2">消息类型</div>
+          <div class="col-sm-10 col-xs-10 form-inline">
+          <label class="radio-inline">
+            <input type="radio" name="msgtype" value="0" checked />
+            客服消息</label>
+          <label class="radio-inline">
+            <input type="radio" name="msgtype" value="1" />
+            模板消息</label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info btn-block" onclick="sendToMessage()">发送</button>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+<div class="modal fade" id="sendmessagetoall" tabindex="-1" role="dialog" aria-hidden="true">
+<form action=""  class="form-horizontal form">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><span class="pull-right"><button type="button" class="btn btn-default btn-block" data-dismiss="modal"><i class="fa fa-times"></i></button></span>群发信息通知</h4>
+      </div>
+      <div class="modal-body">
+      	<div class="form-group">
+          <div class="col-sm-2 col-xs-2">群发人数</div>
+          <div class="col-sm-10 col-xs-10" id="sendnum">0</div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-2 col-xs-2">成功</div>
+          <div class="col-sm-10 col-xs-10" id="sendnum_ok">0</div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-2 col-xs-2">失败</div>
+          <div class="col-sm-10 col-xs-10" id="sendnum_false">0</div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-2 col-xs-2">消息类型</div>
+          <div class="col-sm-10 col-xs-10 form-inline">
+          <label class="radio-inline">
+            <input type="radio" name="msgtype2" value="0" checked />
+            客服消息</label>
+          <label class="radio-inline">
+            <input type="radio" name="msgtype2" value="1" />
+            模板消息</label>
+          </div>
+        </div>
+      	<div class="form-group">
+          <div class="col-sm-2 col-xs-2">发送消息</div>
+          <div class="col-sm-10 col-xs-10"><textarea name="content_toall" rows="3" class="form-control"></textarea></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info btn-block" id="sendtoall_btn" onclick="sendToAllMessage()">发送</button>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+<script language="javascript">
+function showbox(){
+	//导入文件
+	$("#increate").modal({
+		backdrop:'static',
+		keyboard:false,
+		show:true,
+	})
+}
+function selectall(obj){
+	if(obj.checked==true){
+	   $("input[name^='select']").each(function(){
+		  $(this).attr("checked",true);
+	   });
+	}else{
+		$("input[name^='select']").each(function(){
+		  $(this).attr("checked",false);
+	    });
+	}
+}
+$('.viewimg').hover(function(){
+	var src=$(this).attr("src");
+	var t=$(this).offset().top-200;
+	var l=$(this).offset().left-40;
+	$("#imgviewbox").html("<img src='"+src+"' style='width:100%;'/>").show().css({'top':t,'left':l});
+},function(){
+	$("#imgviewbox").hide();
+});
+
+function markSign(num){
+	//弹出备注输入框
+	$.getJSON("{php echo $this->createWebUrl('ajax',array('op'=>'editmark'))}",{id:num},function(data){
+		if(data.remark!='undefind'){
+			$("#user_id").val(num);
+			$("#reloadmsg").val(data.reloadmsg);
+			$("#remark").val(data.remark);
+		}
+	});
+	$("#editbox").modal("show");
+}
+function saveMarksign(){
+	//提交备注内容
+	$.post("{php echo $this->createWebUrl('ajax',array('op'=>'savemark'))}",{id:$("#user_id").val(),reloadmsg:$("#reloadmsg").val(),remark:$("#remark").val()},function(data){
+		$("#user_id").val('');
+		$("#reloadmsg").val('');
+		$("#remark").val('');
+		$("#editbox").modal("hide");
+		location.reload();
+	},'json');
+}
+function sendmessage(opid){
+	$("input[name='openid']").val(opid);
+	$("textarea[name='content']").val("");
+	$("#sendmessage").modal();
+}
+function sendToMessage(){
+	var uid=$("input[name='openid']").val();
+	var content=$("textarea[name='content']").val();
+	var type=parseInt($("input[name='msgtype']:checked").val());
+	if(content.length<1){
+		alert("发送内容不能少于1个字哦");
+		return;
+	}
+	var _type='sendmsg';
+	if(type)_type='sendmbmsg';
+	$.post("{php echo $this->createWebUrl('ajax',array('aid'=>$rid))}",{"uid":uid,"content":content,"op":_type},function(data){
+		if(data.success){
+			$("textarea[name='content']").val("").empty();
+			alert("发送成功");
+		}else{
+			alert("发送失败\n原因："+data.msg);
+			location.reload();
+		}
+		$("#sendmessage").modal('hide');
+	},'json');
+}
+function sendmessagetoall(){
+	if($(":checkbox[name^='select']:checked").size()==0){
+		alert("没有选择用户哦");
+		return;
+	}
+	$("#sendtoall_btn").removeAttr("disabled");
+	$("textarea[name='content_toall']").removeAttr('readonly').val("");
+	$("#sendnum").text($(":checkbox[name^='select']:checked").size());
+	$("#sendnum_ok").text("0");
+	$("#sendnum_false").text("0");
+	$("#sendmessagetoall").modal();
+}
+var curcount=0;
+function sendToAllMessage(){
+	var type=parseInt($("input[name='msgtype2']:checked").val());
+	$("#sendtoall_btn").attr("disabled","disabled");
+	$("textarea[name='content_toall']").attr('readonly',"readonly")
+	var content=$("textarea[name='content_toall']").val();
+	allnum=parseInt($("#sendnum").text());
+	var uid=$(":checkbox[name^='select']:checked").eq(curcount).val();
+	var _type='sendmsg';
+	if(type)_type='sendmbmsg';
+	$.post("{php echo $this->createWebUrl('ajax',array('op'=>'sendmsg','aid'=>$rid))}",{"uid":uid,"content":content,"op":_type},function(data){
+		curcount++;
+		if(data.success){
+			var n=parseInt($("#sendnum_ok").text());
+			n++;
+			$("#sendnum_ok").text(n);
+		}else{
+			var n=parseInt($("#sendnum_false").text());
+			n++;
+			$("#sendnum_false").text(n);
+		}
+		if(curcount>=allnum){
+			alert("群发完成，一共发送"+$("#sendnum").text()+"次\r\n成功："+$("#sendnum_ok").text()+"\r\n"+"失败："+$("#sendnum_false").text());
+			$("textarea[name='content_toall']").removeAttr('readonly').val("");
+			$("#sendtoall_btn").removeAttr("disabled");
+			location.reload();
+		}else{
+			sendToAllMessage();
+		}
+	},'json');
+	
+}
+</script>
+
+{/if}
+{template 'common/footer'} 

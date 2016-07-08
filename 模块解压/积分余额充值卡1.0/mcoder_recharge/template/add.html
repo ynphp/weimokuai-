@@ -1,0 +1,78 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display' && $status == ''}class="active"{/if}>
+	<a href="{php echo $this->createWebUrl('mcoder_recharge', array('op' => 'display'))}">添加充值卡</a>
+	</li>
+</ul>
+
+{if $operation == 'display'}
+
+<div class="main">
+	<div class="panel panel-info">
+		<div class="panel-heading">使用说明</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
+				<div class="col-sm-8 col-lg-9 col-xs-12">
+					<font style="color: green"></font>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-info">
+		<div class="panel-heading">添加充值卡</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+				<input type="hidden" name="c" value="site" />
+				<input type="hidden" name="a" value="entry" />
+				<input type="hidden" name="m" value="mcoder_recharge" />
+				<input type="hidden" name="do" value="add" />
+				<input type="hidden" name="op" value="doadd" />
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">充值卡前缀</label>
+					<div class="col-sm-8 col-lg-9 col-xs-12">
+						<input class="form-control" name="cardpre" id="" type="text" value="{$_GPC['cardpre']}" placeholder="充值卡前缀">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">充值卡数量</label>
+					<div class="col-sm-8 col-lg-9 col-xs-12">
+						<input class="form-control" name="cardnums" id="" type="text" value="{$_GPC['cardnums']}" placeholder="充值卡数量">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">充值卡金额</label>
+					<div class="col-sm-8 col-lg-9 col-xs-12">
+						<input class="form-control" name="cardamount" id="" type="text" value="{$_GPC['cardamount']}" placeholder="充值卡金额">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
+					<div class="col-sm-4 col-lg-2">
+						<button name="export" value="export" class="btn btn-default"><i class="fa fa-download"></i> 确认生成</button>
+					</div>
+				</div>
+				<div class="form-group">
+				</div>
+			</form>
+		</div>
+	</div>
+<script type="text/javascript">
+	require(['daterangepicker'], function($){
+		$('.daterange').on('apply.daterangepicker', function(ev, picker) {
+			$('#form1')[0].submit();
+		});
+	});
+</script>
+{/if}
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+{template 'common/footer'}

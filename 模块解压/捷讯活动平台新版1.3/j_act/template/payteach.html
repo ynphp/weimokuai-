@@ -1,0 +1,26 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+  <li {if $operation == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('payteach', array('op'=>'display'))}">使用教程</a></li>
+</ul>
+<script>
+require(['bootstrap'],function($){
+	$('.btn').hover(function(){
+		$(this).tooltip('show');
+	},function(){
+		$(this).tooltip('hide');
+	});
+});
+</script> 
+{if $operation == 'post'}
+
+{elseif $operation == 'display'}
+<div class="main">
+  <div class="panel panel-default">
+    <div class="panel-heading">使用教程下载</div>
+    <div class="panel-body">
+    	<a href="" class="btn btn-info">支付配置教程</a>
+    </div>
+  </div>
+</div>
+{/if}
+{template 'common/footer'} 

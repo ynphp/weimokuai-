@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[充值卡]]></name>
+		<identifie><![CDATA[mcoder_recharge]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[为客户提供充值卡密功能]]></ability>
+		<description><![CDATA[为客户提供充值卡密功能]]></description>
+		<author><![CDATA[来自柒柒源码h770.com]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口设置" do="recharge" state="" direct="true" />
+		</cover>
+		<menu>
+			<entry title="充值卡列表" do="list" state="" direct="false" />
+			<entry title="添加充值卡" do="add" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_mcoder_recharge_card` (
+  `tid` int(11) NOT NULL AUTO_INCREMENT,
+  `cardno` varchar(64) NOT NULL DEFAULT '',
+  `cardse` varchar(30) NOT NULL DEFAULT '',
+  `cardamount` varchar(10) NOT NULL DEFAULT '',
+  `openid` varchar(300) NOT NULL DEFAULT '' COMMENT '微信号ID',
+  `weid` int(10) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0',
+  `addtime` varchar(16) NOT NULL DEFAULT '',
+  `usedtime` varchar(16) NOT NULL DEFAULT '',
+  `isdel` int(2) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`tid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
