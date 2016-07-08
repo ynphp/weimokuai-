@@ -1,0 +1,59 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<script>
+    // 	$().ready(function(){
+    //
+    // });
+</script>
+<div class="container integral integral_record integral_my coupon {if empty($list)}none{/if}">
+    <header>
+        <nav id="nav_1" class="p_10">
+            <ul class="box">
+                <li><a href="{php echo $this->createMobileUrl('scorelist')}" {if $isall==true}class="on"{/if}>全部</a></li>
+                <li><a href="{php echo $this->createMobileUrl('scorelist', array('type' => 1))}" {if $type==1 &&  $isall==false}class="on"{/if}>获得</a></li>
+                <li><a href="{php echo $this->createMobileUrl('scorelist', array('type' => 0))}" {if $type==0 &&  $isall==false}class="on"{/if}>支出</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="body">
+        <section class="p_10">
+            <table class="table_record">
+                <thead>
+                <tr>
+                    <td style="width:30%;">积分详情</td>
+                    <td style="width:50%;">日期</td>
+                    <td style="width:20%;">积分</td>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $list $item}
+                <tr>
+                    <td>{$item['title']}</td>
+                    <td>{php echo date('Y年m月d日', $item[dateline]);}</td>
+                    <td>{if $item['operationtype']==1}+{else}-{/if}{$item['score']}</td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+        </section>
+    </div>
+    {if !empty($card)}
+    {php include $this->template($this->cur_tpl.'/_footer');}
+    {/if}
+    <script type="text/javascript">
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</div>
+</body>
+</html>

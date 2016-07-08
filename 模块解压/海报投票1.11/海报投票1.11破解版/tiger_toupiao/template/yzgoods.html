@@ -1,0 +1,123 @@
+{template 'common/header'}
+<link type="text/css" rel="stylesheet" href="./addons/tiger_dingyue/css/base.css" />
+<ul class="nav nav-tabs">
+	<!--li {if $operation == 'post'}class="active"{/if}><a href="{php echo $this->createWebUrl('goods', array('op' => 'post'));}">添加</a></li-->
+	<li class="active"><a href="{php echo $this->createWebUrl('yzgoods', array('op' => 'display'));}">商品管理</a></li>
+    <li ><a href="{php echo $this->createWebUrl('yztongbu', array('op' => 'display'));}"><i class="fa fa-download"> 同步商品</i></a></li>
+</ul>
+{if $operation == 'post'}
+<form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+<div class="panel panel-default">
+   <div class="panel-heading">
+      佣金设置
+   </div>
+   <div class="panel-body">
+     <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐显示：</label>
+        <div class="col-xs-12 col-sm-9">
+            <label class="radio-inline">
+              <input type="radio" name="tj" id="optionsRadios4" value="1" {if $upitem['tj'] == 1}checked{/if}> 是
+           </label>
+            <label class="radio-inline">
+              <input type="radio" name="tj" id="optionsRadios4" value="0" {if $upitem['tj'] == 0}checked{/if}> 否
+           </label>
+            <span class="help-block">推荐会在手机端展示</span>
+        </div>
+     </div>
+     <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">推荐排序：</label>
+        <div class="col-xs-12 col-sm-9">
+            <input type="text" name="px" value="{$upitem['px']}" class="form-control" placeholder="" >
+            <span class="help-block"></span>
+        </div>
+     </div>
+     <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">自购佣金系数：</label>
+        <div class="col-xs-12 col-sm-9">
+            <input type="text" name="zg" value="{$upitem['zg']}" class="form-control" placeholder="" >
+            <span class="help-block">自购所得到的佣金:自购佣金系数(如：80) * 自购佣金比例(5%)=实际得到佣金为 4%</span>
+        </div>
+     </div>
+      <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">一级佣金系数：</label>
+        <div class="col-xs-12 col-sm-9">
+            <input type="text" name="level1" value="{$upitem['level1']}" class="form-control" placeholder="" >
+            <span class="help-block">一级所得到的佣金:一级佣金系数(如：80) * 一级佣金比例(5%)=实际得到佣金为 4%</span>
+        </div>
+     </div>
+     <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">二级佣金系数：</label>
+        <div class="col-xs-12 col-sm-9">
+            <input type="text" name="level2" value="{$upitem['level2']}" class="form-control" placeholder="" >
+            <span class="help-block">同上</span>
+        </div>
+     </div>
+     <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">三级佣金系数：</label>
+        <div class="col-xs-12 col-sm-9">
+            <input type="text" name="level3" value="{$upitem['level3']}" class="form-control" placeholder="" >
+            <span class="help-block">同上</span>
+        </div>
+     </div>
+     <div class="form-group">
+			<div class="col-sm-10">
+				<input type="hidden" name="token" value="{$_W['token']}" /> <input
+					name="submit" value="submit" type="hidden" />
+				<hr />
+				<button class="btn btn-primary" type="submit">提交</button>
+			</div>
+		</div>
+
+   </div>
+</div>
+</form>
+{elseif $operation == 'display'}
+<div class="panel panel-default">
+      <table class="table">
+          <th style="width:50px;text-align:center">排序</th>
+          <th style="width:100px;text-align:center">商品ID</th>
+          <th>名称</th>
+          <th style="width:80px;text-align:center">图片</th>
+          <th style="width:85px;text-align:center">商品链接</th>
+          <td style="width:105px;text-align:center">一级佣金</td>
+          <td style="width:105px;text-align:center">二级佣金</td>
+          <td style="width:105px;text-align:center">三级佣金</td>
+          <th style="width:65px;text-align:center">推荐</th>
+          <th style="width:150px;">操作</th>
+
+       {loop $yzgoods $item}
+        <tr>
+          <td style="width:50px;text-align:center">{$item['px']}</td>
+          <td style="width:100px;text-align:center">{$item['num_iid']}</td>
+          <td>{$item['title']}</td>
+          <td style="width:80px;text-align:center"><img src="{$item['pic_thumb_url']}" width="30"></td>
+          <td style="width:85px;"><a href="{$item['detail_url']}" target="_blank">查看商品</a></td>
+          <td style="width:105px;">
+          系数:{$item['level1']}%<br>
+          普通:{php echo $set['p1']*$item['level1']/100;}%<br>
+          高级:{php echo $set['g1']*$item['level1']/100;}%<br>
+          金牌:{php echo $set['j1']*$item['level1']/100;}%</td>
+          <td style="width:105px;">
+          系数:{$item['level2']}%<br>
+          普通:{php echo $set['p2']*$item['level2']/100;}%<br>
+          高级:{php echo $set['g2']*$item['level2']/100;}%<br>
+          金牌:{php echo $set['j2']*$item['level2']/100;}%</td>
+          <td style="width:105px;">
+          系数:{$item['level3']}%<br>
+          普通:{php echo $set['p3']*$item['level3']/100;}%<br>
+          高级:{php echo $set['g3']*$item['level3']/100;}%<br>
+          金牌:{php echo $set['j3']*$item['level3']/100;}%</td>
+          <td style="width:65px;text-align:center">{if $item['tj']==1}<span class="label label-warning" >是</span>{else}<span class="label label-success full">否</span>{/if}</td>
+          <td style="width:150px">
+            <a href="{php echo $this->createWebUrl('yzgoods', array('goods_id' => $item['id'], 'op' => 'post'))}" title="编辑" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>编辑</a>
+            <a href="{php echo $this->createWebUrl('yzgoods', array('goods_id' => $item['id'], 'op' => 'delete'))}" onclick="return confirm('此操作不可恢复，确认删除？');return false;" title="删除" class="btn btn-sm btn-default"><i class="fa fa-remove"></i>删除</a>
+          </td>
+        </tr>
+        {/loop}
+       </table>
+ 
+</div>
+{/if}
+
+
+{template 'common/footer'}

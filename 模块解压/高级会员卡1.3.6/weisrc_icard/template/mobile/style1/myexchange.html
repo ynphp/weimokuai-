@@ -1,0 +1,147 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css?v=1" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dialog_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/mymain.js"></script>
+    <style>
+        .tbox_other {
+            width: 100%;
+        }
+        .tbox_other > * {
+            height: 100%;
+            display: table-cell;
+            vertical-align: top;
+        }
+        .tbox_other > *:last-child {
+            width: 100%;
+        }
+    </style>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<script>
+    $().ready(function () {
+        $("#nav_1 a").on("touchstart touchend mouseover mouseout", function (e) {
+            switch (e.type) {
+                case "touchstart":
+                case "mouseover":
+                    this.classList.add("hover");
+                    break;
+                case "touchend":
+                case "mouseout":
+                    this.classList.remove("hover");
+                    break;
+            }
+        });
+    });
+
+    function del(id) {
+        confirm("确定删除吗？", function () {
+            var req = {
+                cou_id: id,
+                from_user:"{$from_user}"
+            }
+            loading(true);
+            //提交信息
+            $.ajax({
+                type: "post",
+                url: "{php echo $this->createMobileUrl('DelUserCoupon')}",
+                dataType: "json",
+                data: req,
+                success: function (data) {
+                    loading(false);
+                    if (data.status == 1) {
+                        alert(data.message, 1500);
+                        setTimeout("location.reload()", 1500);
+                    } else {
+                        alert(data.message, 1500)
+                    }
+                }
+            });
+        }, function () {
+        });
+    }
+
+</script>
+<style>
+    .list_exchange {
+        padding-top: 10px;
+    }
+
+    .list_exchange li[data-card]:first-of-type {
+        margin-top: 0;
+    }
+</style>
+<div class="container coupon exchange exchange_my {if empty($exchanges)}none{/if}">
+    <header>
+        <nav id="nav_1" class="p_10">
+            <ul class="box">
+                <li>
+                    <a href="{php echo $this->createMobileUrl('myexchange', array('type' => $type))}"
+                    {if $isuse==0}class="on"{/if}>未领取</a>
+                </li>
+                <li>
+                    <a href="{php echo $this->createMobileUrl('myexchange', array('type' => $type, 'isuse' => 1))}" {if $isuse==1}class="on"{/if}>已领取</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="body">
+        <ul class="list_exchange">
+            {loop $exchanges $item}
+            <li data-card="" onclick="this.classList.toggle('on');"{if $isuse==1} disabled="disabled"{/if}>
+                <header>
+                    <ul class="tbox">
+                        <li>
+                            <h5>{$item['title']}</h5>
+                            <p>有效期至{php echo date('Y年m月d日', $item[endtime]);}</p>
+                        </li>
+                        <li>
+                            {if $isuse==1}
+                            <span class="del" onclick="del({$item['id']});event.stopPropagation();">&nbsp;</span>
+                            {else}
+                            <label class="pre">{$item['nums']}张 </label>
+                            {/if}
+                        </li>
+                    </ul>
+                </header>
+                <section>
+                    <div>
+                        <figure>
+                            <img src="{if strstr($item['thumb'], 'http') || strstr($item['thumb'], '../addons/')}{$item['thumb']}{else}{$_W['attachurl']}{$item['thumb']}{/if}" onerror="this.src='{RES}mobile/{php echo $this->cur_tpl}/images/youhuiquan.jpg'">
+                        </figure>
+                        <article class="p">
+                            {php echo htmlspecialchars_decode($item['content']);}
+                        </article>
+                    </div>
+                </section>
+                <footer>
+                    <dl class="box">
+                        <dd onclick="event.stopPropagation();">
+                            {if $isuse==1 || TIMESTAMP > $item['endtime']}
+                            <a href="javascript:;">已领取</a>
+                            {else}
+                            <a href="{php echo $this->createMobileUrl('usecoupon', array('id' => $item['id']))}">立即领取 </a>{/if}
+                        </dd>
+                    </dl>
+                </footer>
+            </li>
+            {/loop}
+        </ul>
+    </div>
+    {if !empty($card)}
+    {php include $this->template($this->cur_tpl.'/_footer');}
+    {/if}
+    <script type="text/javascript">
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</div>
+</body>
+</html>

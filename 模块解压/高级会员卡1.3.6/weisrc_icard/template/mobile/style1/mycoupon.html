@@ -1,0 +1,195 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css?v=3" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dialog_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/mymain.js"></script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;">
+<script>
+    $().ready(function () {
+        $("#nav_1 a").on("touchstart touchend mouseover mouseout", function (e) {
+            switch (e.type) {
+                case "touchstart":
+                case "mouseover":
+                    this.classList.add("hover");
+                    break;
+                case "touchend":
+                case "mouseout":
+                    this.classList.remove("hover");
+                    break;
+            }
+        });
+    });
+
+    function del(id) {
+        confirm("确定删除吗？", function () {
+            var req = {
+                cou_id: id,
+                from_user:"{$from_user}"
+            }
+            loading(true);
+            //提交信息
+            $.ajax({
+                type: "post",
+                url: "{php echo $this->createMobileUrl('DelUserCoupon')}",
+                dataType: "json",
+                data: req,
+                success: function (data) {
+                    loading(false);
+                    if (data.status == 1) {
+                        alert(data.message, 1500);
+                        setTimeout("location.reload()", 1500);
+                    } else {
+                        alert(data.message, 1500)
+                    }
+                }
+            });
+        }, function () {
+        });
+    }
+</script>
+<style>
+    .list_coupon {
+        padding-top: 10px;
+    }
+
+    .list_coupon li[data-card]:first-of-type {
+        margin-top: 0;
+    }
+</style>
+<style>
+    .tbox_other {
+        width: 100%;
+    }
+    .tbox_other > * {
+        height: 100%;
+        display: table-cell;
+        vertical-align: top;
+    }
+    .tbox_other > *:last-child {
+        width: 100%;
+    }
+</style>
+<div class="container coupon{if $type == 1} coupon_my{elseif $type==2} cash_coupon cash_coupon_my{/if} {if empty($coupons)}none{/if}">
+    <header>
+        <nav id="nav_1" class="p_10">
+            <ul class="box">
+                <li>
+                    <a href="{php echo $this->createMobileUrl('mycoupon', array('type' => $type))}"
+                       {if $isuse==0}class="on"{/if}>未使用</a>
+                </li>
+                <li>
+                    <a href="{php echo $this->createMobileUrl('mycoupon', array('type' => $type, 'isuse' => 1))}" {if $isuse==1}class="on"{/if}>已使用</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="body">
+        {if $type == 1}
+        <ul class="list_coupon">
+            <ol>
+                {loop $coupons $item}
+                <li data-card="" onclick="this.classList.toggle('toggle');" {if $isuse==1}class="on"{/if}>
+                    <!--<a href="javascript:;">-->
+                        <header>
+                            <label>{$item['title']}</label>
+                            <label class="fr">剩余{$item['nums']}张 </label>
+                        </header>
+                        <section>
+                            <div>
+                                <figure class="tbox">
+                                    <div>
+                                        <img src="{if strstr($item['thumb'], 'http') || strstr($item['thumb'], '../addons/')}{$item['thumb']}{else}{$_W['attachurl']}{$item['thumb']}{/if}" onerror="this.src='{RES}mobile/{php echo $this->cur_tpl}/images/youhuiquan.jpg'">
+                                    </div>
+                                    <div>
+                                        {if $isuse!=1}
+                                        {if TIMESTAMP > $item['endtime']}
+                                        <label>已过期</label>
+                                        {else}
+                                        <span onclick="location.href='{php echo $this->createMobileUrl('usecoupon', array('id' => $item['id']))}'; event.preventDefault();"><label>立即<br>使用</label></span>
+                                        {/if}
+                                        {else}
+                                        <label>已使用</label>
+                                        {/if}
+                                    </div>
+                                </figure>
+                            </div>
+                            <div class="des">
+                                <dl>
+                                    <dt>有效期至{php echo date('Y-m-d', $item[endtime]);}
+                                        <!--已使用的才出现-->
+                                        {if $isuse == 1}
+                                        <span class="del" onclick="del({$item['id']}); event.stopPropagation();">&nbsp;</span>
+                                        {else}
+                                        {if TIMESTAMP > $item['endtime']}
+                                        <span class="del" onclick="del({$item['id']}); event.stopPropagation();">&nbsp;</span>
+                                        {/if}
+                                        {/if}
+                                    </dt>
+                                    <dd>
+                                        {php echo htmlspecialchars_decode($item['content']);}
+                                    </dd>
+                                    <dd>
+                                        <p style="white-space:pre-line;">适用门店：
+                                            {if $item['storeid'] == 0}
+                                            {loop $stores $row}
+                                            {$row['title']}<br/>
+                                            {/loop}
+                                            {else}
+                                            {$stores[$item['storeid']]['title']}
+                                            {/if}
+                                        </p>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </section>
+                    <!--</a>-->
+                </li>
+                {/loop}
+            </ol>
+        </ul>
+        {elseif $type == 2}
+        <ul class="list_coupon_ul">
+            {loop $coupons $item}
+            <li>
+                <a href="{if $isuse==1 || TIMESTAMP > $item['endtime']}javascript:;{else}{php echo $this->createMobileUrl('usecoupon', array('id' => $item['id']))}{/if}">
+                    <p><span>{$item['dmoney']}</span>元</p>
+                    <p>★订单满{$item['give_value']}元可使用</p>
+                    <p>有效期至{php echo date('Y-m-d', $item[endtime]);}</p>
+                    <p>剩余{$item['nums']}张</p>
+                    {if $isuse==1}
+                    <span class="del" onclick="del({$item['id']},1); event.stopPropagation();">&nbsp;</span>
+                    {else}
+                    {if TIMESTAMP > $item['endtime']}
+                    <span class="del" onclick="del({$item['id']}); event.stopPropagation();">&nbsp;</span>
+                    {else}
+                    <p style="top: 10px;">
+                        立即使用
+                    </p>
+                    {/if}
+                    {/if}
+                </a>
+            </li>
+            {/loop}
+        </ul>
+        {/if}
+    </div>
+    {if !empty($card)}
+    {php include $this->template($this->cur_tpl.'/_footer');}
+    {/if}
+    <script type="text/javascript">
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</div>
+</body>
+</html>
+
+

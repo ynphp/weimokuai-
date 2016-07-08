@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[高级会员卡]]></name>
+		<identifie><![CDATA[weisrc_icard]]></identifie>
+		<version><![CDATA[1.3.6]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[高级会员卡]]></ability>
+		<description><![CDATA[高级会员卡]]></description>
+		<author><![CDATA[不错吧]]></author>
+		<url><![CDATA[http://www.bcb5.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+        <handles>
+            <message type="text" />
+        </handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+        <cover>
+            <entry title="会员卡入口" do="index" />
+			<entry title="优惠券入口" do="coupon" />
+			<entry title="积分兑换入口" do="exchangelist" />
+			<entry title="签到入口" do="sign" />
+        </cover>
+        <menu>
+            <entry title="会员卡设置" do="style" />
+            <entry title="会员特权" do="privilege" />
+			<entry title="会员等级" do="level" />
+			<entry title="积分策略" do="score" />
+			<entry title="优惠券" do="coupon" />
+			<entry title="积分兑换" do="exchange" />
+			<entry title="开卡即送" do="gift" />
+			<entry title="会员管理" do="card" />
+            <entry title="通知管理" do="announce" />
+			<entry title="商家设置" do="business" />
+			<entry title="门店管理" do="store" />
+			<entry title="消费密码" do="password" />
+			<entry title="充值日志" do="allrechargelog" />
+			<entry title="会员统计" do="userlog" />
+			<entry title="业务菜单" do="menu" />
+			<entry title="风格管理" do="template" />
+        </menu>
+		<home>
+            <entry title="会员卡" do="index" />
+			<entry title="优惠券" do="coupon" />
+			<entry title="积分兑换" do="exchangelist" />
+			<entry title="签到" do="sign" />
+		</home>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_announce` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `from_user` varchar(50) NOT NULL DEFAULT '',
+  `pid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '通知类型 0广播1:系统通知',
+  `levelid` int(10) NOT NULL DEFAULT '0' COMMENT '所属人群',
+  `thumb` varchar(500) NOT NULL DEFAULT '' COMMENT '通知图片',
+  `title` varchar(200) NOT NULL DEFAULT '' COMMENT '通知标题',
+  `content` text NOT NULL COMMENT '通知内容',
+  `money` int(10) NOT NULL DEFAULT '0',
+  `displayorder` tinyint(4) NOT NULL DEFAULT '0',
+  `updatetime` int(10) NOT NULL DEFAULT '0',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_announce_read` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `from_user` varchar(50) NOT NULL DEFAULT '',
+  `announceid` int(10) NOT NULL DEFAULT '0',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=60 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_bill_log` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `from_user` varchar(50) NOT NULL COMMENT '微信id',
+  `title` varchar(200) NOT NULL COMMENT '标题',
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '业务类型-现金:1,消费:2',
+  `passwordid` int(10) NOT NULL DEFAULT '0' COMMENT '操作者id',
+  `payment` tinyint(1) NOT NULL DEFAULT '0' COMMENT '支付方式',
+  `operationtype` tinyint(1) NOT NULL DEFAULT '1' COMMENT '积分操作类型 增加:1  扣除:0',
+  `objectid` int(10) NOT NULL COMMENT '业务id',
+  `storeid` int(10) NOT NULL DEFAULT '0' COMMENT '门店id',
+  `money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '消费金额',
+  `score` int(10) NOT NULL DEFAULT '0' COMMENT '获得积分',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=55 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_business` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `logo` varchar(200) NOT NULL DEFAULT '' COMMENT '商家logo',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '商家名称',
+  `content` text NOT NULL,
+  `info` varchar(200) NOT NULL,
+  `tel` varchar(20) NOT NULL DEFAULT '' COMMENT '联系电话',
+  `location_p` varchar(100) NOT NULL COMMENT '所在地区_省',
+  `location_c` varchar(100) NOT NULL COMMENT '所在地区_市',
+  `location_a` varchar(100) NOT NULL COMMENT '所在地区_区',
+  `category_f` varchar(100) NOT NULL COMMENT '商家类别_大类',
+  `category_s` varchar(100) NOT NULL COMMENT '商家类别_小类',
+  `place` varchar(200) NOT NULL DEFAULT '',
+  `lng` decimal(18,10) NOT NULL DEFAULT '0.0000000000',
+  `lat` decimal(18,10) NOT NULL DEFAULT '0.0000000000',
+  `address` varchar(200) NOT NULL DEFAULT '',
+  `pwd` varchar(20) NOT NULL DEFAULT '',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  `updatetime` int(10) NOT NULL DEFAULT '0',
+  `sort` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=16 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_card` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `uid` int(10) NOT NULL DEFAULT '0' COMMENT '用户id',
+  `cardpre` varchar(10) NOT NULL DEFAULT '',
+  `cardno` int(10) NOT NULL DEFAULT '0' COMMENT '会员卡号',
+  `cardnumber` varchar(50) NOT NULL DEFAULT '',
+  `from_user` varchar(50) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `headimgurl` varchar(500) NOT NULL DEFAULT '' COMMENT '头像',
+  `password` varchar(200) NOT NULL DEFAULT '' COMMENT '登录密码',
+  `coin` decimal(11,2) NOT NULL DEFAULT '0.00' COMMENT '余额',
+  `balance_score` int(10) NOT NULL DEFAULT '0' COMMENT '剩余积分',
+  `total_score` int(10) NOT NULL DEFAULT '0' COMMENT '总积分',
+  `spend_score` int(10) NOT NULL DEFAULT '0' COMMENT '消费积分',
+  `sign_score` int(10) NOT NULL DEFAULT '0' COMMENT '签到积分',
+  `money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '总消费金额',
+  `carnumber` varchar(100) NOT NULL DEFAULT '' COMMENT '车牌号码',
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `updatetime` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `dateline` int(10) NOT NULL DEFAULT '0' COMMENT '领卡时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=266 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_coupon` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `storeid` int(10) NOT NULL DEFAULT '0' COMMENT '门店id',
+  `levelid` tinyint(1) NOT NULL DEFAULT '0' COMMENT '所属人群',
+  `title` varchar(50) NOT NULL COMMENT '优惠券名称',
+  `attr_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '属性 1=普通券 2=营销券',
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '优惠券类型 1=优惠券 2=代金券 3=礼品券 4=积分兑换',
+  `thumb` varchar(500) NOT NULL DEFAULT '' COMMENT '图片',
+  `give_value` decimal(18,2) NOT NULL DEFAULT '0.00' COMMENT '支付金额',
+  `dmoney` decimal(18,2) NOT NULL DEFAULT '0.00' COMMENT '抵用金额',
+  `permoney` int(10) NOT NULL DEFAULT '0' COMMENT '单次消费金额',
+  `allmoney` int(10) NOT NULL DEFAULT '0' COMMENT '累计消费金额',
+  `content` text NOT NULL COMMENT '详细内容',
+  `totalcount` int(10) NOT NULL DEFAULT '0' COMMENT '发放总数',
+  `count` int(10) NOT NULL DEFAULT '0' COMMENT '每人领取张数',
+  `ticket_ty` tinyint(1) NOT NULL DEFAULT '0' COMMENT '积分兑换优惠券类型 1=优惠券2=代金券3=礼品券',
+  `ticket_id` int(10) NOT NULL DEFAULT '0' COMMENT '优惠券id',
+  `needscore` int(10) NOT NULL DEFAULT '0' COMMENT '兑换需要积分',
+  `starttime` int(10) NOT NULL DEFAULT '0' COMMENT '开始时间',
+  `endtime` int(10) NOT NULL DEFAULT '0' COMMENT '结束时间',
+  `displayorder` tinyint(4) NOT NULL DEFAULT '0',
+  `updatetime` int(10) NOT NULL DEFAULT '0',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=26 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_gift` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `storeid` int(10) NOT NULL DEFAULT '0' COMMENT '门店id',
+  `title` varchar(50) NOT NULL COMMENT '活动名称',
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '活动类型 1=赠送积分',
+  `score` int(10) NOT NULL DEFAULT '0' COMMENT '赠送积分',
+  `ticket_ty` tinyint(1) NOT NULL DEFAULT '0' COMMENT '优惠券类型 1=优惠券2=代金券3=礼品券',
+  `ticket_id` int(10) NOT NULL DEFAULT '0' COMMENT '优惠券id',
+  `showgetcard` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否在领卡界面展示',
+  `content` text NOT NULL COMMENT '活动描述',
+  `starttime` int(10) NOT NULL DEFAULT '0' COMMENT '开始时间',
+  `endtime` int(10) NOT NULL DEFAULT '0' COMMENT '结束时间',
+  `displayorder` tinyint(4) NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `updatetime` int(10) NOT NULL DEFAULT '0',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=7 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_level` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `levelname` varchar(100) NOT NULL DEFAULT '' COMMENT '等级名称',
+  `min` int(10) NOT NULL DEFAULT '0' COMMENT '开始积分',
+  `max` int(10) NOT NULL DEFAULT '0' COMMENT '结束积分',
+  `dateline` int(10) NOT NULL DEFAULT '0' COMMENT '发布日期',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=39 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_menu` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `title` varchar(200) NOT NULL DEFAULT '' COMMENT '标题',
+  `url` varchar(500) NOT NULL DEFAULT '' COMMENT '链接',
+  `content` varchar(100) NOT NULL DEFAULT '' COMMENT '菜单描述',
+  `method` varchar(100) NOT NULL DEFAULT '' COMMENT '调用方法',
+  `icon` varchar(500) NOT NULL DEFAULT '' COMMENT '图标',
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '菜单类型0=系统，1=自定义',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `displayorder` tinyint(3) NOT NULL DEFAULT '0' COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=9 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_olduser` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL,
+  `from_user` varchar(50) NOT NULL DEFAULT '' COMMENT '微信id',
+  `cardno` varchar(100) NOT NULL DEFAULT '' COMMENT '会员卡号',
+  `username` varchar(100) NOT NULL DEFAULT '' COMMENT '用户姓名',
+  `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '联系电话',
+  `birthday` int(10) NOT NULL DEFAULT '0' COMMENT '生日',
+  `idcard` varchar(30) NOT NULL DEFAULT '' COMMENT '身份证号码',
+  `job` varchar(30) NOT NULL DEFAULT '',
+  `sex` tinyint(1) NOT NULL DEFAULT '-1' COMMENT '性别',
+  `area` varchar(30) NOT NULL DEFAULT '0' COMMENT '区域',
+  `coin` int(10) NOT NULL DEFAULT '0' COMMENT '预存余额',
+  `credit` int(10) NOT NULL DEFAULT '0' COMMENT '预存积分',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=7 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_order` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `from_user` varchar(50) NOT NULL,
+  `ordersn` varchar(20) NOT NULL,
+  `price` varchar(10) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '-1取消状态，0普通状态，1为已付款，2为已发货，3为成功',
+  `sendtype` tinyint(1) unsigned NOT NULL COMMENT '1为快递，2为自提',
+  `paytype` tinyint(1) unsigned NOT NULL COMMENT '1为余额，2为在线，3为到付',
+  `transid` varchar(30) NOT NULL DEFAULT '0' COMMENT '微信支付单号',
+  `goodstype` tinyint(1) unsigned NOT NULL DEFAULT '1',
+  `remark` varchar(1000) NOT NULL DEFAULT '',
+  `addressid` int(10) unsigned NOT NULL,
+  `expresscom` varchar(30) NOT NULL DEFAULT '',
+  `expresssn` varchar(50) NOT NULL DEFAULT '',
+  `dateline` int(10) unsigned NOT NULL,
+  `ordertype` tinyint(1) unsigned NOT NULL COMMENT '1充值，2消费',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=25 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_password` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `username` varchar(50) NOT NULL DEFAULT '',
+  `password` varchar(200) NOT NULL DEFAULT '',
+  `storeid` int(10) NOT NULL DEFAULT '0',
+  `consume` tinyint(1) NOT NULL DEFAULT '1' COMMENT '消费确认',
+  `recharge` tinyint(1) NOT NULL DEFAULT '1' COMMENT '充值确认',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=32 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_privilege` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '特权名称',
+  `count` tinyint(3) NOT NULL DEFAULT '0' COMMENT '允许购买数量',
+  `levelids` varchar(200) NOT NULL DEFAULT '' COMMENT '所属人群',
+  `content` text NOT NULL COMMENT '详细内容',
+  `starttime` int(10) NOT NULL DEFAULT '0' COMMENT '开始时间',
+  `endtime` int(10) NOT NULL DEFAULT '0' COMMENT '结束时间',
+  `displayorder` tinyint(3) NOT NULL DEFAULT '0',
+  `updatetime` int(10) NOT NULL DEFAULT '0',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=12 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_program` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL DEFAULT '0',
+  `title` varchar(200) NOT NULL DEFAULT '',
+  `link` varchar(200) NOT NULL DEFAULT '',
+  `icon` varchar(500) NOT NULL DEFAULT '',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '1显示 0隐藏',
+  `displayorder` tinyint(3) NOT NULL DEFAULT '0',
+  `dateline` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_recharge` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `storeid` int(10) NOT NULL DEFAULT '0' COMMENT '门店id',
+  `levelid` tinyint(1) NOT NULL DEFAULT '0' COMMENT '所属级别',
+  `title` varchar(50) NOT NULL COMMENT '活动名称',
+  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '充值类型 1=赠送金额',
+  `recharge_value` int(10) NOT NULL DEFAULT '0' COMMENT '充值多少',
+  `give_value` int(10) NOT NULL DEFAULT '0' COMMENT '赠送多少',
+  `starttime` int(10) NOT NULL DEFAULT '0' COMMENT '开始时间',
+  `endtime` int(10) NOT NULL DEFAULT '0' COMMENT '结束时间',
+  `displayorder` tinyint(4) NOT NULL DEFAULT '0' COMMENT '排序',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `updatetime` int(10) NOT NULL DEFAULT '0',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=5 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_recharge_log` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `from_user` varchar(50) NOT NULL DEFAULT '',
+  `cardid` int(10) NOT NULL DEFAULT '0' COMMENT '会员卡id',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1=金额，2=积分',
+  `score` int(10) NOT NULL DEFAULT '0' COMMENT '充值的积分或金额',
+  `storeid` int(10) NOT NULL DEFAULT '0' COMMENT '门店id',
+  `passwordid` int(10) NOT NULL DEFAULT '0' COMMENT '操作者id',
+  `remark` varchar(500) NOT NULL COMMENT '原因',
+  `dateline` int(10) NOT NULL DEFAULT '0' COMMENT '操作时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=48 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_reply` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `rid` int(10) NOT NULL DEFAULT '0',
+  `title` varchar(100) NOT NULL DEFAULT '',
+  `title_not` varchar(100) NOT NULL DEFAULT '' COMMENT '非会员回复标题',
+  `description` text NOT NULL COMMENT '会员回复内容',
+  `description_not` text NOT NULL COMMENT '非会员回复内容',
+  `picture` varchar(200) NOT NULL DEFAULT '' COMMENT '会员回复图片',
+  `picture_not` varchar(200) NOT NULL DEFAULT '' COMMENT '非会员回复图片',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_score` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `card_info` text NOT NULL COMMENT '会员卡使用说明',
+  `score_info` text NOT NULL COMMENT '积分规则说明',
+  `day_score` int(10) NOT NULL DEFAULT '0' COMMENT '每天签到奖励积分',
+  `runningdays` int(10) NOT NULL DEFAULT '0' COMMENT '连续天数',
+  `dayx_score` int(10) NOT NULL DEFAULT '0' COMMENT '连续签到奖励积分',
+  `payx_score` int(10) NOT NULL DEFAULT '0' COMMENT '消费一元积分',
+  `dateline` int(10) NOT NULL DEFAULT '0' COMMENT '发布日期',
+  `updatetime` int(10) NOT NULL DEFAULT '0' COMMENT '更新日期',
+  `recharge_score` int(10) NOT NULL DEFAULT '0' COMMENT '充值一元积分',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=13 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_score_log` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL COMMENT '微信id',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '积分类型 签到:1，消费:2',
+  `title` varchar(200) NOT NULL DEFAULT '' COMMENT '标题',
+  `operationtype` tinyint(1) NOT NULL DEFAULT '1' COMMENT '积分操作类型 增加:1  扣除:0',
+  `score` int(10) NOT NULL DEFAULT '0' COMMENT '获得积分',
+  `count` tinyint(1) NOT NULL DEFAULT '0' COMMENT '当前连续签到次数',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=544 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_sign` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL COMMENT '微信id',
+  `title` varchar(200) NOT NULL COMMENT '标题',
+  `score` int(10) NOT NULL DEFAULT '0' COMMENT '获得积分',
+  `count` tinyint(1) NOT NULL DEFAULT '0' COMMENT '当前连续签到次数',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=404 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_sncode` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `from_user` varchar(50) NOT NULL COMMENT '微信id',
+  `sncode` varchar(30) NOT NULL COMMENT 'sn码',
+  `pid` int(10) NOT NULL DEFAULT '0' COMMENT '产品id',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1优惠券2代金券3礼品券',
+  `title` varchar(40) NOT NULL,
+  `money` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '消费金额',
+  `storeid` int(10) NOT NULL DEFAULT '0' COMMENT '门店id',
+  `passwordid` int(10) NOT NULL DEFAULT '0' COMMENT '操作者id',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `isshow` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否显示 用户删除时更新',
+  `winningtime` int(10) NOT NULL DEFAULT '0' COMMENT '生成时间',
+  `usetime` int(10) NOT NULL DEFAULT '0' COMMENT '使用时间',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=103 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_store` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '名称',
+  `content` text NOT NULL,
+  `tel` varchar(20) NOT NULL DEFAULT '' COMMENT '联系电话',
+  `location_p` varchar(100) NOT NULL DEFAULT '' COMMENT '省',
+  `location_c` varchar(100) NOT NULL DEFAULT '' COMMENT '市',
+  `location_a` varchar(100) NOT NULL DEFAULT '' COMMENT '区',
+  `place` varchar(200) NOT NULL DEFAULT '',
+  `lat` decimal(18,10) NOT NULL DEFAULT '0.0000000000' COMMENT '经度',
+  `lng` decimal(18,10) NOT NULL DEFAULT '0.0000000000' COMMENT '纬度',
+  `address` varchar(200) NOT NULL COMMENT '地址',
+  `is_show` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否在手机端显示',
+  `password` varchar(20) NOT NULL DEFAULT '' COMMENT '登录密码',
+  `recharging_password` varchar(20) NOT NULL DEFAULT '' COMMENT '充值密码',
+  `displayorder` tinyint(3) NOT NULL DEFAULT '0',
+  `updatetime` int(10) NOT NULL DEFAULT '0',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=25 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_style` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `cardpre` varchar(10) NOT NULL DEFAULT '',
+  `cardstart` int(10) NOT NULL DEFAULT '100001',
+  `cardnow` int(10) NOT NULL DEFAULT '0',
+  `cardname` varchar(100) NOT NULL DEFAULT '' COMMENT '会员卡名称',
+  `pwd` varchar(20) NOT NULL COMMENT '密码',
+  `cardnamecolor` varchar(20) NOT NULL DEFAULT '' COMMENT '会员卡名称颜色',
+  `cardnumcolor` varchar(20) NOT NULL DEFAULT '' COMMENT '会员号码颜色',
+  `bg` varchar(200) NOT NULL DEFAULT '' COMMENT '背景图片',
+  `diybg` varchar(500) NOT NULL DEFAULT '' COMMENT '自定义背景图片',
+  `backbg` varchar(500) NOT NULL DEFAULT '' COMMENT '背面背景图片',
+  `content` varchar(1000) NOT NULL DEFAULT '' COMMENT '会员卡描述',
+  `contentcolor` varchar(20) NOT NULL DEFAULT '' COMMENT '内容颜色',
+  `logo` varchar(500) NOT NULL DEFAULT '' COMMENT 'LOGO',
+  `show_logo` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否显示图标',
+  `show_privilege` tinyint(1) NOT NULL DEFAULT '1' COMMENT '首页是否显示特权',
+  `show_gift` tinyint(1) NOT NULL DEFAULT '1' COMMENT '首页是否显示礼品券',
+  `show_coupon` tinyint(1) NOT NULL DEFAULT '1' COMMENT '首页是否显示优惠券',
+  `userinfo` text COMMENT '用户自定义信息',
+  `updatetime` int(11) NOT NULL DEFAULT '0',
+  `dateline` int(11) NOT NULL DEFAULT '0',
+  `sort` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=34 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_template` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL DEFAULT '0' COMMENT '公众号id',
+  `template_name` varchar(50) NOT NULL DEFAULT 'style1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=8 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_icard_user` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL,
+  `from_user` varchar(50) NOT NULL DEFAULT '' COMMENT '微信id',
+  `username` varchar(100) NOT NULL DEFAULT '' COMMENT '用户姓名',
+  `tel` varchar(20) NOT NULL DEFAULT '' COMMENT '联系电话',
+  `birthday` int(10) NOT NULL DEFAULT '0' COMMENT '生日',
+  `address` varchar(200) NOT NULL DEFAULT '' COMMENT '联系地址',
+  `sex` tinyint(1) NOT NULL DEFAULT '-1' COMMENT '性别',
+  `age` tinyint(3) NOT NULL DEFAULT '0' COMMENT '年龄',
+  `remark` varchar(400) NOT NULL DEFAULT '' COMMENT '备注',
+  `updatetime` int(10) NOT NULL DEFAULT '0',
+  `dateline` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+        ]]>
+	</install>
+	<uninstall><![CDATA[]]>
+	</uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+ 
+</manifest>

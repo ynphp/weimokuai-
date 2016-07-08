@@ -1,0 +1,53 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<script>
+    // 	$().ready(function(){
+    //
+    // });
+</script>
+<div class="container integral integral_record">
+    <header>
+        <label>签到记录 </label>
+    </header>
+    <div class="body">
+        <section class="p_10">
+            <table class="table_record">
+                <thead>
+                <tr>
+                    <td style="width:30%;">积分详情</td>
+                    <td style="width:50%;">日期</td>
+                    <td style="width:20%;">积分</td>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $signlist $item}
+                <tr>
+                    <td>签到得积分</td>
+                    <td>{php echo date('Y年m月d日', $item['dateline']);}</td>
+                    <td>+{$item['score']}</td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+        </section>
+    </div>
+    {if !empty($card)}
+    {php include $this->template($this->cur_tpl.'/_footer');}
+    {/if}
+    <script type="text/javascript">
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</div>
+</body>
+</html>

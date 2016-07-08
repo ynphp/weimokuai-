@@ -1,0 +1,117 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dialog_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <style>
+        .tbox_other {
+            width: 100%;
+        }
+        .tbox_other > * {
+            height: 100%;
+            display: table-cell;
+            vertical-align: top;
+        }
+        .tbox_other > *:last-child {
+            width: 100%;
+        }
+    </style>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<script>
+    $().ready(function () {
+        $("#nav_1 a").on("touchstart touchend mouseover mouseout", function (e) {
+            switch (e.type) {
+                case "touchstart":
+                case "mouseover":
+                    this.classList.add("hover");
+                    break;
+                case "touchend":
+                case "mouseout":
+                    this.classList.remove("hover");
+                    break;
+            }
+        });
+    });
+
+    function readMsg(thi, evt, id) {
+        var li = thi.parentNode;
+        li.classList.toggle("on");
+        li.removeAttribute("data-read");
+        var img = new Image();
+        img.src = "http://www.fynut.com";
+
+        if ($(li).hasClass("Js-read"))return false;
+//        alert('测试', 1500);
+        $(li).addClass("Js-read");
+
+
+        var msgnum = parseInt($("#Js-msg-num").attr("data-count")) - 1;
+        msgnum = msgnum < 0 ? 0 : msgnum;
+        $("#Js-msg-num").attr("data-count", msgnum);
+        var reg = {
+            id: id
+        }
+        //已经阅读
+        $.ajax({
+            type: "post",
+            url: "{php echo $this->createMobileUrl('read', array(), true)}",
+            dataType: "json",
+            data: reg,
+            success: function (html) {
+                //@todo 业务处理
+            }
+        });
+    }
+</script>
+<div class="container coupon message{if empty($announces)} none{/if}">
+    <header>
+        <nav class="p_10">
+            <ul id="nav_1" class="box">
+                <li><a href="{php echo $this->createMobileUrl('announce', array(), true)}"{if $type==0} class="on"{/if}>广播</a></li>
+                <li><a href="{php echo $this->createMobileUrl('announce', array('type' => 1), true)}"{if $type==1} class="on"{/if}>系统消息</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="body">
+        <ul class="list_message">
+            {php $index = 0;}
+            {loop $announces $announce}
+            <li data-read="{if empty($announcesRead[$announce['id']])}0{else}1{/if}" {if !empty($announcesRead[$announce['id']])}class="Js-read"{/if}>
+                <a href="javascript:;" onclick="readMsg(this, event,{$announce['id']});">
+                    <dl class="tbox_other">
+                        <dd>
+                            <!--自定义图片span class去掉-->
+                            <span class="{if $type == 0}icon_11{else}icon_{$announce['type']}{/if}"><img src=""></span>
+                        </dd>
+                        <dd>
+                            <h3>{$announce['title']}</h3>
+                            <p>{php echo date('Y-m-d', $announce['dateline']);}</p>
+                        </dd>
+                    </dl>
+                </a>
+                <ol>
+                    <p>
+                        {php echo htmlspecialchars_decode($announce['content']);}
+                    </p>
+                </ol>
+            </li>
+            {/loop}　
+        </ul>
+    </div>
+    {if !empty($card)}
+    {php include $this->template($this->cur_tpl.'/_footer');}
+    {/if}
+    <script type="text/javascript">
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</div>
+</body>
+</html>

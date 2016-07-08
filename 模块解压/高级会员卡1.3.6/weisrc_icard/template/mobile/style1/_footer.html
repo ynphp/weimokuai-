@@ -1,0 +1,36 @@
+<footer>
+    <nav class="nav">
+        <ul class="box">
+            <li>
+                <a href="{php echo $this->createMobileUrl('index', array(), true)}" {if $do == 'index'}class="on"{/if}>
+                    <p class="card"></p>
+                    <span>会员卡</span>
+                </a>
+            </li>
+            <li>
+                <a href="{php echo $this->createMobileUrl('announce', array(), true)}" {if $do == 'announce'}class="on"{/if}>
+                    <p id="Js-msg-num" class="msg" {if !empty($read_count)}data-count="{$read_count}"{/if}></p>
+                    <span>消息</span>
+                </a>
+            </li>
+            <li>
+                <a href="{php echo $this->createMobileUrl('sign', array(), true)}" {if $do == 'sign'}class="on"{/if}>
+                    <p class="sign"></p>
+                    <span>签到</span>
+                </a>
+            </li>
+            <!--<li>-->
+                <!--<a href="{php echo $this->createMobileUrl('share', array(), true)}" {if $do == 'share'}class="on"{/if}>-->
+                    <!--<p class="share"></p>-->
+                    <!--<span>分享</span>-->
+                <!--</a>-->
+            <!--</li>-->
+            <li>
+                <a href="{php echo $this->createMobileUrl('UserCenter', array(), true)}" class="my {if $do == 'usercenter'}on2{/if}">
+                    <p class="my"></p>
+                    <span>我的</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</footer>

@@ -1,0 +1,48 @@
+{template 'common/header'}
+<link type="text/css" rel="stylesheet" href="./addons/tiger_dingyue/css/base.css" />
+<ul class="nav nav-tabs">
+	<li class="active"><a href="{php echo $this->createWebUrl('order');}">分销订单</a></li>
+</ul>
+
+<div class="panel panel-default">
+<div class="panel-body">
+      <table class="table" style="font-size:12px;">
+          <th width=40>编号</th>
+          <th width=80>有赞ID</th>
+          <th width=60>昵称</th>
+          <th>层级</th>
+          <th>交易编号</th>
+          <th>名称</th>
+          <td>数量</td>
+          <th>实付金额</th>
+          <th width=150>交易时间</th>
+          <th>佣金比例</th>
+          <th>佣金</th>
+          <th>结算</th>
+          <!--th>操作</th-->
+
+       {loop $order $k=>$v}
+        <tr>
+          <td>{$v['id']}</td>
+          <td>{$v['fans_id']}</td>
+          <td>{$v['nickname']}</td>
+          <td>{$v['cengji']}</td>
+          <td>{$v['tid']}</td>
+          <td>{$v['title']}</td>
+          <td>{$v['num']}</td>
+          <td>{$v['payment']}</td>
+          <td>{$v['created']}</td>
+          <td>{$v['bili']}%</td>
+          <td>{$v['yongjin']}</td>
+          <td>{if $v['isjs']==1}未结算{else}已结算{/if}</td>
+          <!--td>
+            <a href="{php echo $this->createWebUrl('yzgoods', array('goods_id' => $item['id'], 'op' => 'post'))}" title="编辑" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>编辑</a>
+          </td-->
+        </tr>
+        {/loop}
+       </table>
+  {$pager}
+</div>
+</div>
+
+{template 'common/footer'}

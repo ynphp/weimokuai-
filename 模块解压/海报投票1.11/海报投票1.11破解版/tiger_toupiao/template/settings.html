@@ -1,0 +1,255 @@
+﻿{template 'common/header'}
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" id="setting-form">
+    <input type="hidden" name="id" value="{$set['id']}">
+		<div class="panel panel-default">
+			<div class="panel-heading">参数设置</div>
+			<div class="panel-body">
+				<ul class="nav nav-tabs" id="myTab">
+					<li><a href="#tab_param1">地区设置</a></li>
+					<li><a href="#tab_param2">关注提醒设置</a></li>
+                    <li class="active"><a href="#tab_param3">投票设置</a></li>
+                    <li><a href="#tab_param4">海报生成限制</a></li>
+				</ul>
+				<div class="tab-content">
+
+                    <div class="tab-pane" id="tab_param1">
+                    <input type="hidden" name="locationtype" value="3">
+						
+                        <div class="panel panel-default">
+                           <div class="panel-heading">
+                              地区限制
+                           </div>
+                           <div class="panel-body">
+                              <div class="form-group">
+                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">服务号地区限制</label>
+                                <div class="col-xs-12 col-sm-9">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="fwlocation" value="0" 
+                                         {if empty($settings['fwlocation'])} checked="checked" {/if}>不限制</label>
+
+                                        <label class="radio-inline"><input type="radio" name="fwlocation" value="1"
+                                         {if $settings['fwlocation']==1} checked="checked" {/if}>开启</label>
+                                    </label>
+                                    <span class="help-block">需要在公众号后台开启获取地理位置的功能:公众号后台->左下角接口权限->获取用户地理位置(开启)</span>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">地区定位类型(积分商城使用)</label>
+                                    <div class="col-xs-12 col-sm-9">
+                                        <label class="radio-inline">
+                                        <input type="radio" name="locationtype" value="3" 
+                                         {if $settings['locationtype']==3} checked="checked" {/if}>不限制</label>
+
+                                        <label class="radio-inline"><input type="radio" name="locationtype" value="0"
+                                         {if empty($settings['locationtype'])} checked="checked" {/if}>ip定位</label>
+
+                                        <label class="radio-inline"><input type="radio" name="locationtype" value="1" 
+                                         {if $settings['locationtype']==1} checked="checked" {/if}>gps定位</label>
+
+                                          <span class="help-block">在非wifi网络下，利用ip地址定位地区的话，不准确。利用gps定位更准确，不过页面会弹出获取用户地理信息的提示(服务限制了积分兑换)</span>
+                                    </div>
+                                </div>
+                              <div class="form-group">
+                                <label class="col-xs-12 col-sm-3 col-md-2 control-label">地区限制</label>
+                                <div class="col-xs-12 col-sm-9">
+                                    <input type="text" name="city" value="{$settings['city']}" class="form-control" placeholder="杭州市,北京市" >
+                                    <span class="help-block">输入杭州市就杭州地区的能参加,多地区请用 , 逗号隔开</span>
+                                </div>
+                             </div>
+                           </div>
+                        </div>
+                        
+					</div>
+
+                    <div class="tab-pane " id="tab_param2">
+						<!---->
+                        <div class="panel panel-default">
+                           <div class="panel-heading">
+                              关注提醒设置
+                           </div>
+                           <div class="panel-body">
+                              <div class="form-group">
+                                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">自定义粉丝基数</label>
+                                            <div class="col-sm-9 col-xs-12">
+                                                    <input min="0" type="number" class="form-control" placeholder="" name="tiger_toupiao_fansnum" value="{$settings['tiger_toupiao_fansnum']}">
+                                                    <div class="help-block">自定义粉丝基数+现有的微信粉丝数量的总和</div>
+                                            </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">关注提示信息</label>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <textarea style="height:150px;" name="tiger_toupiao_usr" class="form-control" cols="60">{$settings['tiger_toupiao_usr']}</textarea>
+                                        
+                                        <div class="help-block" style="line-height:30px;">
+                                        <b>参数设置：</b>
+                                        <br>粉丝昵称：#昵称#
+                                        <br>粉丝姓别：#性别#
+                                        <br>粉丝积分：#积分#
+                                        <br>粉丝余额：#余额#
+                                        <br>公众号名称：#公众号名称#
+                                        <br>虚拟总粉丝：#假粉丝数# (粉丝基数+微信系统里面的粉丝总数)
+                                        <br>国家：#国家#
+                                        <br>省份：#省#
+                                        <br>市/县：#市#
+                                        <br>链接:<code>&lt;a href="http://www.baidu.com"&gt;点击进入&lt;/a&gt;</code></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">例如：</label>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <textarea style="height:150px;" class="form-control" cols="60">
+#昵称#你好
+你是#国家#-#省#-#市#的粉丝
+你是第#假粉丝数#位关注者
+感谢关注#公众号名称#！
+<a href="http://www.baidu.com">免费兑换礼品</a></textarea>
+                        
+                                    </div>
+                              </div>
+                               
+
+                           </div>
+                        </div>
+                        <!---->
+					</div>
+                    <!--div class="tab-pane" id="tab_param3">
+						
+					</div-->
+                    <div class="tab-pane active" id="tab_param3">
+                        <!--关注提醒设置-->
+                        <div class="panel panel-default">
+                        <div class="panel-body">
+                            <p> <b><small style="color:#ff0000">设置要求：</small></b></p>
+                            <p>1. 请在微擎设置 基础设置->特殊消息回复->图片消息->模块选择 海报投票</p>
+                            <p>2. 如果选择了语音投票类型 请设置(基础设置->特殊消息回复->语音消息->模块选择 海报投票)</p>
+                            <p>3. 如果开启 地区限制，请在公众号后台，开启地理位置功能</p>
+                        </div>
+                        </div>
+                        <div class="panel panel-default">
+                           <div class="panel-heading">
+                              关注提醒投票设置
+                           </div>
+                           <div class="panel-body" style="padding:20px;">
+                             <div class="form-group">
+                                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">投票类型</label>
+                                    <div class="col-xs-12 col-sm-9">
+                                        <label class="radio-inline">
+                                        <input type="radio" name="tptype" value="0" {if $settings['tptype']==0} checked="checked"{/if}>扫码关注直接得一票</label><br>
+                                        <label class="radio-inline"><input type="radio" name="tptype" value="1" {if $settings['tptype']==1} checked="checked"{/if}>扫码关注，点【我要投票】，才能得一票【请在自定义菜单中，设置关键词  “<font style="color:red">我要投票</font>” 才可以使用，其它的关键词请不要重复设置这个关键词】</label><br>
+                                        <label class="radio-inline">
+                                        <input type="radio" name="tptype" value="2" {if $settings['tptype']==2} checked="checked"{/if}>语音投票(基础设置->特殊消息回复->语音消息->选择海报投票)</label><br>
+                                        <input type="text" class="form-control" name="yymsg" value="{$settings['yymsg']}"  placeholder="如：加油">
+                                        <span class="help-block">开启语音投票，投票粉丝需要对公众号喊就一句 上面填写的语音内容，正确了，投票成功</span>
+                                    </div>
+                                </div>
+
+                               <div class="form-group">
+                                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">1票获得积分</label>
+                                    <div class="col-sm-9 col-xs-12">
+                                        <div class="input-group">
+                                        <div class="input-group-addon">获得积分</div>
+                                         <input type="number" min="-1" class="form-control" name="qr_score0" value="{$settings['qr_score0']}">
+                                         <span class="input-group-addon" id="basic-addon2">积分</span>
+                                        </div>
+                                        <div class="help-block">成功获得1票，得到的积分 </div>
+                                    </div>
+                                </div>
+
+                               <div class="form-group">
+                                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">扫码关注投票提醒</label>
+                                    <div class="col-sm-9 col-xs-12">
+                                            <textarea style="height:100px;" name="info0" class="form-control" cols="60">{$settings['info0']}</textarea>
+                                            <div class="help-block">#nick#,恭喜您成为【#snick#】的投票者！\n\n点击菜单【萌宝大赛】--【我要投票】投票才算成功哦！\n\n回复一张宝宝的竖版照片，生成宝宝个人明星海报,即可参与活动！</div>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">投票提醒</label>
+                                    <div class="col-sm-9 col-xs-12">
+                                            <textarea style="height:100px;" name="info1" class="form-control" cols="60">{$settings['info1']}</textarea>
+                                            <div class="help-block">#nick#,恭喜获得一个投票者！\n\n 直接好友：#snick#\n\n 激活时间：#time#\n\n 投票数增加：#tp#\n\n增加积分：#score#</div>
+                                    </div>
+                                </div>  
+                                
+                            </div>
+                        </div>
+                        <!---->
+                        <!--取消关注设置-->
+                        <div class="panel panel-default">
+                           <div class="panel-heading">
+                              取消关注设置
+                           </div>
+                           <div class="panel-body" style="padding:20px;">
+                               <div class="form-group">
+                                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">取消关注提醒</label>
+                                    <div class="col-sm-9 col-xs-12">
+                                            <textarea style="height:100px;" name="qxinfo" class="form-control" cols="60">{$settings['qxinfo']}</textarea>
+                                            <div class="help-block">你的朋友#nick#取消关注了，扣除您#ps#票，扣#score#积分</div>
+                                    </div>
+                                </div>  
+                                
+                            </div>
+                        </div>
+                        <!---->
+                        <!--取消关注设置-->
+                        <div class="panel panel-default">
+                           <div class="panel-heading">
+                              重复扫码提醒
+                           </div>
+                           <div class="panel-body" style="padding:20px;">
+                               <div class="form-group">
+                                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">重复扫码提醒</label>
+                                    <div class="col-sm-9 col-xs-12">
+                                            <textarea style="height:50px;" name="cfinfo" class="form-control" cols="60">{$settings['cfinfo']}</textarea>
+                                            <div class="help-block">#昵称#,你已经是【#gzname#】的投票者了，不用再扫了哦</div>
+                                    </div>
+                                </div>  
+                                
+                            </div>
+                        </div>
+                        <!---->    
+                        
+                    </div>
+             
+                    <div class="tab-pane" id="tab_param4">
+                       <div class="form-group">
+                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">生成海报限制时间：</label>
+                            <div class="col-sm-9 col-xs-12">
+                                    <input min="0" type="text" class="form-control" placeholder="60" name="hbsctime" value="{$settings['hbsctime']}">
+                                    <div class="help-block">几分钟生成1次海报，比如:1分钟只有生成1次海报，就填 60 ，秒为单位</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-12 col-sm-3 col-md-2 control-label">不能生成海报提示：</label>
+                            <div class="col-sm-9 col-xs-12">
+                                    <input min="0" type="text" class="form-control" placeholder="" name="hbcsmsg" value="{$settings['hbcsmsg']}">
+                                    <div class="help-block">如：尊敬的粉丝：\n1分钟之内只能生成1次海报\n请稍后在试，感谢您的参与！</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!---->
+
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+</div>
+<script>
+require(['jquery', 'util'], function($, u){
+	$(function(){
+		u.editor($('.richtext')[0]);
+	});
+});
+$(function () {
+		window.optionchanged = false;
+		$('#myTab a').click(function (e) {
+			e.preventDefault();//阻止a链接的跳转行为
+			$(this).tab('show');//显示当前选中的链接及关联的content
+		})
+	});
+</script>
+{template 'common/footer'}

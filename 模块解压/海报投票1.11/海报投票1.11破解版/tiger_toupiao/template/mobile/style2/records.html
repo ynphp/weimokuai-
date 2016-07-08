@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+<meta charset="utf-8">
+<meta name="keywords" content="VIP中心">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="cleartype" content="on">
+<title>我的{if $cfg['hztype']<>''}{$cfg['hztype']}{else}积分{/if}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+{template $mbstyle.'/css'}
+</head>
+<body>
+
+
+    <div class="container " style="min-height: 1px;">
+        <div class="content">
+           {template $mbstyle.'/head'}
+            
+            
+            <div class="js-list-content content">
+            <div class="js-list block-order-list block block-list" data-type="payment">
+                {loop $records $key $r}
+                        <a class="block-item block-item-small-padding" href="#">
+                            <p class="title-line font-size-14 c-black">
+                                <span id="rpBrand_ctl00_Label2">{php echo cutstr($r['remark'],10)}</span> 
+                                <span id="rpBrand_ctl00_lbFee" class="pull-right c-red">{php echo number_format($r['num'])}</span>
+                            </p>
+                            <p class="font-size-12 c-gray-dark">
+                                <span>{php echo date('Y-m-d H:i',$r['createtime'])}
+
+                                </span>
+                            </p>
+                        </a>
+                 {/loop}
+            </div>
+        </div>
+            
+                <br>
+                {template $mbstyle.'/bottom'}
+                <br>
+        </div>
+    
+
+
+</div>
+<style>
+*{padding:0; margin:0;}
+.bg {
+position: absolute;
+z-index: -1;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+opacity: 0.8;
+}
+ul, ol, li, dl {
+list-style-type: none;
+}
+.box {
+width: 100%;
+display: -webkit-box;
+display: -moz-box;
+-webkit-box-orient: horizontal;
+-moz-box-orient: horizontal;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+}
+.box > * {
+-webkit-box-flex: 1;
+-moz-box-flex: 1;
+}
+a:link, a:visited {
+color: #575757;
+text-decoration: none;
+}
+a {
+text-decoration: none;
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0.35);
+}
+a:link, a:visited {
+color: #575757;
+text-decoration: none;
+}
+a {
+text-decoration: none;
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0.35);
+}
+
+.nav4{
+	height:45px;
+}
+.nav4 ul{
+	position:fixed;
+	z-index:200;
+	bottom:0;
+	left:0;
+	width:100%
+}
+.nav4 li{
+	border:0.7px solid rgba(216, 216, 216,100);;
+	height:45px;
+	border-bottom:0;
+	border-right:0;
+	position:relative;
+	-webkit-box-shadow:inset 0 0 3px #fff;
+	float:left;
+	width:33.26%;
+}
+.nav4 li:nth-of-type(1){border-left;0;}
+.nav4 li>a{
+	font-size:15px;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	/*border:1px solid #f9f8f9;*/
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+	border-bottom:0;
+	display:block;
+	line-height:45px;
+	text-align:center;
+	background:#FAFAFA;
+}
+.nav4 li>a:only-child span{
+	background:none;
+	padding-left:0;
+}
+.nav4 li>a.on + dl{
+	display: block;
+}
+.nav4 li>a span{
+	color: #4f4d4f;
+	display: inline-block;
+	padding-left: 15px;
+	-webkit-background-size: 9px auto;
+	text-shadow:0px 0px 0px #ffffff;
+}
+</style>
+
+<div class="nav4">
+		<div id="nav4_ul" class="nav_4">
+			<ul class="box"  style="padding:0;background:#FAFAFA">
+				<li>
+					<a href="{$cfg['yzurl']}" ><span><img src="{$_W['siteroot']}addons/tiger_dingyue/template/mobile/js/coin.png" width=10> 商城首页</span></a>
+				</li>
+				<li>
+					<a href="{php echo $this->createMobileUrl('tixian');}"><span><img src="{$_W['siteroot']}addons/tiger_dingyue/template/mobile/js/coin.png" width=10> 我的收益</span></a>
+				</li>
+				<li>
+					<a href="{$cfg['tgurl']}"><span><img src="{$_W['siteroot']}addons/tiger_dingyue/template/mobile/js/coin.png" width=10> 推广说明</span></a>
+				</li>
+			
+			</ul>
+		</div>
+</div>
+</body>
+</html>

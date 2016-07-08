@@ -1,0 +1,169 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dialog_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/mymain.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/aSelect.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/aLocation.js"></script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<script>
+    function submit() {
+        var form = $("#form_1")[0];
+        "{if $flag == true}"
+        oldpassword = $.trim(form.oldpassword.value),
+        "{/if}"
+
+        var req = {
+            password: $.trim(form.password.value),
+            rePassword: $.trim(form.rePassword.value)
+        }
+        "{if $flag == true}"
+        req = {
+            password: $.trim(form.password.value),
+            rePassword: $.trim(form.rePassword.value),
+            oldpassword: oldpassword
+        };
+        "{/if}"
+
+
+        "{if $flag == true}"
+        if (req.oldpassword.length < 1) {
+            alert("请输入原密码", 1000);
+            return;
+        }
+        if (req.password == req.oldpassword) {
+            alert("新密码和原密码不能相同!", 1000);
+            return;
+        }
+        "{/if}"
+
+        if (req.password.length < 1) {
+            alert("请输入密码", 1000);
+            return;
+        }
+        if (!/^\d{6}$/g.test(req.password)) {
+            alert("请输入6位数字的支付密码", 1000);
+            return;
+        }
+        if (req.password != req.rePassword) {
+            alert("两次输入的密码不一致", 1000);
+            return;
+        }
+
+//        if (!/^\d{6}$/g.test(req.validCode)) {
+//            alert("请输入正确的验证码", 1000);
+//            return;
+//        }
+
+        loading(true);
+
+        $.ajax({
+            url: "{php echo $this->createMobileUrl('SetPayPassIng')}",
+            type: "post",
+            data: req,
+            dataType: "JSON",
+            success: function (data) {
+                loading(false);
+                if (0 == data.status) {
+                    alert(data.message, 1000);
+                    url = "{php echo $this->createMobileUrl('usercenter')}";
+                    setTimeout("location.href='" + url + "'", 1000);
+                } else {
+                    alert(data.message, 1000);
+                }
+            }
+        });
+    }
+
+    function getVCode(thi, evt) {
+        var req = {
+            telephone: "13623009195",
+            ch_type: 4
+        }
+        thi.setAttribute("disabled", "disabled");
+        $.ajax({
+            url: "",
+            type: "post",
+            data: req,
+            dataType: "JSON",
+            success: function (res) {
+                if (0 == res.errno) {
+                    //thi.setAttribute("disabled", "disabled");
+                    var seconds = 60;//seconds
+                    var ticker = function () {
+                        setTimeout(function () {
+                            seconds--;
+                            if (seconds > 0) {
+                                thi.value = seconds + "秒后可重新获取";
+                                ticker();
+                            } else {
+                                thi.removeAttribute("disabled");
+                                thi.value = "获取验证码";
+                            }
+                        }, 1000);
+                    }
+                    ticker();
+                } else {
+                    thi.removeAttribute("disabled");
+                    thi.value = "获取验证码";
+                    alert(res.error, 1500);
+                }
+            }
+        });
+
+    }
+</script>
+<div class="container pwd_add">
+    <div class="body">
+        <div>
+            <form id="form_1" action="javascript:;" method="post">
+                <table class="table_addr table_pwd">
+                    <tbody>
+                    {if $flag == true}
+                    <tr>
+                        <td>原密码</td>
+                        <td colspan="2"><input name="oldpassword" type="password" maxlength="6"></td>
+                    </tr>
+                    {/if}
+                    <tr>
+                        <td>输入密码</td>
+                        <td colspan="2"><input name="password" type="password" maxlength="6"></td>
+                    </tr>
+                    <tr>
+                        <td>确认密码</td>
+                        <td colspan="2"><input name="rePassword" type="password" maxlength="15"></td>
+                    </tr>
+                    <!--<tr>-->
+                        <!--<td>验证码</td>-->
+                        <!--<td><input name="vCode" type="number" maxlength="6"></td>-->
+                        <!--<td style="padding:5px;"><input type="button" value="获取验证码" class="button"-->
+                                                        <!--onclick="getVCode(this, event);"></td>-->
+                    <!--</tr>-->
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <nav class="nav_add_addr">
+            <ul class="tbox">
+                <li>
+                    <a href="{php echo $this->createMobileUrl('usercenter')}"
+                       class="icons icons_before">&nbsp;</a>
+                </li>
+                <li class="align_right">
+                    <a href="javascript:submit();" class="btn">保&nbsp;&nbsp;存</a>
+                </li>
+            </ul>
+        </nav>
+    </footer>
+</div>
+</body>
+</html>

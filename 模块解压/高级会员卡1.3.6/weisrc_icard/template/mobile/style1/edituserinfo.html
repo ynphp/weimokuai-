@@ -1,0 +1,501 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dialog_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/mymain.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dater_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/aSelect.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/aLocation.js"></script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<script>
+$().ready(function () {
+    new dater({
+        selectYear: document.getElementById("selectYear"),
+        selectMonth: document.getElementById("selectMonth"),
+        selectDate: document.getElementById("selectDate"),
+        minDat: new Date("1940/1/1"),
+        maxDat: new Date(),
+        curDat: new Date("{$curDat}")
+    }).init();
+});
+
+function bd() {
+    var d = new iDialog();
+    d.open({
+        classList: "valid_phone bd",
+        title: "",
+        close: "",
+        content: '<ul class="list_ul_card">\
+				<form action="javascript:;" method="post">\
+					<li data-card>\
+						<table>\
+							<tr class="input wrapInput">\
+								<td>\
+									<label class="pre" style="color:#333333;"> 实体卡手机号：</label> \
+								</td>\
+								<td style="width:100%;">\
+									<input type="tel" placeholder="请输入手机号码" maxlength="15" class="input" />\
+								</td>\
+							</tr>\
+							<tr class="input wrapInput">\
+								<td style="width:100%;">\
+									<input type="text" placeholder="验证码：" maxlength="10" class="input" />\
+								</td>\
+								<td>\
+									<a href="javascript:;" class="button pre"> 获取验证码 </a>\
+								</td>\
+							</tr>\
+						</table>\
+					</li>\
+				</form>\
+			</ul>',
+        btns: [
+            {id: "", name: "确定", onclick: "fn.call();", fn: function (self) {
+                alert("queding");
+            }},
+            {id: "", name: "取消", onclick: "fn.call();", fn: function (self) {
+                self.die();
+            }}
+        ]
+    });
+}
+
+function bd1() {
+    var d = new iDialog();
+    d.open({
+        classList: "valid_phone pay",
+        title: "",
+        close: "",
+        content: '<ul class="list_ul_card">\
+				<form id="form2" action="javascript:;" method="post">\
+					<li data-card>\
+						<table>\
+							<tr class="input wrapInput">\
+								<td style="width:70%;"><input type="number" name="code" placeholder="验证码：" maxlength="30" class="input"></td>\
+								<td>\
+									<input type="button" onclick="getReceiveMemberCardVCode(this,event,\'form1\',\'telephone\');" class="button vcode" value="获取验证码" />\
+								</td>\
+							</tr>\
+						</table>\
+					</li>\
+				</form>\
+			</ul>',
+        btns: [
+            {id: "", name: "确定", onclick: "fn.call();", fn: function (self) {
+                var form2 = document.getElementById("form2");
+                var obj = {
+                    code: form2.code.value
+                }
+                if (obj.code.length < 1) {
+                    alert("请输入验证码", 1500);
+                    return;
+                }
+                loading(true);
+                //debug
+                return false;
+                $.ajax({
+                    url: "",
+                    type: "POST",
+                    data: {'telephone': $("#telephone").val(), 'pid': '18692', 'wechatid': 'o-pbztxV0ItE_Awu6hrxkISF91eA', 'validCode': obj.code},
+                    dataType: "JSON",
+                    success: function (res) {
+                        if (res.errno == 0) {
+                            alert("绑定手机号码成功", 1500);
+                            redirect('', 1500);
+                        } else {
+                            alert(res.error, 1500);
+                        }
+                    }
+                });
+            }},
+            {id: "", name: "取消", onclick: "fn.call();", fn: function (self) {
+                self.die();
+            }}
+        ]
+    });
+}
+
+function bd2() {
+    var d = new iDialog();
+    d.open({
+        classList: "valid_phone pay",
+        title: "",
+        close: "",
+        content: '<ul class="list_ul_card">\
+				<form id="form3" action="javascript:;" method="post">\
+					<li data-card>\
+						<table>\
+							<tr class="input wrapInput">\
+								<td style="width:70%;"><input type="telephone" placeholder="发送至原手机号" maxlength="30" name="old_telephone_code" class="input"></td>\
+								<td>\
+									<input type="button" class="button vcode" onclick="sendToOldPhone(this,event,\'form1\',\'telephone\');" value="获取验证码" />\
+								</td>\
+							</tr>\
+							<tr class="input wrapInput">\
+								<td>\
+									<label class="pre ml_5" style="color:#333333;"> 新手机号码：</label> \
+								</td>\
+								<td style="width:100%;">\
+									<input type="tel" name="new_telephone" placeholder="请输入手机号码" maxlength="15" class="input" />\
+								</td>\
+							</tr>\
+							<tr class="input wrapInput">\
+								<td style="width:70%;"><input type="number" placeholder="发送至新手机号" name="new_telephone_code" maxlength="30" class="input"></td>\
+								<td>\
+									<input type="button" class="button vcode" onclick="sendToNewPhone(this,event,\'form3\',\'new_telephone\');" value="获取验证码" />\
+								</td>\
+							</tr>\
+						</table>\
+					</li>\
+				</form>\
+			</ul>',
+        btns: [
+            {id: "", name: "确定", onclick: "fn.call();", fn: function (self) {
+                var form3 = document.getElementById("form3");
+                loading(true);
+                //debug
+                return false;
+                $.ajax({
+                    url: "",
+                    type: "post",
+                    data: {
+                        'old_telephone': '13623009194',
+                        'old_telephone_code': form3.old_telephone_code.value,
+                        'new_telephone': form3.new_telephone.value,
+                        'new_telephone_code': form3.new_telephone_code.value,
+                        'pid': '18692',
+                        'wechatid': 'o-pbztxV0ItE_Awu6hrxkISF91eA'
+                    },
+                    dataType: "JSON",
+                    success: function (res) {
+                        loading(false);
+                        if (0 == res.errno) {
+                            alert("更新手机号码绑定成功。", 1500);
+                            redirect('', 1500);
+                        } else {
+                            self.die();
+                            alert(res.error, 1500);
+                        }
+                    }
+                });
+            }},
+            {id: "", name: "取消", onclick: "fn.call();", fn: function (self) {
+                self.die();
+            }}
+        ]
+    });
+}
+
+function submit1() {
+    var form = document.getElementById("form1");
+    var obj = {
+        username: form.username.value,
+        gender: form.gender.value,
+        telephone: form.telephone.value,
+        birthday: [form.birth_year.value, form.birth_month.value, form.birth_date.value].join("/"),
+        address: form.address.value
+    }
+    if (obj.username.length <= 0) {
+        alert("请输入姓名", 1500);
+        return;
+    }
+
+    loading(true);
+    $.ajax({
+        url: "{php echo $this->createMobileUrl('UpdateUserinfo')}",
+        type: "POST",
+        data: $("#form1").serialize(),
+        dataType: "json",
+        success: function (data) {
+            loading(false);
+            if (data.status == 0) {
+                alert(data.message, 1500);
+                url = "{php echo $this->createMobileUrl('usercenter')}";
+                setTimeout("location.href='" + url + "'", 1000);
+            } else {
+                alert(data.message, 1500);
+            }
+        }
+    });
+}
+$(function () {
+    var sel = aSelect({data: aLocation});
+    sel.bind('#selectProvince', '');
+    sel.bind('#selectCity', '');
+    sel.bind('#selectArea', '');
+})
+</script>
+<div class="container info_tx">
+    <div class="body pt_10">
+        <ul class="list_ul_card">
+            <form id="form1" action="javascript:;" method="post">
+                <input type="hidden" name="member_id" value="2074823">
+                <input type="hidden" name="pid" value="">
+                <li data-card="">
+                    <header class="center">
+                        <label style="display:inline-block;"><span>&nbsp;</span>完善会员卡资料</label>
+                    </header>
+                    <div class="forms">
+                        <dl>
+                            <dt>姓 名：</dt>
+                            <dd>
+                                <input type="text" name="username" id="username" value="{$user['realname']}" placeholder="请输入姓名" maxlength="30" class="input">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>手 机：</dt>
+                            <dd><input type="tel" name="telephone" value="{$user['mobile']}"
+                                       placeholder="请输入手机号码" maxlength="30" class="input"></dd>
+                        </dl>
+
+                        <!-- 系统字段性别可修改-->
+                        <dl>
+                            <dt>性 别：</dt>
+                            <dd>
+                                <select name="gender" id="gender" class="select" style="width:100%;">
+                                    <option value="1" {if $user['gender'] == 1}selected{/if}>男</option>
+                                    <option value="0" {if $user['gender'] == 0}selected{/if}>女</option>
+                                </select>
+                            </dd>
+                        </dl>
+                        <!-- 系统字段性别是否可修改-->
+                        <dl>
+                            <dt>生 日：</dt>
+                            <dd>
+                                <div class="box select_box">
+                                    <div>
+                                        <!--disabled="disabled"-->
+                                        <select name="birth_year"  class="select" id="selectYear" value="{$user['birthyear']}"><!--auth Eric_wu-->
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <select name="birth_month" class="select" id="selectMonth"
+                                                value="{$user['birthmonth']}"><!--auth Eric_wu-->
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <select name="birth_date" class="select" id="selectDate"
+                                                value="{$user['birthday']}"><!--auth Eric_wu-->
+                                        </select>
+                                    </div>
+                                </div>
+                            </dd>
+                        </dl>
+                        <!-- 系统字段性别可修改-->
+                        <!--<dl>-->
+                            <!--<dt>地区:</dt>-->
+                            <!--<dd>-->
+                                <!--<div class="box select_box">-->
+                                    <!--<div>-->
+                                        <!--<select name="addr_prov" class="select" id="selectProvince" selectedindex="0"-->
+                                                <!--style="width: 190px;">-->
+                                            <!--<option value="">请选择</option>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                    <!--<div>-->
+                                        <!--<select name="addr_city" class="select" id="selectCity">-->
+                                            <!--<option value="">请选择</option>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                    <!--<div>-->
+                                        <!--<select name="addr_area" class="select" id="selectArea">-->
+                                            <!--<option value="">请选择</option>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</dd>-->
+                        <!--</dl>-->
+                        {if !empty($userinfo) && $userinfo['iscarnumber']}
+                        <dl>
+                            <dt>车   牌:</dt>
+                            <dd><input type="text" name="carnumber" id="Js-carnumber" value="{$card['carnumber']}" placeholder="请输入车牌" maxlength="100" class="input" {if !empty($card['carnumber'])}disabled{/if}></dd>
+                        </dl>
+                        {/if}
+                        {if !empty($userinfo) && $userinfo['isemail']}
+                        <dl>
+                            <dt>邮   箱：</dt>
+                            <dd><input type="text" name="email" placeholder="请输入邮箱" maxlength="30" class="input" value="{$user['email']}"></dd>
+                        </dl>
+                        {/if}
+                        {if !empty($userinfo) && $userinfo['isqq']}
+                        <dl>
+                            <dt>Q Q：</dt>
+                            <dd><input type="text" name="qq" placeholder="请输入QQ号码" maxlength="30" class="input" value="{$user['qq']}"></dd>
+                        </dl>
+                        {/if}
+                        {if !empty($userinfo) && $userinfo['iscompany']}
+                        <dl>
+                            <dt>公   司：</dt>
+                            <dd><input type="text" name="company" placeholder="请输入公司名称" maxlength="30" class="input" value="{$user['company']}"></dd>
+                        </dl>
+                        {/if}
+                        {if !empty($userinfo) && $userinfo['isoccupation']}
+                        <dl>
+                            <dt>职   业：</dt>
+                            <dd><input type="text" name="occupation" placeholder="请输入您的职业" maxlength="30" class="input" value="{$user['occupation']}"></dd>
+                        </dl>
+                        {/if}
+                        {if !empty($userinfo) && $userinfo['isposition']}
+                        <dl>
+                            <dt>职   位：</dt>
+                            <dd><input type="text" name="position" placeholder="请输入您的职位" maxlength="30" class="input" value="{$user['position']}"></dd>
+                        </dl>
+                        {/if}
+                        <dl>
+                            <dt>详细地址:</dt>
+                            <dd><input type="text" name="address" id="Js-address" value="{$user['address']}" placeholder="请输入详细地址" maxlength="100" class="input"></dd>
+                        </dl>
+                        <!-- 自定义字段必填项输入框start-->
+                        <!-- 自定义字段必填项输入框end-->
+                        <!-- 自定义字段必填项下拉框start-->
+                        <!-- 自定义字段必填项下拉框end-->
+                    </div>
+                </li>
+                <div class="pt_10 pb_10">
+                    <a href="javascript:submit1();" class="button">提&nbsp;&nbsp;&nbsp;交</a>
+                </div>
+                <!--<div class="pt_10 pb_10">
+                    <a href="javascript:bd();" class="link">绑定已有实体卡</a>
+                </div>-->
+            </form>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    var intervalId, buttonObj, intervalId2, buttonObj2;
+    //发送下一条短信需要间隔的秒数
+    var seconds = 60;
+    var seconds2 = 60;
+    function getReceiveMemberCardVCode(clickObj, evt, formId, teleName) {
+        var pid = 18692;
+        var form = document.getElementById(formId);
+        var req = {
+            telephone: $.trim(form[teleName].value),
+            pid: pid,
+            ch_type: 2
+        }
+        if (!req.telephone) {
+            alert("请输入手机号", 1000);
+            return;
+        }
+        clickObj.setAttribute("disabled", "disabled");
+        clickObj.value = "正在发送，请稍候...";
+        $.ajax({
+            url: "",
+            type: "post",
+            data: req,
+            dataType: "JSON",
+            success: function (res) {
+                if (0 == res.errno) {
+                    clickObj.value = '验证码发送成功';
+                    buttonObj = clickObj;
+                    intervalId = setInterval("ticker()", 1000);
+                } else {
+                    alert(res.error, 1500);
+                    clickObj.value = '获取验证码';
+                    clickObj.removeAttribute("disabled");
+                }
+            }
+        });
+    }
+
+    function sendToOldPhone(clickObj, evt) {
+        var pid = 18692;
+        var req = {
+            telephone: '13623009194',
+            pid: pid,
+            ch_type: 3
+        }
+        clickObj.setAttribute("disabled", "disabled");
+        clickObj.value = "正在发送，请稍候...";
+        $.ajax({
+            url: "",
+            type: "post",
+            data: req,
+            dataType: "JSON",
+            success: function (res) {
+                if (0 == res.errno) {
+                    clickObj.value = '验证码发送成功';
+                    buttonObj = clickObj;
+                    intervalId = setInterval("ticker()", 1000);
+                } else {
+                    alert(res.error, 1500);
+                    clickObj.value = '获取验证码';
+                    clickObj.removeAttribute("disabled");
+                }
+            }
+        });
+    }
+
+    function sendToNewPhone(clickObj, evt, formId, teleName) {
+        var pid = 18692;
+        var form = document.getElementById(formId);
+        var req = {
+            telephone: $.trim(form[teleName].value),
+            pid: pid,
+            ch_type: 1
+        }
+        if (!req.telephone) {
+            alert("请输入手机号", 1000);
+            return;
+        }
+        clickObj.setAttribute("disabled", "disabled");
+        clickObj.value = "正在发送，请稍候...";
+        $.ajax({
+            url: "",
+            type: "post",
+            data: req,
+            dataType: "JSON",
+            success: function (res) {
+                if (0 == res.errno) {
+                    clickObj.value = '验证码发送成功';
+                    buttonObj2 = clickObj;
+                    intervalId2 = setInterval("ticker2()", 1000);
+                } else {
+                    alert(res.error, 1500);
+                    clickObj.value = '获取验证码';
+                    clickObj.removeAttribute("disabled");
+                }
+            }
+        });
+    }
+
+    function ticker() {
+        seconds--;
+        if (seconds > 55) {
+            //提示消息显示5秒钟
+        } else if (seconds > 0) {
+            buttonObj.value = seconds + "秒后可重新获取";
+        } else {
+            clearInterval(intervalId);
+            buttonObj.removeAttribute("disabled");
+            buttonObj.value = "获取验证码";
+            seconds = 60;
+            buttonObj = null;
+        }
+    }
+
+    function ticker2() {
+        seconds2--;
+        if (seconds2 > 55) {
+            //提示消息显示5秒钟
+        } else if (seconds2 > 0) {
+            buttonObj2.value = seconds2 + "秒后可重新获取";
+        } else {
+            clearInterval(intervalId2);
+            buttonObj2.removeAttribute("disabled");
+            buttonObj2.value = "获取验证码";
+            seconds = 60;
+            buttonObj2 = null;
+        }
+    }
+</script>
+</body>
+</html>
