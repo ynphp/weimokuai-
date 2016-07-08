@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[留声墙]]></name>
+		<identifie><![CDATA[on3_voxpic]]></identifie>
+		<version><![CDATA[0.1]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[留声墙]]></ability>
+		<description><![CDATA[留声墙]]></description>
+		<author><![CDATA[柒|柒|源|码]]></author>
+		<url><![CDATA[http://H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="录音机" do="set" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="管理菜单" do="Indexsys" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+	CREATE TABLE IF NOT EXISTS `ims_vp_items` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `openid` varchar(50) NOT NULL,
+  `img` varchar(500) NOT NULL,
+  `summary` varchar(100) NOT NULL DEFAULT '',
+  `voice` varchar(500) NOT NULL DEFAULT '',
+  `amr` varchar(500) NOT NULL DEFAULT '',
+  `like` int(10) unsigned NOT NULL DEFAULT '0',
+  `createtime` varchar(100) NOT NULL,
+  `ischeck` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_vp_reply`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_vp_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `rid` int(10) unsigned NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `welcome` varchar(200) NOT NULL,
+  `txt_note` varchar(200) NOT NULL,
+  `voc_note` varchar(200) NOT NULL,
+  `url` varchar(200) DEFAULT '',
+  `quit` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_vp_tab`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_vp_tab` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `openid` varchar(50) NOT NULL,
+  `tabid` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+	]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

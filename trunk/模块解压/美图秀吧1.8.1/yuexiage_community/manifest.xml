@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[美图秀吧]]></name>
+		<identifie><![CDATA[yuexiage_community]]></identifie>
+		<version><![CDATA[1.8.1]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[用户可以分享图片，创建简单图文内容，其他用户可以点赞及分享和评论]]></ability>
+		<description><![CDATA[用户可以分享图片，创建简单图文内容，其他用户可以点赞及分享和评论]]></description>
+         <author><![CDATA[一品网]]></author>
+		<url><![CDATA[http://www.ylweixin.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="社区入口" do="community" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="内容管理" do="contents" state="" direct="false" />
+			<entry title="评论管理" do="comments" state="" direct="false" />
+			<entry title="幻灯片管理" do="slides" state="" direct="false" />
+			<entry title="标签管理" do="tabs" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="社区" do="community" state="" direct="false" />
+		</home>
+		<profile>
+			<entry title="我的分享" do="myshare" state="" direct="false" />
+			<entry title="我的评论" do="mycomments" state="" direct="false" />
+		</profile>
+	</bindings>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

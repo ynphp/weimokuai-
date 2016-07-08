@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[美丽景区]]></name>
+		<identifie><![CDATA[bm_attraction]]></identifie>
+		<version><![CDATA[1.2]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[美丽景区]]></ability>
+		<description><![CDATA[景区视频与图文介绍、自助语音导游、地图展示等。柒柒源码h770.com]]></description>
+		<author><![CDATA[美丽心情]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<menu>
+	        <entry title='景点管理' do='classify' />
+			<entry title='其他重要景点' do='other' />			
+			<entry title="幻灯片管理" do="slide" />				
+		</menu>
+	</bindings>
+	<install><![CDATA[
+		CREATE TABLE IF NOT EXISTS `ims_bm_attraction_slide` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `weid` int(11) DEFAULT NULL,
+		  `hs_pic` text COMMENT '幻灯图片',
+		  `createtime` int(11) DEFAULT NULL,
+		  PRIMARY KEY (`id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=utf8;	
+		CREATE TABLE IF NOT EXISTS `ims_bm_attraction_reply` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `rid` int(10) unsigned NOT NULL DEFAULT '0',
+		  `weid` int(11) NOT NULL,
+		  `title` varchar(30) NOT NULL,
+		  `picurl` varchar(500) NOT NULL,
+		  `info` varchar(500) NOT NULL,
+		  `department` varchar(100) NOT NULL,
+		  `gonglueurl` varchar(200) NOT NULL,
+		  `gonglue` varchar(1000) NOT NULL,
+		  `imageurl` varchar(200) NOT NULL,
+		  `imageinfo` varchar(1000) NOT NULL,
+		  `map` varchar(100) NOT NULL,
+		  `mapdesc` varchar(100) NOT NULL,
+		  `detail` varchar(10000) NOT NULL,		  
+		  `startdesc` varchar(100) NOT NULL,
+		  `startrecord` varchar(200) NOT NULL,
+		  `startinfo` varchar(1000) NOT NULL,	
+		  `lng` decimal(10,2) DEFAULT '0.00',
+		  `lat` decimal(10,2) DEFAULT '0.00',		  
+		  PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+		CREATE TABLE IF NOT EXISTS `ims_bm_attraction_classify` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `weid` int(11) NOT NULL,
+		  `sort` int(11) NOT NULL,
+		  `spottitle` varchar(30) NOT NULL,
+		  `department_id` int(11) NOT NULL,
+		  `spotdesc` varchar(100) NOT NULL,
+		  `spotpic` varchar(200) NOT NULL,
+		  `spotinfo` varchar(500) NOT NULL,
+		  `spotrecord` varchar(200) NOT NULL,
+		  `spotcolor` varchar(100) NOT NULL,
+		  `spottime` varchar(100) NOT NULL,
+		  `spotdistance` varchar(10) NOT NULL,
+		  `spoturl` varchar(100) NOT NULL,
+		  `spotsmallpic` varchar(200) NOT NULL,
+		  PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+		CREATE TABLE IF NOT EXISTS `ims_bm_attraction_other` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `weid` int(11) NOT NULL,
+		  `sort` int(11) NOT NULL,
+		  `spottitle` varchar(30) NOT NULL,
+		  `department_id` int(11) NOT NULL,
+		  `spotdesc` varchar(100) NOT NULL,
+		  `spotpic` varchar(200) NOT NULL,
+		  `spotinfo` varchar(500) NOT NULL,
+		  `spotrecord` varchar(200) NOT NULL,
+		  `spotcolor` varchar(100) NOT NULL,
+		  `spottime` varchar(100) NOT NULL,
+		  `spotdistance` varchar(10) NOT NULL,	
+		  `spoturl` varchar(100) NOT NULL,
+		  `spotsmallpic` varchar(200) NOT NULL,		  
+		  PRIMARY KEY (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;			
+	]]></install>
+	<uninstall><![CDATA[
+DROP TABLE IF EXISTS `ims_bm_attraction_slide`;
+DROP TABLE IF EXISTS `ims_bm_attraction_reply`;
+DROP TABLE IF EXISTS `ims_bm_attraction_classify`;	
+DROP TABLE IF EXISTS `ims_bm_attraction_other`;	
+	]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

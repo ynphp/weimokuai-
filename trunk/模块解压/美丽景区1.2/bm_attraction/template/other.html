@@ -1,0 +1,145 @@
+{template 'common/header'}
+<script language='javascript' src='../addons/bm_attraction/template/js/tooltipbox.js'></script>
+<style type='text/css'>
+.red { float:left;color:red}
+.white {float:left;color:white}
+.tooltipbox {
+	background:#fef8dd;border:1px solid #c40808; position:absolute; left:0;top:0; text-align:center;height:20px;
+	color:#c40808;padding:2px 5px 1px 5px; border-radius:3px;z-index:1000;
+}
+</style>
+<ul class="nav nav-tabs">
+  <li {if $op == 'display'}class="active"{/if}>
+    <a href="{php echo $this->createWebUrl('other', array('op' => 'display'))}">景点管理</a>
+  </li>
+  <li {if $op == 'post'}class="active"{/if}>
+    <a href="{php echo $this->createWebUrl('other', array('op' => 'post'))}">新增景点</a>
+  </li>
+</ul>
+{if $op == 'post'}
+<form action="" class="form-horizontal form" method="post" enctype="multipart/form-data" onsubmit="return formcheck()">
+	<input type="hidden" name="id" value="{$item['id']}">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			景区设置
+		</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
+				<div class="col-sm-9 col-xs-12">
+					<input type="text" id="sort" name="sort"  class="form-control" value="{$item['sort']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">景点名称</label>
+				<div class="col-sm-9 col-xs-12">
+					<input type="text" name="spottitle" id="spottitle"  class="form-control" value="{$item['spottitle']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">所属景区</label>
+				<div class="col-sm-9 col-xs-12">
+					<select class='form-control' id='department_id' name='department_id'>
+						<option value='-1'>请选择</option>
+						{loop $departments $dep}
+						<option value='{$dep['id']}' {if $item['department_id'] == $dep['id']}selected{/if}>{$dep['department']}</option>
+						{/loop}
+					</select>				
+				</div>
+			</div>			
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">景点简介</label>
+				<div class="col-sm-9 col-xs-12">
+					<input type="text" name="spotdesc" id="spotdesc"  class="form-control" value="{$item['spotdesc']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">景点缩略图</label>
+				<div class="col-sm-9 col-xs-12">
+					{php echo tpl_form_field_image('spotsmallpic',$item['spotsmallpic'])}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">景点图片</label>
+				<div class="col-sm-9 col-xs-12">
+					{php echo tpl_form_field_image('spotpic',$item['spotpic'])}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>景点介绍</label>
+				<div class="col-sm-9 col-xs-12">
+					<textarea style="height:200px; width:100%;" id='spotinfo' class="form-control span7 richtext" name="spotinfo" cols="70">{$item['spotinfo']}</textarea>
+				</div>
+			</div>					
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">景点语音介绍URL</label>
+				<div class="col-sm-9 col-xs-12">
+					<input type="text" name="spotrecord" id="spotrecord"  class="form-control" value="{$item['spotrecord']}">
+				</div>
+			</div>	
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">景点背景色</label>
+				<div class="col-sm-9 col-xs-12">
+					{php echo tpl_form_field_color('spotcolor',$item['spotcolor'])}
+					<!--lt<input type="text" id="cp2" name="spotcolor"  class="form-control" value="{$item['spotcolor']}">-->
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">浏览时间</label>
+				<div class="col-sm-9 col-xs-12">
+					<input type="text" id="spottime" name="spottime"  class="form-control" value="{$item['spottime']}">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">景点长度</label>
+				<div class="col-sm-9 col-xs-12">
+					<textarea style="height:100px;" id="spotdistance" name="spotdistance" class="form-control" cols="60">{$item['spotdistance']}</textarea>
+					<div class="help-block">美丽景区</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="form-group col-sm-12">
+		<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+		<input type="hidden" name="token" value="{$_W['token']}" />
+	</div>
+</form>
+
+<script type="text/javascript">
+    require(['jquery', 'util'], function($, u){
+		$(function(){
+            u.editor($('#spotinfo')[0]);
+		});
+    });   
+</script>
+{elseif $op == 'display'}
+<div style="padding:15px;">
+  <table class="table table-hover">
+    <thead class="navbar-inner">
+      <tr>
+        <th>序号</th>
+        <th>显示顺序</th>
+        <th>景点名称</th>
+        <th>所属景区</th>
+        <th>操作</th>
+  </tr>
+</thead>
+{loop $list $item}
+<tr>
+  <td>{$item['id']}</td>
+  <td>{$item['sort']}</td>
+  <td>{$item['spottitle']}</td>
+  <td>{$item['department']}</td>
+  <td>
+    <a href="{php echo $this->createWebUrl('other',array('id' => $item['id'] ,'op' => 'post'))}">编辑
+    </a>
+    <a href="{php echo $this->createWebUrl('other',array('id' => $item['id'],'op' => 'delete'))}">删除
+    </a>
+  </td>
+</tr>
+{/loop}
+</table>
+</div>
+{/if}
+
+{template 'common/footer'}

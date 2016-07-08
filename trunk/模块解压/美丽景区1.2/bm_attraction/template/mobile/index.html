@@ -1,0 +1,203 @@
+{template 'header'}
+<style>
+#footer {
+padding: 0;
+width: 100%;
+height: 40px;
+line-height: 40px;
+text-align: center;
+color: #666;
+position: absolute;
+bottom: auto;
+}
+</style>
+<link href="../addons/bm_attraction/template/mobile/css/user.css" rel="stylesheet"/>
+<script src="../addons/bm_attraction/template/mobile/js/TouchSlide.1.1.js"></script>
+<link href="../addons/bm_attraction/template/mobile/css/index.css" media="all" rel="stylesheet" type="text/css">
+			<div id="focus" class="focus">
+				<div class="hd" style="display:none;">
+					<ul></ul>
+				</div>
+				<div class="bd">
+					<ul>							
+						{loop $slides $s}
+							<li><a href="{$s['url']}"><img width="100%" height="225px" data-pinit="registered" src="{$_W['attachurl']}{$s['hs_pic']}" /></a></li>
+						{/loop}
+					</ul>
+				</div>
+			</div>
+<script>
+$(function() {
+	new Swipe($('#banner_box')[0], {
+		speed:500,
+		auto:3000,
+		callback: function(){
+			var lis = $(this.element).next("ol").children();
+			lis.removeClass("on").eq(this.index).addClass("on");
+		}
+	});
+});
+</script>
+<div class="wrap" id="home">
+	<ul class="menu clearfix">
+		<li>
+			<a href="{php echo $this->createMobileUrl('gonglue',array('id' => $id))}"><img src="../addons/bm_attraction/template/img/gonglue.png"></a>
+		</li>
+		<li>
+			<a href="{php echo $this->createMobileUrl('imageinfo',array('id' => $id))}"><img src="../addons/bm_attraction/template/img/image.png"></a>
+		</li>
+		<li>
+			<a href="{php echo $this->createMobileUrl('mapinfo',array('id' => $id))}"><img src="../addons/bm_attraction/template/img/map.png"></a>
+		</li>
+		<li>
+			<a href="{php echo $this->createMobileUrl('detail',array('id' => $id))}"><img src="../addons/bm_attraction/template/img/info.png"></a>
+		</li>
+	</ul>
+	<ul class="ad clearfix">
+	</ul>
+      <section class="audio-guide">
+        <header class="common-header">
+          <img src="../addons/bm_attraction/template/img/audio-1.png">
+          <h4>景点语音导游</h4>
+        </header>
+        <div class="guide-start">
+          <section class="common-ul for-guide-start">
+            <ul class="ul-out">
+              <li class="ul-out-li">
+                <img src="../addons/bm_attraction/template/img/guide-start-icon.png" class="step-icon" style="width: 40px; left: 4.5px;">
+                <img src="../addons/bm_attraction/template/img/step-left.png" class="step-left" style="background-color: #ff7a86;">
+                <a href="{php echo $this->createMobileUrl('start',array('id' => $id))}" class="step-detail">
+                  <hr class="hr-guide-start">
+                  <img src="../addons/bm_attraction/template/img/step-down.png" class="step-down">
+                  <h4 class="word-break">导游开场</h4>
+                  <div class="clip-two-line">
+                    <p>金牌导游，带您畅游{$title}！</p>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </section>
+          <section class="common-ul">
+            <ul class="ul-out">
+				{php $i=1;}
+				{loop $classify $vo}
+				{if ($i<$sum)}
+                <li class="ul-out-li">
+                  <img src="../addons/bm_attraction/template/img/step-icon.png" class="step-icon" style="background-color: {$vo['spotcolor']}">
+                  <span class="step-n">{$i}</span>
+                    <hr class="line-top" color="{$vo['spotcolor']}">
+                    <span class="step-height step-height-2">{$vo['spotdistance']}</span>
+                    <img src="../addons/bm_attraction/template/img/step-left.png" class="step-left" style="background-color: {$vo['spotcolor']}">
+                    <a href="{php echo $this->createMobileUrl('spotdetail',array('id' => $vo['id']))}" class="step-detail" style="border: 1px solid {$vo['spotcolor']};">
+                      <h4 class="word-break">{$vo['spottitle']}</h4>
+                      <div class="clip-two-line">
+                        <p class="step-introduce">{$vo['spotdesc']}</p>
+                      </div>
+                        <img src="{$_W['attachurl']}{$vo['spotsmallpic']}" class="step-img">
+                      <span class="see-time">{$vo['spottime']}</span>
+                    </a>
+                  <ul class="ul-audio">
+                        <li class="ul-audio-li">
+                          <a href="{php echo $this->createMobileUrl('spotrecordplay',array('id' => $vo['id']))}">
+                            <img src="../addons/bm_attraction/template/img/audio.png" class="audio-2" style="background-color: {$vo['spotcolor']}">
+                            <h4 class="word-break">{$vo['spottitle']}自助语音导游</h4>
+                          </a>
+                        </li>
+						<li class="ul-audio-li"></li>
+                  </ul>
+                </li>
+				{else}
+				<li class="ul-out-li">
+                  <img src="../addons/bm_attraction/template/img/step-icon.png" class="step-icon" style="background-color: {$vo['spotcolor']}">
+                  <span class="step-n">{$i}</span>
+                    <span class="step-height step-height-2"></span>
+                    <img src="../addons/bm_attraction/template/img/step-left.png" class="step-left" style="background-color: {$vo['spotcolor']}">
+                    <a href="{php echo $this->createMobileUrl('spotdetail',array('id' => $vo['id']))}" class="step-detail" style="border: 1px solid {$vo['spotcolor']};">
+                      <h4 class="word-break">{$vo['spottitle']}</h4>
+                      <div class="clip-two-line">
+                        <p class="step-introduce">{$vo['spotdesc']}</p>
+                      </div>
+                        <img src="{$_W['attachurl']}{$vo['spotsmallpic']}" class="step-img">
+                      <span class="see-time">{$vo['spottime']}</span>
+                    </a>
+                  <ul class="ul-audio">
+                        <li class="ul-audio-li">
+                          <a href="{php echo $this->createMobileUrl('spotrecordplay',array('id' => $vo['id']))}">
+                            <img src="../addons/bm_attraction/template/img/audio.png" class="audio-2" style="background-color: {$vo['spotcolor']}">
+                            <h4 class="word-break">{$vo['spottitle']}自助语音导游</h4>
+                          </a>
+                        </li>
+                        <li class="ul-audio-li"></li>
+				  </ul>
+                </li> 				
+				{/if}
+				{php $i=$i+1;}
+				{/loop}
+            </ul>
+          </section>
+        </div>
+      </section>
+
+	<section class="common-ul">
+	<ul class="ul-out">
+		<header class="common-header">
+		  <h4>其它重要景点</h4>
+		</header>
+		{loop $other $vo}
+		  <li class="ul-out-li">
+			<img src="../addons/bm_attraction/template/img/step-icon.png" class="step-icon" style="background-color: {$vo['spotcolor']};">
+			<span class="step-n">{$i}</span>
+			  <img src="../addons/bm_attraction/template/img/step-left.png" class="step-left" style="background-color: {$vo['spotcolor']};">
+			  <a href="{php echo $this->createMobileUrl('othersdetail',array('id' => $vo['id']))}" class="step-detail" style="border: 1px solid {$vo['spotcolor']};">
+				<h4 class="word-break">{$vo['spottitle']}</h4>
+				<div class="clip-two-line">
+				  <p class="step-introduce">{$vo['spotdesc']}</p>
+				</div>
+				  <img src="{$_W['attachurl']}{$vo['spotsmallpic']}" class="step-img">
+				<span class="see-time">{$vo['spottime']}</span>
+			  </a>
+			<ul class="ul-audio">
+				  <li class="ul-audio-li">
+					<a href="{php echo $this->createMobileUrl('otherrecordplay',array('id' => $vo['id']))}">
+					  <img src="../addons/bm_attraction/template/img/audio.png" class="audio-2" style="background-color: {$vo['spotcolor']};">
+					  <h4 class="word-break">{$vo['spottitle']}自助语音导游</span></h4>
+					</a>
+				  </li>
+				  <li class="ul-audio-li"></li>
+			</ul>
+		  </li>
+		{php $i=$i+1;}
+		{/loop}			  
+	</ul>
+	</section>
+</div>
+<div id="footer">
+	<a href="{$spoturl}">
+	{if $_W['account']['siteinfo']['footer']}{php echo htmlspecialchars_decode($_W['account']['siteinfo']['footer'])}{else}&copy;{if empty($_W['account']['name'])}微赞团队{else}{$_W['account']['name']}{/if}&nbsp;&nbsp;{/if}{$_W['setting']['copyright']['statcode']}
+	</a>
+	<a href="tel:{$telephone}">热线电话:{$telephone}</a>
+</div>
+<script type="text/javascript">
+	TouchSlide({
+		slideCell: "#focus",
+		titCell: ".hd ul", 
+		mainCell: ".bd ul",
+		effect: "leftLoop",
+		autoPlay: true,
+		autoPage: true, 
+		switchLoad: "_src" 
+	});
+</script>
+<script>
+// 自定义分享数据的调用
+sharedata = {
+	title: '景区导游',
+	desc: '金牌导游，带您畅游{$title}',
+	link: '{$_W['siteroot']}app/{php echo $this->createMobileUrl('index',array('id' => $id))}',
+	imgUrl: '{$_W['attachurl']}{$picurl}',
+	success: function(){
+		alert('xixi');
+	}
+};
+</script>
+{template 'footer'}

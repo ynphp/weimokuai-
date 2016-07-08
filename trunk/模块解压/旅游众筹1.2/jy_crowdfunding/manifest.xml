@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[旅游众筹]]></name>
+		<identifie><![CDATA[jy_crowdfunding]]></identifie>
+		<version><![CDATA[1.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[你去爽，我付钱]]></ability>
+		<description><![CDATA[你去爽，我付钱]]></description>
+		<author><![CDATA[来自柒柒源码h770.com]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="活动入口" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="用户管理" do="member" state="" direct="false" />
+			<entry title="红包发放" do="huodong" state="" direct="false" />
+			<entry title="活动管理" do="setting" state="" direct="false" />
+			<entry title="接口参数" do="api" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_jy_crowdfunding_log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL,
+  `from_user` varchar(30) NOT NULL,
+  `member_id` int(10) NOT NULL DEFAULT '0',
+  `uid` int(10) NOT NULL DEFAULT '0',
+  `budget` float NOT NULL DEFAULT '0',
+  `status` int(10) NOT NULL DEFAULT '0',
+  `createtime` int(10) NOT NULL,
+  `log` varchar(255) NOT NULL DEFAULT '',
+  `completed` varchar(20) NOT NULL DEFAULT '',
+  `completetime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_jy_crowdfunding_log_a` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL,
+  `from_user` varchar(30) NOT NULL,
+  `member_id` int(10) NOT NULL DEFAULT '0',
+  `uid` int(10) NOT NULL DEFAULT '0',
+  `budget` float NOT NULL DEFAULT '0',
+  `status` int(10) NOT NULL DEFAULT '0',
+  `createtime` int(10) NOT NULL,
+  `log` varchar(255) NOT NULL DEFAULT '',
+  `completed` varchar(20) NOT NULL DEFAULT '',
+  `completetime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_jy_crowdfunding_member` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL,
+  `from_user` varchar(30) NOT NULL,
+  `destination` varchar(200) NOT NULL,
+  `budget` float NOT NULL DEFAULT '0',
+  `uid` int(10) NOT NULL DEFAULT '0',
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_jy_crowdfunding_member_a` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL,
+  `from_user` varchar(30) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `mobile` varchar(20) NOT NULL,
+  `destination` varchar(200) NOT NULL,
+  `budget` float NOT NULL DEFAULT '0',
+  `uid` int(10) NOT NULL DEFAULT '0',
+  `createtime` int(10) NOT NULL,
+  `status` int(10) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_jy_crowdfunding_setting` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL,
+  `aname` varchar(250) NOT NULL,
+  `url` varchar(200) NOT NULL,
+  `hour` int(10) NOT NULL,
+  `index` varchar(200) NOT NULL,
+  `index_text` varchar(200) NOT NULL,
+  `index_button` varchar(200) NOT NULL,
+  `rule` text,
+  `rule_bg` varchar(200) NOT NULL,
+  `huodong` varchar(200) NOT NULL,
+  `huodong_button_top` varchar(200) NOT NULL,
+  `huodong_button_bottom` varchar(200) NOT NULL,
+  `share_bg` varchar(200) NOT NULL,
+  `geren` varchar(200) NOT NULL,
+  `success` varchar(200) NOT NULL,
+  `fail` varchar(200) NOT NULL,
+  `friend` varchar(200) NOT NULL,
+  `friend_text` varchar(200) NOT NULL,
+  `friend_ad_text` varchar(200) NOT NULL,
+  `friend_ad_url` varchar(200) NOT NULL,
+  `pay_done` varchar(200) NOT NULL,
+  `pay` varchar(200) NOT NULL,
+  `f_end` varchar(200) NOT NULL,
+  `sharelist` varchar(200) NOT NULL,
+  `sharelist_color` varchar(200) NOT NULL,
+  `updatetime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_jy_crowdfunding_setting_a` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL,
+  `aname` varchar(250) NOT NULL,
+  `url` varchar(200) NOT NULL,
+  `hour` int(10) NOT NULL,
+  `index` varchar(200) NOT NULL,
+  `index_text` varchar(200) NOT NULL,
+  `index_button` varchar(200) NOT NULL,
+  `rule` text,
+  `rule_bg` varchar(200) NOT NULL,
+  `huodong` varchar(200) NOT NULL,
+  `huodong_button_top` varchar(200) NOT NULL,
+  `huodong_button_bottom` varchar(200) NOT NULL,
+  `share_bg` varchar(200) NOT NULL,
+  `geren` varchar(200) NOT NULL,
+  `success` varchar(200) NOT NULL,
+  `fail` varchar(200) NOT NULL,
+  `friend` varchar(200) NOT NULL,
+  `friend_text` varchar(200) NOT NULL,
+  `friend_ad_text` varchar(200) NOT NULL,
+  `friend_ad_url` varchar(200) NOT NULL,
+  `pay_done` varchar(200) NOT NULL,
+  `pay` varchar(200) NOT NULL,
+  `f_end` varchar(200) NOT NULL,
+  `sharelist` varchar(200) NOT NULL,
+  `sharelist_color` varchar(200) NOT NULL,
+  `updatetime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

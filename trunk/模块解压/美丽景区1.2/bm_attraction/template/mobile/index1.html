@@ -1,0 +1,179 @@
+{template 'header'}
+<style>
+
+</style>
+{template 'slide'}
+
+<script>
+$(function() {
+	new Swipe($('#banner_box')[0], {
+		speed:500,
+		auto:3000,
+		callback: function(){
+			var lis = $(this.element).next("ol").children();
+			lis.removeClass("on").eq(this.index).addClass("on");
+		}
+	});
+});
+</script>
+<link href="../addons/bm_attraction/template/mobile/css/index.css" media="all" rel="stylesheet" type="text/css">
+<div class="wrap" id="home">
+	<ul class="menu clearfix">
+		<li>
+			<a href="{php echo $this->createMobileUrl('gonglue',array('id' => $id))}"><img src="../addons/bm_attraction/template/img/gonglue.png"></a>
+		</li>
+		<li>
+			<a href="{php echo $this->createMobileUrl('imageinfo',array('id' => $id))}"><img src="../addons/bm_attraction/template/img/image.png"></a>
+		</li>
+		<li>
+			<a href="{php echo $this->createMobileUrl('mapinfo',array('id' => $id))}"><img src="../addons/bm_attraction/template/img/map.png"></a>
+		</li>
+		<li>
+			<a href="{php echo $this->createMobileUrl('detail',array('id' => $id))}"><img src="../addons/bm_attraction/template/img/info.png"></a>
+		</li>
+	</ul>
+	<ul class="ad clearfix">
+	</ul>
+      <section class="audio-guide">
+        <header class="common-header">
+          <img src="../addons/bm_attraction/template/img/audio-1.png">
+          <h4>景点语音导游</h4>
+        </header>
+        <div class="guide-start">
+          <section class="common-ul for-guide-start">
+            <ul class="ul-out">
+              <li class="ul-out-li">
+                <img src="../addons/bm_attraction/template/img/guide-start-icon.png" class="step-icon" style="width: 40px; left: 4.5px;">
+                <img src="../addons/bm_attraction/template/img/step-left.png" class="step-left" style="background-color: #ff7a86;">
+                <a href="{php echo $this->createMobileUrl('start',array('id' => $id))}" class="step-detail">
+                  <hr class="hr-guide-start">
+                  <img src="../addons/bm_attraction/template/img/step-down.png" class="step-down">
+                  <h4 class="word-break">导游开场</h4>
+                  <div class="clip-two-line">
+                    <p>金牌导游，带您畅游{$title}！</p>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </section>
+          <section class="common-ul">
+            <ul class="ul-out">
+                <li class="ul-out-li">
+                  <img src="../addons/bm_attraction/template/img/step-icon.png" class="step-icon" style="background-color: #fc723c">
+                  <span class="step-n">1</span>
+                    <hr class="line-top" color="#fc723c">
+                    <span class="step-height step-height-2">300米</span>
+                    <img src="../addons/bm_attraction/template/img/step-left.png" class="step-left" style="background-color: #fc723c">
+                    <a href="/weixin/articles/629" class="step-detail" style="border: 1px solid #fc723c;">
+                      <h4 class="word-break">景区大门</h4>
+                      <div class="clip-two-line">
+                        <p class="step-introduce">看点：景区大门、折柳亭</p>
+                      </div>
+                        <img src="http://lijiang.1tripweixin.com/uploads/images/place_guide_profiles/covers/31/fce53d494746cfdf4d572d18355d57e0.jpg" class="step-img">
+                      <span class="see-time">游览时间：20分钟</span>
+                    </a>
+                  <ul class="ul-audio">
+                        <li class="ul-audio-li">
+                          <a href="/weixin/audios/630">
+                            <img src="../addons/bm_attraction/template/img/audio.png" class="audio-2" style="background-color: #fc723c">
+                            <h4 class="word-break">景区大门<span>02:25</span></h4>
+                          </a>
+                        </li>
+                        <li class="ul-audio-li">
+                          <a href="/weixin/audios/633">
+                            <img src="../addons/bm_attraction/template/img/audio.png" class="audio-2" style="background-color: #fc723c">
+                            <h4 class="word-break">亲友送别折柳亭<span>01:53</span></h4>
+                          </a>
+                        </li>
+                  </ul>
+                </li>
+                <li class="ul-out-li">
+                  <img src="../addons/bm_attraction/template/img/step-icon.png" class="step-icon" style="background-color: #fa9237">
+                  <span class="step-n">2</span>
+                    <hr class="line-top" color="#fa9237">
+                    <span class="step-height step-height-2">50米</span>
+                    <img src="../addons/bm_attraction/template/img/step-left.png" class="step-left" style="background-color: #fa9237">
+                    <a href="/weixin/articles/631" class="step-detail" style="border: 1px solid #fa9237;">
+                      <h4 class="word-break">木家别院</h4>
+                      <div class="clip-two-line">
+                        <p class="step-introduce">看点：木架别院、木氏土司文献展厅</p>
+                      </div>
+                        <img src="http://lijiang.1tripweixin.com/uploads/images/place_guide_profiles/covers/32/6e6eef1069b3bf088caa99fa6e51d214.jpg" class="step-img">
+                      <span class="see-time">游览时间：20分钟</span>
+                    </a>
+                  <ul class="ul-audio">
+                        <li class="ul-audio-li">
+                          <a href="/weixin/audios/636">
+                            <img src="../addons/bm_attraction/template/img/audio.png" class="audio-2" style="background-color: #fa9237">
+                            <h4 class="word-break">木家别院<span>02:44</span></h4>
+                          </a>
+                        </li>
+                        <li class="ul-audio-li">
+                          <a href="/weixin/audios/637">
+                            <img src="../addons/bm_attraction/template/img/audio.png" class="audio-2" style="background-color: #fa9237">
+                            <h4 class="word-break">木氏土司文献展厅<span>02:14</span></h4>
+                          </a>
+                        </li>
+                  </ul>
+                </li>
+				<li class="ul-out-li">
+                  <img src="../addons/bm_attraction/template/img/step-icon.png" class="step-icon" style="background-color: #2dd134">
+                  <span class="step-n">5</span>
+                    <span class="step-height step-height-2"></span>
+                    <img src="../addons/bm_attraction/template/img/step-left.png" class="step-left" style="background-color: #2dd134">
+                    <a href="/weixin/articles/635" class="step-detail" style="border: 1px solid #2dd134;">
+                      <h4 class="word-break">观音飞瀑</h4>
+                      <div class="clip-two-line">
+                        <p class="step-introduce">看点：观音飞瀑、水帘洞天</p>
+                      </div>
+                        <img src="http://lijiang.1tripweixin.com/uploads/images/place_guide_profiles/covers/37/3972bb5383109248047949f9e5c85860.jpg" class="step-img">
+                      <span class="see-time">游览时间：30分钟</span>
+                    </a>
+                  <ul class="ul-audio">
+                        <li class="ul-audio-li">
+                          <a href="/weixin/audios/644">
+                            <img src="../addons/bm_attraction/template/img/audio.png" class="audio-2" style="background-color: #2dd134">
+                            <h4 class="word-break">观音飞瀑<span>02:21</span></h4>
+                          </a>
+                        </li>
+                        <li class="ul-audio-li">
+                          <a href="/weixin/audios/645">
+                            <img src="../addons/bm_attraction/template/img/audio.png" class="audio-2" style="background-color: #2dd134">
+                            <h4 class="word-break">溶洞仙境水帘洞天<span>02:15</span></h4>
+                          </a>
+                        </li>
+                  </ul>
+                </li>                
+            </ul>
+          </section>
+        </div>
+      </section>
+	<section class="common-ul">
+	<ul class="ul-out">
+		<header class="common-header">
+		  <h4>其它重要景点</h4>
+		</header>
+		  <li class="ul-out-li">
+			<img src="../addons/bm_attraction/template/img/step-icon.png" class="step-icon" style="background-color: #ff7a86;">
+			<span class="step-n">6</span>
+			  <img src="../addons/bm_attraction/template/img/step-left.png" class="step-left" style="background-color: #ff7a86;">
+			  <a href="/weixin/articles/638" class="step-detail" style="border: 1px solid #ff7a86;">
+				<h4 class="word-break">佛地海</h4>
+				<div class="clip-two-line">
+				  <p class="step-introduce">湖光十色佛地海</p>
+				</div>
+				  <img src="http://lijiang.1tripweixin.com/uploads/images/place_guide_profiles/covers/75/82a85cc64bcd0bb1a8917cd263a1c1dd.jpg" class="step-img">
+				<span class="see-time"></span>
+			  </a>
+			<ul class="ul-audio">
+				  <li class="ul-audio-li">
+					<a href="/weixin/audios/646">
+					  <img src="../addons/bm_attraction/template/img/audio.png" class="audio-2" style="background-color: #ff7a86;">
+					  <h4 class="word-break">湖光十色佛地海<span>02:07</span></h4>
+					</a>
+				  </li>
+			</ul>
+		  </li>
+	</ul>
+	</section>
+</div>

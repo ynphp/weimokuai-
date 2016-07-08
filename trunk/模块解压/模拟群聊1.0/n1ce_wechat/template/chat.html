@@ -1,0 +1,115 @@
+﻿{template 'common/header'}
+<div class="panel panel-default">
+  <div class="panel-heading">编辑群聊规则</div>
+  <div class="panel-body">
+    <form class="form-horizontal" action="" method="POST">
+		  <div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">群聊名字</label>
+			<div class="col-sm-10">
+			  <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="请输入群聊名" value="{$wechat['title']}">
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">群主名称</label>
+			<div class="col-sm-10">
+			  <input type="text" name="qname" class="form-control" id="inputEmail3" placeholder="请输入群主名称" value="{$wechat['qname']}">
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">头像1：</label>
+			<div class="col-sm-10">
+			  {php echo tpl_form_field_image('aimg',$wechat['aimg']);}
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">群聊1话：</label>
+			<div class="col-sm-10">
+			  <input type="text" name="atxt" class="form-control" id="inputEmail3" placeholder="请输入第一句话" value="{$wechat['atxt']}">
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">头像2：</label>
+			<div class="col-sm-10">
+			  {php echo tpl_form_field_image('bimg',$wechat['bimg']);}
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">群聊2发图：</label>
+			<div class="col-sm-10">
+			  {php echo tpl_form_field_image('p1',$wechat['p1']);}
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">群聊2话：</label>
+			<div class="col-sm-10">
+			  <input type="text" name="btxt" class="form-control" id="inputEmail3" placeholder="请输入第二句话" value="{$wechat['btxt']}">
+			</div>
+		  </div>
+
+		  <div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">头像3：</label>
+			<div class="col-sm-10">
+			  {php echo tpl_form_field_image('cimg',$wechat['cimg']);}
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">群聊3话：</label>
+			<div class="col-sm-10">
+			  <input type="text" name="ctxt" class="form-control" id="inputEmail3" placeholder="请输入第二句话" value="{$wechat['ctxt']}">
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">群聊3发图：</label>
+			<div class="col-sm-10">
+			  {php echo tpl_form_field_image('p2',$wechat['p2']);}
+			</div>
+		  </div>
+
+		  <div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">头像4：</label>
+			<div class="col-sm-10">
+			  {php echo tpl_form_field_image('dimg',$wechat['dimg']);}
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">群聊4话：</label>
+			<div class="col-sm-10">
+			  <input type="text" name="dtxt" class="form-control" id="inputEmail3" placeholder="请输入" value="{$wechat['dtxt']}">
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">群聊4发图：</label>
+			<div class="col-sm-10">
+			  {php echo tpl_form_field_image('p3',$wechat['p3']);}
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">群聊4话2：</label>
+			<div class="col-sm-10">
+			  <input type="text" name="etxt" class="form-control" id="inputEmail3" placeholder="请输入" value="{$wechat['etxt']}">
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputPassword3" class="col-sm-2 control-label">头像5：</label>
+			<div class="col-sm-10">
+			  {php echo tpl_form_field_image('eimg',$wechat['eimg']);}
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputEmail3" class="col-sm-2 control-label">群聊5话：</label>
+			<div class="col-sm-10">
+			  <input type="text" name="ftxt" class="form-control" id="inputEmail3" placeholder="请输入" value="{$wechat['ftxt']}">
+			</div>
+		  </div>
+
+
+		  <div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+			  <input type="submit" class="btn btn-default" name="ac" value="提交"/>
+			  <input type="hidden" name="token" value="{$_W['token']}"/>
+			</div>
+		  </div>
+	</form>
+  </div>
+</div>
+{template 'common/footer'}

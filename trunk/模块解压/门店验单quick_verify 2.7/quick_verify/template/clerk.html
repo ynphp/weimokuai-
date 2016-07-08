@@ -1,0 +1,128 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+  {if $operation == 'post'}<li class="active"><a href="#">编辑验单员</a></li>{/if}
+  <li {if $operation == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('clerk', array('op' => 'display'))}">管理验单员</a></li>
+  <li><a href="{php echo $this->createWebUrl('shop', array('op' => 'display'))}">管理门店</a></li>
+</ul>
+{if $operation == 'post'}
+<div class="main">
+  <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{$item['id']}" />
+    <h4>验单员详细设置</h4>
+
+    <div class="form-group">
+      {php echo FormTpl::label2('所属店铺', 'col-xs-12 col-sm-3 col-md-2', true); }
+      <div class="col-xs-12 col-sm-9 col-md-10">
+        <select id='shopid' name="shopid" class="form-control">
+          <option value="">请选择门店</option>
+          {loop $shopnames $key=>$s}
+          <option value="{$key}" {if $key==$item['shopid']}selected{/if}>{$s['shopname']}</option>
+          {/loop}
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      {php echo FormTpl::label2('OpenID', 'col-xs-12 col-sm-3 col-md-2', true); }
+      <div class="col-xs-12 col-sm-9 col-md-10">
+        {php echo FormTpl::getWebControl2('text', 'clerk_openid', $item['clerk_openid']); }
+      </div>
+    </div>
+
+    <div class="form-group">
+      {php echo FormTpl::label2('验单员姓名', 'col-xs-12 col-sm-3 col-md-2', true); }
+      <div class="col-xs-12 col-sm-9 col-md-10">
+        {php echo FormTpl::getWebControl2('text', 'clerk_realname', $item['clerk_realname']); }
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      {php echo FormTpl::label2('验单员手机', 'col-xs-12 col-sm-3 col-md-2', true); }
+      <div class="col-xs-12 col-sm-9 col-md-10">
+        {php echo FormTpl::getWebControl2('text', 'clerk_mobile', $item['clerk_mobile']); }
+      </div>
+    </div>
+
+    <div class="form-group">
+      {php echo FormTpl::label2('备注', 'col-xs-12 col-sm-3 col-md-2'); }
+      <div class="col-xs-12 col-sm-9 col-md-10">
+        {php echo FormTpl::getWebControl2('text', 'remark', $item['remark']); }
+      </div>
+    </div>
+
+    <div class="form-group">
+      {php echo FormTpl::label2('申请提交日期', 'col-xs-12 col-sm-3 col-md-2'); }
+      <div class="col-xs-12 col-sm-9 col-md-10">
+        <span class='help-block'>
+          {php echo date('Y-m-d H:i:s', $item['createtime'])}
+        </span>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      {php echo FormTpl::label2('是否启用', 'col-xs-12 col-sm-3 col-md-2 col-lg-2', true); }
+      <div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
+        <label for="enabled0" class="radio-inline"><input type="radio" name="enabled" value="0" id="enabled0" {if empty($item) || $item['enabled'] == 0}checked="true"{/if} /> 禁用</label>
+        <label for="enabled1" class="radio-inline"><input type="radio" name="enabled" value="1" id="enabled1"  {if !empty($item) && $item['enabled'] == 1}checked="true"{/if} /> 启用</label>
+      </div>
+    </div>
+    <div style="margin:0 0 10px 0" class="row">
+      {php echo FormTpl::label2('&nbsp;', 'col-xs-12 col-sm-3 col-md-2 col-lg-2'); }
+      <div class="col-xs-12 col-sm-9 col-md-10">
+        <input name="submit" type="submit" value="提交" class="btn btn-primary">
+        <input type="hidden" name="token" value="{$_W['token']}" />
+        <br>
+      </div>
+    </div>
+
+	</form>
+</div>
+{elseif $operation == 'display'}
+<div class="main">
+	<div class="item">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th style="width:60px;">ID</th>
+					<th style="width:100px">员工姓名</th>
+					<th style="width:130px">电话</th>
+					<th style="min-width:200px">店铺</th>
+					<th style="width:100px">申请日期</th>
+					<th style="width:80px">状态</th>
+					<th style="width:100px;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			{loop $clerk $item}
+				<tr>
+          <td>{$item['id']}</td>
+          <td>{$item['clerk_realname']}</td>
+          <td>{$item['clerk_mobile']}</td>
+          <td>{$item['shopname']} ({$item['shopid']})</td>
+          <td>{php echo date('m-d H:i', $item['createtime'])}</td>
+          <td>
+            {if $item['enabled'] == 1}
+            <span class='label label-info'>正常</span>
+            {else}
+            <span class='label label-warning'>未启用</span>
+            {/if}
+          </td>
+          <td>
+            <a href="{php echo $this->createWebUrl('clerk', array('op'=>'post', 'id'=>$item['id']))}">编辑</a>&nbsp;&nbsp;
+            <a style="color:gray" href="{php echo $this->createWebUrl('clerk', array('op' => 'delete', 'id' => $item['id']))}" onclick="return confirm('确认删除此员工吗？');">删除</a></td>
+				</tr>
+				{/loop}
+				<tr>
+					<td></td>
+					<td colspan="5">
+					<a href="javascript:alert('请通知店员从微信端申请')"><i class="fa fa-plus-sign-alt"></i> 添加新验单员</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+{/if}
+{template 'common/footer'}

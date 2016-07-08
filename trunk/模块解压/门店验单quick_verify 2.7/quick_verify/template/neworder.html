@@ -1,0 +1,52 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+  <li {if $operation == 'display' && $status == Order::$ORDER_PAYED}class="active"{/if}><a href="{php echo $this->createWebUrl('neworder', array('op' => 'display'))}">待验订单</a></li>
+  <li><a href="{php echo $this->createWebUrl('verifiedorder', array('op' => 'display'))}">已验订单</a></li>
+</ul>
+
+{if $operation == 'display'}
+
+{template 'order_search'}
+<div class="main">
+	<div style="padding:15px;">
+    <h4>{if !empty($_GPC['search'])}搜索到符合条件的{/if}{$status_text}订单数:{$total}</h4>
+    <br/>
+		<table class="table-hover">
+			<thead class="navbar-inner">
+				<tr>
+          <th style="width:70px;text-overflow:inherit;" >编号</th>
+					<th style="width:140px">订单号</th>
+					<th style="width:100px;">姓名</th>
+					<th style="width:110px;">电话</th>
+					<th style="width:90px;">支付方式</th>
+          <th style="width:100px;">总价</th>
+          <th style="width:60px;">状态</th>
+					<th style="width:120px;">下单时间</th>
+					<th style="width:120px;">状态更新</th>
+					<th style="width:50px; text-align:right;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['id']}</td>
+					<td>{$item['ordersn']}</td>
+					<td>{$address[$item['addressid']]['realname']}</td>
+					<td>{$address[$item['addressid']]['mobile']}</td>
+          <td><span class="label label-{php echo Order::getPayTypeLabel($item['paytype']);}">{php echo Order::getPayTypeName($item['paytype']);}</span></td>
+					<td>{$item['price']} 元</td>
+					<td>
+            <span class="label label-info">{php echo $_order->getOrderStatusName($item['status'])}</span>
+					</td>
+					<td>{php echo date('m-d H:i:s', $item['createtime'])}</td>
+					<td>{php echo date('m-d H:i:s', $item['updatetime'])}</td>
+          <td style="text-align:right;"><a href="{php echo wurl('site/entry/order', array('op' => 'detail', 'id' => $item['id'], 'm'=>'quick_shop', 'weid'=>$_W['weid']))}">查看</a></td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+</div>
+{/if}
+{template 'common/footer'}

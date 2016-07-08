@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+    <application setting="true">
+		<name><![CDATA[男神女神投票]]></name>
+		<identifie><![CDATA[xiaof_toupiao]]></identifie>
+		<version><![CDATA[2.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[晒图邀请好友投票点赞]]></ability>
+		<description><![CDATA[晒图邀请好友投票点赞]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+    </application>
+    <platform>
+		<subscribes>
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+        <rule embed="true" />
+		<card embed="false" />
+    </platform>
+    <bindings>
+        <menu>
+			<entry title="活动列表" do="settinglists" state="" direct="false" />
+			<entry title="活动编辑" do="settingedit" state="" direct="false" />
+			<entry title="报名列表" do="lists" state="" direct="false" />
+            <entry title="添加报名" do="edit" state="" direct="false" />
+			<entry title="数据监控" do="safe" state="" direct="false" />
+			<entry title="投票日志" do="votelog" state="" direct="false" />
+			<entry title="获取粉丝信息" do="getunionid" state="" direct="false" />
+			<entry title="积分抽奖信息" do="drawlists" state="" direct="false" />
+        </menu>
+    </bindings>
+    <install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_xiaof_toupiao` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `verify` tinyint(255) NOT NULL DEFAULT '0',
+  `openid` varchar(50) NOT NULL,
+  `ip` int(11) NOT NULL,
+  `name` char(36) NOT NULL,
+  `phone` char(36) NOT NULL,
+  `pic` varchar(255) NOT NULL,
+  `describe` char(255) NOT NULL,
+  `detail` text,
+  `click` int(11) NOT NULL DEFAULT '0',
+  `share` int(11) NOT NULL DEFAULT '0',
+  `good` int(11) NOT NULL DEFAULT '0',
+  `open` tinyint(255) NOT NULL DEFAULT '1',
+  `double_at` int(10) NOT NULL DEFAULT '0',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  `updated_at` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `sid_2` (`sid`,`openid`),
+  UNIQUE KEY `sid_3` (`sid`,`phone`),
+  KEY `sid` (`sid`),
+  KEY `sid_4` (`sid`,`verify`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_xiaof_toupiao_acid` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sid` int(11) NOT NULL,
+  `acid` int(11) NOT NULL,
+  `qrcode` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sid` (`sid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_xiaof_toupiao_draw` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `uname` varchar(255) NOT NULL,
+  `uses` tinyint(255) NOT NULL DEFAULT '2',
+  `attr` tinyint(255) NOT NULL,
+  `credit` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `num` int(11) NOT NULL,
+  `openid` varchar(50) NOT NULL,
+  `ip` int(11) NOT NULL,
+  `created_at` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sid` (`sid`,`uid`),
+  KEY `sid_2` (`sid`,`attr`),
+  KEY `sid_3` (`sid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_xiaof_toupiao_drawlog` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sid` int(11) NOT NULL,
+  `pid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `uname` varchar(255) NOT NULL,
+  `attr` int(11) NOT NULL,
+  `data` varchar(255) NOT NULL,
+  `created_at` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_xiaof_toupiao_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sid` int(11) NOT NULL,
+  `pid` int(11) NOT NULL COMMENT '作品id',
+  `fanid` int(11) NOT NULL DEFAULT '0',
+  `num` tinyint(255) NOT NULL DEFAULT '1',
+  `openid` varchar(50) NOT NULL,
+  `ip` int(11) NOT NULL,
+  `unique_at` int(8) NOT NULL,
+  `created_at` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `sid` (`sid`,`pid`,`openid`,`unique_at`),
+  KEY `pid` (`pid`),
+  KEY `sid_2` (`sid`),
+  KEY `ip` (`ip`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_xiaof_toupiao_manage` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sid` int(11) NOT NULL,
+  `pid` int(11) NOT NULL,
+  `mid` char(32) NOT NULL,
+  `num` int(11) NOT NULL,
+  `operation` varchar(255) NOT NULL,
+  `created_at` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `mid` (`mid`),
+  KEY `sid` (`sid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_xiaof_toupiao_pic` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sid` int(11) NOT NULL,
+  `pid` int(11) NOT NULL,
+  `thumb` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `is_show` tinyint(255) NOT NULL DEFAULT '0',
+  `created_at` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `sid` (`sid`,`pid`),
+  KEY `pid` (`pid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_xiaof_toupiao_rule` (
+  `rid` int(11) NOT NULL,
+  `sid` int(11) NOT NULL,
+  `action` tinyint(255) NOT NULL,
+  `keyword` varchar(255) NOT NULL,
+  PRIMARY KEY (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_xiaof_toupiao_safe` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sid` int(11) NOT NULL,
+  `ip` int(11) NOT NULL,
+  `created_at` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ip` (`ip`),
+  KEY `sid` (`sid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_xiaof_toupiao_setting` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `tit` varchar(255) NOT NULL,
+  `data` text NOT NULL,
+  `detail` text NOT NULL,
+  `bottom` text NOT NULL,
+  `click` int(11) NOT NULL DEFAULT '0',
+  `created_at` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+	]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

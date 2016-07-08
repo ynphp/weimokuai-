@@ -1,0 +1,57 @@
+<div class="main">
+	<div style="padding:15px;">
+      {if 0 and empty($_GPC['search'])}
+      <a style="float:right;padding:4px;margin:10px;" onclick="return confirm('此操作可能耗时较久，确认吗？'); return false;" href="javascript:alert('开发中')" title="导出" class="btn btn-mini"><i class="icon-download"> 导出数据</i></a>
+      {/if}
+    </h4>
+
+    {php $lists = array('未结算店铺销售统计'=>$shop_scanned_list, '已结算店铺销售统计'=>$shop_settled_list) }
+    {loop $lists $key=>$list}
+    <br/>
+    <h3>{$key}</h3>
+		<table class="table table-hover table-striped">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:140px">店铺</th>
+          <th style="width:100px;">总销售额</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['shopname']}</td>
+					<td>￥{php echo number_format($item['price'],2)}</td>
+        </tr>
+				{/loop}
+			</tbody>
+		</table>
+    {/loop}
+
+    <hr/>
+
+    {php $lists = array('未结算商品销售统计'=>$goods_scanned_list, '已结算商品销售统计'=>$goods_settled_list) }
+    {loop $lists $key=>$list}
+    <br/>
+    <h3>{$key}</h3>
+		<table class="table table-hover table-striped">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:140px">店铺</th>
+					<th style="width:140px">商品</th>
+          <th style="width:100px;">总销售额</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['shopname']}</td>
+					<td>{$item['title']}</td>
+					<td>￥{php echo number_format($item['price'],2)}</td>
+        </tr>
+				{/loop}
+			</tbody>
+		</table>
+    {/loop}
+
+	</div>
+</div>
