@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[吃月饼大比拼]]></name>
+		<identifie><![CDATA[weisrc_money]]></identifie>
+		<version><![CDATA[1.0.6]]></version>
+		<type><![CDATA[activity ]]></type>
+		<ability><![CDATA[吃月饼大比拼]]></ability>
+		<description><![CDATA[吃月饼大比拼]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="活动管理" do="manage" state="" />
+		</menu>
+		<home call="getItemTiles">
+		</home>
+	</bindings>
+
+	<install><![CDATA[
+	CREATE TABLE IF NOT EXISTS `ims_weisrc_money_award` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `rid` int(11) DEFAULT '0',
+  `prizetype` varchar(50) DEFAULT '',
+  `prizename` varchar(50) DEFAULT '',
+  `prizetotal` int(11) DEFAULT '0',
+  `prizepic` varchar(500) DEFAULT '',
+  `dateline` int(10) DEFAULT '0',
+  `status` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_weisrc_money_fans`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_money_fans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `rid` int(11) DEFAULT '0',
+  `from_user` varchar(50) DEFAULT '' COMMENT '用户ID',
+  `nickname` varchar(50) DEFAULT '',
+  `headimgurl` varchar(500) DEFAULT '',
+  `username` varchar(50) DEFAULT '',
+  `tel` varchar(20) DEFAULT '' COMMENT '登记信息(手机等)',
+  `credit` int(11) DEFAULT '0' COMMENT '单次最高分数',
+  `totalcredit` int(11) DEFAULT '0' COMMENT '累计分数',
+  `totalnum` int(11) DEFAULT '0' COMMENT '总次数',
+  `todaynum` int(11) DEFAULT '0' COMMENT '今天次数',
+  `lasttime` int(11) DEFAULT '0' COMMENT '最后游戏时间',
+  `sharenum` int(11) DEFAULT '0' COMMENT '总分享次数',
+  `sharelotterynum` int(11) DEFAULT '0' COMMENT '分享抽奖次数',
+  `todaysharenum` int(11) DEFAULT '0' COMMENT '今日分享次数',
+  `lastsharetime` int(10) DEFAULT '0',
+  `isblack` tinyint(1) DEFAULT '0',
+  `dateline` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=84 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_weisrc_money_record`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_money_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `rid` int(11) DEFAULT '0',
+  `from_user` varchar(50) DEFAULT '0' COMMENT '用户ID',
+  `fansid` int(11) DEFAULT '0',
+  `credit` int(11) DEFAULT '0' COMMENT '单次最高分数',
+  `dateline` int(10) DEFAULT '0',
+  `status` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_weisrc_money_reply`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_money_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT '0',
+  `weid` int(11) DEFAULT '0',
+  `title` varchar(50) DEFAULT '',
+  `description` varchar(255) DEFAULT '',
+  `content` varchar(200) DEFAULT '',
+  `rule` text,
+  `award` text,
+  `bg` varchar(500) DEFAULT '',
+  `btn_start` varchar(500) DEFAULT '',
+  `game_page_bg` varchar(500) DEFAULT '',
+  `result_page_bg` varchar(500) DEFAULT '',
+  `game_tile` varchar(500) DEFAULT '',
+  `logo` varchar(500) DEFAULT '',
+  `start_picurl` varchar(500) DEFAULT '',
+  `end_theme` varchar(50) DEFAULT '',
+  `end_instruction` varchar(200) DEFAULT '',
+  `end_picurl` varchar(500) DEFAULT '',
+  `banner` varchar(200) DEFAULT '',
+  `starttime` int(10) DEFAULT '0',
+  `endtime` int(10) DEFAULT '0',
+  `number_times` int(11) DEFAULT '0' COMMENT '总游戏次数',
+  `most_num_times` int(11) DEFAULT '0' COMMENT '每天游戏次数',
+  `daysharenum` int(11) DEFAULT '0' COMMENT '日分享次数',
+  `sharelotterynum` int(11) DEFAULT '0' COMMENT '分享后奖励次数',
+  `viewnum` int(11) DEFAULT '0',
+  `sharenum` int(11) DEFAULT '0',
+  `gametime` int(11) DEFAULT '15',
+  `gamelevel` int(11) DEFAULT '3',
+  `cover` varchar(500) DEFAULT '',
+  `showusernum` int(11) DEFAULT '20',
+  `share_title` varchar(200) DEFAULT '',
+  `share_url` varchar(100) DEFAULT '',
+  `share_desc` varchar(300) DEFAULT '',
+  `share_image` varchar(500) DEFAULT '',
+  `follow_url` varchar(100) DEFAULT '',
+  `follow_title` varchar(100) DEFAULT '',
+  `Gameovertext` varchar(300) DEFAULT '',
+  `tips1text` varchar(50) DEFAULT '',
+  `tips2text` varchar(50) DEFAULT '',
+  `tips3text` varchar(50) DEFAULT '',
+  `signtext` varchar(50) DEFAULT '',
+  `copyright` varchar(100) DEFAULT '',
+  `copyrighturl` varchar(500) DEFAULT '',
+  `ad` varchar(500) DEFAULT '',
+  `adurl` varchar(500) DEFAULT '',
+  `awardtip` varchar(500) DEFAULT '',
+  `isneedfollow` tinyint(1) DEFAULT '1',
+  `mode` tinyint(1) DEFAULT '0',
+  `status` tinyint(1) DEFAULT '0',
+  `dateline` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+	]]></install>
+	<uninstall><![CDATA[DROP TABLE `ims_weisrc_money_award`, `ims_weisrc_money_fans`, `ims_weisrc_money_record`, `ims_weisrc_money_reply`;]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

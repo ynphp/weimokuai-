@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[微现场超级版]]></name>
+		<identifie><![CDATA[meepo_bigwall]]></identifie>
+		<version><![CDATA[4.4]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[可以实时同步显示现场参与者发送的微信消息]]></ability>
+		<description><![CDATA[微现场超级版，是在年会、展会、音乐会、婚礼现场、校园开学典礼、元旦晚会等场所展示特定主题微信的大屏幕，大屏幕上可以同步显示现场参与者发送的微信消息，现场人员参与抽奖、摇一摇、投票等等活动，也可在一个公众号内同时举行多个活动，非常的强大，能使场内外观众能够第一时间传递和获取现场信息，嗨爆整个现场。]]></description>
+		<author><![CDATA[柒|柒|源|码]]></author>
+		<url><![CDATA[http://H770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="qr" />
+			<message type="subscribe" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="image" />
+            <message type="qr" />
+			<message type="subscribe" />
+			<message type="click" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+	    <menu>
+			<entry title="基本设置" do="set" state="" direct="false" />
+			<entry title="投票项目管理" do="checkvote" state="" direct="false" />
+			<entry title="抽奖项目管理" do="awardmanage" state="" direct="false" />
+		</menu>
+		<rule>
+		    <entry title="审核内容" do="manage" state="" />
+			<entry title="中奖名单" do="awardlist" state="" />
+			<entry title="黑名单" do="blacklist" state="" />
+			<entry title="投票结果" do="toupiao" state="" />
+			<entry title="摇一摇结果" do="yyyres" state="" />
+		</rule>
+		<home call="gettiles">
+			<entry title="上墙内容列表" do="index" />
+		</home>
+	</bindings>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[
+    DROP TABLE `ims_weixin_cookie`;
+	DROP TABLE `ims_weixin_flag`;
+	DROP TABLE `ims_weixin_vote`;
+	DROP TABLE `ims_weixin_wall`;
+	DROP TABLE `ims_weixin_shake_toshake`;
+	DROP TABLE `ims_weixin_wall_num`;
+	DROP TABLE `ims_weixin_wall_reply`;
+	DROP TABLE `ims_weixin_luckuser`;
+	DROP TABLE `ims_weixin_awardlist`;
+	]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

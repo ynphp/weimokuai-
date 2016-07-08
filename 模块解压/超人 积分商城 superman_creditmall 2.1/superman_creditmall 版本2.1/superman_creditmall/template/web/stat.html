@@ -1,0 +1,14 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if $type == 'order'}class="active"{/if}><a href="{php echo $this->createWebUrl('stat', array('type' => 'order'));}">订单数据</a></li>
+	<li {if $type == 'product'}class="active"{/if}><a href="{php echo $this->createWebUrl('stat', array('type' => 'product'));}">商品数据</a></li>
+	<li {if $type == 'credit'}class="active"{/if}><a href="{php echo $this->createWebUrl('stat', array('type' => 'stat'));}" onclick="util.message('暂未开放');return false;">积分数据(开发中)</a></li>
+</ul>
+{if $act == 'display'}
+	{if $type == 'order'}
+		{template 'web/stat-order'}
+	{else if $type == 'product'}
+		{template 'web/stat-product'}
+	{/if}
+{/if}
+{template 'common/footer'}

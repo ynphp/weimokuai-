@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="referrer" content="origin-when-cross-origin">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <script type="text/javascript">
+        var sampling = Math.random() < 0.001;
+        var page_begintime = (+new Date());
+        (sampling) && ((new Image()).src = "http://isdspeed.qq.com/cgi-bin/r.cgi?flag1=7839&flag2=7&flag3=8&15=1000&r=" + Math.random());
+        var biz = "MzA5NDI0NjU2Nw==";
+        var sn = "189622b10693aabde6184c74bdcb11e6" || "";
+        var mid = "208990949" || "";
+        var idx = "1" || "";
+
+        //辟谣需求
+        var is_rumor = "" * 1;
+        var norumor = "" * 1;
+        if (!!is_rumor && !norumor) {
+            if (!document.referrer || document.referrer.indexOf("mp.weixin.qq.com/mp/rumor") == -1) {
+                location.href = "http://mp.weixin.qq.com/mp/rumor?action=info&__biz=" + biz + "&mid=" + mid + "&idx=" + idx + "&sn=" + sn + "#wechat_redirect";
+            }
+        }
+
+    </script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="referrer" content="origin-when-cross-origin">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <script type="text/javascript">
+        String.prototype.html = function (encode) {
+            var replace = ["&#39;", "'", "&quot;", '"', "&nbsp;", " ", "&gt;", ">", "&lt;", "<", "&amp;", "&", "&yen;", "¥"];
+            if (encode) {
+                replace.reverse();
+            }
+            for (var i = 0, str = this; i < replace.length; i += 2) {
+                str = str.replace(new RegExp(replace[i], 'g'), replace[i + 1]);
+            }
+            return str;
+        };
+
+        window.isInWeixinApp = function () {
+            return /MicroMessenger/.test(navigator.userAgent);
+        };
+    </script>
+    <title> {$detail['title']}</title>
+    <link href="../addons/han_article/css/layer.css" type="text/css" rel="styleSheet" id="layermcss">
+    <link rel="stylesheet" type="text/css" href="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/style/page/appmsg/page_mp_article_improve28f721.css">
+</head>
+
+<body id="activity-detail" class="zh_CN mm_appmsg" ontouchstart="">
+
+<div id="js_cmt_mine" class="discuss_container editing access" style="display: block;">
+    <div class="discuss_container_inner">
+        <h2 class="rich_media_title">{$detail['title']}</h2>
+        <span id="log"></span>
+        <div class="frm_textarea_box_wrp">
+                <span class="frm_textarea_box">
+                    <textarea id="js_cmt_input" class="frm_textarea" placeholder="评论将由公众帐号筛选后显示，对所有人可见。"
+                              style="-webkit-transform: translate3d(0px, 0px, 0px); transform: translate3d(0px, 0px, 0px);"></textarea>
+                </span>
+        </div>
+
+        <div class="discuss_btn_wrp">
+            <a id="js_cmt_submit" class="btn btn_primary btn_discuss btn_disabled" href="javascript:;">提交</a>
+        </div>
+        {if count($mycomments)>0}
+        <div class="discuss_list_wrp" >
+            <div class="rich_tips with_line title_tips discuss_title_line">
+                <span class="tips">我的评论</span>
+            </div>
+            <ul class="discuss_list" id="js_cmt_mylist">
+                {loop $mycomments $mycomment}
+                <li class="discuss_item" id="cid2">
+                    <div class="user_info">
+                        <strong class="nickname">{$mycomment['author']}</strong>
+                        <img class="avatar" src="{$mycomment['thumb']}">
+                    </div>
+                    <div class="discuss_message">
+                        <span class="discuss_status"></span>
+
+                        <div class="discuss_message_content">
+                            {$mycomment['js_cmt_input']}
+                        </div>
+                    </div>
+                    <p class="discuss_extra_info" wuid="{$mycomment['id']}">
+                        {php echo get_timelineauction($mycomment['createtime'])}
+                        <a class="discuss_del js_del" href="javascript:;"  data-content-id="{$mycomment['id']}">删除</a>
+                    </p>
+                </li>
+                {/loop}
+
+            </ul>
+        </div>
+        {/if}
+    </div>
+</div>
+<link rel="stylesheet" type="text/css" href="../addons/han_article/css/page_mp_article_improve_combo28f721.css">
+<script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"  charset="utf-8"></script>
+<script type="text/javascript" src="http://qy.51vj.cn/js/layer.m/layer.m.js"></script>
+<script>
+    (function () {
+        $("#js_cmt_submit").click(function() {
+            var id="{$artid}";
+            if ($("#js_cmt_input").val() == '') {
+                layer.open({
+                    content: '请填写评论内容',
+                    time: 200
+                });
+                return false;
+            }
+            var data = {};
+            data['js_cmt_input'] = $("#js_cmt_input").val();
+            data['articleid'] =id;
+			data['status'] ="{$status}";
+            var ajaxurl="{php echo $_W['siteroot'].'app/'.murl('entry//ajaxcomment',array('m'=>'han_article'),true)}";
+            $.ajax({
+                url: ajaxurl,
+                type: "post",
+                data : data,
+                dataType: "json",
+                success: function (res) {
+                    console.log(res);
+                    if(res && res.code ===200){
+                        layer.open({
+                            content: res.msg,
+                            time: 50
+                        });
+                        location.reload(true);
+                    }else if(res.code ===202) {
+                         layer.open({
+                            content: res.msg,
+                            time: 200
+                        });
+                        setTimeout(function(){
+                            location.href='{$follow_url}';
+                        },2000);
+                    }else{
+                        layer.open({
+                            content: res.msg,
+                            time: 200
+                        });
+                    }
+                },
+                error: function (r) {
+                    console.log(r);
+                }
+            });
+        });
+
+        $(".discuss_del").click(function() {
+            var d = {};
+            d['commentid'] =$(this).parent().attr("wuid");
+             $.ajax({
+                url: "{php echo $_W['siteroot'].'app/'.murl('entry//delcomment',array('m'=>'han_article'),true)}",
+                type: "post",
+                data : d,
+                dataType: "json",
+                success: function (res) {
+                    console.log(res);
+                    if(res && res.code ===200){
+                        layer.open({
+                            content: res.msg,
+                            time: 50
+                        });
+                        location.reload(true);
+                    }else{
+                        layer.open({
+                            content: res.msg,
+                            time: 200
+                        });
+                    }
+                },
+                error: function (r) {
+                    console.log(r);
+                }
+            });
+        });
+
+    })();
+</script>
+</body>
+</html>

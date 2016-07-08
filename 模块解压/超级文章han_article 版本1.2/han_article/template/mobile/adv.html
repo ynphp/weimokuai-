@@ -1,0 +1,37 @@
+{if !empty($randAdv)}
+<div class="rich_media_extra" id="gdt_area">
+    <div class="rich_tips with_line title_tips">
+        <span class="tips">推广</span>
+    </div>
+
+    <div class="js_ad_link extra_link" data-aid="{$randAdv['id']}">
+    
+        
+        <div class="preview_group">
+            <div class="preview_group_inner">
+             
+{$randAdv['content']}
+
+               
+                
+            
+            
+                <div class="preview_group_opr">
+                    
+                    <script type="text/javascript">
+                        function view_profile(){
+                            window.location.href='{$randAdv['link']}';
+                        }
+                        function add_contact(){
+                            window.location.href='{$randAdv['link']}';
+                        }
+
+                    </script>
+                </div>
+            </div>
+        </div>
+       
+
+    </div>
+</div>
+{/if}

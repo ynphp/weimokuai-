@@ -1,0 +1,170 @@
+{template 'header'}
+<div class="page superpage_{$do}" id="superpage_{$do}_{$act}" data-share-url="{php echo $this->createMobileUrl('detail', array('id' => $id, 'act' => 'share'))}" data-view-url="{php echo $this->createMobileUrl('detail', array('id' => $id, 'act' => 'view'))}">
+	<!--右上角分享箭头-->
+	<div id="mcover" onclick="document.getElementById('mcover').style.display='';" style="{if isset($_GPC['share'])&&$_GPC['share']=='yes'}display: block;{else}display:none{/if}">
+		<img src="{$_W['siteroot']}addons/superman_creditmall/template/mobile/images/share.png">
+	</div>
+	<nav class="bar bar-tab btn_exchange_wrap">
+		<div class="row">
+			<div class="col-60">
+				<p class="credit_color font6">
+					<strong>
+					{if $product['type']==1}
+						一口价:
+						{if $product['price']>0}
+							{$product['credit']}{$product['credit_title']} + {$product['price']}元
+						{else}
+							{$product['credit']}{$product['credit_title']}
+						{/if}
+					{else if $product['type']==7}
+						秒杀价:
+						{if $product['price']>0}
+							{$product['credit']}{$product['credit_title']} + {$product['price']}元
+						{else}
+							{$product['credit']}{$product['credit_title']}
+						{/if}
+					{else if $product['type']==2}
+						竞拍价:
+						{$product['credit']}{$product['credit_title']}
+					{/if}
+					</strong>
+				</p>
+			</div>
+			<div class="col-40 text-right">
+				{if $product['allow_sale']}
+					{if $_W['member']['uid'] && $mycredit['value'] < $product['credit']}
+						<a class="pull-right button button-default button-fill disabled" href="#">
+							<span class="tab-label">{$product['credit_title']}不足</span>
+						</a>
+					{else}
+						{if in_array($product['type'], array(1, 7))}
+						<a href="#" class="pull-right button button-success button-fill btn_exchange" data-url="{php echo $this->createMobileUrl('confirm', array('id' => $id, 'check' => 'yes'))}">
+							<span class="tab-label">立即兑换</span>
+						</a>
+						{/if}
+					{/if}
+				{else}
+					{if $product['total'] <= 0}
+						<a class="pull-right button button-danger button-fill" href="#">
+							<span class="tab-label">已兑完</span>
+						</a>
+					{else if $product['start_time'] > $_W['timestamp']}
+						<a class="pull-right button button-danger button-fill" href="#">
+							<span class="tab-label">未开始</span>
+						</a>
+					{else if $product['end_time'] < $_W['timestamp']}
+						<a class="pull-right button button-danger button-fill" href="#">
+							<span class="tab-label">已结束</span>
+						</a>
+					{/if}
+				{/if}
+			</div>
+		</div>
+	</nav>
+	{template 'nav'}
+	{if $act == 'display'}
+	{template 'title'}
+	<div class="content infinite-scroll" data-url="{php echo $this->createMobileUrl('detail', array('id' => $id, 'load' => 'infinite'))}" data-distance="50" data-page="1" data-tabs="tab1">
+		<!-- Slider -->
+		<div class="swiper-container" data-space-between='10'>
+			<div class="swiper-wrapper">
+				{if $product['album']}
+				{loop $product['album'] $url}
+				<div class="swiper-slide">
+					<img src="{php echo tomedia($url)}" onerror="this.src='{php echo superman_img_placeholder()}'" alt="">
+				</div>
+				{/loop}
+				{else}
+				<div class="swiper-slide"><img src="{php echo superman_img_placeholder();}" alt=""></div>
+				{/if}
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+		<div class="list-block product_top_wrap">
+			<ul>
+				<li class="item-content">
+					<div class="item-inner">
+						<div>{$product['title']}</div>
+						<div class="item-after"></div>
+					</div>
+				</li>
+				<li class="item-content">
+					<div class="item-inner">
+						<div class="row property_wrap no-gutter">
+							<div class="col-33 font7 text-left">剩余<span class="credit_color">{$product['total']}</span>件</div>
+							<div class="col-33 font7 text-center">已兑换<span class="credit_color">{$product['sales']}</span>次</div>
+							<div class="col-33 font7 text-right">市场价<span class="credit_color">{$product['market_price']}</span>元</div>
+						</div>
+					</div>
+				</li>
+				{if $product['start_time'] != 0 && $product['end_time'] != 0}
+				<li class="item-content">
+					<div class="item-inner">
+						<div class="row property_wrap no-gutter">
+							<div class="col-99 font5 text-left">兑换开始时间：{php echo date('Y年m月d日 H:i:s',$product['start_time']);}</div>
+							<div class="col-99 font5 text-left">兑换结束时间：{php echo date('Y年m月d日 H:i:s',$product['end_time']);}</div>
+						</div>
+					</div>
+				</li>
+				{/if}
+			</ul>
+		</div>
+		<div class="list-block product_body_wrap">
+			<ul>
+				<li>
+					<div class="buttons-tab">
+						<a href="#tab1" data-tabs="1" class="tab-link active button">商品详情</a>
+						<a href="#tab2" data-tabs="2" class="tab-link button">兑换记录</a>
+					</div>
+					<div class="content-block">
+						<div class="tabs">
+							<div id="tab1" class="tab active">
+								<div class="list-block desc_wrap">
+									{php echo htmlspecialchars_decode($product['description'])}
+								</div>
+							</div>
+							<div id="tab2" class="tab tab2">
+								<div class="list-block exchange_wrap">
+									<ul>
+										{if $list}
+										{loop $list $order}
+										<li>
+											<a href="#" class="item-link list-button">
+												<div class="row no-gutter">
+													<div class="col-40 clearfix text-overflow">
+														<div class="row no-gutter">
+															<div class="pull-left avatar_wrap">
+																<img class="avatar" src="{$order['avatar']}" onerror="this.src='../app/resource/images/heading.jpg'" alt=""/>
+															</div>
+															<div class="pull-left font7 text-overflow nickname col-60">
+																{$order['nickname']}
+															</div>
+														</div>
+													</div>
+													<div class="col-20 font6">{$order['credit']}{$order['credit_title']}</div>
+													<div class="col-40 font6">{$order['dateline']}</div>
+												</div>
+											</a>
+										</li>
+										{/loop}
+										{/if}
+									</ul>
+									{if count($list)==$pagesize}
+									<div class="infinite-scroll-preloader">
+										<div class="preloader"></div>
+									</div>
+									{/if}
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	{/if}
+	<script>
+		var sharedata = {php echo json_encode($_share)};
+	</script>
+</div>
+{template 'footer'}

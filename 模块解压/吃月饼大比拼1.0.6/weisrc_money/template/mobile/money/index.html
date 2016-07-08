@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<title>{$reply['title']}</title>
+	<link rel="stylesheet" type="text/css" href="{RES}mobile/money/hd/static/game/money/2.0/css/base.css">
+	<link rel="stylesheet" type="text/css" href="{RES}mobile/money/hd/static/game/money/2.0/css/index.css">
+	<link rel="stylesheet" type="text/css" href="{RES}mobile/money/hd/static/game/money/2.0/css/ranklist/main.css?v=1.0">
+	<link rel="stylesheet" type="text/css" href="{RES}mobile/money/hd/static/widget/popup/css/main.css">
+	<script type="text/javascript" src="{RES}mobile/money/hd/static/common/js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="{RES}mobile/money/hd/static/common/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="{RES}mobile/money/hd/static/common/js/preload.js"></script>
+	<script type="text/javascript">
+		var SCORE_LIMIT = 0;
+		var APP_API_SUBMIT = "{php echo $this->createMobileUrl('Submit', array('id' => $id), true)}";
+		var APP_API_RANK = "{php echo $this->createMobileUrl('Getallrank', array('id' => $id), true)}";
+		var APP_API_URL = '/';
+		var ACT_BASE_URL = '';
+
+		var param={
+			clockBgColor: '#94d1ee',       //背景颜色
+			Bannersrc: '',        //banner图片
+			bgImgUrl: '{$bg}',          //背景图片
+			effectAudioUrls: '',   //分数达到播放对应音乐
+			effectAudioScores: '', //音乐对应各阶段分数
+			CountdownTime: {$gametime},    //数钱时间
+			CountgameTime: {$can_play_num},
+//			CountgameTime: 2,    //剩余数钱机会
+			Gameovertext: '{$Gameovertext}',  //次数使用完提示语
+			Imagesrc: '{RES}mobile/money/game/money/moon/images/',    //图片路径
+			Audiorsrc: '{RES}mobile/money/game/money/whd/audio/',  //音乐文件路径
+			Sharetipsrc: 'share_tip.png',           //分享图片，无须带路径
+			Score1 : '30', //score1分数
+			Score1text : '吃货', //在score1分数之内显示的文本
+			Score2 : '40', //score2分数
+			Score2text : '吃鬼', //在score2分数之内显示的文本
+			Score3 : '50', //score3分数
+			Score3text : '吃霸', //在score3分数之内显示的文本
+			Score4 : '60', //score4分数
+			Score4text : '吃仙', //在score4分数之内显示的文本
+			Score5 : '70', //score5分数
+			Score5text : '吃神', //在score5分数之内显示的文本
+			Score6text : '饕餮', //在其他分数显示的文本
+			tips1text : '{$tips1text}',
+			tips2text : '{$tips2text}',
+			tips3text : '{$tips3text}',
+			signtext : '{$signtext}', //货币符号
+			baseNumber : 1,
+			isNeedRegister : {$NEEDREGISTER}, //用户资料登记  0-不需要    1-游戏前   2-点击排行榜
+			registerFlag : 0,  //注册状态 0-未注册 1-已注册
+			oid:'',
+			WXfollowsrc: '', //关注链接地址,暂无使用
+			shareTitle:'{$share_title}', //分享标题
+			shareDesc:'{$share_desc}',   //分享描述
+		};
+
+		//预加载背景图和banner图
+		_PreLoadImg([param.bgImgUrl,param.Bannersrc],function(){});
+	</script>
+	<script type="text/javascript" src="{RES}mobile/money/hd/static/game/money/2.0/js/create.js?v=2.0"></script>
+	<script type="text/javascript" src="{RES}mobile/money/hd/static/game/money/2.0/js/qipa_app.js?v=2.0"></script>
+	<script type="text/javascript" src="{RES}mobile/money/hd/static/game/money/2.0/js/qipa_stage.js?v=2.0"></script>
+	<script type="text/javascript" src="{RES}mobile/money/hd/static/game/money/2.0/js/main.js?v=2.0"></script>
+	<script type="text/javascript" src="{RES}mobile/money/hd/static/game/money/2.0/js/iscroll.js?v=2.0"></script>
+	<script type="text/javascript" src="{RES}mobile/money/hd/static/game/money/2.0/js/pop.js?v=2.0"></script>
+	<script type="text/javascript" src="{RES}mobile/money/hd/static/game/money/2.0/js/ranklist/sub.js?v=2.0"></script>
+</head>
+<body>
+<div class="group">
+	<a id="rank-btn"><img src="{RES}mobile/money/hd/static/game/money/2.0/images/btn_top.png"/></a><a data-pop="about"><img src="{RES}mobile/money/hd/static/game/money/2.0/images/btn_info.png"></a></div>
+<canvas id="stage">
+	您的浏览器不支持html5, 请换用支持html5的浏览器。
+</canvas>
+<div id="rankinglist" class="pop" style="display:none">
+	<div class="wrap">
+		<div class="title">排行榜
+			<span id="icon-close" data-close="1"><img src="{RES}mobile/money/hd/static/game/money/2.0/images/ranklist/close.png"></span>
+			<span id="icon-gameover"><img src="{RES}mobile/money/hd/images/status/game_over_1.png"></span>
+		</div>
+		<div id="ranking-list">
+			<div class="inner">
+				<ul>
+					<!-- <li><span class="n"><img src="hd/static/game/money/2.0/images/ranklist/rank-1.png"></span><span class="thumb"><img src="hd/static/game/money/2.0/images/ranklist/friend.jpg"></span><span>Javin</span><span class="gold-num">99999</span></li>
+                      <li><span class="n"><img src="hd/static/game/money/2.0/images/ranklist/rank-2.png"></span><span class="thumb"><img src="hd/static/game/money/2.0/images/ranklist/friend.jpg"></span><span>爱新觉罗</span><span class="gold-num">55</span></li>
+                      <li><span class="n"><img src="hd/static/game/money/2.0/images/ranklist/rank-3.png"></span><span class="thumb"><img src="hd/static/game/money/2.0/images/ranklist/friend.jpg"></span><span>我是小丑鱼</span><span class="gold-num">55</span></li>
+                      <li><span class="n">4</span><span class="thumb"><img src="hd/static/game/money/2.0/images/ranklist/friend.jpg"></span><span>Javin</span><span class="gold-num">55</span></li>
+                      <li><span class="n">5</span><span class="thumb"><img src="hd/static/game/money/2.0/images/ranklist/friend.jpg"></span><span>Javin</span><span class="gold-num">55</span></li>
+                      <li><span class="n">6</span><span class="thumb"><img src="hd/static/game/money/2.0/images/ranklist/friend.jpg"></span><span>宝</span><span class="gold-num">55</span></li>
+                      <li><span class="n">7</span><span class="thumb"><img src="hd/static/game/money/2.0/images/ranklist/friend.jpg"></span><span>Javin</span><span class="gold-num">55</span></li>
+                      <li><span class="n">8</span><span class="thumb"><img src="hd/static/game/money/2.0/images/ranklist/friend.jpg"></span><span>Javin</span><span class="gold-num">55</span></li>
+                      <li><span class="n">9</span><span class="thumb"><img src="hd/static/game/money/2.0/images/ranklist/friend.jpg"></span><span>Javin</span><span class="gold-num">55</span></li>
+                      <li><span class="n">10</span><span class="thumb"><img src="hd/static/game/money/2.0/images/ranklist/friend.jpg"></span><span>Javin</span><span class="gold-num">55</span></li>
+                      <li class="more">...</li>
+                      <li><span class="n">50</span><span class="thumb"><img src="hd/static/game/money/2.0/images/ranklist/friend.jpg"></span><span>我的</span><span class="gold-num">55</span></li> -->
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="about" class="pop" style="display:none">
+	<div id="pop-scroll">
+		<div class="wrap">
+			<div class="box">
+				<div class="title">活动规则<span data-close="1" id="icon-close">
+                  	<img src="{RES}mobile/money/hd/static/game/money/2.0/images/ranklist/close.png"></span>
+				</div>
+				<div class="content">
+					{php echo htmlspecialchars_decode($reply['rule']);}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="invite-share" class="pop" style="display:none">
+	<div id="pop-scroll">
+		<div data-close="1" class="wrap">
+			<div class="tip-img"><img src="{RES}mobile/money/hd/static/game/money/2.0/images/share_tip.png"></div>
+		</div>
+	</div>
+</div>
+<div id="tips" class="cover" style="display:none">
+	<div class="cover-wrap">
+		<div class="header">
+			<p>提示</p>
+			<button type="button" class="close">
+				<img src="{RES}mobile/money/hd/static/game/money/2.0/images/ranklist/close.png">
+			</button>
+		</div>
+		<div class="content">
+			<p></p>
+		</div>
+	</div>
+</div>
+<!-- 引导关注控件 -->
+<!-- 登录框 -->
+<div id="register" class="cover" style="display:none">
+	<div class="cover-wrap">
+		<div class="header">
+			<p>登记</p>
+			<button type="button" class="close">
+				<img src="{RES}mobile/money/hd/static/game/money/2.0/images/ranklist/close.png">
+			</button>
+		</div>
+		<div class="content">
+			<form enctype="multipart/form-data" action="{php echo $this->createMobileUrl('SaveUserinfo', array('id' => $id), true)}" method="post">
+				<!-- 万能表单项 -->
+				<div class="input-group input-group-md"> <span class="input-group-addon">姓名</span>
+					<input type="text" class="form-control required "
+						   id="username" name="username" placeholder="请输入姓名" maxlength="20"/>
+				</div>
+				<div class="input-group input-group-md"> <span class="input-group-addon">手机</span>
+					<input type="tel" class="form-control required phone"
+						   id="tel" name="tel" placeholder="请输入手机号" maxlength="11"/>
+				</div>
+				<div class="form_content">
+					<input type="button" value="确定" class="submit-btn" />
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$("#rank-btn").click(function(){
+			//点击排行榜 先判断是否需要注册
+			if(param.isNeedRegister == 2 && param.registerFlag == 0){
+				$("#register").show();
+				return;
+			}
+			loadLatestRankList(); //加载排行榜
+		});
+
+		$(".submit-btn").click(function(){
+			var url = "{php echo $this->createMobileUrl('SaveUserinfo', array('id' => $id), true)}";
+			var username = $('#username').val();
+			var tel = $('#tel').val();
+
+			if (username == '') {
+				alert('请输入姓名');
+				return false;
+			}
+			if (tel == '') {
+				alert('请输入电话');
+				return false;
+			}
+
+			$.ajax
+			({
+				url: url,
+				type:'POST',
+				data: {
+					username:username,
+					tel:tel
+				},
+				dataType:'json',
+				error: function () {
+					alert('网络通讯异常，请稍后再试！');
+				},
+				success: function (result) {
+					alert(result.msg);
+					setTimeout('time_jump()', 1000);
+				}
+			});
+
+		});
+
+	});
+</script>
+<style type="text/css">
+	.group{  top: 45%;}
+</style>
+<script type="text/javascript" src="{RES}mobile/money/hd/static/common/js/uustat.js?v=1.1"></script>
+<script type="text/javascript">
+	var dataForWeixin={
+		hideToolbar:true,
+		hideOptionMenu:false,
+		title:"中秋月饼吃到爽，谁更快快快！",
+		desc:"吃月饼最快的那个是你吗？吃货与饕餮的终极对决，敢不敢来挑战~",
+		img:"",
+		link:""
+	};
+</script>
+{php echo register_jssdk(false);}
+<script>
+	wx.ready(function () {
+		sharedata = {
+			title: '{$share_title}',
+			desc: '{$share_desc}',
+			link: '{$share_url}',
+			imgUrl: '{$share_image}',
+			success: function(){
+				var url = "{php echo $this->createMobileUrl('share', array('id' => $id), true)}";
+				$.ajax
+				({
+					url: url,
+					type:'POST',
+					data: {},
+					dataType:'json',
+					error: function () {
+						alert('网络通讯异常，请稍后再试！');
+					},
+					success: function (result) {
+						alert(result.msg);
+						setTimeout('time_jump()', 1000);
+					}
+				});
+			},
+			cancel: function(){
+				//alert('cancel');
+			}
+		};
+		wx.onMenuShareAppMessage(sharedata);
+		wx.onMenuShareTimeline(sharedata);
+	});
+
+	function time_jump() {
+		var url = "{php echo $this->createMobileUrl('index', array('id' => $id), true)}";
+		location.href = url;
+	}
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,173 @@
+{template 'common/header'}
+<link rel="stylesheet" type="text/css" href="../addons/han_article/css/page_mp_article_improve.css">
+<link rel="stylesheet" type="text/css" href="../addons/han_article/css/page_mp_article_improve_combo.css">
+<div id="js_article" class="rich_media">
+    <div id="js_top_ad_area" class="top_banner"></div>
+    <div class="rich_media_inner">
+        <div id="page-content">
+            <div id="img-content" class="rich_media_area_primary"><h2 class="rich_media_title" id="activity-name">
+                {$detail['title']}
+            </h2>
+
+            <div class="rich_media_meta_list">
+                <em id="post-date" class="rich_media_meta rich_media_meta_text">
+                    {php echo date('Y-m-d', $detail['createtime'])}
+                </em>
+                <a class="rich_media_meta rich_media_meta_link rich_media_meta_nickname"  {if !empty($subscribeurl)}href="{$subscribeurl}"{else}href="{$set['guanzhuUrl']}"{/if}>
+                    {$_W['account']['name']}
+                </a>
+                <span  class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">{$account['name']}</span>
+
+                <div id="js_profile_qrcode" class="profile_container" style="display:none;">
+                    <div class="profile_inner"><strong class="profile_nickname">{$account['name']}</strong>
+                        <img class="profile_avatar" src="{$_W['attachurl']}qrcode_{$_W['acid']}.jpg" alt="">
+
+                        <p class="profile_meta"><label class="profile_meta_label">微信号</label> <span
+                                class="profile_meta_value">{$account['account']}</span></p>
+
+                        <p class="profile_meta"><label class="profile_meta_label">功能介绍</label> <span
+                                class="profile_meta_value">{$account['description']}</span>
+                        </p></div>
+                    <span class="profile_arrow_wrp" id="js_profile_arrow_wrp">
+                        <i class="profile_arrow arrow_out"></i>
+                        <i class="profile_arrow arrow_in"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="rich_media_content" id="js_content">
+                {$detail['content']}
+            </div>
+
+            <div class="rich_media_tool" id="js_toobar">
+                {if $detail['outLink']}
+                <a class="media_tool_meta meta_primary"  href="{$detail['outLink']}">阅读原文</a>{/if}
+
+                <div class="media_tool_meta tips_global meta_primary">阅读
+                    <span id="readNum">{$detail['clickNum']}</span>
+                </div>
+
+                <span class="media_tool_meta meta_primary tips_global meta_praise" id="like">
+                  <i class="icon_praise_gray"></i>
+                  <span class="praise_num" id="likeNum">{$detail['zanNum']}</span>
+                </span>
+                <a id="" class="media_tool_meta tips_global meta_extra" href="{php echo $this->createMobileUrl('jubao')}">举报</a></div>
+            </div>
+
+            <div class="rich_media_area_extra">
+                <div class="mpda_bottom_container" id="js_bottom_ad_area"></div>
+                <div id="js_iframetest" style="display:none;"></div>
+            </div>
+
+            {if $set && $set['iscomment']=='1'}
+            <div class="rich_media_extra" id="js_cmt_area" style="display: block;">
+                <div class="discuss_container" id="js_cmt_main" style="display: block;">
+                    <div class="rich_tips with_line title_tips discuss_title_line">
+                        <span class="tips">精选评论</span>
+                    </div>
+                    <p class="tips_global tc title_bottom_tips" id="js_cmt_nofans1" style="display:none;">关注该公众号可参与评论</p>
+                    <p class="discuss_icon_tips title_bottom_tips tr" id="js_cmt_addbtn1" style="display: block;">
+                        <a href="{php echo $this->createMobileUrl("comment", array("artid" => $detail['id'],'openid'=>$openid))}">写评论
+                        <img class="icon_edit" src="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/images/icon/appmsg/icon_edit25ded2.png" alt="">
+                        </a>
+                    </p>
+                    <ul class="discuss_list" id="js_cmt_list">
+                        {loop $cList $comment}
+
+                        <li class="discuss_item" id="{$comment['id']}">
+                            <div class="discuss_opr">
+                                <span class="media_tool_meta tips_global meta_praise js_comment_praise " data-status="0" contentid="{$comment['id']}">
+                                    <i class="icon_praise_gray" id="comment_praise"></i>
+                                    <span class="praise_num" >{$comment['praise_num']} </span>
+                                </span>
+                            </div>
+
+                            <div class="user_info">
+                                <strong class="nickname">{$comment['author']}</strong>
+                                {if $comment['thumb']}<img class="avatar" src="{$comment['thumb']}">{/if}
+                            </div>
+                            <div class="discuss_message"><span class="discuss_status"></span>
+                                <div class="discuss_message_content">
+                                    {$comment['js_cmt_input']}
+                                </div>
+                            </div>
+                            <p class="discuss_extra_info"> {php echo get_timedays($comment['createtime'])} </p>
+                            {if $comment['js_cmt_reply']}
+                            <div class="reply_result">
+                                <div class="nickname">作者回复</div>
+                                <div class="discuss_message">
+                                    <div class="discuss_message_content">{$comment['js_cmt_reply']} </div>
+                                </div>
+                                <p class="discuss_extra_info"> {php echo get_timedays($comment['updatetime'])}</p>
+                            </div>
+                            {/if}
+                        </li>
+                        {/loop}
+                    </ul>
+                </div>
+
+                <div class="tips_global rich_split_tips tc" id="js_cmt_nofans2" style="display:none;">
+                    关注该公众号可参与评论
+                </div>
+
+                <p class="discuss_icon_tips rich_split_tips tr" id="js_cmt_addbtn2" style="display:none">
+                    <a href="{php echo $this->createMobileUrl("comment", array("artid" => $detail['id'],'openid'=>$openid))}">写评论
+                    <img class="icon_edit" src="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/images/icon/appmsg/icon_edit25ded2.png" alt="">
+                    </a>
+                </p>
+
+                <p class="rich_split_tips tc tips_global" id="js_cmt_tips" style="display: none;"></p>
+                <div class="rich_tips tips_global loading_tips" id="js_cmt_loading" style="display: none;">
+                    <img src="http://res.wx.qq.com/mmbizwap/zh_CN/htmledition/images/icon/common/icon_loading_white2805ea.gif" class="rich_icon icon_loading_white" alt="">
+                    <span class="tips">加载中</span>
+                </div>
+                <div class="rich_tips with_line tips_global" id="js_cmt_statement" style="display: block;">
+                    <span class="tips">以上评论由公众帐号筛选后显示</span>
+                </div>
+
+                <p class="rich_split_tips tc" id="js_cmt_qa" style="display: block;">
+                    <a href="http://kf.qq.com/touch/sappfaq/150211YfyMVj150313qmMbyi.html?scene_id=kf264">
+                        了解评论功能详情
+                    </a>
+                </p>
+            </div>
+            {/if}
+        </div>
+            <div id="js_pc_qr_code" class="qr_code_pc_outer" style="display:none;">
+                <div class="qr_code_pc_inner">
+                    <div class="qr_code_pc">
+                        <img src="{$_W['attachurl']}qrcode_{$_W['acid']}.jpg?time=1428632464" class="qr_code_pc_img">
+                        <p>微信扫一扫<br>关注该公众号</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='audiocontainer'></div>
+
+    {template 'adv'}
+
+ </div>
+
+	
+</div>
+<script>
+// 自定义分享数据的调用, 确保 sharedata 对象存在.
+sharedata = {
+	success: function(){ 
+	
+	     {php load()->model('mc');}
+		
+		{php $set=  pdo_fetch("SELECT * FROM ".tablename('han_sysset')." WHERE weid=:weid limit 1", array(':weid' => $weid));}
+		
+		{php $handsel = array('module' => 'han_article', 'sign' => md5(iserializer(array('id' => $id))), 'action' => 'share', 'credit_value' => $set['fxcredit'], 'credit_log' => '分享文章,赠送积分');}
+		
+		{php $formuid = -1;}
+		
+		{php mc_handsel($_W['member']['uid'], $formuid, $handsel, $_W['uniacid']);}
+		
+           alert("分享文章成功，积分+{$set['fxcredit']}");
+	}
+};
+ 
+</script>
+{template 'common/footer'}

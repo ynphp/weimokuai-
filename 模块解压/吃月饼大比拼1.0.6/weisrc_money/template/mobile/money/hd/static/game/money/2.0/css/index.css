@@ -1,0 +1,13 @@
+html,body,canvas {
+	margin: 0px;
+	padding: 0px;
+	border:none;
+	text-align: center;
+	background-color: black;
+}
+canvas {
+	background-color: white;
+}
+.group {width:80%; left:10%; top:40%; text-align:center; position:absolute;}
+.group a {display:inline-block; margin:0 2%; max-width:45%;}
+.pop .wrap .title {background-color:#BB2236 !important;}

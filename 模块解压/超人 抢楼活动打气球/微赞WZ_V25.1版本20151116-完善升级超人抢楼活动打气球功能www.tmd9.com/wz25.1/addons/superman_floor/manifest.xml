@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.tmd9.com" versionCode="0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[【超人】抢楼活动]]></name>
+		<identifie><![CDATA[superman_floor]]></identifie>
+		<version><![CDATA[4.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[增强粉丝的活跃度和互动性！]]></ability>
+		<description><![CDATA[抢楼活动可以极大提高粉丝与公众号的互动，提升公众号的黏性。并可在极短时间范围内引爆公众号流量，通过设置抢楼奖品，吸引粉丝关注公众号，并可有效激发公众号上沉睡的粉丝，增加公众号活跃度，可有效提高公众号排名！]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[http://www.tmd9.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+        <menu>
+            <entry title="中奖名单" do="awardlist" state="" direct="false" />
+        </menu>
+	</bindings>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

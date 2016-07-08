@@ -1,0 +1,108 @@
+/**
+* Author: Javin
+* Version: 1.0
+* Time:2014.10.01
+**/
+
+/*CSS reset*/
+html{color:#000;background:#FFF;-webkit-text-size-adjust:none;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+del,ins{text-decoration:none;}
+ol,ul,li{list-style:none;}
+caption,th{text-align:left;}
+q:before,q:after{content:'';}
+abbr,acronym{border:0;font-variant:normal;}
+sup,sub{vertical-align:baseline;}
+legend{color:#000;}
+input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}
+input,button,textarea,select{*font-size:100%;}
+a {text-decoration:none;}
+
+/*mobile*/
+*{-webkit-tap-highlight-color:rgba(0,0,0,0);}
+body {font-size:14px; line-height:1.3; font-family:"Microsoft YaHei";}
+img {border:0; max-width:100%; height:auto;}
+div {box-sizing:border-box;}
+
+/*登记表单*/
+.cover {
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    display: none;
+}
+.cover > .cover-wrap {
+    background: none repeat scroll 0 0 #d5e4c0;
+    margin-top: 30%;
+}
+.cover-wrap {
+    background: none repeat scroll 0 0 #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 15px -5px #000000;
+    margin: 20px auto 0;
+    position: relative;
+    width: 90%;
+}
+.header {
+    background-color: #2a7d63;
+    border-radius: 5px 5px 0 0;
+    color: #fff;
+    padding: 10px 0;
+}
+.header > p {
+    font-size: 20px;
+    margin: 0;
+    text-align: center;
+}
+.close {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #fff;
+    cursor: pointer;
+    margin: 0;
+    opacity: 0.8;
+    padding: 0;
+    position: absolute;
+    right: 5px;
+    text-align: right;
+    text-shadow: 0 1px 0 #ffffff;
+    top: 5px;
+    width: 28px;
+    height: 28px;
+}
+.content {
+    padding: 5px 15px 15px 15px;
+}
+.input-group-addon {
+    display:none;
+	text-align: right;
+	color: #749b3d;
+}
+.form-control{
+	border: none;
+	height: 30px;
+	width: 80%;
+	border-radius: 5px;
+	padding-left: 15px;
+	font-size: 16px;
+	margin-top: 10px;
+}
+.submit-btn {
+    background: none repeat scroll 0 0 #7ca641;
+    border: medium none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-family: "Microsoft YaHei";
+    font-size: 16px;
+    height: 34px;
+    margin-top: 15px;
+    width: 50%;
+}

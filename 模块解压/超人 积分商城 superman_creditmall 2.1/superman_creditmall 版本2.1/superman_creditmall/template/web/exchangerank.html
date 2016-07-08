@@ -1,0 +1,43 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if !isset($_GPC['section']) && $act == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('exchangerank', array('act' => 'display'));}">总排行榜</a></li>
+	<li {if $section=='month' && $act == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('exchangerank', array('act' => 'display','section'=>'month'));}">月排行榜</a></li>
+	<li {if $section=='week' && $act == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('exchangerank', array('act' => 'display','section'=>'week'));}">周排行榜</a></li>
+</ul>
+
+{if $act == 'display'}
+<form action="" method="post">
+	<div class="panel panel-default">
+		<div class="table-responsive panel-body">
+			<table class="table table-hover">
+				<thead>
+				<tr>
+					<th width="100">排名</th>
+					<th>商品名称</th>
+					<th>销量</th>
+				</tr>
+				</thead>
+				<tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['index']}</td>
+					<td>{$item['title']}</td>
+					<td>
+						{if $section == ''}
+							{$item['sales']}
+						{elseif $section == 'week'}
+							{$item['week_sales']}
+						{elseif $section == 'month'}
+							{$item['month_sales']}
+						{/if}
+					</td>
+				</tr>
+				{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{$pager}
+</form>
+{/if}
+{template 'common/footer'}

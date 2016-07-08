@@ -1,0 +1,84 @@
+{template 'header'}
+<div class="page superpage_{$do}" id="superpage_{$do}_{$act}">
+	{template 'nav'}
+	{if $act == 'display'}
+	<header class="bar bar-nav">
+		<a class="icon icon-left pull-left back"></a>
+		<h1 class="title">{$header_title}</h1>
+		{if count($credit_type_selected)>1}
+		<a class="icon pull-right font6 create-actions creditrank_type">
+			积分类型
+		</a>
+		<script>
+			if (_creditrank_type_button === undefined) {
+				var _creditrank_type_button = [];
+				_creditrank_type_button[0] = new Array;
+				_creditrank_type_button[1] = new Array;
+			}
+			{loop $credit_type_selected $k $item}
+			_creditrank_type_button[0][{$k}] = {
+				text: "<span class=\"{php echo $item['type']==$credit_type?'creditrank_color_active':'creditrank_color'}\">{$item['title']}</span>",
+				__url: "{php echo $this->createMobileUrl('creditrank', array('credit_type' => $item['type']))}",
+				bold: {php echo $item['type']==$credit_type?'true':'false'},
+				onClick: function() {
+					$.router.loadPage(this.__url);
+				}
+			};
+			{/loop}
+			_creditrank_type_button[1][0] = {
+				text: '关闭',
+				bg: 'danger'
+			};
+		</script>
+		{/if}
+	</header>
+	<div class="content">
+		<div class="creditrank_top_bg">
+			<span class="myranking text-overflow fonta">{$my_rank}</span>
+			<div class="ranking weekranking font9 text-overflow">{$week_credit}</div>
+			<div class="ranking monthranking font9 text-overflow">{$month_credit}</div>
+			<div class="ranking totalranking font9 text-overflow">{$all_credit}</div>
+		</div>
+		<h3 class="update_title">以下排名数据实时更新</h3>
+		<div class="list-block">
+			<div class="ranking_top_bg"></div>
+			<ul>
+				<li>
+					<a href="#" class="item-link list-button">
+						<div class="row">
+							<div class="col-20">排名</div>
+							<div class="col-60">昵称</div>
+							<div class="col-20">{$credit_title}</div>
+						</div>
+					</a>
+				</li>
+				{loop $list $item}
+				<li>
+					<a href="#" class="item-link list-button">
+						<div class="row no-gutter">
+							<div class="col-20">{$item['index']}</div>
+							<div class="col-60 clearfix text-overflow">
+								<div class="row no-gutter">
+									<div class="pull-left avatar_wrap">
+										<img class="avatar" src="{$item['avatar']}" onerror="this.src='../app/resource/images/heading.jpg'" alt=""/>
+									</div>
+									<div class="pull-left font7 text-overflow col-75">
+										{if $item['nickname']!=''}{$item['nickname']}{else}{$item['uid']}{/if}
+									</div>
+								</div>
+							</div>
+							<div class="col-20">{$item[$credit_type]}</div>
+						</div>
+					</a>
+				</li>
+				{/loop}
+			</ul>
+			<div class="ranking_bottom_bg"></div>
+		</div>
+	</div>
+	{/if}
+	<script>
+		var sharedata = {php echo json_encode($_share)};
+	</script>
+</div>
+{template 'footer'}

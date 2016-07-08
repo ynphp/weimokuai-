@@ -1,0 +1,171 @@
+/*
+ * re-define
+ */
+.superpage_home .swiper-container {
+    padding-bottom: 0;
+    min-height: 178px;
+}
+.superpage_home .swiper-slide {
+    min-height: 178px;
+}
+.superpage_home .swiper-slide img {
+    width: 100%;
+    min-height: 178px;
+}
+.superpage_home .swiper-container-horizontal > .swiper-pagination {
+    bottom: .2rem;
+}
+.superpage_home .swiper-pagination-bullet {
+    background: #aaa;
+    opacity: 1;
+}
+.superpage_home .swiper-pagination-bullet-active {
+    background: #007aff;
+}
+.superpage_home .content-block-title {
+    margin: 1rem 0rem .5rem .75rem ;
+    padding-right: 1.2rem;
+    background-image: url('http://m.sui.taobao.org/dist/img/i-list-chevron-right.png');
+    background-repeat: no-repeat;
+    background-position: 97% center;
+    background-position: -webkit-calc(100% - .5rem) center;
+    background-position: calc(100% - .5rem) center;
+    -webkit-background-size: .7rem .7rem;
+    background-size: .7rem;
+}
+
+/* home */
+.superpage_home .slide_title_wrap {
+    position: absolute;
+    bottom: 0;
+    background-color: #000;
+    background-color: rgba(0,0,0,0.5);
+    width: 100%;
+    color: #fff;
+    font-weight: normal;
+    font-size: .7rem;
+    padding: .2rem .3rem;
+}
+.superpage_home .slide_title_wrap div {
+    width: 75%;
+}
+/* home list */
+.superpage_home .home_list {
+    background: #fff;
+    margin-bottom: 1rem;
+}
+.superpage_home .home_list .row {
+    padding: 0 .3rem .3rem .3rem;
+}
+.superpage_home .home_list .item_wrap {
+    margin-top: .3rem;
+}
+.superpage_home .home_list .item_wrap .product_prompt > div {
+    width:4.6rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -1.2rem;
+    margin-left: -2.25rem;
+}
+.superpage_home .home_list .item_wrap .product_prompt > div span {
+    width: 4.6rem;
+    text-align: center;
+    display: inline-block;
+    padding: .5rem;
+    color: #fff;
+    border-radius: .3rem;
+    border: 1px #fff solid;
+    transform:rotate(-15deg);
+    -moz-transform:rotate(-15deg); /* Firefox */
+    -webkit-transform:rotate(-15deg); /* Safari 和 Chrome */
+}
+.superpage_home .home_list .item_img {
+    position: relative;
+    min-height: 97px;
+    overflow: hidden;
+    margin-bottom: .2rem;
+}
+.superpage_home .home_list .item_img img {
+    width: 100%;
+}
+/*home list redpack*/
+.superpage_home .home_list_redpack {
+    background: #fff;
+    margin-bottom: 1rem;
+}
+.superpage_home .home_list_redpack .row {
+    padding: 0 .3rem .3rem .3rem;
+}
+.superpage_home .home_list_redpack .row .col-50 {
+    height: 10rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
+    margin-top: .3rem;
+}
+.superpage_home .home_list_redpack .row .col-50 a {
+    display: inline-block;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: #fff;
+}
+.superpage_home .home_list_redpack .row .col-50 > span:first-child {
+    height: 2.5rem;
+    width: 2.5rem;
+    background-color: #ffaa3b;
+    display: block;
+    margin: 1rem auto;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 2.5rem;
+    color: #fff;
+}
+.superpage_home .home_list_redpack .row .col-50 > span:nth-child(2) {
+    text-align: center;
+    display: block;
+    color: #ffcc00;
+}
+.superpage_home .home_list_redpack .row .col-50 > .redpack_description {
+    width: 100%;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    position: absolute;
+    bottom: 0;
+    background-color: rgba(0,0,0,.1);
+    padding: 0 .2rem;
+}
+@media (max-width: 320px) {
+    .superpage_home .home_list_redpack .row .col-50 > .redpack_description span:first-child {
+        display: none;
+    }
+}
+.superpage_home .home_list_redpack .row .col-50 > .redpack_prompt {
+    width: 100%;
+    height: 10rem;
+    position: absolute;
+    top: 0;
+    background-color: rgba(0,0,0,.7);
+}
+.superpage_home .home_list_redpack .row .col-50 > .redpack_prompt > div{
+    width:4.3rem;
+    margin: 3.5rem auto;
+}
+.superpage_home .home_list_redpack .row .col-50 > .redpack_prompt span {
+    width: 4.3rem;
+    text-align: center;
+    display: inline-block;
+    padding: .5rem;
+    color: #fff;
+    border-radius: .3rem;
+    border: 1px #fff solid;
+    transform:rotate(-15deg);
+    -moz-transform:rotate(-15deg); /* Firefox */
+    -webkit-transform:rotate(-15deg); /* Safari 和 Chrome */
+}
+.superpage_home .home_list_redpack .row .col-50 > .redpack_description span:first-child {
+    color: rgba(255,255,255,.5);
+}
+.superpage_home .home_list_redpack .row .col-50 > .redpack_description span:nth-child(2) {
+    color: rgba(255,255,0,.5);
+}

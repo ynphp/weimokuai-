@@ -1,0 +1,22 @@
+<header class="bar bar-nav">
+	{if $back_url != ''}
+	<a class="icon icon-left pull-left" href="{$back_url}"></a>
+	{else}
+	<a class="icon icon-left pull-left back"></a>
+	{/if}
+	<h1 class="title">{$header_title}</h1>
+	{if $do == 'list' && $act != 'share'}
+		{if $_GPC['type'] && superman_is_redpack($_GPC['type'])}
+			<a href="#" class="icon pull-right open_help">
+				<span class="iconfont">&#xe611;</span>
+			</a>
+		{else}
+			<a class="icon icon-menu pull-right open-panel"></a>
+		{/if}
+	{/if}
+	{if $do == 'redpack' && $act == 'display'}
+		<a href="{php echo $this->createMobileUrl('exchangelog', array('id'=>$_GPC['id']))}" class="icon pull-right font6">
+			兑换记录
+		</a>
+	{/if}
+</header>
