@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="body-full-height">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>账号申请</title>
+        <link rel="stylesheet" href="../addons/wechat_daili/template/mobile/static/login/bootstrap.min.css">
+        <link rel="stylesheet" href="../addons/wechat_daili/template/mobile/static/login/style.css">
+<script>
+$(function(){
+ $("div").click(function(){
+$(this).addClass("select");		
+    });
+})
+</script>
+</head>
+        <div class="register-container container">
+            <div class="row">
+			                <div class="iphone span5">
+                    <img src="../addons/wechat_daili/template/mobile/static/login/img/iphone.png" alt="">
+                </div>
+                <div class="register span6">
+                    <form action="" method="post" role="form" id="form1">
+					<fieldset>
+                        <h2>账号申请</h2>
+                        <label>账号名称:<span style="color:red">*</span></label>
+                        <input  name="title" id="gxname" type="text"  placeholder="请填写账号名称">
+                        <label>账号密码:<span style="color:red">*</span></label>
+                        <input  name="url" id="gxgz" type="text" placeholder="请填写账号密码">
+                        <label>联系方式：</label>
+                        <input name="des" id="gxjj" type="text" placeholder="请填写联系方式">
+           </fieldset>
+          <input type="hidden" name="c" value="entry" />
+		<input type="hidden" name="do" value="fabu" />
+		<input type="hidden" name="i" value="{$weid}" />
+		<input type="hidden" name="m" value="wechat_daili" />
+                        <input type="submit" name="submit" value="申请账号" class="button" style="
+    cursor: pointer;  width: 99%;  height: 42px;  margin-top: 25px;  padding: 0;  background: #eb4141;  -moz-border-radius: 3px;  -webkit-border-radius: 3px;  border-radius: 3px;  border: 0;  -moz-box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;  -webkit-box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;  box-shadow: 0 15px 30px 0 rgba(255,255,255,.1) inset;  font-family: ;
+    color: #fff;
+"></input><input name="token" value="{$_W['token']}" type="hidden" />
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+<script>
+function showTip(tipTxt) {
+	var div = document.createElement('div');
+	div.innerHTML = '<div class="deploy_ctype_tip"><p>' + tipTxt + '</p></div>';
+	var tipNode = div.firstChild;
+	$("#wrap").after(tipNode);
+	setTimeout(function () {
+		$(tipNode).remove();
+	}, 1500);
+}
+function tgSubmit(){
+	//
+	var gxname=$("#gxname").val();
+	if($.trim(gxname) == ""){
+		alert('请输入账号名称')
+		return false;
+	}	var gxgz=$("#gxgz").val();
+	if($.trim(gxgz) == ""){
+		alert('请输入账号密码')
+		return false;
+	}	
+	if(url != 0){
+		alert('请输入八位数以上的账号密码')
+		return false;
+	}	
+
+	var gxjj=$("#gxjj").val();
+	if($.trim(gxjj) == ""){
+	    alert('请输入联系电话')
+		return false;
+	}	var gxlogo=$("#gxlogo").val();		
+	return true;
+}
+	</script>
+</body>
+</html>
+<div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 891px; width: 1920px; z-index: -999999; position: fixed;"><img src="../addons/wechat_daili/template/mobile/static/login/img/1.jpg" style="position: absolute; margin: 0px; padding: 0px; border: none; width: 1920px; height: 1172.0741989881956px; max-width: none; z-index: -999999; left: 0px; top: -140.5370994940978px;"></div></body></html>

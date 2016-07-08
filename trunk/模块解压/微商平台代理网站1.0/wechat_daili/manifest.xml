@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[微信平台代理网站]]></name>
+		<identifie><![CDATA[wechat_daili]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[微信平台代理网站]]></ability>
+		<description><![CDATA[微信平台代理网站]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="首页设置" do="fm" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="注册用户" do="dailishop" state="" direct="false" />
+			<entry title="解决方案" do="dailitop" state="" direct="false" />
+			<entry title="合作单位" do="dailicoop" state="" direct="false" />
+			<entry title="绑定域名" do="dailimob" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="导航设置" do="dh" state="" direct="false" />
+		</home>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_wechat_daili` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `title` varchar(30) DEFAULT NULL,
+  `money` varchar(30) DEFAULT NULL,
+  `url` varchar(100) DEFAULT NULL,
+  `jianjie` varchar(300) DEFAULT NULL,
+  `logo` varchar(100) DEFAULT NULL,
+  `isok` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_wechat_dailicoop` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `title` varchar(30) DEFAULT NULL,
+  `money` varchar(30) DEFAULT NULL,
+  `sale` varchar(30) DEFAULT NULL,
+  `url` varchar(100) DEFAULT NULL,
+  `jianjie` varchar(300) DEFAULT NULL,
+  `logo` varchar(100) DEFAULT NULL,
+  `isok` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_wechat_dailitop` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `title` varchar(30) DEFAULT NULL,
+  `money` varchar(30) DEFAULT NULL,
+  `sale` varchar(30) DEFAULT NULL,
+  `url` varchar(100) DEFAULT NULL,
+  `jianjie` varchar(300) DEFAULT NULL,
+  `logo` varchar(100) DEFAULT NULL,
+  `isok` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>404页面_江湖科技IJH</title>
+<meta name="description" content="404页面"/>
+<meta name="keywords" content="404页面"/>
+<link rel="stylesheet" href="/static/ui/j.ui.css" type="text/css" />
+<!--<link rel="stylesheet" href="http://www.ijh.cc/themes/default/files/css/index.css?20141222" type="text/css" media="screen" />-->
+<link rel="stylesheet" type="text/css" href="/static/css/public.css">
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+<script type="text/javascript"  src="/static/script/kt.j.js?20140822"></script>
+<script type="text/javascript"  src="/static/script/kt.js?20140822"></script>
+<script type="text/javascript"  src="/static/ui/j.ui.js?20140822"></script>
+<script type="text/javascript" src="/static/script/public.js?20140822"></script>
+<script type="text/javascript" src="/static/script/jquery.nav.js"></script>
+<script>var _hmt = _hmt || [];</script>
+<script charset="utf-8" src="http://wpa.b.qq.com/cgi/wpa.php"></script>
+</head>
+<body style="background:#f8f8f8">
+<!-- Google Tag Manager -->
+<noscript>
+<iframe src="//www.googletagmanager.com/ns.html?id=GTM-W6RM4M"
+height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W6RM4M');</script> 
+<!-- End Google Tag Manager -->
+
+<div class="top_bar">
+	<div class="left_side lt"> <span><i class="ico ic_phone"></i>销售热线：<a rel="tel:0551-64278115">0551-64278115</a></span> <span>售后服务：<a rel="tel:0551-68156253">0551-68156253</a></span> </div>
+	<div class="right_side rt"> <a href="http://www.ijh.cc/auth.html" >授权查询</a> <a href="http://www.ijh.cc/page-qcloud.html" >云主机</a><a href="http://www.ijh.cc/ucenter/index.html" >自助工单登录</a> <a href="http://bbs.ijh.cc/member.php?mod=register" target="_blank">注册</a><a href="http://bbs.ijh.cc" target="_blank">论坛</a>
+		<div class="cl"></div>
+	</div>
+</div>
+<script type="text/javascript">
+(function(K, $){
+$("[verify]").click(function(){$($(this).attr("verify")).attr("src", "/index.php?magic-verify&_"+Math.random());});
+$("#passport-form input.input").keydown(function(event){
+    if(event.keyCode == 13){
+        event.stopPropagation();event.preventDefault();
+        $("#passport-login-btn").trigger("click");
+        return false;
+    }
+});
+})(window.KT, window.jQuery);
+</script> 
+<!---顶部内容结束--> 
+<!---头部内容开始-->
+<div class="headerCont">
+	<div class="header pagewd">
+		<div class="logo lt"><a href="http://www.ijh.cc" title="江湖科技"><img src="/static/images/logoCor.png"></a></div>
+		<div class="main_nav rt">
+			<div class="main_nav_menu" id="mainNavMenu">
+				<ul id="navfouce">
+					<li ><a href="http://www.ijh.cc/index.html"><span>首页</span></a>
+					</li>
+					<li ><a href="http://www.ijh.cc/jiaju.html"><span>江湖家居</span></a>
+					</li>
+					<li ><a href="http://www.ijh.cc/hunqing.html"><span>江湖婚庆</span></a>
+					</li>
+					<li ><a href="http://www.ijh.cc/case.html"><span>客户案例</span></a>
+					</li>
+					<li ><a href="http://www.ijh.cc/solution.html"><span>解决方案</span></a>
+					</li>
+					<li ><a href="http://www.ijh.cc/system.html"><span>系统动态</span></a>
+					</li>
+					<li ><a href="http://www.ijh.cc/help.html"><span>教程帮助</span></a>
+					</li>
+					<li ><a href="http://www.ijh.cc/contact.html"><span>联系我们</span></a>
+					</li>
+				</ul>
+			</div>
+			<div class="main_nav_box" id="mainNavBox">
+				<div class="cont"></div>
+				<div class="cont"> 
+					<a href="/zxzz/">
+					<dl>
+						<dd class="ico1"></dd>
+						<dt><b>家居门户至尊版</b></dt>
+					</dl>
+					</a> 
+					<a href="http://www.ijh.cc/jhzx/jm.html">
+					<dl>
+						<dd class="ico2"></dd>
+						<dt><b>家居门户加盟版</b></dt>
+					</dl>
+					</a> 
+					<a  href="http://www.ijh.cc/qiye-feature.html">
+					<dl>
+						<dd class="ico3"></dd>
+						<dt>家居门户企业版</dt>
+					</dl>
+					</a> <a href="http://www.ijh.cc/jhzx/zx.html">
+					<dl>
+						<dd class="ico4"></dd>
+						<dt>家居门户标准版</dt>
+					</dl>
+					</a> <a href="http://www.ijh.cc/jhzx/gz.html">
+					<dl>
+						<dd class="ico5"></dd>
+						<dt>家居门户工长版</dt>
+					</dl>
+					</a> <a href="http://www.ijh.cc/jhzx/zb.html">
+					<dl>
+						<dd class="ico6"></dd>
+						<dt>家居门户招标版</dt>
+					</dl>
+					</a> 
+					<a href="http://www.ijh.cc/zhuangqi.html">
+					<dl>
+						<dd class="ico7"></dd>
+						<dt>装企营销系统</dt>
+					</dl>
+					</a></div>
+				<div class="cont"> </div>
+				<div class="cont"> </div>
+				<div class="cont"></div>
+				<div class="cont"></div>
+				<div class="cont"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$('.main_nav_box .cont dl').mouseover(function(){
+		$(this).find('dd'). css('background-position-y','0px');
+	}).mouseout(function(){
+		$(this).find('dd'). css('background-position-y','-50px');
+	});
+
+</script> 
+	<div class="notfound">
+		<a href="http://www.ijh.cc"><img src="http://www.ijh.cc/themes/default/files/images/goindex.jpg" alt="返回首页" id="goindex" /></a>
+		<a href="javascript:history.back()"><img src="http://www.ijh.cc/themes/default/files/images/back.jpg" alt="返回上一步" id="goback" /></a>
+	</div>
+<div class="footer">
+	<div class="pagewd">
+		<div class="footer_left lt">
+			<div class="logo_weibo">
+				<div class="footer_logo lt"><a href="http://www.ijh.cc/index.html" title="江湖科技"><img src="/static/images/logo.png"></a></div>
+				<div class="medium lt"> <a href="http://weibo.com/jhxxkj" class="medium-link no-line ml-10" target="_blank" rel="nofollow"> <img src="/static/images/weibo1.png" alt="新浪微博"/> </a> </div>
+				<div class="cl"></div>
+			</div>
+			<p class="link"> <a href="http://www.ijh.cc/about.html">关于我们</a> |<a href="http://www.ijh.cc/case.html">客户案例</a> |<a href="http://www.ijh.cc/auth.html">授权查询</a> |<a href="http://www.ijh.cc/help.html">帮助中心</a> |<a href="http://bbs.ijh.cc">江湖社区</a> |<a href="http://www.ijh.cc/page-downfile.html">资料下载</a> </p>
+			<p>地　址：合肥市新站区 站北文化广场 正鼎生态商务港A座2302室</p>
+			<p>All Rights Reserved ICP备案：皖ICP备13010842号</p>
+            <p>
+                <a  key ="5590bc40efbfb02454b5050b"  logo_size="124x47"  logo_type="realname"  href="http://www.anquan.org" ><script src="http://static.anquan.org/static/outer/js/aq_auth.js"></script></a>&nbsp;&nbsp;&nbsp;
+                <a  key ="5590bc40efbfb02454b5050b"  logo_size="124x47"  logo_type="realname"  href="http://www.anquan.org" ><script src="http://static.anquan.org/static/outer/js/aq_auth.js"></script></a></p>
+		</div>
+		<div class="footer_mid lt ">
+			<h2>销售热线</h2>
+			<div class="tel"> 0551-64278115<small>(9:00 - 18:00)</small> </div>
+			<div class="openqq"> <a href="javascript:;" class="icon-qq white" id="wpa" title="在线QQ客服">800070067</a> </div>
+			<h2>售后服务</h2>
+			<div class="tel">0551-68156253<small>(9:00 - 18:00)</small> </div>
+		</div>
+		<div class="footer_weixin rt">
+			<div class="clearfix"><img src="/themes/default/files/picture/weixin.jpg"></div>
+			<p>微信扫一扫</p>
+			<p>免费为您服务</p>
+		</div>
+	</div>
+	<div class="cl"></div>
+</div>
+<!---底部内容结束--> 
+<!---右侧客服内容开始-->
+<div class="rtService">
+	<div class="open_rtser"></div>
+	<div class="se_main">
+		<div class="close_se"> <a href="javascript:void(0);" title="点击关闭"></a> </div>
+		<a href="http://wpa.qq.com/msgrd?v=3&uin=800070067&site=qq&menu=yes" class="im_qq qq_a" title="在线QQ客服" onclick="_hmt.push(['_trackEvent', 'qqEvent', 'Consultation', 'qqZixun']);">
+		<div class="qq-container"></div>
+		<div class="qq_hover">        
+         <img class="img_qq" src="/static/images/qq.png"> </div>
+		<span> QQ在线咨询</span></a>
+		<div class="ser_tel">
+			<p>售前咨询热线</p>
+			<p><b class="fontcl2">0551-64278115</b></p>
+            <p><b class="fontcl2">0551-68156260</b></p>
+            
+			<p>售后服务热线</p>
+			<p><b class="fontcl2">0551-68156253</b></p>
+		</div>
+		<div class="ser_side">
+			<div class="weixin_cont lt">
+				<div class="weixin_show" >
+					<p>微信扫一扫</p>
+					<p>免费为您服务 </p>
+					<img class="weixin_ma" src="/static/pic/weixin.jpg">
+					<div class="weixin_sanjiao"></div>
+					<div class="weixin_sanjiao_border"></div>
+				</div>
+			</div>
+			<div class="go_top rt"> <a href="javascript:;" title="返回顶部"></a> </div>
+			<div class="cl"></div>
+		</div>
+	</div>
+</div>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?1637c0c37237e5218fb9061cfda29f77";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<!-- WPA Button Begin -->
+<script charset="utf-8" type="text/javascript" src="http://wpa.b.qq.com/cgi/wpa.php?key=XzgwMDA3MDA2N18yOTU3MjBfODAwMDcwMDY3Xw"></script>
+<!-- WPA Button End -->
+<!---右侧客服内容结束--> 
+</body>
+</html>

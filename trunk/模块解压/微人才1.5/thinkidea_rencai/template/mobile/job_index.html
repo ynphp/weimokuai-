@@ -1,0 +1,83 @@
+{template 'common_header'}
+    <!-- 头部 -->
+    <header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
+        <ul class="am-avg-sm-3">
+             <li class="am-text-left" style="padding:10px 0 0 5px"><a href="javascript:history.back();" class="am-icon-mail-reply">&nbsp;返回</a></li>
+             <li class="am-text-center" style="padding-top:10px">招聘频道</li>
+             <li class="am-text-right" style="padding:10px 5px 0 0"><a href="{php echo $this->createMobileUrl('PublicIndex');}" class="am-icon-plus" style="color:#FFF">&nbsp;发布</a></li>
+        </ul>
+    </header>
+    
+    <!-- 搜索框 -->
+   <!-- <div class="am-g" style="margin-top:5px;background-color:#FFF">
+        
+         <div class="am-u-sm-12" style="padding-left:0px">
+            <form  action="{php echo $this->createMobileUrl('JobList')}" class="am-form" method="POST">
+                <div class="am-u-sm-10">
+                    <input type="text" name="keyword" class="am-input-sm" placeholder="输入职位名称">
+                </div>
+                <div class="am-u-sm-2">
+                    <input type="submit" type="submit" class="am-btn am-btn-success am-btn-sm" value="搜索" required />
+                </div>
+            </form>
+        </div> 
+	</div>-->
+	
+	<!-- <div class="am-g" style="margin-top:5px;">
+        <div class="am-btn am-btn-block am-btn-primary am-text-left">&nbsp;&nbsp;<span class="am-icon-ils"></span>所有工作职位</div>
+	</div> -->
+   <div class="am-g">
+        <div class="am-btn am-btn-block am-btn-warning am-text-left am-icon-rss-square">&nbsp;&nbsp;最新加入公司 </div>
+            {loop $last_company $key $company}
+            <div class="am-panel am-panel-default" style="margin-bottom: 1px" onclick="location.href='{php echo $this->createMobileUrl('JobShow', array('job_id' => $job['id']));}';">
+            <div class="am-panel-hd" style="background-color: #e7e7e7">
+                <h3 class="am-panel-title">
+                    <span class="am-badge am-badge-warning am-radius">New</span>
+                    {$company['name']}
+                </h3>
+            </div>
+            <ul class="am-list am-list-static">
+                <li class="am-text-sm">
+                    {if $company['isauth'] == 0}
+                    <span class="am-badge am-badge-default">未认证</span>
+                    {elseif $company['isauth'] == 1}
+                    <span class="am-badge am-badge-success">电话认证</span>
+                    {elseif $company['isauth'] == 2}
+                    <span class="am-badge am-badge-success">营业执照已认证</span>
+                    {elseif $company['isauth'] == -1}
+                    <span class="am-badge">认证失败</span>
+                    {/if}
+                    {$company['dateline']}
+                </li>
+            </ul>
+            </div>
+            {/loop}
+    </div>
+
+   <div class="am-g" style="margin-top:0;">
+    <div class="am-btn am-btn-block am-btn-warning am-text-left">&nbsp;&nbsp;所有职位分类</div>
+	{loop $parent_cate $key $parent}
+		<div class="am-u-sm-12" style="margin-top:0;background-color:#FFF">
+			<table class="am-table" style="margin-bottom: 5px">
+		    <thead>
+		        <tr>
+		            <th colspan="3"><a href="{php echo $this->createMobileUrl('JobList', array('cid' => $parent['id']));}" style="color:#000">{$parent['name']}</a></th>
+		        </tr>
+		    </thead>
+		    <tbody>
+				<tr>
+		    	{loop $parent['sub'] $k $sub}
+		            <td style="border-top: none;border-bottom: 1px solid #DDDDDD"><a href="{php echo $this->createMobileUrl('JobList', array('cid' => $sub['id']));}">{$sub['name']}</a></td>
+		            {if $k % 3 == 0}
+		        		</tr>
+		        		</tr>
+		        	{/if}
+		        {/loop}
+		        </tr>
+		    </tbody>
+			</table>
+		</div>
+	{/loop}	
+	</div>
+
+    {template 'common_footer'}

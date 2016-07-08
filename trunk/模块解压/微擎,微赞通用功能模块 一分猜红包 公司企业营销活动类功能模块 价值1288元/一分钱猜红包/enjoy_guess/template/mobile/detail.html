@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<!-- saved from url=(0585)http://b.qianduan.com/Mammon/MyFirstWallet?CorpId=e9088c12-ff48-4f71-8eac-9fc360081560&YOpenId=oXd9-jkRwFijWDNrpqeD6J2NItf8&BOpenId=oXd9-julrTZp4hgr8qT4sNpg9jbU&TitleUrl=http%3A%2F%2Fwx.qlogo.cn%2Fmmopen%2F3zbIsPfpdYIFCjqdeq3xEscSChazgaP97VYTWETYKRDa80jcFxhu9Fvwx1bdX6pXWlWyaJVFd22aVgibNvgYaibosDJjMvDa1G%2F0&UserName=enjoy&Money=2&inviteCode=LLHANRSD&friendUrl=http%3A%2F%2Fwx.qlogo.cn%2Fmmopen%2F3zbIsPfpdYIZLHWiae7QbEAeOLiauqLJtr7Kkq293fX2EiciaGUia5cgTE6l12Da7cE7BwkYicRBq8YrfaTuE8oj1QCg%2F0&friendNickName=My%E4%B9%90%E6%B4%BE&CorpName=%E6%96%B0%E7%96%86%E7%94%B5%E8%A7%86%E5%8F%B0 -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>{$actdetail[title]}</title>
+             {php echo register_jssdk(false);}
+    <link rel="stylesheet" href="../addons/enjoy_guess/public/css/style.css?t">
+    <script type="text/javascript" src="../addons/enjoy_guess/public/js/jquery.min.js"></script>
+</head>
+    <style>
+    .kwd{  
+        display: inline-block;  
+        color: #272727;  
+        background:rgba(255,255,255,0.5);
+        font-size: 1.1875em;  
+        padding: 0 0.2em;  
+        border: 1px dashed #e60012;  
+        -webkit-user-select: auto; 
+        margin:0 0.2em;  
+    }  
+    .tago{
+
+  height:7rem;
+  overflow: hidden;
+    }
+
+    .kwd{  
+        display: inline-block;  
+        color: #272727;  
+        background:rgba(255,255,255,0.5);
+        font-size: 1.1875em;  
+        padding: 0 0.2em;  
+        border: 1px dashed #e60012;  
+        -webkit-user-select: auto; 
+        margin:0 0.2em;  
+    }  
+    .tago{
+
+  height:7rem;
+  overflow: hidden;
+    }
+    .redbtn1{
+    width:30%;float:right;text-decoration:none;border-radius:0.5rem;letter-spacing:2px;background: rgba(217,55,16,0.8);
+               color:#fff;padding:0.75rem 0.5rem;text-align:center;
+    }
+
+    .redbtn2{
+    width:70%;
+    float:left;
+    padding-right:5%;
+    }
+
+.cover{
+color:#333;
+background:-webkit-radial-gradient(#000,#444,#000);
+}
+#guide {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-image: url("../addons/enjoy_goods/public/images/guide.png");
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-color: #191919;
+    background-size: contain;
+    opacity: 0.9;
+}
+    </style>
+<body class="has-footbar">
+   <header class="header">
+    <div class="banner sp2">
+
+    {if $flag==0}
+     <img class="img01" src="../addons/enjoy_guess/public/images/banner1.png" alt="">
+       {if !empty($log[fee])}
+           <p><a class="btn01 sp2 btnShare" style="letter-spacing:0;width:90%;background:#d0d0d0;border-bottom: 4px solid #9f9f9f;">您猜的{$log[fee]}元{if $log[status]==1}低{else}高{/if}了一点点</a></p>
+           {/if}
+       
+        {if $black==1}
+          <p><a class="btn01 sp2 btnShare" style="letter-spacing:0;width:90%;background:#d0d0d0;border-bottom: 4px solid #9f9f9f;">让朋友也猜猜</a></p>
+             
+        {else}
+    <form action="{php echo url('mc/cash/wechat');}" method="post" id="post_{$red[id]}">                         
+		<input type="hidden" name="params" class="params" value="{php echo base64_encode(json_encode($params));}" />
+		<input type="hidden" name="encrypt_code" value="" />
+		<input type="hidden" name="card_id" value="{php echo base64_encode($card_id);}" />
+		<input type="hidden" name="coupon_id" value="" />
+           <p><a class="btn01 btn01-2" id="pay" onclick="paylog({$red[id]},0)" value="wechat">支付{php echo $red[pay]*0.01}元继续猜</a></p>
+           </form>
+{/if}
+           {else if $flag==1}
+               <img class="img01" src="../addons/enjoy_guess/public/images/banner1.png" alt="">
+                       {if $black==1}
+          <p><a class="btn01 sp2 btnShare" style="letter-spacing:0;width:90%;background:#d0d0d0;border-bottom: 4px solid #9f9f9f;">让朋友也猜猜</a></p>
+             
+        {else}
+            <form action="" method="post" id="feeform">
+           <div class="form-item01 grid verifyCode" style="width:80%;margin:0 auto;padding:0;">
+           <p class="veriTip">(请输入阿拉伯数字，如1.59,单位：元)</p>
+        <div class="grid-3-5">
+         
+        <input class="inp-txt01" name="fee" id="fee" type="number" placeholder="请输入您猜的金额" step="0.01">
+      <input type="hidden" name="uid" value="{$uid}" id="uid">
+      <input type="hidden" name="rid" value="{$rid}" id="rid">
+      <input type="hidden" name="lid" value="{$log[id]}" id="lid">
+        </div>
+        <div class="grid-2-5">
+        <input type="hidden" name="token" value="{$_W[token]}"/>
+          <input class="btnVeriCode" type="submit" id="submit" name="feesubmit" value="我&nbsp;猜&nbsp;好&nbsp;了"/>
+        </div>
+        <!--错误提示-->
+        <p class="veriTip" id="ErroMesage"></p>
+      </div>
+      </form>
+      {/if}
+      {else if $flag==2}
+          <img class="img01" src="../addons/enjoy_guess/public/images/banner1.png" alt="">
+                  {if $black==1}
+          <p><a class="btn01 sp2 btnShare" style="letter-spacing:0;width:90%;background:#d0d0d0;border-bottom: 4px solid #9f9f9f;">让朋友也猜猜</a></p>
+             
+        {else}
+                {if $nochance==1}
+
+             <form action="{php echo url('mc/cash/wechat');}" method="post" id="post_{$red[id]}">                         
+		<input type="hidden" name="params" class="params" value="{php echo base64_encode(json_encode($params));}" />
+		<input type="hidden" name="encrypt_code" value="" />
+		<input type="hidden" name="card_id" value="{php echo base64_encode($card_id);}" />
+		<input type="hidden" name="coupon_id" value="" />
+           <p><a class="btn01 btn01-2" id="pay" onclick="paylog({$red[id]},1)" value="wechat">支付{php echo $red[pay]*0.01}创建我的红包</a></p>
+           </form> 
+      {else}
+             <form action="" method="post" id="codeform">
+           <div class="form-item01 grid verifyCode" style="width:80%;margin:0 auto;padding:0;">
+           {if !empty($log[fee])}
+           <p><a class="btn01 sp2 btnShare" style="letter-spacing:0;width:90%;background:#d0d0d0;border-bottom: 4px solid #9f9f9f;">您猜的{$log[fee]}元{if $log[status]==1}低{else}高{/if}了一点点</a></p>
+           {/if}
+         
+          {if !empty($fids[ycode])}
+          <p class="info-para" style="padding:0;-webkit-user-select: auto;letter-spacing:0;">
+          {$fids[nickname]}的邀请码是<span class="kwd"><strong>{$fids[ycode]}</strong></span></p>{/if}
+        
+           <p class="veriTip">(请切换英文输入法,输入自己邀请码无效)</p>
+        <div class="grid-3-5">
+         
+        <input class="inp-txt01" name="yq_code" id="yq_code" type="text" placeholder="输朋友邀请码猜1次">
+      <input type="hidden" name="uid" value="{$uid}" id="uid">
+      <input type="hidden" name="rid" value="{$rid}" id="rid">
+        </div>
+        <div class="grid-2-5">
+        <input type="hidden" name="token" value="{$_W[token]}"/>
+          <input class="btnVeriCode" type="button" id="codesubmit" value="确&nbsp;定&nbsp;提&nbsp;交"/>
+        </div>
+        <!--错误提示-->
+        <p class="veriTip" id="ErroMesage"></p>
+      </div>
+      </form>
+      {/if}
+
+      {/if}
+      {else if $flag==3}
+      <img class="img01" src="../addons/enjoy_guess/public/images/banner2.png" alt="">
+      <p><a class="btn01 sp2 btnShare" style="letter-spacing:0;width:90%;">恭喜您，猜中了，快去零钱包看看吧</a></p>
+      
+              {if $black==1}
+          <p><a class="btn01 sp2 btnShare" style="letter-spacing:0;width:90%;background:#d0d0d0;border-bottom: 4px solid #9f9f9f;">让朋友也猜猜</a></p>
+            {else}
+               <form action="{php echo url('mc/cash/wechat');}" method="post" id="post_{$red[id]}">                         
+		<input type="hidden" name="params" class="params" value="{php echo base64_encode(json_encode($params));}" />
+		<input type="hidden" name="encrypt_code" value="" />
+		<input type="hidden" name="card_id" value="{php echo base64_encode($card_id);}" />
+		<input type="hidden" name="coupon_id" value="" />
+           <p><a class="btn01 btn01-2" id="pay" onclick="paylog({$red[id]},1)" value="wechat">支付{php echo $red[pay]*0.01}创建我的红包</a></p>
+           </form> 
+        {/if}
+      {else if $flag==4}
+      <img class="img01" src="../addons/enjoy_guess/public/images/banner2.png" alt="">
+      <p><a class="btn01 sp2 btnShare" style="letter-spacing:0;width:90%;background:#d0d0d0;border-bottom: 4px solid #9f9f9f;">很遗憾，您来晚了，红包被猜走了</a></p>
+
+              {if $black==1}
+          <p><a class="btn01 sp2 btnShare" style="letter-spacing:0;width:90%;background:#d0d0d0;border-bottom: 4px solid #9f9f9f;">让朋友也猜猜</a></p>
+             {else}
+                <form action="{php echo url('mc/cash/wechat');}" method="post" id="post_{$red[id]}">                         
+		<input type="hidden" name="params" class="params" value="{php echo base64_encode(json_encode($params));}" />
+		<input type="hidden" name="encrypt_code" value="" />
+		<input type="hidden" name="card_id" value="{php echo base64_encode($card_id);}" />
+		<input type="hidden" name="coupon_id" value="" />
+           <p><a class="btn01 btn01-2" id="pay" onclick="paylog({$red[id]},1)" value="wechat">支付{php echo $red[pay]*0.01}创建我的红包</a></p>
+           </form>
+        {/if}
+           {/if}
+         
+           <p class="info-para" style="padding:0;-webkit-user-select: auto;"><i class="i-wallet"></i>本次猜{$red[title]}范围是 <span class="money mr5">￥<strong>{php echo $red['cmin']*0.01}~{php echo $red[cmax]*0.01}元</strong></span>
+         
+     <!--     gggg的邀请码是<span class="kwd"><strong>jkol</strong></span>-->
+   <br> 已有<strong>{$red[joinnum]}</strong>人参加{if !empty($mylog[ycode])}，{$mylog[nickname]}的邀请码是<strong>{$mylog[ycode]}</strong>{/if}
+</p>
+           
+                   <script type="text/javascript">
+
+         	function paylog(rid,flag){
+
+            	  $.ajax({
+                                      type: "POST",
+                                      url: "{php echo $this->createMobileurl('paylog')}",
+                                      data: "rid="+rid+"&uid={$uid}&flag="+flag,
+                                     success: function(data){
+                                    	 var data = eval('('+data+')');
+                                           if(data['error']){
+                                        	 alert(data['error']);
+                                             	return false;
+                                             }else{
+                               	$('#post_'+rid+' .params').val(data['params']);
+                               	 $('#post_'+rid).submit();
+                                            	return true;
+                                             }
+                                      }
+                                     });
+         		
+         	}     
+
+         	 $("#feeform").submit(function () {
+         		 var fee=$("#fee").val()*100;
+         		 var cmin={$red['cmin']};
+         		 var cmax={$red['cmax']};
+       if(fee==''){
+    	   $('#ErroMesage').text('请输入您猜的金额');
+    	   return false;
+       }else if(isNaN(fee)){
+    	   $('#ErroMesage').text('金额请填写数字');
+    	   return false;
+       }else if(fee<cmin||fee>cmax){
+    	   $('#ErroMesage').text('请在红包范围内猜金额');
+    	   return false;
+       }
+         		 
+         		 
+             });
+         	 $("#codesubmit").click(function(){
+         		 var yq_code = $("#yq_code").val();
+                 var rid = '{$rid}';
+                 var uid = '{$uid}';
+                 $.post("{php echo $this->createMobileurl('inpcode')}", {yq_code: yq_code,rid:rid,uid:uid}, function (ret) {
+                 
+                     if (ret.flag==1) {
+                    	 location.reload();
+                     } else {
+                         $("#ErroMesage").text(ret.msg);
+                     }
+                 }, 'json');
+         		 
+         		 
+         		 
+         		 
+         		 
+         		 
+         	 });
+         	 
+
+</script>
+      <div class="winners sp2">
+        <div class="tag01" style="background:#d93710"><a style="color:#fff" href="{php echo $this->createMobileUrl('rank')}">总排行榜</a></div>
+        <ul class="winners-list clearInlGap">
+                {php $i=1;}
+{loop $rolls $item}
+          <li class="winner theFirstLev">
+            <div class="avatar">
+              <span class="serial-num">{php echo $i}</span>
+              <div class="inner">
+                <img src="{php echo tomedia($item[img])}" alt="用户头像">
+              </div>
+            </div><!--/avatar-->
+            <div class="info">
+              <span class="prize">￥<strong>{$item[money]}</strong></span>
+            </div><!--/info-->
+          </li><!--/winner-->
+          {php $i++}
+         {/loop} 
+        </ul><!--/winners-list-->
+      </div><!--/winners-->
+    </div><!--/banner-->
+    </header>
+            {if !empty($ruid[money])}
+            <div class="para02 clearInlGap">
+          <div class="winner theFirstLev">
+            <div class="avatar">
+              <div class="inner">
+                <img src="{$ruid[img]}" alt="用户头像">
+              </div>
+            </div><!--/avatar-->
+            <div class="info">{$ruid[nickname]}</div><!--/info-->
+          </div><!--/winner-->
+          <div class="part-r">
+           <p>哈哈，我猜<strong class="font01">￥{$ruid[money]}</strong>元，就猜中啦</p>
+          <p>请叫我小诸葛~~~</p>
+          </div><!--/part-r-->
+        </div>
+        {/if}
+    <section class="se1"  id="dota1">
+        <div class="main_list">
+
+{loop $fans $list}
+          <div class="msg-item grid" cur_li="4" li_s="5">
+          {loop $list $item}
+          <div class="tago">
+            <div class="grid-1-6 tAr">
+              <div class="msger">
+                <div class="avatar">
+                  <img src="{$item[avatar]}{if empty($item[avatar])}{$item[aimg]}{/if}" alt="头像">
+                </div><!--/avatar-->
+                 <p class="name">{$item[nickname]}{if empty($item[nickname])}{$item[anick]}{/if}</p>
+              </div><!--/msger-->
+            </div>
+            
+            <div class="grid-5-6">
+              <div class="msg-box">
+                <div class="inner">
+              <!--     <p>我猜<strong class="font01">￥{$item[fee]}</strong>元，差一点点就猜中了，{$item[comment]}</p>
+                <p>我猜<strong class="font01">￥{$item[fee]}</strong>元，就猜{if $item[status]==1}低{else if $item[status]==3}高{/if}了一点点</p> --> 
+                        {if $red['rank']<0}
+                <p>我猜<strong class="font01">￥{$item[fee]}</strong>元，差一点点就猜中了，{$item[comment]}</p>
+                {else if $red['rank']==0}
+                {if $ulist['subscribe']==1}
+                <p>我猜<strong class="font01">￥{$item[fee]}</strong>元，就猜{if $item[status]==1}低{else if $item[status]==3}高{/if}了一点点，{$item[comment]}</p>
+             {else}
+          			<p><span class="redbtn2">我猜<strong class="font01">￥{$item[fee]}</strong>元，就猜<span class="cover">&nbsp;&nbsp;&nbsp;&nbsp;</span>了一点点，{$item[comment]}</span>
+					<a class="link01 redbtn1" href="{$actdetail[sucai]}">关注{$_W[account][name]}<br>看高低</a>
+          			
+          			{/if}
+                 {/if}
+                </div><!--/inner-->
+              </div><!--/msg-box-->
+            </div>
+            </div>
+
+{/loop}
+          </div>
+{/loop}
+ <div id="actiRule" class="thickbox type02">
+    <div class="inner">
+      <section class="sec-actiRule">
+        <!--<h1 class="title">活动规则</h1>-->
+        <ul class="rule-list">
+          {php echo htmlspecialchars_decode($actdetail[rule])}
+        </ul>
+        <a class="close03" href="javascript:;"></a>
+      </section><!--/sec-actiRule-->
+    </div><!--/inner-->
+  </div><!--/thickbox-->
+           <div class="fixed-wrap fixed-b">
+            <a class="btn01 btnShare" style="width:30%;float:left;margin:0.6rem 2.5%;" id="QdBtnFristInvite" href="javascript:;">找人帮忙</a>
+            <a style="width:30%;float:left;margin:0.6rem 2.5% 0.6rem 0;"class="btn01 thiBoxTrig tapToClose" data-target="actiRule" href="javascript:;">玩法说明</a>
+             <a class="btn01 wd-full" style="width:30%;float:left;margin:0.6rem 2.5% 0.6rem 0;" href="{php echo $this->createMobileUrl('entry')}">更多红包</a></div>
+           <!--/fixed-wrap-->
+        <div class="para03 sp2 tAc">
+        <p class="tip01">*本活动由<a href="{$actdetail[sucai]}" style="text-decoration: underline;color:#d93710">{$_W[account][name]}</a>提供支持</p>
+          <div class="zh-logo vm mr10"></div>
+          <div class="yq-logo vm"></div>
+        </div><!--/para03
+             <p class="tip01 mb5" noshow="yes">新疆电视台提供</p>-->
+             
+        </div>
+
+    </section>
+    <!--弹框-->
+    <div class="mask close" style="overflow: hidden; display: none;">
+    </div>
+    <div id="shareGuideWx" class="guideBox guideBox-2" style="overflow: hidden; display: none;">
+        <div class="inner">
+            <img src="../addons/enjoy_guess/public/images/guide_share_ios.png" alt="操作指引(微信): 分享到朋友圈">
+        </div>
+        <!--/inner-->
+    </div>
+    <script type="text/javascript">
+/*新发布和中标信息滚动*/
+(function(){
+    var dota1=$("#dota1"), ta_tc1=dota1.find(".msg-item");
+    if(dota1.size()==0){return false;}
+    var count="{$countfans}";
+    if(count<6){return false};
+    var scroll=function(uls){
+        //复制一次内部的li
+        var li_h=uls.eq(0).find(".tago").outerHeight();
+        this.copy=function(){
+            uls.each(function(){
+                var lis=$(this).find(".tago");
+                $(this).append(lis.clone());
+                $(this).attr("li_s",lis.size()*2);
+                $(this).attr("cur_li",lis.size()*2-1);
+            });
+        }
+        this.copy();
+        //移动到最下边的li
+        this.toLast=function(){
+            uls.each(function(){
+                $(this).scrollTop(10000);
+            });
+        }
+        this.toLast();
+
+        var timer=null;//滚动的超时时间
+        var i=0;
+        //开始滚动ul数组
+        function start(i)
+        {
+            var cur_ul=uls.eq(i);
+            if(cur_ul){
+                cur_ul.animate({scrollTop:cur_ul.scrollTop()-li_h},function(){
+                    var cur_li=parseInt(cur_ul.attr("cur_li"));
+                    var li_s=parseInt(cur_ul.attr("li_s"));
+                    cur_li--;
+                    if((li_s/2-1)==cur_li)
+                    {
+                        cur_ul.attr("cur_li",li_s-1);
+                        $(this).scrollTop(10000);
+                    }else{
+                        cur_ul.attr("cur_li",cur_li);
+                    }
+                    start(++i);
+                });
+            };
+        }
+        timer=setInterval(function(){ start(i);},3000);
+    }
+    scroll(ta_tc1);
+})();
+</script>
+    <script src="./index2_files/zepto.min.js"></script>
+    <script src="../addons/enjoy_guess/public/js/main.js"></script>
+<script type="text/javascript">
+wx.ready(function () {
+    sharedata = {
+    	title : "{$sharetitle}",
+   		link :  "{$sharelink}",
+   		desc : "{$sharecontent}",
+    	imgUrl:"{php echo tomedia($actdetail[share_icon])}",
+      success: function(){
+    	// ajax返回加机会
+      },
+      cancel: function(){
+    	//  alert(2);
+      }
+    };
+    wx.onMenuShareAppMessage(sharedata);
+    wx.onMenuShareTimeline(sharedata);
+    wx.onMenuShareQQ(sharedata);
+    wx.onMenuShareWeibo(sharedata);
+  });
+  
+  
+
+</script>
+
+
+
+</body></html>

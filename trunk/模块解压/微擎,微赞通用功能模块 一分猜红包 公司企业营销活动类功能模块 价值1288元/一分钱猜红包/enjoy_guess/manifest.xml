@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[一分猜红包]]></name>
+		<identifie><![CDATA[enjoy_guess]]></identifie>
+		<version><![CDATA[1.18]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[花一分钱猜红包咯]]></ability>
+		<description><![CDATA[花一分钱猜红包咯]]></description>
+		<author><![CDATA[enjoy]]></author>
+		<url><![CDATA[http://bbs.we7.cc/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="image" />
+			<message type="location" />
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+			<message type="trace" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="image" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="trace" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="猜红包入口" do="entry" state="data" direct="false" />
+		</cover>
+		<menu>
+			<entry title="活动设置" do="act" state="data" direct="false" />
+			<entry title="红包管理" do="red" state="data" direct="false" />
+			<entry title="中奖名单管理" do="roll" state="data" direct="false" />
+			<entry title="黑名单管理" do="black" state="data" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_enjoy_guess_chance` (
+  `id` int(255) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(50) NOT NULL,
+  `uid` int(200) NOT NULL,
+  `ycode` varchar(20) DEFAULT NULL,
+  `state` int(2) NOT NULL DEFAULT '0',
+  `rid` int(200) DEFAULT NULL,
+  `createtime` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uniacid` (`uniacid`,`uid`,`ycode`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_enjoy_guess_fans` (
+  `uid` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) unsigned NOT NULL,
+  `openid` varchar(40) NOT NULL DEFAULT '',
+  `proxy` varchar(40) NOT NULL DEFAULT '',
+  `unionid` varchar(40) NOT NULL DEFAULT '',
+  `nickname` varchar(20) NOT NULL DEFAULT '',
+  `gender` varchar(2) DEFAULT '',
+  `state` varchar(20) NOT NULL DEFAULT '',
+  `city` varchar(20) NOT NULL DEFAULT '',
+  `country` varchar(20) NOT NULL DEFAULT '',
+  `avatar` varchar(500) NOT NULL DEFAULT '',
+  `puid` int(20) DEFAULT NULL,
+  `black` int(2) NOT NULL DEFAULT '0',
+  `ip` varchar(50) DEFAULT NULL,
+  `subscribe` int(2) DEFAULT NULL,
+  `subscribe_time` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`uid`),
+  KEY `uniacid` (`uniacid`),
+  KEY `openid` (`openid`),
+  KEY `proxy` (`proxy`),
+  KEY `nickname` (`nickname`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_enjoy_guess_log` (
+  `id` int(255) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(50) NOT NULL,
+  `fee` float(20,2) NOT NULL,
+  `uid` int(100) NOT NULL,
+  `rid` int(200) NOT NULL,
+  `ycode` varchar(20) DEFAULT NULL,
+  `status` int(2) NOT NULL,
+  `nickname` varchar(50) DEFAULT NULL,
+  `avatar` varchar(500) DEFAULT NULL,
+  `createtime` varchar(20) NOT NULL,
+  `gtime` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `rid` (`rid`,`uid`,`fee`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_enjoy_guess_paylog` (
+  `id` int(50) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(20) NOT NULL,
+  `uid` int(50) NOT NULL,
+  `rid` int(20) NOT NULL,
+  `fee` float(8,2) NOT NULL,
+  `status` int(2) NOT NULL DEFAULT '0',
+  `ycode` varchar(20) DEFAULT NULL,
+  `bole` int(2) NOT NULL DEFAULT '-1',
+  `createtime` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_enjoy_guess_red` (
+  `id` int(200) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(50) unsigned DEFAULT NULL,
+  `uid` int(200) DEFAULT NULL,
+  `orid` int(200) DEFAULT '0',
+  `title` varchar(200) DEFAULT NULL,
+  `img` varchar(200) DEFAULT NULL,
+  `joinnum` int(50) DEFAULT '0',
+  `cmin` int(50) DEFAULT NULL,
+  `cmax` int(50) DEFAULT NULL,
+  `pay` int(50) DEFAULT NULL,
+  `money` int(50) DEFAULT NULL,
+  `status` int(2) NOT NULL DEFAULT '0',
+  `virtual` int(2) NOT NULL DEFAULT '0',
+  `brush` int(100) DEFAULT NULL,
+  `times` int(20) DEFAULT NULL,
+  `realtimes` int(20) NOT NULL DEFAULT '0',
+  `rank` int(50) NOT NULL DEFAULT '0',
+  `stime` varchar(200) DEFAULT NULL,
+  `etime` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_enjoy_guess_reply` (
+  `id` int(50) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(20) DEFAULT NULL,
+  `title` varchar(200) DEFAULT NULL,
+  `rule` varchar(1000) DEFAULT NULL,
+  `state` varchar(50) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `color` varchar(20) DEFAULT NULL,
+  `apic` varchar(200) DEFAULT NULL,
+  `bgpic` varchar(200) DEFAULT NULL,
+  `sucai` varchar(200) DEFAULT NULL,
+  `expurl` varchar(200) DEFAULT NULL,
+  `share_icon` varchar(200) DEFAULT NULL,
+  `share_title` varchar(200) DEFAULT NULL,
+  `share_content` varchar(200) DEFAULT NULL,
+  `chance` int(10) DEFAULT NULL,
+  `bingo` int(10) DEFAULT NULL,
+  `stime` varchar(200) DEFAULT NULL,
+  `etime` varchar(200) DEFAULT NULL,
+  `jlfee` float(20,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_enjoy_guess_roll` (
+  `id` int(50) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(20) NOT NULL,
+  `rid` int(20) DEFAULT NULL,
+  `uid` int(50) DEFAULT NULL,
+  `nickname` varchar(50) NOT NULL,
+  `img` varchar(500) NOT NULL,
+  `title` varchar(100) DEFAULT '0',
+  `money` float(10,2) DEFAULT NULL,
+  `status` int(2) NOT NULL DEFAULT '0',
+  `createtime` varchar(50) NOT NULL,
+  `bid` int(50) NOT NULL DEFAULT '0',
+  `bmoney` float(20,2) NOT NULL DEFAULT '0.00',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

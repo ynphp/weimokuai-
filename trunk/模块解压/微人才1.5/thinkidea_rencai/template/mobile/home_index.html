@@ -1,0 +1,173 @@
+{template 'common_header'}
+    <!-- 幻灯片大 -->
+     <div class="am-slider am-slider-default" data-am-flexslider="{controlNav:false}" style="margin-top:0;margin-bottom:5px">
+      <ul class="am-slides">
+	      {loop $big_ad_lists $bigad}
+	        <li><a href="{$bigad['link']}"><img style="height:160px" src="{$_W['attachurl']}/{$bigad['url']}"/></a></li>
+	      {/loop}  
+      </ul>
+    </div>
+
+    <!-- 幻灯片小 -->
+	<div class="am-slider am-slider-default am-slider-carousel" data-am-flexslider="{controlNav:false, itemWidth:160, itemMargin: 5}" style="margin-bottom:5px">
+	  <ul class="am-slides">
+	    {loop $small_ad_lists $smallad}
+	       <li><a href="{$smallad['link']}"><img style="height:55px" src="{$_W['attachurl']}/{$smallad['url']}"></a></li>
+	    {/loop}
+	  </ul>
+	</div>
+
+    <!-- 置顶 -->
+    <div class="am-g" style="margin-top:5px">
+    	{loop $top_lists $job}
+    	<div onclick="location.href='{php echo $this->createMobileUrl('JobShow', array('job_id' => $job['id']));}';">
+		    <div class="am-panel am-panel-default" style="margin-bottom:0">
+			<div class="am-panel-hd" style="border-bottom:none;background-color:#e7e7e7">
+			  <h5 class="am-panel-title">
+			  	<span class="am-badge am-badge-primary am-radius">置顶</span>
+			  	{$job['title']}
+			  </h5>
+			</div>
+			<ul class="am-list am-list-static">
+				<li class="am-text-xs">
+					{$top_companys[$job['mid']]['name']}
+					{if $top_companys[$job['mid']]['isauth'] == 0}
+						<span class="am-badge am-badge-default">未认证</span>	
+					{elseif $top_companys[$job['mid']]['isauth'] == 1}
+						<span class="am-badge am-badge-success">电话认证</span>
+					{elseif $top_companys[$job['mid']]['isauth'] == 2}
+						<span class="am-badge am-badge-success">营业执照已认证</span>	
+					{elseif $top_companys[$job['mid']]['isauth'] == -1}
+						<span class="am-badge">认证失败</span>
+					{/if}
+				</li>
+				<li class="am-text-sm">
+					<font color="red">{$config['payroll'][$job['payroll']]}</font>
+					{loop $job['welfare'] $key $welfare}
+						{if $key < 2}
+			    		<span class="am-badge am-badge-secondary">{$config['welfare'][$welfare]}</span>
+			    		{/if}
+			    	{/loop}
+				</li>
+			</ul>
+			</div>
+		</div>
+		{/loop}
+    </div>
+    
+    <!-- 热门职位 -->
+    <div class="am-g">
+    	<div class="am-btn am-btn-block am-btn-warning am-text-left am-icon-rss-square">&nbsp;&nbsp;热门职位 </div>
+    	{loop $hot_jobs $job}
+		    <div class="am-panel am-panel-default" style="margin-bottom: 1px" onclick="location.href='{php echo $this->createMobileUrl('JobShow', array('job_id' => $job['id']));}';">
+			<div class="am-panel-hd" style="background-color: #e7e7e7">
+			  <h3 class="am-panel-title">
+                  <span class="am-badge am-badge-warning am-radius">热</span>
+                  {$job['title']}&nbsp;&nbsp;<small><font color="red">{$config['payroll'][$job['payroll']]}</font></small></h3>
+
+			</div>
+			<ul class="am-list am-list-static">
+				<li class="am-text-sm">
+                    {$hot_companys[$job['mid']]['name']}
+                    {loop $job['welfare'] $key $welfare}
+                    {if $key < 2}
+                    <span class="am-badge am-badge-secondary">{$config['welfare'][$welfare]}</span>
+                    {/if}
+                    {/loop}
+                </li>
+			</ul>
+			</div>
+		{/loop}
+    </div>
+
+    <!-- 最新职位 -->
+    <div class="am-g">
+        <div class="am-btn am-btn-block am-btn-danger am-text-left am-icon-rss-square">&nbsp;&nbsp;最新职位 </div>
+        {loop $last_jobs $last}
+        <div class="am-panel am-panel-default" style="margin-bottom: 1px" onclick="location.href='{php echo $this->createMobileUrl('JobShow', array('job_id' => $last['id']));}';">
+            <div class="am-panel-hd" style="background-color: #e7e7e7">
+                <h3 class="am-panel-title">
+                    <span class="am-badge am-badge-danger am-radius">新</span>
+                    {$last['title']}&nbsp;&nbsp;<small><font color="red">{$config['payroll'][$last['payroll']]}</font></small></h3>
+            </div>
+            <ul class="am-list am-list-static">
+                <li class="am-text-sm">
+                    {$last_companys[$last['mid']]['name']}
+                    {loop $last['welfare'] $key $welfare}
+                    {if $key < 2}
+                    <span class="am-badge am-badge-secondary">{$config['welfare'][$welfare]}</span>
+                    {/if}
+                    {/loop}
+                </li>
+            </ul>
+        </div>
+        {/loop}
+    </div>
+
+    <!-- 热门工作 -->
+    <!--<div class="am-g" style="background-color:#FFF">-->
+        <!--<div class="am-btn am-btn-block am-btn-primary am-text-left am-icon-fire">&nbsp;&nbsp;热门工作</div>-->
+        <!--<div class="am-u-sm-12">-->
+            <!--<table class="am-table" style="margin-bottom:0">-->
+                <!--<tr>-->
+                <!--{loop $hot_jobs $key $hot}-->
+                    <!--{if $key < 6}-->
+                    <!--<td><a href="{php echo $this->createMobileUrl('JobList', array('cid' => $hot['id']));}" style="color:#000;font-size:14px">{$hot['name']}</a></td>-->
+	                <!--{if ($key+1)%3 == 0}-->
+	                   <!--</tr>-->
+	                   <!--<tr>-->
+	                <!--{/if}-->
+                    <!--{/if}-->
+                <!--{/loop}-->
+                <!--</tr>-->
+            <!--</table>-->
+        <!--</div>-->
+    <!--</div>-->
+
+{if $hot_jobs_counts > 6}
+<div class="am-panel am-panel-default" style="margin-bottom: 0">
+    <div class="am-panel-hd">
+        <h4 class="am-panel-title am-text-center" data-am-collapse="{parent: '#accordion', target: '#do-not-say-1'}">
+            更多...
+        </h4>
+    </div>
+    <div id="do-not-say-1" class="am-panel-collapse am-collapse">
+        <div class="am-panel-bd" style="padding-top: 0;padding-bottom: 0">
+            <table class="am-table" style="margin-bottom:0">
+                <tr>
+                    {loop $hot_jobs $key $hot}
+                    {if $key > 5}
+                    <td><a href="{php echo $this->createMobileUrl('JobList', array('cid' => $hot['id']));}" style="color:#000;font-size:14px">{$hot['name']}</a></td>
+                    {if ($key+1)%3 == 0}
+                        </tr>
+                        <tr>
+                    {/if}
+                    {/if}
+                    {/loop}
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+{/if}
+    <!-- 全部工作 -->
+    <div class="am-g" style="background-color:#FFF">
+        <div class="am-btn am-btn-block am-btn-primary am-text-left am-icon-hdd-o">&nbsp;&nbsp;全部工作</div>
+    	{loop $parent_cate $key $parent}
+        <div class="am-sm-12">
+            <ul class="am-avg-sm-3" style="border-bottom:1px solid #DBDBDB;">
+                <li class="am-text-center" style="padding-top:10px"><a href="{php echo $this->createMobileUrl('JobList', array('cid' => $parent['id']));}">{$parent['name']}</a></li>
+                <li class="am-text-sm" style="padding-top:10px"></li>
+                <li class="am-text-center" style="padding-top:10px">
+                    <button class="" data-am-collapse="{target: '#collapse-nav-{$key}'}"><i class="am-icon-angle-down"></i></button>
+                </li>
+            </ul>
+            <ul id="collapse-nav-{$key}" class="am-avg-sm-3 am-collapse {if $key == 0}am-in{/if}">
+            	{loop $parent['sub'] $sub}
+                <li class="am-text-center" style="padding-top:10px;border-bottom:1px solid #DBDBDB"><a href="{php echo $this->createMobileUrl('JobList', array('cid' => $sub['id']));}" style="color:#000;font-size:14px">{$sub['name']}</a></li>
+                {/loop}
+            </ul>
+        </div>
+        {/loop}
+    </div>
+{template 'common_footer'}
