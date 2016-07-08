@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.ivfen.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[呼叫商家]]></name>
+		<identifie><![CDATA[qw_hjsj]]></identifie>
+		<version><![CDATA[1.2.3]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[呼叫商家]]></ability>
+		<description><![CDATA[呼叫商家家]]></description>
+		<author><![CDATA[微粉分享网]]></author>
+		<url><![CDATA[http://www.ivfen.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="voice" />
+		</subscribes>
+		<handles>
+			<message type="voice" />
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="商家加盟" do="m_joinin" state="" direct="false" />
+			<entry title="商家中心" do="m_center" state="" direct="false" />
+			<entry title="用户中心" do="p_center" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="加盟列表" do="shangjia" state="" direct="false" />
+			<entry title="下单列表" do="order" state="" direct="false" />
+			<entry title="现金结算" do="cash" state="" direct="false" />
+			<entry title="提现操作" do="tixian" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_qw_hjsj_djorder` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `openid` varchar(255) NOT NULL,
+  `fee` decimal(10,2) NOT NULL,
+  `ordersn` varchar(20) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0',
+  `hid` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `xq` varchar(255) NOT NULL,
+  `addtime` int(10) NOT NULL DEFAULT '0',
+  `dtransid` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=148 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_qw_hjsj_jilu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `openid` varchar(255) NOT NULL,
+  `uploadsrc` varchar(255) NOT NULL,
+  `truename` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `gpsaddress` varchar(255) NOT NULL,
+  `mp3path` varchar(255) NOT NULL,
+  `addtime` int(11) NOT NULL DEFAULT '0',
+  `status` int(1) NOT NULL DEFAULT '0',
+  `ordersn` varchar(255) NOT NULL,
+  `localsrc` varchar(255) DEFAULT NULL,
+  `sjid` int(11) NOT NULL,
+  `paystatus` int(1) DEFAULT '0',
+  `money` decimal(10,2) DEFAULT NULL,
+  `paytype` int(1) DEFAULT NULL,
+  `payopenid` varchar(255) DEFAULT NULL,
+  `transid` varchar(255) DEFAULT NULL,
+  `pjstatus` int(1) NOT NULL DEFAULT '0',
+  `pjstar` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ordersn` (`ordersn`)
+) ENGINE=MyISAM AUTO_INCREMENT=141 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_qw_hjsj_money` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL,
+  `hid` int(11) DEFAULT NULL,
+  `cash` decimal(10,2) DEFAULT '0.00',
+  `sid` int(10) DEFAULT NULL,
+  `status` int(1) DEFAULT '0',
+  `xncash` decimal(10,2) DEFAULT '0.00',
+  `txorder` varchar(20) DEFAULT NULL,
+  `addtime` int(10) NOT NULL DEFAULT '0',
+  `jsstatus` int(1) NOT NULL DEFAULT '0',
+  `txmoney` decimal(10,2) DEFAULT '0.00',
+  `opid` int(1) NOT NULL DEFAULT '1',
+  `txstatus` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_qw_hjsj_shangjia` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `openid` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0',
+  `mark` varchar(255) NOT NULL,
+  `uniacid` int(11) NOT NULL,
+  `addtime` int(11) NOT NULL DEFAULT '0',
+  `money` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `cash` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `xncash` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `dmoney` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `mpic` varchar(255) NOT NULL,
+  `picpath` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[DROP TABLE IF EXISTS `ims_qw_hjsj_djorder`;
+DROP TABLE IF EXISTS `ims_qw_hjsj_jilu`;
+DROP TABLE IF EXISTS `ims_qw_hjsj_money`;
+DROP TABLE IF EXISTS `ims_qw_hjsj_shangjia`;
+]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

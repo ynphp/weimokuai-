@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>呼叫商家-个人中心</title>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/weui.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/jquery-weui.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/example.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/common.css"/>
+    <link rel="shortcut icon" href="/images/global/wechat.jpg" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+</head>
+<body ontouchstart>
+<style>
+    body { background-color: white;color:#323232;background-image: none;}
+     /*.cont:nth-child(odd){ background-color: #e6e6e6;}*/
+    .weui_btn.weui_btn_mini { font-size: 16px;display: block;line-height: 2;}
+</style>
+<div class="container">
+
+    <div class="pull-right right"><a href="/app/index.php?i=20&c=entry&do=index&m=qw_hjsj"><img src="/addons/qw_hjsj/assets/img/home_back.png" /></a> </div>
+    <div class="weui_cell border-bottom">
+        <div class="weui_cell_bd weui_cell_primary">
+            <p>接单商家</p>
+        </div>
+        <div class="weui_cell_ft">评价状态</div>
+    </div>
+
+    {loop $orderlist $item}
+    <div class="weui_cell border-bottom">
+        <p class="dingdan" style="display: none;">{$item['id']}</p>
+        {if $item['status']==1 || $item['status']==3}
+        <div class="weui_cell_hd m_pic" style="background: rgba(51, 195, 255, 0.53) url('{$item['picpath']}');background-size: cover;background-position: 50%;"></div>
+        {else}
+        <div class="weui_cell_hd m_pic" style="background: rgba(51, 195, 255, 0.53) url('{php echo tomedia($set['sypic'])}');background-size: cover;background-position: 50%;"></div>
+        {/if}
+        <div class="weui_cell_bd weui_cell_primary">
+            <p>接单商家：{if $item['status']==1 || $item['status']==3}{$item['sname']}{else}<b>暂无</b>{/if}</p>
+            <p>订单状态：{if $item['status']==1}配送中{elseif $item['status']==2}已取消{else if $item['status']==3}已完成{else}呼叫中{/if}</p>
+        </div>
+        <div class="weui_cell_ft pjstatus">{if $item['status']==3}{if $item['pjstatus']==1}已评价{else}<a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary open-popup pingjia" data-target="#about">评价</a>{/if}{else}...{/if}</div>
+    </div>
+
+    {/loop}
+</div>
+<div id="about" class="weui-popup-container">
+    <div class="weui-popup-modal">
+        <article class="weui_article text-center">
+            <h1>评定星级</h1>
+            <section class="margin-50">
+                <div id="demo6" class="demo">
+                    <span class="ratyli"></span>
+                </div>
+                <section class="margin-50">
+                <!--<a href="javascript:;" class="weui_btn weui_btn_plain_primary pjtj close-popup">提交</a>-->
+                <a href="javascript:;" class="weui_btn weui_btn_plain_primary close-popup">暂不评价</a>
+                </section>
+            </section>
+        </article>
+    </div>
+</div>
+<script src="/addons/qw_hjsj/assets/js/jquery-2.1.4.js"></script>
+<script src="/addons/qw_hjsj/assets/js/jquery.ratyli.js"></script>
+
+<script src="/addons/qw_hjsj/assets/js/jquery-weui.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6mLUAH03gAY3BakwXgn9Mryy"></script>
+</body>
+</html>
+{php echo register_jssdk(false);}
+
+<script>
+    $(document).ready(function(){
+
+        $(".pingjia").each(function(){
+
+            $(this).click(function(){
+                var ttt = $(this);
+                var idd = ttt.parent().parent().find(".dingdan").text();
+
+                var Url ="{php echo $this->createMobileurl('pingjia')}";
+
+                $("#demo6 .ratyli").ratyli({
+                    onRated:function(value,init){
+                        // rating callback
+                        if(!init)
+                            //alert(value);  // prevent run at init
+                            $.post(Url,{idd:idd,star:value},function (data) {
+                                var data = $.parseJSON(data);
+                                if(data.error==1){
+
+                                    $.alert(data.message);
+                                    $("#about").hide();
+                                    //$(".open-popup").replaceWith('<p">已评价</p>');
+                                    //$(".pay").replaceWith('<p>已完成</p>');
+                                    // console.log('DOM Element ', $el);
+                                    ttt.parent().parent().find(".pjstatus").text("已评价");
+                                }else{
+
+                                    $.alert(data.message);
+                                }
+                            })
+                    }
+                });
+
+/*                $(".my-rating-6").starRating({
+                    initialRating: 4,
+                    starSize: 25,
+                    useFullStars: true,
+                    strokeColor: 'transparent',
+                    starGradient: {
+                        start: '#ff4e00',
+                        end: '#ff4e00'
+                    },
+                    callback: function(currentRating, $el){
+                        $.post(Url,{idd:idd,star:currentRating},function (data) {
+                            var data = $.parseJSON(data);
+                            if(data.error==1){
+
+                                $.alert(data.message);
+                                $("#about").hide();
+                                //$(".open-popup").replaceWith('<p">已评价</p>');
+                                //$(".pay").replaceWith('<p>已完成</p>');
+                                // console.log('DOM Element ', $el);
+                                ttt.parent().parent().find(".pjstatus").text("已评价");
+                            }else{
+
+                                $.alert(data.message);
+                            }
+                        })
+
+                    }
+                });*/
+
+
+
+            })
+
+
+
+        })
+
+
+    })
+
+
+
+</script>

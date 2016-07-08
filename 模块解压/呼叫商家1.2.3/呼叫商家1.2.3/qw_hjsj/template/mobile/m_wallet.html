@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>呼叫商家-商家钱包</title>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/weui.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/jquery-weui.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/example.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/addons/qw_hjsj/assets/css/star-rating-svg.css">
+    <link rel="shortcut icon" href="/images/global/wechat.jpg" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+</head>
+<body ontouchstart>
+<style>
+    body { background-color: white;color:#323232;background-image: none;}
+    input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { font-family: "Microsoft YaHei";color: #646464;font-size: 14px;}
+</style>
+<div class="container">
+    <article class="weui_article">
+        <h1 class="text-center">余额</h1>
+        <p class="red text-center big_font yue">{$sxq['money']}</p>
+        <div class="p_pay">
+            <input class="weui_input p_num" type="text" name="txmoney" placeholder="请输入提现金额（元）" />
+            <a href="javascript:;" id="show-toast" class="weui_btn weui_btn_primary p_btn txsq" style="background-color: #78D8FF;border-radius:20px;">申请提现</a>
+        </div>
+
+    </article>
+    <div class="tixian">
+        {loop $txlist $oid $item}
+        <div class="weui-row weui-no-gutter border-bottom-1 padding-10-10">
+            <div class="weui-col-66">{php echo date('Y-m-d H:i:s',$item['addtime'])}</div>
+            <div class="weui-col-33">
+                <div class="weui-row weui-no-gutter">
+                    <div class="weui-col-50 text-center">{if $item['txstatus']==1}成功{else}申请中{/if}</div>
+                    <div class="weui-col-50 text-center red">{$item['txmoney']}</div>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        {/loop}
+
+    </div>
+
+</div>
+<div class="padding-bottom"></div>
+<div class="weui_tabbar">
+    <a href="/app/index.php?i=20&c=entry&do=m_center&m=qw_hjsj" class="weui_tabbar_item">
+        <div class="weui_tabbar_icon">
+            <img src="/addons/qw_hjsj/assets/img/icon_order.png" alt="">
+        </div>
+        <p class="weui_tabbar_label">订单管理</p>
+    </a>
+    <a href="/app/index.php?i=20&c=entry&do=m_record&m=qw_hjsj" class="weui_tabbar_item">
+        <div class="weui_tabbar_icon">
+            <img src="/addons/qw_hjsj/assets/img/icon_record.png" alt="">
+        </div>
+        <p class="weui_tabbar_label">流水记录</p>
+    </a>
+    <a href="javascript:;" class="weui_tabbar_item weui_bar_item_on">
+        <div class="weui_tabbar_icon">
+            <img src="/addons/qw_hjsj/assets/img/icon_wallet_active.png" alt="">
+        </div>
+        <p class="weui_tabbar_label">我的钱包</p>
+    </a>
+</div>
+<script src="/addons/qw_hjsj/assets/js/jquery-2.1.4.js"></script>
+<script src="/addons/qw_hjsj/assets/js/jquery.star-rating-svg.js"></script>
+
+<script src="/addons/qw_hjsj/assets/js/jquery-weui.js"></script>
+<script src="/addons/qw_hjsj/assets/layer/layer.js"></script>
+</body>
+</html>
+
+{php echo register_jssdk(false);}
+
+<script>
+  $(document).ready(function(){
+        $(".txsq").click(function(){
+            var txmoney = $("input[name='txmoney']");
+            var sid = "{$sxq['id']}";
+            var txxz = "{$xianzhi}";
+
+            if(!checknum(txmoney,txxz)){
+
+                return false;
+            }
+
+            var money = "{$sxq['money']}";
+
+            if(parseFloat(txmoney.val())>parseFloat(money)){
+                $.alert("提现金额高于余额");
+                return false;
+            }
+            //提交后台
+            var Url = "{php echo $this->createMobileurl('m_wallet')}";
+            var vdata = {txmoney:txmoney.val(),sid:sid};
+            $.post(Url,vdata,function(data){
+
+                var data = $.parseJSON(data);
+                if(data.error==1){
+
+                    $(".yue").empty().text(data.yue);
+                    var vhtml='<div class="weui-row weui-no-gutter border-bottom-1 padding-10-10"><div class="weui-col-66">'+data.res.addtime+'</div><div class="weui-col-33"> <div class="weui-row weui-no-gutter"><div class="weui-col-50 text-center">申请中</div> <div class="weui-col-50 text-center red">'+txmoney.val()+'</div> <div style="clear: both;"></div> </div> </div> <div style="clear: both;"></div></div>';
+                        $(".tixian").prepend(vhtml);
+                        txmoney.val("");
+
+                }else{
+                    alert(data.message);
+                }
+            })
+        })
+  });
+ //检测数字
+    function checknum(money,min){
+        var jine = money.val();
+
+        if (isNaN(jine)||$.trim(jine)=='') {
+            money.val('');
+            money.focus();
+            alert("请输入数字");
+            return false;
+        }
+        if(jine<0){
+            money.val('');
+            money.focus();
+            alert("请输入大于0的数字")
+            return false;
+        }
+        var dot = jine.indexOf(".");
+        if(dot!=-1) {
+            var dotCnt = jine.substring(dot + 1, jine.length);
+            if (dotCnt.length > 2) {
+                money.val('');
+                money.focus();
+                alert("小数位已超过2位！");
+                return false;
+            }
+        }
+        if(jine<min){
+            money.val('');
+            money.focus();
+            alert("提现金额不得少于"+min);
+            return false;
+        }
+        return true;
+    }
+</script>

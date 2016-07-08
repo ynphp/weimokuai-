@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>呼叫商家-商家流水</title>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/weui.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/jquery-weui.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/common.css"/>
+    <link rel="shortcut icon" href="/images/global/wechat.jpg" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+</head>
+<body ontouchstart>
+<style>
+    body { background-color: white;color:#323232;background-image: none;}
+    .weui_cells { margin-top: 5px;}
+    .weui_cell { padding: 10px 15px; }
+
+    .weui_input { border:none;color:#646464;text-align: right;}
+    .weui_label { width:105px;}
+    .weui_cells:last-child:after { border-bottom:1px solid #e6e6e6;}
+</style>
+<div class="container">
+    <ul id="tabs">
+        <li><a href="{php echo $this->createMobileurl('m_record',array('liushui'=>'xncash'))}" {if $liushui=='xncash'}id="current"{/if}>微信流水</a></li>
+        <li><a href="{php echo $this->createMobileurl('m_record',array('liushui'=>'cash'))}"  {if $liushui=='cash'}id="current"{/if}>现金流水</a></li>
+        <div style="clear: both;"></div>
+    </ul>
+    <div id="content">
+        <div >
+            <form action="" method="get" class="form-horizontal" role="form">
+                <input type="hidden" name="c" value="entry" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="qw_hjsj" />
+                <input type="hidden" name="do" value="m_record" />
+                <input type="hidden" name="i"    value="{$_W['uniacid']}" />
+                <input type="hidden" name="liushui" value="{$liushui}" />
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label for="date1" class="weui_label">开始时间</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" id="date1" name="starttime" type="text" value="{$starttime}" readonly="">
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"><label for="date2" class="weui_label">结束时间</label></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <input class="weui_input" id="date2" name="endtime" type="text" value="{$endtime}" readonly="">
+                    </div>
+                </div>
+            </div>
+            <div class="weui_cells weui_cells_form">
+                <div class="weui_cell">
+                    <div class="weui_cell_hd"></div>
+                    <div class="weui_cell_bd weui_cell_primary">
+                        <button type="submit" class="weui_btn weui_btn_primary p_btn"  name="submit" value="提交" style="background-color: #78D8FF;border-radius:20px;">确认</button>
+                        <input type="hidden" name="token" value="{$_W['token']}" />
+                    </div>
+                </div>
+            </div>
+           </form>
+            <article class="weui_article">
+                <h1 class="text-center">{if $liushui=='xncash'}微信流水总额{else}现金流水总额{/if}</h1>
+                <p class="red text-center big_font">{$sum[0][cashsum]}</p>
+            </article>
+            <article class="tixian">
+                {loop $moneylist $oid $item}
+                <div class="weui-row weui-no-gutter border-bottom-1 padding-10-10">
+                    <div class="weui-col-66">{php echo date('Y-m-d H:i:s',$item['addtime'])}</div>
+                    <div class="weui-col-33 red text-right">{if $liushui=='xncash'}{$item['xncash']}{else}{$item['cash']}{/if}元</div>
+                    <div style="clear: both;"></div>
+                </div>
+                {/loop}
+            </article>
+        </div>
+    </div>
+
+    </div>
+</div>
+<div class="padding-bottom"></div>
+<div class="weui_tabbar" style="position: fixed;">
+    <a href="/app/index.php?i=20&c=entry&do=m_center&m=qw_hjsj" class="weui_tabbar_item">
+        <div class="weui_tabbar_icon">
+            <img src="/addons/qw_hjsj/assets/img/icon_order.png" alt="">
+        </div>
+        <p class="weui_tabbar_label">订单管理</p>
+    </a>
+    <a href="javascript:;" class="weui_tabbar_item weui_bar_item_on">
+        <div class="weui_tabbar_icon">
+            <img src="/addons/qw_hjsj/assets/img/icon_record_active.png" alt="">
+        </div>
+        <p class="weui_tabbar_label">流水记录</p>
+    </a>
+    <a href="/app/index.php?i=20&c=entry&do=m_wallet&m=qw_hjsj" class="weui_tabbar_item">
+        <div class="weui_tabbar_icon">
+            <img src="/addons/qw_hjsj/assets/img/icon_wallet.png" alt="">
+        </div>
+        <p class="weui_tabbar_label">我的钱包</p>
+    </a>
+</div>
+<script src="/addons/qw_hjsj/assets/js/jquery-2.1.4.js"></script>
+
+<script src="/addons/qw_hjsj/assets/js/jquery-weui.js"></script>
+<script src="/addons/qw_hjsj/assets/layer/layer.js"></script>
+<script>
+
+    $("#date1").calendar({
+        value: ['2016-05-19'],
+        minDate: '2015-05-19'
+    });
+    $("#date2").calendar({
+        value: ['2016-05-19'],
+        minDate: '2015-05-19'
+    });
+
+</script>
+
+</body>
+</html>
+
+{php echo register_jssdk(false);}
+

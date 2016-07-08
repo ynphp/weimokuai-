@@ -1,0 +1,75 @@
+{template 'common/header'}
+<div class="panel panel-info">
+    <div class="panel-heading">筛选</div>
+    <div class="panel-body">
+        <form action="" method="get" class="form-horizontal" role="form">
+            <input type="hidden" name="c" value="site" />
+            <input type="hidden" name="a" value="entry" />
+            <input type="hidden" name="m" value="qw_hjsj" />
+            <input type="hidden" name="do" value="order" />
+            <input type="hidden" name="op" value="display" />
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 control-label">时间范围</label>
+                <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+                    <?php  if(empty($date)){
+                        $date['start']=date('Y-m-d',time()-86400*20);
+                        $date['end']=date('Y-m-d',time()+86400*19+86399);
+                      }
+                      ?>
+                    {php echo tpl_form_field_daterange('date', $date);}
+                </div>
+                <!--<label class="col-xs-12 col-sm-2 col-md-2 control-label">状态</label>-->
+                <!--<div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">-->
+                    <!--<select name="status" class="form-control">-->
+                        <!--<option value="">请选择</option>-->
+                        <!--<option value="0" {if $status==0}selected{/if} >呼叫中</option>-->
+                        <!--<option value="1" {if $status==1}selected{/if}>被接单</option>-->
+                        <!--<option value="2" {if $status==2}selected{/if}>订单已取消</option>-->
+                        <!--<option value="3" {if $status==3}selected{/if}>订单已完成</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            </div>
+            <div class="form-group col-sm-12 ">
+                <button type="submit" class="btn btn-primary  col-lg-offset-6" name="submit" value="提交">查询</button>
+                <input type="hidden" name="token" value="{$_W['token']}" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">资金管理</div>
+    <div class="panel-body">
+        <div class="table-responsive panel-body">
+            <table class="table table-hover" style="min-width: 300px;">
+                <thead class="navbar-inner">
+                <tr>
+                    <th class="col-md-1">编号号</th>
+                    <th class="col-md-1">现金</th>
+                    <th class="col-md-1">微信资金</th>
+                    <th class="col-md-1">姓名</th>
+
+                    <th class="col-md-1">时间</th>
+                    
+                </tr>
+                </thead>
+                <tbody>
+                {loop $moneylist $oid $item}
+                <tr>
+                    <td>{$item['id']}</td>
+                    <td>{$item['cash']}</td>
+                    <td>{$item['xncash']}</td>
+                    <td>{$item['name']}</td>
+                    <td>{php echo date('Y-m-d H:i:s',$item['maddtime'])}</td>
+                </tr>
+
+                {/loop}
+                </tbody>
+            </table>
+            {$pager}
+        </div>
+    </div>
+</div>
+
+
+{template 'common/footer'}

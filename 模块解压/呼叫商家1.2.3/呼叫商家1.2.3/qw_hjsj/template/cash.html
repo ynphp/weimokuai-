@@ -1,0 +1,213 @@
+{template 'common/header'}
+
+<div class="panel panel-info">
+    <div class="panel-heading">筛选</div>
+    <div class="panel-body">
+        <form action="" method="get" class="form-horizontal" role="form">
+            <input type="hidden" name="c" value="site" />
+            <input type="hidden" name="a" value="entry" />
+            <input type="hidden" name="m" value="qw_hjsj" />
+            <input type="hidden" name="do" value="cash" />
+            <input type="hidden" name="op" value="display" />
+            <div class="form-group">
+                <label class="col-xs-12 col-lg-2 col-md-2 control-label">时间范围</label>
+                <div class="col-sm-4 col-md-2 col-lg-2 col-xs-12">
+                    <?php  if(empty($date)){
+                        $date['start']=date('Y-m-d',time()-86400*20);
+                        $date['end']=date('Y-m-d',time()+86400*19+86399);
+                      }
+                      ?>
+                    {php echo tpl_form_field_daterange('date', $date);}
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+                    <select class="form-control" name="select1">
+                        <option selected="" value="0" >业务员选择</option>
+                        {loop $shangjialist $item}
+                        <option value="{$item['id']}" {if $item['id']==$select1 }selected {else} {/if}>{$item['name']}</option>
+                        {/loop}
+                    </select>
+                </div>
+                <!--<div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">-->
+                    <!--<select class="form-control" name="select2">-->
+                        <!--<option selected="" value="0">支付方式</option>-->
+                        <!--<option value="1">现金</option>-->
+                        <!--<option value="2">微信</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+
+
+            </div>
+
+            <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                <label class="col-xs-12 col-sm-2 col-md-2 control-label">状态</label>
+                <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+                    <select name="jsstatus" class="form-control">
+                        <option value="">请选择</option>
+                        <option value="0" {if $jsstatus==0}selected{/if} >未结算</option>
+                        <option value="1" {if $jsstatus==1}selected{/if}>已结算</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-sm-12 ">
+                <button type="submit" class="btn btn-primary  col-lg-offset-6" name="submit" value="提交">查询</button>
+                <input type="hidden" name="token" value="{$_W['token']}" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">现金结算管理</div>
+    <div class="panel-body">
+        <div class="table-responsive panel-body">
+            <table id="orderList" class="table table-hover" style="min-width: 300px;">
+                <thead class="navbar-inner">
+                <tr>
+                    <th>选择</th>
+                    <th>编号</th>
+                    <th>订单号</th>
+                    <th>订单金额</th>
+                    <th>支付方式</th>
+                    <th>业务员</th>
+                    <th>状态</th>
+                    <th>结算时间</th>
+                    <th>订单完成时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+        {loop $moneylist $oid $item}
+                <tr>
+                    <td>
+                        {if $item['paytype']==5}<input type="checkbox" name="choose" class="xuanze" />{else}{/if}
+                    </td>
+                    <td>{$item['mid']}</td>
+                    <td>{$item['ordersn']}</td>
+                    <td>{if $item['paytype']==5}{$item['mcash']}{else}{$item['xncash']}{/if}</td>
+                    <td>{if $item['paytype']==1}余额支付{else if $item['paytype']==2}微信支付{else if $item['paytype']==3}支付宝支付{else if $item['paytype']==4}优惠券支付{else if $item['paytype']==5}现金支付{else}暂无{/if}</td>
+                    <td>{$item['name']}</td>
+                    <td>{if ($item['paytype']==5)&&($item['jsstatus']==0)}未结算{else}结算{/if}</td>
+                    <td>{if $item['jsstatus']==0}暂无{else}{php echo date('Y-m-d H:i:s',$item['maddtime'])}{/if}</td>
+                    <td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
+                    <td>{if ($item['paytype']==5)&&($item['jsstatus']==0)}<button class="btn btn-danger btn-md jieone">结算</button>{else}{/if} </td>
+                </tr>
+
+                {/loop}
+                <tr>
+                    <td colspan="7"><button class="btn btn-danger btn-md jieall">全部结算</button> </td>
+                </tr>
+
+
+                </tbody>
+            </table>
+            {$pager}
+        </div>
+    </div>
+</div>
+<script>
+
+
+    $(document).ready(function(){
+
+//单项结算
+       $(".jieone").each(function(){
+
+
+           $(this).click(function(){
+
+               var ttt = $(this).parent().parent();
+               var idd = ttt.find('td').eq(1).text();
+               //检测选中状态
+               var mcheck = ttt.find(".xuanze").is(":checked");
+               if(!mcheck){
+
+                   alert("请选择当前项");
+                   return false;
+               }
+
+
+               //此处不检测状态,后台检测状态
+
+               var Url = "{php echo $this->createWeburl('cash')}";
+               var vdata = {idd:idd};
+               $.post(Url,vdata,function(data){
+                  // alert(data);
+
+                   var data = $.parseJSON(data);
+                   if(data.error==1){
+                            ttt.find('td').eq('6').text("结算成功");
+                            ttt.find('td').eq('7').text(data.jiesuantime);
+
+                       alert(data.message);
+
+                   }else{
+
+                       alert(data.message);
+                   }
+               })
+
+
+
+           })
+
+
+       })
+
+//所有结算
+
+        $(".jieall").click(function(){
+                var aaa =new Array();
+                var ttt = $(this).parent().parent().parent();
+
+
+              ttt.find(".xuanze").each(function(){
+
+               var rrr= $(this).is(":checked");
+
+                var xxx = $(this).parent().parent();
+
+                  if(rrr){
+
+                      var bianhao = xxx.find('td').eq(1).text();
+                      aaa.push(bianhao);
+
+                  }
+
+
+
+
+            })
+            if(aaa.length==0){
+
+               alert("请选择相应的单号");
+                return false;
+            }
+            //此处不检测状态,后台检测状态
+
+            var Url = "{php echo $this->createWeburl('cash')}";
+            var vdata = {idd:aaa};
+            $.post(Url,vdata,function(data){
+
+
+                var data = $.parseJSON(data);
+                if(data.error==1){
+
+                    alert(data.message);
+                    window.location.reload();
+                }else{
+
+                    alert(data.message);
+                }
+            })
+
+
+
+        })
+
+    });
+
+
+</script>
+
+{template 'common/footer'}

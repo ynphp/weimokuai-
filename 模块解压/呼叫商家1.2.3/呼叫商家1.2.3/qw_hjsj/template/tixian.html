@@ -1,0 +1,128 @@
+{template 'common/header'}
+<div class="panel panel-info">
+    <div class="panel-heading">筛选</div>
+    <div class="panel-body">
+        <form action="" method="get" class="form-horizontal" role="form">
+            <input type="hidden" name="c" value="site" />
+            <input type="hidden" name="a" value="entry" />
+            <input type="hidden" name="m" value="qw_hjsj" />
+            <input type="hidden" name="do" value="tixian" />
+            <input type="hidden" name="op" value="display" />
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-2 col-md-2 control-label">时间范围</label>
+                <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+                    <?php  if(empty($date)){
+                        $date['start']=date('Y-m-d',time()-86400*20);
+                        $date['end']=date('Y-m-d',time()+86400*19+86399);
+                      }
+                      ?>
+                    {php echo tpl_form_field_daterange('date', $date);}
+                </div>
+
+            </div>
+
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+                <select class="form-control" name="select1">
+                    <option selected="" value="0" >业务员选择</option>
+                    {loop $shangjialist $item}
+                    <option value="{$item['id']}" {if $item['id']==$select1 }selected {else} {/if}>{$item['name']}</option>
+                    {/loop}
+                </select>
+            </div>
+
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12">
+                <select class="form-control" name="txstatus">
+                    <option selected="" value="0" >状态</option>
+                        <option value="0" {if $txstatus==0}selected{/if} >未结算</option>
+                        <option value="1" {if $txstatus==1}selected{/if}>已结算</option>
+                </select>
+            </div>
+            <div class="form-group col-sm-12 ">
+                <button type="submit" class="btn btn-primary  col-lg-offset-6" name="submit" value="提交">查询</button>
+                <input type="hidden" name="token" value="{$_W['token']}" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">提现管理</div>
+    <div class="panel-body">
+        <div class="table-responsive panel-body">
+            <table class="table table-hover" style="min-width: 300px;">
+                <thead class="navbar-inner">
+                <tr>
+                    <th >ID</th>
+                    <th class="col-md-3">编号</th>
+                    <th class="col-md-1">提现金额</th>
+                    <th class="col-md-2">提现人</th>
+                    <th class="col-md-1">状态</th>
+                    <th class="col-md-2">时间</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $txlist $oid $item}
+                <tr>
+                    <td>{$item['id']}</td>
+                    <td>{$item['txorder']}</td>
+                    <td>{$item['txmoney']}</td>
+                    <td>{$item['name']}</td>
+                    <td>{if $item['txstatus']==0}未提现{else}已经提现{/if}</td>
+                    <td>{php echo date('Y-m-d H:i:s',$item['addtime'])}</td>
+                    <td>{if $item['txstatus']==0}<button class="btn btn-danger btn-md jieone">结算</button>{else}{/if} </td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+            {$pager}
+        </div>
+    </div>
+</div>
+
+
+{template 'common/footer'}
+
+<script>
+
+    $(document).ready(function(){
+
+        $(".jieone").each(function(){
+
+            $(this).click(function(){
+
+                var ttt = $(this).parent().parent();
+                var idd = ttt.find('td').eq(0).text();
+                var txorder = ttt.find('td').eq(1).text();
+                var Url = "{php echo $this->createWeburl('tixian')}";
+                var vdata ={idd:idd,txorder:txorder};
+                $.post(Url,vdata,function(data){
+
+                    var data = $.parseJSON(data)
+
+                    if(data.error ==1){
+
+                        alert(data.message);
+                        ttt.find('td').eq(4).text("已提现");
+                        ttt.find('td').eq(6).text("");
+
+                    }else{
+                        var error = data.res.message.error;
+                        alert(error);
+
+                    }
+
+
+                })
+
+
+
+            })
+
+
+
+        })
+
+
+
+    })
+</script>
