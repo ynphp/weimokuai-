@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[用户综合运营分析系统]]></name>
+		<identifie><![CDATA[jer_da]]></identifie>
+		<version><![CDATA[1.2]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[用户综合运营分析系统]]></ability>
+		<description><![CDATA[对用户增长及模块进行运营管理分析]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="用户分析" do="fans" state="" direct="false" />
+			<entry title="模块分析" do="module" state="" direct="false" />
+			<entry title="清除缓存" do="flush" state="" direct="false" />
+			<entry title="使用说明" do="synopsis" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_jer_da_event` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `cid` int(10) DEFAULT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `content` text,
+  `money` decimal(10,2) DEFAULT NULL,
+  `starttime` int(10) DEFAULT NULL,
+  `endtime` int(10) DEFAULT NULL,
+  `createtime` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_jer_da_event_category` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `parentid` int(10) DEFAULT NULL,
+  `createtime` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_jer_da_module` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `createtime` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_jer_da_module_table` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `mid` int(10) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `tablename` varchar(100) DEFAULT NULL,
+  `field` varchar(100) DEFAULT NULL,
+  `timefield` varchar(100) DEFAULT NULL,
+  `uniacidfield` varchar(100) DEFAULT NULL,
+  `status` tinyint(2) DEFAULT NULL,
+  `createtime` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

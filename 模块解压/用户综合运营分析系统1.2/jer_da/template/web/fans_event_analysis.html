@@ -1,0 +1,386 @@
+{template 'common/header'}
+{php load()->func('tpl')}
+<ul class="nav nav-tabs">
+    <li {if $op == 'trend'}class="active"{/if}><a href="{php echo $this->createWebUrl('fans', array('op' => 'trend'))}">趋势</a></li>
+    <li {if $op == 'event' || $op == 'event_category'}class="active"{/if}><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-controls="myTabDrop1-contents" aria-expanded="false">事件<span class="caret"></span></a>
+    <ul class="dropdown-menu" aria-labelledby="myTabDrop1" id="myTabDrop1-contents">
+        <li><a href="{php echo $this->createWebUrl('fans', array('op' => 'event','ac' => 'list'))}">事件管理</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="{php echo $this->createWebUrl('fans', array('op' => 'event_category','ac' => 'list'))}">事件分类</a></li>
+    </ul>
+    </li>
+</ul>
+<div class="main">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                <table class="table table-striped">
+                    <tr>
+                        <td style="width: 150px;">事件名称：</td>
+                        <td>
+                            <span class="label label-primary">{$theone[name]}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>进行时间：</td>
+                        <td>
+                            {php echo date('Y-m-d', $theone['starttime']).' 至 '.date('Y-m-d', $theone['endtime'])} 共 <span class="label label-default">{$fans_data_json['day_num']}</span> 天
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>新增关注用户：</td>
+                        <td>
+                            <span class="label label-primary">{$fans_data_json[follow_fans_count]}人 </span>
+                            &nbsp;&nbsp;&nbsp;总体增长 <span class="label label-primary">{php echo round(intval($fans_data_json['follow_fans_count']) / intval($all_start_fans_data), 2) * 100;}%</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>取消关注用户：</td>
+                        <td>
+                            <span class="label label-danger">{$fans_data_json[unfollow_fans_count]}人</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>净增关注用户：</td>
+                        <td>
+                            <span class="label label-success">{$fans_data_json[nav_fans_count]}人</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>营销费用：</td>
+                        <td>
+                            <span class="label label-primary">{$theone['money']}</span> 元
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>用户成本估算：</td>
+                        <td>
+                            时间成本：<span class="label label-primary">{$time_costs}</span> 小时/人
+                            {if $theone['money'] > 0}
+                            |
+                            金钱成本：<span class="label label-primary">{$money_costs}</span> 元/人
+                            {/if}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6 col-xs-12">
+                <div id="main4" style="height:250px"></div>
+            </div>
+        </div>
+
+    </div>
+    <div class="panel panel-default" style="padding:1em;">
+        <div id="main1" style="height:400px"></div>
+    </div>
+
+    <div class="panel panel-default" style="padding:1em;">
+        <div id="main2" style="height:400px"></div>
+        <div class="alert alert-info" role="alert">该图表表示：当前的净增用户数与当前总用户数的比率（当前净增用户 &divide; 当前总用户数，即y轴）在事件期间内不同时间段（既x轴）的线性关系。线段的倾斜率大小与事件期间内当前净增长用户与当前总用户数比率跟前后两天的比率对比有关。</div>
+        <div class="row">
+            <label class="col-xs-12 col-sm-12 col-md-12 control-label">加入对比</label>
+            <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+                <select name="cid" id="cid" class="form-control">
+                    <option value="">请选择</option>
+                    {loop $event_category $cate}
+                    <option value="{$cate[id]}">{$cate[name]}</option>
+                    {/loop}
+                </select>
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2 col-xs-12">
+                <input type="hidden" id="tid" name="tid" value="{$theone[id]}" />
+                <button type="button" class="btn btn-default" id="searchEventBtn">搜索事件</button>
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3 col-xs-12">
+                <select id="addEventList" class="form-control hidden"></select>
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2 col-xs-12">
+                <button type="button" class="btn btn-default hidden" id="addComparedBtn">加入对比</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="padding:1em;">
+        <div id="main3" style="height:400px"></div>
+    </div>
+</div>
+
+<script src="/addons/jer_da/template/web/resource/echarts/dist/echarts.js"></script>
+
+<script>
+    require.config({
+        paths: {
+            echarts: '/addons/jer_da/template/web/resource/echarts/dist'
+        }
+    });
+
+    var option2,myChart2;
+    var CurrentDaynum = "{$fans_data_json['day_num']}";
+
+    require(
+            [
+                'echarts',
+                'echarts/chart/line',
+                'echarts/chart/bar',
+                'echarts/chart/pie'
+            ],
+            function (ec) {
+                var myChart1 = ec.init(document.getElementById('main1'), 'macarons');
+
+                var option1 = {
+                    title : {
+                        text: '事件期间用户净增长趋势',
+                        subtext: '单位:人数'
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['净增关注']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'category',
+                            boundaryGap : false,
+                            data : {$fans_data_json['date']}
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value',
+                            axisLabel : {
+                                show: true,
+                                formatter: '{value}人'
+                            }
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'净增关注',
+                            type:'line',
+                            smooth:true,
+                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                            data:{$fans_data_json['nav_fans']}
+                        }
+                    ]
+                };
+
+                myChart1.setOption(option1);
+
+                myChart2 = ec.init(document.getElementById('main2'), 'macarons');
+
+                option2 = {
+                    title : {
+                        text: '净增长与总人数比率趋势线性关系',
+                        subtext: 'y：净增长与总人数比率；x：天数'
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['{$theone[name]}']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    xAxis : [
+                        {
+                            type : 'category',
+                            axisLabel : {
+                                show: true,
+                                formatter: '{value}天'
+                            },
+                            data : {$fans_data_json['bl_x']}
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value'
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'{$theone[name]}',
+                            type:'line',
+                            smooth:true,
+                            data:{$fans_data_json['bl_predicted']}
+                        }
+                    ]
+                };
+
+                myChart2.setOption(option2);
+
+                var myChart3 = ec.init(document.getElementById('main3'), 'macarons');
+
+                var option3 = {
+                    title : {
+                        text: '用户关注时间段',
+                        subtext: '单位:人数'
+                    },
+                    tooltip : {
+                        trigger: 'axis'
+                    },
+                    legend: {
+                        data:['关注时间段']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            mark : {show: true},
+                            dataView : {show: true, readOnly: false},
+                            magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    xAxis : [
+                        {
+                            type : 'category',
+                            axisLabel : {
+                                show: true,
+                                formatter: '{value}时'
+                            },
+                            boundaryGap : false,
+                            data : {$fans_data_json['follow_hour_name']}
+                        }
+                    ],
+                    yAxis : [
+                        {
+                            type : 'value',
+                            axisLabel : {
+                                show: true,
+                                formatter: '{value}人'
+                            }
+                        }
+                    ],
+                    series : [
+                        {
+                            name:'关注时间段',
+                            type:'line',
+                            smooth:true,
+                            itemStyle: {normal: {areaStyle: {type: 'default'}}},
+                            data:{$fans_data_json['follow_hour_value']}
+                        }
+                    ]
+                };
+
+                myChart3.setOption(option3);
+
+                var myChart4 = ec.init(document.getElementById('main4'), 'macarons');
+
+                var option4 = {
+                    title : {
+                        text: '取关用户与净增用户占比',
+                        subtext: '',
+                        x:'center'
+                    },
+                    tooltip : {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        orient : 'vertical',
+                        x : 'left',
+                        data:['取消关注','净增关注']
+                    },
+                    toolbox: {
+                        show : true,
+                        feature : {
+                            dataView : {show: true, readOnly: false},
+                            magicType : {
+                                show: true,
+                                type: ['pie', 'funnel'],
+                                option: {
+                                    funnel: {
+                                        x: '25%',
+                                        width: '50%',
+                                        funnelAlign: 'left',
+                                        max: 1548
+                                    }
+                                }
+                            },
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        }
+                    },
+                    calculable : true,
+                    series : [
+                        {
+                            name:'取关用户与净增用户占比',
+                            type:'pie',
+                            radius : '55%',
+                            center: ['50%', '60%'],
+                            data:[
+                                {value:{$fans_data_json['unfollow_fans_count']}, name:'取消关注'},
+                                {value:{$fans_data_json['nav_fans_count']}, name:'净增关注'}
+                            ]
+                        }
+                    ]
+                };
+
+                myChart4.setOption(option4);
+
+            }
+    );
+</script>
+<script>
+    $("#searchEventBtn").on("click", function(s){
+        var cid = $("#cid").val();
+        var tid = $("#tid").val();
+        if(!cid){
+            alert('请选择分类');
+            return false;
+        }
+        $.post("{php echo $this->createWebUrl('fans', array('op' => 'getEvent'))}", {cid: cid,tid: tid}, function(data){
+            var jsonData = $.parseJSON(data);
+            var html ="";
+            $.each(jsonData.event_list, function(i,v){
+                html += "<option value='" + v.id + "'>" + v.name + "</option>";
+            });
+            $("#addEventList").html(html).removeClass("hidden");
+            $("#addComparedBtn").removeClass("hidden");
+        });
+    });
+
+    $("#addComparedBtn").on("click", function(s){
+        var id = $("#addEventList").val();
+        if($("#eid_" + id).val() == id){
+            return false;
+        }
+        $.post("{php echo $this->createWebUrl('fans', array('op' => 'addCompared'))}", {id: id}, function(data){
+            var jsonData = $.parseJSON(data);
+            //console.log(jsonData);
+            if(parseInt(jsonData.day_num) > parseInt(CurrentDaynum)){
+                option2.xAxis[0].data = jsonData.bl_x;
+            }
+            option2.legend.data.push(jsonData.name);
+            option2.series.push({
+                name: jsonData.name,
+                type: 'line',
+                data: jsonData.bl_predicted
+            });
+            myChart2.setOption(option2);
+            var html = "<input type='hidden' id='eid_" + jsonData.id + "' value='"+ jsonData.id +"' />";
+            $("#addComparedBtn").after(html);
+        });
+    });
+</script>
+{template 'common/footer'}
