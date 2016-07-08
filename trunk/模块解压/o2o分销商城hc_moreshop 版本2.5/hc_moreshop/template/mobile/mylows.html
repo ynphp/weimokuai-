@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="../addons/hc_moreshop/style/css/foundation.css">
+    <link rel="stylesheet" type="text/css" href="../addons/hc_moreshop/style/css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="../addons/hc_moreshop/style/css/PreFoot.css">
+    <script src="../addons/hc_moreshop/style/js/ClassFirst.js?item=common|dis&_=15050710214662"></script>
+    <script src="../addons/hc_moreshop/style/js/jquery.js"></script>
+    <script src="../addons/hc_moreshop/style/js/foundation.js"></script>
+    <script src="../addons/hc_moreshop/style/js/foundation.reveal.js"></script>
+    <script src="../addons/hc_moreshop/style/js/func.js"></script>
+    <script src="../addons/hc_moreshop/style/js/Common.js"></script>
+</head>
+
+<body class="body-gray">
+    <!--mask begin-->
+    <div class="mask"></div>
+    <!--mask end-->
+    <!--topbar begin-->
+    <div class="fixed tab-bar">
+        <section class="left-small">
+            <a class="menu-icon" onclick="window.history.go(-1)"><span></span></a>
+        </section>
+        <section class="middle tab-bar-section">
+            <h1 class="title">我的下属</h1>
+        </section>
+    </div>
+	<div class="panel member-nav" style="padding-top:50px;">
+        <ul class="side-nav">
+            <li class="last">
+                <a id="menu-accordian02" href="{php echo $this->createMobileUrl('fansindex', array('op'=>'lowfans', 'level'=>4, 'lowfansids'=>$allteamid));}"><i class="icon-personal"></i><span class="text">我的团队</span><i class="arrow"></i><span class="tip-number">{$allteamnum}</span></a>
+            </li>
+        </ul>
+    </div>
+    <div class="panel member-nav">
+        <ul class="side-nav">
+            <li class="last">
+                <a id="menu-accordian02" href="javascript:void(0)"><i class="icon-personal"></i><span class="text">我的代理商</span><i class="arrow"></i><span class="tip-number">{$allteamnum3}</span></a>
+                <div class="member-nav-sub">
+                    <ul class="member-nav-sub-ul">
+                        {loop $fanslevel $key $f}
+							{if $key<=3}
+								<li class="member-nav-sub-li"><a href="{php echo $this->createMobileUrl('fansindex', array('op'=>'lowfans', 'level'=>$key, 'lowfansids'=>$lowfansids[$key]));}"><span class="text">{php echo heihei($key)}级代理商</span><i class="arrow"></i><span class="tip-number">{$lowfansnum[$key]}</span></a></li>
+							{else}
+								{php break;}
+							{/if}
+                        {/loop}
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+	<div class="panel member-nav">
+        <ul class="side-nav">
+            <li class="last">
+                <a id="menu-accordian02" href="javascript:void(0)"><i class="icon-personal"></i><span class="text">我的分店</span><i class="arrow"></i><span class="tip-number">{$allshopnum3}</span></a>
+                <div class="member-nav-sub">
+                    <ul class="member-nav-sub-ul">
+                        {loop $shoplevel $key $f}
+							{if $key<=3}
+								<li class="member-nav-sub-li"><a href="{php echo $this->createMobileUrl('fansindex', array('op'=>'lowshop', 'level'=>$key, 'lowshopids'=>$lowshopids[$key]));}"><span class="text">{php echo heihei($key)}级分店</span><i class="arrow"></i><span class="tip-number">{$lowshopnum[$key]}</span></a></li>
+							{else}
+								{php break;}
+							{/if}
+                        {/loop}
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+{php $signPackage=$_W['account']['jssdkconfig'];}	
+<script>
+wx.config({
+	debug: false,   
+	appId: '<?php echo $signPackage["appId"];?>',
+	timestamp: '<?php echo $signPackage["timestamp"];?>',
+	nonceStr: '<?php echo $signPackage["nonceStr"];?>',
+	signature: '<?php echo $signPackage["signature"];?>',
+	jsApiList: ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo',]
+});
+
+wx.ready(function () {
+	var shareData = {
+		title: "{$profile['realname']}",
+		desc: "{$gzurl['description']}",
+		link: "{php echo $_W['siteroot'].'app/'.$this->createMobileUrl('fansindex',array('mid'=>$id))}",
+		imgUrl: "{$profile['headimg']}",
+		trigger: function (res) {},
+		complete: function (res) {},
+		success: function (res) {
+		},
+		cancel: function (res) {
+		},
+		fail: function (res) {}
+	};
+	var shareData1 = {
+		title: "{$gzurl['description']}",
+		desc: "{$profile['realname']}",
+		link: "{php echo $_W['siteroot'].'app/'.$this->createMobileUrl('fansindex',array('mid'=>$id))}",
+		imgUrl: "{$profile['headimg']}",
+		trigger: function (res) {},
+		complete: function (res) {},
+		success: function (res) {
+		},
+		cancel: function (res) {
+		},
+		fail: function (res) {}
+	};
+	wx.onMenuShareAppMessage(shareData);
+	wx.onMenuShareQQ(shareData);
+	wx.onMenuShareWeibo(shareData);
+	wx.onMenuShareTimeline(shareData1);
+});
+</script>
+</body>
+</html>

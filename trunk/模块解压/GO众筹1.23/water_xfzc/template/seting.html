@@ -1,0 +1,155 @@
+{template 'common/header'}
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li><a href="{php echo $this->createWebUrl('theme');}">活动管理</a></li>
+        <li ><a href="{php echo $this->createWebUrl('addtheme',array('themeid' =>$themeid));}">活动主页设置</a></li>
+        <li><a href="{php echo $this->createWebUrl('addrule',array('themeid' =>$themeid));}">规则页面设置</a></li>
+        <li class="active"><a href="{php echo $this->createWebUrl('seting',array('themeid' =>$themeid));}">个性化设置</a></li>
+        <li><a href="{php echo $this->createWebUrl('goods',array('themeid' =>$themeid));}">奖品设置</a></li>
+    </ul>
+</div>       
+<style>
+.table td span{display:inline-block;margin-top:4px;}
+.table td input{margin-bottom:0;}
+</style>
+<div class="clearfix">
+<form class="form-horizontal form" action="" method="post" enctype="multipart/form-data">
+    <div class="panel panel-default">
+        <div class="panel-heading">活动页面个性化图标设置</div>
+        <div class="panel-body">
+                <input type="hidden" name="themeid" value="{$themeid}">    
+                <input type="hidden" name="setingid" value="{$setingid}">                              
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">左侧图标</label>
+                    <div class="col-sm-8 col-xs-12">
+                       {php echo tpl_form_field_image('leftimg',$set['leftimg']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="help-block">左边小图标，默认显示新郎图，大小为120*60</div>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">右侧图标</label>
+                    <div class="col-sm-8 col-xs-12">
+                       {php echo tpl_form_field_image('rightimg',$set['rightimg']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="help-block">右边小图标，默认显示新娘图，大小为120*60</div>
+                    </div>
+                </div>
+        </div>
+        <div class="panel-heading">发布页面个性化图标设置（从上到下依次排列）</div>
+        <div class="panel-body">
+                <input type="hidden" name="themeid" value="{$themeid}">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style='color:red'>*</span>字段①</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="口号"  name="name1" value="{$set['name1']}">
+                    	<span class="help-block">发布页面第一个文本框名称</span>
+                    </div>
+                </div>                                             
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">图标①</label>
+                    <div class="col-sm-8 col-xs-12">
+                       {php echo tpl_form_field_image('img1',$set['img1']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="help-block">发布页面字段对应的图标，大小为50*50</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style='color:red'>*</span>字段②</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="名字"  name="name2" value="{$set['name2']}">
+                    	<span class="help-block">发布页面第二个文本框名称</span>
+                    </div>
+                </div>                  
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">图标②</label>
+                    <div class="col-sm-8 col-xs-12">
+                       {php echo tpl_form_field_image('img2',$set['img2']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="help-block">发布页面字段对应的图标，大小为50*50</div>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">图标③</label>
+                    <div class="col-sm-8 col-xs-12">
+                       {php echo tpl_form_field_image('img3',$set['img3']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="help-block">发布页面字段对应的图标，大小为50*50</div>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">图标④</label>
+                    <div class="col-sm-8 col-xs-12">
+                       {php echo tpl_form_field_image('img4',$set['img4']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="help-block">发布页面字段对应的图标，大小为50*50</div>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">图标⑤</label>
+                    <div class="col-sm-8 col-xs-12">
+                       {php echo tpl_form_field_image('img5',$set['img5']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="help-block">发布页面字段对应的图标，大小为50*50</div>
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">图标⑥</label>
+                    <div class="col-sm-8 col-xs-12">
+                       {php echo tpl_form_field_image('img6',$set['img6']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="help-block">发布页面字段对应的图标，大小为50*50</div>
+                    </div>
+                </div>                                                                
+        </div>
+    </div>
+                
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+            <input type="hidden" name="token" value="{$_W['token']}" />
+        </div>
+    </div>
+</form>
+</div>
+<script type="text/javascript">
+    require(['jquery', 'util'], function($, u){
+        $(function(){
+            u.editor($('.richtext')[0]);
+        });
+       
+    });
+</script>
+{template 'common/footer'}

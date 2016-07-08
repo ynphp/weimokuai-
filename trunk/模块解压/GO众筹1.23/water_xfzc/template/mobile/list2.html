@@ -1,0 +1,194 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta content="no-cache" http-equiv="Cache-Control">
+<title>{$listname}</title>
+<link rel="stylesheet" type="text/css" href="../addons/water_xfzc/template/css/fan_z.css" />
+<link rel="stylesheet" type="text/css" href="../addons/water_xfzc/template/css/common.css" />
+<script type="text/javascript" src="../addons/water_xfzc/template/js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../addons/water_xfzc/template/js/layer.min.js"></script>
+<style>
+.m_m_m div{margin:20px 0px;}
+.m_sub input {background:none;border: none; font-size:33px; height: 92px;line-height: 92px;width: 100%;color:#FFF;}
+.m_sub {background:#F04F79; border: none; border-radius:10px;width:96.4%; margin:0 auto;}
+
+@media screen and (max-width:480px){
+	.m_m_m div{margin:20px 0px;}
+	.m_sub{border-radius:5px;}
+	.m_sub input{height:50px;line-height: 50px;font-family: '微软雅黑'; font-size:18px;}
+	}
+</style>
+<script>
+	$(document).ready(function() {
+		var isMobile = {
+			Android: function() {
+				return navigator.userAgent.match(/Android/i) ? 'Android' : false;
+			},
+			BlackBerry: function() {
+				return navigator.userAgent.match(/BlackBerry/i) ? 'BlackBerry' : false;
+			},
+			iOS: function() {
+				return navigator.userAgent.match(/iPhone|iPad|iPod/i) ? 'iOS' : false;
+			},
+			Windows: function() {
+				return navigator.userAgent.match(/IEMobile/i) ? 'Windows' : false;
+			},
+			any: function() {
+				return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Windows());
+			}
+		};
+		if(isMobile.any()){
+			var phoneWidth =  parseInt(window.screen.width);
+			var phoneScale = phoneWidth/640;
+			var ua = navigator.userAgent;
+			if(/Android (\d+\.\d+)/.test(ua)){
+				var version = parseFloat(RegExp.$1);
+				if(version>2.3){
+					//document.write('<meta name="viewport" content="width=640, minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
+					$("<meta>").attr({content: 'width=640, minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi', name: "viewport"}).appendTo("head");
+        		}else{
+        	    	//document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+					$("<meta>").attr({content: 'width=640, target-densitydpi=device-dpi', name: "viewport"}).appendTo("head");
+        		}
+    		}else{
+    	    	//document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+				$("<meta>").attr({content: 'width=640, user-scalable=no, target-densitydpi=device-dpi', name: "viewport"}).appendTo("head");
+    		}
+		/*
+			if(isMobile.any() == 'iOS'){
+				$("<meta>").attr({content: "width=device-width, initial-scale=0.5, user-scalable=0", name: "viewport"}).appendTo("head");
+			}
+			if(isMobile.any() == 'Android'){
+				$("<meta>").attr({content: "width=device-width,minimum-scale=0.4,maximum-scale=0.4,initial-scale=1.0", name: "viewport"}).appendTo("head");
+			}*/
+		}
+			
+		$('.m_header_r').on('click',function(){
+			var ww=window.innerWidth;//获取当前窗口的宽度
+			ww = ww*0.8;		
+			var pageii = $.layer({
+				type: 1,
+				title: false,
+				area: ['auto', 'auto'],
+				border: [0], //去掉默认边框
+				shade: [0.6, '#000'],
+				shadeClose: true,
+				closeBtn: [0, false], //去掉默认关闭按钮
+				shift: 'top',
+				bgcolor: 'none',
+				page: {
+					html: '<div class="m_m_m" style="width:'+ww+'px;"><div><div><p class="m_sub"><a href="/index.php?ctl=account"><input type="button" value="我的支持"></a></p></div><div><p class="m_sub"><a href="/index.php?ctl=deals&soto=1"><input type="button" value="推荐项目"></a></p></div><div><p class="m_sub"><a href="/index.php?ctl=deals"><input type="button" value="全部项目"></a></p></div><div><p class="m_sub"><a href="/index.php?ctl=deals&soto=2"><input type="button" value="筹资中"></a></p></div><div><p class="m_sub"><a href="/index.php?ctl=deals&soto=3"><input type="button" value="筹资成功"></a></p></div></div></div>'
+				}
+				});
+			})
+	
+	});
+	
+	function liueach(){
+		$("div,p,h1,h2,h3,h4,span,li,a,input,textarea,select").each(function(){
+			if(parseInt($(this).css('font-size'))>'16'){
+				$(this).css('font-size',(parseInt($(this).css('font-size'))*0.4)+'px');
+				$(this).css('line-height',(parseInt($(this).css('line-height'))*0.5)+'px');
+			}
+		});
+	}
+	
+	
+
+</script>
+</head>
+<body>
+<div>
+<img src='{$_W['attachurl']}{$system['toppic2']}' style="width: 100%;"/>
+</div>
+<div class="bjk">
+<!-- 	<div class="m_header">
+		<div class="m_header_r">
+		</div>
+	</div>
+		<div class="m_header_l">
+			<img src='{$_W['attachurl']}{$system['toppic2']}' style="width: 400px;"/>
+		</div>		 -->
+<div class="m_con" style="padding-top:200px;">
+	<ul class="m_pro m_promargin">
+	
+	{loop $list $item}
+		<li>
+			<div class="m_li_con_bor">
+				<Div class="m_li_imgd">
+				<a href="{php echo $this->createMobileUrl('index',array('themeid'=>$item['themeid'],'memberid'=>$item['id']));}"><img src="{$_W['siteroot']}attachment/{$item['headlogo']}" width="100%" /></a>
+				</div>
+				<div class="m_li_con">
+					<div class="_blank"></div>
+					<div class="_blank"></div>
+					<h2>{$item['name1']}  {$item['name2']}</h2>
+					<div class="_blank"></div>
+					<div class="_blank"></div>
+					<table width="100%">
+						<tbody>
+							<tr>
+								<td class="p_list_left"><span class="m_c_1">目标:￥{$item['zcsum']}</span></td>
+								<td class="p_list_mid"><span class="m_c_1">支持数:{php echo $this->getMemberHelperCount($item['id']);}</span></td>
+								<td class="p_list_right"><span class="m_c_3">{if $item['state'] == '1'}众筹ing{elseif $item['state'] == '2'}众筹完成{else}众筹结束{/if}</span></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="_blank"></div>
+					<div class="_blank"></div>
+					<div class="wjdt">
+						<div style="width:{php echo $this->getMemberBFZ($item['id']);}%;"></div>
+					</div>
+					<div class="_blank"></div>
+					<div class="_blank"></div>
+					<table width="100%">
+						<tbody>
+							<tr>
+								<td class="p_list_left"><span class="m_c_2">{php echo $this->getMemberBFZ($item['id']);}%</span></td>
+								<td class="p_list_mid"><span class="m_c_2">￥{php echo $this->getMemberHasZCJE($item['id']);}</span></td>
+								<td class="p_list_right"><span class="m_c_2">{php echo $this->getMemberZcLeftDays($item['id']);}天</span></td>
+							</tr>
+							<tr>
+								<td class="p_list_left"><span class="m_c_1">已达到</span></td>
+								<td class="p_list_mid"><span class="m_c_1">已获支持</span></td>
+								<td class="p_list_right"><span class="m_c_1">剩余时间</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</li>
+		
+		{/loop}  
+	</ul>
+	<div class="_blank"></div>
+	<div class="_blank"></div>
+	<div class="_blank"></div>
+	<div class="_blank"></div>
+<!-- 	<div>
+		<p class="m_sub">
+			<input type="button" id="deal_list_more" class="btn_do_login" name="submit_form" value="更多项目">
+			<input type="hidden" value="2" id="sototype" />
+		</p></div> -->
+	<div class="_blank"></div>
+	<div class="_blank"></div>
+<script>
+var page = 1;
+$('#deal_list_more').click(function(){
+	var p_to = $('#sototype').val();
+	page++;
+	$.post("index.php?ctl=deals&act=index",{'p':page,'soto':p_to,'ajax_more':'T'},function(result){
+		$('.m_promargin').append(result);
+	});
+});
+</script>
+</div>
+<style>
+#zhant a {color:#565758;}
+</style>
+
+
+</div>
+<script type="text/javascript" src="../addons/water_xfzc/template/js/usermenu.js"></script>
+</body>
+</html>

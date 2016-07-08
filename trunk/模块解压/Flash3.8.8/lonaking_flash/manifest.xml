@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[Flash]]></name>
+		<identifie><![CDATA[lonaking_flash]]></identifie>
+		<version><![CDATA[3.8.8]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[此模块为八戒所有模块的基础模块！]]></ability>
+		<description><![CDATA[此模块为八戒所有模块的基础模块，请注意更新哦]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

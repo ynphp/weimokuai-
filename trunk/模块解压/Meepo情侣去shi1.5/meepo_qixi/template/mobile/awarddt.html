@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang="en-US"><head>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1.0">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/style/css/reset.css">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/style/css/mktools.css">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/style/css/v2.css">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/style/css/common.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/style/css/theme.css">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/style/css/theme_temp.css">
+	{php echo register_jssdk(false);}
+    <style>
+        a{color:#B2B2B2 !important;}
+        a:visited{color:#B2B2B2 !important;}
+        a:active{color:#B2B2B2 !important;}
+
+    </style>
+<body class="theme white">
+<style>
+
+        .bg-color {
+        background-color: #6670ba !important;
+    }
+    .word-color{
+        color: #6670ba !important;
+    }
+    .title-color{
+        color: #000000 !important;
+    }
+    .bd-color{
+        border-color: #6670ba !important;
+    }
+    </style>
+<div class="page" id="gift-page" style="background-color: #f0f0f0">
+    <div class="ad"><a href=""><img style="width: 100%" src=""></a></div>
+    <div class="gift-detail">
+        <div class="xiangqing"><a href="javascript:history.go(-1);"><i class="fa fa-arrow-left" style="margin-top: 15px;float: left;margin-left: 5%;font-size: 20px;;color:rgba(185,52,20,0.9)"></i></a><span style="text-align:center;color:rgba(185,52,20,0.9)">奖品详情</span><a href="{php echo $this->createMobileUrl('index',array('id'=>$rid))}"><i class="fa fa-home" style="margin-top: 15px;float: right;margin-right: 5%;font-size: 20px;color:rgba(185,52,20,0.9)"></i></a></div>
+        <div style="background: white;padding: 5px 15px 50px 15px; ">
+            <div class="name2 word-color;color:rgba(185,52,20,0.9)">{$list['luck_name']}</div>
+            <div class="pic2">
+                <img style="width: 100%" src="{$_W['attachurl']}{$list['awardimg']}">
+            </div>
+            <div class="money2"><i class="fa fa-gift" style="line-height: 41px;margin-right: 8px;font-size: 14px;color:rgba(185,52,20,0.9)"></i>分数 <span class="word-color">{$list['minscore']}~~{$list['maxscore']}</span></div>
+            <div class="count2"><i class="fa fa-archive" style="line-height: 41px;margin-right: 8px;font-size: 14px;color:rgba(185,52,20,0.9)"></i>数量 <span class="word-color">{$list['tagNum']}</span></div>
+        </div>
+        <div class="xiabu">
+            <div class="jieshao" style="color:rgba(185,52,20,0.9)">奖品介绍</div>
+            <div class="cms">
+                <div style="overflow: hidden">
+				{$list['awarddes']}
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<script type="text/javascript">
+<?php 
+$surl =$_W['siteroot']."app/".$this->createMobileurl('index',array('id'=>$id));
+$surl = str_replace('./','',$surl);
+$meepo_qixi['share_link'] = $surl;
+?>
+ wx.ready(function () {
+    var shareData = {
+    title: "{$meepo_qixi['share_title']}",
+    desc: "{$meepo_qixi['share_content']}",
+    link: "{$meepo_qixi['share_link']}",
+    imgUrl: "{$_W['attachurl']}{$meepo_qixi['share_img']}",
+  };
+  
+  //分享朋友
+  wx.onMenuShareAppMessage({
+       title: shareData.title,
+      desc: shareData.desc,
+      link: shareData.link,
+      imgUrl:shareData.imgUrl,
+      trigger: function (res) {
+      },
+      success: function (res) {
+        
+      },
+      cancel: function (res) {
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+    });
+ //朋友圈
+  wx.onMenuShareTimeline({
+      title: shareData.title+"~~~~~~"+shareData.desc,
+      link: shareData.link,
+      imgUrl:shareData.imgUrl,
+      trigger: function (res) {
+      },
+      success: function (res) {
+          
+      },
+      cancel: function (res) {
+      },
+      fail: function (res) {
+        alert("分享失败网络超时！！！！");
+      }
+    });   
+    
+  });
+
+</script>
+</body></html>

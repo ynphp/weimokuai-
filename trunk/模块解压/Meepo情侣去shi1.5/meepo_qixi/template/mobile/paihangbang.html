@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>最新记录</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="{MODULE_URL}template/mobile/style/css/css.css" />
+	<link rel="stylesheet" href="{MODULE_URL}template/mobile/style/js/sweetalert.css" />
+	{php echo register_jssdk(false);}
+	<script type='text/javascript' src='resource/js/lib/jquery-1.11.1.min.js'></script>
+	<script type="text/javascript" charset="utf-8" src="{MODULE_URL}template/mobile/style/js/iscroll.js"></script>
+</head>
+<body>
+<div class="area_box" id="area_box" style="top:.5em;left:.5em;"><a href="javascript:history.go(-1);" class="current_areat_button"><span class="name" id="btn_active_rule">返回</span><span class="arrow_right"></span></a></div>
+<style type="text/css" >
+.area_box{
+	position: fixed;
+	z-index: 1111;
+}
+.area_box .current_areat_button{
+	margin:0;
+	background: rgba(185,52,20,0.9);
+	overflow: hidden;
+	padding:0.31em 0.34em;
+	display: inline-block;
+	border-radius: 0.3em;
+	-moz-border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+}
+.area_box .current_areat_button .name{
+	color: #fff;
+	float: right;
+	font-size: 1em;
+	
+}
+.area_box .current_areat_button .arrow_right{
+	float: right;
+	width:0.4375em;
+	height:0.4375em;
+	background: url("../images/city.png")  0 0 no-repeat;
+	background-size:100% auto;
+	-moz-background-size:100% auto;
+	-webkit-background-size:100% auto;
+	margin-top:0.38em;
+}
+.area_box .area_select_box{
+	position: fixed;
+	top:0;
+	left: 110%;
+	height: 100%;
+	width: 100%;
+	background: #f8f8f8;
+	padding-bottom:0.3em;	
+	-webkit-transition: left 0.5s;
+	-moz-transition: left 0.5s;
+	transition: left 0.5s;
+	z-index: 999;
+	overflow: auto;
+}
+.area_box_active .area_select_box{
+	left: 0;
+}
+.area_box .area_select_box .title{
+	position: relative;
+}
+.area_box .area_select_box .title h1{
+	text-align: left;
+	color: #333;
+	font-size: 1em;
+	font-weight: normal;
+	padding:0.9em 0 0.6em 0.5em;
+	border-bottom: 1px solid #e9e9e9;
+}
+.area_box .area_select_box h2{
+	background: #f1f1f1;
+	color: #121212;
+	font-size: 0.9em;
+	padding:0.5em 0.7em;
+	font-weight: normal;
+	border-top:1px solid #e9e9e9;
+	border-bottom:1px solid #e9e9e9;
+	margin-top:-1px;
+	font-family:Arial,"STHeiti","黑体-简","黑体","Microsoft Yahei"!important;
+}
+.area_box .area_select_box .title p{
+	text-align: left;
+	color: #121212;
+	font-size: 0.75em;
+	padding:0.7em 0.7em;
+}
+.area_box .area_select_box ul{
+	margin:0;
+	overflow: hidden;
+}
+.area_box .area_select_box ul li{
+	float: left;
+	width:33%;
+	border-bottom: 1px solid #e9e9e9;
+}
+.area_box .area_select_box ul li:nth-child(3n){
+	border-right: none;
+	width:34%;
+}
+.area_box .area_select_box ul li a{
+	border-right: 1px solid #e9e9e9;
+	display: block;
+	padding:0.62em 0.3em;
+	text-align: center;
+	color:#121212;
+	border-left:1px solid #f8f8f8;
+	border-top:1px solid #f8f8f8;
+	border-bottom:1px solid #f8f8f8;
+}
+.area_box .area_select_box ul li:nth-child(3n) a{
+	border-right: none;
+}
+.area_box .area_select_box ul li a span{
+	font-size:0.87em;
+	display: block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+}
+.area_box .area_select_box ul li a.active{
+	background: rgb(255, 226, 223);
+	border: 1px solid rgb(255, 146, 146)
+}
+.area_box .area_select_box .btn_close{
+	background: url(../images/close2.png") right center no-repeat;
+	height: 1.2em;
+	width:2em;
+	background-size:auto 100%;
+	-moz-background-size:auto 100%;
+	-webkit-background-size:auto 100%;
+	display: block;
+	position: absolute;
+	right:0.7em;
+	top:0.6em;
+}
+.active_rule_box{
+	width: 82%;
+	left:9%;
+	position: fixed;
+	top:10%;
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius:6px;
+	overflow: hidden;
+	z-index: 999999;
+
+}
+.active_rule_box .title{
+	background: #f03425;
+	padding:5px;
+	position: relative;
+	text-align: center;
+}
+.active_rule_box .title h2{
+	color:#fff;
+	font-weight: normal;
+}
+.active_rule_box .close{
+	background: url("http://wl.dcx4.cn/addons/mon_qmshake/images/close2.png") right center no-repeat;
+	height: 1.2em;
+	width:2em;
+	background-size:auto 100%;
+	-moz-background-size:auto 100%;
+	-webkit-background-size:auto 100%;
+	display: block;
+	position: absolute;
+	right:0.7em;
+	top:0.6em;
+}
+.active_rule_box .content{
+	padding:1.2em 1em;
+	background: #fff;
+}
+.active_rule_box .content p{
+	overflow: hidden;	
+	color: #808080;
+	margin:0px;
+}
+.active_rule_box .content p span{
+	line-height: 2em;
+	font-size: 0.81em;
+}
+.active_rule_box .content p span.name{
+	float: left;
+}
+.active_rule_box .content p span.info{
+	margin-left:1em;
+	display: block;
+}
+.active_rule_box .content p span.info span{
+	font-size: 1em;
+}
+/**/
+#J-album {
+	margin: 0 auto;
+	/*background-color: #FFFFFF;*/
+	width: 100%;
+	overflow: hidden;
+}
+#J-album-wp {
+	width: 100%;
+	margin: 0 auto;
+	height: auto;
+	
+	overflow: hidden;
+	z-index: 1;
+}
+.scroller {
+	height: auto;
+	overflow: hidden;
+}
+.scroller ul {
+	display: block;
+	
+	overflow: hidden;
+	height: auto;
+	margin: auto;
+	padding: 0;
+	text-align: center;
+}
+.scroller li {
+	width: auto;
+	height: auto;
+	display: block;
+	float: left;
+	text-align: center;
+}
+
+#J-album-nav {
+	float:right;
+	right: 3%;
+	margin-top: -37px;
+	padding: 0;
+	position: relative;
+	width: auto;
+	z-index: 3;
+}
+#indicator > li {
+	display: block;
+	float: left;
+	list-style: none;
+}
+#indicator {
+	display: block;
+	margin: 0 8px;
+	padding: 0;
+	width: auto;
+}
+#indicator > li {
+	text-indent: -9999em;
+	width: 8px;
+	height: 8px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	background: #888;
+	overflow: hidden;
+	margin-right: 4px;
+}
+#indicator > li.active {
+	background: #DDDDDD;
+}
+ #indicator > li:last-child {
+	margin: 0;
+}
+</style>
+<!--img src="{if empty($meepo_qixi['phbj'])}{MODULE_URL}template/mobile/style/img/back.png{else}{$_W['attachurl']}{$meepo_qixi['phbj']}{/if}" width="100%" /-->
+{if !empty($slide)}
+        <div id="J-album">
+            <div id="J-album-wp">
+                <!-- 轮播s -->
+                <div class="scroller" id="scroller">
+                    <ul id="thelist">
+                        {loop $slide $item}
+                        <li>
+                            <a href="{if empty($item['url'])}#{else}{$item['url']}{/if}" target="__blank">
+                                <img _src="{$_W['attachurl']}{$item['attachment']}" src="{$_W['attachurl']}{$item['attachment']}" />
+                            </a>
+							<div id="title"><a href="{if empty($item['url'])}#{else}{$item['url']}{/if}" target="__blank">{$item['title']}</a></div>
+                        </li>
+                        
+                   
+                        {/loop}
+                    </ul>
+					
+					
+                </div>
+            </div>
+            <div id="J-album-nav">
+                <ul id="indicator">
+                    {php $flag = false;}
+                    {loop $slide $item}
+                    {if !$flag}
+                    <li class="active">1</li>{php $flag = true;}
+                    {else}
+                    <li>1</li>
+                    {/if}
+                    {/loop}
+                </ul>
+            </div>
+            <div class="clr"></div>
+        </div>
+		<style>
+					#title{
+					position:relative;
+					text-align:left;
+					background: rgba(0,0,0,0.1);
+					bottom: 24px;
+                    left: 0;
+                    margin-bottom: 0;
+					
+					z-index:9999px;
+                    
+					}
+					#title a{color:#FFF;}
+					#thelist img{height:120px !important}
+					</style>
+        {/if}
+        
+<div style="clear: both;"></div>
+<img class="avatar" src="{$user['avatar']}" width="60" height="60" style="margin: 0px auto 0px auto;" />
+<p class="nickname">{$user['nickname']}{if empty($user['luck_name'])}<font color=red>未获奖</font>{else}获得的奖励 <font color=red> {$user['luck_name']} </font>{/if}</p>
+<a class="gourl"  style="text-decoration: none;background: rgba(185,52,20,0.9);;color:#fff" href="{$meepo_qixi['detailurl']}">活动规则</a>
+<a class="gourl"  style="text-decoration: none;background: rgba(185,52,20,0.9);;color:#fff" href="{php echo $this->createMobileUrl('awardlist',array('rid'=>$id,'id'=>$id))}">奖品列表</a>
+<div class="already-get">最新记录...</div>
+<div class="content">
+           <ul id="list">
+				{loop $list $row}
+    	        <li>
+				    
+                    <img class="receiver_avatar" width="36" height="36" src="{$row['avatar']}" />
+                    <div class="receiver_info">
+                        <div style="margin-bottom: 2px;">
+                            <span class="nickname">{$row['nickname']}</span>
+                            <span class="time">{php echo date('y/m/d H:i',$row['createtime'])}</span>
+                        </div>
+                        <div class="desc">捡到了 <font color=red> {$row['score']} </font> 个金币！</div>
+                    </div>
+                    <div class="receiver_flow">
+                        <div class="red" style="font-size:5px;">{if empty($row['luck_name'])}未获奖{else}{$row['luck_name']}{/if}</div>
+                    </div>
+                </li> 
+				{/loop}
+           </ul>
+		   {if !empty($list)}
+		   <input type="hidden" value="2" id="pagemore" />
+		   <div id="sousuomore"><span><span id="loading"></span>&nbsp;&nbsp;&nbsp;<span>查看更多</span></span></div>
+		   <style type="text/css">
+		   #sousuomore{width:100%;text-align:center;font-size:12px;height:30px;line-height:30px}
+		   #loading img{height:15px;width:15px}
+		   </style>
+		   {/if}
+</div>
+<script type="text/javascript">
+   $('#sousuomore').click(function(){
+	   $("#loading").html(
+	     "<img src='{MODULE_URL}images/loading.gif'/>");
+	   var page = $("#pagemore").val();
+          $.ajax({
+            type : "POST",
+            url: '{php echo $this->createMobileUrl('getmore',array('rid'=>$id))}',
+            data:{'page':page},
+            dataType:'JSON',
+            success: function (data) {
+				$("#loading").empty();
+                if (data == 'no') {
+					$('#sousuomore').hide();
+                } else {
+                   
+				   $('#list').append(data);
+
+					$("#pagemore").val(parseInt(page)+1);
+                }
+            }   
+        });
+   });
+</script>
+<script type="text/javascript">
+		var myScroll;
+		function loaded() {
+			myScroll = new iScroll('J-album-wp', {
+				snap : true,
+				momentum : false,
+				hScrollbar : false,
+				onScrollEnd : function() {
+					document.querySelector('#indicator > li.active').className = '';
+					document.querySelector('#indicator > li:nth-child(' + (this.currPageX + 1) + ')').className = 'active';
+				}
+			});
+		}
+		document.addEventListener('DOMContentLoaded', loaded, false);
+	</script>
+<script type="text/javascript">
+		var count = document.getElementById("thelist").getElementsByTagName("img").length;
+		var divwidth = document.body.clientWidth;
+		for ( i = 0; i < count; i++) {
+			document.getElementById("thelist").getElementsByTagName("img").item(i).style.cssText = " width:" + divwidth + "px";
+           // document.getElementById("thelist").getElementsByTagName("div").item(i).style.cssText = " width:" + divwidth + "px";
+		}
+		document.getElementById("scroller").style.cssText = " width:" + divwidth * count + "px";
+		setInterval(function() {
+			myScroll.scrollToPage('next', 0, 400, count);
+		}, 3500);
+
+	
+		window.onresize = function() {
+			for ( i = 0; i < count; i++) {
+				document.getElementById("thelist").getElementsByTagName("img").item(i).style.cssText = " width:" + divwidth + "px";
+
+			}
+			document.getElementById("scroller").style.cssText = " width:" + divwidth * count + "px";
+		}
+	</script>
+<script type="text/javascript">
+<?php 
+$surl =$_W['siteroot']."app/".$this->createMobileurl('index',array('id'=>$id));
+$surl = str_replace('./','',$surl);
+$meepo_qixi['share_link'] = $surl;
+?>
+ wx.ready(function () {
+    var shareData = {
+    title: "{$meepo_qixi['share_title']}",
+    desc: "{$meepo_qixi['share_content']}",
+    link: "{$meepo_qixi['share_link']}",
+    imgUrl: "{$_W['attachurl']}{$meepo_qixi['share_img']}",
+  };
+  
+  //分享朋友
+  wx.onMenuShareAppMessage({
+       title: shareData.title,
+      desc: shareData.desc,
+      link: shareData.link,
+      imgUrl:shareData.imgUrl,
+      trigger: function (res) {
+      },
+      success: function (res) {
+        
+      },
+      cancel: function (res) {
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+    });
+ //朋友圈
+  wx.onMenuShareTimeline({
+      title: shareData.title+"~~~~~~"+shareData.desc,
+      link: shareData.link,
+      imgUrl:shareData.imgUrl,
+      trigger: function (res) {
+      },
+      success: function (res) {
+          
+      },
+      cancel: function (res) {
+      },
+      fail: function (res) {
+        alert("分享失败网络超时！！！！");
+      }
+    });   
+    
+  });
+
+</script>
+</body>
+</html>

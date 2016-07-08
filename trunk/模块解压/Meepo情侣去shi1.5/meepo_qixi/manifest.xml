@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[Meepo情侣去shi]]></name>
+		<identifie><![CDATA[meepo_qixi]]></identifie>
+		<version><![CDATA[1.5]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[恶搞情人节]]></ability>
+		<description><![CDATA[恶搞情人节]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<rule>
+			<entry title="排名列表" do="list" state="" direct="false" />
+			<entry title="幻灯片管理" do="slide" state="" direct="false" />
+		</rule>
+		<menu>
+			<entry title="奖品管理" do="awardmanage" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_meepo_qixi_awardlist` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `displayid` int(10) NOT NULL DEFAULT '0' COMMENT '排序',
+  `weid` int(10) NOT NULL COMMENT '主公众号',
+  `luck_name` varchar(100) NOT NULL DEFAULT '' COMMENT '奖品名称',
+  `rid` int(10) NOT NULL DEFAULT '0' COMMENT 'rid',
+  `tagNum` int(10) NOT NULL DEFAULT '0' COMMENT '奖品数量',
+  `num` int(10) NOT NULL DEFAULT '0' COMMENT '奖品剩余数量',
+  `awarddes` varchar(200) NOT NULL DEFAULT '' COMMENT '奖品介绍',
+  `awardimg` varchar(200) NOT NULL DEFAULT '' COMMENT '奖品图片',
+  `maxscore` int(10) NOT NULL DEFAULT '0' COMMENT '奖品数量',
+  `minscore` int(10) NOT NULL DEFAULT '0' COMMENT '奖品数量',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_meepo_qixi_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `picture` varchar(100) NOT NULL COMMENT '活动图片',
+  `description` varchar(100) NOT NULL COMMENT '活动描述',
+  `starttime` int(11) NOT NULL DEFAULT '0',
+  `endtime` int(11) NOT NULL DEFAULT '0',
+  `awardwords` varchar(100) DEFAULT NULL,
+  `namemobile` varchar(100) DEFAULT NULL,
+  `explanation` varchar(120) DEFAULT NULL,
+  `detailurl` varchar(300) NOT NULL DEFAULT '1' COMMENT '详情链接',
+  `phbj` varchar(100) NOT NULL COMMENT '排行榜背景',
+  `maxtime` int(11) NOT NULL DEFAULT '0',
+  `share_title` varchar(200) NOT NULL DEFAULT '1' COMMENT '分享标题',
+  `share_content` varchar(500) NOT NULL DEFAULT '1' COMMENT '分享内容',
+  `share_img` varchar(200) NOT NULL DEFAULT '1' COMMENT '分享图片',
+  `guizecontent` varchar(2000) NOT NULL DEFAULT 'meepo' COMMENT '规则',
+  `lovers_0` varchar(300) NOT NULL COMMENT '情侣1',
+  `lovers_1` varchar(300) NOT NULL COMMENT '情侣2',
+  `lovers_2` varchar(300) NOT NULL COMMENT '情侣3',
+  `lovers_3` varchar(300) NOT NULL COMMENT '情侣4',
+  `single_0` varchar(300) NOT NULL COMMENT '单情侣1',
+  `single_1` varchar(300) NOT NULL COMMENT '单情侣2',
+  `single_2` varchar(300) NOT NULL COMMENT '单情侣3',
+  `single_3` varchar(300) NOT NULL COMMENT '单情侣4',
+  `titlebg` varchar(300) NOT NULL COMMENT '标题背景',
+  `photobg` varchar(300) NOT NULL COMMENT '照片背景',
+  `start_page` varchar(300) NOT NULL COMMENT '标题背景',
+  `score_bg` varchar(300) NOT NULL COMMENT '标题背景',
+  `blood` varchar(300) NOT NULL COMMENT '照片背景',
+  `musicurl` varchar(300) NOT NULL COMMENT '照片背景',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_meepo_qixi_slide` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `rid` int(10) NOT NULL,
+  `title` varchar(100) NOT NULL DEFAULT '',
+  `url` varchar(200) NOT NULL DEFAULT '',
+  `attachment` varchar(100) NOT NULL DEFAULT '',
+  `displayorder` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否显示',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_meepo_qixi_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `weid` int(10) unsigned NOT NULL COMMENT '公众号ID',
+  `openid` varchar(100) NOT NULL COMMENT '粉丝标识',
+  `avatar` varchar(200) NOT NULL COMMENT '粉丝头像',
+  `nickname` varchar(100) NOT NULL COMMENT '粉丝标识',
+  `realname` varchar(100) NOT NULL COMMENT '真实姓名',
+  `luck_name` varchar(100) NOT NULL COMMENT '奖品名称',
+  `mobile` varchar(15) NOT NULL COMMENT '联系方式',
+  `gender` int(2) NOT NULL COMMENT '性别',
+  `score` int(10) NOT NULL COMMENT '分数',
+  `createtime` int(10) NOT NULL COMMENT '时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

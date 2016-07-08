@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[报料台]]></name>
+		<identifie><![CDATA[ali_baoliao]]></identifie>
+		<version><![CDATA[1.2]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[新闻报料在线提交]]></ability>
+		<description><![CDATA[可以在线提交报料内容包括图片。]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="location" />
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_baoliao` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `weid` int(11) DEFAULT NULL COMMENT '公众号id',
+  `rid` int(11) DEFAULT NULL COMMENT '规则id',
+  `bltype` int(1) DEFAULT NULL COMMENT '报料类型',
+  `name` varchar(50) DEFAULT NULL COMMENT '昵称',
+  `fromuser` varchar(100) DEFAULT NULL COMMENT '用户openid',
+  `tel` varchar(20) DEFAULT NULL COMMENT '电话',
+  `title` varchar(100) DEFAULT NULL COMMENT '标题',
+  `content` varchar(300) DEFAULT NULL COMMENT '内容',
+  `pics` varchar(200) DEFAULT NULL COMMENT '报料图片',
+  `uptime` varchar(10) DEFAULT NULL COMMENT '报料时间',
+  `reply` varchar(300) DEFAULT NULL COMMENT '回复内容',
+  `replytime` varchar(10) DEFAULT NULL COMMENT '回复时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

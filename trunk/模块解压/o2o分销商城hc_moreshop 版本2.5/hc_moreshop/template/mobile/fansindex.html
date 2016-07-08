@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>个人中心</title>
+    <script type="text/javascript" src="../addons/hc_moreshop/style/js/jquery-1.8.0.min.js"></script>
+</head>
+<link href="../addons/hc_moreshop/style/css/bomeishi_cart.css" type="text/css" rel="stylesheet" />
+<div id="wrap">
+<div class="s-m-x">
+	<div class="s-m-x-1" {if !empty($profile['headimg'])}style="background:url({$profile['headimg']}) no-repeat scroll .8rem .6rem / auto .97rem rgba(0, 0, 0, 0);"{/if}>
+    	<div class="s-m-x-11" style="position:relative; top:13px;">
+            <p>会 员 名 &nbsp;: {$profile['realname']}</p>
+            <p>会员电话 : {$profile['mobile']}</p>
+            <p>会员积分 : <span id="mygold">{$fcredit}</span></p>
+            <p>开通时间 : {php echo date('Y-m-d', $profile['createtime']);}</p>
+        </div>
+    </div>
+	<div class="s-m-x-2">
+    	<ul>
+			<li><b>{$list[1]}</b><a href="{php echo $this->createMobileUrl('myorder',array('status'=>1))}">待支付</a></li>
+				<li><b>{$list[2]}</b><a href="{php echo $this->createMobileUrl('myorder',array('status'=>2))}">待收货</a></li>
+				<li><b>{$list[4]}</b><a href="{php echo $this->createMobileUrl('myorder',array('status'=>-1))}">已取消</a></li>
+				<li><b>{$list[5]}</b><a href="{php echo $this->createMobileUrl('myorder',array('status'=>-2))}">已退款</a></li>
+			<li><b>{$list[3]}</b><a href="{php echo $this->createMobileUrl('myorder',array('status'=>3))}">已完成</a></li>
+        </ul>
+    </div>
+</div>
+<div style="height:30px; font-size:20px; color:white; background-color:black; position:relative; top:-2px;">
+	<span style="text-align:center; position:absolute; background-color:rgb(18,170,177); width:100%; height:30px;" onclick="report()" id="wxqd">{if $credit == -1}点击签到{else}已签到{/if}</span>
+	{if $isenough==1}<span style="text-align:center; position:absolute; background-color:rgb(129,106,126); width:100%; height:30px; top:31px;" onclick="openedit();">开店编辑</span>{/if}
+</div>
+<div class="xq-m-list" {if $isenough==1}style="padding-top:31px;"{/if}>
+	<ul>
+    	<li class="x1-li-1">
+        	<a href="{php echo $this->createMobileUrl('myorder');}">全部订单</a>
+        </li>
+    	<li class="x1-li-2">
+            <a href="{php echo $this->createMobileUrl('myrecorder');}">我的订单</a>
+        </li>
+    	<li class="x1-li-3">
+            <a href="{php echo $this->createMobileUrl('address',array('from'=>'confirm'))}">收货地址</a>
+        </li>
+    	<li class="x1-li-4">
+            <a href="{php echo $this->createMobileUrl('mylows');}">我的下属</a>
+        </li>
+		<li class="x1-li-5">
+            <a href="{php echo $this->createMobileUrl('commission')}">我的佣金</a>
+        </li>
+		<li class="x1-li-6">
+            <a href="{php echo $this->createMobileUrl('mygrowmoney')}">我的分红</a>
+        </li>
+		<li class="x1-li-7">
+            <a href="{php echo $this->createMobileUrl('register', array('id'=>$profile['id'], 'opp'=>'complate'))}">我的资料</a>
+        </li>
+		<li class="x1-li-8">
+            <a href="{php echo $this->createMobileUrl('fansindex', array('op'=>'myqrcode'));}">推广二维码</a>
+        </li>
+    	<li class="x1-li-9">
+            <a href="{php echo $this->createMobileUrl('phb')}">富豪版</a>
+        </li>
+		<li class="x1-li-9">
+            <a href="{php echo $this->createMobileUrl('activity')}">优惠活动</a>
+        </li>
+		<li class="x1-li-9">
+            <a href="{php echo $this->createMobileUrl('setnews')}">消息设置</a>
+        </li>
+		<li class="x1-li-9">
+            <a href="{php echo $this->createMobileUrl('activity', array('op'=>'myactivity'))}">我的优惠券</a>
+        </li>
+    </ul>
+</div>
+<link rel="stylesheet" type="text/css" href="../addons/hc_moreshop/style/css/PreFoot.css">
+<div class="fixed bottom">
+       <dl class="sub-nav nav-b5">
+			<dd>
+				<div class="nav-b5-relative"><a href="{php echo $this->createMobileUrl('moreshop', array('op'=>'index'))}"><i class="icon-nav-bag"></i>逛街</a></div>
+			</dd>
+			<dd>
+				<div class="nav-b5-relative"><a href="{php echo $this->createMobileUrl('moreshop')}"><i class="icon-nav-myshop"></i>{if $isopen==0}审核中{elseif $isopen==1}My店{else}开店{/if}</a></div>
+			</dd>
+			<dd>
+				<div class="nav-b5-relative"><a href="{php echo $this->createMobileUrl('mycart')}"><i class="icon-nav-card"></i>购物车</a></div>
+			</dd>
+			<dd class="active">
+				<div class="nav-b5-relative"><a href="{php echo $this->createMobileUrl('fansindex')}"><i class="icon-nav-heart"></i>个人中心</a></div>
+			</dd>
+		</dl>
+    </div>
+<div class="clear-61"></div>
+<script>
+function openedit(){
+	location.href = "{php echo $this->createMobileUrl('fansindex', array('op'=>'openedit'));}"
+}
+
+function report(){
+	if({$credit}!=-1){
+		return;
+	}
+	$.ajax({
+		type: "POST",
+		url: "{php echo $this->createMobileurl('fansindex',array('op'=>'report'))}",
+		dataType: "text",
+		
+		success: function (d) {
+			if(d!=0){
+				window.document.getElementById('wxqd').innerHTML = '获得'+d+'分';
+				var credit = parseInt(window.document.getElementById('mygold').innerHTML);
+				var credit1 = credit + parseInt(d);
+				window.document.getElementById('mygold').innerHTML = credit1;
+			}
+			if(d==0){
+				alert('请勿重复签到！');
+				location.reload();
+			}
+			if(d==-1){
+				alert('需要关注该公众号才能签到哦！');
+				location.href = '{$gzurl['gzurl']}';
+			}
+		},
+		
+		error: function (xml, text, thrown){
+			TopBox.alert("出错啦!");
+		}
+	});
+}
+
+</script>
+<script type="text/javascript">
+var height_w = $(window).height();
+var height_b = $(document.body).height();
+$(function(){
+	if(height_w>height_b)  $('body').css('height', height_w-59);
+});
+</script>
+</body>
+</html>
+</body>
+</html>

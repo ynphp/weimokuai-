@@ -1,0 +1,312 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>我要发起</title>
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="format-detection" content="telephone=no">
+<!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<link href="../addons/water_xfzc/template/css/style_1.css" rel="stylesheet" type="text/css">
+<script src="../addons/water_xfzc/template/js/jquery.js"></script>
+<script src="../addons/water_xfzc/template/js/jquery.validation.min.js"></script>
+<style>
+.sz_form dl dd input.error { border: 1px solid red; }  
+.sz_form dl dd textarea.error { border: 1px solid red; } 
+</style>
+</head>
+
+<body style="margin:0; padding:0">
+<div class="head"><h1>我要发起</h1></div>
+<div class="sz_img"><input type="file" name="_pic" id="_pic" accept="image/*" capture="camera"/><img src="../addons/water_xfzc/template/images/online_img.jpg" id="pic_img"/></div>
+<span style="color:red;" class="img_alert"></span>
+<div class="sz_form">
+       <form id="info_form" name="info_form">
+       <input type="hidden" name="imgurl" id="imgurl"/>
+       <input type="hidden" name="themeid" id="themeid" value="{$themeid}"/>
+	<!--   <dl>
+	    <select id="studioselect" class="input-text"  onChange="setValue(this);setValue1(this);setValue2(this);"><option selected="selected" value ="">请点击选择！</option>
+<option title='新郎姓名' id='新娘姓名'  value ='我想告诉全世界，我要结婚了，为爱众筹，希望能得到大家的祝福，也希望能得到所有朋友的支持，1元是爱，10元是情，100元真心！谢谢！'>婚纱照众筹</option>
+<option title='美女名字' id='艺术照'  value ='亲爱的小伙伴们，我想拍艺术照，为爱众筹，希望能得到大家的祝福与支持，1元是爱，10元是情，100元真心，朋友们多多支持呀，谢谢！
+'>艺术照众筹</option>
+<option title='宝宝名字' id='宝宝照'  value ='父母：###/###，宝宝出生100天了，给她拍宝宝照，希望能得到大家的祝福，1元是爱，10元是情，100元真心，朋友们多多支持呀，谢谢！
+关闭'>宝宝照众筹</option>
+</select> -->
+<!--  <script type="text/javascript">     
+  function setValue(obj){
+   var opt = obj.options[obj.selectedIndex];
+   text1.innerText = opt.title;
+   document.getElementById("groom_name").value = opt.title;
+  }
+    function setValue1(obj){
+   var opt = obj.options[obj.selectedIndex];
+   text2.innerText = opt.id;
+   document.getElementById("bride_name").value = opt.id;
+  }
+    function setValue2(obj){
+   var opt = obj.options[obj.selectedIndex];
+   document.getElementById("touching_words").value = opt.value;
+  }
+ </script> 
+ </dl>-->
+       <dl>
+         <dt><i><img src="{if empty($set['img1'])}../addons/water_xfzc/template/images/25.png{else}{$_W['attachurl']}{$set['img1']}{/if}" /></i><p  id="text1">口号</p></dt>
+         <dd><input type="text"  name="name1" id="groom_name"/><p>口号不能多于4个汉字</p><p class="redsize"></p></dd>
+       </dl>
+       <dl>
+         <dt><i><img src="{if empty($set['img2'])}../addons/water_xfzc/template/images/26.png{else}{$_W['attachurl']}{$set['img2']}{/if}" /></i><p  id="text2">邀请人</p></dt>
+         <dd><input type="text" name="name2" id="bride_name"/><p>名字不能多于4个汉字</p><p class="redsize"></p></dd>
+       </dl>
+       <dl>
+         <dt><i><img src="{if empty($set['img3'])}../addons/water_xfzc/template/images/28.png{else}{$_W['attachurl']}{$set['img3']}{/if}" /></i>手机号</dt>
+         <dd><input type="text"  name="mobile" id="mobile"/><p>必须真实，将推送一条序列号，请妥善保管</p><p class="redsize"></p></dd>
+       </dl>
+       <dl style="height:120px">
+         <dt><i><img src="{if empty($set['img4'])}../addons/water_xfzc/template/images/27.png{else}{$_W['attachurl']}{$set['img4']}{/if}" /></i>邀请语</dt>
+         <dd><textarea name="zcgy" id="touching_words">{$theme['zcxcy']}</textarea><p>感言不能多于120个汉字</p><p class="redsize" style=" bottom:-60px"></p></dd>
+       </dl>
+       <dl>
+         <dt><i><img src="{if empty($set['img5'])}../addons/water_xfzc/template/images/28.png{else}{$_W['attachurl']}{$set['img5']}{/if}" /></i>活动费</dt>
+         <dd><input type="number" name="price" id="price"/><i>元</i><p>目标区间:{$theme['zcjefw']}元人民币</p><p class="redsize"></p></dd>
+       </dl>
+       <dl style="height:70px">
+         <dt><i><img src="{if empty($set['img6'])}../addons/water_xfzc/template/images/29.png{else}{$_W['attachurl']}{$set['img6']}{/if}" /></i>截止时间</dt>
+         <dd><input type="text" name="end_time" id="end_time" value='{$endtime}' disabled="disabled"/><p>今天时间+{$theme['tdays']}天为活动结束时间</p></dd>
+       </dl>
+       </form>
+   
+   <div class="fabubtn"><a href="javascript:void(0)" class="sub"><i><img src="../addons/water_xfzc/template/images/new_20.jpg" alt="发布活动" /></i></a></div>
+</div>
+<div class="banquan"><div><i><img src="{$_W['attachurl']}{$theme['flogo']}" /></i><br />{$theme['jszc']}</div></div>
+<div class="popbox display share">
+   <div class="popnr display">   
+      <div class="popxx">     
+          
+         <p>活动准备工作已完成<br /><br />
+           <b>请保存二维码，方便分享</b>
+           <img src="../addons/water_xfzc/template/images/ladeng_android.png" alt="" /></p>
+         
+      </div>
+      <div class="popfoot"><a href="#" class="cheng">打开活动</a></div>
+   </div>
+   <div class="tishi display">   
+      <div class="popxx">    
+          
+         <p>信息生成后无法修改<Br />是否确定发布</p>
+         
+      </div>
+      <div class="popfoot"><a href="javascript:void(0);" class="lan end">返回检查</a><a href="javascript:void(0);" class="cheng start">马上开始</a></div>
+   </div>
+   <div class="loading display">即将开始...请稍后</div>
+</div>
+<!--上传等待-->
+<div class="popbox loading4 display">   
+   <div class="loading2"><img src="../addons/water_xfzc/template/images/loading.gif"/></div>
+</div>
+<script type="text/javascript" src="../addons/water_xfzc/template/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="../addons/water_xfzc/template/js/Resize.js" ></script>
+<!-- mobileBUGFix.js 兼容修复移动设备 -->
+<script src="../addons/water_xfzc/template/js/mobileBUGFix.mini.js" type="text/javascript"></script>
+<script type="text/javascript">
+	 $('input:file').localResizeIMG({
+         width: 620,
+         quality: 0.72,
+         success: function (result) {
+         $(".loading4").removeClass("display");
+ 	     $.ajax({
+	    	type:'POST',
+	    	url:'{$uploadurl}',
+	    	data:{photo:result.base64,size:result.base64.length},
+	    	success:function(data){
+	    		$(".loading4").addClass("display");
+	    		data  = eval("(" + data +")");
+	            if(data.status == 0){
+	            	 $("#pic_img").attr("src",result.base64);
+					 //$("#pic_img").attr("src",data.msg);
+					 $("#imgurl").val(data.msg);
+					 $("#groom_name").focus();
+	            }else{
+	            	alert(data.msg)
+	            }
+	        }    
+	    });
+/*          $.ajax({
+        	 url: '{$uploadurl}',
+        	 type: 'POST',
+        	 data:{photo:result.base64,size:result.base64.length},
+        	 dataType: 'json',
+        	 error: function(resp){
+        		 alert(resp.responseText);
+        		 $(".loading4").addClass("display");
+        	},
+        	 success: function(data){
+				 $(".loading4").addClass("display");
+				 data  = eval("(" + data +")");
+				 alert(123);
+				 if(data.error==0) {
+					// $("#pic_img").attr("src",result.base64);
+					 $("#pic_img").attr("src",data.msg);
+					 $("#imgurl").val(json.msg);
+					 $("#groom_name").focus();
+					 //$.post('index.php?act=from&op=cut_image',{url:json.filename},function(html){
+					   //  $("body").append(html);
+					 //},"html");
+				 }
+				 else {
+					 alert(data.msg)
+				 }
+        	}
+         }); */
+        }
+     });
+	</script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".sub").click(function(){
+	  
+	  if($("#info_form").valid()){
+		  $(".share").removeClass("display");
+		  $(".tishi").removeClass("display");
+	  }
+  });
+  $(".end").click(function(){
+	  $(".share").addClass("display");
+	  $(".tishi").addClass("display");
+  });
+  $(".start").click(function(){
+	  $(".tishi").addClass("display");
+	  $(".loading").removeClass("display");
+	  if($("#info_form").valid()){
+		 var params= $("#info_form").serialize();
+		 var name1 = $('#groom_name').val();
+		 var name2 = $('#bride_name').val();
+		 var zcgy = $('#touching_words').val();
+		 var price = $('#price').val();
+		 var mobile = $('#mobile').val();
+		 var imgurl = $('#imgurl').val();
+		 var themeid = $('#themeid').val();
+		 if(imgurl == ''){
+			 alert('请上传照片');
+		 }
+		 if(themeid <= 0){
+			 alert('参数错误');
+			 return;
+		 }
+ 	     $.ajax({
+ 	    	type:'POST',
+ 	    	url:'{$savezcurl}',
+ 	    	data:{name1:name1,name2:name2,zcgy:zcgy,price:price,mobile:mobile,imgurl:imgurl,themeid:themeid},
+ 	    	success:function(data){
+ 	    		data  = eval("(" + data +")");
+ 	            if(data.status == 1){
+ 	            	$(".loading").hide();
+ 					$(".popfoot a").attr("href",data.url);
+ 					$(".popxx img").attr("src",data.code);
+ 					$(".popnr").show();
+ 	            }else{
+ 	            	$(".share").addClass("display");
+ 	                  alert(data.msg);
+ 	            }
+ 	        }    
+ 	    });
+		  
+/* 		  $.get("index.php?g=Wap&m=Crowdfunding&a=publish&token=kzbypx1434095368&"+data,function(json){
+			  if(json.status==1)
+			  {
+				  $(".loading").hide();
+				  $(".popfoot a").attr("href","index.php?g=Wap&m=Crowdfunding&a=index&token=kzbypx1434095368&id="+json.id);
+				  $(".popxx img").attr("src",json.code);
+				  $(".popnr").show();
+				  //window.location.href="index.php?g=Crowdfunding&a=join;
+			  }else
+			  {  
+				  $(".share").addClass("display");
+                  alert(json.msg);
+			   }
+		  },'json'); */
+		  }
+  });
+  $("#info_form").validate({
+      errorPlacement: function(error, element){
+    	  var error_td = element;
+          var error_td_two= element.parent('dd').find(".redsize");
+          error_td_two.html(error);
+          if(element.attr("id")=="imgurl")
+          {
+             alert("请上传一张图片");
+          }
+      },
+		rules: {
+			groom_name : {
+                required : true, 
+                maxlength:4  
+            },
+            bride_name : {
+                required : true, 
+                maxlength:4  
+            },
+           
+            touching_words : {
+                required : true,  
+                maxlength:120     
+            },
+            imgurl:{
+            	required:true,
+            },
+            price:{
+                required : true,   
+                range:[{$min},{$max}]  
+            },
+			mobile:{
+				required:true,
+				digits:true,
+                rangelength:[11,11]
+			}
+		},
+		messages: {
+			groom_name : {
+                required :'请输入对应的口号!', 
+                maxlength:'最长为4个字符!'           
+            },
+            bride_name : {
+                required :'请输入对应的名字!', 
+                maxlength:'最长为4个字符!'           
+            },            
+            touching_words : {
+                required :'请输入您的感言!',  
+                maxlength:'感言最多个120个字符!'   
+            },
+            username : {
+                required : '请输入您的名字!',            
+            },
+            price:{
+                required : '请输入众筹金额!',   
+                range:'众筹金额区间{$theme['zcjefw']}元人民币'
+            },
+            imgurl:{
+             	 required : '请上传一张照片吧!'  
+            },
+			mobile: {
+				required : '请输入您的手机号码！',            
+                digits:'手机号码必须为数字！',
+                rangelength:'手机号长度为11位！'
+			}
+		}
+	});
+   /*$("#cut_submit").live("click",function(){
+	  	  var d=$('#form_cut').serialize();
+	      $.post('index.php?act=from&op=cut_image',d,function(data){
+            $("#imgurl").val(data);
+	      	$('#pic_img').attr('src','http://330e.com/data/upload/shop/from/'+data+"?1");
+	      	$("#groom_name").focus();
+	      	$(".image_cut").remove();
+			},'html');
+	  });*/
+});
+</script>
+
+</body>
+</html>

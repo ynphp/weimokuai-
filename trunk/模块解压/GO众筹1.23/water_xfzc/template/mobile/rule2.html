@@ -1,0 +1,56 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>众筹规则说明</title>
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+            <style>    
+   img{   
+  max-width:100%;height:auto;   
+} 
+</style>
+<link rel="stylesheet" type="text/css" href="../addons/water_xfzc/template/css/style_1.css"/>
+</head>
+<body style="background:#ce00d8">
+<!--影楼数据  影楼模板id:$output['template_info']['template_id']
+		           影楼名字:$output['template_info']['buybusiness_name']
+			影楼地址:$output['template_info']['business_address']
+			影楼详细地址:$output['template_info']['business_address_detail']
+			影楼电话:$output['template_info']['business_mobile']
+			影楼二维码:$output['template_info']['business_code_image']
+-->
+<div class="head"><a href="javascript:history.go(-1)">x</a></div>
+<div class="jiayoulist"> 
+  <div class="ylbox" style="background:#fff">
+{if !empty($rule['img1'])}<img src="{$_W['attachurl']}{$rule['img1']}" /><br />{/if}
+{if !empty($rule['img2'])}<img src="{$_W['attachurl']}{$rule['img2']}" /><br />{/if}
+{if !empty($rule['img3'])}<img src="{$_W['attachurl']}{$rule['img3']}" /><br />{/if}
+{if !empty($rule['img4'])}<img src="{$_W['attachurl']}{$rule['img4']}" /><br />{/if}
+{if !empty($rule['img5'])}<img src="{$_W['attachurl']}{$rule['img5']}" /><br />{/if}
+{if !empty($rule['img6'])}<img src="{$_W['attachurl']}{$rule['img6']}" />{/if}
+<!-- <img src="../addons/water_xfzc/template/images/new_22.jpg" /><br />
+<img src="../addons/water_xfzc/template/images/new_23.jpg" /><br />
+<img src="../addons/water_xfzc/template/images/new_24.jpg" /><br />
+<img src="../addons/water_xfzc/template/images/new_25.jpg" /> <br />
+<img src="http://330e.com/uploads/k/kzbypx1434095368/d/e/1/1/55c5b164640ee.jpg" />  -->
+<p>
+	活动规则：
+</p>
+{$rule['content']}
+<!-- 1.参加活动请点击“确认要玩”并填写真实有效用户信息（真实姓名+手机号码+照片），以便准确核对。<br />
+2.参加活动需要填写筹集目标金额，请认真填写需要筹集的额度。<br />
+3.填写提交以后，可以分享到你的朋友圈，转发给你的朋友来支持你或叫朋友转发支持。<br />
+4.活动时间：活动之日起10日内结束。<br />
+5.领取方式：筹集满额后到影楼核对信息，转换拍摄订单。如到时间未满额，可以到活动方补交差价，领取相应拍摄订单。筹集金额的只作为影楼消费金额使用。<br />
+6.本活动本公司拥有最终解释权。<br />
+7.关于拍摄套系金额，活动详情，请咨询公司客服 -->
+<p>
+	<br />
+</p><br /><br /> </div>
+</div>
+<div class="popfoot" style="background:none"><a href="javascript:history.go(-1)" class="lan">立即去玩</a></div>
+</body>
+</html>

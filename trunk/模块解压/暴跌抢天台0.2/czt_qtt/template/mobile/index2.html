@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>暴跌抢天台</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=320,maximum-scale=1.5, user-scalable=no">
+	<meta content="telephone=no" name="format-detection" />
+	<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/a.css">
+	<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/ld.css">
+	<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/public.css"></head>
+	</head>
+<body>
+	<div class="loadingmask">
+		<div class="loader-inner pacman">
+		  <div></div>
+		  <div></div>
+		  <div></div>
+		  <div></div>
+		  <div></div>
+		  <p>Loading...</p>
+		</div>
+	</div>
+	<div class="p2_namebox fadeInUp animated ani">
+		<img src="{MODULE_URL}template/mobile/images/p2_i1.png" width="274" alt="">
+		<input class="input_name" type="text" placeholder="请输入您的大名">
+	</div>
+	
+	<div class="p2_choosebox">
+		<img src="{MODULE_URL}template/mobile/images/p2_i2.png" class="p2_i2" width="200" alt="">
+		<div class="line clearfix">
+			<img class="choose_item" data-type='zz' src="{MODULE_URL}template/mobile/images/p2_i3a.png" data-src1='{MODULE_URL}template/mobile/images/p2_i3a.png' data-src2='{MODULE_URL}template/mobile/images/p2_i3.png' width="146" alt="">
+			<img class="choose_item" data-type='gzt' src="{MODULE_URL}template/mobile/images/p2_i4a.png" data-src1='{MODULE_URL}template/mobile/images/p2_i4a.png' data-src2='{MODULE_URL}template/mobile/images/p2_i4.png' width="146" alt="">
+		</div>
+		<div class="line clearfix">
+			<img class="choose_item" data-type='pads' src="{MODULE_URL}template/mobile/images/p2_i5a.png" data-src1='{MODULE_URL}template/mobile/images/p2_i5a.png' data-src2='{MODULE_URL}template/mobile/images/p2_i5.png' width="146" alt="">
+			<img class="choose_item" data-type='zsj' src="{MODULE_URL}template/mobile/images/p2_i6a.png" data-src1='{MODULE_URL}template/mobile/images/p2_i6a.png' data-src2='{MODULE_URL}template/mobile/images/p2_i6.png' width="146" alt="">
+		</div>
+	</div>
+	<img src="{MODULE_URL}template/mobile/images/p2_i7a.png" width="174" class="center-block p2_i7" data-src1='{MODULE_URL}template/mobile/images/p2_i7a.png' data-src2='{MODULE_URL}template/mobile/images/p2_i7.png' alt="">
+	<img class="hide" src="{MODULE_URL}template/mobile/images/p2_i3.png" width="146" alt="">
+	<img class="hide" src="{MODULE_URL}template/mobile/images/p2_i4.png" width="146" alt="">
+	<img class="hide" src="{MODULE_URL}template/mobile/images/p2_i5.png" width="146" alt="">
+	<img class="hide" src="{MODULE_URL}template/mobile/images/p2_i6.png" width="146" alt="">
+	<img class="hide" src="{MODULE_URL}template/mobile/images/p2_i7.png" width="146" alt="">
+</body>
+
+<script src="{MODULE_URL}template/mobile/js/jquery.js"></script>
+<script src="{MODULE_URL}template/mobile/js/jquery.cookie.js"></script>
+<script src="{MODULE_URL}template/mobile/js/public.js"></script>
+
+<script>
+	window.onload=function(){
+		$('.loadingmask').fadeOut();
+		$('.ani').show();
+		var can=false;
+		$('.choose_item').on(touchClick, function(event) {
+			event.preventDefault();
+
+			if($('.input_name').val()==''){
+				alert('请先输入您的名字')
+				return false;
+			}
+			
+			$('.choose_item').each(function(index,elm){
+				$(elm).attr('src',$(elm).data('src1'));
+			});
+			$(this).attr('src',$(this).data('src2'));
+
+			$('.p2_i7').attr('src',$('.p2_i7').data('src2'));
+			$.cookie('type', $(this).data('type'));
+			can =true;
+			
+
+		});
+
+		$('.p2_i7').on('click', function(event) {
+			event.preventDefault();
+			if($('.input_name').val()==''){
+				alert('请先输入您的姓名和选择亏损程度');
+				return false;
+			}else{
+				if(!can){
+					alert('请选择亏损程度');
+				}else{
+					$.cookie('name', $('.input_name').val());
+					window.location.href="{php echo $this->createMobileUrl('index3',array(),1);}";
+				}
+				
+			}
+			
+		});
+	}
+
+</script>
+</html>

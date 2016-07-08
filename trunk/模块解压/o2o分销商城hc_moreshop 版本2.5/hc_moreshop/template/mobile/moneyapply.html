@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<title>余额提现</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../addons/hc_moreshop/style/css/style.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+<meta name="mobileOptimized" content="width" />
+<meta name="handheldFriendly" content="true" />
+<meta http-equiv="Cache-Control" content="max-age=0" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+</head>
+
+<body>
+	<section class="main animated fadeInDown">
+		<div class="main-box">
+			<div class="commission-detail">
+				<h6>提现记录</h6>
+				<p>
+					<span class="commission-time1" style="width:32%">时间</span>
+					<span class="commission-money1" style="width:32%">金额</span>
+					<span class="commission-total1" style="width:32%">状态</span>
+				</p>
+				<p>
+					{loop $moneylog $v}
+						<span class="commission-time1" style="width:32%">{php echo date('Y-m-d', $v['createtime'])}</span>
+						<span class="commission-money1" style="width:32%">{$v['money']}</span>
+						<span class="commission-total1" style="width:32%">{$status[$v['status']]}</span>
+					{/loop}
+				</p>
+				<p>
+					<span class="commission-time1" style="width:32%">提现金额</span>
+					<span class="commission-event1" style="width:32%"><input type="text" id="credit" value="" placeholder="总金额:{$fcredit}" style="border-radius:3px; width:80%; height:65%;"/></span>
+					<span class="commission-money1" style="width:32%">--</span>
+				</p>
+			</div>
+			<br/>
+				<input type="submit" onclick="back();"  value="返回" class="btn btn-primary" style="width:48%;"/>
+				<input type="submit" onclick="apply();" value="提现" class="btn btn-primary" style="width:48%;"/>
+		</div>
+	</section>
+<footer class="foot"><a>&copy; {$_W['account']['name']}</a></footer>
+<script src="../addons/hc_moreshop/style/js/jquery.js"></script>
+<script type="text/javascript">
+	function apply(){
+		if({$profile['flag']}==0){
+			alert('您还不是推广人，无法兑换!');
+			return false;
+		}
+		var credit = document.getElementById("credit").value;
+		if(!parseInt(credit) || parseInt(credit)<=0){
+			alert('请输入大于0的数字！');
+			return false;
+		}
+		if(parseInt(credit) > {$fcredit}){
+			alert('提现上限不能超过'+{$fcredit});
+			return false;
+		}
+		if(!confirm('确认提现吗？')){
+			return false;
+		}
+		$.ajax({
+			type: "POST",
+			url: "{php echo $this->createMobileurl('moneyapply', array('op'=>'applyed'), true)}&credit="+parseInt(credit),
+			dataType: "text",
+			success: function (d) {
+				if(d==1){
+					alert('提现申请成功！');
+					location.href = "{php echo $this->createMobileUrl('commission')}";
+				}
+				if(d==-1){
+					alert('您还不是推广人，无法兑换!');
+				}
+				if(d==-2){
+					alert('提现错误！');
+				}
+				if(d==-3){
+					alert('提现错误！');
+				}
+				if(d==-4){
+					alert('需要关注该公众号才能签到哦！');
+					location.href = '{$rule['gzurl']}';
+				}
+			},
+			
+			error: function (xml, text, thrown){
+				alert("出错啦!");
+			}
+		});
+	}
+	
+	function back(){
+		history.go(-1);
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+{template 'common/header'}
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li><a href="{php echo $this->createWebUrl('theme');}">活动管理</a></li>
+        <li class="active"><a href="{php echo $this->createWebUrl('addtheme',array('themeid' =>$themeid));}">活动主页设置</a></li>
+        <li><a href="{php echo $this->createWebUrl('addrule',array('themeid' =>$themeid));}">规则页面设置</a></li>
+        <li><a href="{php echo $this->createWebUrl('seting',array('themeid' =>$themeid));}">个性化设置</a></li>
+        <li><a href="{php echo $this->createWebUrl('goods',array('themeid' =>$themeid));}">奖品设置</a></li>
+    </ul>
+</div>       
+<style>
+.table td span{display:inline-block;margin-top:4px;}
+.table td input{margin-bottom:0;}
+</style>
+<div class="clearfix">
+<form class="form-horizontal form" action="" method="post" enctype="multipart/form-data">
+    <div class="panel panel-default">
+        <div class="panel-heading">设置活动主页信息</div>
+        <div class="panel-body">
+                <input type="hidden" name="themeid" value="{$theme['id']}">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">活动名称</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="tname" value="{$theme['tname']}">
+                    	<span class="help-block">方便后台浏览查阅</span>
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">允许粉丝发起众筹</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="checkbox" id="fansdo" name="fansdo" value="1" {if $theme['fansdo'] == 1}checked="checked"{/if}>
+
+                    	<span class="help-block">默认选中，允许粉丝自由发起众筹；不选中则由后台发起活动</span>
+                    </div>
+                </div> -->                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">触发关键字</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="keyword" value="{$theme['keyword']}">
+                    	<span class="help-block">粉丝回复此关键字方可参加活动，注意：需要配置回复规则</span>
+                    </div>
+                </div>                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">客服电话</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="kftel" value="{$theme['kftel']}">
+                    	<span class="help-block">方便粉丝咨询</span>
+                    </div>
+                </div>                
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">活动主页头部图片</label>
+                    <div class="col-sm-8 col-xs-12">
+                       {php echo tpl_form_field_image('hlogo',$theme['hlogo']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="help-block">众筹主页头部的活动宣传图片，建议640*140</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">默认众筹宣传语</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <textarea style="height:100px; width:100%;" id='rule' class="form-control span7 richtext" placeholder="众筹宣传语" name="zcxcy" cols="70">{$theme['zcxcy']}</textarea>
+                    	<span class="help-block">例如：我想告诉全世界，我要结婚了，为爱众筹，希望能得到大家的祝福，也希望能得到所有朋友的支持，谢谢！</span>
+                    </div>
+                </div>                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">活动主页下方图片</label>
+                    <div class="col-sm-8 col-xs-12">
+                       {php echo tpl_form_field_image('flogo',$theme['flogo']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="help-block">众筹主页头部的活动宣传图片，建议宽640，高自定义</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">底部技术支持</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="jszc" value="{$theme['jszc']}">
+                    	<span class="help-block">活动主页底部技术支持</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">技术支持链接</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="jszcurl" value="{$theme['jszcurl']}">
+                    	<span class="help-block">技术支持的超链接</span>
+                    </div>
+                </div>                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">众筹金额范围</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="zcjefw" value="{$theme['zcjefw']}">
+                    	<span class="help-block">例如最低100元，最高5000元，注意格式：100-5000</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">默认支付金额</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="jetype" value="{$theme['jetype']}">
+                    	<span class="help-block">支付时底部默认三个金额，例如9.9元、13.14元、99元，注意格式：9.9-13.14-99</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">分享标题</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="sharetitle" value="{$theme['sharetitle']}">
+                    	<span class="help-block">分享朋友圈的标题</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">分享描述</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="sharedesc" value="{$theme['sharedesc']}">
+                    	<span class="help-block">分享朋友圈的描述</span>
+                    </div>
+                </div>                                                                
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">众筹最大天数</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="tdays" value="{$theme['tdays']}">
+                    	<span class="help-block">活动可持续天数，例如100天，填正整数：99</span>
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">支持后发送流水号最大值</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="500" name="rdrange1" value="{$theme['rdrange1']}">
+                    	<span class="help-block">粉丝付款之后自动发送范围内的随机码：例如填5000，就是发送0000-4999序号</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">将要发送随机码</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="0" name="rdrange0" value="{$theme['rdrange0']}">
+                    	<span class="help-block">将要发送的随机码，默认从0开始</span>
+                    </div>
+                </div>                                 
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">发送随机码模版消息ID</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="rdmb" value="{$theme['rdmb']}">
+                    	<span class="help-block">用于发送随机码模版消息IT行业OPENTM400065836</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">模版消息remark字段</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="mbremark" value="{$theme['mbremark']}">
+                    	<span class="help-block">模版消息最下方的remark信息</span>
+                    </div>
+                </div>                                               
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">SMS账户</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="smsname" value="{$theme['smsname']}">
+                    	<span class="help-block">http://www.sms.cn注册账户</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">SMS密码</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="smspwd" value="{$theme['smspwd']}">
+                    	<span class="help-block">账号、密码为空时，默认不推送短信</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">短信模板</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="发布成功，您的序列号为：#，有效期为一个月，请及时到加盟商家使用。" name="smsmb" value="{$theme['smsmb']}">
+                    	<span class="help-block">模板和后缀【xx公司】需要备案，咨询客服即可。此处只写模板，不加后缀。#代表10位数字</span>
+                    </div>
+                </div>    -->                                             
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>活动协议内容</label>
+					<div class="col-sm-9 col-xs-12">
+						<textarea style="height:200px; width:80%;" id='rule2' class="form-control span7 richtext" name="xieyi" cols="70">{$theme['xieyi']}</textarea>
+						<span class="help-block">粉丝支付的时候需要同意的协议内容</span>
+					</div>
+				</div>                  
+
+        </div>
+
+    </div>
+                
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+            <input type="hidden" name="token" value="{$_W['token']}" />
+        </div>
+    </div>
+</form>
+</div>
+ <script type="text/javascript">
+    require(['jquery', 'util'], function($, u){
+        $(function(){
+            u.editor($('.richtext')[1]);
+        });
+       
+    });
+</script>
+{template 'common/footer'}

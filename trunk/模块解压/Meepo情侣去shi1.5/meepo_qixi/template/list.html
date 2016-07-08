@@ -1,0 +1,167 @@
+{template 'common/header'}
+<script type='text/javascript' src='resource/js/lib/jquery-1.11.1.min.js'></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/style/images/jquery.gcjs.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/style/images/jquery.form.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/style/images/tooltipbox.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/style/images/jquery-1.7.2.min.js"></script>
+<script>
+	function selectall(obj, name){
+		$('input[name="'+name+'[]"]:checkbox').each(function() {
+			$(this).attr("checked", $(obj).attr('checked') ? true : false);
+		});
+	}
+</script>
+<style type="text/css">
+.red {float:left;color:red}
+.white{float:left;color:#fff}
+
+.tooltipbox {
+	background:#fef8dd;border:1px solid #c40808; position:absolute; left:0;top:0; text-align:center;height:20px;
+	color:#c40808;padding:2px 5px 1px 5px; border-radius:3px;z-index:1000;
+}
+.red { float:left;color:red}
+</style>
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display'} class="active" {/if}><a href="{php echo $this->createWebUrl('list',array('op' =>'display'))}">数据列表</a></li>
+	{if !empty($user['id']) &&  $operation == 'post'}<li  class="active"><a href="{php echo $this->createWebUrl('list',array('op' =>'post','id'=>$user['id']))}">编辑数据</a></li>{/if}
+</ul>
+{if $operation == 'display'}
+<div class="panel panel-info">
+	<div class="panel-heading">筛选
+	</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form">
+			<input type="hidden" name="c" value="site" />
+			<input type="hidden" name="a" value="entry" />
+			<input type="hidden" name="m" value="meepo_qixi" />
+			<input type="hidden" name="do" value="list" />
+			<input type="hidden" name="id" value="{$rid}" />
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label">粉丝昵称</label>
+				<div class="col-xs-12 col-sm-8 col-lg-9">
+					<input class="form-control" name="keyword" id="" type="text" value="{$_GPC['keyword']}" placeholder="请输入粉丝昵称">
+				</div>
+			</div>
+			<div class="form-group">
+			    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label"></label>
+				<div class=" col-xs-12 col-sm-2 col-lg-3">
+					<input type="submit"  value="搜索" class="btn btn-success btn-block" />
+				</div>
+			</div>
+
+		</form>
+	</div>
+</div>
+<div class="main panel panel-default">
+	<div class="panel-body table-responsive">
+     <form action="" method="post" onsubmit="">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+				    <th style="width:25px;">选？</th>
+				    <th>所属活动</th>
+					<th>粉丝信息</th>
+					<th>粉丝分数</th>
+					<th>真实姓名</th>
+					<th>所得奖品</th>
+					<th>联系方式</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $users $row}
+				<?php
+				$ridname = pdo_fetchcolumn("SELECT name FROM ".tablename('rule')." WHERE id=:id AND uniacid=:weid",array(':id'=>$row['rid'],':weid'=>$weid));
+				?>
+				
+				<tr>
+                 <td><input type="checkbox" name="ids[]" value="{$row['id']}" class=""></td>
+				    <td>{$ridname}</td>
+					<td class="row-hover">
+								<img width="50" src="{$row['avatar']}" class="avatar" />
+								<div class="mainContent">
+									<div class="nickname">{$row['nickname']}</div>
+								</div>
+							</td>
+					<td>{$row['score']}</td>
+					<td>{$row['realname']}</td>
+					<td>{if !empty($row['luck_name'])}{$row['luck_name']}{else}未得奖{/if}</td>
+					<td>{$row['mobile']}</td>
+					<td style="text-align:left;">
+						<a href="{php echo $this->createWebUrl('list', array('id' => $rid,'op' => 'post', 'theid' => $row['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="修改" ><i class="fa fa-edit"></i></a>
+						<a href="{php echo $this->createWebUrl('list',array('id' => $rid,'op' => 'delete', 'theid' => $row['id']))}"class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="删除" onclick="return confirm('删除将无法恢复，确认吗？');return false;"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+				<tr>
+						<td><input type="checkbox" onclick="var ck = this.checked;$(':checkbox').each(function(){this.checked = ck});"></td>
+				        <td>
+						<input name="token" type="hidden" value="{$_W['token']}" />
+						<input type="submit" class="btn btn-success" name="download" value="导出所有数据" />
+                         
+                       </td>
+					  
+			   </tr>
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+	</form>
+</div>
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+{elseif $operation == 'post'}
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit='return formcheck()'>
+		<input type="hidden" name="theid" value="{$user['id']}" />
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				编辑数据
+			</div>
+			<div class="panel-body">
+			    <div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">真实姓名</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='realname' name="realname" class="form-control" value="{$user['realname']}" />
+						<span class="help-block">粉丝真实姓名</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝联系方式</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='mobile' name="mobile" class="form-control" value="{$user['mobile']}" />
+						<span class="help-block">粉丝联系方式</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝分数</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='score' name="score" class="form-control" value="{$user['score']}" />
+						<span class="help-block">粉丝分数</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">所得奖品</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='luck_name' name="luck_name" class="form-control" value="{$user['luck_name']}" />
+						<span class="help-block">所得奖品</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+	    </div>
+ </form>
+</div>
+
+{/if}
+{template 'common/footer'}

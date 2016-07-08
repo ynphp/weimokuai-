@@ -1,0 +1,182 @@
+{template 'common/header'}
+<script type='text/javascript' src='resource/js/lib/jquery-1.11.1.min.js'></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/style/images/jquery.gcjs.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/style/images/jquery.form.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/style/images/tooltipbox.js"></script>
+<style type="text/css">
+.red {float:left;color:red}
+.white{float:left;color:#fff}
+
+.tooltipbox {
+	background:#fef8dd;border:1px solid #c40808; position:absolute; left:0;top:0; text-align:center;height:20px;
+	color:#c40808;padding:2px 5px 1px 5px; border-radius:3px;z-index:1000;
+}
+.red { float:left;color:red}
+</style>
+<ul class="nav nav-tabs">
+	<li {if $operation == 'display'} class="active" {/if}><a href="{php echo $this->createWebUrl('awardmanage',array('op' =>'display'))}">奖品列表</a></li>
+	<li{if empty($adv['id']) && $operation == 'post'} class="active" {/if}><a href="{php echo $this->createWebUrl('awardmanage',array('op' =>'post'))}">添加奖品</a></li>
+	{if !empty($adv['id']) &&  $operation == 'post'}<li  class="active"><a href="{php echo $this->createWebUrl('awardmanage',array('op' =>'post','id'=>$adv['id']))}">编辑奖品</a></li>{/if}
+</ul>
+
+{if $operation == 'display'}
+<div class="main panel panel-danger">
+<div class="panel-heading ">
+  奖品列表  
+  <br><br>
+  奖品分数区间 尽量依据设置的倒计时秒数来确定
+</div>
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th>排序</th>
+					<th>所属活动名称</th>
+					<th>获奖分数区间</th>
+					<th>奖品名称</th>	
+					<th>奖品介绍</th>	
+					<th>奖品图片</th>	
+					<th>奖品数量</th>
+					<th>剩余数量</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $adv}
+				<tr>
+				    <td><span class="label label-danger">{$adv['displayid']}</span></td>
+					<td><span class="label label-success">{$adv['huodongname']}</span></td>
+					<td><span class="label label-info">{$adv['minscore']}~~{$adv['maxscore']}</span></td>
+					<td><span class="label label-warning">{$adv['luck_name']}</span></td>
+					<td><span class="label label-warning">{$adv['awarddes']}</span></td>
+					<td><img src="{$_W['attachurl']}{$adv['awardimg']}" width=50 height=50/></td>
+					<td><span class="label label-danger">{$adv['tagNum']}</span></td>
+					<td><span class="label label-danger">{$adv['num']}</span></td>
+					<td style="text-align:left;">
+						<a href="{php echo $this->createWebUrl('awardmanage', array('op' => 'post', 'id' => $adv['id']))}" class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="修改" ><i class="fa fa-edit"></i></a>
+						<a href="{php echo $this->createWebUrl('awardmanage', array('op' => 'delete', 'id' => $adv['id']))}"class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="删除" onclick="return confirm('删除将无法恢复，确认吗？');return false;"><i class="fa fa-times"></i></a>
+					</td>
+				</tr>
+				{/loop}
+			</tbody>
+		</table>
+		{$pager}
+	</div>
+</div>
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+{elseif $operation == 'post'}
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit='return formcheck()'>
+		<input type="hidden" name="id" value="{$adv['id']}" />
+		<div class="panel panel-danger">
+			<div class="panel-heading">
+			</div>
+			<div class="panel-body">
+			    <div class="form-group">
+				  <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label"><span class="label label-success">所属活动</span></label>
+				  <div class="col-sm-8 col-lg-10 col-xs-12">
+				  {if !empty($rids)}
+					<select name="rid" class="form-control">
+						{loop $rids $row}
+						<option value="{$row['id']}" {if $adv['rid'] === $row['id']} selected="selected" {/if}>{$row['name']}</option>
+						{/loop}
+					</select>
+				  {else}
+				  请先到规则列表内 添加相应的活动名称
+				  {/if}
+					<span class="help-block">请选择活动名称</span>
+				 </div>
+			    </div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span><span class="label label-success">奖项排序</span></label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='displayid' name="displayid" class="form-control" value="{$adv['displayid']}" placeholder="奖项排序"/>
+						<span class="help-block">此奖项在抽奖选项列表里的排列位置</span>
+					</div>
+				</div>
+			   
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span><span class="label label-success">奖品名称</span></label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='luck_name' name="luck_name" class="form-control" value="{$adv['luck_name']}" placeholder="请填写奖品名称" />
+						<span class="help-block">名称尽量简明扼要</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span><span class="label label-success">奖品图片</span></label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('awardimg', $adv['awardimg']);}
+						<span class="help-block">奖品图片<strong>规格 700*300</strong> </span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span><span class="label label-success">奖品介绍</span></label>
+					<div class="col-sm-9 col-xs-12">
+						<textarea style="height:150px;" name="awarddes" class="span7" cols="60">{$adv['awarddes']}</textarea>
+						<span class="help-block">请填写整数</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span><span class="label label-success">奖品总数</span></label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='tagNum' name="tagNum" class="form-control" value="{$adv['tagNum']}" placeholder="请填写奖品总数 需为整数"/>
+						<span class="help-block">请填写整数</span>
+					</div>
+				</div>
+				{if !empty($adv['id'])}
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span><span class="label label-success">奖品剩余总数</span></label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='num' name="num" class="form-control" value="{$adv['num']}" />
+						<span class="help-block">请填写整数</span>
+					</div>
+				</div>
+				{/if}
+                <div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">获奖分数区间</label>
+					<div class="col-sm-3">
+						<input type="text"  class="form-control" name="minscore" value="{$adv['minscore']}">
+						<span class="help-block" style="color:red">最小值
+						</span>
+					</div>
+					<div class="col-sm-3">
+						<input type="text"  class="form-control" name="maxscore" value="{$adv['maxscore']}">
+						<span class="help-block" style="color:red">最大值
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+<div class="form-group col-sm-12">
+	<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+	<input type="hidden" name="token" value="{$_W['token']}" />
+	</div>
+	</form>
+</div>
+
+<script language='javascript'>
+	function formcheck() {
+	
+		if ($("#luck_name").isEmpty()) {
+			Tip.focus("#luck_name", "请填写奖品名称!");
+			return false;
+		}
+		if ($("#tagNum").isEmpty()) {
+			Tip.focus("#tagNum", "请填写奖品数量!");
+			return false;
+		}
+		return true;
+	}
+</script>
+{/if}
+{template 'common/footer'}
+

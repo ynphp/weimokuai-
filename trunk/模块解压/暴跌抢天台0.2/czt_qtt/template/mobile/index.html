@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>暴跌抢天台</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=320,maximum-scale=1.5, user-scalable=no">
+	<meta content="telephone=no" name="format-detection" />
+	<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/a.css">
+	<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/ld.css">
+	<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/public.css"></head>
+	</head>
+<body>
+	<div class="loadingmask">
+		<div class="loader-inner pacman">
+		  <div></div>
+		  <div></div>
+		  <div></div>
+		  <div></div>
+		  <div></div>
+		  <p>Loading...</p>
+		</div>
+	</div>
+	<img src="{MODULE_URL}template/mobile/images/p1_bg.jpg" class="w100p h100p posa left0 top0" alt="">
+	<a href="{php echo $this->createMobileUrl('index2',array(),1);}" class="block"><img src="{MODULE_URL}template/mobile/images/p1_btn0.gif" class="posa j_center p1_btn0 bounceIn animated" width="216" alt=""></a>
+	<a href="{php echo $this->createMobileUrl('index2',array(),1);}" class="block"><img src="{MODULE_URL}template/mobile/images/p1_btn1.png" class="posa j_center p1_btn1 fadeInUp animated" width="176" alt=""></a>
+	<img src="{MODULE_URL}template/mobile/images/p1_cloud1.png" class="posa p1_cloud1 a_leftright" width="120" alt="">
+	<img src="{MODULE_URL}template/mobile/images/p1_clund2.png" class="posa p1_cloud2 a_leftright" width="120" alt="">
+</body>
+<script src="{MODULE_URL}template/mobile/js/jquery.js"></script>
+<script src="{MODULE_URL}template/mobile/js/public.js"></script>
+<script>
+	window.onload=function(){
+		$('.loadingmask').fadeOut();
+	}
+</script>
+</html>

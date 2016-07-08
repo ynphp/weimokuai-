@@ -1,0 +1,94 @@
+.page {
+  font-size: 14px;
+  line-height: 18px;
+  color: #333;
+  background-color: #FFF;
+  line-height: 20px; }
+
+html, body {
+  /*background-color: #FFF !important;*/
+  min-height: 100%; }
+
+.theme-color .page-header {
+    min-height: 180px;
+    max-height: 250px;
+    overflow: hidden;
+    position: relative; }
+.theme-color .header-title {
+    padding: 15px 0px; }
+.theme-color .numbers-container {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    margin-top: -30px; }
+.theme-color .numbers-container .number {
+    display: inline-block;
+    width: 40px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #FFF;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 60px;
+    height: 60px; }
+.theme-color .page-header .mask {
+    width: 100%;
+    position: absolute;
+    height: 50px;
+    line-height: 50px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #FFF;
+    bottom: 0px; }
+.theme-color .block-title {
+    padding-top: 15px;
+    padding-bottom: 5px; }
+.theme-color .block-desc {
+    position: relative; }
+.theme-color .block-desc .desc {
+    background-color: #FFF;
+    z-index: 2;
+    position: relative;
+    display: inline-block;
+    padding: 0px 4px; }
+.theme-color .page-content {
+    padding: 0px 30px; }
+.theme-color .split-line {
+    width: 100%;
+    position: absolute;
+    height: 2px;
+    background-color: #efefef;
+    margin-top: -1px;
+    z-index: 1;
+    top: 50%; }
+.theme-color .button {
+    padding: 10px 20px;
+    min-height: 30px;
+    line-height: 30px;
+    color: #FFF;
+    border-radius: 6px;
+    display: inline-block;
+    font-size: 18px;
+    text-decoration: none; }
+.theme-color .block {
+    padding: 15px 0px; }
+.theme-color .tag {
+    height: 40px;
+    border-radius: 999px;
+    background-color: #FFF;
+    line-height: 40px; }
+.theme-color .qrcode-show {
+    border-radius: 8px; }
+
+.block-title {
+    padding: 5px 0px; }
+
+.share_popup{
+    background: rgba(0,0,0,.8) url('../images/share_mb.png') right top no-repeat;
+    background-size: 100%;
+    display: none;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 100;
+}

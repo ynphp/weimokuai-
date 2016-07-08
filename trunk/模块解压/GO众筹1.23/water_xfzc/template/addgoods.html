@@ -1,0 +1,88 @@
+{template 'common/header'}
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li><a href="{php echo $this->createWebUrl('theme');}">活动管理</a></li>
+        <li ><a href="{php echo $this->createWebUrl('addtheme',array('themeid' =>$themeid));}">活动主页设置</a></li>
+        <li><a href="{php echo $this->createWebUrl('addrule',array('themeid' =>$themeid));}">规则页面设置</a></li>
+        <li><a href="{php echo $this->createWebUrl('seting',array('themeid' =>$themeid));}">个性化设置</a></li>
+        <li><a href="{php echo $this->createWebUrl('goods',array('themeid' =>$themeid));}">奖品管理</a></li>
+        <li class="active"><a href="{php echo $this->createWebUrl('addgoods',array('themeid' =>$themeid));}">添加奖品</a></li>
+    </ul>
+</div>       
+<style>
+.table td span{display:inline-block;margin-top:4px;}
+.table td input{margin-bottom:0;}
+.display {display:block;}
+</style>
+<div class="clearfix">
+<form class="form-horizontal form" action="" method="post" enctype="multipart/form-data">
+    <div class="panel panel-default">
+        <div class="panel-heading">奖品信息编辑</div>
+        <div class="panel-body">
+                <input type="hidden" name="goodsid" value="{$goods['id']}">
+                <input type="hidden" name="themeid" value="{$themeid}">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style='color:red'>*</span>奖品名称</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="" name="gname" value="{$goods['gname']}">
+                    	<span class="help-block">例如：吹剪洗一次</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style='color:red'>*</span>最低价格</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="1-9" name="minp" value="{$goods['minp']}">
+                    	<span class="help-block">最低价格,例如1</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style='color:red'>*</span>最高价格</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="1-9" name="maxp" value="{$goods['maxp']}">
+                    	<span class="help-block">最高价格，例如3 </span>
+                    </div>
+                </div>               
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style='color:red'>*</span>兑奖地址</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="北京。。" name="djdz" value="{$goods['djdz']}">
+                    	<span class="help-block">用户领奖的地址</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label"><span style='color:red'>*</span>兑奖电话</label>
+                    <div class="col-sm-8 col-xs-12">
+                        <input type="text" class="form-control" placeholder="1588888888" name="djdh" value="{$goods['djdh']}">
+                    	<span class="help-block">用户领奖的联系电话</span>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">奖品图片</label>
+                    <div class="col-sm-8 col-xs-12">
+                       {php echo tpl_form_field_image('jpimg',$goods['jpimg']);}
+                    </div>
+                </div>
+               <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="help-block">建议100*100</div>
+                    </div>
+                </div>                                                                  
+				<div class="form-group display">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>奖品详情</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" class="form-control" placeholder="http://" name="jpurl" value="{$goods['jpurl']}">
+						<span class="help-block">用户点击奖品名称时跳转的链接地址</span>
+					</div>
+				</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <input name="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+            <input type="hidden" name="token" value="{$_W['token']}" />
+        </div>
+    </div>
+</form>
+</div>
+{template 'common/footer'}
