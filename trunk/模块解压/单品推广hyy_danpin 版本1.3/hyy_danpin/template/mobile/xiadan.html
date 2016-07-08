@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type"content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="renderer" content="webkit">
+<title>商品预览</title>
+<link href="../addons/hyy_danpin/template/mobile/css/buy_new.css?0730" type="text/css" rel="stylesheet">
+
+<script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+<body id="body">
+<div class="bg">
+	<form class="box-form clear" id="form_buy" method="post">
+	
+<input type="hidden" name="c" value="entry" />
+<input type="hidden" value="xiadan" name="do">
+<input type="hidden" value="hyy_danpin" name="m">
+<input type="hidden" name="id" value="{$good_id}" />
+
+		<div class="box-xqym">
+		<div class="xqym-top clear"><a><img src="../attachment/{$goods['img_small']}"></a><span><strong class="xqym-top-txt">{$goods['title']}</strong><br>
+{$goods['title2']}</span></div>
+		<ul>
+					<li class="c666 li01">请挑选你中意的促销包：</li>
+						<li class="li02">
+						{if $goods['guige1']}
+								<a class="sku_li_a" data-price="{$goods['price1']}" data-sku="1" href="javascript:void(0);">
+								{$goods['guige1']}
+								</a>
+						{/if}
+						{if $goods['guige2']}
+						
+								<a class="sku_li_a" data-price="{$goods['price2']}" data-sku="2" href="javascript:void(0);">{$goods['guige2']}</a>
+						{/if}
+						{if $goods['guige3']}
+								<a class="sku_li_a" data-price="{$goods['price3']}" data-sku="3" href="javascript:void(0);">
+								{$goods['guige3']}
+								</a>
+						{/if}
+						</li>
+						<input type="hidden" name="item_sku_id" id="item_sku_id" value="">
+						<input type="hidden" id="item_num" name="num" value="1" />
+						<input type='hidden' id='item_sel_price' value="{$goods['price']}" />
+					<li class="li03"><em class="si14 c666">价格：</em><b class="li03-em02" id="item_price">￥{$goods['price']}</b></li>
+							</ul>
+	</div>
+	<div class="line"></div>
+	<a name="order"></a>
+	<div class="clear boxx">
+		<div class="txt txt01"><input type="text" name="name" id="name" placeholder="收货人" value=""></div>
+		<div class="txt txt02"><input id="tel" maxlength="11" type="tel" name="tel"  placeholder="联系手机" value=""></div>
+		<div class="txt txt03">
+			<input type="text" name='address1' class="selectf" readonly placeholder="点击选择省、市、区、街道">
+			<input name="province" type="hidden" id="province">
+			<input name="city" type="hidden" id="city">
+			<input name="area" type="hidden" id="area">
+			<input name="town" type="hidden" id="town">
+		</div>
+		<div class="txt"><input type="text" id="address" name="address2" placeholder="**路**号（地址正确才能配送哦）" value=""></div>
+	</div>
+	<input type="hidden" name="opp" value="xiadan" />
+	<button type="submit" id="buy_now">提交订单</button>
+	</form>
+	</div>
+<div class="panel">
+	<div class="panel1 r1">  
+		<p class="back"><i></i>返回</p>
+		<ul></ul>
+	</div>
+	<div class="panel2 r1">
+		<p class="back"><i></i>返回</p>
+		<ul></ul>
+	</div>
+	<div class="panel3 r1">
+		<p class="back"><i></i>返回</p>
+		<ul></ul>
+	</div>
+	<div class="panel4 r1">
+		<p class="back"><i></i>返回</p>
+		<ul></ul>
+	</div>
+</div>
+<footer>
+	<p>注：提交订单后请关注商家微信客服，可提供订单及商品咨询服务。</p>
+</footer>
+<script src="../addons/hyy_danpin/template/mobile/js/addselect.js?0730"></script>
+<script src="../addons/hyy_danpin/template/mobile/js/layer.m.js"></script>
+<script>
+function _alert(msg){layer.open({content:msg,btn:['OK']});}
+var Item = {
+	getItemInfo : function(){
+		$(".sku_li_a").bind("click",function(){//尺码点击
+			var o = $(this);
+			if(!o.hasClass("sku_hover")){//点击的不是当前已经选中的
+				$(".sku_hover").removeClass("sku_hover");
+				o.addClass("sku_hover");
+				/*更新对应的选中尺码的数据*/
+				$("#item_price").html("￥"+ o.attr("data-price"));
+				$("#item_sel_price").val(o.attr("data-price"));
+				$("#item_num").val(1);
+				$("#item_sku_id").val(o.attr("data-sku"));
+			}
+		})
+	},
+	changeCount : function(){
+		$("#item_num").bind("focusout",function(){
+			var _this = $(this);
+			var val = _this.val();
+			if(!val){
+				_alert("数量不可为空");
+				_this.val(1);
+				return;
+			}
+			if(isNaN(val)){
+				_alert("数量必须为数字");
+				_this.val(1);
+				return;
+			}
+			if(Number(val) < 1){
+				_alert("客官至少买一件嘛");
+				_this.val(1);
+				return;
+			}
+
+			var _v = val;
+			var noInt = false;
+			if(_v.toString().indexOf(".") != -1){//有小数点 则先转化一下
+				noInt = true;
+				_v = Math.floor(val);//优化后的整数
+			}
+			noInt && _alert("数量必须为整数");
+			_this.val(_v);
+		})
+	},
+	init : function(){
+		Item.changeCount();
+		Item.getItemInfo();
+		$("#form_buy").submit(function() {
+			$("#buy_now").attr("disabled", "disabled");
+			var err = '';
+			$("#form_buy input:not(#town)").each(function(i) {
+				if(!this.value) err = '请填写或选择全部项目！';
+			});
+			// if(! err && $("#town").val()=='no') err = '请选择街道！';
+			if(! err && ! /^1[34578]{1}[0-9]{9}$/.test($('#tel').val())) err = '手机号码填写不正确！';
+			if(err) {
+				_alert(err);
+				$("#buy_now").removeAttr("disabled");
+				return false;
+			}
+		});
+	}
+}
+Item.init();
+(function($){
+//参数设置1为真 代表有四联 如果只需要三联 设置为0或者假，后面cons函数取消。
+addst("panel","panel1","panel2","panel3","province","city","area","r1","back","selectf",1,cons);
+//页面头部有JQUERY 统一写法 
+function cons(){
+	var pan3=$(".panel3 ul li");
+	var storage=JSON.parse(localStorage.getItem("Userdata"));//获取所选择的省和市 JSON
+	$(".panel4 ul").empty();
+	var setValue=function(v) {
+		$("#province").val(v[0]);
+		$("#city").val(v[1]);
+		$("#area").val(v[2]);
+		$("#town").val(v[3]);
+		$(".selectf").val(v.join(""));
+		$(".panel,.r1").hide();
+	}
+	pan3.each(function(index, el) {
+		$(el).on("click",function(){
+			var v=[storage["prov"],storage["city"],$(el).text(),''];
+			return setValue(v); // 不选择四级地址
+			$.getJSON('/main/index/towns', {
+				province: v[0],
+				city: v[1],
+				area: v[2],
+			}, function(towns){
+				var options = '';
+				if (towns) {
+					oli = '';
+					$.each(towns, function(index, item) {
+						oli += '<li>'+item+'</li>';
+					});
+					$(".panel3").hide();
+					$(".panel4 ul").html(oli);
+					$(".panel4,#slect4").show();
+					$(".panel4 ul li").each(function(index,el){
+						$(el).click(function(){
+							v[3]=$(el).text();
+							setValue(v);
+						})
+					});
+				} else {
+					setValue(v);
+				}
+			});
+		})
+	});
+}
+})(jQuery)
+</script>
+</body>
+</html>

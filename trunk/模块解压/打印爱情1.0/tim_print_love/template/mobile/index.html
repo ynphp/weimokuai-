@@ -1,0 +1,324 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link href="<?php echo MODULE_URL;?>/template/mobile/css/index.css?v112" type="text/css" rel="stylesheet" />
+
+<meta name="viewport" content="width=640,user-scalable=no" />
+
+<title>{$info['title']}</title>
+
+<script src="<?php echo MODULE_URL;?>/template/mobile/js/jquery-1.8.3.min.js"></script>
+
+<script src="<?php echo MODULE_URL;?>/template/mobile/js/zepto.min.js"></script>
+<script>window.$$ = window.Zepto</script>
+
+<script src="<?php echo MODULE_URL;?>/template/mobile/js/self-min.js"></script>
+
+<script src="<?php echo MODULE_URL;?>/template/mobile/js/PxLoader.js"></script>
+
+<script src="<?php echo MODULE_URL;?>/template/mobile/js/weixinjs.js"></script>
+
+</head>
+
+<body>
+
+
+<style>
+
+.mask { width:100%; height:100%; position:absolute; left:0; top:0; z-index:999; background:rgba(0,0,0,0.7); display:none;}
+
+.videobox { width:640px; height:480px; position:absolute; left:0; top:0; z-index:1000; top:50%; margin-top:-240px; display:none;}
+
+</style>
+
+<div class="mask"></div>
+
+<div class="videobox"></div>
+
+
+<div class="ajaxloading"></div>
+
+<div class="sharebox" onTouchend="$(this).fadeOut().html('')">
+
+</div>
+
+<div id="loading" style="display:none; width:640px; height:100%;">
+
+	<p></p>
+
+</div>
+
+<img src="<?php echo MODULE_URL;?>/template/mobile/images/share.jpg" width="400" style="position:absolute; left:-9999px" />
+
+<div style="position:absolute; left:-9999px;">
+
+<img src="{$_W['attachurl']}{$info['text_img1']}" id="img1" />
+
+<img src="{$_W['attachurl']}{$info['text_img2']}" id="img2" />
+
+<img src="{$_W['attachurl']}{$info['text_img3']}" id="img3" />
+
+<img src="{$_W['attachurl']}{$info['text_img4']}" id="img4" />
+
+<img src="{$_W['attachurl']}{$info['text_img5']}" id="img5" />
+
+<img src="{$_W['attachurl']}{$info['text_img6']}" id="img6" />
+
+</div>
+
+<div style="position:absolute; left:-9999px; overflow:hidden; width:0; height:0;">
+
+     <audio id="sound0" src="<?php echo MODULE_URL;?>/template/mobile/sound/back.mp3" preload="preload" loop></audio>
+
+     <audio id="s2" src="<?php echo MODULE_URL;?>/template/mobile/sound/img_01.mp3" preload="preload" ></audio>
+
+     <audio id="s3" src="<?php echo MODULE_URL;?>/template/mobile/sound/img_02.mp3" preload="preload" ></audio>
+
+     <audio id="s4" src="<?php echo MODULE_URL;?>/template/mobile/sound/img_04.mp3" preload="preload" ></audio>
+
+     <audio id="s5" src="<?php echo MODULE_URL;?>/template/mobile/sound/img_03.mp3" preload="preload" ></audio>
+
+     <audio id="s6" src="<?php echo MODULE_URL;?>/template/mobile/sound/img_05.mp3" preload="preload" ></audio>
+
+     <audio id="s7" src="<?php echo MODULE_URL;?>/template/mobile/sound/up.mp3" preload="preload" loop></audio>
+
+     <audio id="s8" src="<?php echo MODULE_URL;?>/template/mobile/sound/upend.mp3" preload="preload" ></audio>
+
+</div>
+
+<div class="box-content" id="main">
+
+	<div class="box-step zhuquan1" style="display:block">
+
+              <div class="gamebox">             	
+          
+              	<div class="wg-bg wg-bg6">
+
+                	<span class="sharebtnbox"></span>
+
+                </div>
+
+                <div id="spanbox">
+
+                	<canvas id="canvas"></canvas>
+
+                </div>
+
+              </div>
+
+              <div class="s1-2" >
+
+                   <span class="s1-2-2">
+
+                   	<span class="szhen"></span>
+
+                   </span>
+
+                   <span class="s1-2-1"></span>
+
+                   <span class="s1-2-3"></span>
+
+                   <span class="s1-2-4"></span>
+
+              </div> 
+
+              <span class="s1-3" ></span> 
+
+              <span class="s1-4" onclick="_opq.push(['trackEvent','onepluscn_Mrx_m_01','按下看清每一步'])"></span> 
+
+              <span class="sound-on"></span>     
+
+              <div class="lastdivbox" style="display:none;">
+
+              		<canvas width="607" height="725" id="lastcanvas"></canvas>
+
+              		<span class="btn1" onclick="_opq.push(['trackEvent','onepluscn_Mrx_m_02','上步重看'])"></span>
+
+              		<span class="btn3"  onclick="_opq.push(['trackEvent','onepluscn_Mrx_m_04','下步分享'])"></span>
+
+              		<span class="btn4"  onclick="_opq.push(['trackEvent','onepluscn_Mrx_m_05','观看视频'])"></span>
+
+                    <div class="lastdivbox_txt">
+
+                    	<canvas width="485" height="161"></canvas>
+
+                    </div>                
+
+              </div>
+      
+</div>
+
+</div>    
+
+</body>
+
+</html>
+
+<script src="<?php echo MODULE_URL;?>/template/mobile/js/init.js?v1"></script>
+
+<script>
+
+function playsound( n ){
+
+	if(!$('#s' + n).size()) return;
+
+	$('#s' + n)[0].play();
+
+	if(n == 8) $('#s7')[0].pause();
+
+}
+
+$('.sound-on').bind('touchstart' , function ( ev){
+
+			ev.preventDefault();
+
+			ev.stopPropagation();
+
+			if($(this).hasClass('sound-off'))
+
+				{
+
+					localStorage.setItem('sound' , 1)			
+
+					$(this).removeClass('sound-off');
+
+					 $('#sound0')[0].play();
+
+					return;
+
+				}
+
+				$(this).addClass('sound-off');
+
+				$('#sound0')[0].pause();
+
+				localStorage.setItem('sound' , 2)			
+
+		});
+
+		if(!localStorage.getItem('sound'))
+
+		{
+
+			$('body').one('touchstart' , function (){
+
+				if(localStorage.getItem('sound') == '2') return;
+
+				$('#sound0')[0].play();
+
+				localStorage.setItem('sound' , 1)	
+
+			})	;
+
+		}
+
+	if(localStorage.getItem('sound') == '1' || !localStorage.getItem('sound'))
+
+	{
+
+		$('#sound0')[0].play();	
+
+	}else
+
+	{
+
+		$('.sound-on').addClass('sound-off');
+
+	};
+
+	$('.lastdivbox .btn1').click( function (){
+
+		window.location.reload();
+
+	});
+
+	$('.lastdivbox .btn2').click( function (){
+
+		setTimeout( function (){
+
+			location.href = 'http://cheers.oneplus.cn/mrx/';
+
+		} , 300)
+
+	});
+
+
+	$('.lastdivbox .btn4').click( function (){
+
+		$('.videobox').html('<iframe src="<?php echo $info['vedio_link'];?>" width="640" height="480"></iframe>')
+
+		$('.mask , .videobox').show();
+
+		$('#sound0')[0].pause();	
+
+	});
+
+	$('.mask').bind('click' , function (){
+
+		$('.mask , .videobox').hide();
+
+		$('.videobox').html('');
+
+		if($('.sound-on').hasClass('sound-off'))
+
+		{
+
+		}else
+
+		{	
+
+			$('#sound0')[0].play();	
+
+		}
+
+	})
+
+	$('.lastdivbox .btn1 , .lastdivbox .btn2 ').bind('touchstart' , function (){
+
+		$(this).addClass('hover');
+
+	}).bind('touchend' , function (){
+
+		$(this).removeClass('hover');
+
+	});
+
+	$('#loading').show();
+
+	window.onload = function (){
+
+		$('#loading').hide();
+
+	};
+
+
+</script>
+
+{php echo register_jssdk(false);}
+<script type="text/javascript">
+    initShare();
+    function initShare(){
+        wx.ready(function () {
+            sharedata = {
+                title: "{php echo $info['share_title']}",
+                desc: "{php echo $info['share_content']}",
+                link: window.location.href,
+                imgUrl: "{$_W['attachurl']}{$info['share_icon']}",
+                success: function(){
+
+                },
+                cancel: function(){
+                    //alert("分享失败，可能是网络问题，一会儿再试试？");
+                }
+            };
+            wx.onMenuShareAppMessage(sharedata);
+            wx.onMenuShareTimeline(sharedata);
+        });
+    }
+</script>

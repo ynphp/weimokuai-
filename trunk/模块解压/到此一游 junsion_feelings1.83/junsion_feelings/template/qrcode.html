@@ -1,0 +1,55 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li><a href="{php echo $this->createWebUrl('index', array('op' => 'post'));}">添加应用场景</a></li>
+	<li ><a href="{php echo $this->createWebUrl('index');}">应用场景列表</a></li>
+	<li class="active"><a>二维码列表</a></li>
+</ul>
+<style>
+.table th{text-align: center !important;}
+.table td{text-align: center !important;}
+.table td span{display:inline-block;margin-top:4px;}
+.table td input{margin-bottom:0;}
+.red{color:red;font-weight:bold}
+</style>
+{if !$op}
+<div class="main">
+    <div style="padding:15px;background: white;">
+
+        <table class="table table-hover">
+
+            <thead class="navbar-inner">
+
+                <tr>
+					<th>二维码标识</th>
+					<th>扫码记录</th>
+                    <th>操作</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {loop $list $l}
+
+                <tr>
+					<td>{$l['title']}</td>
+					<td>{$l['counts']}</td>
+					<td>
+						<a href="{php echo $this->createWebUrl('player',array('qid'=>$l['qid'],'rid'=>$rid))}" class="btn btn-warning btn-sm">详情</a> 
+						<a onclick="return confirm('删除后数据将不可恢复，确定删除吗？')" class="btn btn-danger btn-sm" href="{php echo $this->createWebUrl('del',array('qid'=>$l['id'],'type'=>1,'rid'=>$rid))}">删除</a>
+					</td>
+                </tr>
+
+                {/loop}
+
+            </tbody>
+
+        </table>
+
+        {$pager}
+
+    </div>
+
+</div>
+{/if}
+{template 'common/footer'}

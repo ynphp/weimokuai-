@@ -1,0 +1,126 @@
+{template 'common/header'}
+<div class="panel panel-success">
+  		<div class="panel-heading">主站信息设置</div>
+	</div>
+	<form action="" method="post" class="form-horizontal form">
+		<div class="panel panel-default">
+		
+			<div class="panel-body">
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">标题</label>
+				<div class="col-sm-9 col-xs-12">
+		             <input type="text" class="form-control span7" name="title" value="{$info['title']}">
+		        </div>
+				
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"><span style='color:red'>说明</span></label>
+				<div class="col-sm-9 col-xs-12">
+		             打印爱情分为六个页面，下载左侧的模板，点击打开图片，右击另存为，用图片编辑工具如photoshop(比较强大)，写下你的爱情，记录你的恋爱历程，或者向你爱恋的女生表白，当你的那个他（她）收到该应用，打印机帮你打印出你的爱情宣言。注意：在引用模板的时候将图像区域空出来，因为在打印的时候显示不出来
+		        </div>
+			</div>		
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">Page one</label>
+				<div class="col-sm-6 col-xs-8">
+		            {php echo tpl_form_field_image('text_img1',$info['text_img1']);}
+		        </div>
+				<div class="col-sm-2 col-xs-4">
+		            <a href="<?php echo MODULE_URL;?>/template/mobile/images/page/1.png">模板下载</a>
+		        </div>
+			</div>	
+				
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">Page two</label>
+				<div class="col-sm-6 col-xs-8">
+		            {php echo tpl_form_field_image('text_img2',$info['text_img2']);}
+		        </div>
+				<div class="col-sm-2 col-xs-4">
+		            <a href="<?php echo MODULE_URL;?>/template/mobile/images/page/2.png">模板下载</a>
+		        </div>
+			</div>
+		   <div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">Page three</label>
+				<div class="col-sm-6 col-xs-8">
+		            {php echo tpl_form_field_image('text_img3',$info['text_img3']);}
+		        </div>
+				<div class="col-sm-2 col-xs-4">
+		            <a href="<?php echo MODULE_URL;?>/template/mobile/images/page/3.png">模板下载</a>
+		        </div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">Page four</label>
+				<div class="col-sm-6 col-xs-8">
+		            {php echo tpl_form_field_image('text_img4',$info['text_img4']);}
+		        </div>
+				<div class="col-sm-2 col-xs-4">
+		            <a href="<?php echo MODULE_URL;?>/template/mobile/images/page/4.png">模板下载</a>
+		        </div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">Page five</label>
+				<div class="col-sm-6 col-xs-8">
+		            {php echo tpl_form_field_image('text_img5',$info['text_img5']);}
+		        </div>
+				<div class="col-sm-2 col-xs-4">
+		            <a href="<?php echo MODULE_URL;?>/template/mobile/images/page/5.png">模板下载</a>
+		        </div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">Page six</label>
+				<div class="col-sm-6 col-xs-8">
+		            {php echo tpl_form_field_image('text_img6',$info['text_img6']);}
+		        </div>
+				<div class="col-sm-2 col-xs-4">
+		            <a href="<?php echo MODULE_URL;?>/template/mobile/images/page/6.png">模板下载</a>
+		        </div>
+			</div>
+			<div class="form-group">
+		        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">视频链接</label>
+		        <div class="col-sm-6 col-xs-8">
+		            <input type="text" id="vedio_link" class="form-control span7" placeholder="" name="vedio_link" value="{$info['vedio_link']}">
+		        </div>
+		    </div>
+		    <div class="form-group">
+		        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"><span style='color:red'>*</span>分享标题</label>
+		        <div class="col-sm-9 col-xs-12">
+		            <input type="text" id="share_title" class="form-control span7" placeholder="" name="share_title" value="{$info['share_title']}">
+		        </div>
+		    </div>
+
+		    <div class="form-group">
+		        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"><span style='color:red'>*</span>分享图标</label>
+		        <div class="col-sm-9 col-xs-12">
+		            {php echo tpl_form_field_image('share_icon',$info['share_icon']);}
+		        </div>
+		    </div>
+
+		    <div class="form-group">
+		        <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"><span style='color:red'>*</span>分享描述</label>
+		        <div class="col-sm-9 col-xs-12">
+			        <textarea style="height: 60px;" name="share_content" class="form-control span7" cols="60">{$info['share_content']}</textarea>
+		        </div>
+		    </div>
+		   
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
+				<div class="col-sm-4">
+				<input type="hidden" name="token" value="{$_W['token']}" />
+				<input name="submit" type="submit" value="提交" class="btn btn-primary span3" />
+					
+				</div>
+			</div>
+			
+			</div>
+		</div>
+	</form>
+
+<script>
+require(['jquery','util'], function($, util){
+	$(function(){
+		var editor = util.editor($('#remark')[0]);
+ 		var editor = util.editor($('#remark1')[0]);
+ 		var editor = util.editor($('#remark2')[0]);
+	});
+});
+</script>
+{template 'common/footer'}

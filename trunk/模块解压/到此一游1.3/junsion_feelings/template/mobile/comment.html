@@ -1,0 +1,182 @@
+<html>
+<head>
+<title>精彩评论</title>
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      name="viewport">
+{php $IMG = '../addons/'.$this->modulename."/template/mobile/"}
+ <link href="{$IMG}js/photo.css?v={TIMESTAMP}" rel="stylesheet" type="text/css">
+<link href="{$IMG}js/photoswipe.css" type="text/css" rel="stylesheet">
+<link href="{$IMG}js/common.css?v={TIMESTAMP}" rel="stylesheet" type="text/css">
+<link href="{$IMG}js/reset.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{$IMG}js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="{$IMG}js/klass.min.js"></script>
+<script type="text/javascript"
+	src="{$IMG}js/code.photoswipe-3.0.5.min.js"></script>
+</head>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+.record{
+	position: relative;
+	text-align: center;
+}
+.record img{
+	height: 30%;
+	
+}
+.record .word{
+	position: absolute;
+	bottom: 0;
+	width: 90%;
+	height: 30px;
+	color: white;
+	line-height: 30px;
+	background: rgba(0,0,0,.6);
+	padding: 0 5%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.comment{
+margin-top: 5px;
+}
+.ctitle{
+text-align: center;
+padding: 5px;
+background: ghostwhite;
+margin-top: 5px;
+}
+.clist{
+padding: 0 10px;
+background: white;
+padding-bottom: 10px;
+}
+.clist li{
+	border-bottom: 1px solid gainsboro;
+	padding: 10px 0;
+	position: relative;
+}
+.clist li img{
+width: 25px;
+height: 25px;
+border-radius: 50%;
+}
+.clist li font{
+vertical-align: middle;
+}
+.clist li div{
+	margin: 5px 0;
+}
+.clist li i{
+	display: inline-block;
+	width: 100%;
+	text-align: right;
+}
+.clist li a{
+	position: absolute;
+	bottom: 10px;
+	right: 0;
+	text-decoration: none;
+	color: gray;
+}
+.bottom{
+	position: fixed;
+	bottom: 0;
+	padding: 2%;
+	width: 96%;
+	background: ghostwhite;
+}
+.bottom input{
+	width: 80%;
+	padding: 5px;
+	border: 1px solid gainsboro;
+	border-radius: 5px;
+	font-size: 15px;
+}
+.bottom button{
+	border: 1px solid gainsboro;
+	padding: 6px 12px;
+	border-radius: 5px;
+	background: orangered;
+	color: white;
+	position: absolute;
+	right: 5px;
+}
+</style>
+
+<body style="background: #efefef">
+<script>
+(function(window, PhotoSwipe) {
+	document.addEventListener('DOMContentLoaded', function() {
+		var options = {}, instance = PhotoSwipe.attach(window.document
+				.querySelectorAll('.record a'), options);
+	}, false);
+}(window, window.Code.PhotoSwipe));
+</script>
+<div class="record">
+{if $record['uploadImg']}
+<a href="{php echo toimage($record['uploadImg'])}">
+<img src="{php echo toimage($record['uploadImg'])}">
+</a>
+{/if}
+{if $record['word']}
+<div class="word">{$record['word']}</div>
+{/if}
+</div>
+<div class="comment">
+<div class='ctitle'>—————— 精彩评论 ——————</div>
+<ul class="clist">
+{if empty($comments)}
+<div id="nocoment" style="text-align: center;padding-top: 5px;">暂无评论</div>
+{/if}
+{loop $comments $c}
+<li>
+	<img src="{if $c['avatar']}{$c['avatar']}{else}{$_W['account']['avatar']}{/if}">
+	<font> {if $c['nickname']}{$c['nickname']}{else}路人甲{/if}</font>
+	<div>{$c['words']}</div>
+	<i>{php echo date('m-d H:i',$c['createtime'])}</i>
+	<!-- <a>回复</a> -->
+</li>
+{/loop}
+</ul>
+</div>
+<div class='bottom'>
+<input type="text" id="msg" maxlength="140" placeholder="请输入内容(限140字)">
+<button onclick="onComment()">发表</button>
+<div class="loading" style="display: none;"><div></div></div>
+</div>
+<script>
+function onComment(){
+	var msg = $('#msg').val();
+	if(msg == '') return;
+	$('#msg').val('');
+	$('.loading').show();
+	$.ajax({
+		url:"{php echo $this->createMobileUrl('com',array('rid'=>$rid,'reid'=>$reid))}",
+		type:'post',
+		data:{word:msg},
+		success:function(data){
+			$('.loading').hide();
+			data = JSON.parse(data);
+			if(data == '0'){
+				alert('发表评论失败！');
+			}else if(data == '1'){
+				alert('发表评论成功，审核后即可显示！');
+			}else{
+				$('#nocoment').hide();
+				var str = "<li><img src='"+data['avatar']+"'><font> "+data['nickname']+"</font>";
+				str += "<div>"+data['words']+"</div><i>"+data['createtime']+"</i>";
+			//	str += "<a>回复</a></li>";
+				$('.clist').prepend(str);
+			}
+		}
+	});
+	
+}
+</script>
+</body>
+</html>
+

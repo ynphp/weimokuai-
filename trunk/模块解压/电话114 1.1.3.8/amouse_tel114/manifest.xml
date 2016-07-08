@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[电话114]]></name>
+		<identifie><![CDATA[amouse_tel114]]></identifie>
+		<version><![CDATA[1.1.3.8]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[电话114，记录所有常用联系号码，本地运维必备工具。]]></ability>
+		<description><![CDATA[电话114，记录所有常用联系号码，本地运维必备工具。]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="电话114入口" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="分类管理" do="fl" state="" direct="false" />
+			<entry title="号码管理" do="tel" state="" direct="false" />
+			<entry title="导航管理" do="daohang" state="" direct="false" />
+			<entry title="幻灯片管理" do="adv" state="" direct="false" />
+			<entry title="参数设置" do="sysset" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_amouse_tel114` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `cid` int(10) unsigned NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `outlink` varchar(100) DEFAULT '',
+  `mobile` varchar(100) NOT NULL,
+  `displayorder` int(10) unsigned NOT NULL,
+  `status` varchar(1) DEFAULT '0' COMMENT '审核0 不审核1',
+  `place` varchar(200) NOT NULL DEFAULT '无锡新区',
+  `lat` decimal(18,10) NOT NULL DEFAULT '0.0000000000' COMMENT '经度',
+  `lng` decimal(18,10) NOT NULL DEFAULT '0.0000000000' COMMENT '纬度',
+  `location_p` varchar(100) NOT NULL DEFAULT '' COMMENT '省',
+  `location_c` varchar(100) NOT NULL DEFAULT '' COMMENT '市',
+  `location_a` varchar(100) NOT NULL DEFAULT '' COMMENT '区',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='电话号码';
+CREATE TABLE IF NOT EXISTS `ims_amouse_tel114_adv` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `displayorder` int(10) unsigned NOT NULL,
+  `followurl` varchar(1000) DEFAULT '' COMMENT '连接',
+  `thumb` varchar(1000) DEFAULT '' COMMENT '底部图片',
+  `title` varchar(1000) DEFAULT '' COMMENT '导航名称',
+  PRIMARY KEY (`id`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_amouse_tel114_fl` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `displayorder` int(10) unsigned NOT NULL,
+  `title` varchar(100) NOT NULL COMMENT '分类名称',
+  `createdtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='分类';
+CREATE TABLE IF NOT EXISTS `ims_amouse_tel114_nav` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `displayorder` int(10) unsigned NOT NULL,
+  `followurl` varchar(1000) DEFAULT '' COMMENT '连接',
+  `title` varchar(1000) DEFAULT '' COMMENT '导航名称',
+  PRIMARY KEY (`id`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_amouse_tel114_sysset` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `copyright` varchar(255) DEFAULT '' COMMENT '版权',
+  `comurl` varchar(500) DEFAULT '' COMMENT '公司网址',
+  `comdate` varchar(255) DEFAULT '' COMMENT '公司年份',
+  `followurl` varchar(1000) DEFAULT '' COMMENT '版权',
+  `sharetitle` varchar(1000) DEFAULT '' COMMENT '分享标题',
+  `sharedesc` varchar(1000) DEFAULT '' COMMENT '分享描述',
+  `shareicon` varchar(1000) DEFAULT '' COMMENT '分享缩略图',
+  `thumb` varchar(1000) DEFAULT '' COMMENT '底部图片',
+  `appid_share` varchar(255) DEFAULT '',
+  `appsecret_share` varchar(255) DEFAULT '',
+  `isopen` varchar(1) DEFAULT '0' COMMENT '是否审核',
+  `logo` varchar(500) DEFAULT '' COMMENT '首页LOGO',
+  PRIMARY KEY (`id`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

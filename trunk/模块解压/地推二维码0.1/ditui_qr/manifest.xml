@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[地推二维码]]></name>
+		<identifie><![CDATA[ditui_qr]]></identifie>
+		<version><![CDATA[0.1]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[地推二维码]]></ability>
+		<description><![CDATA[生成批量二维码，便于地推人员推广]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="click" />
+			<message type="view" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="click" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口" do="gateway" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="推广活动" do="activity" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_ditui_activity` (
+  `activity_id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `remark` text,
+  `modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `msg_title` varchar(255) NOT NULL,
+  `msg_thumb` varchar(255) NOT NULL,
+  `msg_link` varchar(255) NOT NULL,
+  `msg_remark` text NOT NULL,
+  PRIMARY KEY (`activity_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_ditui_records` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `openid` varchar(255) NOT NULL,
+  `scan_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `staff_id` int(10) NOT NULL,
+  `activity_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_ditui_staff` (
+  `staff_id` int(11) NOT NULL AUTO_INCREMENT,
+  `openid` varchar(255) NOT NULL,
+  `activity_id` int(10) NOT NULL,
+  `add_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`staff_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

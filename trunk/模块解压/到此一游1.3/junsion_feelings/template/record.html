@@ -1,0 +1,90 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li><a href="{php echo $this->createWebUrl('index', array('op' => 'post'));}">添加应用场景</a></li>
+	<li ><a href="{php echo $this->createWebUrl('index');}">应用场景列表</a></li>
+	<li><a href="{php echo $this->createWebUrl('qrcode',array('rid'=>$rid));}">二维码列表</a></li>
+	<li class="active"><a>上传者列表</a></li>
+</ul>
+<style>
+.table th{text-align: center !important;}
+.table td{text-align: center !important;white-space:normal !important;}
+.table td span{display:inline-block;margin-top:4px;}
+.table td input{margin-bottom:0;}
+.red{color:red;font-weight:bold}
+</style>
+{if !$op}
+<div class="main">
+    <div style="padding:15px;background: white;">
+
+        <table class="table table-hover">
+
+            <thead class="navbar-inner">
+
+                <tr>
+					<th>粉丝信息</th>
+					<th>上传图片</th>
+					<th>上传文字</th>
+					<th>上传时间</th>
+					<th style="width: 60px;">点赞数</th>
+					<th style="width: 60px;">评论数</th>
+					{if $rule['checked1']}<th>状态</th>{/if}
+                    <th>操作</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {loop $list $l}
+
+                <tr>
+					<td><img src="{$l['avatar']}" style="width: 80px;height: 80px;"><br>{$l['nickname']}</td>
+					<td><img src="{php echo toimage($l['uploadImg'])}" style="width: 150px;"></td>
+					<td>{$l['word']}</td>
+					<td>{php echo date('Y-m-d H:i',$l['createtime'])}</td>
+					<td>{$l['counts']}</td>
+					<td>{$l['coms']}</td>
+					{if $rule['checked1']}<td>{if $l['checked']}<label onclick="onCheck(this,{$l['id']})" class="label label-success">已审核</label>{else}<label onclick="onCheck(this,{$l['id']})" class="label label-default">未审核</label>{/if}</td>{/if}
+					<td>
+						<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('comment',array('reid'=>$l['id'],'rid'=>$rid,'qid'=>$qid))}">查看评论</a>
+						<a onclick="return confirm('删除后数据将不可恢复，确定删除吗？')" class="btn btn-danger btn-sm" href="{php echo $this->createWebUrl('del',array('reid'=>$l['id'],'rid'=>$rid,'qid'=>$qid,'type'=>2))}">删除</a>
+					</td>
+                </tr>
+
+                {/loop}
+
+            </tbody>
+
+        </table>
+
+        {$pager}
+
+    </div>
+
+</div>
+<script>
+function onCheck(obj,id){
+	var val = $(obj).text();
+	$(obj).text(val+"...");
+	$.ajax({
+		url:'{php echo $this->createWebUrl("status")}',
+		type:'post',
+		data:{id:id},
+		success:function(){
+			if($(obj).hasClass('label-success')){
+				$(obj).removeClass('label-success');
+				$(obj).text('未审核');
+			}else{
+				$(obj).addClass('label-success');
+				$(obj).text('已审核');
+			}
+		},
+		error:function(){
+			alert('网络出错');
+			$(obj).text(val);
+		}
+	});
+}
+</script>
+{/if}
+{template 'common/footer'}
