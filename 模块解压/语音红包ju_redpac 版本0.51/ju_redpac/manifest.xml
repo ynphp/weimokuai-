@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[语音红包]]></name>
+		<identifie><![CDATA[ju_redpac]]></identifie>
+		<version><![CDATA[0.51]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[语音红包]]></ability>
+		<description><![CDATA[语音红包]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="voice" />
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<rule>
+			<entry title="领取记录" do="awardlist" state="" direct="false" />
+		</rule>
+		<menu>
+			<entry title="活动列表" do="list" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[
+DROP TABLE IF EXISTS `ims_ju_redpac_reply`;
+CREATE TABLE `ims_ju_redpac_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT NULL,
+  `uniacid` int(10) unsigned DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `thumb` varchar(255) DEFAULT NULL,
+  `voice` varchar(255) DEFAULT NULL,
+  `description` varchar(500) DEFAULT NULL,
+  `starttime` int(10) unsigned DEFAULT NULL,
+  `endtime` int(10) unsigned DEFAULT NULL,
+  `tips` text,
+  `people` int(10) unsigned DEFAULT NULL,
+  `get_number` int(10) unsigned DEFAULT NULL,
+  `type` tinyint(1) unsigned DEFAULT NULL,
+  `total` decimal(10,2) unsigned DEFAULT NULL,
+  `xuni` decimal(10,2) unsigned DEFAULT NULL,
+  `xuninum` int(10) unsigned DEFAULT NULL,
+  `max` decimal(10,2) unsigned DEFAULT NULL,
+  `min` decimal(10,2) unsigned DEFAULT NULL,
+  `numbers` int(10) unsigned DEFAULT NULL,
+  `miane` int(10) unsigned DEFAULT NULL,
+  `sendtype` tinyint(1) unsigned DEFAULT NULL,
+  `paydesc` varchar(255) DEFAULT NULL,
+  `red_num` int(10) unsigned DEFAULT NULL,
+  `send_name` varchar(255) DEFAULT NULL,
+  `act_name` varchar(255) DEFAULT NULL,
+  `wishing` varchar(255) DEFAULT NULL,
+  `adimg` varchar(255) DEFAULT NULL,
+  `adurl` varchar(255) DEFAULT NULL,
+  `reply_1` varchar(255) DEFAULT NULL,
+  `reply_2` varchar(255) DEFAULT NULL,
+  `reply_3` varchar(255) DEFAULT NULL,
+  `reply_4` varchar(255) DEFAULT NULL,
+  `reply_5` varchar(255) DEFAULT NULL,
+  `reply_6` varchar(255) DEFAULT NULL,
+  `share_title` varchar(255) DEFAULT NULL,
+  `share_title2` varchar(255) DEFAULT NULL,
+  `share_img` varchar(255) DEFAULT NULL,
+  `share_content` varchar(255) DEFAULT NULL,
+  `share_url` varchar(255) DEFAULT NULL,
+  `status` tinyint(1) unsigned DEFAULT NULL,
+  `createtime` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `ims_ju_redpac_user`;
+CREATE TABLE `ims_ju_redpac_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT NULL,
+  `sn` varchar(50) DEFAULT NULL,
+  `fromuser` varchar(50) DEFAULT NULL,
+  `openid` varchar(50) DEFAULT NULL COMMENT '发送红包的openid',
+  `money` decimal(10,2) unsigned DEFAULT NULL,
+  `status` tinyint(1) unsigned DEFAULT NULL COMMENT '1已领取2已发放',
+  `createtime` int(10) unsigned DEFAULT NULL,
+  `consumetime` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+		]]></install>
+	<uninstall><![CDATA[
+DROP TABLE IF EXISTS `ims_ju_redpac_reply`;
+DROP TABLE IF EXISTS `ims_ju_redpac_user`;
+		]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

@@ -1,0 +1,96 @@
+<div class="block">
+            <div class="name-card name-card-directseller clearfix" style="padding: 10px; text-align: center">
+                    <a class="thumb">
+                        <img id="Image1" src="{php echo preg_replace('/\/0$/', '/96', stripslashes($fans['avatar']));}" style="border-width:0px;"></a>
+                    <div class="detail">
+                        <p class="font-size-18 c-black">
+                            <span id="lbName">{$fans['nickname']}</span></p>
+                        <p class="font-size-12 c-gray-dark">
+                            <span id="lbNo">关注时间：{if $fans['follow']}{php echo date('Y-m-d H:i:s',$fans['followtime'])}{else}未关注{/if}</span></p>
+                    </div>
+                </div>
+            </div>
+
+  <div class="settlement-center" style="background:{if $poster['mbcolor']}{$poster['mbcolor']}{else}#FF6600{/if};">
+    <div class="clearfix binary-box binary-box-count">
+      <div>
+        <a href="../index.php?i={$_W['uniacid']}&c=entry&fans_id={$fans['fans_id']}&op=myjf&do=orders&m=tiger_youzan" id="A4" class="c-white" >
+          <p class="num" ><span id="lbFeeOut" class="font-size-22" >{$fans['credit1']}</span><span class="Apple-converted-space"> </span><span class="unit" > </span></p>
+        <p >A=可用<span id="lbrmb" >{if $cfg['hztype']<>''}{$cfg['hztype']}{else}积分{/if}</span></p>
+        </a>
+      </div>
+      <div >
+        <a href="../index.php?i={$fans['uniacid']}&c=entry&fans_id={$fans['fans_id']}&op=wsh&do=orders&m=tiger_youzan" id="A6" class="c-white" >
+          <p class="num" ><span id="lbNoReg" class="font-size-22">{$fans['dsh']}</span><span class="Apple-converted-space"> </span><span class="unit" > </span></p>
+          <p >B=待收获奖励</p>
+        </a>
+      </div>
+    </div>
+    <div class="clearfix binary-box binary-box-count" >
+      <div >
+        <a href="../index.php?i={$fans['uniacid']}&c=entry&fans_id={$fans['fans_id']}&op=ysh&do=orders&m=tiger_youzan" id="A5" class="c-white" >
+          <p class="num" ><span id="lbCash" class="font-size-22" >{$fans['ysh']}</span><span class="Apple-converted-space"> </span><span class="unit" > </span></p>
+         <p >C=已收获奖励</p>
+        </a>
+      </div>
+      <div>
+        <a href="../index.php?i={$fans['uniacid']}&c=entry&fans_id={$fans['fans_id']}&op=yzc&do=orders&m=tiger_youzan" id="A8" class="c-white" >
+          <p class="num" ><span id="lbRecord" class="font-size-22" >{php echo number_format($fans['tx'],2)}</span><span class="Apple-converted-space"> </span><span class="unit" > </span></p>
+          <p >D=已转出奖励</p>
+        </a>
+      </div>
+    </div>
+</div>
+
+
+
+
+
+            <div class="block" >
+                <div class="clearfix binary-box binary-box-count" style="padding-top: 15px; padding-bottom: 5px">
+                    <div>
+                        <a href="../index.php?i={$fans['uniacid']}&c=entry&pid={$pid}&do=records&m=tiger_youzan" id="A1">
+                            <p class="font-size-16 c-gray-dark" >我的<span id="lbrmb1" >{if $cfg['hztype']<>''}{$cfg['hztype']}{else}积分{/if}</span></p>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="{php echo $this->createMobileUrl('txmfan1',array('uid'=>$fans['uid'],'pid'=>$pid,'do'=>mfan1,op=>'1'));}" id="A2">
+                            <p class="font-size-16 c-gray-dark" >我的<span id="lbrmb1" >朋友</span></p>
+                            
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <div class="clearfix binary-box binary-box-count" >
+                    <div>
+                        <a href="{php echo $this->createMobileUrl('goods');}" id="A3">
+                            <p class="font-size-16 c-gray-dark" >兑换中心</p>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="../index.php?i={$fans['uniacid']}&c=entry&pid={$pid}&do=ranking&m=tiger_youzan" id="A4">
+                            <p class="font-size-16 c-gray-dark" >{if $cfg['hztype']<>''}{$cfg['hztype']}{else}积分{/if}<span id="lbrmb1" >排行</span></p>
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <div class="clearfix binary-box binary-box-count" style="padding-bottom: 15px">
+                    <div>
+                        <a href="{php echo $this->createMobileUrl('tjproduct',array('fans_id'=>$fans_id));}" id="A3">
+                            <p class="font-size-16 c-gray-dark" >推荐商品</p>
+                        </a>
+                    </div>
+                    <div>
+                        <a href="{php echo $this->createMobileUrl('xfrank',array('op'=>'1'));}" id="A4">
+                            <p class="font-size-16 c-gray-dark" >消费<span id="lbrmb1" >排行</span></p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+

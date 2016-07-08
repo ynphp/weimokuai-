@@ -1,0 +1,271 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h5 class="panel-title">
+                <a>基本参数</a>
+            </h5>
+        </div>
+        <div class="panel-collapse collapse in">
+            <div class="panel-body">
+                <input type="hidden" name="reply_id" value="{$reply['id']}" />
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动标题</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['title']}" name="title">
+                        <div class="help-block">活动的标题</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">缩略图</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_image('thumb',$reply['thumb'],'', $options);}
+                        <div class="help-block">图文消息的缩略图</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动简介</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" name="description">{$reply['description']}</textarea>
+                        <div class="help-block">图文消息的简介</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">语音内容</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['voice']}" name="voice">
+                        <div class="help-block">匹配的语音内容，建议不要过长</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动时间</label>
+                    <div class="col-sm-4">
+                        {php echo tpl_form_field_daterange('time', array('start'=>date('Y-m-d H:i:s',$reply['starttime']),'end'=>date('Y-m-d H:i:s',$reply['endtime'])), true)}
+                        <div class="help-block">输入活动的起止时间</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动状态</label>
+                    <div class="col-sm-4" style="padding-top:6px;">
+                        <label>
+                            <input type="radio" value="0" name="status" {if $reply['status'] == 0 }checked{/if}> 结束</label>&nbsp;&nbsp;
+                        <label>
+                            <input type="radio" value="1" name="status" {if $reply['status'] == 1 }checked{/if}> 正常</label>&nbsp;&nbsp;
+                        <label>
+                            <input type="radio" value="2" name="status" {if $reply['status'] == 2 }checked{/if}> 暂停</label>&nbsp;&nbsp;
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动规则</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_ueditor('tips',$reply['tips'])}
+                        <div class="help-block">活动规则</div>
+                    </div>
+                </div>
+                <!--div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">领取人数</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['people']}" name="people">
+                        <div class="help-block">领取人数，0表示不限制</div>
+                    </div>
+                </div-->
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">领取次数</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['get_number']}" name="get_number">
+                        <div class="help-block">用户可以领取红包的次数,超过后无法领取。</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包类型</label>
+                    <div class="col-sm-9" style="margin-top:6px;">
+                        <label><input type="radio" value="1" name="type" onclick='$("#type_1").show();$("#type_2").hide();' {if $reply['type'] == 1 || empty($reply['type'])}checked{/if}> 手气红包</label> 
+                        <label><input type="radio" value="2" name="type" onclick='$("#type_2").show();$("#type_1").hide();' {if $reply['type'] == 2}checked{/if}> 普通红包</label>
+                        <div class="help-block">（手气红包会根据红包的属性发放随机面额红包，普通红包只能发放固定面额的红包）</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包属性</label>
+                    <div class="col-sm-9">
+                        <div class="input-group" id="type_1" {if $reply['type'] == 2}style="display:none;"{/if}>
+                            <span class="input-group-addon">活动资金</span>
+                            <input class="form-control" type="text" value="{$reply['total']}" name="total">
+                            <span class="input-group-addon">虚拟领取</span>
+                            <input class="form-control" type="text" value="{$reply['xuni']}" name="xuni">
+                            <span class="input-group-addon">虚拟人数</span>
+                            <input class="form-control" type="text" value="{$reply['xuninum']}" name="xuninum">
+                            <span class="input-group-addon">面额下限</span>
+                            <input class="form-control" type="text" value="{$reply['min']}" name="min" placeholder="至少为1">
+                            <span class="input-group-addon">面额上限</span>
+                            <input class="form-control" type="text" value="{$reply['max']}" name="max">
+                        </div>
+                        <div class="input-group" id="type_2" {if $reply['type'] == 1 || empty($reply['type'])}style="display:none;"{/if}>
+                            <span class="input-group-addon">发放个数</span>
+                            <input class="form-control" type="text" value="{$reply['numbers']}" name="numbers">
+                            <span class="input-group-addon">红包面额</span>
+                            <input class="form-control" type="text" value="{$reply['miane']}" name="miane">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包发放形式</label>
+                    <div class="col-sm-9" style="margin-top:6px;">
+                        <label><input type="radio" value="1" name="sendtype" onclick='$("#sendtype_1").show();$("#sendtype_2").hide();' {if $reply['sendtype'] == 1 || empty($reply['sendtype'])}checked{/if}> 微信红包</label> 
+                        <label><input type="radio" value="2" name="sendtype" onclick='$("#sendtype_2").show();$("#sendtype_1").hide();' {if $reply['sendtype'] == 2}checked{/if}> 企业付款</label>
+                    </div>
+                </div>
+                <div class="form-group" id="sendtype_2" {if $reply['sendtype'] == 1 || empty($reply['sendtype'])}style="display:none;"{/if}>
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">付款描述</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['paydesc']}" name="paydesc">
+                        <div class="help-block">企业付款操作说明信息。必填。</div>
+                    </div>
+                </div>
+                <div id="sendtype_1" {if $reply['sendtype'] == 2}style="display:none;"{/if}>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包个数</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" value="{$reply['red_num']}" name="red_num">
+                            <div class="help-block">普通红包请设置为1，裂变红包设置对应的数量。请注意裂变红包每个红包平均金额需大于1元</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户名称</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" value="{$reply['send_name']}" name="send_name">
+                            <div class="help-block">红包发送者名称</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动名称</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" value="{$reply['act_name']}" name="act_name">
+                            <div class="help-block">活动名称</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包祝福语</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" type="text" value="{$reply['wishing']}" name="wishing">
+                            <div class="help-block">红包祝福语</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包页面广告图</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_image('adimg',$reply['adimg'],'', $options);}
+                        <div class="help-block">红包页面广告图</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包页面广告图链接</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['adurl']}" name="adurl">
+                        <div class="help-block">红包页面广告图链接</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h5 class="panel-title">
+                <a class="collapsed" data-toggle="collapse">提示信息</a>
+            </h5>
+        </div>
+        <div class="panel-collapse">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">游戏未开始提示</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['reply_1']}" name="reply_1">
+                        <div class="help-block">游戏未开始时的提示信息</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">游戏已结束提示</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['reply_2']}" name="reply_2">
+                        <div class="help-block">游戏已结束时的提示信息</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">游戏暂停时提示</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['reply_3']}" name="reply_3">
+                        <div class="help-block">游戏暂停时的提示信息</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包领取完提示</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['reply_4']}" name="reply_4">
+                        <div class="help-block">红包被领取完时的提示信息</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">已领取红包提示</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['reply_5']}" name="reply_5">
+                        <div class="help-block">已经领取过红包时的提示信息</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">红包领取成功提示</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['reply_6']}" name="reply_6">
+                        <div class="help-block">红包领取成功时的提示信息 [money]表示红包金额 [link]表示红包领取链接 [number]表示领取序号</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h5 class="panel-title">
+                <a class="collapsed" data-toggle="collapse">分享信息</a>
+            </h5>
+        </div>
+        <div class="panel-collapse">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['share_title']}" name="share_title">
+                        <div class="help-block">分享给好友或朋友圈时的标题 [money]表示红包金额 [number]表示领取序号</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享图片</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_image('share_img',$reply['share_img'],'', $options);}
+                        <div class="help-block">分享给好友或朋友圈时的图片</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享描述</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" name="share_content">{$reply['share_content']}</textarea>
+                        <div class="help-block">分享给好友或朋友圈时的描述</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享链接</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['share_url']}" name="share_url">
+                        <div class="help-block">分享给好友或朋友圈时的分享链接,如不填写将默认跳转到活动介绍页面</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  window.initReplyController = function($scope) {
+    
+  };
+  window.validateReplyForm = function(form, $, _, util, $scope) {
+    
+    return true;
+  };
+</script>

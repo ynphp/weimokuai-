@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>你能精准地按出一秒吗？</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<link rel="stylesheet" type="text/css" href="../addons/water_xf01/template/css/style.css">
+<script type="text/javascript" src="../addons/water_xf01/template/js/j.js"></script>
+<div id='wx_pic' style='margin:0 auto;display:none;'>
+<img src='../addons/water_xf01/template/image/big_icon.jpg' />
+</div>
+</head>
+<body >
+<div id="box">
+	<div id="top"></div>
+	<h1>你能精确地按出一秒吗？</h1>
+	<p id="content"></p>
+	<div id="btn_bg">
+		<div id="btn_bt">
+			<span>按住</span>
+		</div>
+	</div>
+	{if !empty($system['show1'])}
+	<a href="{$system['url1']}">{$system['show1']}</a>
+	{/if}
+	{if !empty($system['show2'])}
+	<a href="{$system['url2']}">{$system['show2']}</a>
+	{/if}
+	{if !empty($system['show3'])}
+	<a href="{$system['url3']}">{$system['show3']}</a>
+	{/if}
+	<a id="share_a" href="#">炫耀一下</a>
+	<div id=logo></div>
+	<div id="share"></div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head id="Head1"><meta charset="utf-8"><meta name="keywords" content="VIP中心">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="cleartype" content="on">
+<title>我的团队</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+{template 'tixian/css'}
+</head>
+<body>
+
+
+    <div class="container " style="min-height: 1px;">
+        <div class="content">
+
+        <div class="order-related" >
+          <ul class="uc-order list-horizon clearfix" >
+            <li >
+              <a href="{php echo $this->createMobileUrl('txmfan1',array('uid'=>$fans['uid'],'pid'=>$pid,'do'=>mfan1,op=>'1'));}" id="A1" class="link clearfix" >
+                <p class="title-info c-black font-size-14" >{$count1}<br style="margin: 0px; padding: 0px;">{if $cfg['tdname1']}{$cfg['tdname1']}{else}一级粉丝{/if}</p>
+              </a>
+            </li>
+            <li >
+              <a href="{php echo $this->createMobileUrl('txmfan1',array('uid'=>$fans['uid'],'pid'=>$pid,'do'=>mfan1,op=>'2'));}" id="A1" class="link clearfix" >
+                <p class="title-info c-black font-size-14" >{$count2}<br style="margin: 0px; padding: 0px;">{if $cfg['tdname2']}{$cfg['tdname2']}{else}二级粉丝{/if}</p>
+              </a>
+            </li>
+            <li >
+              <a href="{php echo $this->createMobileUrl('txmfan1',array('uid'=>$fans['uid'],'pid'=>$pid,'do'=>mfan1,op=>'3'));}" id="A1" class="link clearfix" >
+                <p class="title-info c-black font-size-14" >{$count3}<br style="margin: 0px; padding: 0px;">{if $cfg['tdname3']}{$cfg['tdname3']}{else}三级粉丝{/if}</p>
+              </a>
+            </li>
+            <li >
+              <a href="{php echo $this->createMobileUrl('tixian');}" id="A1" class="link clearfix" >
+                <p class="title-info c-black font-size-14" >我的<br style="margin: 0px; padding: 0px;">收益</p>
+              </a>
+            </li>
+           </ul>
+        </div>
+            
+
+            <div class="js-list-content content">
+            <div class="js-list block-order-list block block-list" data-type="payment">
+                {loop $txrank $k $f}
+                        <a class="block-item block-item-small-padding" href="#">
+                            <p class="title-line font-size-14 c-black">
+                                </p><table style="width: 100%">
+                                    <tbody><tr>
+                                        <td style="width: 50px">
+                                            <img src="{php echo preg_replace('/\/0$/', '/46', stripslashes($f['avatar']));}" style="width: 40px; height: 40px; border-radius: 50%;">
+                                        </td>
+                                        <td>
+                                            <span id="rpBrand_ctl00_Label3">{$f['nickname']}</span>
+                                        </td>
+                                        <!--td class="pull-right c-green">
+                                            No.<span id="rpBrand_ctl00_lbFee">{php echo date('Y-m-d H:i',$f['createtime'])}</span>
+                                        </td-->
+                                    </tr>
+                                </tbody></table>
+                            <p></p>
+                            <p class="font-size-12 c-gray-dark">
+                                <span id="rpBrand_ctl00_Label1">加入时间:{php echo date('Y-m-d H:i',$f['createtime'])}</span>
+                            </p>
+                        </a>
+
+              {/loop}  
+                <div class="js-list b-list">
+                </div>
+            </div>
+        </div>
+            
+                <br>
+                {template 'tixian/bottom'}
+                <br>
+        </div>
+    
+
+
+</div>
+</body>
+</html>

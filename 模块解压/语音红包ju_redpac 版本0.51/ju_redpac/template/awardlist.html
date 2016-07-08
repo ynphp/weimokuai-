@@ -1,0 +1,45 @@
+{template 'common/header'}
+<div class="main">
+<ul class="nav nav-tabs">
+	<li><a href="{php echo $this->createWebUrl('list');}">活动列表</a></li>
+	<li><a href="./index.php?c=platform&a=reply&do=post&m=hx_lottery">添加活动</a></li>
+	<li class="active"><a href="">中奖记录</a></li>
+</ul>
+	<div style="padding:15px;">
+		<form action="" method="post">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th align="center" style="width:20px;text-align:center;">ID</th>
+					<th align="center" style="width:70px;text-align:center;">获得红包openid</th>
+					<th align="center" style="width:70px;text-align:center;">领奖openid</th>
+					<th align="center" style="width:60px;text-align:center;">获得红包时间</th>
+					<th align="center" style="width:60px;text-align:center;">发放红包时间</th>
+					<th align="center" style="width:60px;text-align:center;">红包金额</th>
+					<th style="width:80px;text-align:center;">状态</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $row}
+					<tr>		
+						<td align="center" style="text-align:center;">{$row['id']}</td>
+						<td align="center" style="font-size:12px; color:#666; text-align:center;">{$row['fromuser']}</td>
+						<td align="center" style="font-size:12px; color:#666; text-align:center;">{if empty($row['openid'])}暂无{else}{$row['openid']}{/if}</td>
+						<td align="center" style="font-size:12px; color:#666; text-align:center;">{php echo date('Y-m-d H:i:s',$row['createtime'])}</td>
+						<td align="center" style="font-size:12px; color:#666; text-align:center;">{if !empty($row['consumetime'])}{php echo date('Y-m-d H:i:s',$row['consumetime'])}{else}尚未发放{/if}</td>
+						<td align="center" style="font-size:12px; color:#666; text-align:center;">{$row['money']}</td>
+						<td style="text-align:center;">
+							{if $row['status'] == 1}<span class="label label-info">已获得</span>
+							{else if $row['status'] == 2}<span class="label label-success">已发放</span>
+							{else}<span class="label label-danger">发放失败</span>
+							{/if}
+                        </td>
+					</tr>
+				{/loop}
+			</tbody>
+		</table>
+	</form>
+		{$pager}
+	</div>
+</div>
+{template 'common/footer'}

@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+<meta charset="utf-8">
+<meta name="keywords" content="VIP中心">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="cleartype" content="on">
+<title>我的积分</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+{template 'tixian/css'}
+</head>
+<body>
+
+
+    <div class="container " style="min-height: 1px;">
+        <div class="content">
+
+<div class="order-related" >
+  <ul class="uc-order list-horizon clearfix" >
+    <li >
+        <a href="../index.php?i={$_W['uniacid']}&c=entry&fans_id={$fans['fans_id']}&op=wsh&do=orders&m=tiger_youzan" id="A1" class="link clearfix active" >
+          <p class="title-num c-black font-size-14" ><span id="lbType0" >{$fans['dsh']}</span></p>
+          <p class="title-info c-black font-size-14" >未收获</p>
+        </a>
+    </li>
+    <li >
+        <a href="../index.php?i={$_W['uniacid']}&c=entry&fans_id={$fans['fans_id']}&op=ysh&do=orders&m=tiger_youzan" id="A1" class="link clearfix active" >
+          <p class="title-num c-black font-size-14" ><span id="lbType0" >{$fans['ysh']}</span></p>
+          <p class="title-info c-black font-size-14" >已收获</p>
+        </a>
+    </li>
+    <li >
+        <a href="../index.php?i={$_W['uniacid']}&c=entry&fans_id={$fans['fans_id']}&op=myjf&do=orders&m=tiger_youzan" id="A1" class="link clearfix active" >
+          <p class="title-num c-black font-size-14" ><span id="lbType0" >{$fans['credit1']}</span></p>
+          <p class="title-info c-black font-size-14" >{if $cfg['hztype']<>''}{$cfg['hztype']}{else}积分{/if}</p>
+        </a>
+    </li>
+    <li ><a href="7eEuc" id="A3" class="link clearfix" ></a>
+        <p class="title-num c-black font-size-14" ><span id="lbCash"  ><a href="../index.php?i={$_W['uniacid']}&c=entry&do=tixian&m=tiger_youzan">我的奖励</a></span></p>
+      <p class="title-info c-black font-size-14" ><span id="lbRecord" ><a href="../index.php?i={$_W['uniacid']}&c=entry&fans_id={$fans['fans_id']}&op=yzc&do=orders&m=tiger_youzan">提现记录</a></span></p>
+    </li>
+  </ul>
+</div>
+            
+            
+            <div class="js-list-content content">
+            <div class="js-list block-order-list block block-list" data-type="payment">
+                
+
+                 {if $op=='yzc' || $op=='myjf'}
+                     {loop $mlist $v}
+                            <a class="block-item block-item-small-padding" href="#">
+                                <p class="title-line font-size-14 c-black">
+                                    <span id="rpBrand_ctl00_Label2">{php echo cutstr($v['remark'],20)}</span> 
+                                    <span id="rpBrand_ctl00_lbFee" class="pull-right c-red">{if $op=='yzc'}{php echo $v['num']*-1}元{else}{$v['num']}{if $cfg['hztype']<>''}{$cfg['hztype']}{else}积分{/if}{/if}</span>
+                                </p>
+                                <p class="font-size-12 c-gray-dark">
+                                    <span>{php echo date('Y-m-d H:i',$v['createtime'])}
+                                    </span>
+                                </p>
+                            </a>
+                     {/loop}   
+                 {else}
+                     {loop $mlist $v}
+                            <a class="block-item block-item-small-padding" href="#">
+                                <p class="title-line font-size-14 c-black">
+                                    <span id="rpBrand_ctl00_Label2">{php echo cutstr($v['title'],20)}</span> 
+                                    <span id="rpBrand_ctl00_lbFee" class="pull-right c-red">{$v['yongjin']}元</span>
+                                </p>
+                                <p class="font-size-12 c-gray-dark">
+                                    <span>{$v['update_time']}
+
+                                    </span>
+                                </p>
+                            </a>
+                     {/loop}
+
+                 
+                 {/if}
+            </div>
+        </div>
+            
+                <br>
+                {template 'tixian/bottom'}
+                <br>
+        </div>
+    
+
+
+</div>
+</body>
+</html>
