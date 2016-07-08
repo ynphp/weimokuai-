@@ -1,0 +1,173 @@
+<!DOCTYPE html><html>
+	<head lang="en">
+      {php echo register_jssdk();}
+    <script>
+        wx.ready(function () {
+        shareData = {
+            'title' : "{$data['share_title']}",
+            'desc': "{$data['share_desc']}",
+            'link': "{$_W['siteroot']}app/{php echo str_replace('./','',$this->createMobileUrl('shareindex', array('fromopenid'=>$_W['openid'])))}",
+            'imgUrl': "{php echo tomedia($data['share_image'])}",
+        };
+        //分享朋友
+    wx.onMenuShareAppMessage({
+        title: shareData.title,
+        desc: shareData.desc,
+        link: shareData.link,
+        imgUrl:shareData.imgUrl,
+        trigger: function (res) {
+        },
+        success: function (res) {
+        	alert('分享成功！');
+            location.href='{php echo $this->createMobileUrl('index');}';
+        },
+        cancel: function (res) {
+            alert('分享是一种美德哦！');
+        },
+        fail: function (res) {
+            alert(JSON.stringify(res));
+        }
+    });
+//朋友圈
+    wx.onMenuShareTimeline({
+        title: shareData.title,
+        link: shareData.link,
+        imgUrl:shareData.imgUrl,
+        trigger: function (res) {
+        },
+        success: function (res) {
+            alert('分享成功');
+        },
+        cancel: function (res) {
+            alert('分享是一种美德哦！');
+        },
+        fail: function (res) {
+            alert(JSON.stringify(res));
+        }
+        });
+    });
+    </script>
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640,user-scalable=no">
+    <meta charset="UTF-8">
+    	 <title>美丽众筹</title>
+    <link rel="stylesheet" type="text/css" href="../addons/beauty_zhongchou/template/css/style.css">
+    <script src="../addons/beauty_zhongchou/template/js/hm.js?1d8e5e369a6dac5eeb5788f5e623a38d"></script>
+    <script type="text/javascript" src="../addons/beauty_zhongchou/template/js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="../addons/beauty_zhongchou/template/js/iscroll.js"></script>
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?1d8e5e369a6dac5eeb5788f5e623a38d";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+<style>
+.btn {
+    width: 237px;
+    height: 67px;
+    text-align: center;
+    color: #133990;
+    font-size: 28px;
+    background: url("../addons/beauty_zhongchou/template/imgs/btn-bg.png");
+    line-height: 58px;
+    font-weight: 600;
+}
+</style>
+</head><iframe id="__WeixinJSBridgeIframe_SetResult" style="display: none;"></iframe><iframe id="__WeixinJSBridgeIframe" style="display: none;"></iframe>
+<body onload="loaded()">
+<div class="wrapper">
+	{if empty($data['p2-bg'])}
+			<div class="page2" style=" background: url('../addons/beauty_zhongchou/template/imgs/11111.jpg') no-repeat;" id="page3">
+			{else}
+			<div class="page2" style=" background: url('{php echo tomedia($data['p2-bg'])}') no-repeat;" id="page3">
+			{/if}
+
+        <div class="headbg3"><img src="../addons/beauty_zhongchou/template/imgs/headbg2.png"></div>
+        <div class="head3"><img src="{php echo tomedia($profile['avatar'])}"></div>
+        <div class="p2-str">筹集到的资金</div>
+        <div class="p2-money" style=" background: url(../addons/beauty_zhongchou/template/imgs/moneybg.png);">{if !empty($money)}{$money}{else}0{/if}</div>
+                    <div class="before">
+                <div class="p2-mljj btn" id="shareBtn">{$data['btn2']}</div>
+                <a href="#">
+                    <div class="p2-gzxy btn">关注我们</div>
+                </a>
+
+                <!--<div class="rankDiv2">
+                    <div class="p2-rankstr"><img src="../addons/beauty_zhongchou/template/imgs/p3-rankstr.png"></div>
+                    <div class="rline"></div>
+                    <div class="rankItem">
+                        <div class="rnotice">邀请好友,筹集美丽基金。<br>今年夏天你从外到里一起美！</div>
+                    </div>
+                </div>-->
+                <div class="rankDiv3" id="rankDiv">
+            <div id="scroller" style="transition: 0ms cubic-bezier(0.1, 0.57, 0.1, 1); -webkit-transition: 0ms cubic-bezier(0.1, 0.57, 0.1, 1); transform: translate(0px, 0px) translateZ(0px);">
+                <div class="p3-rankstr"><img src="../addons/beauty_zhongchou/template/imgs/p3-rankstr.png"></div>
+                {loop $orders $order}
+                		<div class="rline"></div>
+                        <div class="rankItem">
+                            <div class="rhead">
+                            	<!--头像-->
+                            	<img src="{php echo tomedia($order['avatar'])}"></div>
+                            <div class="rmiddle">
+                                <div class="rname">{$order['nickname']}</div>
+                                <div class="rcontent">"{$order['content']}"</div>
+                            </div>
+                            <div class="rleft">¥{$order['num']}</div>
+                        </div>
+                {/loop}
+                <div class="clear"></div>
+                <div style="width:100%;height:50px;"></div>
+            </div>
+        </div>
+            </div>
+        </div>
+        
+
+    <div class="sharePage" style="display: none;">
+        <img src="{php echo tomedia($data['p2-share-img'])}">
+    </div>
+
+    <div class="rulePage" style="display: none;">
+        <div class="mask"></div>
+        <div class="rule"><img src="../addons/beauty_zhongchou/template/imgs/rule.png"></div>
+        <div class="rule-x" id="ruleClose">
+        	<img src="../addons/beauty_zhongchou/template/imgs/rule-x.png"></div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('touchmove', function (e) {
+        e.preventDefault();
+    }, false);
+    var myScroll;
+    function loaded() {
+        myScroll = new IScroll('#rankDiv');
+    }
+
+
+    $(document).ready(function () {
+        $("#shareBtn").click(function () {
+            $(".sharePage").show();
+        });
+        $(".sharePage").click(function () {
+            $(this).hide();
+        });
+
+        //
+        $("#ruleBtn").click(function () {
+            $(".rulePage").show();
+        });
+
+        $("#ruleClose").click(function () {
+            $(".rulePage").hide();
+        });
+    });
+</script>
+
+<script src="js/jweixin-1.0.0.js"></script>
+
+
+</body></html>

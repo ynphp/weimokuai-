@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[周边商家]]></name>
+		<identifie><![CDATA[fwei_nearshop]]></identifie>
+		<version><![CDATA[1.8]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[周边商家，提供商家信息的聚合以及LBS的查询。电话预约，支持百度、腾讯地图一键导航。]]></ability>
+		<description><![CDATA[周边商家，提供商家信息的聚合以及LBS的查询。电话预约，支持百度、腾讯地图一键导航。]]></description>
+		<author><![CDATA[柒|柒|源|码]]></author>
+		<url><![CDATA[http://H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="location" />
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="周边商家入口" do="list" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="商家列表" do="list" state="" direct="false" />
+			<entry title="添加商家" do="create" state="" direct="false" />
+		</menu>
+		<home>
+		</home>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE `ims_fwei_nearshop` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL COMMENT '公众号',
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '名称',
+  `thumb` varchar(100) NOT NULL DEFAULT '' COMMENT '宣传图',
+  `content` varchar(1000) NOT NULL DEFAULT '' COMMENT '介绍',
+  `phone` varchar(15) NOT NULL DEFAULT '' COMMENT '电话',
+  `qq` varchar(15) NOT NULL DEFAULT '' COMMENT 'QQ',
+  `province` varchar(50) NOT NULL DEFAULT '' COMMENT '省',
+  `city` varchar(50) NOT NULL DEFAULT '' COMMENT '市',
+  `dist` varchar(50) NOT NULL DEFAULT '' COMMENT '区',
+  `address` varchar(500) NOT NULL DEFAULT '' COMMENT '详细地址',
+  `lng` varchar(10) NOT NULL DEFAULT '' COMMENT '百度地图坐标',
+  `lat` varchar(10) NOT NULL DEFAULT '' COMMENT '百度地图坐标',
+  `soso_lng` varchar(10) NOT NULL DEFAULT '' COMMENT '腾讯地图坐标',
+  `soso_lat` varchar(10) NOT NULL DEFAULT '' COMMENT '腾讯地图坐标',
+  `industry1` varchar(10) NOT NULL DEFAULT '' COMMENT '行业信息',
+  `industry2` varchar(10) NOT NULL DEFAULT '' COMMENT '行业信息',
+  `createtime` int(10) NOT NULL DEFAULT '0',
+  `outlink` varchar(200) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `idx_lat_lng` (`lng`,`lat`),
+  KEY `idx_soso_lat_lng` (`soso_lng`,`soso_lat`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[DROP TABLE ims_fwei_nearshop;]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

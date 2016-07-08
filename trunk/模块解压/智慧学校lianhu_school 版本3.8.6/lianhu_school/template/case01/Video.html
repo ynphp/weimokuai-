@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>教室监控-{$_SESSION['school_name']}</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{MODULE_URL}template/case01/style/style.css">
+    <link rel="stylesheet" href="{MODULE_URL}template/case01/style/buttons.css">
+    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	
+</head>
+
+<body>
+ <div class="top-wrap">
+        <div class="fn-clear tr-box top">
+            <div class='text_center'>教室监控</div>
+        </div>
+  </div>    
+  {loop $video_list $vo}
+    <video controls="" autoplay="" webkit-playsinline="webkit-playsinline" x-webkit-airplay="allow" width="100%" height="100%" preload="auto" poster="{$_W['attachurl']}/{$vo['video_img']}" 
+    src="{$vo['video_url']}">
+  </video>
+  <br>
+      <video controls="" autoplay="" webkit-playsinline="webkit-playsinline" x-webkit-airplay="allow" width="100%" height="100%" preload="auto" poster="{$_W['attachurl']}/{$vo['video_img']}" 
+    src="rmtp://119.188.172.37:1935/live/b147773540_1?token=AAAAQPpf7KcZ2wgJcobkLsphPuhToHlMJwZ2M0TtbiJOXzQJY71NDMv77eUZ2BFDSJPeZ0pQNxE25Y25lWdTnouuktZ1nP8YZ3">
+  </video>
+  {/loop}
+  {template '../case01/footer'}

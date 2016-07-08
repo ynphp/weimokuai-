@@ -1,0 +1,813 @@
+@import "animation.css";
+
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+}
+
+body {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+    font-family: "微软雅黑";
+}
+
+.clear {
+    clear: both;
+}
+
+img {
+    border: none;
+    width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.btn {
+    width: 237px;
+    height: 67px;
+    text-align: center;
+    color: #133990;
+    font-size: 28px;
+    background: url("../images/btn-bg.png");
+    line-height: 58px;
+    font-weight: 600;
+}
+
+.wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 640px;
+    height: 1039px;
+    overflow: hidden;
+}
+
+/*page1*/
+.page1 {
+    position: absolute;
+    width: 640px;
+    height: 1039px;
+    left: 0;
+    top: 0;
+    background: url("../images/p1-bg.jpg") no-repeat;
+}
+
+.slogan {
+    position: absolute;
+    width: 474px;
+    height: 206px;
+    left: 95px;
+    top: 60px;
+}
+
+.p1-str {
+    position: absolute;
+    width: 391px;
+    height: 74px;
+    left: 124px;
+    top: 267px;
+}
+
+.p1-photo {
+    position: absolute;
+    width: 640px;
+    height: 497px;
+    left: 0;
+    top: 360px;
+}
+
+.p1-person {
+    position: absolute;
+    width: 565px;
+    height: 712px;
+    left: 16px;
+    top: 260px;
+}
+
+.p1-star {
+    position: absolute;
+    left: 56px;
+    top: 850px;
+}
+
+.p1-hdxq {
+    position: absolute;
+    left: 345px;
+    top: 850px;
+}
+
+/*page2*/
+.page2 {
+    position: absolute;
+    width: 640px;
+    height: 1039px;
+    left: 0;
+    top: 0;
+    background: url("../images/p2-bg.jpg") no-repeat;
+}
+
+.headbg {
+    position: absolute;
+    width: 252px;
+    height: 252px;
+    left: 195px;
+    top: 273px;
+}
+
+.yellow {
+    position: absolute;
+    width: 254px;
+    height: 254px;
+    left: 196px;
+    top: 273px;
+    border-radius: 127px;
+}
+
+.head {
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    left: 212px;
+    top: 290px;
+    border-radius: 110px;
+    overflow: hidden;
+}
+
+.head img {
+    border-radius: 110px;
+}
+
+.p2-str {
+    position: absolute;
+    width: 640px;
+    height: 18px;
+    left: 0;
+    top: 315px;
+    text-align: center;
+    font-size: 18px;
+    color: #fff;
+}
+
+.p2-money {
+    position: absolute;
+    width: 170px;
+    height: 48px;
+    left: 235px;
+    top: 350px;
+    background: url("../images/moneybg.png");
+    text-align: right;
+    color: #1a3eb1;
+    font-size: 48px;
+    line-height: 44px;
+    letter-spacing: 8px;
+}
+
+.p2-mljj {
+    position: absolute;
+    left: 57px;
+    top: 415px;
+}
+
+.p2-gzxy {
+    position: absolute;
+    left: 345px;
+    top: 415px;
+}
+
+.p2-wddjq {
+    position: absolute;
+    left: 57px;
+    top: 415px;
+}
+
+.p2-dhdjq {
+    position: absolute;
+    left: 345px;
+    top: 415px;
+}
+
+.p2-a {
+    position: absolute;
+    width: 267px;
+    height: 34px;
+    left: 182px;
+    top: 500px;
+}
+
+.p2-hdxq-div {
+    position: absolute;
+    width: 110px;
+    height: 34px;
+    left: 182px;
+    top: 500px;
+}
+
+.p2-gzxy-div {
+    position: absolute;
+    width: 110px;
+    height: 34px;
+    left: 338px;
+    top: 500px;
+}
+
+.rankDiv {
+    position: absolute;
+    width: 640px;
+    height: 250px;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.p2-rankstr {
+    float: left;
+    width: 477px;
+    height: 45px;
+    margin-left: 60px;
+}
+
+.rline {
+    float: left;
+    width: 100%;
+    height: 0;
+    border-top: 1px dashed #213f80;
+    margin: 20px 0;
+}
+
+.rankItem {
+    float: left;
+    width: 600px;
+    height: 85px;
+    margin: 0 20px;
+}
+
+.rhead {
+    float: left;
+    width: 82px;
+    height: 82px;
+    background: url("../images/headbg-l.png");
+    border-radius: 41px;
+    overflow: hidden;
+}
+
+.rhead img {
+    margin-left: 2px;
+    width: 80px;
+    height: 80px;
+    border-radius: 41px;
+}
+
+.rmiddle {
+    float: left;
+    width: 370px;
+    height: 85px;
+    margin: 0 20px;
+    color: #fff;
+}
+
+.rname {
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 40px;
+    margin-bottom: 10px;
+}
+
+.rcontent {
+    font-size: 24px;
+    line-height: 30px;
+    color: #767b9b;
+}
+
+.rleft {
+    float: left;
+    width: 100px;
+    color: #fff043;
+    font-size: 42px;
+    font-weight: bold;
+    line-height: 80px;
+    text-align: right;
+}
+
+.rnotice {
+    width: 100%;
+    color: #767b9b;
+    text-align: center;
+    font-size: 32px;
+    line-height: 60px;
+}
+
+/*规则页*/
+.rulePage {
+    position: absolute;
+    width: 640px;
+    height: 1039px;
+    left: 0;
+    top: 0;
+}
+
+.mask {
+    position: absolute;
+    width: 640px;
+    height: 1039px;
+    left: 0;
+    top: 0;
+    background: #000;
+    opacity: 0.8;
+}
+
+.mask2 {
+    position: absolute;
+    width: 640px;
+    height: 1039px;
+    left: 0;
+    top: 0;
+    background: #000;
+    opacity: 0.9;
+}
+
+.rule {
+    position: absolute;
+    width: 608px;
+    height: 915px;
+    left: 17px;
+    top: 58px;
+}
+
+.rule-x {
+    position: absolute;
+    width: 57px;
+    height: 57px;
+    left: 559px;
+    top: 33px;
+}
+
+/*page3*/
+.page3 {
+    position: absolute;
+    width: 640px;
+    height: 1039px;
+    left: 0;
+    top: 0;
+    background: url("../images/p3-bg.jpg") no-repeat;
+}
+
+.p3-str {
+    position: absolute;
+    width: 576px;
+    height: 141px;
+    left: 32px;
+    top: 455px;
+}
+
+.p3-1yuan {
+    position: absolute;
+    left: 69px;
+    top: 625px;
+}
+
+.p3-wyyml {
+    position: absolute;
+    left: 341px;
+    top: 625px;
+}
+
+.rankDiv2 {
+    position: absolute;
+    width: 640px;
+    height: 478px;
+    left: 0;
+    top: 555px;
+    overflow: hidden;
+}
+
+.rankDiv3 {
+    position: absolute;
+    width: 640px;
+    height: 308px;
+    left: 0;
+    top: 725px;
+    overflow: hidden;
+}
+
+.p3-rankstr {
+    float: left;
+    width: 418px;
+    height: 36px;
+    margin-left: 100px;
+}
+
+.btn-share {
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    width: 91px;
+    height: 27px;
+}
+
+/*分享*/
+.sharePage {
+    position: absolute;
+    width: 640px;
+    height: 1039px;
+    left: 0;
+    top: 0;
+}
+
+/*page4*/
+.page4 {
+    position: absolute;
+    width: 640px;
+    height: 1139px;
+    left: 0;
+    top: 0;
+    background: url("../images/p4-bg.jpg") no-repeat;
+}
+
+.headbg2 {
+    position: absolute;
+    width: 252px;
+    height: 252px;
+    left: 200px;
+    top: 200px;
+}
+
+.headbg3 {
+    position: absolute;
+    width: 252px;
+    height: 252px;
+    left: 200px;
+    top: 50px;
+}
+
+.head3 {
+    height: 220px;
+    left: 217px;
+    position: absolute;
+    top: 67px;
+    width: 220px;
+    border-radius: 110px;
+    overflow: hidden;
+}
+
+.head3 img {
+    border-radius: 110px;
+}
+
+.slogan2 {
+    position: absolute;
+    width: 409px;
+    height: 178px;
+    left: 130px;
+    top: 33px;
+}
+
+.head2 {
+    height: 220px;
+    left: 217px;
+    position: absolute;
+    top: 215px;
+    width: 220px;
+    border-radius: 110px;
+    overflow: hidden;
+}
+
+.head2 img {
+    border-radius: 110px;
+}
+
+.p4-gc {
+    position: absolute;
+    width: 474px;
+    height: 194px;
+    left: 88px;
+    top: 330px;
+}
+
+.p4-from {
+    position: absolute;
+    width: 591px;
+    height: 301px;
+    left: 28px;
+    top: 565px;
+    background: url("../images/p4-form.png");
+}
+
+.p4-one {
+    position: absolute;
+    width: 129px;
+    height: 77px;
+    left: 23px;
+    top: 30px;
+}
+
+.p4-je {
+    position: absolute;
+    width: 220px;
+    height: 60px;
+    left: 320px;
+    top: 40px;
+}
+
+.p4-je input {
+    width: 220px;
+    height: 60px;
+    font-size: 32px;
+    background: #ffeb9f;
+    border: none;
+}
+
+.p4-content {
+    position: absolute;
+    width: 520px;
+    height: 60px;
+    left: 35px;
+    top: 132px;
+}
+
+.p4-content input {
+    width: 520px;
+    height: 60px;
+    background: #ffeb9f;
+    border: none;
+    font-size: 32px;
+}
+
+.p4-price {
+    font-size: 50px;
+    height: 60px;
+    left: 35px;
+    line-height: 80px;
+    position: absolute;
+    text-align: center;
+    top: 208px;
+    width: 520px;
+}
+
+.p4-submit {
+    position: absolute;
+    left: 194px;
+    top: 890px;
+}
+
+.p4-notice {
+    position: absolute;
+    width: 640px;
+    height: 20px;
+    left: 0;
+    top: 970px;
+    color: #5abfff;
+    font-size: 26px;
+    text-align: center;
+}
+
+/*page5*/
+.page5 {
+    position: absolute;
+    width: 640px;
+    height: 1039px;
+    left: 0;
+    top: 0;
+    background: url('../images/p5-bg.png');
+}
+
+.p5-list {
+    position: absolute;
+    width: 570px;
+    height: 520px;
+    left: 35px;
+    top: 284px;
+    overflow: hidden;
+}
+
+.quanItem {
+    float: left;
+    width: 566px;
+    height: 183px;
+    margin: 15px 2px;
+    background: url("../images/quanbg.png");
+}
+
+.qup {
+    float: left;
+    width: 362px;
+    height: 72px;
+    margin: 14px 180px;
+}
+
+.qrmb {
+    float: left;
+    width: 30px;
+    height: 72px;
+    font-size: 44px;
+    color: #fff043;
+    line-height: 105px;
+}
+
+.qmoney {
+    float: left;
+    width: 160px;
+    height: 72px;
+    font-size: 80px;
+    line-height: 80px;
+    color: #fff043;
+    text-align: center;
+    font-weight: bold;
+}
+
+.qstr1 {
+    float: left;
+    width: 170px;
+    height: 72px;
+    color: #fff;
+}
+
+.qstr1 .qsapn1 {
+    font-size: 36px;
+    line-height: 100px;
+    font-weight: bold;
+    text-indent: 10px;
+}
+
+.qstr1 .qsapn2 {
+    font-size: 24px;
+    line-height: 40px;
+}
+
+.qdown {
+    float: left;
+    width: 362px;
+    height: 50px;
+    margin: 14px 180px;
+    color: #81c1ff;
+    font-size: 24px;
+    line-height: 30px;
+}
+
+/*page6*/
+.page6 {
+    position: absolute;
+    width: 640px;
+    height: 1039px;
+    left: 0;
+    top: 0;
+    background: url('../images/p5-bg.png');
+}
+
+.p6-main {
+    position: absolute;
+    width: 593px;
+    height: 696px;
+    left: 27px;
+    top: 313px;
+}
+
+.p6-submit {
+    position: absolute;
+    left: 200px;
+    top: 900px;
+}
+
+.p6-select {
+    position: absolute;
+    width: 560px;
+    height: 84px;
+    left: 43px;
+    top: 360px;
+}
+
+.p6-options {
+    position: absolute;
+    width: 554px;
+    height: 78px;
+    left: 43px;
+    top: 364px;
+}
+
+.p6-options .left {
+    float: left;
+    width: 73px;
+    height: 78px;
+}
+
+.p6-options .right {
+    float: left;
+    width: 450px;
+    height: 78px;
+    margin-left: 10px;
+    padding: 10px 0;
+    font-size: 40px;
+    line-height: 50px;
+    color: #fff;
+    overflow: hidden;
+}
+
+.p6-options .left select {
+    width: 27px;
+    height: 24px;
+    text-indent: 24px;
+
+    margin-left: 28px;
+    margin-top: 29px;
+
+    background: transparent url("../images/down.png") no-repeat;
+    background-size: 100%;
+    border: none;
+    -webkit-appearance: none;
+}
+
+.faqPage {
+    position: absolute;
+    width: 640px;
+    height: 1139px;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+}
+
+.faq-main {
+    position: absolute;
+    left: 10px;
+    top: 100px;
+    width: 620px;
+    height: 800px;
+    opacity: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.faq-item {
+    width: 620px;
+    margin: 5px 0;
+}
+
+.faq-icon {
+    position: absolute;
+    width: 92px;
+    height: 27px;
+    top: 40px;
+    right: 30px;
+}
+
+.loadPage {
+    position: absolute;
+    width: 640px;
+    height: 1139px;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+}
+
+.mask3 {
+    position: absolute;
+    width: 640px;
+    height: 1039px;
+    left: 0;
+    top: 0;
+    background: #081a63;
+    opacity: 1;
+}
+
+.load-jz {
+    position: absolute;
+    top: 300px;
+    left: 250px;
+    height: 140px;
+    width: 140px;
+}
+
+.load-num {
+    position: absolute;
+    top: 480px;
+    left: 0px;
+    width: 620px;
+    height: 30px;
+    text-align: center;
+    font-size: 28px;
+    color: #fff;
+}
+
+.load-str {
+    position: absolute;
+    width: 440px;
+    height: 300px;
+    color: #ffd63e;
+    font-size: 36px;
+    text-align: center;
+    left: 100px;
+    top: 480px
+}
+
+.payLoadPage {
+    position: fixed;
+    width: 640px;
+    height: 1139px;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+}
