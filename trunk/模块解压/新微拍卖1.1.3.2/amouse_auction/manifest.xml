@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[新微拍卖]]></name>
+		<identifie><![CDATA[amouse_auction]]></identifie>
+		<version><![CDATA[1.1.3.2]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[微信拍卖,精仿玩库公众号。]]></ability>
+		<description><![CDATA[微信拍卖：设置一口价，直接一口价买走拍品。设置延时拍卖，让更多的粉丝来参与拍卖。设置黑名单，如果成交卖家不支付，或者不联系客服，直接设置黑名单]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="微拍卖首页" do="index" state="" direct="false" />
+			<entry title="我的拍卖" do="mycenter" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="拍品管理" do="goods" state="" direct="false" />
+			<entry title="会员管理" do="member" state="" direct="false" />
+			<entry title="出价记录" do="offers" state="" direct="false" />
+			<entry title="订单管理" do="orders" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_amouse_auction_goods` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `uniacid` int(10) unsigned NOT NULL COMMENT '公众账号',
+  `title` varchar(100) DEFAULT NULL COMMENT '商品标题',
+  `upset_price` float(10,2) DEFAULT '0.00' COMMENT '起拍金额',
+  `raise_price` float(10,2) DEFAULT '0.00' COMMENT '默认加价金额',
+  `transaction_value` float(10,2) DEFAULT '0.00' COMMENT '成交金额',
+  `now_price` float(10,2) DEFAULT '0.00' COMMENT '一口价金额',
+  `au_pic` varchar(500) DEFAULT NULL COMMENT '商品图片',
+  `content` mediumtext COMMENT '商品详情',
+  `start_time` int(10) unsigned DEFAULT NULL COMMENT '开始时间',
+  `end_time` int(10) unsigned DEFAULT NULL COMMENT '结束时间',
+  `createtime` int(10) unsigned DEFAULT NULL COMMENT '创建时间',
+  `offerNum` tinyint(4) unsigned DEFAULT '0' COMMENT '出价次数',
+  `delay_cycle` int(10) unsigned DEFAULT '0' COMMENT '出价延时',
+  `delay_cycle_time` int(10) unsigned DEFAULT '5' COMMENT '竞拍结束的几分钟内',
+  `status` int(11) NOT NULL COMMENT '1：下架 2:上架；',
+  `send_state` int(4) unsigned NOT NULL COMMENT '1为已发货',
+  `expresscom` varchar(30) NOT NULL DEFAULT '快递公司',
+  `expresssn` varchar(50) NOT NULL DEFAULT '快递单号',
+  `express` varchar(200) NOT NULL DEFAULT '',
+  `remark` varchar(1000) NOT NULL DEFAULT '',
+  `oid` varchar(50) DEFAULT NULL COMMENT '成交人openid',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='拍品';
+CREATE TABLE IF NOT EXISTS `ims_amouse_auction_member` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL COMMENT '公众账号id',
+  `score` int(10) NOT NULL COMMENT '会员积分',
+  `oid` varchar(50) NOT NULL COMMENT '微信会员openID',
+  `nickname` varchar(200) NOT NULL COMMENT '昵称',
+  `addressee` varchar(200) NOT NULL COMMENT '收货人姓名',
+  `avatar` varchar(255) NOT NULL COMMENT '头像',
+  `mobile` varchar(11) NOT NULL COMMENT '手机号码',
+  `location_p` varchar(100) NOT NULL DEFAULT '' COMMENT '省',
+  `zipcode` varchar(100) DEFAULT '' COMMENT '邮编',
+  `location_c` varchar(100) NOT NULL DEFAULT '' COMMENT '市',
+  `location_a` varchar(100) NOT NULL DEFAULT '' COMMENT '区',
+  `address` varchar(255) NOT NULL COMMENT '地址',
+  `blacklist` int(1) NOT NULL DEFAULT '1' COMMENT '0为黑名单，1为白名单',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='参与人';
+CREATE TABLE IF NOT EXISTS `ims_amouse_auction_mycollect` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `uid` int(10) NOT NULL,
+  `oid` varchar(100) NOT NULL,
+  `gid` int(10) NOT NULL,
+  `createtime` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='收藏';
+CREATE TABLE IF NOT EXISTS `ims_amouse_auction_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL COMMENT '公众账号',
+  `oid` varchar(100) NOT NULL COMMENT '微信会员openID',
+  `nickname` varchar(200) NOT NULL COMMENT '用户昵称',
+  `uid` int(10) unsigned NOT NULL COMMENT '用户ID',
+  `gid` int(10) unsigned NOT NULL COMMENT '商品编号',
+  `howmuch` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '商品编号',
+  `isnohaggle` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '商品编号',
+  `ordersn` varchar(20) NOT NULL COMMENT '订单编号',
+  `price` int(10) unsigned NOT NULL COMMENT '交易价格',
+  `createtime` int(10) unsigned NOT NULL COMMENT '购买时间',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`),
+  KEY `gid` (`gid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='出价记录';
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

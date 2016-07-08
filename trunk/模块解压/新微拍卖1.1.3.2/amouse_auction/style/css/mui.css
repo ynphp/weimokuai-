@@ -1,0 +1,218 @@
+﻿.mui_tab ul, .mui_tab ul li
+{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mui_tab .tab_header
+{
+    display: -webkit-box;
+    display: box;
+    display: -moz-box;
+    width: 100%;
+}
+
+    .mui_tab .tab_header li
+    {
+        flex: 1;
+        -webkit-box-flex: 1;
+        display: block;
+        width: 0%;
+        text-align: center;
+        height: 2.5em;
+        line-height: 2.5em;
+        font-size: 1em;
+        border-bottom: solid 2px transparent;
+        text-decoration: none;
+        display: block;
+        color: #808080;
+    }
+
+        .mui_tab .tab_header li.selected
+        {
+            border-bottom: solid 2px #f60;
+        }
+
+.mui_tab .tab_container
+{
+    margin-top:0.5em;
+     
+}
+
+.hidden
+{
+    display: none;
+}
+
+@-webkit-keyframes tabmove1
+{
+    from
+    {
+        color: #ff6a00;
+    }
+
+    to
+    {
+        color: #0ff;
+    }
+}
+
+
+.mui_dia_mask
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: #333;
+    opacity: 0.3;
+    z-index: 100;
+}
+
+.mui_dia
+{
+    background: #fff;
+    border-radius: 0.5em;
+    position: fixed;
+    top: 20%;
+    left: 1em;
+    right: 1em;
+    z-index: 200;
+    min-height: 5em;
+    box-shadow: 0 0.2em 0.5em 0.1em #333;
+}
+
+    .mui_dia .title
+    {
+        color: #666;
+        font-size: 1em;
+        padding: 0.3em 0.5em;
+        font-weight: bold;
+    }
+
+    .mui_dia .content
+    {
+        padding: 0.5em 0.5em;
+    }
+
+    .mui_dia .fooder
+    {
+        height: 2.5em;
+        background: #ff6a00;
+        border-bottom-left-radius: 0.5em;
+        border-bottom-right-radius: 0.5em;
+        display: box;
+        display: -webkit-box;
+        background: url(data:image/svg+xml;base64,77u/PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSLlm77lsYJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIxLjIwM3B4IiBoZWlnaHQ9IjEuMjVweCIgdmlld0JveD0iMCAwIDEuMjAzIDEuMjUiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDEuMjAzIDEuMjUiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGxpbmUgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOTk5ODk5IiBzdHJva2Utd2lkdGg9IjAuMjUiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgeDE9IjAiIHkxPSIwLjEyNSIgeDI9IjMuMTQxIiB5Mj0iMC4xMjUiLz4NCjwvc3ZnPg0K) top repeat-x;
+    }
+
+        .mui_dia .fooder a
+        {
+            display: block;
+            -webkit-box-flex: 1;
+            text-align: center;
+            line-height: 2.5em;
+            background: url(data:image/svg+xml;base64,77u/PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSLlm77lsYJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIxcHgiIGhlaWdodD0iMXB4IiB2aWV3Qm94PSIwIDAgMSAxIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxIDEiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGxpbmUgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOTk5ODk5IiBzdHJva2Utd2lkdGg9IjAuMjUiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgeDE9IjAuODc1IiB5MT0iMCIgeDI9IjAuODc1IiB5Mj0iMS43NSIvPg0KPC9zdmc+DQo=) right repeat-y;
+        }
+
+            .mui_dia .fooder a:first-child
+            {
+                border-bottom-left-radius: 0.5em;
+            }
+
+            .mui_dia .fooder a:active
+            {
+                background-color: #f90;
+            }
+
+
+
+            .mui_dia .fooder a:last-child
+            {
+                background-image: none;
+                border-bottom-right-radius: 0.5em;
+            }
+
+.mui_dia_acc
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    z-index: 90;
+}
+
+    .mui_dia_acc .warp
+    {
+        margin: 20px;
+        display: flexbox;
+        flex-direction: column;
+    }
+
+        .mui_dia_acc .warp .title
+        {
+            height: 40px;
+            margin: 0;
+            font-size: 1.5em;
+            font-weight: normal;
+            color: #333;
+        }
+
+        .mui_dia_acc .warp .chooser
+        {
+        }
+
+        .mui_dia_acc .warp .chooseItem
+        {
+            display: block;
+            text-decoration: none;
+            height: 2em;
+            line-height: 2em;
+            background-color: #f3f3f3;
+            padding: 0 10px;
+            margin-bottom: 1px;
+            color: #f60;
+        }
+
+        .mui_dia_acc .warp .alist
+        {
+            flex: 1;
+            overflow-y: scroll;
+            -webkit-box-flex: 1;
+        }
+
+            .mui_dia_acc .warp .alist .item
+            {
+                display: block;
+                padding: 5px;
+                line-height: 20px;
+                text-decoration: none;
+                border-bottom: solid 1px #eee;
+            }
+
+        .mui_dia_acc .warp .btnbar
+        {
+            height: 40px;
+            display: box;
+            display: -webkit-box;
+        }
+
+            .mui_dia_acc .warp .btnbar a
+            {
+                flex: 1;
+                -webkit-box-flex: 1;
+                color:#fff;
+                margin:5px;
+                background:#f60;
+                display:block;
+                text-decoration:none;
+                height:30px; line-height:30px;
+                text-align:center;
+            }
+

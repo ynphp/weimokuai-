@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>收款记录</title>
+<meta name="format-detection" content="telephone=no, address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link href="./resource/css/bootstrap.min.css" rel="stylesheet">
+<link href="./resource/css/font-awesome.min.css" rel="stylesheet">
+<link href="./resource/css/animate.css" rel="stylesheet">
+<link href="./resource/css/common.css" rel="stylesheet">
+{php echo register_jssdk(false);}
+<script src="{MODULE_URL}template/js/jquery-2.1.1.min.js"></script>
+<script src="{MODULE_URL}template/js/fastclick.min.js"></script>
+<script src="{MODULE_URL}template/js/sweetalert.min.js"></script>
+<link type="text/css" rel="stylesheet" href="{MODULE_URL}template/js/sweetalert.css"/>
+<script src="{MODULE_URL}template/js/weui.js"></script>
+<link type="text/css" rel="stylesheet" href="{MODULE_URL}template/js/weui.css"/>
+</head>
+<style>
+body{background:#fbf9fe}
+.headbar{background:#18222C; width:100%;position:fixed; left:0; top:0; right:0; height:48px; line-height:48px; color:#FFF; z-index:2}
+.headertable{display:table; width:100%;}
+.jrow{display:table-row}
+.headercell{ display:table-cell; vertical-align:middle; text-align:center; color:#FFF;}
+.headercell a{ height:48px; line-height:48px; display:block; text-align:center; color:#FFF; font-size:24px}
+.list_box {padding: 10px;margin-top: 50px;}
+</style>
+<body>
+<div class="headbar">
+  <div class="headertable">
+    <div class="jrow">
+      <div class="headercell" style="width:15%"><a href="{php echo $this->createMobileUrl('mobile')}"><i class="fa fa-angle-left"></i></a></div>
+      <div class="headercell">收款记录</div>
+      <div class="headercell" style="width:15%"><a href="{php echo $this->createMobileUrl('mobile',array('op'=>'history'))}"><i class="fa fa-asterisk"></i></a></div>
+    </div>
+  </div>
+</div>
+<div class="list_box"> 
+  {loop $list $row}
+  <ul class="list-group" id="pay{$row['out_trade_no']}">
+    <li class="list-group-item {if $row['status']}list-group-item-success{/if}"><span class="pull-right">{if $row['status']}<span class="label label-success">已支付</span>{else}<span class="label label-danger">未支付</span>{/if}</span>单号：{$row['out_trade_no']}</li>
+    {if $row['old_trade_no']}
+    <li class="list-group-item">原单号/台号:{$row['old_trade_no']}</li>
+    {/if}
+    <li class="list-group-item"><span class="pull-right"><span class="label label-warning">{php echo date('m-d H:i',$row['createtime'])}</span> {if $row['paytype']}<span class="label label-info">支付宝</span>{else}<span class="label label-success">微信</span>{/if}</span>支付方式</li>
+    <li class="list-group-item"><span class="pull-right">￥{php echo sprintf('%.2f',($row['total_fee']/100))} - {php echo sprintf('%.2f',($row['coupon_fee']/100))}</span>金额计算</li>
+    <li class="list-group-item"><span class="pull-right" style="color:#F00">￥{php echo sprintf('%.2f',($row['cash_fee']/100))}</span>实收金额</li>
+    {if $row['status']}
+    <li class="list-group-item"><span class="pull-right">{if $row['isprint']}<span class="label label-success">已打印</span>{else}<span class="label label-danger">未打印</span>{/if}</span>是否打印</li>
+    {else} <a href="javascript:checkpay('{$row['out_trade_no']}',{$row['paytype']})" class="list-group-item list-group-item-info"><span class="pull-right"><i class="fa fa-angle-right"></i></span>检查支付</a> {/if}
+  </ul>
+  {/loop}  
+</div>
+  <div style="padding:10px;"><a href="javascript:morerecord()" id="btnmore" class="btn btn-default btn-block">查看更多</a></div>
+  <textarea id="debug" style="width:100%; display:none;"></textarea>
+<script language="javascript">
+$(function() {
+  FastClick.attach(document.body);
+});
+var page=1;
+function checkpay(orderid , type){
+	$.jweui.loading('show');
+	if(type==0){
+		$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'checwechatkpay'))}",{"orderid":orderid},function(data){
+			$.jweui.loading('hide');
+			//$("#debug").val(data);
+			var feedback=eval("("+data+")");
+			if(feedback.success){
+				var temp=feedback.items;
+				if(temp['trade_state']=="SUCCESS"){
+					paySuccess(orderid);
+				}else{
+					swal(temp['trade_state_desc']);
+				}
+			}else{
+				swal(feedback.msg);
+			}
+		});
+	}else{
+		$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'checkalipay'))}",{"orderid":orderid},function(data){
+			$.jweui.loading('hide');
+			//$("#debug").val(data);
+			var feedback=eval("("+data+")");
+			if(feedback.success){
+				if(feedback.result){
+					swal('客户未支付');
+				}else{
+					alert('已经支付');
+				}
+			}else{
+				swal(feedback.msg);
+			}
+		});
+	}
+}
+function paySuccess(orderid){
+	//检查支付成功后
+}
+function morerecord(){
+	page++;
+	$.jweui.loading('show');
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'mobilemore'))}",{"page":page},function(data){
+		$.jweui.loading('hide');
+		var feedback=eval("("+data+")");
+		if(feedback.success){
+			var list=feedback.item;
+			for(i in list){
+				var temp='<ul class="list-group" id="pay'+list[i]['out_trade_no']+'">';
+				temp+='<li class="list-group-item '+(parseInt(list[i]['status']) ? "list-group-item-success" :'')+'"><span class="pull-right">'+(parseInt(list[i]['status']) ? '<span class="label label-success">已支付</span>' : '<span class="label label-danger">未支付</span>')+'</span>单号：'+list[i]['out_trade_no']+'</li>';
+				if(list[i]['old_trade_no']){
+					temp+='<li class="list-group-item">原单号/台号:'+list[i]['old_trade_no']+'</li>';
+				}
+				
+				temp+='<li class="list-group-item"><span class="pull-right">'+(list[i]['paytype'] ? '<span class="label label-info">支付宝</span>':'<span class="label label-success">微信</span>')+'</span>支付方式</li>';
+				
+				temp+='<li class="list-group-item"><span class="pull-right">￥'+ (parseInt(list[i]['total_fee'])*0.01).toFixed(2) +' - '+(parseInt(list[i]['coupon_fee'])*0.01).toFixed(2)+'</span>金额计算</li>';
+				temp+='<li class="list-group-item"><span class="pull-right" style="color:#F00">￥'+(parseInt(list[i]['cash_fee'])*0.01).toFixed(2)+'</span>实收金额</li>';
+				temp+=parseInt(list[i]['status']) ? '<li class="list-group-item"><span class="pull-right">'+(parseInt(list[i]['isprint']) ? '<span class="label label-success">已打印</span>' : "<span class='label label-danger'>未打印</span>")+"</span>是否打印</li>" : '<a href="javascript:checkpay(\''+list[i]['out_trade_no']+'\','+list[i]['paytype']+')" class="list-group-item list-group-item-info"><span class="pull-right"><i class="fa fa-angle-right"></i></span>检查支付</a>';
+				temp+='</ul>';
+				$(".list_box").append(temp);
+			}
+		}else{
+			$("#btnmore").remove();
+			swal("没有更多记录了");
+		}
+	});
+}
+wx.ready(function () {
+	wx.hideOptionMenu();
+});
+</script>

@@ -1,0 +1,380 @@
+{template 'common/header'} 
+<script>
+require(['bootstrap.switch', 'util'], function($, u){
+	$(function(){
+		$('.make-switch').bootstrapSwitch();
+	});
+});
+</script>
+<div class="main">
+  <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1">
+    <div class="panel panel-default">
+      
+      <div class="panel-heading">调试</div>
+      <div class="panel-body" {if !$_W['isfounder']}style="display:none"{/if}>
+      	<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">调试开关</label>
+          <div class="col-sm-9">
+            <label class="radio-inline">
+              <input type="radio" name="debug" value="0" {if $item['debug'] == 0} checked{/if} />
+              关闭</label>
+            <label class="radio-inline">
+              <input type="radio" name="debug" value="1" {if $item['debug'] == 1} checked{/if} />
+              开启</label>
+              <div class="help-block">用于调试各项内容。请勿自行开启。</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">最大组别</label>
+          <div class="col-sm-9 form-inline">
+            <input type="number" name="groupnum" value="{php echo intval($settings['groupnum'])}" class="form-control"/>
+              <div class="help-block">限制该账户最多的组别数量。0为不限制。本内容仅网主可见</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">最大人员数</label>
+          <div class="col-sm-9 form-inline">
+            <input type="number" name="usernum" value="{php echo intval($settings['usernum'])}" class="form-control"/>
+              <div class="help-block">限制该账户最多的收银员数量。0为不限制。本内容仅网主可见</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">手机端版权</label>
+          <div class="col-sm-9">
+            <input type="text" name="copyright" value="{$settings['copyright']}" class="form-control"/>
+          </div>
+        </div>
+      </div>
+      
+      <div class="panel-heading">退款</div>
+      <div class="panel-body" {if !$_W['isfounder']}style="display:none"{/if}>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">退款模板ID</label>
+          <div class="col-sm-9">
+            <input type="text" name="tempid2" value="{$settings['tempid2']}" class="form-control"/>
+              <div class="help-block">编号:【TM00431】，名称【退款申请通知】，行业【IT科技-互联网|电子商务】	</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">退款管理员</label>
+          <div class="col-sm-9">
+            <input type="text" name="refunder" value="{$settings['refunder']}" style=" width:250px;" class="form-control"/>
+            <div class="help-block">请在粉丝列表中，填写OPENID。仅1人。退款信息及操作将发送给此人确认。</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="panel-heading">微信-支付参数</div>
+      <div class="panel-body" {if !$_W['isfounder']}style="display:none"{/if}>
+        <div class="form-group" >
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">AppId</label>
+          <div class="col-sm-9">
+            <input type="text" name="appid" value="{$settings['appid']}" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">子商户AppId</label>
+          <div class="col-sm-9">
+            <input type="text" name="sub_appid" value="{$settings['sub_appid']}" class="form-control"/>
+            <div class="help-block">如果您是服务商，请在这里填写子商户的appid。如果不是服务商，请勿填写！</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">AppSecret</label>
+          <div class="col-sm-9">
+            <input type="text" name="appsecret" value="{$settings['appsecret']}" class="form-control"/>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户名称</label>
+        <div class="col-sm-9 ">
+          <input type="text" value="{$settings['pay_name']}" class="form-control" name="pay_name">
+          <div class="help-block">商户名称,不能多于6个中文字</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户号</label>
+        <div class="col-sm-9">
+          <input type="text" value="{$settings['pay_mchid']}" class="form-control" name="pay_mchid">
+        </div>
+      </div>
+      <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">子商户商户号</label>
+          <div class="col-sm-9">
+            <input type="text" name="sub_mch_id" value="{$settings['sub_mch_id']}" class="form-control"/>
+            <div class="help-block">如果您是服务商，请在这里填写子商户的商户号。如果不是服务商，请勿填写！</div>
+          </div>
+        </div>
+      <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户密钥</label>
+        <div class="col-sm-9">
+          <input type="text" value="{$settings['pay_signkey']}" class="form-control" name="pay_signkey">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">IP</label>
+        <div class="col-sm-9">
+          <input type="text" value="{$settings['pay_ip']}" class="form-control" name="pay_ip">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">扫码回调地址</label>
+        <div class="col-sm-9">
+          <input type="text" value="{$settings['notify_url']}" class="form-control" name="notify_url">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户证书</label>
+        <div class="col-sm-9">
+          <button type="button" class="btn btn-default" onClick="$('#rootca').click()">{if $settings['rootca']}已上传-点击修改{else}请上传rootca.pem{/if}</button>
+          <input type="hidden" name="rootca2" value="{$settings['rootca']}"/> rootca.pem
+          <input type="file" name="rootca" id="rootca"  style="display:none;">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户证书</label>
+        <div class="col-sm-9">
+          <button type="button" class="btn btn-default" onClick="$('#apiclient_cert').click()">{if $settings['apiclient_cert']}已上传-点击修改{else}请上传apiclient_cert.pem{/if}</button>
+          <input type="hidden" name="apiclient_cert2" value="{$settings['apiclient_cert']}"/>apiclient_cert.pem
+          <input type="file" name="apiclient_cert" value="{$settings['apiclient_cert']}" id="apiclient_cert" style="display:none;">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户证书</label>
+        <div class="col-sm-9">
+          <button type="button" class="btn btn-default" onClick="$('#apiclient_key').click()">{if $settings['apiclient_key']}已上传-点击修改{else}请上传apiclient_key.pem{/if}</button>
+          <input type="hidden" name="apiclient_key2" value="{$settings['apiclient_key']}"/>apiclient_key.pem
+          <input type="file" name="apiclient_key" id="apiclient_key" style="display:none;">
+        </div>
+      </div>
+      <div class="panel-heading">支付宝-支付参数</div>
+      <div class="panel-body" {if !$_W['isfounder']}style="display:none"{/if}>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">app_id</label>
+          <div class="col-sm-9">
+            <input type="text" name="app_id" value="{$settings['app_id']}" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">支付宝网关</label>
+          <div class="col-sm-9">
+            <input type="text" name="gatewayUrl" value="{php echo $settings['gatewayUrl'] ? $settings['gatewayUrl'] : 'https://openapi.alipay.com/gateway.do'}" class="form-control"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">支付宝公匙</label>
+          <div class="col-sm-9">
+            <button type="button" class="btn btn-default" onClick="$('#alipay_public_key_file').click()">{if $settings['alipay_public_key_file']}已上传-点击修改{else}请上传alipay_public_key_file.pem{/if}</button>
+            <input type="hidden" name="alipay_public_key_file2" value="{$settings['alipay_public_key_file']}"/>alipay_public_key_file.pem
+            <input type="file" name="alipay_public_key_file" id="alipay_public_key_file"  style="display:none;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">服务器私匙</label>
+          <div class="col-sm-9">
+            <button type="button" class="btn btn-default" onClick="$('#merchant_private_key_file').click()">{if $settings['merchant_private_key_file']}已上传-点击修改{else}请上传merchant_private_key_file.pem{/if}</button>
+            <input type="hidden" name="merchant_private_key_file2" value="{$settings['merchant_private_key_file']}"/>merchant_private_key_file.pem
+            <input type="file" name="merchant_private_key_file" value="{$settings['merchant_private_key_file']}" id="merchant_private_key_file" style="display:none;">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">服务器公匙</label>
+          <div class="col-sm-9">
+            <button type="button" class="btn btn-default" onClick="$('#merchant_public_key_file').click()">{if $settings['merchant_public_key_file']}已上传-点击修改{else}请上传merchant_public_key_file.pem{/if}</button>
+            <input type="hidden" name="merchant_public_key_file2" value="{$settings['merchant_public_key_file']}"/>merchant_public_key_file.pem
+            <input type="file" name="merchant_public_key_file" id="merchant_public_key_file" style="display:none;">
+          </div>
+        </div>
+      </div>
+      <div class="panel-heading">其他设置</div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">登录页背景图</label>
+          <div class="col-sm-9"> {php echo tpl_form_field_image('bg', $settings['bg']);}
+            <div class="help-block">收银登陆页背景1980*1280px</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">LOGO</label>
+          <div class="col-sm-9"> {php echo tpl_form_field_image('logo', $settings['logo']);}
+            <div class="help-block">收银界面LOGO139*46px</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">小票张宽度</label>
+          <div class="col-sm-9 form-inline">
+          <div class="input-group">
+            <input type="number" class='form-control' name='printpagewidth' value='{php echo $settings["printpagewidth"] ? $settings["printpagewidth"] : 57}'/>
+            <span class="input-group-addon">mm(毫米)</span>
+            </div>
+            <div class="help-block">热敏小票一般为57mm,则上面写57。请按照实际情况填写。</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">小票打印数量</label>
+          <div class="col-sm-9 form-inline">
+            <input type="number" class='form-control' name='printnum' value='{php echo $settings["printnum"] ? $settings["printnum"] : 1}'/>
+            <div class="help-block">收款成功后，收款小票打印数量.最大数量9</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">小票默认二维码</label>
+          <div class="col-sm-9"> {php echo tpl_form_field_image('qrcode', $settings['qrcode']);}
+            <div class="help-block">大小300*300px。如果打印小时，使用二维码打印。当不满足活动活动打印时打印此二维码</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">登陆有效期</label>
+          <div class="col-sm-9 form-inline">
+          <div class="input-group">
+            <input type="number" class='form-control' style="width:80px" name='cookiehold' value='{php echo intval($settings["cookiehold"]) ? intval($settings["cookiehold"]) : 8}'/><span class="input-group-addon">小时</span></div>
+            <div class="help-block">收银员登陆后，多长时间内有效。建议按实际情况修改</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">微信卡券</label>
+          <div class="col-sm-9 col-xs-12">
+            <div id="wxcard"> {php $wxcard=json_decode($settings['wxcard'],true)}
+              {php $i=0}
+              {if count($wxcard)}
+              {loop $wxcard $index $row}
+              <div>
+                <label wxold='{php echo $i}' class='form-inline' >
+                  <input class='form-control' name='wxcard-key[{php echo $i}]' required value='{$index}' placeholder='字段名'/>
+                  :
+                  <input class='form-control' name='wxcard-val[{php echo $i}]' required value='{$row}' placeholder='卡券ID'/>
+                  <a href="javascript:delwxo('{php echo $i}')"><i class='glyphicon glyphicon-remove-circle'></i></a></label>
+              </div>
+              {php $i++}
+              {/loop}
+              {/if} </div>
+            <a href="javascript:addwxcard()"><i class="icon-plus-sign-alt"></i> 添加</a>
+            <div class="help-block">请先到【粉丝营销】-【微信卡券】中生成微信卡券，然后填写卡券中的【卡券id】。<a href="./index.php?c=wechat&a=account" target="_blank">添加卡券</a></div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">模板消息ID</label>
+          <div class="col-sm-9 col-xs-12">
+            <input type="text" name="tempid" class="form-control" value="{$settings['tempid']}" />
+            <div class="help-block">建议OPENTM200444326【订单付款成功通知】，用于针对公众号老粉丝交互超48小时时，通知客户</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">模板消息详情</label>
+          <div class="col-sm-9 col-xs-12">
+            <textarea name="tempcontent" id="tempcontent" class="form-control" rows="6">{$settings['tempcontent']}</textarea>
+            <button type="button" class="btn btn-primary" onclick="resolve()">解析模板内容</button>
+            <div class="help-block">可用标签|#单号#|,|#时间#|,|#总金额#|,|#优惠金额#|,|#实付金额#|,|#支付方式#|,|#优惠#|</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>参数</label>
+          <div class="col-sm-9 col-xs-12">
+            <div id="parama"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">模板消息链接</label>
+          <div class="col-sm-9 col-xs-12">
+            <input type="text" name="tempurl" class="form-control" value="{$settings['tempurl']}" />
+            <div class="help-block">客户点击模板消息后，跳转的链接。</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-heading">积分</div>
+      <div class="panel-body">
+      	<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">积分类型</label>
+          <div class="col-sm-9 form-inline">
+              <div class="input-group">
+              <span class="input-group-addon">人民币1分钱</span>
+              <span class="input-group-addon">获得</span>
+                <input type="number" class='form-control' name='creadit' value='{php echo $settings["creadit"] ? $settings["creadit"] : 0}'/>
+                <span class="input-group-addon">积分</span>
+                </div>
+              <div class="help-block">【仅限微信】当开启时，如果符合要求则赠送积分。但是这里涉及到系统获取用户会员身份的问题。</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-heading">其他设置</div>
+      <div class="panel-body">
+      	<div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">开启输入台号/单号</label>
+          <div class="col-sm-9">
+            <label class="radio-inline">
+              <input type="radio" name="needtable" value="0" {if $settings['needtable'] == 0} checked{/if} />
+              关闭</label>
+            <label class="radio-inline">
+              <input type="radio" name="needtable" value="1" {if $settings['needtable'] == 1} checked{/if} />
+              开启</label>
+              <div class="help-block">在收款时，要求输入台号/单号，方便原收银系统或者其他平台在数据上对接</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group col-sm-12">
+      <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+      <input type="hidden" name="token" value="{$_W['token']}" />
+    </div>
+  </form>
+</div>
+<script>
+var j=0;
+function addwxcard(){
+	var temp="<div><label wx='"+j+"' class='form-inline'><input class='form-control' name='wxcard-key-new["+j+"]' required placeholder='字段名'/>:<input class='form-control' name='wxcard-val-new["+j+"]' required placeholder='卡券ID'/> <a href='javascript:delwx("+j+")'><i class='glyphicon glyphicon-remove-circle'></i></a></label></div>";
+	$("#wxcard").append(temp);
+	j++;
+}
+function delwx(obj){
+	$("label[wx='"+obj+"']").remove();
+}
+function delwxo(obj){
+	$("label[wxold='"+obj+"']").remove();
+}
+//----
+i=0;
+resolve();
+function resolve(){
+	msg=$("#tempcontent").val() ? $("#tempcontent").val():$("#tempcontent").html();
+	if(msg=='undefined' || msg=="" || msg.length<10)return;
+	var test = /\{\{.*?\.(DATA)\}\}/gi;
+	var result = [];
+	var img ;
+	$("#parama").empty();
+	while(img = test.exec(msg)){
+		temp=img[0].replace(" ","").replace("{{","").replace(".DATA}}","");
+		addparama(temp);
+	}
+}
+function addparama(){
+	var tempstr='{php echo $settings["tempparama"]}';
+	var odata;
+	var hh;
+	if(tempstr.length>10){
+		odata=eval("("+tempstr+")");
+	}
+	key=arguments[0]!=""?arguments[0]:"";
+	
+	//alert(typeof(odata));
+	
+	val=typeof(odata)!="undefined" ? odata[key]['value'] : "";
+	color=typeof(odata)!="undefined" ? odata[key]['color'] : "";
+	var temp="<div><label class='form-inline'><input class='form-control' readonly name='parama-key["+i+"]' value='"+key+"' placeholder='键'/> : <input class='form-control' name='parama-val["+i+"]' value='"+val+"' placeholder='值'/>  : <input class='form-control' class='tcolor' name='parama-color["+i+"]' placeholder='颜色' value='"+color+"'/> </label></div>";
+	$("#parama").append(temp);
+	setcolor($('input[name="parama-color['+i+']"]'));
+	i++;
+}
+function setcolor(elm){
+	require(['jquery', 'util'], function($, util){
+		$(function(){
+			util.colorpicker(elm, function(color){
+				elm.val(color);
+			});
+		});
+	});
+}
+</script> 
+{template 'common/footer'}

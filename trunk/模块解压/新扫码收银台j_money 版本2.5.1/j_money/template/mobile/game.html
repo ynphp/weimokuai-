@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>{$item['title']}</title>
+<meta name="format-detection" content="telephone=no, address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link href="./resource/css/bootstrap.min.css" rel="stylesheet">
+<link href="./resource/css/font-awesome.min.css" rel="stylesheet">
+<link href="./resource/css/animate.css" rel="stylesheet">
+<link href="./resource/css/common.css" rel="stylesheet">
+{php echo register_jssdk(false);}
+<script type="text/javascript" src="{MODULE_URL}template/js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/js/sweetalert.min.js"></script>
+<link href="{MODULE_URL}template/js/sweetalert.css" rel="stylesheet">
+<script type="text/javascript" src="{MODULE_URL}template/js/let.js"></script> 
+<style>
+html{height:100%;}
+body{background:{$item['bgcolor']} url({if $item['thumb_bg']}{php echo tomedia($item['thumb_bg'])}{else}{MODULE_URL}template/img/startbg.jpg{/if});}
+.gamebody{ width:100%;height:100%;}
+.turntablebox{width:90%;margin:20px auto 0 auto; text-align:center; position:relative; overflow:hidden}
+#pointerbox{ position:absolute;top:0;}
+.infobox{width:96%;margin:30% auto 0 auto; }
+.infobox-body{background:url({MODULE_URL}template/img/messagebox2.png) top left repeat-y; background-size:100% auto; text-align:center; padding:10px 0;}
+.infobox-footer{background:url({MODULE_URL}template/img/messagebox3.png) bottom left no-repeat; background-size:100% 100%; text-align:center; padding:10px 0 }
+.game-info{ margin:10px; background:#FFF;border-radius:5px;padding:2px}
+.box{border-radius:5px; font-size:14px;border:1px dashed #CCC;}
+.title-brown{padding:0 5px 0 10px;border-radius:3px 3px 3px 0;color:#FFF;height:22px; margin:-1px; width:84px; background:#0D6FB8}
+.Detail{ padding:15px;}
+.game-btn{ text-align:center;}
+.game-btn div[class^='col-']{ padding:0 2px; margin:0;}
+.red{color:#F00}
+.jbtn{ background:#5CB85C; border:1px solid #4CAE4C;color:#FFF;padding:8px; text-align:center;display:block;width:100%;border-radius:4px;font-size:14px;}
+.fansinfobox{ background:rgba(0,0,0,0.6); position:absolute; width:100%; height:100%; z-index:9999; top:0; left:0}
+.jinput{background:#FFF; line-height:18px; padding:5px 1%; border-radius:4px; border:1px solid #EEE; display:block; width:98%}
+.jpannel{ width:90%; border-radius:8px; border:1px solid #EEE; background:#FFF; margin:30% auto 0 auto}
+.jpannel-head{border-top-left-radius:8px;border-top-right-radius:8px; background:#FFF;font-size:14px; font-weight:bold; padding:10px; border-bottom:1px solid #EEE}
+.jpannel-foot{border-bottom-left-radius:8px;border-bottom-right-radius:8px; background:#FFF;font-size:14px;padding:10px;border-top:1px solid #EEE}
+.jpannel-body{padding:10px;}
+</style>
+</head>
+<body>
+<div class="gamebody">
+  <div class="turntablebox" >
+    <div id="turntable" class="turntable"><img src="{if strpos($item['zppic'],'..')}{$item['zppic']}{else}{php echo tomedia($item['zppic'])}{/if}" style="width:100%;"/></div>
+    <div id="pointerbox"><img src="{if strpos($item['thumb_pointer'],'..')}{$item['thumb_pointer']}{else}{php echo tomedia($item['thumb_pointer'])}{/if}" id="pointer" onclick="StartGame()" style="width:100%;" /></div>
+  </div>
+  <div class="game-info">
+    <div class="box">
+    	<div class="title-brown">游戏说明</div>
+        <div class="Detail">
+        	{$item['rule']}
+        </div>
+    </div>
+  </div>
+  <div class="game-info">
+    <div class="box">
+    	<div class="title-brown">奖项说明</div>
+        <div class="Detail">
+        	{loop $prizelist $row}
+            <div>{$row['level']},剩余数量{$row['total']}份</div>
+            {/loop}
+        </div>
+    </div>
+  </div>
+  {if count($isGetPrize)}
+  <div class="game-info">
+    <div class="box">
+    	<div class="title-brown">中奖纪录</div>
+        <div class="Detail">
+            {loop $isGetPrize $row}
+            <div>恭喜您获得【<span class="red">{php echo $prizeary[$row['aid']]}</span>】一份，兑奖码为：{$row['sncode']}</div>
+            {/loop}
+        </div>
+    </div>
+  </div>
+  {/if}
+  {if empty($footer_off)}
+      <div class="text-center footer" style="margin:10px 0; padding-bottom:60px; width:100%; text-align:center; word-break:break-all;">
+          {if !empty($_W['page']['footer'])}
+              {$_W['page']['footer']}
+          {/if}
+      </div>
+  {/if}
+</div>
+<!--结束-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">结果公布</h4>
+      </div>
+      <div class="modal-body" style="text-align:center;"> </div>
+    </div>
+  </div>
+</div>
+<script language="javascript">
+var isTurn=0;
+$(document).ready(function(e) {
+	_height=$(window).height();
+	$(".gamebody").height(_height-20);
+});
+
+function StartGame(){
+	var flag2=parseInt("{php echo $flag}");
+	if(!flag2){
+		swal("您已经没有抽奖机会了哦~");
+		return;
+	}
+	if(isTurn==1)return;
+	isTurn=1;
+	$("#turntable").removeAttr("style");
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'game','id'=>$id))}",{},function(data){
+		if(data.err){
+			swal(data.msg);
+			isTurn=0;
+		}else{
+			StartTurn(data.deg,data.msg,parseInt(data.is));
+		}
+	},'json');
+}
+
+function StartTurn(num,text2,status){
+	Let('.turntable')
+		.duration(3000)
+  		.rotate(360)
+		.then()
+		.duration(3000)
+  		.rotate(3600)
+		.then()
+		.duration(2000)
+		.rotate(360)
+		.then()
+		.duration(4000)
+		.rotate(num)
+  	.end(function(){
+		if(status==1){
+			swal({title: "热烈祝贺",text: text2,type: "success",html:true,confirmButtonText: "朕知道了",});
+		}else{
+			swal({title: "提示",text:text2,type: "warning",html:true,confirmButtonText: "朕知道了",});
+		}
+		isTurn=0;
+	});
+}
+wx.ready(function () {
+	sharedata = {
+		title: "{$item['title']}",
+		desc: "{$item['sharedes']}",
+		imgUrl:"{php echo tomedia($item['clientpic'])}",
+		link: "{$_W['siteurl']}",
+		success: function(){},
+		cancel: function(){}
+	};
+	wx.onMenuShareAppMessage(sharedata);
+	wx.onMenuShareTimeline(sharedata);
+	wx.onMenuShareQQ(sharedata);
+	wx.onMenuShareWeibo(sharedata);
+});
+</script> 

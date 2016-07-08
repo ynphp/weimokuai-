@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[辛福城]]></name>
+		<identifie><![CDATA[yg_hcity]]></identifie>
+		<version><![CDATA[1.7]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[大家一起来聚款]]></ability>
+		<description><![CDATA[大家一起来聚款，大家一起来聚款。]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="辛福入口" do="import" state="" direct="false" />
+		</cover>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_yg_hcity_info` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) DEFAULT NULL,
+  `openid` varchar(255) DEFAULT NULL,
+  `nickname` varchar(1000) DEFAULT NULL,
+  `headimgurl` varchar(1000) DEFAULT NULL,
+  `logoopenid` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_yg_hcity_oauth` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `appid` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `secret` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE IF NOT EXISTS `ims_yg_hcity_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL,
+  `uniacid` int(10) unsigned NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `thumb` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `starttime` int(10) unsigned NOT NULL,
+  `endtime` int(10) unsigned NOT NULL,
+  `sharepic` varchar(500) NOT NULL,
+  `sharedesc` varchar(255) NOT NULL,
+  `sharetitle` varchar(10) NOT NULL,
+  `indexmsg` varchar(255) NOT NULL COMMENT '首页提示',
+  `pwd` varchar(255) DEFAULT NULL COMMENT '密码',
+  `lpyl1` varchar(500) DEFAULT NULL COMMENT '老婆的',
+  `lpyl2` varchar(500) DEFAULT NULL COMMENT '老婆2',
+  `lzren` varchar(500) DEFAULT NULL COMMENT '老丈人',
+  `zmniang` varchar(500) DEFAULT NULL COMMENT '丈母娘',
+  `myyl` varchar(255) DEFAULT NULL COMMENT '我的',
+  `actkh` varchar(500) DEFAULT NULL COMMENT '活动口号',
+  `actlink` varchar(255) DEFAULT NULL COMMENT '活动链接',
+  `createtime` int(10) unsigned NOT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `lpylpic` varchar(500) DEFAULT NULL,
+  `lzrenpic` varchar(500) DEFAULT NULL,
+  `zmniangpic` varchar(500) DEFAULT NULL,
+  `lzrenname` varchar(255) DEFAULT NULL,
+  `lpylname` varchar(255) DEFAULT NULL,
+  `zmniangname` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

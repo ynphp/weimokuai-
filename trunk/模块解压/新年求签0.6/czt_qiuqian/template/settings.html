@@ -1,0 +1,147 @@
+{template 'common/header'}
+<div class="main">
+	<form class="form-horizontal form" id="" action="" method="post">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				设置
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+					<div class="col-sm-8">
+						<input class="form-control" name="s_title" type="text" value="{if empty($settings['s_title'])}2015乙未羊，为自己摇枚新年签！{else}{$settings['s_title']}{/if}">
+					</div>	
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享内容</label>
+					<div class="col-sm-8">
+						<input class="form-control" name="s_des" type="text" value="{if empty($settings['s_des'])}这是对过去的感悟和对新年的祈望，希望它能为你带来好运！{else}{$settings['s_des']}{/if}">
+					</div>	
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享图标</label>
+					<div class="col-sm-8">
+						{php echo tpl_form_field_image('s_icon', empty($settings['s_icon'])?MODULE_URL.'template/mobile/images/ico.gif':$settings['s_icon']);}&nbsp;&nbsp;不上传为默认
+					</div>	
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">背景图片</label>
+					<div class="col-sm-8">
+						{php echo tpl_form_field_image('bg_image',empty($settings['bg_image'])?MODULE_URL.'template/mobile/images/bg.jpg':$settings['bg_image']);}&nbsp;&nbsp;大小建议500x750，不上传为默认
+					</div>	
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">引导关注素材链接</label>
+					<div class="col-sm-8">
+						<input class="form-control" name="subscribe_url" type="text" value="{$settings['subscribe_url']}">&nbsp;&nbsp;设置一条引导关注的素材链接引导,用户关注公众号。例: <a href="javascript:;" data-toggle="modal" data-target="#subscribeurl">点击查看</a>
+					</div>	
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				添加自定义新年签
+			</div>
+			<div class="panel-body" id="new_qian">
+			{loop $settings['new_qian'] $item}
+				<div class="qian_item">
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">新年签名称</label>
+						<div class="col-sm-8">
+							<input class="form-control" name="new_qian[name][]" type="text" value="{$item['name']}">
+						</div>	
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">新年签图片</label>
+						<div class="col-sm-8">
+							{php echo tpl_form_field_image('new_qian[img][]',$item['img']);}&nbsp;&nbsp;大小建议500x750
+						</div>	
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+						<div class="col-sm-9">
+							<a class="btn btn-danger qian_del" href="javascript:;"><span class="glyphicon glyphicon-remove">删除</a>
+						</div>
+					</div>
+					<hr/>
+				</div>
+			{/loop}
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+				<div class="col-sm-9">
+					<button id="qian_add" type="button" class="btn btn-warning"><span class="glyphicon glyphicon-plus"></span>添加
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input name="token" type="hidden" value="{$_W['token']}" />
+			<input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+		</div>
+	</form>
+</div>
+<div class="modal fade" id="subscribeurl" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content" style="width:740px;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title" id="myModalLabel">引导关注示例</h4>
+			</div>
+			<div class="modal-body">
+				<h4>引导关注素材示例页面</h4>
+				<span class="help-block">{php echo date('Y-m-d', time());}&nbsp;&nbsp;
+				<a href="javascript:;">{$_W['account']['name']}</a></span>
+				<img src="http://mmbiz.qpic.cn/mmbiz/H4e9icvgf3FWxcBqwf7R3gqMMtZWVzepD5FlCLf5K05Pllyy3FLiaGiamxYZMybQclGbuK4qg3ls46bfEM1lSVNKw/0" />
+				<span class="help-block">欢迎关注{$_W['account']['name']}</span>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script language='javascript'>
+	require(['jquery', 'util'], function($, u){
+		$(function(){
+			$('#new_qian').on('click','.qian_del',function (e) {
+				e.preventDefault();
+				$(this).parents('.qian_item').remove();
+			});
+			$('#qian_add').click(function (e) {
+				e.preventDefault();
+				var html='<div class="qian_item">\
+					<div class="form-group">\
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">新年签名称</label>\
+						<div class="col-sm-8">\
+							<input class="form-control" name="new_qian[name][]" type="text" value="">\
+						</div>\
+					</div>\
+					<div class="form-group">\
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">新年签图片</label>\
+						<div class="col-sm-8">\
+<div class="input-group ">\
+	<input type="text" name="new_qian[img][]" value="" class="form-control" autocomplete="off">\
+	<span class="input-group-btn">\
+		<button class="btn btn-default" type="button" onclick="showImageDialog(this, \'YTozOntzOjQ6InRhYnMiO2E6Mjp7czo3OiJicm93c2VyIjtzOjY6ImFjdGl2ZSI7czo2OiJ1cGxvYWQiO3M6MDoiIjt9czo2OiJnbG9iYWwiO2I6MDtzOjExOiJjbGFzc19leHRyYSI7czowOiIiO30=\', {\'tabs\':{\'browser\':\'active\',\'upload\':\'\'},\'global\':false,\'class_extra\':\'\'});">选择图片</button>\
+	</span>\
+</div><div class="input-group " style="margin-top:.5em;">\
+	<img src="./resource/images/nopic.jpg" onerror="this.src=\'./resource/images/nopic.jpg\'; this.title=\'图片未找到.\'" class="img-responsive img-thumbnail" width="150" />\
+</div>&nbsp;&nbsp;大小建议500x750\
+						</div>\
+					</div>\
+					<div class="form-group">\
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>\
+						<div class="col-sm-9">\
+							<a class="btn btn-danger qian_del" href="javascript:;">删除</a>\
+						</div>\
+					</div>\
+					<hr/>\
+				</div>\
+';
+				$('#new_qian').append(html);
+			});
+		});
+	});
+</script>
+{template 'common/footer'}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>我摇到的新年签：{$qian['name']}</title>
+	<script type="text/javascript" src=""></script>
+	<link rel="stylesheet" type="text/css" href="">
+	<script type="text/javascript">
+	
+	</script>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<h2 style="text-align: center;">我摇到的新年签：{$qian['name']}</h2>
+<small>点击关注→<a style="text-decoration:none;color:#00A0FA; " href="{$settings['subscribe_url']}">{$_W['account']['name']}</a>，发送文字“{$keyword}”摇取你的新年签~</small>
+<br><br>
+{if $id>18}
+<div style="width:100%"><img style="width:100%" src="{$_W['attachurl']}{$qian['img']}" alt=""></div>
+{else}
+<img style="position: absolute;z-index: -99;left: -9999px;" src="{MODULE_URL}template/mobile/qian/{$qian['pinyin']}_icon.jpg" alt="">
+<div style="width:100%"><img style="width:100%" src="{MODULE_URL}template/mobile/qian/{$qian['pinyin']}.jpg" alt=""></div>
+{/if}
+</body>
+</html>

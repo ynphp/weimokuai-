@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>收银台</title>
+<meta name="format-detection" content="telephone=no, address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link href="./resource/css/bootstrap.min.css" rel="stylesheet">
+<link href="./resource/css/font-awesome.min.css" rel="stylesheet">
+<link href="./resource/css/animate.css" rel="stylesheet">
+<link href="./resource/css/common.css" rel="stylesheet">
+<script src="{MODULE_URL}template/js/jquery-2.1.1.min.js"></script>
+<script src="{MODULE_URL}template/js/sweetalert.min.js"></script>
+<link type="text/css" rel="stylesheet" href="{MODULE_URL}template/js/sweetalert.css"/>
+</head>
+<body>
+{if $operation=='display'}
+<style>
+html{ height:100%;}
+body{height:100%; overflow:hidden; background:url({php echo tomedia($cfg['bg'])}); background-size:100% 100%;}
+.login_body{ display:table; width:80%; margin:0 auto; max-width:300px;height:100%;}
+.row{ display:table-row;}
+.cell{ display:table-cell; width:100%;vertical-align:middle; text-align:center}
+.form-control{ margin-bottom:10px;}
+</style>
+<!--登录-->
+<div class="login_body">
+  <div class="row">
+    <div class="cell">
+      <form  onSubmit="return false;">
+        <div class="input-group" style="margin-bottom:10px;"> <span class="input-group-addon" ><i class="fa fa-user" style="width:40px"></i></span>
+          <input type="text" name="userid" class="form-control" placeholder="用户名" required autofocus autocomplete="off" style="cursor:auto;">
+        </div>
+        <div class="input-group" style="margin-bottom:10px;"> <span class="input-group-addon" ><i class="fa fa-key" style="width:40px"></i></span>
+          <input type="password" name="pwd" class="form-control" placeholder="密码" required autocomplete="off">
+        </div>
+        <button class="btn btn-warning btn-block" type="submit" onClick="return checkUpdate();return false;"><i class="fa fa-sign-in"></i> 登录</button>
+      </form>
+    </div>
+  </div>
+</div>
+<script language="javascript">
+$(document).ready(function(e) {
+    var _h=$(document).height();
+	$(".cell").height(_h*0.8);
+});
+function checkUpdate(){
+	var userid=$("input[name='userid']").val();
+	var pwd=$("input[name='pwd']").val();
+	if(userid.length<1){
+		swal("用户名不能为空");
+		return false;
+	}
+	if(pwd.length<6){
+		swal("密码长度不正确");
+		return false;
+	}
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'login'))}",{"userid":userid,"pwd":pwd},function(data){
+		if(data.success){
+			location.href="{php echo $this->createMobileUrl('index',array('op'=>'in'))}";
+		}else{
+			swal(data.msg);
+		}
+	},'json');
+	return false;
+}
+</script> 
+{else} 
+<!--登录成功-->
+<style>
+.jrow{ display:table-row;}
+.jcell{ display:table-cell}
+.valignM{ vertical-align:middle;}
+.main_top{height:50px; background:#18BB9C; display:table; width:100%;}
+.top_logo{width:80px; background:#1F232C; text-indent:30px;line-height:40px; padding:5px;}
+.top_menu{line-height:50px;text-align:right; padding:0 30px 0 0;color:#FFF;}
+.top_menu a{color:#FFF; display:inline-block; text-decoration:none; line-height:50px; padding:0 10px}
+.top_menu a:hover{ background:#FFF; color:#18BB9C}
+.main_body{display:table;width:100%;}
+.body_left{width:80px;vertical-align:top;color:#FFF;background:#2F3541;}
+.body_left_userinfobox{ background:#2F3541; padding:5px;}
+.body_left_menu{ background:#2F3541;}
+.body_left_menu ul,.body_left_menu ul li{ list-style:none; margin:0; padding:0;}
+.body_left_menu ul li{padding:10px; line-height:24px; cursor:pointer;}
+.body_left_menu ul li:hover{ background:#18BB9C}
+.body_left_menu ul li.jlabel{background:#18BB9C}
+.body_left_menu ul li span{ float:right;}
+.body_left_menu ul li b{ margin-right:10px;}
+.body_right{vertical-align:top;padding:20px;}
+.body_right_meneybox{ text-align:center;}
+.body_right_meneybox h2{ border-top-left-radius:4px;border-top-right-radius:4px;color:#FFF; font-size:40px; line-height:70px; margin:0}
+.body_right_moneybox_btm{border-bottom-left-radius:4px;border-bottom-right-radius:4px;background:#FFF;border:1px solid #CCC;border-top:none;color:#999; padding:10px 0;}
+.body_right_moneybox_btm .col-md-6:first-child{ border-right:1px solid #CCC;}
+.body_right_moneybox_btm span{ font-size:22px; color:#666; display:block}
+.body_right_main{ margin-top:20px;}
+.bg_yellow{background:#F5AB35}
+.bg_green{background:#2ECC71}
+.bg_red{background:#F22613}
+.bg_blue{background:#3498DB}
+.bg_black{background:#2F3541}
+.color_grade{color:#999}
+.btn_sumitcss{line-height:40px; font-size:20px;}
+#j_counter_btn input[type='button']{line-height:40px; font-size:20px;}
+#j_counter_btn .row{ margin-bottom:15px;}
+#j_counter_btn .row:last-child{margin-bottom:0;}
+.extend_box{position:absolute; background:rgba(0,0,0,0.6); left:0; top:0; right:0; bottom:0; display:none; z-index:2}
+.extend_innerbox{ width:80%; margin:0 auto; padding-top:120px; max-width:700px;}
+</style>
+<div class="main_top">
+  <div class="jrow">
+    <div class="jcell top_logo">&nbsp;</div>
+    <div class="jcell top_menu">
+    <span class="pull-left">&nbsp;&nbsp;&nbsp;&nbsp;<img src="{php echo tomedia($cfg['logo'])}" style="max-height:40px; max-width:136px;" onerror="this.style.display='none'"/></span>
+    <img src="{MODULE_URL}template/img/head.jpg"  style="max-height:40px;" class="img-circle img-thumbnail"/>
+    ID：{$user['realname']}
+    <span class="label label-info">{$group}</span>
+    <a href="javascript:logout()"><i class="fa fa-sign-out"></i> 退出</a></div>
+  </div>
+</div>
+<!---->
+<div class="main_body">
+  <div class="jrow">
+    <div class="jcell body_left">
+      
+      <div class="body_left_menu">
+        <ul>
+          <li class="jlabel"><strong>功能</strong></li>
+          <li onClick="extendFun(1);">未打印</li>
+          <li onClick="extendFun(2);">记录</li>
+          {if count($btnlist)}
+          <li class="jlabel"><strong>扩展</strong></li>
+          {loop $btnlist $row}
+          <li onClick="{$row['btnurl']}">{$row['btnname']}</li>
+          {/loop}
+          {/if}
+        </ul>
+      </div>
+    </div>
+    <div class="jcell body_right">
+      <div class="body_right_menu row">
+        <div class="col-sm-4">
+          <div class="body_right_meneybox">
+            <h2 class="bg_yellow"><img src="{MODULE_URL}template/img/wechart.gif" height="50"/></h2>
+            <div class="body_right_moneybox_btm row">
+              <div class="col-md-12" id="wechat_cash"><span>￥0.00</span>今天已收款</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="body_right_meneybox">
+            <h2 class="bg_green"><img src="{MODULE_URL}template/img/alipay.gif" height="50"/></h2>
+            <div class="body_right_moneybox_btm row">
+              <div class="col-md-12" id="ali_cash"><span>￥0.00</span>今天已收款</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="body_right_meneybox">
+            <h2 class="bg_blue"><img src="{MODULE_URL}template/img/card.png" height="50"/></h2>
+            <div class="body_right_moneybox_btm row">
+              <div class="col-md-12" id="wechat_card"><span>0</span>已核销</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!---->
+      <div class="body_right_main row">
+        <div class="body_right_main_left col-md-6">
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <div class="input-group"> <span class="input-group-addon" id="sizing-addon2">￥</span>
+                <input type="text" name="fee" id="fee" value="0" maxlength="8" class="form-control" style="line-height:60px; height:60px; font-size:40px; padding-top:10px; text-align:right" readonly/>
+                <span class="input-group-addon" id="sizing-addon2">元</span> </div>
+            </div>
+            <div class="panel-body" id="j_counter_btn">
+              <div class="row">
+                <div class="col-sm-4">
+                  <input type="button" value="7" class="btn btn-info btn-block"/>
+                </div>
+                <div class="col-sm-4">
+                  <input type="button" value="8" class="btn btn-info btn-block"/>
+                </div>
+                <div class="col-sm-4">
+                  <input type="button" value="9" class="btn btn-info btn-block"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <input type="button" value="4" class="btn btn-info btn-block"/>
+                </div>
+                <div class="col-sm-4">
+                  <input type="button" value="5" class="btn btn-info btn-block"/>
+                </div>
+                <div class="col-sm-4">
+                  <input type="button" value="6" class="btn btn-info btn-block"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <input type="button" value="1" class="btn btn-info btn-block"/>
+                </div>
+                <div class="col-sm-4">
+                  <input type="button" value="2" class="btn btn-info btn-block"/>
+                </div>
+                <div class="col-sm-4">
+                  <input type="button" value="3" class="btn btn-info btn-block"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <input type="button" value="0" class="btn btn-info btn-block"/>
+                </div>
+                <div class="col-sm-4">
+                  <input type="button" value="." class="btn btn-info btn-block"/>
+                </div>
+                <div class="col-sm-4">
+                  <input type="button" value="清除" class="btn btn-block btn-danger"/>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-sm-6">
+                  <button type="button" class="btn btn-info btn-block btn_sumitcss" onClick="checkCard()"><i class=""></i> 卡券核销(-)</button>
+                </div>
+                <div class="col-sm-6">
+                  <button type="button" id="paybtn" class="btn btn-success btn-block btn_sumitcss" onClick="payMobile()"><i class=""></i> 收款(Enter)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="body_right_main_right col-md-6">
+          <div class="panel panel-info">
+            <div class="panel-heading">当前营销内容</div>
+            <div class="panel-body table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>名称</th>
+                    <th>营销对象</th>
+                    <th>优惠</th>
+                    <th>效果</th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                {php $i=1;}
+                {loop $marketing $row}
+                <tr>
+                  <th scope="row">{php echo $i}</th>
+                  <th>{$row['title']}</th>
+                  <td> {if $row['num']}
+                    {if $row['isallnum']}
+                    <b style="color:#F00">{$row['num']}</b>名
+                    {else}
+                    每天前<b style="color:#F00">{$row['num']}</b>名
+                    {/if}
+                    {/if}
+                    {if $row['condition']==1}
+                    所有人
+                    {elseif $row['condition']==2}
+                    $grouplist= @pdo_fetchall("SELECT title FROM ".tablename("mc_groups")." WHERE groupid in(".$row['condition_member'].") ORDER BY `orderlist` asc");
+                    {loop $grouplist $row}
+                    {$row['title']},
+                    {/loop}
+                    {elseif $row['condition']==3}
+                    首次使用微支付
+                    {elseif $row['condition']==4}
+                    首次关注公众号
+                    {elseif $row['condition']==5}
+                    关注公众号时长{$row['condition_attendtime']}天
+                    {/if} </td>
+                  <td>{$row['description']}</td>
+                  <td>{php echo pdo_fetchcolumn("SELECT count(*) FROM ".tablename('j_money_trade')." WHERE marketing=:a and status=1 and createdate=:b ",array(':a'=>$row['id'],':b'=>date('Y-m-d')))}/{php echo pdo_fetchcolumn("SELECT count(*) FROM ".tablename('j_money_trade')." WHERE marketing=:a and status=1  ",array(':a'=>$row['id']))}</td>
+                </tr>
+                {php $i++}
+                {/loop}
+                  </tbody>
+                
+              </table>
+            </div>
+          </div>
+          <div class="panel panel-success">
+            <div class="panel-heading">消费记录(最近10条记录)</div>
+            <div class="panel-body table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>消费方式</th>
+                    <th>金额</th>
+                    <th>优惠金额</th>
+                    <th>实际支付</th>
+                    <th>状态</th>
+                  </tr>
+                </thead>
+                <tbody id="j_getrecord">
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <iframe src="" id="printbox" name="printbox" style="width:1px; height:1px;"></iframe>
+  </div>
+</div>
+<div class="extend_box" id="extend_box">
+  <div class="extend_innerbox">
+    <div class="panel panel-default">
+      <div class="panel-heading"> <span class="pull-right"><a href="javascript:extendFun(0);"><i class="fa fa-times"></i></a></span><b>组别管理</b> </div>
+      <div class="panel-body table-responsive" style="max-height:500px; overflow-y:scroll"> </div>
+      <div class="panel-footer" style="text-align:center;"> </div>
+    </div>
+  </div>
+</div>
+<textarea id="debug" style="display:none;"></textarea>
+<input type="hidden" id="tradeno"/>
+<script type="text/javascript">
+var keyCodeAry1=[96,97,98,99,100,101,102,103,104,105,110];
+var keyCodeAry2=["0","1","2","3","4","5","6","7","8","9","."];
+var keyCodeAry=[];
+var isPaying=false;
+var printDoc=parseInt("{$printDoc}");
+var needtable=parseInt("{php echo $cfg['needtable']}");
+var printDoc2=parseInt("{$printDoc2}");
+for(i=0;i<keyCodeAry1.length;i++){
+	keyCodeAry[keyCodeAry1[i]]=keyCodeAry2[i];
+}
+var checkTimeout;
+$(document).ready(function(e) {
+	if($(document).width()>1100){
+		
+		location.href='{php echo $this->createMobileUrl(index,array("small"=>0,"op"=>"login"))}';
+	}
+    var _dh=$(document).height()>=$(window).height() ? $(document).height():$(window).height();
+	var _wh=$(window).height();
+	_h=_wh>=_dh ? _wh :_dh;
+	$(".body_left").css('height',(_h-50)+"px");
+	getCounterRecord();
+});
+function logout(){
+	if(confirm("确认退出登录？")){
+		location.href="{php echo $this->createMobileUrl('index')}";
+	}
+}
+//---计算器---//
+$(document).keydown(function (event) {
+	//alert(event.keyCode);
+	switch(event.keyCode){
+		case 96 : case 97 : case 98 : case 99 : case 100 : case 101 : case 102 : case 103 : case 104 : case 105 : case 110 :
+			if(isPaying)return;
+			Counter(keyCodeAry[event.keyCode]);
+			$("#paybtn").focus();
+		break;
+		case 81://q
+		case 109://-
+			if(isPaying==false){
+				checkCard();
+			}
+		break;
+		case 27://0
+			$("#fee").val(0);
+		break;
+	}
+});
+function Counter(obj){
+	var vTecla=obj;
+	var salida=$("#fee");
+	if(salida.val().length>8 && vTecla!='清除'){
+		return false;	
+	}
+	if(vTecla=='.'){
+		if(salida.val().indexOf('.')>-1){
+			salida.val(salida.val());
+		}else{
+			salida.val(salida.val()+vTecla);
+		}
+	}else if(vTecla=='清除'){
+		salida.val(0);
+	}else if(vTecla=='0'){
+		if(salida.val()==0 && salida.val().length==1){
+			salida.val(0);
+		}else{
+			salida.val(salida.val()+vTecla);
+		}
+	}else{
+		if((salida.val()==0 && salida.val().length==1)){
+			salida.val(vTecla);
+		}else{
+			salida.val(salida.val()+vTecla);
+		} 
+	}
+	var temp=salida.val();
+	if(temp.indexOf('.')>-1){
+		var float=temp.split('.');
+		if(float[1].length>2){
+			salida.val(float[0]+'.'+float[1].substr(0,2));
+		}
+	}
+}
+$("#j_counter_btn input").on('click',function(){
+	var vTecla=$(this).val();
+	Counter(vTecla);
+});
+
+function payMobile(){
+	isPaying=false;
+	var temp=parseFloat($("#fee").val());
+	if(temp*100==0){
+		swal("请输入金额");
+		return;
+	}
+	if(needtable){
+		if(isPaying)return;
+		isPaying=true;
+		var tablenum='';
+		swal({ 
+			title: "请输入原订单号/台号", 
+			type: "input",
+			html:true,
+			showLoaderOnConfirm: true,
+			showCancelButton: true,   
+			closeOnConfirm: false,
+			confirmButtonText: "确认",
+			cancelButtonText: "关闭",
+			inputPlaceholder: "可扫描或者手动输入" 
+			}, function(inputValue){
+				if (inputValue === false) return false;      
+				if (inputValue === "") {
+					swal.showInputError("请输入原订单号/台号");     
+					return false
+				}
+				tablenum=inputValue;
+				swal({ 
+					title: "刷卡支付",   
+					text: "收款金额为<span style='color:#F00'>￥"+temp+"元</span>",   
+					type: "input",
+					html:true,
+					showLoaderOnConfirm: true,
+					showCancelButton: true,   
+					closeOnConfirm: false,
+					confirmButtonText: "确认收款",
+					cancelButtonText: "关闭",  
+					inputPlaceholder: "请扫描客户的付款二维码" 
+					}, function(inputValue){
+					if (inputValue === false) return false;      
+					if (inputValue === "") {
+						swal.showInputError("请扫描客户的付款二维码");     
+						return false
+					}
+					swal({title:"请稍后",showConfirmButton:false });
+					if(inputValue.substr(0,1)=="1"){
+						console.log("客户使用【微信】支付");
+						paywechat(inputValue,temp,tablenum);
+					}else{
+						console.log("客户使用【支付宝】支付");
+						payali(inputValue,temp,tablenum);
+					}
+				});
+			}
+		);
+	}else{
+		swal({ 
+			title: "刷卡支付",   
+			text: "收款金额为<span style='color:#F00'>￥"+temp+"元</span>",   
+			type: "input",
+			html:true,
+			showLoaderOnConfirm: true,
+			showCancelButton: true,   
+			closeOnConfirm: false,
+			confirmButtonText: "确认收款",
+			cancelButtonText: "关闭",  
+			inputPlaceholder: "请扫描客户的付款二维码" 
+			}, function(inputValue){
+			if (inputValue === false) return false;      
+			if (inputValue === "") {
+				swal.showInputError("请扫描客户的付款二维码");     
+				return false
+			}
+			if(isPaying)return;
+			isPaying=true;
+			swal({title:"请稍后",showConfirmButton:false });
+			if(inputValue.substr(0,1)=="1"){
+				console.log("客户使用【支付宝】支付");
+				paywechat(inputValue,temp,'');
+			}else{
+				console.log("客户使用【支付宝】支付");
+				payali(inputValue,temp,'');
+			}
+		});
+	}
+}
+
+function paywechat(qrcode,fee,tableno){
+	if(qrcode.length==0){
+		swal("请先扫描");
+		return;
+	}
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'paywechat'))}",{"qrcode":qrcode,"userid":"{$user['id']}","fee":fee,"old_trade_no":tableno},function(data){
+		isPaying=false;
+		//alert(data);
+		//$("#debug").val(data);
+		var feedback=eval("("+data+")");
+		checktime=0;
+		if(feedback.success){
+			var temp=feedback.items;
+			$("#tradeno").val(temp['out_trade_no']);
+			if(temp['result_code']=="SUCCESS"){
+				paySuccess(temp['out_trade_no']);
+			}else{
+				if(temp['err_code']=="USERPAYING"){
+					setTimeout("checkpay()",5000);
+					swal({
+						title: "温馨提示",   
+						text: "等待客户输入支付密码",
+						confirmButtonText: "关闭订单",
+						}, function(isConfirm){
+							if (isConfirm) {
+								deleteOrder(temp['out_trade_no']);
+							}
+						}
+					);
+				}
+			}
+		}else{
+			swal(feedback.msg);
+		}
+	})
+}
+function payali(qrcode,fee,tableno){
+	if(qrcode.length==0){
+		swal("请先扫描");
+		return;
+	}
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'payalipay'))}",{"qrcode":qrcode,"userid":"{$user['id']}","fee":fee,"old_trade_no":tableno},function(data){
+		isPaying=false;
+		console.log(data);
+		//alert(data);
+		var feedback=eval("("+data+")");
+		checktime=0;
+		if(feedback.success){
+			if(feedback.result){
+				$("#tradeno").val(feedback.out_trade_no);
+				checkTimeout=setTimeout("checkAlipay()",5000);
+				swal({
+					title: "温馨提示",   
+					text: "等待客户输入支付密码",
+					confirmButtonText: "关闭订单",
+					}, function(isConfirm){
+						if (isConfirm) {
+							clearTimeout(checkTimeout);
+							//deleteOrder(temp['out_trade_no']);
+						}
+					}
+				);
+			}else{
+				var temp=feedback.items;
+				$("#tradeno").val(temp['out_trade_no']);
+				paySuccess(temp['out_trade_no']);
+			}
+		}else{
+			swal(feedback.msg);
+		}
+	})
+}
+//支付成功；
+function paySuccess(order){
+	$("#tradeno").val('');
+	$("#fee").val(0);
+	var printNum=parseInt("{$cfg['printnum']}") ? parseInt("{$cfg['printnum']}") :0;
+	if(printNum>1){
+		swal({title:"收款成功"});
+	}else{
+		swal({title:"收款成功",timer:3000,});
+	}
+	$("#micalc input[type='text']").val(0);
+	if(printDoc && order){
+		$("#printbox").attr("src","{php echo $this->createMobileUrl('printer',array('id'=>$printDoc))}&tradeid="+order);
+		if(printNum>1){
+			swal({
+				title: "再打一张小票？",   
+				showCancelButton: true,
+				cancelButtonText: "取消",
+				confirmButtonText: "打印",
+				}, function(isConfirm){
+					if (isConfirm) {
+						$("#printbox").attr("src","{php echo $this->createMobileUrl('printer',array('id'=>$printDoc))}&tradeid="+order);
+					}
+				}
+			);
+		}
+	}
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'marketing'))}",{"orderid":order},function(data){
+		//alert(data);
+		console.log(data);
+		$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'tempmsg'))}",{"orderid":order},function(data2){
+			//alert(data2);
+		});
+	});
+	getCounterRecord();
+}
+function checkpay(){
+	var temporder=$("#tradeno").val();
+	if(!temporder){
+		alert("订单号不能为空");
+		return;
+	}
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'checwechatkpay'))}",{"orderid":temporder},function(data){
+		var feedback=eval("("+data+")");
+		//$("#debug").val(data);
+		if(feedback.success){
+			var temp=feedback.items;
+			if(temp['trade_state']=="SUCCESS"){
+				paySuccess(temporder);
+			}else if(temp['trade_state']=="NOTPAY"){
+				swal("用户自动取消支付");
+			}else if(temp['trade_state']=="USERPAYING"){
+				setTimeout("checkpay()",5000);
+			}else{
+				swal("支付失败，未知错误!");
+			}
+		}else{
+			swal(feedback.msg);
+		}
+	});
+}
+
+function checkAlipay(orderid){
+	var temporder=orderid ? orderid : $("#tradeno").val();
+	if(!temporder){
+		alert("订单号不能为空");
+		return;
+	}
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'checkalipay'))}",{"orderid":temporder},function(data){
+		console.log(data);
+		//alert(data);
+		var feedback=eval("("+data+")");
+		checktime=0;
+		if(feedback.success){
+			if(feedback.result){
+				$("#tradeno").val(feedback.out_trade_no);
+				checkTimeout=setTimeout("checkAlipay()",5000);
+				swal({
+					title: "温馨提示",   
+					text: "等待客户输入支付密码",
+					confirmButtonText: "关闭订单",
+					}, function(isConfirm){
+						if (isConfirm) {
+							clearTimeout(checkTimeout);
+							//deleteOrder(temp['out_trade_no']);
+						}
+					}
+				);
+			}else{
+				var temp=feedback.items;
+				$("#tradeno").val(temp['out_trade_no']);
+				paySuccess(temp['out_trade_no']);
+			}
+		}else{
+			swal(feedback.msg);
+		}
+	});
+}
+/*
+* 调取收银员的收银记录
+*/
+function getCounterRecord(){
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'getcounterrecord'))}",{},function(data){
+		//console.log(data);
+		//alert(data);
+		var feedback=eval("("+data+")");
+		var record=feedback.item;
+		$("#wechat_cash span").text("￥"+feedback.cash_fee_w);
+		$("#ali_cash span").text("￥"+feedback.cash_fee_a);
+		$("#wechat_card span").text(feedback.num);
+		$("#j_getrecord").empty();
+		for(i in record){
+			var temp='<tr><td scope="row">'+record[i]['createtime']+'</td><td>'+(record[i]['paytype']=="微信" ? '<img src="{MODULE_URL}template/img/wechart.gif" height="21"/> ':'<img src="{MODULE_URL}template/img/alipay.gif" height="21"/> ')+(record[i]['attach']=='-' || record[i]['attach']=='PC' ? '<span class="label label-info"><i class="fa fa-desktop"/></i></span>':'<span class="label label-danger"><i class="fa fa-mobile"/></i></span>')+'</td><td>'+record[i]['total_fee']+'</td><td>'+record[i]['coupon_fee']+'</td><td>'+record[i]['cash_fee']+'</td><td>';
+			temp+=parseInt(record[i]['status']) ? '<span class="label label-success"><i class="fa fa-check"></i></span>' : '<span class="label label-danger"><i class="fa fa-exclamation-triangle"></i></span>';
+			if(parseInt(record[i]['status'])){
+				temp+=parseInt(record[i]['isprint']) ? '' : ' <a href="javascript:reprint(\''+record[i]["out_trade_no"]+'\')"><i class="fa fa-print"></i></a>';
+			}
+			temp+='</td></tr>';
+			$("#j_getrecord").append(temp);
+		}
+	});
+}
+function reprint(orderid){
+	var temp=0;
+	if(arguments.length>1)temp=arguments[1];
+	if(printDoc && orderid){
+		$("#printbox").attr("src","{php echo $this->createMobileUrl('printer',array('id'=>$printDoc))}&tradeid="+orderid+"&ismodal="+temp);
+	}
+}
+//卡券核销
+function checkCard(){
+	swal({   
+		title: "卡券核销查询",   
+		text: "请扫描或者输入卡券的编码",   
+		type: "input",
+		html:true,
+		showLoaderOnConfirm: true,
+		showCancelButton: true,   
+		closeOnConfirm: false,
+		confirmButtonText: "确认核销",
+		cancelButtonText: "关闭",  
+		inputPlaceholder: "请扫描客户的付款二维码" 
+		}, function(inputValue){
+		if (inputValue === false) return false;      
+		if (inputValue === "") {
+			swal.showInputError("请扫描客户的付款二维码");     
+			return false
+		}
+		swal({title:"查询中",text: "卡券查询中",showConfirmButton: false});
+		$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'checkcard'))}",{"code":inputValue},function(data){
+			var temp=eval("("+data+")");
+			//alert(data);
+			if(temp.success){
+				//cardConsume(temp.item);
+				var coupon=temp.item;
+				swal({
+					title: "卡券核销",
+					text: "卡券类型:"+coupon['typestr']+"<br>优惠:"+coupon['msg']+"<br>是否使用此卡券?",
+					html:true,
+					showLoaderOnConfirm: true,
+					showCancelButton: true,   
+					closeOnConfirm: false,
+					confirmButtonText: "确认核销",
+					cancelButtonText: "关闭",
+					}, function(isConfirm){
+						if (isConfirm) {
+							$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'cardcheck'))}",{"code":coupon['code']},function(data){
+								//$("#debug").val(data).show();
+								var temp=eval("("+data+")");
+								if(temp.success){
+									swal("核销成功");
+									if(printDoc2 && temp.item.id)$("#printbox").attr("src","{php echo $this->createMobileUrl('printer',array('id'=>$printDoc2,'cid'=>1))}&tradeid="+temp.item.id);
+								}else{
+									swal(temp.msg);
+								}
+							});
+						}
+				});
+			}else{
+				swal(temp.msg);
+			}
+		});
+	});
+}
+//卡券核销
+function cardConsume(coupon){
+	swal({   
+		title: "卡券核销",
+		text: "卡券类型:"+coupon['typestr']+"<br>优惠:"+coupon['msg']+"<br>是否使用此卡券?",
+		html:true,
+		showLoaderOnConfirm: true,
+		showCancelButton: true,   
+		closeOnConfirm: false,
+		confirmButtonText: "确认核销",
+		cancelButtonText: "关闭",
+		}, function(isConfirm){
+			if (isConfirm) {
+				$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'cardcheck'))}",{"code":coupon['code']},function(data){
+					//$("#debug").val(data).show();
+					var temp=eval("("+data+")");
+					if(temp.success){
+						swal("核销成功");
+						if(printDoc2 && temp.item.id)$("#printbox").attr("src","{php echo $this->createMobileUrl('printer',array('id'=>$printDoc2,'cid'=>1))}&tradeid="+temp.item.id);
+					}else{
+						swal(temp.msg);
+					}
+				});
+			}
+	});
+}
+
+function extendFun(obj){
+	if(obj==0){
+		$('#extend_box').hide();
+		isPaying=false;
+		return;
+	}
+	isPaying=true;
+	var _h=$(document).height();
+	var _w=$(window).width();
+	$('#extend_box').css('height',_h);
+	$('#extend_box .panel-body').empty().css('height',_h-280);
+	$('#extend_box .panel-footer').empty();
+	$('#extend_box .panel-heading b').empty();
+	switch(obj){
+		case 1:
+			$('#extend_box .panel-heading b').html("支付成功未打印订单");
+			$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'getcounternoprintrecord'))}",{},function(data){
+				//alert(data);
+				var feedback=eval("("+data+")");
+				var record=feedback.item;
+				var temp='<table class="table table-hover"><thead><tr><th>#</th><th>消费方式</th><th>金额</th><th>优惠金额</th><th>实际支付</th><th>操作</th></tr></thead><tbody>';
+				for(i in record){
+					temp+='<tr><td scope="row">'+record[i]['createtime']+'</td>';
+					temp+='<td>';
+					if(record[i]['attach']=='-' || record[i]['attach']=='PC'){
+						temp+='<span class="label label-info"><i class="fa fa-desktop"/></i></span>';
+					}else{
+						temp+='<span class="label label-danger"><i class="fa fa-mobile"/></i></span>';
+					}
+					if(record[i]['paytype']=='微信'){
+						temp+='<img src="{MODULE_URL}template/img/wechart.gif" width="21"/>';
+					}else{
+						temp+='<img src="{MODULE_URL}template/img/alipay.gif" width="21"/>';
+					}
+					temp+='</td>';
+					
+					temp+='<td>'+record[i]['total_fee']+'</td><td>'+record[i]['coupon_fee']+'</td><td>'+record[i]['cash_fee']+'</td><td>';
+					if(parseInt(record[i]['status'])){
+						temp+=parseInt(record[i]['isprint']) ? '':'<a href="javascript:reprint(\''+record[i]["out_trade_no"]+'\',1)"><i class="fa fa-print"></i></a>';
+					}
+					temp+='</td></tr>';
+				}
+				temp+='</tbody></table>';
+				$("#extend_box .panel-body").append(temp);
+				$("#extend_box .panel-footer").html("未打印记录共 <b>"+feedback.num+"</b>条");
+			});
+		break;
+		case 2:
+			$('#extend_box .panel-heading b').html("收款成功记录");
+			var temp='<iframe src="{php echo $this->createMobileUrl("counthistory")}" id="historybox" name="historybox" style="width:98%;"></iframe>';
+			$("#extend_box .panel-body").append(temp);
+			//$("#extend_box .panel-footer").append('<a href="javascript:resetHeight(\'historybox\')" class="btn btn-info">更新</a>');
+			$("#extend_box .panel-body").height();
+		break;
+	}
+	$('#extend_box').show();
+}
+function resetHeight(obj){
+	var _h=$("#"+obj).contents().find("body").height();
+	$("#"+obj).height(_h);
+}
+</script> 
+{loop $btnlist $row}
+{if $row['jsurl']}
+<!--{$row['btnname']}--{$row['btnurl']}-->
+<script src="../attachment/j_money/js/{php echo $_W['uniacid']}/{$row['jsurl']}"></script>
+{/if}
+{/loop}
+{/if} 

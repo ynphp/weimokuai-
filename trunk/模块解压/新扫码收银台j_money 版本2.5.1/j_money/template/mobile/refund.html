@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>退款申请处理</title>
+<meta name="format-detection" content="telephone=no, address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link href="./resource/css/bootstrap.min.css" rel="stylesheet">
+<link href="./resource/css/font-awesome.min.css" rel="stylesheet">
+<link href="./resource/css/animate.css" rel="stylesheet">
+<link href="./resource/css/common.css" rel="stylesheet">
+{php echo register_jssdk(false);}
+<script src="{MODULE_URL}template/js/jquery-2.1.1.min.js"></script>
+<script src="{MODULE_URL}template/js/fastclick.min.js"></script>
+<link type="text/css" rel="stylesheet" href="{MODULE_URL}template/js/weui.css"/>
+</head>
+<style>
+.weui_cell_ft{color:#F00;}
+</style>
+<body>
+<div class="weui_msg" id="comfirn">
+  <div class="weui_icon_area"><i class="weui_icon_msg weui_icon_warn"></i></div>
+  <div class="weui_text_area">
+    <h2 class="weui_msg_title">是否确认退款？</h2>
+  </div>
+  <div class="weui_cells">
+    <div class="weui_cell">
+      <div class="weui_cell_bd weui_cell_primary" style="text-align:left;"> 单号 </div>
+      <div class="weui_cell_ft"> {$trade['out_trade_no']} </div>
+    </div>
+    <div class="weui_cell">
+      <div class="weui_cell_bd weui_cell_primary" style="text-align:left;"> 付款时间 </div>
+      <div class="weui_cell_ft"> {php echo date('Y-m-d H:i',$trade['time_end'])} </div>
+    </div>
+    <div class="weui_cell">
+      <div class="weui_cell_bd weui_cell_primary" style="text-align:left;"> 申请时间 </div>
+      <div class="weui_cell_ft"> {php echo date('Y-m-d H:i',$trade['refund_trade_no'])} </div>
+    </div>
+    <div class="weui_cell">
+      <div class="weui_cell_bd weui_cell_primary" style="text-align:left;"> 实收金额 </div>
+      <div class="weui_cell_ft"> ￥{php echo sprintf('%.2f',($trade['cash_fee']/100))} </div>
+    </div>
+    <div class="weui_cell">
+      <div class="weui_cell_bd weui_cell_primary" style="text-align:left;"> 退款金额 </div>
+      <div class="weui_cell_ft"> ￥{php echo sprintf('%.2f',($trade['refund_fee']/100))} </div>
+    </div>
+  </div>
+  <div class="weui_opr_area">
+    <p class="weui_btn_area"> <a href="javascript:$('#refund').show();" class="weui_btn weui_btn_warn">取消</a> <a href="javascript:$('#dorefund').show();" class="weui_btn weui_btn_primary">确定</a> </p>
+    
+  </div>
+</div>
+
+<div class="weui_msg" id="success" style="display:none;">
+  <div class="weui_icon_area"><i class="weui_icon_success weui_icon_msg"></i></div>
+  <div class="weui_text_area">
+    <h2 class="weui_msg_title">退款成功</h2>
+  </div>
+  <div class="weui_cells">
+    <div class="weui_cell">
+      <div class="weui_cell_bd weui_cell_primary" style="text-align:left;"> 退款金额 </div>
+      <div class="weui_cell_ft"> ￥{php echo sprintf('%.2f',($trade['refund_fee']/100))} </div>
+    </div>
+  </div>
+  <div class="weui_opr_area">
+    <p class="weui_btn_area"> <a href="javascript:wx.closeWindow();" class="weui_btn weui_btn_primary">确定</a></p>
+  </div>
+</div>
+
+<div class="weui_dialog_confirm" id="refund" style="display:none;">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">不执行退款？</strong></div>
+        <div class="weui_dialog_bd">不执行退款，并且关闭本窗口？</div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:$('#refund').hide()" class="weui_btn_dialog default">取消</a>
+            <a href="javascript:wx.closeWindow();" class="weui_btn_dialog primary">确定</a>
+        </div>
+    </div>
+</div>
+<div class="weui_dialog_confirm" id="dorefund" style="display:none;">
+    <div class="weui_mask"></div>
+    <div class="weui_dialog">
+        <div class="weui_dialog_hd"><strong class="weui_dialog_title">退款操作提示</strong></div>
+        <div class="weui_dialog_bd">本操作将退款给客户，并且不可更改。确认退款？</div>
+        <div class="weui_dialog_ft">
+            <a href="javascript:$('#dorefund').hide()" class="weui_btn_dialog default">取消</a>
+            <a href="javascript:doRefund();" class="weui_btn_dialog primary">确定</a>
+        </div>
+    </div>
+</div>
+<div id="loadingToast" style="display:none;" class="weui_loading_toast"><div class="weui_mask_transparent"></div><div class="weui_toast"><div class="weui_loading"><div class="weui_loading_leaf weui_loading_leaf_0"></div><div class="weui_loading_leaf weui_loading_leaf_1"></div><div class="weui_loading_leaf weui_loading_leaf_2"></div><div class="weui_loading_leaf weui_loading_leaf_3"></div><div class="weui_loading_leaf weui_loading_leaf_4"></div><div class="weui_loading_leaf weui_loading_leaf_5"></div><div class="weui_loading_leaf weui_loading_leaf_6"></div><div class="weui_loading_leaf weui_loading_leaf_7"></div><div class="weui_loading_leaf weui_loading_leaf_8"></div><div class="weui_loading_leaf weui_loading_leaf_9"></div><div class="weui_loading_leaf weui_loading_leaf_10"></div><div class="weui_loading_leaf weui_loading_leaf_11"></div></div><p class="weui_toast_content">数据加载中</p></div></div>
+<div id="toast" style="display: none;">
+    <div class="weui_mask_transparent"></div>
+    <div class="weui_toast">
+        <i class="weui_icon_toast"></i>
+        <p class="weui_toast_content">已完成</p>
+    </div>
+</div>
+<script language="javascript">
+function doRefund(){
+	$('#dorefund').hide()
+	$('#loadingToast').show();
+	$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'refundexcute','orderid'=>$orderid))}",{},function(data){
+		$('#loadingToast').hide();
+		if(data.success){
+			$('#toast').show();
+			setTimeout(function(){$('#toast').hide();},2000);
+			$("#comfirn").hide();
+			$("#success").show();
+		}else{
+			$.jweui.msg(data.msg);
+		}
+	},'json');
+}
+$(function() {
+  FastClick.attach(document.body);
+});
+wx.ready(function () {
+	wx.hideOptionMenu();
+});
+</script>

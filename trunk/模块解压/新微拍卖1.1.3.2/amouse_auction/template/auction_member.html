@@ -1,0 +1,122 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li {if $op =='display'} class="active"{/if}><a href="{php echo $this->createWebUrl('member',array('op' =>'display'))}">会员信息</a></li>
+</ul>
+{if $op == 'display'}
+<div class="panel panel-info">
+    <div class="panel-heading">会员信息列表</div>
+    <div class="panel-body">
+        <form action="./index.php" method="post" class="form-horizontal" role="form">
+            <input type="hidden" name="a" value="entry"/>
+            <input type="hidden" name="c" value="site"/>
+            <input type="hidden" name="m" value="{AMOUSE_AUCTION}"/>
+            <input type="hidden" name="do" value="member"/>
+            <div class="form-group">
+                <label class="col-xs-13 col-sm-2 col-md-2 col-lg-1 control-label">昵称</label>
+                <div class="col-sm-4">
+                    <input class="form-control" name="keyword" type="text" value="{$_GPC['keyword']}" placeholder="搜索昵称">
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-block"><i class="fa fa-search"></i> 搜索</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<a class="btn btn-default" href="{php echo $this->createWebUrl('udownload',array())}"><i class="icon-download-alt"></i>导出用户信息</a>
+<div class="panel panel-default">
+    <div class="panel-heading">会员列表</div>
+    <div class="panel-body">
+        <div class="table-responsive panel-body">
+            <table class="table table-hover" style="min-width: 300px;">
+                <thead class="navbar-inner">
+                <tr>
+                    <th style="width:120px;">用户昵称</th>
+                    <th style="width:120px;">头像</th>
+                    <th style="width:120px;">会员积分</th>
+                    <th style="width:120px;">手机号码</th>
+                    <th style="width:120px;">是否黑名单</th>
+                    <th style="width:200px;">地址</th>
+                    <th style="width:200px;" class="text-right">操作</th>
+                </tr>
+                </thead>
+                {loop $members $member}
+                <tr>
+                    <td>{$member['nickname']}</td>
+                    <td><img src="{$member['avatar']}" height="50px" width="50px"></td>
+                    <td>{$member['score']}</td>
+                    <td>{$member['mobile']}</td>
+                    <td>
+                    {if $member['blacklist']=='0'}
+                        <span class="label" style="background:red;">黑名单</span>{elseif $member['blacklist']==1} <span class="label" style="background:green;">白名单</span>{/if}
+                    </td>
+                    <td>{$member['address']}</td>
+                    <td class="text-right">
+                        <a href="{php echo $this->createWebUrl('member',array('op'=>'post','id'=>$member['id']));}" class="btn btn-default btn-sm" title="设置积分" data-memberid="{$member['id']}" title="赠送积分">
+                            <i class="fa fa-yen"></i>
+                        </a>
+                       <a href="./index.php?c=mc&a=notice&do=tpl&id=2" id="2" class="btn btn-success btn-sm sms" data-original-title="" title="">发送消息
+                       </a>
+                        <a href="{php echo $this->createWebUrl('member',array('op'=>'delete','id'=>$member['id']));}"
+                           onclick="return confirm('此操作不可恢复，确认删除？');return false;" class="btn btn-default btn-sm"
+                           data-toggle="tooltip" data-placement="bottom" title="" data-original-title="删除">
+                            <i  class="fa fa-times"></i>
+                        </a>
+
+                        {if $member['blacklist'] ==1}
+                        <a onclick="return confirm('您确定要拉黑吗？');return false;" href="{php echo $this->createWebUrl('member', array('op'=>'checkedState','id'=>$member['id'],'blacklist'=>$member['blacklist']))}"
+                           class="btn btn-default btn-sm" title="拉黑"><i class="fa fa-lock"></i>拉黑
+                        </a>
+                        {else}
+                        <a onclick="return confirm('您确定要解冻吗？');return false;"
+                           href="{php echo $this->createWebUrl('member', array('op'=>'checkedState','id'=>$member['id'],'blacklist'=>$member['blacklist']))}"
+                           class="btn btn-default btn-sm" title="取消拉黑"><i class="fa fa-unlock"></i>取消拉黑
+                        </a>
+                        {/if}
+
+                    </td>
+
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+            {$pager}
+        </div>
+    </div>
+</div>
+</div>
+{elseif $op == 'post'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit='return formcheck()'>
+        <input type="hidden" name="id" value="{$adv['id']}" />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                会员积分设置
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>会员昵称</label>
+                    <div class="col-sm-9">
+                        <input type="text" id='nickname' name="nickname" class="form-control" value="{$member['nickname']}" readonly/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">积分</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="score" class="form-control" value="{$member['score']}" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+            <input type="hidden" name="token" value="{$_W['token']}" />
+            <input type="hidden" name="id" value="{$member['id']}" />
+        </div>
+    </form>
+</div>
+{/if}
+{template 'common/footer'}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,user-scalable=no"/>
+    <title>我的拍卖</title>
+ <!--   <script src="{AMOUSE_AUCTION_RES}js/zepto.js?v=1.7"></script>
+    <script src="{AMOUSE_AUCTION_RES}js/m.js?v=1.7"></script>-->
+    <link href="{AMOUSE_AUCTION_RES}css/app.css?v=1.7" rel="stylesheet"/>
+    <link href="{AMOUSE_AUCTION_RES}css/mui.css?v=1.7" rel="stylesheet"/>
+</head>
+<body>
+<div>
+    <div class="my">
+        <div class="profile">
+            <div class="head">
+                <div class="face" style="background-image:url({$member['avatar']})"> </div>
+                <div class="nick">{$member['nickname']}</div>
+            </div>
+            <div class="info">
+                <div class="col">等级： <span>普通会员</span></div>
+                <div class="col">积分：{$member['score']}</div>
+            </div>
+        </div>
+       <div class="order line">
+            <a class="title" href="{php echo $this->createMobileUrl("myOrders", array("uid"=>$member['id']))}">
+                <span class="titLabel icon-my-order">我的订单</span>
+                <span class="rig">查看全部订单</span>
+            </a>
+        </div>
+
+        <div class="collect line">
+            <a class="title" href="{php echo $this->createMobileUrl("myFav",array("uid"=>$member['id']))}">
+                <span class="titLabel ">我的收藏</span>
+                <span class="rig"></span>
+            </a>
+
+        </div>
+        <div class="collect line">
+            <a class="title" href="{php echo $this->createMobileUrl("myOffer",array("uid"=>$member['id']))}">
+                <span class="titLabel ">我出价的商品</span>
+                <span class="rig"></span>
+            </a>
+
+        </div>
+        <div class="address line">
+            <a class="title" href="{php echo $this->createMobileUrl("myAddress",array("uid"=>$member['id']))}">
+                <span class="titLabel icon-my-address">我的地址</span>
+                <span class="rig"></span>
+            </a>
+        </div>
+    </div>
+</div>
+</body>
+{php echo register_jssdk(false);}
+<script type="text/javascript">
+    initShare();
+    function initShare(){
+        wx.ready(function () {
+            shareMeta = {
+                title: "{$sharedata['share_title']}",
+                desc: "{$sharedata['share_desc']}",
+                link: "{$shae_url}",
+                imgUrl: "{$_W['attachurl']}{$sharedata['share_image']}",
+                success: function(){
+
+                },
+                cancel: function(){
+                    // alert("分享失败，可能是网络问题，一会儿再试试？");
+                }
+            };
+            wx.onMenuShareTimeline(shareMeta);
+            wx.onMenuShareAppMessage(shareMeta);
+            wx.onMenuShareWeibo(shareMeta);
+            wx.onMenuShareQQ(shareMeta);
+            wx.onMenuShareQZone(shareMeta);
+        });
+    }
+
+</script>
+</html>

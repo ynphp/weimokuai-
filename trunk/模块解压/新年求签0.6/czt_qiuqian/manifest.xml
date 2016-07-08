@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[新年求签]]></name>
+		<identifie><![CDATA[czt_qiuqian]]></identifie>
+		<version><![CDATA[0.6]]></version>
+		<type><![CDATA[customer]]></type>
+		<ability><![CDATA[新年求签]]></ability>
+		<description><![CDATA[为自己摇枚新年签，这是对过去的感悟和对新年的祈望，希望它能为你带来好运！]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="新年求签" do="index" state="" direct="false" />
+		</cover>
+		<home>
+			<entry title="新年求签" do="index" state="" direct="false" />
+		</home>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

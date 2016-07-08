@@ -1,0 +1,1111 @@
+﻿body
+{
+    margin: 0;
+    padding: 0;
+}
+
+.tr
+{
+    text-align: right;
+}
+
+.em8
+{
+    font-size: 0.8em;
+}
+
+.em9
+{
+    font-size: 0.9em;
+}
+
+.hidden
+{
+    display: none;
+}
+
+.plist
+{
+}
+
+.plist
+{
+}
+
+    .plist .item
+    {
+        background: #f3f3f3;
+        padding: 0.5em;
+        margin-bottom: 0.8em;
+        color: #999;
+        display: block;
+        text-decoration: none;
+    }
+
+        .plist .item:last-child
+        {
+            margin-bottom: 0;
+        }
+
+        .plist .item h1
+        {
+            font-size: 1em;
+            color: #333;
+            font-family: 'Microsoft YaHei';
+            margin: 0;
+            padding-bottom: 0.5em;
+        }
+
+
+        .plist .item img
+        {
+            width: 100%;
+            border: none;
+        }
+
+        .plist .item .price_row
+        {
+            display: -webkit-box;
+            font-size: 1em;
+            padding: 0.3em 0;
+        }
+
+            .plist .item .price_row .col
+            {
+                flex: 1;
+                -webkit-box-flex: 1;
+            }
+
+                .plist .item .price_row .col .price
+                {
+                    color: #f90;
+                }
+
+            .plist .item .price_row .ptime
+            {
+                text-align: right;
+            }
+
+
+.goods
+{
+    background: #f3f3f3;
+}
+
+
+
+    .goods img
+    {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border: none;
+        display: block;
+    }
+
+    .goods h1
+    {
+        font-size: 1em;
+        line-height: 1em;
+        color: #333;
+        font-family: 'Microsoft YaHei';
+        margin: 0;
+        padding: 0.5em;
+    }
+
+.goods_info
+{
+    padding: 0 0.5em;
+    color: #999;
+}
+
+    .goods_info .collectlink
+    {
+        position: absolute;
+        top: 1em;
+        right: 1em;
+        color: #f30;
+        text-decoration: none;
+        padding-left: 26px;
+    }
+
+    .goods_info .coolectyes
+    {
+        background: url("data:image/svg+xml;base64,77u/PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSLlm77lsYJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyMHB4IiBoZWlnaHQ9IjIwcHgiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjAgMjAiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iI0VGM0MyNCIgc3Ryb2tlPSIjRUYzQzI0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgZD0iDQoJTTEwLjAwMSw0LjU1OGMzLjE4OS01LjIwOCwxMC4xOC0xLjcxNCw4LjgyOCw0LjE4OWMtMS4zMiw1Ljc3NS04LjgyOCw4LjgyNy04LjgyOCw4LjgyN3MtNy41MDgtMy4wNTItOC44My04LjgyNw0KCUMtMC4xNzksMi44NDQsNi44MTEtMC42NSwxMC4wMDEsNC41NTh6Ii8+DQo8L3N2Zz4NCg==") no-repeat left center;
+    }
+
+    .goods_info .coolectno
+    {
+        background: url("data:image/svg+xml;base64,77u/PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSLlm77lsYJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIyMHB4IiBoZWlnaHQ9IjIwcHgiIHZpZXdCb3g9IjAgMCAyMCAyMCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMjAgMjAiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRUYzQzI0IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgZD0iDQoJTTEwLjAwMSw0LjU1OGMzLjE4OS01LjIwOCwxMC4xOC0xLjcxNCw4LjgyOCw0LjE4OWMtMS4zMiw1Ljc3NS04LjgyOCw4LjgyNy04LjgyOCw4LjgyN3MtNy41MDgtMy4wNTItOC44My04LjgyNw0KCUMtMC4xNzksMi44NDQsNi44MTEtMC42NSwxMC4wMDEsNC41NTh6Ii8+DQo8L3N2Zz4NCg==") no-repeat left center;
+    }
+
+    .goods_info .price_row
+    {
+        display: flexbox;
+        display: -webkit-box;
+        display: -moz-box;
+        margin: 0.5em 0;
+    }
+
+        .goods_info .price_row .col
+        {
+            flex: 1;
+            -webkit-box-flex: 1;
+        }
+
+        .goods_info .price_row .price
+        {
+            color: #f30;
+        }
+
+    .goods_info .countdown_row
+    {
+        margin: 0.5em 0;
+    }
+
+    .goods_info .bid
+    {
+        height: 45px;
+        display: box;
+        display: -webkit-box;
+        border: solid 1px #f30;
+        border-radius: 0.2em;
+        margin: 0.8em 0;
+    }
+
+        .goods_info .bid .price-container
+        {
+            -webkit-box-flex: 3;
+            display: box;
+            display: -webkit-box;
+            height: 45px;
+            overflow: hidden;
+            width: 72%;
+        }
+
+            .goods_info .bid .price-container .action
+            {
+                width: 20%;
+                background: #eee;
+                height: 45px;
+                text-align: center;
+                font-size: 1em;
+                padding: 0;
+                margin: 0;
+                font-family: Arial;
+                font-weight: bolder;
+                display: block;
+                line-height: 45px;
+            }
+
+            .goods_info .bid .price-container .price-ipt
+            {
+                -webkit-box-flex: 1;
+            }
+
+                .goods_info .bid .price-container .price-ipt input
+                {
+                    border: none;
+                    width: 100%;
+                    text-align: center;
+                    height: 45px;
+                    margin: 0;
+                    padding: 0;
+                    line-height: 45px;
+                    font-size: 1.5em;
+                    color: #333;
+                }
+
+        .goods_info .bid .btn-bid
+        {
+            width: 28%;
+            height: 45px;
+            display: block;
+            background: #f30;
+            text-decoration: none;
+            text-align: center;
+            line-height: 45px;
+            color: #fff;
+            -webkit-box-flex: 1;
+        }
+
+    .goods_info .row2
+    {
+        display: box;
+        display: -webkit-box;
+    }
+
+        .goods_info .row2 .col
+        {
+            flex: 1;
+            -webkit-box-flex: 1;
+            width:0%;
+        }
+
+
+
+    .goods_info .dodeal
+    {
+        display: block;
+        height: 45px;
+        line-height: 45px;
+        background: #f90;
+        text-decoration: none;
+        text-align: center;
+        line-height: 2.8em;
+        color: #fff;
+        margin-bottom: 0.8em;
+        border-radius: 0.2em;
+        
+    }
+
+    .goods_info .setting
+    {
+         display: block;
+        height: 45px;
+        line-height: 45px;
+        background: #f90;
+        text-decoration: none;
+        text-align: center;
+        line-height: 2.8em;
+        color: #fff;
+        margin-bottom: 0.8em;
+        border-radius: 0.2em;
+    }
+
+    .goods_info .over
+    {
+        background: #eee;
+        color: #999;
+        text-align: center;
+        height: 45px;
+        line-height: 45px;
+    }
+
+.showtip
+{
+    margin: 0.5em;
+    color: #999;
+}
+
+.autoPrice
+{
+    margin:0.5em 1em;
+}
+    .autoPrice .form-container
+    {
+        border:solid 1px #f90;
+        width:100%;
+        margin-bottom:0.5em;
+        border-radius:5px;
+
+    }
+
+    .autoPrice .offp
+    {
+        margin:0;
+        width:100%;
+        padding:0;
+        height:45px;
+        line-height:45px;
+        font-size:1.5em;
+        color:#333;
+        border:none;
+        text-align:center;
+    }
+    .autoPrice .tip
+    {
+        color:#666;
+        font-size:0.8em;
+    }
+
+/*.goods_info .countdown
+    {
+        background: #eee;
+        height: 2.5em;
+        line-height: 2.5em;
+        border-radius: 0.2em;
+        display: box;
+        display: -webkit-box;
+        margin: 0.5em 0;
+    }
+
+        .goods_info .countdown .col
+        {
+            -webkit-box-flex: 1;
+        }
+
+        .goods_info .countdown .countvalue
+        {
+            padding-left: 1em;
+            font-size: 120%;
+        }
+
+        .goods_info .countdown .label
+        {
+            background: url(data:image/svg+xml;base64,77u/PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjIwMHB4IiBoZWlnaHQ9IjUwcHgiIHZpZXdCb3g9IjAgMCAyMDAgNTAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDIwMCA1MCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8cG9seWdvbiBmaWxsPSIjZGRkIiBwb2ludHM9IjIwMCwyNS4wMDkgMTg1LjU1MSw1MC4wMzcgLTAuMDM0LDUwLjA1NyAwLDAuMDIgMTg1LjU4NSwwICIvPg0KPC9zdmc+DQo=) no-repeat right center;
+            padding-right: 20px;
+            padding-left: 1em;
+            display: block;
+            height: 2.5em;
+            line-height: 2.5em;
+            border-top-left-radius: 0.2em;
+            border-bottom-left-radius: 0.2em;
+        }*/
+
+/*
+    .goods_info .pricecontrol
+    {
+        display: box;
+        display: -webkit-box;
+        border: solid 1px #eee;
+        height: 40px;
+        overflow: hidden;
+        border-radius: 0.2em;
+    }
+
+        .goods_info .pricecontrol .action
+        {
+            width: 20%;
+            background: #eee;
+            height: 40px;
+            text-align: center;
+            font-size: 1.8em;
+            padding: 0;
+            margin: 0;
+            font-family: Arial;
+            font-weight: bolder;
+            display: block;
+            line-height: 40px;
+        }
+
+        .goods_info .pricecontrol .price-ipt
+        {
+            -webkit-box-flex: 1;
+        }
+
+            .goods_info .pricecontrol .price-ipt input
+            {
+                border: none;
+                width: 100%;
+                text-align: center;
+                height: 40px;
+                margin: 0;
+                padding: 0;
+                line-height: 40px;
+                font-size: 1.5em;
+                color: #333;
+            }
+
+    .goods_info .actionrow
+    {
+        display: box;
+        display: -webkit-box;
+        margin: 0.5em 0;
+    }
+
+        .goods_info .actionrow .col
+        {
+            display: block;
+            -webkit-box-flex: 1;
+            width: 0%;
+            text-align: center;
+            height: 2.5em;
+            line-height: 2.5em;
+            color: #fff;
+            border-radius: 0.2em;
+            text-decoration: none;
+        }
+
+        .goods_info .actionrow .offer
+        {
+            background: #f60;
+            margin-right: 1em;
+        }
+
+        .goods_info .actionrow .nohaggle
+        {
+            background: #f13d0c;
+        }
+        */
+.orders
+{
+    padding: 0.5em;
+}
+
+    .orders .dl
+    {
+        display: box;
+        display: -webkit-box;
+        color: #999;
+        font-size: 0.8em;
+        padding: 0.3em 0;
+        font-family: Arial;
+    }
+
+        .orders .dl .col
+        {
+            flex: 1;
+            -webkit-box-flex: 1;
+            width: 30%;
+        }
+
+.detail
+{
+    padding: 0.5em;
+    color: #666;
+    font-size: 0.9em;
+}
+
+    .detail img
+    {
+        border: none;
+        width: 100%;
+        display: block;
+    }
+
+    .detail p
+    {
+        margin: 0;
+        padding: 0;
+    }
+
+.countdown_label
+{
+    color: #d2c600;
+}
+
+.my
+{
+    background: #f3f3f3;
+}
+
+    .my .profile
+    {
+        height: 170px;
+        background: #ddd url(../images/my_top.png) no-repeat bottom center;
+        background-size: 100% 100%;
+    }
+
+        .my .profile .head
+        {
+            height: 120px;
+            text-align: center;
+            padding-top: 10px;
+        }
+
+            .my .profile .head .face
+            {
+                width: 80px;
+                height: 80px;
+                background-color: #eee;
+                margin: 0px auto;
+                border-radius: 300px;
+                background-size: contain;
+                border: solid 3px #fff;
+                box-shadow: rgba(56, 56, 56,0.5) 3px 3px 3px;
+            }
+
+            .my .profile .head .nick
+            {
+                color: #fff;
+                font-size: 1em;
+                text-align: center;
+                height: 30px;
+                line-height: 30px;
+            }
+
+        .my .profile .info
+        {
+            height: 40px;
+            background-color: rgba(56, 56, 56,0.2);
+            display: -webkit-box;
+            display: box;
+            color: #fff;
+            line-height: 40px;
+            font-size: 0.8em;
+        }
+
+            .my .profile .info .col
+            {
+                width: 0%;
+                -webkit-box-flex: 1;
+                text-align: center;
+                background: url(data:image/svg+xml;base64,77u/PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSLlm77lsYJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSIxcHgiIGhlaWdodD0iMjBweCIgdmlld0JveD0iMCAwIDEgMjAiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDEgMjAiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGxpbmUgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRUVFRUVFIiBzdHJva2Utd2lkdGg9IjAuMjUiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgeDE9IjAuNSIgeTE9IjAiIHgyPSIwLjUiIHkyPSIyMCIvPg0KPC9zdmc+DQo=) no-repeat center right;
+            }
+
+                .my .profile .info .col:last-child
+                {
+                    background: none;
+                }
+
+    .my .line
+    {
+        margin-top: 10px;
+        background: #fff;
+        border-top: solid 1px #ddd;
+    }
+
+        .my .line .title
+        {
+            display: -webkit-box;
+            height: 50px;
+            line-height: 50px;
+            border-bottom: solid 1px #ddd;
+            text-decoration: none;
+        }
+
+            .my .line .title .titLabel
+            {
+                -webkit-box-flex: 1;
+                padding-left: 50px;
+                height: 50px;
+                display: block;
+                color: #333;
+            }
+
+            .my .line .title .icon-my-order
+            {
+                background: url(data:image/svg+xml;base64,77u/PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSLlm77lsYJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSI0MHB4IiBoZWlnaHQ9IjQwcHgiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNDAgNDAiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9IiM3NDZGQjMiIGQ9Ik0yMCw0MEM4Ljk1NCw0MCwwLDMxLjA0NywwLDIwQzAsOC45NTUsOC45NTQsMCwyMCwwDQoJYzExLjA0NywwLDIwLDguOTU1LDIwLDIwQzQwLDMxLjA0NywzMS4wNDcsNDAsMjAsNDB6IE0zMCwxNC40NDRjMC0xLjg0LTEuNDkxLTMuMzMzLTMuMzMzLTMuMzMzaC0xLjExMQ0KCUMyNS4wNDEsOC41NzUsMjIuNjg4LDYuNjY3LDIwLDYuNjY3cy01LjA0MSwxLjkwOC01LjU1Niw0LjQ0NGgtMS4xMTFjLTEuODQxLDAtMy4zMzIsMS40OTMtMy4zMzIsMy4zMzNMNy43NzgsMjUuNTU2DQoJYzAsMS44NDEsMS40OTIsMy4zMzQsMy4zMzMsMy4zMzRIMjguODljMS44NDEsMCwzLjMzMy0xLjQ5MywzLjMzMy0zLjMzNEwzMCwxNC40NDR6IE0yNy43NzcsMjYuNjY3SDEyLjIyMg0KCWMtMS4yMjcsMC0yLjIyMS0wLjk5NS0yLjIyMS0yLjIyM2wyLjIyMS04Ljg4OWMwLTEuMjI4LDAuOTk2LTIuMjIzLDIuMjIzLTIuMjIzdjEuMTExYzAsMC42MTQsMC40OTcsMS4xMTEsMS4xMTEsMS4xMTENCgljMC42MTMsMCwxLjExMS0wLjQ5NywxLjExMS0xLjExMXYtMS4xMTFoNi42NjZ2MS4xMTFjMCwwLjYxNCwwLjQ5OCwxLjExMSwxLjExMSwxLjExMXMxLjExMS0wLjQ5NywxLjExMS0xLjExMXYtMS4xMTENCgljMS4yMjksMCwyLjIyMiwwLjk5NSwyLjIyMiwyLjIyM0wzMCwyNC40NDRDMzAsMjUuNjcyLDI5LjAwNSwyNi42NjcsMjcuNzc3LDI2LjY2N3ogTTIwLDguODljMS40NTEsMCwyLjg3NSwwLjkzLDMuMzMzLDIuMjIyDQoJaC02LjY2NkMxNy4xMjYsOS44MTksMTguNTUxLDguODksMjAsOC44OXoiLz4NCjwvc3ZnPg0K) no-repeat 10px 10px;
+                background-size: 30px 30px;
+            }
+
+            .my .line .title .icon-my-address
+            {
+                background: url(data:image/svg+xml;base64,77u/PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSLlm77lsYJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHdpZHRoPSI0MHB4IiBoZWlnaHQ9IjQwcHgiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNDAgNDAiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGZpbGw9IiNERDdCMjYiIGQ9Ik0yMCw0MEM4Ljk1NCw0MCwwLDMxLjA0NywwLDIwQzAsOC45NTUsOC45NTQsMCwyMCwwDQoJYzExLjA0NywwLDIwLDguOTU1LDIwLDIwQzQwLDMxLjA0NywzMS4wNDcsNDAsMjAsNDB6IE0zMS4xMTEsMTUuNTU2Yy0wLjE4MS0wLjI0Ni0yLjI1Ni0yLjM4OS0zLjc5Ni00LjQ0NEgyMFY5LjQ0NQ0KCWMwLTAuMzA3LTAuMjQ5LTAuNTU2LTAuNTU1LTAuNTU2aC0xLjExMWMtMC4zMDcsMC0wLjU1NiwwLjI0OS0wLjU1NiwwLjU1NnYxLjY2N2gtNi42NjZjLTEuMjI4LDAtMi4yMjMsMC45OTUtMi4yMjMsMi4yMjJWMjANCgljMCwxLjIyOCwwLjk5NSwyLjIyMywyLjIyMywyLjIyM2g2LjY2NnY4LjMzM2MwLDAuMzA3LDAuMjQ5LDAuNTU2LDAuNTU2LDAuNTU2aDEuMTExYzAuMzA3LDAsMC41NTUtMC4yNDksMC41NTUtMC41NTZ2LTguMzMzaDcuMjY4DQoJYzEuNTItMi4wMjgsMy41OTUtNC4xMTEsMy44NDQtNC40NDVDMzEuMTExLDE2Ljk0NiwzMS4xNDcsMTYuMjgyLDMxLjExMSwxNS41NTZ6IE0yNi4wMDcsMjBIMTIuNTU2DQoJYy0wLjc5OCwwLTEuNDQ0LTAuNTk3LTEuNDQ0LTEuMzMzdi00YzAtMC43MzYsMC42NDYtMS4zMzMsMS40NDQtMS4zMzNoMTMuNDgzYzEuMDAzLDEuMjM0LDIuNjUyLDIuNjcsMi43NywyLjgxOA0KCWMwLjE4MSwwLjIyOSwwLjE4NSwwLjc3MSwwLDAuOTk5QzI4LjY0NiwxNy4zNSwyNi45OTQsMTguNzg0LDI2LjAwNywyMHoiLz4NCjwvc3ZnPg0K) no-repeat 10px 10px;
+                background-size: 30px 30px;
+            }
+
+    .my .title .rig
+    {
+        -webkit-box-flex: 1;
+        height: 50px;
+        display: block;
+        font-size: 0.8em;
+        color: #999;
+        text-align: right;
+        padding-right: 30px;
+        line-height: 50px;
+        background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNS4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjIwcHgiIGhlaWdodD0iMjBweCIgdmlld0JveD0iMCAwIDIwIDIwIiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyMCAyMCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8cG9seWxpbmUgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOTk5OTk5IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludHM9Ig0KCTAsMjAgOS43ODUsMTAgMCwwICIvPg0KPC9zdmc+DQo=) no-repeat right center;
+    }
+
+    .my .address
+    {
+        margin-top: 10px;
+        background: #fff;
+        border-top: solid 1px #ddd;
+    }
+
+        .my .address .title
+        {
+            display: -webkit-box;
+            height: 50px;
+            line-height: 50px;
+            border-bottom: solid 1px #ddd;
+        }
+
+.Orders
+{
+    background: #f3f3f3;
+}
+
+    .Orders .tit-tabs
+    {
+        display: box;
+        display: -webkit-box;
+        border-bottom: solid 1px #eee;
+        background: #fff;
+    }
+
+        .Orders .tit-tabs .col
+        {
+            width: 0%;
+            -webkit-box-flex: 1;
+            text-align: center;
+            height: 2.5em;
+            line-height: 2.5em;
+            color: #666;
+        }
+
+            .Orders .tit-tabs .col a
+            {
+                display: block;
+                line-height: 2.5em;
+                text-decoration: none;
+                color: #666;
+            }
+
+        .Orders .tit-tabs .selected
+        {
+            border-bottom: solid 2px #f60;
+        }
+
+    .Orders .list
+    {
+    }
+
+        .Orders .list .item
+        {
+            border-bottom: solid 1px #eee;
+            border-top: solid 1px #eee;
+            margin-top: 8px;
+            background: #fff;
+            padding: 8px;
+        }
+
+            .Orders .list .item .info
+            {
+                display: -webkit-box;
+                clear: both;
+                margin: 0 0 5px 0;
+            }
+
+            .Orders .list .item .thumbnail
+            {
+                width: 60px;
+                height: 60px;
+                margin-right: 5px;
+                background-color: #ccc;
+                background-size: cover;
+                background-position: center center;
+            }
+
+            .Orders .list .item .desc
+            {
+                -webkit-box-flex: 1;
+            }
+
+                .Orders .list .item .desc h1
+                {
+                    font-size: 1em;
+                    font-weight: normal;
+                    margin: 0 0 5px 0;
+                }
+
+                .Orders .list .item .desc .price
+                {
+                    font-size: 0.8em;
+                    color: #999;
+                }
+
+            .Orders .list .item .pline
+            {
+                border-bottom: solid 1px #eee;
+                border-top: solid 1px #eee;
+                line-height: 2.5em;
+                text-align: right;
+            }
+
+                .Orders .list .item .pline .tip
+                {
+                    color: #999;
+                    font-size: 0.8em;
+                }
+
+                .Orders .list .item .pline .price
+                {
+                    font-size: 1em;
+                    color: #f60;
+                }
+
+            .Orders .list .item .action
+            {
+                line-height: 2.5em;
+                text-align: right;
+            }
+
+                .Orders .list .item .action .btn
+                {
+                    line-height: 1.5em;
+                    padding: 0.25em 0.5em;
+                    background: #ccc;
+                    border-radius: 5px;
+                }
+
+                .Orders .list .item .action .btn-f60
+                {
+                    color: #fff;
+                    background-color: #f60;
+                }
+
+            .Orders .list .item .waitTip
+            {
+                font-size: 0.8em;
+                color: #e10101;
+            }
+
+            .Orders .list .item .express
+            {
+                border-bottom: solid 1px #eee;
+                line-height: 2.5em;
+                color: #999;
+                text-align: right;
+            }
+
+                .Orders .list .item .express span
+                {
+                    font-size: 0.8em;
+                }
+
+.Address
+{
+    padding: 8px;
+}
+
+    .Address h1
+    {
+        color: #333;
+        font-size: 1.5em;
+        font-weight: normal;
+        margin: 0.8em 0;
+    }
+
+    .Address .editPannal
+    {
+    }
+
+        .Address .editPannal .row
+        {
+            margin-bottom: 1em;
+        }
+
+            .Address .editPannal .row .control a
+            {
+                display: block;
+            }
+
+            .Address .editPannal .row .label
+            {
+                color: #999;
+                font-size: 0.8em;
+            }
+
+            .Address .editPannal .row .unhappy
+            {
+                color: #e60303;
+            }
+
+            .Address .editPannal .row .control
+            {
+                border-bottom: solid 1px #ccc;
+                padding: 0px 5px;
+            }
+
+        .Address .editPannal .sel
+        {
+            display: block;
+            width: 100%;
+            margin-top: 1em;
+        }
+
+        .Address .editPannal .row input, .Address .editPannal .row textarea, .Address .editPannal .row .alink
+        {
+            border: none;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            height: 2em;
+            line-height: 2em;
+            text-decoration: none;
+            color: #333;
+        }
+
+    .Address .btn, .payinfo .btn
+    {
+        height: 45px;
+        display: block;
+        background: #f30;
+        text-decoration: none;
+        text-align: center;
+        line-height: 45px;
+        color: #fff;
+    }
+
+
+.unhappy
+{
+    color: #e60303;
+}
+
+.Address .address-container
+{
+    background: url(../images/address-bg.jpg) repeat;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+    .Address .address-container .out-border
+    {
+        padding: 10px;
+        background: #fff;
+    }
+
+        .Address .address-container .out-border div
+        {
+            margin: 5px 0;
+        }
+
+.Address .btnMargin
+{
+    margin-top: 1.5em;
+}
+
+
+
+/*loading*/
+
+.load .loadtxt
+{
+    color: #ccc;
+    text-align: center;
+    font-size: 0.8em;
+}
+
+.loading
+{
+    margin: 5px auto;
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    font-size: 10px;
+}
+
+    .loading > div
+    {
+        background-color: #ccc;
+        height: 100%;
+        width: 6px;
+        display: inline-block;
+        -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+        animation: stretchdelay 1.2s infinite ease-in-out;
+    }
+
+    .loading .rect2
+    {
+        -webkit-animation-delay: -1.1s;
+        animation-delay: -1.1s;
+    }
+
+    .loading .rect3
+    {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+
+    .loading .rect4
+    {
+        -webkit-animation-delay: -0.9s;
+        animation-delay: -0.9s;
+    }
+
+    .loading .rect5
+    {
+        -webkit-animation-delay: -0.8s;
+        animation-delay: -0.8s;
+    }
+
+@-webkit-keyframes stretchdelay
+{
+    0%, 40%, 100%
+    {
+        -webkit-transform: scaleY(0.4);
+    }
+
+    20%
+    {
+        -webkit-transform: scaleY(1.0);
+    }
+}
+
+@keyframes stretchdelay
+{
+    0%, 40%, 100%
+    {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4);
+    }
+
+    20%
+    {
+        transform: scaleY(1.0);
+        -webkit-transform: scaleY(1.0);
+    }
+}
+
+.rule-bg
+{
+    background: url(../images/rule-bg-bottom.jpg) bottom center no-repeat;
+    background-size: contain 100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.rule-bg-top
+{
+    background: url(../images/rule-bg-top.jpg) top center no-repeat;
+}
+
+.rule .logo
+{
+    height: 100px;
+    background: url(../images/logo.png) bottom center no-repeat;
+}
+
+.rule h1
+{
+    color: #776559;
+    font-family: Arial;
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 1.5em;
+}
+
+.rule .content
+{
+    color: #776559;
+    margin: 1em;
+}
+
+    .rule .content p
+    {
+        line-height: 1.5em;
+        font-size: 0.9em;
+    }
+
+.payinfo
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #fff;
+}
+
+    .payinfo .container
+    {
+        margin: 10px;
+    }
+
+        .payinfo .container h1
+        {
+            font-size: 1.2em;
+            color: #666;
+            border-bottom: solid 2px #ccc;
+            height: 2em;
+            line-height: 2em;
+        }
+
+        .payinfo .container .item
+        {
+            margin: 0em 1em;
+            border-bottom: dashed 1px #eee;
+            padding: 1em;
+        }
+
+            .payinfo .container .item:last-child
+            {
+                border-bottom: none;
+            }
+
+
+.red
+{
+    color: #dc0202;
+}
+
+.My h1
+{
+    color: #333;
+    font-size: 1.5em;
+    font-weight: normal;
+    margin: 0.8em 0;
+    padding: 0 8px;
+}
+
+.My .list
+{
+}
+
+    .My .list .item
+    {
+        border-bottom: solid 1px #eee;
+        border-top: solid 1px #eee;
+        margin-top: 8px;
+        background: #fff;
+        padding: 8px;
+    }
+
+        .My .list .item .info
+        {
+            display: -webkit-box;
+            clear: both;
+            margin: 0 0 5px 0;
+        }
+
+        .My .list .item .thumbnail
+        {
+            width: 60px;
+            height: 60px;
+            margin-right: 5px;
+            background-color: #ccc;
+            background-size: cover;
+            background-position: center center;
+        }
+
+        .My .list .item .desc
+        {
+            -webkit-box-flex: 1;
+        }
+
+            .My .list .item .desc h1
+            {
+                font-size: 1em;
+                font-weight: normal;
+                margin: 0 0 5px 0;
+                padding: 0;
+            }
+
+    .My .list a
+    {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .My .list .item .desc .price
+    {
+        font-size: 0.8em;
+        color: #999;
+        line-height: 1.8em;
+    }
+
+    .My .list .item .desc .time
+    {
+        font-size: 0.8em;
+        color: #999;
+    }
+
+    .My .list .item .pline
+    {
+        border-bottom: solid 1px #eee;
+        border-top: solid 1px #eee;
+        line-height: 2.5em;
+        text-align: left;
+    }
+
+        .My .list .item .pline .tip
+        {
+            color: #999;
+            font-size: 0.8em;
+        }
+
+        .My .list .item .pline .price
+        {
+            font-size: 1em;
+            color: #f60;
+        }
+.error
+{
+    color:#e60303;
+}

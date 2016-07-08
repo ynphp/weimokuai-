@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,user-scalable=no"/>
+<title>{$_W['account']['name']}|拍卖首页</title>
+    {php echo register_jssdk(false);}
+<script src="{AMOUSE_AUCTION_RES}js/zepto.js?v=1.7"></script>
+<script src="{AMOUSE_AUCTION_RES}js/m.js?v=1.7"></script>
+<link href="{AMOUSE_AUCTION_RES}css/app.css?v=1.7" rel="stylesheet"/>
+<link href="{AMOUSE_AUCTION_RES}css/mui.css?v=1.7" rel="stylesheet"/>
+<script src="{AMOUSE_AUCTION_RES}js/scrollPagination.js?v=2"></script>
+</head>
+<body>
+<div>
+    <script>
+        var countDownDoms = countDownDoms || [];
+        var countDownNow = Date.parse("{$currentdate}");
+    </script>
+
+    <div id="mianTab" class="mui_tab">
+        <!-- tabHead -->
+        <ul class="tab_header">
+            <li>开拍</li>
+            <li>历史</li>
+        </ul>
+        <!-- tabPanel-->
+        <ul class="tab_container plist" id="pager">
+            <li id="salewrapper">
+                {loop $list $item}
+                <div class="item">
+                    <h1>{$item['title']}
+                    </h1>
+                    <a href="{php echo $this->createMobileUrl("detail", array("id"=>$item['id']))}">
+                        <img src="{php echo tomedia($item['au_pic'])}"/>
+                    </a>
+
+                    <div class="price_row">
+                        <div class="col em9">当前价：<span class="price">￥{$item['transaction_value']}</span></div>
+                        <div class="col ptime em9"><span>{$item['offerNum']}</span>次出价</div>
+                    </div>
+                    <div class="em9" id="countdown476">
+                    </div>
+                    <span>正在竞拍中</span>
+                </div>
+                {/loop}
+            </li>
+            <li id="previewwrapper">
+                {loop $list2 $item2}
+                <div class="item">
+                    <h1>【{$item2['title']}】</h1>
+                    <a href="{php echo $this->createMobileUrl("detail", array("id"=>$item2['id']))}">
+                        <img src="{php echo tomedia($item2['au_pic'])}"/>
+                    </a>
+
+                    <div class="price_row">
+                        <div class="col em9">成交价：<span class="price">￥{$item2['transaction_value']}</span></div>
+                        <div class="col ptime em9"><span>{$item2['offerNum']}</span>次出价</div>
+                    </div>
+                    <div class="em9">
+                        <span>
+                            {if $item2['end_time']<time() && $item2['isnohaggle'] && $item2['isnohaggle']==1}
+								(一口价)成交
+							{else}
+                                {if $item2['end_time']<time()}成交{/if}
+						    {/if}
+                        </span>
+                    </div>
+
+                </div>
+                {/loop}
+            </li>
+        </ul>
+        {if $listtotal>3}
+        <div class="load hidden" id="loading">
+            <div class="loading">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </div>
+            <div class="loadtxt">正在加载数据...</div>
+        </div>
+        {/if}
+    </div>
+
+    <script type="text/javascript">
+        var saleP = 3;
+        var previewP = 3;
+        var para = {"type": '0', "p": 3, t: 1};
+        var mytab = $("#mianTab").mTab();
+
+        var previewLast = 0;
+        var saleLast = 0;
+
+        var listtotal ='{$listtotal}';
+
+        $.mCountdown({now: countDownNow, doms: countDownDoms});
+        if(listtotal>3){
+            $(function () {
+                $('#pager').scrollPagination({
+                    'isAll': true,
+                    'contentPage': "{php echo $this->createMobileUrl('getPage')}",
+                    'contentData': para,
+                    'scrollTarget': $(window),
+                    'heightOffset': 10,
+                    'beforeLoad': function () {
+                        para.t = mytab.index + 1;
+                        switch (para.t) {
+                            case 1:
+                            {
+                                para.p = saleP;
+                                if ($('#salewrapper').children().size() >= '13') {
+                                    this.isAll = true;
+                                }
+                                break;
+                            }
+                            case 2:
+                            {
+                                para.p = previewP;
+                                if ($('#previewwrapper').children().size() >= '17') {
+                                    this.isAll = true;
+                                }
+                                break;
+                            }
+                        }
+                        $('#loading').fadeIn();
+                    },
+                    'afterLoad': function (elementsLoaded) {
+                        $('#loading').fadeOut();
+                    },
+                    'dataType': 'json',
+                    'loader': function (msg) {
+                        console.log(msg);
+                        switch (para.t) {
+                            case 1: {
+                                if (msg.data.length > 0 && saleLast != msg.data[msg.data.length - 1].id) {
+                                    saleP += 3;
+                                    $.each(msg.data, function (idx, item) {
+                                        if (item.proStatus !=-1) {
+                                            var tpm = '<a class="item" href="{php echo $this->createMobileUrl('detail')}&id=' + item.id + '"><h1>' + item.title + '</h1><img src="' + item.au_pic + '" /><div class="price_row"><div class="col em9">当前价：<span class="price">￥' + item.transaction_value + '</span></div><div class="col ptime em9"><span>' + item.pos + '</span>次出价</div></div><div class="em9" id="countdown' + item.id + '">正在竞拍中</div>  </a>';
+                                            $("#salewrapper").append(tpm);
+                                        } else {
+                                            var tpm = '<a class="item" href="{php echo $this->createMobileUrl('detail')}&id=' + item.id + '"><h1>' + item.title + '</h1><img src="' + item.au_pic + '" /><div class="price_row"><div class="col em9">当前价：<span class="price">￥' + item.transaction_value + '</span></div><div class="col ptime em9"><span>' + item.pos + '</span>次出价</div></div><div class="em9" id="countdown' + item.id + '">已结束</div>  </a>';
+                                            $("#salewrapper").append(tpm);
+                                        }
+                                    });
+                                    saleLast = msg.data[msg.data.length - 1].id;
+                                }
+                                break;
+                            }
+                            case 2: {
+                                if (msg.data.length > 0 && previewLast != msg.data[msg.data.length - 1].id) {
+                                    previewP += 3;
+                                    $.each(msg.data, function (idx, item) {
+                                        var tpm = '<a class="item" href="{php echo $this->createMobileUrl('detail')}&id=' + item.id + '"><h1>' + item.title + '</h1><img src="' + item.au_pic + '" /><div class="price_row"><div class="col em9">成交价：<span class="price">￥' + item.price + '</span></div><div class="col ptime em9"><span>' + item.pos + '</span>次出价</div></div><div class="em9"><span>已成交</span></div>  </a>';
+                                        $("#previewwrapper").append(tpm);
+                                    });
+                                    previewLast = msg.data[msg.data.length - 1].id;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                });
+            });
+        }
+
+        function ChangeDateFormat(jsondate) {
+            jsondate = jsondate.replace("/Date(", "").replace(")/", "");
+            if (jsondate.indexOf("+") > 0) {
+                jsondate = jsondate.substring(0, jsondate.indexOf("+"));
+            }
+            else if (jsondate.indexOf("-") > 0) {
+                jsondate = jsondate.substring(0, jsondate.indexOf("-"));
+            }
+
+            var date = new Date(parseInt(jsondate, 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var currentHour = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+            var currentMinute = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+            var currentSecond = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+
+            return date.getFullYear()
+                    + "/"
+                    + month
+                    + "/"
+                    + currentDate
+
+                    + " "
+                    + currentHour
+                    + ":"
+                    + currentMinute
+                    + ":"
+                    + currentSecond;
+
+        }
+    </script>
+
+
+    <script type="text/javascript">
+        initShare();
+        function initShare(){
+            wx.ready(function () {
+                shareMeta = {
+                    title: "{$share_data['share_title']}",
+                    desc: "{$share_data['share_desc']}",
+                    link: "{$to_url}",
+                    imgUrl: "{$_W['attachurl']}{$share_data['share_image']}",
+                    success: function(){
+
+                    },
+                    cancel: function(){
+                        // alert("分享失败，可能是网络问题，一会儿再试试？");
+                    }
+                };
+                wx.onMenuShareTimeline(shareMeta);
+                wx.onMenuShareAppMessage(shareMeta);
+                wx.onMenuShareWeibo(shareMeta);
+                wx.onMenuShareQQ(shareMeta);
+                wx.onMenuShareQZone(shareMeta);
+            });
+        }
+
+    </script>
+
+</div>
+</body>
+</html>

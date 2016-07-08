@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{$settings['s_title']}</title>
+    <style>
+    @keyframes play {
+        100% {
+            background-position: -737px -2px;
+        }
+    }
+    @-webkit-keyframes play {
+        100% {
+            background-position: -737px -2px;
+        }
+    }
+    .sprite {
+        width: 145px;
+        height: 300px;
+        display: inline-block;
+        overflow: hidden;
+        background-repeat: no-repeat;
+        background-image: url({MODULE_URL}template/mobile/images/qian.png);
+        background-position: -2px -2px;
+        animation: play 0.8s steps(5) infinite;
+        -webkit-animation: play 0.8s steps(5) infinite;
+    }
+    .preload {
+        background-position: 9999px 9999px;
+        width: 1px;
+        height: 1px;
+        display: none;
+    }
+    body {
+        background: url({$settings['bg_image']}) no-repeat #E8DFD0;
+        background-size: cover;
+    }
+    html,
+    body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .do {
+        background: url({MODULE_URL}template/mobile/images/button.png) no-repeat center;
+        background-size: cover;
+        width: 100%;
+        height: 15%;
+        margin: 0 auto;
+        position: fixed;
+        bottom: 20%;
+        text-align: center;
+        color: #666;
+        line-height: 180px;
+        cursor: pointer;
+    }
+    .cover {
+        background: url({MODULE_URL}template/mobile/images/share.png) top right no-repeat;
+        background-size: 50%;
+        background-color: rgba(0, 0, 0, 0.7);
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        display: none;
+    }
+    .decode .inner {
+        width: 100%;
+        height: 100%;
+        background: url({MODULE_URL}template/mobile/images/decode.png) center no-repeat;
+        background-size: 80%;
+    }
+    .item {
+        width: 100%;
+        text-align: center;
+        padding-top: 20%;
+    }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<script src="{MODULE_URL}template/mobile/js/zepto.min.js"></script>
+	<script src="{MODULE_URL}template/mobile/js/index.js?v=8"></script>
+</head>
+<body>
+    <img style="position: absolute;z-index: -99;left: -9999px;" src="{$settings['s_icon']}" alt="">
+    <div class="do" onclick="start()">摇一摇手机</div>
+    <div class="cover result">
+        <div class="item">
+            <div class="sprite a1"></div>
+        </div>
+    </div>
+    <div class="cover decode">
+        <div class="inner"></div>
+    </div>
+<script>
+  var url='{php echo $_W['siteroot'].'app/'.$this->createMobileUrl('qian',array(),1);}';
+  var num=19;
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+  wx.config({
+      debug: false,
+      appId: "{$jssdkconfig['appId']}",
+      timestamp: {$jssdkconfig['timestamp']},
+      nonceStr: "{$jssdkconfig['nonceStr']}",
+      signature: "{$jssdkconfig['signature']}",
+      jsApiList: [
+        'checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+        'translateVoice',
+        'startRecord',
+        'stopRecord',
+        'onRecordEnd',
+        'playVoice',
+        'pauseVoice',
+        'stopVoice',
+        'uploadVoice',
+        'downloadVoice',
+        'chooseImage',
+        'previewImage',
+        'uploadImage',
+        'downloadImage',
+        'getNetworkType',
+        'openLocation',
+        'getLocation',
+        'hideOptionMenu',
+        'showOptionMenu',
+        'closeWindow',
+        'scanQRCode',
+        'chooseWXPay',
+        'openProductSpecificView',
+        'addCard',
+        'chooseCard',
+        'openCard'
+      ]
+  });
+  wx.ready(function () {
+  //分享朋友
+  wx.onMenuShareAppMessage({
+      title: "{$settings['s_title']}",
+      desc: "{$settings['s_des']}",
+      link: "{$jssdkconfig['url']}",
+      imgUrl: "{$settings['s_icon']}",
+      success: function (res) {
+        //window.location.href =adurl;//分享成功回调
+      },
+      cancel: function (res) {
+       //window.location.href =adurl;//取消回调
+      }
+    });
+ //朋友圈
+  wx.onMenuShareTimeline({
+      title: "{$settings['s_title']}",
+      link:"{$jssdkconfig['url']}",
+      imgUrl:"{$settings['s_icon']}",
+      success: function (res) {
+          //window.location.href =adurl;
+      },
+      cancel: function (res) {
+          //window.location.href =adurl;
+      }
+    });        
+  });
+
+</script>
+</body>
+</html>

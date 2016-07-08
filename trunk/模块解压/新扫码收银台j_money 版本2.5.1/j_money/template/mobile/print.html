@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>收银台</title>
+<meta name="format-detection" content="telephone=no, address=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-touch-fullscreen" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<link href="./resource/css/bootstrap.min.css" rel="stylesheet">
+<link href="./resource/css/font-awesome.min.css" rel="stylesheet">
+<link href="./resource/css/animate.css" rel="stylesheet">
+<link href="./resource/css/common.css" rel="stylesheet">
+<script src="{MODULE_URL}template/js/jquery-2.1.1.min.js"></script>
+<script language="javascript" src="{MODULE_URL}template/js/LodopFuncs.js"></script>
+</head>
+<body>
+<script>
+var printMission;
+var LODOP;
+var printNum=parseInt("{$cfg['printnum']}") ? parseInt("{$cfg['printnum']}") :0;
+var ismodal=parseInt("{$_GPC['ismodal']}");
+var printpagewidth=parseInt("{$cfg['printpagewidth']}") ? parseInt("{$cfg['printpagewidth']}")*100 :5700;
+var isCard=parseInt("{php echo $pcate}")
+//alert(printpagewidth);
+$(document).ready(function(e) {
+	if(printNum){
+		prn1_print();
+	}
+});
+function prn1_print() {
+	LODOP=getLodop();
+	{php echo $printDoc}
+	LODOP.SET_PRINT_PAGESIZE(3,printpagewidth,50,"");
+	LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS",true);
+	printMission=LODOP.PRINT();
+	setTimeout(function(){
+		var isInlist=LODOP.GET_VALUE('PRINT_STATUS_EXIST',printMission);
+		if(!isInlist){
+			if(!isCard)$.post("{php echo $this->createMobileUrl('ajax',array('op'=>'isprint','orderid'=>$tradeid))}");
+		}else{
+			//alert(isInlist+","+printMission);
+			alert("请检查是否安装驱动或者是否启动了打印机");
+		}
+		if(ismodal){
+			window.parent.extendFun(ismodal);
+		}else{
+			window.parent.getCounterRecord();
+		}
+		
+	},2000); 
+	
+};
+</script>

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,user-scalable=no"/>
+    <title>{$_W['account']['name']} |【{$goods['title']}】</title>
+    {php echo register_jssdk(false);}
+    <script src="{AMOUSE_AUCTION_RES}js/zepto.js?v=1.7"></script>
+    <script src="{AMOUSE_AUCTION_RES}js/m.js?v=1.7"></script>
+    <link href="{AMOUSE_AUCTION_RES}css/app.css?v=1.7" rel="stylesheet"/>
+    <link href="{AMOUSE_AUCTION_RES}css/mui.css?v=1.7" rel="stylesheet"/>
+</head>
+<body>
+
+<!--end-->
+<div>
+    <div class="goods">
+
+        <img src="{php echo tomedia($goods['au_pic'])}"  />
+        <h1>【{$goods['title']}】</h1>
+        <input type="hidden" value="{$goods['transaction_value']}" id="uiPrice"/>
+        <input type="hidden" value="{$goods['id']}" id="pid"/>
+        <input type="hidden" value="{$goods['now_price']}" id="nowPrice"/>
+    </div>
+
+    {if $goods['end_time']< time()}
+    <div class="goods_info">
+        <div class="countdown_row  over">
+            已结束
+        </div>
+    </div>
+    {else}
+    <div class="goods_info">
+        <!-- 显示出价 //-->
+
+        <a class="collectlink {if $mycollect}coolectno{else}coolectyes{/if}" id="uicollect" href="javascript:" onclick="collect({$goods['id']})">{if $mycollect}取消{else}收藏{/if}</a>
+        <div class="price_row em9">
+            <div class="col">当前价：<span class="price" id="uiPriceLabel">￥{$goods['transaction_value']}</span></div>
+
+            <div class="col tr"><span>{$goods['offerNum']}</span>次出价</div>
+        </div>
+        <div class="countdown_row em9" id="uiCountdown">
+        </div>
+        <div class="price">
+            最低加价幅度：{$goods['raise_price']}
+        </div>
+        <div class="em9">
+            结束时间：{$end_time}
+        </div>
+        {if $goods['delay_cycle']}
+        <div class="em9">
+            延迟周期：{$goods['delay_cycle']} 分/次
+            <a href="{php echo $this->createMobileUrl("about",array(),true)}" target="_blank">
+            <i style="background: url(//gtms04.alicdn.com/tps/i4/T1wC_lFwhcXXa05tbX-22-9.png) no-repeat center center; display: inline-block; margin-left: 2px;  width: 22px; height: 12px;"></i>
+            </a>
+        </div>
+        {/if}
+        <div class="bid">
+            <div class="price-container">
+                <a class="action" ontouchstart="decrease()">-</a>
+                <div class="price-ipt">
+                    <input id="uiPriceIpt" type="tel" value="{$goods['transaction_value']}"/>
+                </div>
+                <a class="action" ontouchstart="add()">+</a>
+            </div>
+            <a class="btn-bid" href="javascript:" id="btnBid">竞拍 </a>
+        </div>
+
+        {if $goods['now_price']!='0.00' }
+        <div class="bid">
+            <div class="price-container">
+                <div class="price-ipt">
+                    <input  readonly type="tel" value="{$goods['now_price']}"/>
+                </div>
+            </div>
+            <a class="btn-bid" href="javascript:" id="btnDeal">一口价 </a>
+        </div>
+        {/if}
+        <div class="row2">
+        </div>
+        <script>
+            var countDownNow = Date.parse("{$currentdate}");
+            var countdown = $.mCountdown({now: countDownNow, doms: [{"el": "uiCountdown", "tim": "{$end_time}"}],  countCss: "countdown_label" });
+        </script>
+    </div>
+    {/if}
+
+    <div class="em8 showtip">
+
+    </div>
+    <div id="mianTab" class="mui_tab">
+        <!-- tabHead -->
+        <ul class="tab_header">
+            <li>图文介绍</li>
+            <li>出价记录</li>
+        </ul>
+
+        <!-- tabPanel-->
+        <ul class="tab_container plist">
+            <li>
+                <div class="detail">
+                    {$goods['content']}
+                </div>
+            </li>
+            <li>
+                <div class="orders" id="orders">
+                    {php $num =count($list);}
+                    {loop $list $key $item}
+                    <div class="dl">
+                        {if $goods['end_time']< time()}
+                        <div class="col"><!--结束-->
+                            <span>{$item['nickname']}</span>
+                        </div>
+                        {else}
+                        {if $item['oid']==$userInfo['openid']}
+                        <div class="col">
+                            <span>我</span>
+                        </div>
+                        {else}
+                        <div class="col">
+                            <span>  {php echo haha($item['nickname'])}</span>
+                        </div>
+                        {/if}
+                        {/if}
+                        <div class="col">{php echo floatval($item['price'])}</div>
+                        <div class="col tr">{php echo get_timelineauction($item['createtime'])}</div>
+                        <div class="col tr">
+                            <span class="red">
+							{if $goods['end_time']<time() && $item['isnohaggle'] && $item['isnohaggle']==1}
+								(一口价)成交
+							{else}
+								{if $key==0}
+									{if $goods['end_time']<time()}成交{else}领先{/if}
+								{else}
+									出局
+								{/if}
+						    {/if}
+
+							</span>
+                        </div>
+                    </div>
+                    {php $num--;}
+                    {/loop}
+
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        var step = parseFloat("{$goods['raise_price']}");
+        var price = parseFloat($("#uiPrice").val());
+        var pid=$("#pid").val();
+        var rtotal='{$rtotal}';
+        var nowPrice = parseFloat("{$goods['now_price']}");
+        ///出价确认框
+        var confirm;
+        ///心理价对话框
+        var autoDia;
+        //加价
+        function add() {
+            $("#uiPriceIpt").val(parseFloat($("#uiPriceIpt").val()) + step);
+        }
+
+        //减价
+        function decrease() {
+            if (parseFloat($("#uiPriceIpt").val()) > price + step) {
+                $("#uiPriceIpt").val(parseFloat($("#uiPriceIpt").val()) - step);
+            }
+        }
+        //出价
+        function bid(t) {
+            var uiPriceIpt =  parseFloat($("#uiPriceIpt").val());
+            if(rtotal==0){//第一次出价
+                if(uiPriceIpt>=price){//输入的价格必须大于当前价格+加价幅度
+                    var opt = {
+                        title: "提示",
+                        message: "您出价为￥" +uiPriceIpt+ "，是否要提交您的出价？",
+                        buttons: [{
+                            text: "确定", handle: offer
+                        },{
+                            text: "取消", handle: function () {
+                                confirm.close();
+                            }}]
+                    };
+
+                    confirm = $.mDialog(opt);
+                }else{
+                    var minPrice=price+ step;
+                    var dia = $.mDialog({
+                        title: "提示",
+                        message: "出价失败，您的出价￥" +uiPriceIpt+ "，此次最小出价为￥"+minPrice+"，请重新出价？",
+                        buttons: [{
+                            text: "知道了", handle: function () {
+                                dia.close();
+                                window.setTimeout(function () {
+                                    window.location.reload();
+                                }, 500)
+                            }
+                        }]
+                    });
+                }
+
+            }else{
+                if(uiPriceIpt>=price+step){//输入的价格必须大于当前价格+加价幅度
+                    var opt = {
+                        title: "提示",
+                        message: "您出价为￥" +uiPriceIpt+ "，是否要提交您的出价？",
+                        buttons: [{
+                            text: "确定", handle: offer
+                        },{
+                            text: "取消", handle: function () {
+                                confirm.close();
+                            }}]
+                    };
+                    　
+                    confirm = $.mDialog(opt);
+                }else{
+                    var minPrice=price+ step;
+                    var dia = $.mDialog({
+                        title: "提示",
+                        message: "出价失败，您的出价￥" +uiPriceIpt+ "，此次最小出价为￥"+minPrice+"，请重新出价？",
+                        buttons: [{
+                            text: "知道了", handle: function () {
+                                dia.close();
+                                window.setTimeout(function () {
+                                    window.location.reload();
+                                }, 500)
+                            }
+                        }]
+                    });
+                }
+            }
+
+        }
+
+        //出价
+        function offer() {
+            confirm.close();
+            $.ajax({
+                url: "{php echo $this->createMobileUrl('offer')}",
+                type: "post",
+                dataType: "json",
+                data: {"pid": pid, "price": $("#uiPriceIpt").val()},
+                success: function (r) {
+                    ///出价成功
+                    console.log(r);
+                    if (r.code==200) {
+                        price = r.price;
+                        $("#uiPrice").val(price);
+
+                        $("#uiPriceLabel").text("￥" + price);
+                        $("#uiPriceIpt").val(parseFloat(price) +parseFloat(step));
+                        $("#orders .red").text("出局");
+                        $("#orders .red").removeClass("red");
+                        if ($("#orders").children().length >0) {
+                            $("#orders .dl").first().before('<div class="dl"><div class="col">我</div><div class="col">' +price+ '</div><div class="col tr">刚刚</div><div class="col tr"><span class="red">领先</span></div></div>');
+                        }else {
+                            $("#orders").append(' <div class="dl"><div class="col">我</div><div class="col">' + price+ '</div><div class="col tr">刚刚</div><div class="col tr"><span class="red">领先</span></div></div>');
+                        }
+
+                        var dia = $.mDialog({
+                            title: "提示",
+                            message: r.msg,
+                            buttons: [{
+                                text: "知道了", handle: function () {
+                                    dia.close();
+                                    window.setTimeout(function () {
+                                        window.location.reload();
+                                    }, 500)
+                                }
+                            }]
+                        });
+                    }else {
+                        if (r.title =="0") {
+                            var maxprice = r.price;
+                            $("#uiPrice").val(maxprice);
+
+                            $("#uiPriceLabel").text("￥" + maxprice);
+                            $("#uiPriceIpt").val(parseFloat(maxprice) + parseFloat(step));
+                            var dia = $.mDialog({
+                                title: "提示",
+                                message: "出价失败，当前最高出价为" + maxprice + "是否重新出价？",
+                                buttons: [{
+                                    text: "是", handle: function () {
+                                        offer();
+                                        dia.close();
+                                    }
+                                },
+                                    {
+                                        text: "否", handle: function () {
+                                        dia.close();
+                                    }
+                                    }]
+                            });
+                        }else {
+                            var dia = $.mDialog({
+                                title: "提示",
+                                message: r.msg,
+                                buttons: [{
+                                    text: "知道了", handle: function () {
+                                        dia.close();
+                                        window.setTimeout(function () {
+                                            window.location.reload();
+                                        }, 500)
+                                    }
+                                }]
+                            });
+                        }
+                    }
+                },
+                error: function (r) {
+                    console.log(r);
+                }
+            });
+        }
+
+        function btnDeal(){
+            var opt = {
+                title: "提示",
+                message:  "您是否确定出价￥" +nowPrice+ "拍下该商品？",
+                buttons: [{
+                    text: "确定", handle: nohaggle
+                },{
+                    text: "取消", handle: function () {
+                        confirm.close();
+                    }}]
+            };
+            confirm = $.mDialog(opt);
+        }
+
+        //一口价
+        function nohaggle() {
+            confirm.close();
+            $.ajax({
+                url: "{php echo $this->createMobileUrl('nohaggle')}",
+                type: "post",
+                dataType: "json",
+                data: {"pid": pid},
+                success: function (r) {
+                    var price = r.price;
+                    var dia = $.mDialog({
+                        title: "提示",
+                        message: r.msg,
+                        buttons: [{
+                            text: "知道了", handle: function () {
+                                dia.close();
+                                // window.location.reload();
+                                $(".goods_info").html('<div class="countdown_row  over"> 已结束 </div>');
+                                countdown.over();
+                                $("#orders .red").text("出局");
+                                $("#orders .red").removeClass("red");
+                                if ($("#orders").children().length >0) {
+                                    $("#orders .dl").first().before('<div class="dl"><div class="col">我</div><div class="col">' +price+ '</div><div class="col tr">刚刚</div><div class="col tr"><span class="red">成交</span></div></div>');
+                                }else {
+                                    $("#orders").append(' <div class="dl"><div class="col">我</div><div class="col">' + price+ '</div><div class="col tr">刚刚</div><div class="col tr"><span class="red">成交</span></div></div>');
+                                }
+                            }
+                        }]
+                    });
+
+                },
+                error: function (r) {
+                    console.log(r);
+                }
+
+            });
+        }
+
+        ///收藏
+        function collect(pid) {
+            var act = 1;
+            if ($("#uicollect").text() != "收藏") {
+                act = 0;
+            }
+            $.ajax({
+                url: "{php echo $this->createMobileUrl('collect')}",
+                type: "post",
+                dataType: "json",
+                data: {"pid": pid, action: act},
+                success: function (msg) {
+                    if (msg.code==200) {
+                        if (act==1) {
+                            $("#uicollect").text("取消");
+                            $("#uicollect").removeClass("coolectyes");
+                            $("#uicollect").addClass("coolectno");
+                        }else {
+                            $("#uicollect").text("收藏");
+                            $("#uicollect").removeClass("coolectno");
+                            $("#uicollect").addClass("coolectyes");
+                        }
+                    }
+                    console.log(msg);
+                }
+            });
+        }
+
+        ///自动出价
+        function autoOffer() {
+            var opt = {
+                title: "提示",
+                message: '<div id="autoP" class="autoPrice"><div class="form-container"><input id="autoPrice" type="tel" class="offp" placeholder="请输入心理价位" /></div><div id="autoPriceTip" class="error"></div><div class="tip">设定心理价位，当有人高过您的出价只要不超过您的心理价位系统会自动帮您出价</div></div>',
+                buttons: [{
+                    text: "确定", handle: autoPrice
+                },
+                    {
+                        text: "取消", handle: function () {
+                        autoDia.close();
+                    }
+                    }]
+            };
+            autoDia = $.mDialog(opt);
+        }
+
+        function autoPrice() {
+            var prc = $("#autoPrice").val();
+            var currentPrice = '1300';
+            var stepPrice = '100';
+            //判断是否为空
+            if ($.trim(prc) != "") {
+                //判断是否为数字
+                if (!isNaN(prc)) {
+                    //判断是否大于当前出价
+                    if (prc > parseFloat(currentPrice) + parseFloat(stepPrice)) {
+                        $.ajax({
+                            url: "/do/autoOffer",
+                            type: "post",
+                            data: {"pid": "474", price: prc},
+                            success: function (msg) {
+                                if (msg.result) {
+                                    autoDia.close();
+                                }
+
+                            }
+                        });
+                    }
+                    else {
+                        $("#autoPriceTip").text("出价无效，您的心理价位小于最低出价");
+                    }
+                } else {
+                    $("#autoPriceTip").text("心理价位请输入数字！");
+                }
+            }
+            else {
+                $("#autoPriceTip").text("请输入心理价位！");
+            }
+
+        }
+    </script>
+
+
+    <script type="text/javascript">
+        $("#mianTab").mTab();
+        $("#btnBid").tap(function () {
+            bid();
+        });
+        $("#btnDeal").tap(function () {
+            btnDeal();
+        });
+    </script>
+
+    <script type="text/javascript">
+        initShare();
+        function initShare(){
+            wx.ready(function () {
+                shareMeta = {
+                    title: "{$_W['account']['name']} | {$goods['title']}",
+                    desc: "{$_W['account']['name']} | {$goods['title']}",
+                    link: "{$shareurl}",
+                    imgUrl: "{$_W['attachurl']}{$goods['au_pic']}",
+                    success: function(){
+                    },
+                    cancel: function(){
+                        // alert("分享失败，可能是网络问题，一会儿再试试？");
+                    }
+                };
+                wx.onMenuShareTimeline(shareMeta);
+                wx.onMenuShareAppMessage(shareMeta);
+                wx.onMenuShareWeibo(shareMeta);
+                wx.onMenuShareQQ(shareMeta);
+                wx.onMenuShareQZone(shareMeta);
+            });
+        }
+
+    </script>
+</div>
+</body>
+</html>
