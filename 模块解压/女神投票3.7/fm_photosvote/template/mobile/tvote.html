@@ -1,0 +1,505 @@
+{if ($_GPC['do'] == 'tuser' || $_GPC['do'] == 'tuserphotos') && !empty($tfrom_user)}
+	
+	<div style="  position: fixed;  bottom: 200px;  width: 65px;  height: 65px;  z-index: 10000;  right: 10px;" onclick="ewm();">
+		<img src="../addons/fm_photosvote/template/mobile/photos/ewm.png" width="65" style="border-radius:100px;">
+	</div>
+	<div class="modal fade" id="ewmdisplay" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="  margin-top: 60px;z-index:1000000">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title text-danger">{if $from_user == $tfrom_user}我{else}{if $user['realname']}{$user['realname']}{else}{$user['nickname']}{/if}{/if}的专属二维码</h4>
+				</div>	
+				<div class="modal-body ewmbg" style="  background: #F9F9F9;">
+					<div class="form-group">							
+						<div style="text-align:center; background-color: transparent;" id = "ewmcode">
+							<span class="text-info tishi">{if $user['ewm']}正在生成{else}第一次生成会比较慢，请耐心等待{/if}
+							<p><img src="../addons/fm_photosvote/template/mobile/photos/ajax-loader.gif" width="50"></p>
+							</span>
+						</div>
+					</div>
+					<div class="form-group">							
+						<div class="text-danger sys" style="text-align:center; background-color: transparent;  font-size: 20px;display:none">
+							<strong>赶紧扫一扫，为我投一票吧！</strong>
+						</div>
+					</div>
+
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+{/if}
+
+ <div class="geetest">
+    <div class="bg"></div>
+    <div class="wrap">
+      <div class="top">
+        <a class="exit" id="close" href="javascript:;"></a>
+        <div class="title">
+          请滑动验证
+        </div>
+      </div>		
+		<script type="text/javascript" src="http://api.geetest.com/get.php?gt={$reply['codekey']}&width=300" async></script>
+    </div>
+	
+  </div>
+
+<style>
+  .geetest {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+	z-index:9999999999;
+  }
+  .bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.7;
+  }
+  .wrap {
+    width: 300px;
+    margin: 10px auto;
+    text-align: center;
+    background-color: #fff;
+    z-index: 2;
+    position: relative;
+	 top: 20%;
+  }
+  .gt_wrapper {
+    margin: 0 auto;
+  }
+  .wrap .top {
+    padding: 0 8px;
+    height: 44px;
+    z-index: 1;
+    position: relative;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .wrap .title {
+    line-height: 45px;
+    width: 200px;
+    margin: 0 auto;
+  }
+
+  .exit {
+    background-image: url('../addons/fm_photosvote/api/validate/img/return_hover.png');
+    -moz-background-size: 12px auto;
+    -o-background-size: 12px auto;
+    -webkit-background-size: 12px auto;
+    background-size: 12px auto;
+    width: 12px;
+    height: 22px;
+    display: inline-block;
+    vertical-align: middle;
+    position: absolute;
+    left: 8px;
+    top: 11px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    z-index: 10;
+  }
+  .exit:active {
+    background-image: url('../addons/fm_photosvote/api/validate/img/return_hover.png');
+  }
+</style>
+
+<div class="modal fade" id="subsribe" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="  margin-top: 60px;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title">关注 {$_W['account']['name']}</h4>
+			</div>	
+				<div class="modal-body">
+					<div class="form-group">							
+						<div style="text-align:center; background-color: transparent;" id = "ewmcode">
+							<div style="word-break: break-all;width:100%">{if !empty($reply['subscribedes'])}{$reply['subscribedes']}{else}请长按二维码关注或点击“关注投票”，前往{$_W['account']['name']}为您的好友投票。如已关注，请关闭此对话框，为Ta点赞或拉票。{/if}</div>
+						</div>
+					</div>
+					<div class="form-group">							
+						<div style="text-align:center; background-color: transparent;" id = "ewmcode">
+							<a href="{$reply['shareurl']}"><img src="{$_W['attachurl']}qrcode_{$_W['acid']}.jpg?{php echo time()}" class="img-rounded" style="cursor:pointer; text-align: center;width:150px;" /></a>
+						</div>
+					</div>
+					<div class="form-group">							
+						<div style="text-align:center; background-color: transparent;  font-size: 20px;">
+							<a href="{$reply['shareurl']}" class="btn btn-info" style='color:#fff;width:100%'>关注</a>
+							<strong></strong>
+						</div>
+					</div>
+
+				</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="fminfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="  margin-top: 60px;z-index:1000000000">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h4 class="modal-title text-info">系统提示</h4>
+			</div>	
+			<div class="modal-body">
+				<div class="form-group">							
+					<div style="text-align:center; background-color: transparent;" class=" text-info" id = "fminfotext">
+						
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer" style="  text-align: center;">
+				<button type="button" class="btn btn-info" data-dismiss="modal">确定</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+
+function fminfo(text) {
+	$('#fminfo').modal('toggle');
+	$('#fminfotext').html(text);
+}
+function ewm() {
+	$('#ewmdisplay').modal('toggle');
+	
+	$.post("{php echo $this->createMobileUrl('qrcode', array('url' => $url, 'tid' => $user['id']))}", function(data) {
+		if (data.success == true) {
+			$('.tishi').hide();
+			$('.sys').show();
+			$('#ewmcode').html('<img width="100%" src="'+ data.linkurl +'" alt="{$user['nickname']}" title="{$user['realname']}"/>');
+			return 
+		} else {
+			fminfo(data.msg);
+			$('#ewmcode').html('<span class="text-danger">' + data.msg + '</span>');
+			return 
+		}
+	},"json")
+}
+
+function tvote() {
+	var iscode = "{$reply['iscode']}";
+	var now = "{$now}";
+	var tstart_time = "{$reply['tstart_time']}";
+	var tend_time = "{$reply['tend_time']}";
+	var ttipstart = "{$reply['ttipstart']}";
+	var ttipend = "{$reply['ttipend']}";
+	var votetime = "{$reply['votetime']}";
+	var ttipvote = "{$reply['ttipvote']}";
+	var ucreatetime = "{$user['createtime']}";
+	var subscribe = "{$reply['subscribe']}";
+	var follow = "{$follow}";
+	var tfrom_user = "{$tfrom_user}";
+	var vfrom = "{$vfrom}";
+	var isdaojishi = "{$reply['isdaojishi']}";
+	
+	var votetime = votetime*3600*24;
+	var isvtime = now - ucreatetime;
+	if (isdaojishi == 1) {
+
+		if(isvtime >= votetime) {					
+			//u.message(ttipvote, '', 'success');		
+			fminfo(ttipvote);
+			return false;
+		}
+	}
+
+	if (now <= tstart_time) {
+		//u.message(ttipstart, '', 'success');		
+		fminfo(ttipstart);
+		return false;
+	}
+	if (now >= tend_time) {
+		//u.message(ttipend, '', 'success');	
+		fminfo(ttipend);
+		return false;
+	}
+	if (iscode == 1) {
+		if (subscribe == 1) {
+			if (follow == 1) {
+				tvotestart(tfrom_user, vfrom, iscode);
+			}else{
+				 subsribe();
+			}
+		}else{
+			tvotestart(tfrom_user, vfrom, iscode);
+		}
+	}else {
+		if (subscribe == 1) {
+			if (follow == 1) {				
+				tvotestart(tfrom_user, vfrom, iscode);
+			}else{
+				subsribe();
+			}
+			
+		}else {
+			tvotestart(tfrom_user, vfrom, iscode);
+		}
+	}
+}
+
+function tvotestart(tfrom_user, vfrom, iscode) {
+	if (iscode == 1) {
+		var qs = function(e) {
+		  return document.querySelector(e);
+		};
+		//var button = document.getElementById("tvote");
+
+		var geetest = qs(".geetest");
+		//button.onclick = function() {
+		  geetest.style.display = "block";
+		//};
+		var close = document.getElementById("close");
+		close.onclick = function() {
+		  geetest.style.display = "none";
+		};
+		qs(".bg").onclick = function() {
+		  geetest.style.display = "none";
+		};
+		window.gt_custom_ajax = function(result, id, message) {
+			if(result) {										
+				var submitData = {
+					message: message,
+					tfrom_user: tfrom_user,
+					vfrom: vfrom
+				};
+				$.post("{php echo $this->createMobileUrl('Tvotestart', array('vote' => '1', 'rid' => $rid))}", submitData, function(data) {		geetest.style.display = "none";				
+					//qs('#' + id).parentNode.parentNode.style.display = "none";
+					if (data.success == true) {
+						//qs('#' + id).parentNode.parentNode.style.display = "none";
+						fminfo(data.msg);
+						setTimeout(function () {								
+							window.location.reload();
+						},3000)
+						return 
+						
+					} else {
+						if (data.success == -1) {
+							fminfo(data.msg);
+							setTimeout(function () {								
+								window.location.reload();
+							},3000)
+							return 
+						}
+						if (data.success == 3) {
+							fminfo(data.msg);
+							setTimeout(function () {								
+								window.location.href = data.linkurl;
+							},1000)	
+							return
+						}
+						if (data.success == 9) {
+							//windows.location.href = data.msg;
+							 window.location.href = "{$reply['shareurl']}";
+						}
+					}
+				},"json")
+			}
+		}
+	}else {
+		var submitData = {
+			tfrom_user: tfrom_user,
+			vfrom: vfrom
+		};
+		$.post("{php echo $this->createMobileUrl('Tvotestart', array('vote' => '1', 'rid' => $rid))}", submitData, function(data) {
+			if (data.success == true) {
+				fminfo(data.msg);
+				setTimeout(function () {								
+					window.location.reload();
+				},3000)
+				return 
+				
+			} else {
+				if (data.success == -1) {
+					fminfo(data.msg);
+					setTimeout(function () {								
+						window.location.reload();
+					},3000)
+					return 
+				}
+				if (data.success == 3) {
+					fminfo(data.msg);
+					setTimeout(function () {								
+						window.location.href = data.linkurl;
+					},1000)	
+					return
+				}
+				if (data.success == 9) {
+					//windows.location.href = data.msg;
+					 window.location.href = "{$reply['shareurl']}";
+				}
+			}
+		},"json")
+	}
+	
+}
+
+
+function bbsreply(content, iscode, bbstype) {
+	if (iscode == 1) {
+		var qs = function(e) {
+		  return document.querySelector(e);
+		};
+		//var button = document.getElementById("tvote");
+
+		var geetest = qs(".geetest");
+		//button.onclick = function() {
+		  geetest.style.display = "block";
+		//};
+		var close = document.getElementById("close");
+		close.onclick = function() {
+		  geetest.style.display = "none";
+		};
+		qs(".bg").onclick = function() {
+		  geetest.style.display = "none";
+		};
+		window.gt_custom_ajax = function(result, id, message) {
+			if(result) {									
+				var submitData = {
+					content: content
+				};
+				$.post("{php echo $this->createMobileUrl('Tbbsreply', array('isbbsreply' => '1', 'tfrom_user' => $tfrom_user, 'rid' => $rid))}", submitData, function(data) {
+					//qs('#' + id).parentNode.parentNode.style.display = "none";
+					geetest.style.display = "none";
+					if (data.success == true) {														
+						//u.message(data.msg, '', 'success');	
+						if (bbstype == 'bbsreply') {
+							fminfo(data.msg);
+							setTimeout(function () {								
+								window.location.reload();
+							},3000)	
+						}
+						
+						return 
+						
+					} else {
+						
+						if (data.success == -1) {
+							//$("#result_info_tip").text(data.msg);	
+							//u.message(data.msg, '', 'error');	
+							fminfo(data.msg);
+							return 
+						}
+						
+						if (data.success == 3) {
+							//windows.location.href = data.linkurl;	
+							fminfo(data.msg);
+							setTimeout(function () {								
+								window.location.href = data.linkurl;
+							},1000)	
+							return
+						}
+					}
+				},"json")
+			}
+		}
+	}else {
+		var submitData = {
+			content: content
+		};
+		$.post("{php echo $this->createMobileUrl('Tbbsreply', array('isbbsreply' => '1', 'tfrom_user' => $tfrom_user, 'rid' => $rid))}", submitData, function(data) {
+			if (data.success == true) {														
+				//u.message(data.msg, '', 'success');	
+				if (bbstype == 'bbsreply') {
+						fminfo(data.msg);
+						setTimeout(function () {								
+							window.location.reload();
+						},3000)	
+					}
+				return 
+			} else {
+				
+				if (data.success == -1) {
+					//$("#result_info_tip").text(data.msg);	
+					//u.message(data.msg, '', 'error');	
+					fminfo(data.msg);
+					return 
+				}
+				
+				if (data.success == 3) {
+					//windows.location.href = data.linkurl;	
+					fminfo(data.msg);
+					setTimeout(function () {								
+						window.location.href = data.linkurl;
+					},1000)	
+					return
+				}
+			}
+		},"json")
+	}
+	
+}
+function tvotep(tfrom_user,user) {
+	var iscode = "{$reply['iscode']}";
+	var now = "{$now}";
+	var tstart_time = "{$reply['tstart_time']}";
+	var tend_time = "{$reply['tend_time']}";
+	var ttipstart = "{$reply['ttipstart']}";
+	var ttipend = "{$reply['ttipend']}";
+	var votetime = "{$reply['votetime']}";
+	var ttipvote = "{$reply['ttipvote']}";
+	var ucreatetime = $("#ucreatetime" + tfrom_user).val();
+	var subscribe = "{$reply['subscribe']}";
+	var follow = "{$follow}";
+	var isdaojishi = "{$reply['isdaojishi']}";
+	var vfrom = "photosvoteview";
+	var votetime = votetime*3600*24;
+	var isvtime = now - ucreatetime;
+if (isdaojishi == 1) {
+	if(isvtime >= votetime) {					
+		//u.message(ttipvote, '', 'success');		
+		fminfo(ttipvote);
+		return false;
+	}
+}
+	
+
+	if (now <= tstart_time) {
+		//u.message(ttipstart, '', 'success');		
+		fminfo(ttipstart);
+		return false;
+	}
+	if (now >= tend_time) {
+		//u.message(ttipend, '', 'success');	
+		fminfo(ttipend);
+		return false;
+	}
+	
+	if (iscode == 1) {
+		if (subscribe == 1) {
+			if (follow == 1) {			
+				tvotestart(tfrom_user, vfrom, iscode);
+			}else{
+				subsribe();
+			}
+		}else{
+			tvotestart(tfrom_user, vfrom, iscode);	
+		}
+	}else{
+		if (subscribe == 1) {
+			if (follow == 1) {
+				tvotestart(tfrom_user, vfrom, iscode);
+			}else{
+				subsribe();
+			}
+		}else{
+			tvotestart(tfrom_user, vfrom, iscode);
+		}
+	}
+	
+}
+function getcode() {
+	var pic = document.getElementById('getcodesrc');
+	pic.src="{php echo $this->createMobileUrl('code');}&" + Math.random();
+}
+function subsribe() {
+	$('#subsribe').modal('toggle');
+}
+</script>

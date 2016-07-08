@@ -1,0 +1,118 @@
+{template 'common/header'}
+{template 'nav'}
+<div class="panel panel-success">
+    <div class="panel-heading">
+        操作选项
+    </div>
+    <div class="panel-body">
+        <a href="{php echo $this->createWebUrl('templates', array('op' => 'edit'))}" class="btn btn-danger">添加</a>
+    </div>
+</div>
+{if $op == 'edit'}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        设置模板
+    </div>
+    <div class="panel-body">
+        <form action=""  class="form-horizontal" name="form" id="form1" method="post" onsubmit="return validate();">
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">模板标题</label>
+                <div class="col-sm-10">
+                    <input name='title' type="text" class="form-control" value="{$templateInfo['title']}" placeholder="请输入模板标题" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">模板ID</label>
+                <div class="col-sm-10">
+                    <input name='tpl_id'  type="text" class="form-control" value="{$templateInfo['tpl_id']}" placeholder="请输入模板ID" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label">模板内容</label>
+                <div class="col-sm-10">
+                    <textarea name="template" id="contentinput" class="form-control" style="width:500px" cols="20" rows="3" placeholder="请输入模板内容">{$templateInfo['template']}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input type="submit" class="btn btn-primary span3" name="submit" value="保存" id="submit"/>
+                    <input type="hidden" name="token" value="{$_W['token']}" />
+                    <input type="hidden" name="tid" value="{$_GPC['tid']}" />
+                </div>
+            </div>
+        </form>
+        <div class="alert alert-danger text-center" style="margin-bottom:10px">
+            <div class="alert-heading text-left">填写说明，直接去公众平台复制即可</div>
+            <img src='{MODULE_URL}template/images/hint.png' class="center-align">
+        </div>
+    </div>
+</div>
+
+<script>
+    require(['jquery'], function ($) {
+
+    });
+    function validate() {
+        if ($("[name='title']").val() == '' || $("[name='tpl_id']").val() == '' || $("[name='template']").val() == '') {
+            alert('请完整填写信息');
+            return false;
+        }
+        return true;
+    }
+</script>
+{/if}
+{if $op == 'list'}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        模板管理
+    </div>
+    <div class="table-responsive panel-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th style="width:120px;">模板名称</th>
+                    <th>模板ID</th>
+                    <th>模板详情</th>
+                    <th style="width:150px;">操作</th>
+                </tr>
+            </thead>
+            <tbody id="level-list">
+                {loop $templates $row}
+                <tr>
+                    <td>{$row['title']}</td>
+                    <td>{$row['tpl_id']}</td>
+                    <td>
+                        <textarea class="form-control disable" readonly="true">{$row['template']}</textarea>
+                    </td>
+                    <td>
+                        <a href="{php echo $this->createWebUrl('templates', array('op' => 'edit', 'tid' => $row['id']))}" class="btn btn-default btn-sm" title="编辑内容"><i class="fa fa-pencil"></i></a>
+                        &nbsp;&nbsp;
+                        <a href="{php echo $this->createWebUrl('templates', array('op' => 'delete', 'tid' => $row['id']))}" onclick="return confirm('确认删除此分类吗？');
+                                return false;" class="btn btn-default btn-sm" title="删除"><i class="fa fa-times"></i></a>
+                    </td>
+                </tr>
+                {/loop}
+                <tr>
+                    <td colspan="4">
+                        {$pager}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    require(['jquery', 'util'], function ($, util) {
+        $(function () {
+            $('.sendTemplateMessage').click(function () {
+                var modalobj = util.ajaxshow("{php echo $this->createWebUrl('preview', array('op' => 'post', 'id' => $row['id']))}", '预览发送', {'show': true, 'remote': true}, {'hidden': function (obj) {
+                        obj.remove();
+                    }});
+                modalobj.modal('show');
+            });
+        });
+    });
+</script>
+{/if}
+{template 'common/footer'}

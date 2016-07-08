@@ -1,0 +1,5 @@
+<ul class="nav nav-tabs">
+    <li {if $_GPC['do'] == 'templates'}class="active"{/if}><a href="{php echo $this->createWebUrl('templates');}">模板管理</a></li>
+    <li {if $_GPC['do'] == 'logs'}class="active"{/if}><a href="{php echo $this->createWebUrl('logs');}">记录管理</a></li>
+    <li {if $_GPC['do'] == 'mass'}class="active"{/if}><a href="{php echo $this->createWebUrl('mass');}">新建群发</a></li>
+</ul>

@@ -1,0 +1,89 @@
+<!-- 微信分享设置 -->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+	// jssdk config 对象
+	jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig']);} || {};
+	
+	// 是否启用调试
+	jssdkconfig.debug = false;
+	
+	jssdkconfig.jsApiList = [
+		'checkJsApi',
+		'onMenuShareTimeline',
+		'onMenuShareAppMessage',
+		'onMenuShareQQ',
+		'onMenuShareWeibo',
+		'hideMenuItems',
+		'showMenuItems',
+		'hideAllNonBaseMenuItem',
+		'showAllNonBaseMenuItem',
+		'translateVoice',
+		'startRecord',
+		'stopRecord',
+		'onRecordEnd',
+		'playVoice',
+		'pauseVoice',
+		'stopVoice',
+		'uploadVoice',
+		'downloadVoice',
+		'chooseImage',
+		'previewImage',
+		'uploadImage',
+		'downloadImage',
+		'getNetworkType',
+		'openLocation',
+		'getLocation',
+		'hideOptionMenu',
+		'showOptionMenu',
+		'closeWindow',
+		'scanQRCode',
+		'chooseWXPay',
+		'openProductSpecificView',
+		'addCard',
+		'chooseCard',
+		'openCard'
+	];
+	
+	</script>
+	<script type="text/javascript">
+	
+	wx.config(jssdkconfig);
+	
+	wx.ready(function () {
+		var shareData = {
+			title: "我正在参加江华路痴考试，在#ttime#秒内得了#score#分，你来试试吧",
+			desc: "我正在参加江华路痴考试，在#ttime#秒内得了#score#分，你来试试吧",
+			link: document.URL,
+			imgUrl: "http://www.0746jh.cn/luci/1.jpg",
+			trigger: function (res) {
+				//alert('用户点击分享到QQ');
+                shareData['title']=shareData['title'].replace('#score#',tScore);
+                shareData['title']=shareData['title'].replace('#dialect#',"江华路痴考试");
+                shareData['desc']=shareData['desc'].replace('#score#',tScore);
+                shareData['desc']=shareData['desc'].replace('#dialect#',"江华路痴考试");
+				shareData['title']=shareData['desc'].replace('#ttime#',ttime);
+                shareData['desc']=shareData['desc'].replace('#ttime#',ttime);
+			},
+			complete: function (res) {
+				//alert(JSON.stringify(res));
+			},
+			success: function (res) {
+				//分享成功回调
+				window.location.href="http://www.baidu.com";
+				//$.get("{php echo $this->createMobileurl('share',array('id'=>$huabao['id']));}",function(responseData){
+				//});
+			},
+			cancel: function (res) {
+				alert("别这样的啦，好东西要和朋友分享的嘛！分享后我告诉你一个秘密。");
+			},
+			fail: function (res) {
+				alert("分享失败，可能是网络问题，一会儿再试试？");
+			}
+		};
+		wx.onMenuShareAppMessage(shareData);
+		wx.onMenuShareTimeline(shareData);
+		wx.onMenuShareQQ(shareData);
+		wx.onMenuShareWeibo(shareData);
+	});
+	
+	</script>

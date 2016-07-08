@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6，0.7">
+	<application setting="true">
+		<name><![CDATA[男神来了]]></name>
+		<identifie><![CDATA[mx_nanshen]]></identifie>
+		<version><![CDATA[1.41]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[模拟男神短信 ，电话。]]></ability>
+		<description><![CDATA[模拟男神短信 ，电话。]]></description>
+		<author><![CDATA[柒柒源码分享]]></author>
+		<url><![CDATA[http://h770.Com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="回复规则" do="nanshen" state="" direct="true" />
+		</cover>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

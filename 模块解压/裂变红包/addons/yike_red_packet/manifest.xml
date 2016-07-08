@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[裂变红包]]></name>
+		<identifie><![CDATA[yike_red_packet]]></identifie>
+		<version><![CDATA[1.8.1]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[裂变红包]]></ability>
+		<description><![CDATA[裂变红包,裂变等级，海报，广告，裂变的份数可以商家自定义，但是裂变下来不能违背红包原则（每个最少1元）]]></description>
+		<author><![CDATA[滚驴网]]></author>
+		<url><![CDATA[http://www.gunlv.net]]></url>
+
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="裂变入口" do="home" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="系统管理" do="setting" state="" direct="false" />
+			<entry title="资金管理" do="money" state="" direct="false" />
+			<entry title="会员管理" do="user" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

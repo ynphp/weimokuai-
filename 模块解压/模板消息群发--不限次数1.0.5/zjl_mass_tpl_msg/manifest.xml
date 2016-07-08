@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[模板消息群发--不限次数]]></name>
+		<identifie><![CDATA[zjl_mass_tpl_msg]]></identifie>
+		<version><![CDATA[1.0.5]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[模板消息群发]]></ability>
+		<description><![CDATA[利用模板消息接口,给关注用户,进行消息群发]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="模板管理" do="templates" state="" direct="false" />
+			<entry title="新建群发" do="mass" state="" direct="false" />
+			<entry title="记录管理" do="logs" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_zjl_mass_tpl_msg_options` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `acid` int(11) NOT NULL,
+  `tid` int(11) NOT NULL,
+  `tpl_id` varchar(100) COLLATE utf8_bin NOT NULL,
+  `url` varchar(800) COLLATE utf8_bin NOT NULL,
+  `topcolor` varchar(10) COLLATE utf8_bin NOT NULL,
+  `post_data` text COLLATE utf8_bin NOT NULL,
+  `addtime` int(11) NOT NULL,
+  `thread_count` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+CREATE TABLE IF NOT EXISTS `ims_zjl_mass_tpl_msg_templates` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `title` varchar(500) COLLATE utf8_bin NOT NULL COMMENT '模板标题',
+  `tpl_id` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '模板id',
+  `template` text COLLATE utf8_bin NOT NULL COMMENT '模板内容',
+  `tags` varchar(1000) COLLATE utf8_bin NOT NULL COMMENT '模板标签',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+CREATE TABLE IF NOT EXISTS `ims_zjl_mass_tpl_msg_thread_cache` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `acid` int(11) NOT NULL,
+  `tid` int(11) NOT NULL,
+  `option_id` int(11) NOT NULL,
+  `addtime` int(11) NOT NULL,
+  `success_count` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `fanid_begin` int(11) NOT NULL,
+  `fanid_end` int(11) NOT NULL,
+  `nextid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

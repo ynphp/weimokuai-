@@ -1,0 +1,52 @@
+{template 'header'}
+ <body class="pure-skin-yang"> 
+  <canvas id="snow_canvas" style="position:fixed;z-index: 5000; top:0px;left:0px;pointer-events:none;"></canvas> 
+  <div id="outer"> 
+   <header> 
+    <h1>辽科大微信墙</h1> 
+    <nav data-url="{php echo $this->createMobileUrl('index',array('act'=>'getContent'))}"> 
+     <!-- <span class="selected" data-eid="0">全部</span> --> 
+     <span data-eid="0" style="border-top:2px rgba(215, 41, 80, .85) solid;width:20%">全部</span>
+     <span data-eid="1" style="border-top:2px rgba(239, 112, 39, .85) solid;width:20%">表白</span>
+     <span data-eid="2" style="border-top:2px rgba(0, 175, 215, .85) solid;width:20%">吐槽</span>
+     <span data-eid="3" style="border-top:2px rgba(229, 182, 0, .85) solid;width:20%">心愿</span> 
+    </nav> 
+   </header> 
+   <div id="post_box"> 
+    <fieldset> 
+     <legend>想说点什么呢~</legend> 
+     <form id="post_form" class="pure-form" action="{php echo $this->createMobileUrl('index',array('act'=>'postContent'))}" method="post"> 
+      <textarea class="content_input auto_height" name="post_content" id="post_content" rows="1" maxlength="300" placeholder="在这里说呢~"></textarea> 
+      <div class="post_op"> 
+       <label style="display:inline-block">发布在: <select name="post_class" id="post_class"> 
+         <!-- <option value="1" selected="selected">栏目1</option> --> <option value="1">表白</option><option value="2">吐槽</option><option value="3">心愿</option> </select></label> 
+       <input type="text" class="nick_input" id="post_nick" name="post_nick" maxlength="12" placeholder="昵称" /> 
+       <button class="pure-button pure-button-primary">发布</button> 
+      </div> 
+     </form> 
+    </fieldset> 
+   </div> 
+   <div class="contents"> 
+    <ul id="items" data-comment-url="{php echo $this->createMobileUrl('index',array('act'=>'postComment'))}" data-comment-data-url="{php echo $this->createMobileUrl('index',array('act'=>'getComment'))}"> 
+    </ul> 
+    <div id="get_more_data" class="pure-button pure-button-primary">
+    	 查看更多
+    </div> 
+   </div> 
+   <footer> 
+    <div class="copy_str">
+     {$wx_name} 微信号 {$wx_num}
+    </div> 
+   </footer> 
+   <!-- outer --> 
+  </div> 
+  <div id="one_out" data-url="{php echo $this->createMobileUrl('index',array('act'=>'getContent'))}"> 
+   
+  </div> 
+  <div id="bubble_out">
+   <div id="bubble"></div>
+  </div> 
+  <div onclick="this.style.display='none'" id="share-wx">
+   <p style="text-align: right; padding-left: 10px;"><img src="{TEMPLATE_PATH}images/share_to.png" id="share-wx-img" style="max-width: 280px; padding-right: 25px;" /></p>
+  </div> 
+  <img src="{TEMPLATE_PATH}images/bg.jpg" alt="background" id="background_img" /> 

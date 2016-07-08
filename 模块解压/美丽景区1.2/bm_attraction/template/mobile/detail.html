@@ -1,0 +1,31 @@
+{template 'header'}
+  <link href="../addons/bm_attraction/template/mobile/css/application.css" media="all" rel="stylesheet" type="text/css" />
+  <link href="../addons/bm_attraction/template/mobile/css/mediaelement.css" media="screen" rel="stylesheet" type="text/css" /> 
+  <link href="../addons/bm_attraction/template/mobile/css/mejs-skins.css" media="screen" rel="stylesheet" type="text/css" />
+ <style>
+.head{width:100%; height:40px; line-height:40px; background:#5cb85c; margin-bottom:5px; padding:0 5px; color:#FFF; box-shadow:0 2px 2px 0 rgba(0,0,0,0.2); position:fixed; z-index:9000; left:0; top:0;}
+.head .bn{display:inline-block; height:30px; line-height:30px; padding:0 10px; margin-top:4px; font-size:30px; color:#FFF; text-decoration:none;}
+.head .title{font-size:14pt;display:block;padding-left:10px;font-weight:bolder;margin-right:49px;text-align:center;height:40px;line-height:40px;text-overflow:ellipsis;white-space:nowrap;overflow: hidden;}
+</style>
+<div class="head">
+	<a href="javascript:history.go(-1);" class="bn pull-left"><i class="icon-angle-left"></i></a>
+	<span class="title">{$detail['department']}--实用信息</span>
+<!--	<a href="{php echo $this->createMobileUrl('mycart')}" class="bn pull-right"><i class="icon-shopping-cart"></i><span class="buy-num img-circle" id="carttotal">{$carttotal}</span></a>-->
+</div>
+  <div class="container" id="article">
+   <div class="content">
+    <div class="article-header">
+     <!--lt
+	 <p><h3>实用信息</h3></p>
+	 -->
+    </div>
+	<!--lt
+    <div class="content-article">
+     <img alt="Big_2c81d0576c428a3129b65ff44be0670d" src="http://lijiang.1tripweixin.com/uploads/images/articles/covers/648/big_2c81d0576c428a3129b65ff44be0670d.jpg" />
+    </div>
+	-->
+    <div class="content-body">
+{$detail['detail']}
+    </div>
+   </div>
+  </div>

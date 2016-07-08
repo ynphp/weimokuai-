@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+	<title>{$wechat['title']}</title>
+    <link href="{RES}resource/moments/css/style.css" rel="stylesheet" type="text/css">
+    <script>
+		var phoneWidth =  parseInt(window.screen.width);
+		var phoneScale = phoneWidth/694;
+		var ua = navigator.userAgent;
+		if (/Android (\d+\.\d+)/.test(ua)){
+			document.write('<meta name="viewport" content="width=694, minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
+		} else {
+			document.write('<meta name="viewport" content="width=694, user-scalable=no, target-densitydpi=device-dpi">');
+		}
+		function showDefaultPic(ele){
+    		$(ele).attr("src","{RES}resource/moments/img/me.jpg");
+    	}
+    </script>
+</head>
+<body>
+	
+	<div class="warp">
+    	<div class="main">
+        	<div class="box">
+                <div class="join">
+                    <span>{$wechat['qname']}邀请<em>{$nickname}</em>加入了群聊<i>撤销</i></span>
+                </div>
+                <div class="list">
+                    <ul>
+                        <li class="fixed">
+                            <img style="width:80px;height:80px;" src="{php echo tomedia($wechat['bimg'])}">
+                            <div class="pp" data-img="p1">
+                                <img src="{php echo tomedia($wechat['p1'])}">
+                            </div>
+                        </li>
+                        <li class="fixed">
+                            <img style="width:80px;height:80px;" src="{php echo tomedia($wechat['aimg'])}">
+                            <div class="say">
+                                <p>{$wechat['atxt']}</p>
+                            </div>
+                        </li>
+                        <li class="fixed">
+                            <img style="width:80px;height:80px;" src="{php echo tomedia($wechat['bimg'])}">
+                            <div class="say">
+                                <p>{$wechat['btxt']}</p>
+                            </div>
+                        </li>
+                        <li class="fixed">
+                            <img style="width:80px;height:80px;" src="{php echo tomedia($wechat['cimg'])}">
+                            <div class="pp" data-img="p2">
+                                <img src="{php echo tomedia($wechat['p2'])}">
+                            </div>
+                        </li>
+                        <li class="fixed">
+                            <img style="width:80px;height:80px;" src="{php echo tomedia($wechat['dimg'])}">
+                            <div class="say">
+                                <p><i class="bq2"></i></p>
+                            </div>
+                        </li>
+                        <li class="fixed">
+                            <img style="width:80px;height:80px;" src="{php echo tomedia($wechat['dimg'])}">
+                            <div class="say">
+                                <p>{$wechat['dtxt']}</p>
+                            </div>
+                        </li>
+                        <li class="fixed">
+                            <img style="width:80px;height:80px;" src="{php echo tomedia($wechat['dimg'])}">
+                            <div class="pp" data-img="p3">
+                                <img src="{php echo tomedia($wechat['p3'])}">
+                            </div>
+                        </li>
+                        <li class="fixed">
+                            <img style="width:80px;height:80px;" src="{php echo tomedia($wechat['dimg'])}">
+                            <div class="say">
+                                <p>{$wechat['etxt']}</p>
+                            </div>
+                        </li>
+                        <li class="fixed">
+                            <img style="width:80px;height:80px;" src="{php echo tomedia($wechat['eimg'])}">
+                            <div class="say">
+                                <p>{$wechat['ftxt']}</p>
+                            </div>
+                        </li>
+                        <li class="fixed">
+                            <img style="width:80px;height:80px;" src="{php echo tomedia($wechat['eimg'])}">
+                            <div class="say">
+                                <p><em class="at">@{$nickname}</em>你来说，赞不赞？<i class="bq3"></i></p>
+                            </div>
+                        </li>
+                        
+                        <li class="fixed me">
+                            <!--<img src="../img/me.jpg" width="80">-->
+                            <img src="{$headimgurl}" width="80" onerror="javascript:showDefaultPic(this);"  />
+                            <div class="say"><p>赞</p></div>
+                        </li>
+                        <li class="fixed last">
+                            <img src="{RES}resource/moments/img/mi.jpg">
+                            <div class="say">
+                                <p>羞羞哒<i class="bq4"></i>（づ￣3￣）づ╭❤～爱你！</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+        	<em></em>
+        	<div class="input"></div>
+            <ul class="choose fixed">
+            	<li>赞</li>
+                <li>赞</li>
+                <li>赞</li>
+            </ul>
+            <a href="javascript:void(0);" class="enter"></a>
+        </div>
+    </div>
+    
+    <div class="tanchu">
+        <div class="pic"><img src="{RES}resource/moments/img/p2.jpg"></div>
+        <div class="bg"></div>
+    </div>
+    <audio src="{RES}resource/moments/media/sound.mp3" preload id="sound" style="display:none;"></audio>
+    <script src="{RES}resource/moments/js/zepto.min.js"></script>
+    <script src="{RES}resource/moments/js/iscroll-lite.js"></script>
+    <script type="text/javascript">
+    	var resourceUrl = "{RES}resource/moments";
+    </script>
+    <script src="{RES}resource/moments/js/common.js"></script>
+	{php echo register_jssdk(false);}
+	<script type="text/javascript">
+
+
+    wx.ready(function () {
+        sharedata = {
+            title: "{php echo $title}",
+            desc: "{php echo $desc}",
+            link: "{php echo $url}",
+            imgUrl: "{php echo $pic}",
+            success: function(){
+                alert("更多好玩请关注官方微信号。");
+                window.location.href = '{$s_url}';
+            },
+            cancel: function(){
+                alert("分享失败，可能是网络问题，一会儿再试试？");
+            }
+        };
+        wx.onMenuShareAppMessage(sharedata);
+        wx.onMenuShareTimeline(sharedata);
+    });
+	</script>
+</body>
+</html>

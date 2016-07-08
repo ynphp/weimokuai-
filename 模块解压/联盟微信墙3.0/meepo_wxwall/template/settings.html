@@ -1,0 +1,72 @@
+{template 'common/header'}
+{template 'nav_bar'}
+<style>
+
+</style>
+<div class="panel panel-default">
+	 <div class="panel-heading">
+     	{$panel_heading}
+     </div>
+     <div class="panel-body">
+		<form class="form-horizontal form" action="" method="post" enctype="multipart/form-data" onsubmit="return formcheck(this)">
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">标题设置</label>
+				<div class="col-sm-9">
+					<input type="text" name="title" value="{php echo $setting['title']}" class="form-control"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">版权</label>
+				<div class="col-sm-9">
+					<input type="text" name="wx_name" value="{php echo $setting['wx_name']}" class="form-control"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">微信号</label>
+				<div class="col-sm-9">
+					<input type="text" name="wx_num" value="{php echo $setting['wx_num']}" class="form-control"/>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+				<div class="col-sm-9">
+					<input type="text" name="share_title" value="{php echo $setting['share_title']}" class="form-control"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享图片</label>
+				<div class="col-sm-9">
+					{php echo tpl_form_field_image('share_img',$setting['share_img'])}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享内容</label>
+				<div class="col-sm-9">
+					<textarea name="share_content" class="form-control content" >{$setting['share_content']}</textarea>
+					<p class="form-control-static"></p>
+					<div class="col-xs-12 col-sm-8 help-block">
+					
+					</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+				<div class="col-sm-9">
+					<input type="submit" value="提交" class="btn btn-primary">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+<!--
+require(['angular', 'bootstrap', 'util'], function(angular, $, u){
+	$(function(){
+
+	});
+});
+
+//-->
+</script>
+{template 'common/footer'}				

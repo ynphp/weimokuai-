@@ -1,0 +1,151 @@
+<script language="JavaScript" type="text/javascript" src="{$shouquanurl}"></script>
+<script language='javascript' src='../addons/bm_attraction/template/js/tooltipbox.js'></script>
+<style type='text/css'>
+.red { float:left;color:red}
+.white {float:left;color:white}
+.tooltipbox {
+	background:#fef8dd;border:1px solid #c40808; position:absolute; left:0;top:0; text-align:center;height:20px;
+	color:#c40808;padding:2px 5px 1px 5px; border-radius:3px;z-index:1000;
+}
+</style>
+<input name="we7_ValidCode_server" type="hidden" id="we7_ValidCode_server" >  
+<input name="shouquanurl" type="hidden" value="{$shouquanurl}" >
+<input name="shouquan" type="hidden" value="{$shouquan}" >
+<input type="hidden" name="reply_id" value="{$reply['id']}" />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        景区设置
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 直接访问地址</label>
+            <div class="col-sm-9 col-xs-12">
+               	<a href="{php echo $_W['siteroot'].'app/'.$this->createMobileUrl('index', array('weid' => $weid, 'id' => $reply['id']))}" target="_blank">
+				{php echo $_W['siteroot'].'app/'.$this->createMobileUrl('index', array('weid' => $weid, 'id' => $reply['id']))}
+				</a>
+				<span class="help-block">
+					使用
+					<a href="http://cli.im/text/2015012509?R4UKz" target="_blank">
+					草料二维码生成器
+					</a>
+					复制此链接地址即可通过二维码扫描直接打开景区页面。
+				</span>
+            </div>
+        </div>	
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 标题</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="text" id="title" class="form-control" placeholder="" name="title" value="{$reply['title']}">
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 关键字回复封面</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_image('picurl',$reply['picurl']);}
+            </div>
+        </div>		
+		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 关键字回复简介</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="text" id="info" class="form-control" placeholder="" name="info" value="{$reply['info']}">
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 景区名称</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="text" id="department" class="form-control" placeholder="" name="department" value="{$reply['department']}">
+            </div>
+        </div>		
+		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 攻略视频URL地址</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="text" id="gonglueurl" class="form-control" placeholder="" name="gonglueurl" value="{$reply['gonglueurl']}">
+            </div>
+        </div>			
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>景区攻略</label>
+            <div class="col-sm-9 col-xs-12">
+                <textarea style="height:200px; width:100%;" id='gonglue' class="form-control span7 richtext" name="gonglue" cols="70">{$reply['gonglue']}</textarea>
+            </div>
+        </div>	
+		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 印象视频URL地址</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="text" id="imageurl" class="form-control" placeholder="" name="imageurl" value="{$reply['imageurl']}">
+            </div>
+        </div>			
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>印象介绍</label>
+            <div class="col-sm-9 col-xs-12">
+                <textarea style="height:200px; width:100%;" id='imageinfo' class="form-control span7 richtext" name="imageinfo" cols="70">{$reply['imageinfo']}</textarea>
+            </div>
+        </div>	
+		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 景区地图</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_image('map',$reply['map']);}
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 地图说明</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="text" id="mapdesc" class="form-control" placeholder="" name="mapdesc" value="{$reply['mapdesc']}">
+            </div>
+        </div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">景区坐标</label>
+			<div class="col-sm-9 col-xs-12" style="padding-left:0;">
+				{php echo tpl_form_field_coordinate('baidumap',$reply)}
+			</div>
+		</div>			
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>实用信息</label>
+            <div class="col-sm-9 col-xs-12">
+                <textarea style="height:200px; width:100%;" id='detail' class="form-control span7 richtext" name="detail" cols="70">{$reply['detail']}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 开场导游简介</label>
+            <div class="col-sm-9 col-xs-12">
+				<input type="text" id="startdesc" class="form-control" placeholder="" name="startdesc" value="{$reply['startdesc']}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 开场导游语音URL</label>
+            <div class="col-sm-9 col-xs-12">
+				<input type="text" id="startrecord" class="form-control" placeholder="" name="startrecord" value="{$reply['startrecord']}">			
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>开场导游介绍</label>
+            <div class="col-sm-9 col-xs-12">
+                  <textarea style="height:200px; width:100%;" id='startinfo' class="form-control span7 richtext" name="startinfo" cols="70">{$reply['startinfo']}</textarea>
+                 <span class="help-block">美丽景区</span>
+            </div>
+        </div>      
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 热线电话</label>
+            <div class="col-sm-9 col-xs-12">
+				<input type="text" id="telephone" class="form-control" placeholder="" name="telephone" value="{$reply['telephone']}">			
+            </div>
+        </div>		
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 引导URL</label>
+            <div class="col-sm-9 col-xs-12">
+				<input type="text" id="spoturl" class="form-control" placeholder="" name="spoturl" value="{$reply['spoturl']}">			
+            </div>
+        </div>	
+	</div>
+</div>
+
+<script>
+    require(['jquery', 'util'], function($, u){
+		$(function(){
+            u.editor($('#gonglue')[0]);
+			u.editor($('#imageinfo')[0]);
+			u.editor($('#detail')[0]);
+			u.editor($('#startinfo')[0]);
+		});
+    });    
+document.getElementById("we7_ValidCode_server").value=we7_ValidCode_server;	
+</script>

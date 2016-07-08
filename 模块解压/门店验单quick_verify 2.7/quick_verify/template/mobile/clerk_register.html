@@ -1,0 +1,65 @@
+{php $bootstrap_type = 3;}
+{template 'header'}
+<link type="text/css" rel="stylesheet" href="../addons/quick_verify/css/style.css?v=25">
+{if empty($clerk)}
+<div class="head-top">
+	<span class="title">店员注册</span>
+</div>
+<form class="form-horizontal" method="post" role="form" onsubmit='return check()'>
+<div class="order-main">
+	<h5>姓名</h5>
+	<div class="message-box">
+    <input class="form-control" id="clerk_realname" name="clerk_realname" placeholder="亲, 请填写您的姓名, 以便核实您的店员身份！" />
+	</div>
+	<h5>手机号码</h5>
+	<div class="message-box">
+    <input class="form-control" id="clerk_mobile" name="clerk_mobile" placeholder="亲, 请填写您的手机, 以便核实您的店员身份！" />
+	</div>
+ 	<h5>所属门店</h5>
+  <select id='shopid' name="shopid" class="form-control">
+    <option value="">请选择门店</option>
+    {loop $shopnames $key=>$s}
+    <option value="{$key}">{$s['shopname']}</option>
+    {/loop}
+  </select>
+	<h5>留言备注</h5>
+	<div class="message-box">
+		<textarea class="form-control" rows="3" name="remark" placeholder="亲，如果有特殊需要说明的事情，就写到这里吧！"></textarea>
+	</div>
+	<button type="submit" name="submit" value="yes" class="btn btn-success order-submit btn-lg" style="margin-bottom:20px;">提交审核</button>
+	<input type="hidden" name="token" value="{$_W['token']}" />
+</div>
+
+<script language='javascript'>
+  function check(){
+    if($("#clerk_realname").val().length<=0){
+      alert("请输入姓名!");
+      return false;
+    }
+    if($("#clerk_mobile").val().length<11){
+      alert("请输入完整手机号码!");
+      return false;
+    }
+    if($("#shopid").val().length<=0){
+      alert("请选择门店!");
+      return false;
+    }
+    return true;
+  }
+</script>
+{else}
+<div class="head-top">
+	<span class="title">审核中</span>
+</div>
+<div class="order-main">
+	<h5>姓名 {$clerk['clerk_realname']} </h5>
+	<h5>手机 {$clerk['clerk_mobile']} </h5>
+	<h5>门店 {$clerk['shopname']} </h5>
+	<h5>申请时间 {php echo date('Y-m-d H:i', $clerk['createtime'])} </h5>
+  {if !empty($clerk['remark'])}
+  <h5>留言备注 {$clerk['remark']}</h5>
+  {/if}
+</div>
+{/if}
+{php $footer_off= true}
+{template 'footer'}
