@@ -1,0 +1,66 @@
+
+<!doctype html>
+<html>
+<head>
+<title>我的活动</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../addons/hc_fxdaren/style/img/mobi.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="max-age=0" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="Description" content="分享达人" />
+<meta name="Keywords" content="分享达人" />
+</head>
+<body style="background-image:url(../addons/hc_fxdaren/style/img/bg.jpg);">
+<section class="main animated fadeInDown">
+  <div class="main-box">
+  {php $time=time()}
+  {loop $list $l}
+    <div class="activity-list">
+      <div class="regular activity-box">
+	  
+        <h1>{$l['title']}</h1>
+        <figure class="figure"><a href="{php echo $this->createMobileUrl('Enter',array('rid'=>$l['rid']))}" class="enter"> <img src="{$_W['attachurl']}{$l['picture']}" alt="" /></a> </figure>
+        <div class="look fn-clear">
+          <div class="view">
+            <p class="fn-clear"><i class="icon-eye-1"></i><span>{$l['sharenum']}</span></p>
+            <p class="text">浏览量</p>
+          </div>
+          <div class="residue">
+            <p class="fn-clear"><i class="icon-gift"></i><span>{$l['award_num']}</span></p>
+            <p class="text">奖品剩余数量</p>
+          </div>
+        </div>
+
+        <p class="activity-btn fn-clear"> 
+        <a href="{php echo $this->createMobileUrl('Enter',array('rid'=>$l['rid']))}" class="enter">进入活动</a> 
+        <a href="{php echo $this->createMobileUrl('Myaward')}" class="rule-btn">查看奖品</a> </p>        </p>
+       {if $time < $l['start_time']  }<i class="icon icon-start"></i>{/if}
+		{if $time > $l['end_time']  }<i class="icon icon-end"></i>{/if}
+		{if $time > $l['start_time'] && $time< $l['end_time'] }<i class="icon icon-hot"></i>{/if}
+                </div> 
+          </div>
+		  {/loop}
+  </div>
+  <footer class="foot"><style>
+#copyright {width: 100%;height: 50px;line-height: 50px;text-align:center; color:#333;font-size: 15px;}
+</style>
+<div id="copyright" style="color:#fff;">技术支持：{$_W['account']['name']}</div></footer>
+</section>
+<nav class="nav fn-clear"> 
+	<a href="{php echo $this->createMobileUrl('Share')}" ><i class="icon-award"></i>达人活动</a> 
+	<a href="{php echo $this->createMobileUrl('Myactivity')}"  class="active"><i class="icon-inbox"></i>我的活动</a> 
+	<a href="{php echo $this->createMobileUrl('Home')}"><i class="icon-user-1"></i>个人中心</a> 
+</nav>
+<script src="http://g.tbcdn.cn/kissy/m/0.2.0/mini-full-min.js"></script> 
+
+<script type="text/javascript">
+//显示分享按钮
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+WeixinJSBridge.call(showOptionMenu);
+});
+</script>
+</body>
+</html>

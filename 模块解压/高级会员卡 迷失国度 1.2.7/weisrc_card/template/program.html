@@ -1,0 +1,136 @@
+{template 'common/header'}
+{php echo $this -> set_tabbar($action);}
+<input type="hidden" name="storeid" value="{$storeid}" />
+{if $operation == 'display'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" onsubmit="return formcheck(this)">
+        <h4>{$title}</h4>
+        <a class="btn btn-primary" href="{php echo $this->createWebUrl('program', array('op' => 'post'))}"><i class="fa fa-plus"></i> 添加业务关联</a>
+        <div style="padding-top: 15px;">
+        <table class="table table-hover">
+            <thead class="navbar-inner">
+            <tr>
+                <th style="width:60px;">编号</th>
+                <th>名称</th>
+                <th>所属门店</th>
+                <th>权限</th>
+                <th style="width:80px;">状态</th>
+                <th style="min-width:100px;">编辑/审核/删除</th>
+            </tr>
+            </thead>
+            <tbody id="level-list">
+            {loop $program $row}
+            <tr>
+                <td>{$row['id']}</td>
+                <td>
+                    {$row['username']}
+                </td>
+                <td>
+                    {if empty($stores[$row['storeid']]['title'])}
+                    门店总部                   　
+                    {else}
+                    {$stores[$row['storeid']]['title']}
+                    {/if}
+                </td>
+                <td>
+                    {if $row['consume']==1}
+                    <span class="label label-success">消费</span>
+                    {else}
+                    <span class="label label-error">消费</span>
+                    {/if}
+                    {if $row['recharge']==1}
+                    <span class="label label-success">充值</span>
+                    {else}
+                    <span class="label label-error">充值</span>
+                    {/if}
+                </td>
+                <td>
+                    {if $row['status']==1}
+                    <span class="label label-success">开启</span>
+                    {else}
+                    <span class="label label-error">关闭</span>
+                    {/if}
+                </td>
+                <td>
+                    <a class="btn" href="{php echo $this->createWebUrl('program', array('op' => 'post', 'id' => $row['id']))}"><i class="icon-edit"></i></a>
+                    <a class="btn" href="{php echo $this->createWebUrl('program', array('op' => 'check', 'id' => $row['id']))}" onclick="return confirm('确认操作吗？');return false;" title="{if $row['status']==1}暂停{else}启用{/if}"><i class="icon-{if $row['status']==1}stop{else}play{/if}"></i></a>
+                    <a class="btn" onclick="return confirm('确认删除吗？');return false;" href="{php echo $this->createWebUrl('program', array('op' => 'delete', 'id' => $row['id']))}"><i class="icon-remove"></i></a>
+                </td>
+            </tr>
+            {/loop}
+            </tbody>
+        </table>
+        </div>
+    </form>
+    {$pager}
+</div>
+{elseif $operation == 'post'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+        <h4>{$title}</h4>
+        <input type="hidden" name="parentid" value="{$parent['id']}" />
+        <table class="tb">
+            <tr>
+                <th><label for="">业务名称</label></th>
+                <td>
+                    <input type="text" id="title" name="title" class="span7" value="{$item['title']}" />
+                </td>
+            </tr>
+            <tr>
+                <th><label for="">链接</label></th>
+                <td>
+                    <input type="text" id="link" name="link" class="span7" value="{$item['link']}" />
+                </td>
+            </tr>
+            <tr>
+                <th><label for="">状态</label></th>
+                <td>
+                    <label for="status_1" class="radio inline"><input autocomplete="off" type="radio" name="status" id="status_1" value="1" {if $item['status'] == 1 || empty($item['status'])} checked="checked"{/if} /> 开启</label>
+                    <label for="status_0" class="radio inline"><input autocomplete="off" type="radio" name="status" id="status_0" value="0" {if isset($item['status']) && $item['status'] == 0} checked="checked"{/if} /> 关闭</label>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <input name="submit" type="submit" value="提交" class="btn btn-primary span3">
+                    <input type="hidden" name="token" value="{$_W['token']}" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script type="text/javascript" src="./resource/script/kindeditor/kindeditor-min.js"></script>
+<script type="text/javascript" src="./resource/script/kindeditor/lang/zh_CN.js"></script>
+<link type="text/css" rel="stylesheet" href="./resource/script/kindeditor/themes/default/default.css" />
+<script>
+    var editor = KindEditor.editor({
+        allowFileManager : true,
+        uploadJson : "./index.php?act=attachment&do=upload",
+        fileManagerJson : "./index.php?act=attachment&do=manager",
+        afterUpload : function(url, data) {
+        }
+    });
+    $("#upload-image-icon").click(function() {
+        editor.loadPlugin("image", function() {
+            editor.plugin.imageDialog({
+                tabIndex : 1,
+                imageUrl : $("#upload-image-url-icon").val(),
+                clickFn : function(url) {
+                    editor.hideDialog();
+                    var val = url;
+                    if(url.toLowerCase().indexOf("http://") == -1 && url.toLowerCase().indexOf("https://") == -1) {
+                        var filename = /images(.*)/.exec(url);
+                        if(filename && filename[0]) {
+                            val = filename[0];
+                        }
+                    }
+                    $("#upload-image-url-icon-old").val($("#upload-image-url-icon").val());
+                    $("#upload-image-url-icon").val(val);
+                    $("#upload-image-preview-icon").html('<img src="'+url+'" width="80px;" />');
+                }
+            });
+        });
+    });
+</script>
+{/if}
+{template 'common/footer'}

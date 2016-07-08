@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0 , maximum-scale=1.0, user-scalable=0">
+<title>{$user['username']}正在砍价{$shop['sname']},快来围观帮忙</title>
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link href="{MODULE_URL}template/mobile/images/style_red.css" rel="stylesheet" type="text/css">
+<script src="{MODULE_URL}template/mobile/images/jquery-1.8.3.min.js" type="text/javascript"></script>
+<script src="{MODULE_URL}template/mobile/js/jquery.qrcode.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var commonjspath = '{MODULE_URL}template/mobile/images';
+</script>
+<script src="{MODULE_URL}template/mobile/images/common.js" type="text/javascript" type="text/javascript"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" type="text/javascript"></script>
+<base target="_self">
+ <script type="text/javascript">
+$(function(){
+	var str = "{$url}";
+	//var str = "1";
+	$("#code").empty();
+	var str = toUtf8(str);
+	
+	$('#code').qrcode(str);
+
+})
+function toUtf8(str) {   
+    var out, i, len, c;   
+    out = "";   
+    len = str.length;   
+    for(i = 0; i < len; i++) {   
+    	c = str.charCodeAt(i);   
+    	if ((c >= 0x0001) && (c <= 0x007F)) {   
+        	out += str.charAt(i);   
+    	} else if (c > 0x07FF) {   
+        	out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));   
+        	out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));   
+        	out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));   
+    	} else {   
+        	out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));   
+        	out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));   
+    	}   
+    }   
+    return out;   
+}  
+</script>
+<style>
+#code{
+margin-top:33px;
+text-align:center;
+}
+
+</style>
+
+</head>
+<body>
+
+
+<section class="more_box_title">
+    <div class="more_box_title_main">
+    	<h1>兑换二维码</h1>
+    </div>
+</section>
+<section class="more_box_main">
+    <div class="more_box_main_main">
+
+	<div id="code"></div>
+	</div>
+</section>
+<section class="more_box_title" id="content_rule">
+    <div class="more_box_title_main" >
+    	<h1>商品详细</h1>
+    </div>
+</section>
+<section class="more_box_main">
+    <div class="more_box_main_main">
+	{php echo htmlspecialchars_decode($shop['shopdetail']);}
+</div>
+</section>
+
+
+
+<script type="text/javascript">
+
+$(function(){
+ 
+});
+</script>
+{php echo register_jssdk(false);}
+<script>
+	wx.ready(function () {
+		sharedata = {
+			  title: "{php echo $reply['sharetitle']}",
+                desc: "{php echo strip_tags(htmlspecialchars_decode($reply['sharedesc']));}",
+			    link: "{php echo $_W['siteroot'].str_replace('./','app/',$this->createMobileurl('help',array('id' => $id,'shopid'=>$shopid,'helpopenid'=>$openid)));}",
+				imgUrl: "{php echo toimage($reply['sharepic'])}",
+			success: function(){
+				//alert('success');
+				 //window.location.href="{php echo $this->createMobileUrl('makepage');}";
+				   var surl = "{php echo $this->createMobileUrl('updatecount');}";
+                    $.ajax({
+                        type: "POST",
+                        url: surl,
+                        success: function (msg) {
+							
+                        }
+                    });
+			},
+			cancel: function(){
+				//alert('cancel');
+			}
+		};
+		
+		wx.onMenuShareAppMessage(sharedata);
+		wx.onMenuShareTimeline(sharedata);
+	});
+	
+	</script>
+</body>
+</html>

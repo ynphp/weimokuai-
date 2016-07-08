@@ -1,0 +1,53 @@
+
+<!doctype html>
+<html>
+<head>
+<title>活动规则</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../addons/hc_fxdaren/style/img/mobi.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="max-age=0" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="Description" content="分享达人" />
+<meta name="Keywords" content="分享达人" />
+</head>
+<body style="background-image:url(../addons/hc_fxdaren/style/img/bg.jpg);">
+<section class="main animated fadeInDown">
+  <div class="main-box client">
+    <div class="regular rule">
+      <h1>活动规则</h1>
+      <p><strong>活动名称：</strong>{$rule['title']}</p>
+      <p><strong>活动时间：</strong>{php echo date('Y-m-d',$rule['start_time'])} ~ {php echo date('Y-m-d',$rule['end_time'])}</p>
+      <p><strong>奖励规则：</strong>浏览量达到{$rule['award_rule']}人</p>
+      <p><strong>奖品名称：</strong>{$rule['description']}</p>
+      <p><strong>奖品数量：</strong>{$rule['award_num']}</p>
+      <p><strong>活动规则：</strong></p>
+      <div>
+        {$rule['activity_rule']}
+		</div>
+      <p>&nbsp;</p>
+      <p class="enter-activity">
+      
+      					<a href="{php echo $this->createMobileUrl('Enter',array('rid'=>$rule['rid']))}" class="btn">进入活动</a> 
+              
+      </p>
+    </div>
+  </div>
+  <footer class="foot"><style>
+#copyright {width: 100%;height: 50px;line-height: 50px;text-align:center; color:#333;font-size: 15px;}
+</style>
+<div id="copyright" style="color:#fff;">技术支持：{$_W['account']['name']}</div></footer>
+</section>
+<script src="http://g.tbcdn.cn/kissy/m/0.2.0/mini-full-min.js"></script> 
+
+<script type="text/javascript">
+//显示分享按钮
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+WeixinJSBridge.call(showOptionMenu);
+});
+</script>
+
+</body>
+</html>

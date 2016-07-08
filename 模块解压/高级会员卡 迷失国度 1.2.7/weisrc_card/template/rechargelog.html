@@ -1,0 +1,52 @@
+﻿{template 'common/header'}
+{php echo $this -> set_tabbar($action, 3);}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" onsubmit="return formcheck(this)">
+        <!--<a class="btn btn-primary" href="{php echo create_url('site/module', array('do' => 'rechargelogexcel', 'name' => 'weisrc_card', 'cardid'=>$cardid))}">导出会员日志</a>-->
+        <!--<a class="btn btn-primary" href="javascript:location.reload()"><i class="icon-refresh"></i>刷新</a>-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                会员卡{$title}充值日志
+            </div>
+            <div class="table-responsive panel-body">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width:10%;">编号</th>
+                        <th style="width:12%;">充值类型</th>
+                        <th style="width:12%;">充值数量</th>
+                        <th style="width:31%;">原因</th>
+                        <th style="width:15%;">操作门店</th>
+                        <th style="width:20%;">操作时间</th>
+                    </tr>
+                    </thead>
+                    <tbody id="level-list">
+                    {loop $list $item}
+                    <tr>
+                        <td>{$item['id']}</td>
+                        <td>{if $item['type']==2}积分{else}余额{/if}</td>
+                        <td>{$item['score']}</td>
+                        <td>{$item['remark']}</td>
+                        <td><font color="green">
+                            {if $item['storeid']==-1 }
+                            支付宝
+                            {else}
+                            {if empty($password[$item['passwordid']])}
+                            后台
+                            {else}
+                            {if empty($store[$item['storeid']])}商家{else}{$store[$item['storeid']]}{/if}
+                            /{$password[$item['passwordid']]['username']}
+                            {/if}
+                            {/if}
+                        </font>
+                        </td>
+                        <td>{php echo date('Y-m-d H:i:s', $item['dateline'])}</td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </form>
+    {$pager}
+</div>

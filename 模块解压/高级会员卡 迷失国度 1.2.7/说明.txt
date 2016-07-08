@@ -1,0 +1,3 @@
+如不能识别，把xml第二行重新写下
+<manifest xmlns="http://www.012wz.com" versionCode="0.6,0.7">
+复制代码

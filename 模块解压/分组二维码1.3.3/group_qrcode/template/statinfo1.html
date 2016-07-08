@@ -1,0 +1,150 @@
+{template 'common/header'}
+		<script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.2.min.js"></script>
+		<style type="text/css">
+
+#container {
+	height: 400px;
+}
+		</style>
+		<script type="text/javascript">
+$(function () {
+    $('#container').highcharts({
+        title: {
+            text: 'Monthly Average Temperature',
+            x: -20 //center
+        },
+        subtitle: {
+            text: 'Source: WorldClimate.com',
+            x: -20
+        },
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+        yAxis: {
+            title: {
+                text: 'Temperature (°C)'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            valueSuffix: '°C'
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            name: 'Tokyo',
+            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+        }, {
+            name: 'New York',
+            data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+        }, {
+            name: 'Berlin',
+            data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+        }, {
+            name: 'London',
+            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+        }]
+    });
+});
+
+		</script>
+
+<div id="container"></div>
+	<ul class="nav nav-tabs">
+	    <li><a href="{php echo $this->createWebUrl('manage')}">管理二维码</a></li>
+		<li class="active"><a href="">扫描统计</a></li>
+	</ul>
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form">			
+			<input type="hidden" name="c" value="site" />
+			<input type="hidden" name="a" value="entry" />
+			<input type="hidden" name="m" value="group_qrcode" />
+			<input type="hidden" name="do" value="statistics" />
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">粉丝分组</label>
+				<div class="col-sm-8 col-lg-9 col-xs-12">
+					<select name="group_id" class="form-control" id="group_id">
+						<option value="-1" {if ($_GPC['group_id']=="-1")} selected="selected" {/if}>不限</option>
+						{loop $fansgroup $key $type}
+						<option value="{$key}" {if $_GPC['group_id'] == $key} selected="selected" {/if}>{$type['name']}</option>
+						{/loop}
+					</select>
+					
+			</div>
+			</div>
+			
+				<div class="form-group">
+						<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">日期范围</label>
+				<div class="col-sm-8 col-lg-9 col-xs-12">
+						{php echo tpl_form_field_daterange('time', array('starttime'=>date('Y-m-d', $starttime),'endtime'=>date('Y-m-d', $endtime)));}
+					</div>
+					<div class="pull-right col-xs-12 col-sm-3 col-lg-2">
+						<button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+					</div>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">详细数据&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-muted" style="color:red;">扫描人数：{php echo count($list);}</span></div>
+		<div class="table-responsive panel-body">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th style="width:80px;">粉丝<i></i></th>
+						<th style="width:80px;">场景名称<i></i></th>
+	                    <th style="width:40px;">分组名称</th>
+		
+						<th style="width:150px;">扫描时间<i></i></th>
+					
+					</tr>
+				</thead>
+				<tbody>
+					{loop $list $row}
+					<tr>
+						<td>
+							<a href="#" title="{$row['openid']}">
+								{if $nickname[$row['openid']]['nickname']}
+									{$nickname[$row['openid']]['nickname']}
+								{else}
+									{php echo cutstr($row['openid'], 15)}
+								{/if}
+							</a>
+						</td>
+						<td>{$row['name']}</td>
+						<td>{$row['group_name']}</td>
+		
+						<td style="font-size:12px; color:#666;">
+						{php echo date('Y-m-d H:i:s', $row[createtime]);}
+						</td>
+						
+					</tr>
+					{/loop}
+				</tbody>
+			</table>
+			{$pager}
+		</div>
+	</div>
+<script type="text/javascript">
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+<script language='javascript' src='../addons/group_qrcode/template/style/js/highcharts.js'></script>
+
+{template 'common/footer'}

@@ -1,0 +1,116 @@
+{template 'common/header'}
+{php echo $this -> set_tabbar($action, 5);}
+{if $operation == 'display'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" onsubmit="return formcheck(this)">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <a class="btn btn-primary" href="{php echo $this->createWebUrl('announce', array('op' => 'post'))}"><i class="fa fa-plus"></i> 添加新通知</a>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="table-responsive panel-body">
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <!--<th style="width:40px;">显示顺序</th>-->
+                    <th style="width:50%;">标题</th>
+                    <th style="width:20%;">所属人群</th>
+                    <th style="width:20%;">发布时间</th>
+                    <th style="width:10%;">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {loop $announces $announce}
+                <tr>
+                    <!--<td><input type="text" class="span1" name="displayorder[{$announce['id']}]" value="{$announce['displayorder']}"></td>-->
+                    <td>{$announce['title']}</td>
+                    <td><font color="red">{$levels[$announce['levelid']]}</font></td>
+                    <td>
+                        {php echo date('Y-m-d H:i:s', $announce[dateline]);}
+                    </td>
+                    <td>
+                        <a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('announce', array('op' => 'post', 'id' => $announce['id']))}"><i class="fa fa-pencil"></i></a>
+                        <a class="btn btn-default btn-sm" onclick="return confirm('确认删除吗？');return false;" href="{php echo $this->createWebUrl('announce', array('op' => 'delete', 'id' => $announce['id']))}"><i class="fa fa-times"></i></a></td>
+                </tr>
+                {/loop}
+                </tbody>
+            </table>
+           </div>
+        </div>
+    </form>
+    {$pager}
+</div>
+{elseif $operation == 'post'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+        <input type="hidden" id="id" name="id" value="{$reply['id']}"/>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                {$title}
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">通知标题</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="title" value="{$reply['title']}" id="title" class="form-control" placeholder="请输入标题"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">选择人群</label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            <input type="radio" name="levelid" value="0" {if empty($reply)}checked="checked"{elseif $reply['levelid']==0}checked="checked"{/if} />所有会员
+                        </label>
+                        {loop $levels $level}
+                        <label class="radio-inline">
+                            <input type="radio" name="levelid" value="{$level['id']}" {if $reply['levelid']==$level['id']}checked="checked"{/if} >{$level['levelname']}
+                        </label>
+                        {/loop}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">通知内容</label>
+                    <div class="col-sm-9">
+                        <textarea style="height:200px;" class="richtext form-control" name="content" id="content">{$reply['content']}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="displayorder" value="{if empty($reply)}0{else}{$reply['displayorder']}{/if}" id="displayorder" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12 col-lg-1">
+                <input name="submit" type="submit" value="保存设置" class="btn btn-primary">
+                <input type="hidden" name="token" value="{$_W['token']}"/>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function check() {
+        if($.trim($('#title').val()) == '') {
+            message('没有输入标题.', '', 'error');
+            return false;
+        }
+        if($.trim($('#title').val()).length > 30) {
+            message('图片标题不能多于30个字.', '', 'error');
+            return false;
+        }
+        return true;
+    }
+</script>
+<script type="text/javascript">
+    require(['jquery', 'util'], function ($, u) {
+        $(function () {
+            u.editor($('.richtext')[0]);
+        });
+    });
+</script>
+{/if}
+{template 'common/footer'}

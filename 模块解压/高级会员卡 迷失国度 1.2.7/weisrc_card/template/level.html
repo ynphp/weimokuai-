@@ -1,0 +1,153 @@
+{template 'common/header'}
+{php echo $this -> set_tabbar($action);}
+<script type="text/html" id="level-form-html">
+    {php include $this->template('_level_item');}
+</script>
+<script>
+$(function(){
+    $('#add-level').click(function(){
+        $('#level-list').append($('#level-form-html').html());
+    });
+})
+</script>
+<div class="main">
+    <div class="alert alert-info">
+        1.会员卡等级名称请不要重复;积分范围请填写正确;<br>
+        2.第一个等级积分必需从0开始，下一等级开始积分必需是上一等级结束积分+1;<br>
+        范例：<br>
+        <table style="width:400px;margin-top: 5px;">
+
+            <tr>
+                <td style="width:25%;">
+                    银卡
+                </td>
+                <td style="width:25%;">
+                    0
+                </td>
+                <td style="width:25%;">
+                    至
+                </td>
+                <td style="width:25%;">
+                    10000
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    金卡
+                </td>
+                <td>
+                    10001
+                </td>
+                <td>
+                    至
+                </td>
+                <td>
+                    100000
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    钻石卡
+                </td>
+                <td>
+                    100001
+                </td>
+                <td>
+                    至
+                </td>
+                <td>
+                    不限
+                </td>
+            </tr>
+        </table>
+    </div>
+    <form action="" method="post" class="form-horizontal form">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            等级设置
+        </div>
+        <div class="panel-body table-responsive">
+
+            <table class="table table-hover">
+                <thead class="navbar-inner">
+                <tr>
+                    <th style="width:20%;">会员等级</th>
+                    <th style="width:60%;">积分设置(必须为整数)</th>
+                    <th style="width:20%;">操作</th>
+                </tr>
+                </thead>
+                <tbody id="level-list">
+                {php $flag = false;}
+                {loop $levels $level}
+                {if $level['max'] == 2147483647}
+                {php $leveltmp = $level;}
+                {php $flag = true;}
+                {else}
+                <tr>
+                    <td><input type="text" class="form-control" name="levelname[{$level['id']}]" value="{$level['levelname']}"></td>
+                    <td>
+                        <div class="input-group input-medium">
+                            <span class="input-group-addon">从</span>
+                            <input type="text" class="form-control" name="min[{$level['id']}]" value="{$level['min']}">
+                            <span class="input-group-addon" style="border-left:0px;border-right:0px;">至</span>
+                            <input type="text" class="form-control" name="max[{$level['id']}]" value="{$level['max']}">
+                        </div>
+                    </td>
+                    <td>
+                        <a class="btn btn-default btn-sm" onclick="return confirm('确认删除吗？');return false;" href="{php echo $this->createWebUrl('level', array('op' => 'delete', 'id' => $level['id']))}"><i class="fa fa-times"></i></a>
+                    </td>
+                </tr>
+                {/if}
+                {/loop}
+                </tbody>
+                <tfoot>
+                {if empty($levels)}
+                <tr>
+                    <td><input type="text" class="form-control" name="newlevelname[]" value=""></td>
+                    <td>
+                        <div class="input-group input-medium">
+                            <span class="input-group-addon">从</span>
+                            <input type="text" class="form-control" name="newmin[]" value="">
+                            <span class="input-group-addon" style="border-left:0px;border-right:0px;">至</span>
+                            <input type="text" class="form-control" value="不限" disabled>
+                            <input type="hidden" name="newmax[]" value="2147483647" >
+                        </div>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                {elseif $flag == true}
+                <tr>
+                    <td><input type="text" class="form-control" name="levelname[{$leveltmp['id']}]" value="{$leveltmp['levelname']}"></td>
+                    <td>
+                        <div class="input-group input-medium">
+                            <span class="input-group-addon">从</span>
+                            <input type="text" class="form-control" name="min[{$leveltmp['id']}]" value="{$leveltmp['min']}">
+                            <span class="input-group-addon" style="border-left:0px;border-right:0px;">至</span>
+                            <input type="text" class="form-control" value="不限" disabled>
+                            <input type="hidden" name="max[{$leveltmp['id']}]" value="2147483647">
+                        </div>
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                {/if}
+                <tr>
+                    <td colspan="7">
+                        <a href="javascript:;" id="add-level"><i class="fa fa-plus-circle"></i> 添加等级</a>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交">保存设置</button>
+                <input type="hidden" name="token" value="{$_W['token']}" />
+            </div>
+        </div>
+    </form>
+</div>
+{template 'common/footer'}
+

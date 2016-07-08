@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[按死小情侣]]></name>
+		<identifie><![CDATA[str_xql]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[wdlgame]]></type>
+		<ability><![CDATA[按死小情侣]]></ability>
+		<description><![CDATA[按死小情侣]]></description>
+		<author><![CDATA[柒|柒|源|码]]></author>
+		<url><![CDATA[http://H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口" do="index" state="" direct="false" />
+		</cover>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="{CSS_PATH}index.css?1" type="text/css" rel="stylesheet" />
+<link href="{CSS_PATH}animations.css" type="text/css" rel="stylesheet" />
+<meta name="viewport" content="width=640,target-densitydpi=device-dpi,user-scalable=no" />
+<title>{$reply['title']}</title>
+<script type="text/javascript">
+var IMG_PATH = '{IMG_PATH}';
+var POST_URL = '{php echo $this->createMobileUrl('Post',array('reply_id'=>$reply_id))}';
+var GET_URL = '{php echo $this->createMobileUrl('Get',array('reply_id'=>$reply_id))}';
+var INDEX_URL = '{$_W['siteroot']}app{php echo str_replace('./','/',$this->createMobileUrl('Index',array('id'=>$reply_id)))}';
+var AD_IMG = '{php echo tomedia($reply['ad'])}';
+var SHARE_TITLE = '{$reply['sharetitle']}';
+var SHARE_CONTENT = '{$reply['sharecontent']}';
+var SHARE_IMG = '{php echo tomedia($reply['sharepicurl'])}';
+var jssdk = {php echo json_encode($jssdk)};
+</script>
+<script src="http://libs.baidu.com/jquery/2.0.3/jquery.min.js"></script>
+<script src="{JS_PATH}zepto.min.js"></script><script>window.$$ = window.Zepto</script>
+<script src="{JS_PATH}Fx.min.js"></script>
+<script src="{JS_PATH}sdc_MobWeb.js"></script>
+<script type="text/javascript" src="{JS_PATH}jsticketapi-1.1.min.js"></script>
+<script type="text/javascript">
+
+function construct(app_id, req_url, jsApiList, share_timeline_data, share_app_data, hide_menu_list) {
+    var debug = false;
+    wx.config({
+        debug: debug,
+        appId: jssdk.appId,
+        timestamp: jssdk.timestamp,
+        nonceStr: jssdk.nonceStr,
+        signature: jssdk.signature,
+        jsApiList: jsApiList
+    });
+    wx.ready(function() {
+        wx.onMenuShareTimeline({
+            title: share_timeline_data.title,
+            link: share_timeline_data.link,
+            imgUrl: share_timeline_data.img_url,
+            success: function() {
+                share_timeline_data.callbackfunc()
+            }
+        });
+        wx.onMenuShareAppMessage({
+            title: share_app_data.title,
+            desc: share_app_data.desc,
+            link: share_app_data.link,
+            imgUrl: share_app_data.img_url,
+            success: function() {
+                share_app_data.callbackfunc()
+            }
+        });
+        wx.hideMenuItems({
+            menuList: hide_menu_list
+        })
+    })
+};
+//alert('{IMG_PATH}');
+</script>
+</head>
+<body>
+
+<span class="gamereturn"></span>
+<span class="sound-on" style="display:block;"></span>
+
+<!--浮层-->
+<div class="ajaxloading"></div>
+<div class="mask"></div>
+<img data-src="{IMG_PATH}share.jpg" width="400" style="position:absolute; left:-99999px" />
+
+
+
+
+<div class="guizhebox">
+	<span class="guizhebox_close"></span>
+	<span class="guizhebox_title"><img src="{php echo tomedia($reply['ad_title'])}" /></span>
+    
+    <span class="guizhebox_main">
+    	<img src="{php echo tomedia($reply['ad_content'])}" />
+    </span>
+</div>
+
+<script>
+$('.guizhebox_main').height($(window).height() - 300);
+
+$('.guizhebox_close').bind('touchend' , function (){
+	$('.guizhebox').hide();
+});
+
+</script>
+
+<div class="sharebox" onTouchend="$(this).fadeOut()">
+</div>
+<!--div id="loading" style="display:block; width:640px; height:100%;">
+	<p></p>
+</div-->
+
+
+
+<div id="loading" style="display:block;">
+	<h1 class="logo"><img data-src="{php echo tomedia($reply['logo'])}" /></h1>
+
+	<canvas class="loading-sprite" width="640" height="400"></canvas>
+    
+    
+    
+    <div class="jiamining"></div>
+    <div class="loading-p">
+    	<div class="num">
+    		<span class="s0"></span>
+    		<span class="s0"></span>
+        </div>
+    </div>
+</div>
+
+<div class="box-content" id="main">
+	<h1 class="logo"><img data-src="{php echo tomedia($reply['logo'])}" /></h1>
+
+	
+    
+  
+	<div class="box-step zhuquan0" style="display:none;">
+    	
+        
+        
+        
+        <div class="share-main">
+        	<img src="{IMG_PATH}share/ws.png" class="xinfeng" />
+            
+            
+          <div class="share-txt"></div>
+        </div>
+        
+        
+        
+        
+      <img src="{php echo tomedia($reply['ad'])}" class="bazhe" />
+        
+        
+        
+        
+    	<div class="jiemining"></div>
+        
+      
+	<canvas class="loading-sprite2" width="640" height="400"></canvas>
+        
+    </div>
+    
+    
+    
+	<div class="box-step zhuquan1" style="display:block;">
+   			
+            <div class="step-box step-box1">
+            	<canvas width="640" height="1008" class="indexcanvas"></canvas>
+                <span class="btn"></span>
+            </div>
+            
+            <div class="step-box step-box2" style="display:none;">
+            	
+                <div class="stp2-bj">
+                	<img src="{IMG_PATH}2/1.png" />
+                	<img src="{IMG_PATH}2/2.png" />
+                	<img src="{IMG_PATH}2/3.png" />
+                	<img src="{IMG_PATH}2/4.png" />
+                	<img src="{IMG_PATH}2/5.png" />
+                	<img src="{IMG_PATH}2/6.png" />
+                	<img src="{IMG_PATH}2/7.png" />
+                	<img src="{IMG_PATH}2/8.png" />
+                	<img src="{IMG_PATH}2/9.png" />
+                	<img src="{IMG_PATH}2/10.png" />
+                </div>
+            	
+                <span class="btn"></span>
+                
+                <textarea id="textarea">请输入你想要告白的话，仅限20个中文字</textarea>
+            </div>
+            
+            <div class="step-box step-box3" style="display:none;">
+              <div class="stp3-bj">
+              	<img src="{IMG_PATH}3/1-3-1.png" />
+              	<img src="{IMG_PATH}3/1-3-2.png" />
+              	<img src="{IMG_PATH}3/1-3-3.png" />
+              	<img src="{IMG_PATH}3/1-3-4.png" />
+              	<img src="{IMG_PATH}3/1-3-5.png" />
+              	<img src="{IMG_PATH}3/1-3-6.png" />
+              	<img src="{IMG_PATH}3/1-3-7.png" />
+              	<img src="{IMG_PATH}3/1-3-8.png" />
+              	<img src="{IMG_PATH}3/1-3-9.png" />
+              	<img src="{IMG_PATH}3/1-3-10.png" />
+              	<img src="{IMG_PATH}3/1-3-11.png" />
+              </div>
+                
+                <img data-src="{IMG_PATH}sel.png" class="seltxt" width="218" height="106" />
+                <div class="keshi keshi1" index="1"></div>
+                <div class="keshi keshi2" index="2"></div>
+                <div class="keshi keshi3" index="3"></div>
+                <div class="keshi keshi4" index="4"></div>
+                
+                <span class="btn"></span>
+            </div>
+            
+            
+    </div>
+    
+	<div class="box-step zhuquan2" style="display:none;">
+    	
+        <canvas class="z2-canvasbg1" width="640" height="1008"></canvas>
+    
+    	<canvas class="z2-canvasbg2" width="640" height="1008"></canvas>
+        
+        
+        <div class="canvas-text" style="display:none;">
+        	<canvas id="canvas-01" width="380" height="380"></canvas>
+        </div>
+        
+        
+        <div class="zhiwen">
+        	<div class="zhiwen-ico"></div>
+        </div>
+        
+        
+        
+        <canvas class="z2-canvasbg3" width="640" height="1008"></canvas>
+        
+        <img src="{IMG_PATH}diannao/t1.png" class="txt0" />
+        <span class="btn btn1"></span>
+        <span class="btn btn2"></span>
+      	<span class="btn btn3"></span>
+        
+        
+        <div class="z2-maintxt">
+        </div>
+    </div>
+    <div class="box-step zhuquan3" style="display:none;">
+    	
+        
+        
+        
+        <div class="thispop"></div>
+        
+        
+        <div class="z3-1"></div>
+        <div class="z3-2"></div>
+        <div class="z3-box">
+        	
+            
+            <div class="z3-3">
+            	<canvas class="z3-canvas" width="380" height="327"></canvas>
+            </div>
+            
+            
+            
+            <div class="shi-txt">
+            	
+            </div>
+            
+            <img data-src="{IMG_PATH}zhongwen/4.png" class="yinzhang" />
+            
+            
+            
+        <img src="{IMG_PATH}zhongwen/t1.png" class="txt0" />
+        <span class="btn btn1"></span>
+        <span class="btn btn2"></span>
+        <span class="btn btn3"></span>
+            
+            
+            
+        </div>
+        
+        
+    </div>
+    <div class="box-step zhuquan4" style="display:none;">
+    
+     <div class="popbox popbox-1">
+            	<img data-src="{IMG_PATH}huaxue/f1.png" class="popbox1" />
+      </div>
+    	<div class="zq4-1" style="display:block;">
+        	<canvas id="zq4-c" class="zq4-c" width="640" height="1008"></canvas>
+        </div>
+        
+       <div class="zq4-2">
+       
+       
+       		<img data-src="{IMG_PATH}huaxue/hx1.png" class="s4-1" />
+            <img data-src="{IMG_PATH}huaxue/hx3.png" class="s4-2" />
+            
+      
+           
+            <ul class="s4-3">
+              
+          
+                
+                
+            </ul>
+            <div class="s4-4"></div>
+            <div class="s4-5">
+            	<img src="{IMG_PATH}huaxue/t1.png" class="txt0" />
+                <img data-src="{IMG_PATH}huaxue/hx5.png" class="z4-gd btn1" />
+                <img data-src="{IMG_PATH}huaxue/hx6.png" class="z4-dd btn2" />
+              <img data-src="{IMG_PATH}huaxue/hx4.png" class="z4-dd btn3" />
+            </div>
+            <div class="s4-6">
+                <img data-src="{IMG_PATH}huaxue/hx4.png" />
+            </div>
+       		<canvas id="zq4-c2" class="zq4-c2" width="440" height="282">
+            </canvas>
+       </div>
+        
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="box-step zhuquan5" style="display:none;">
+            
+             <div class="thispop"></div>
+            <canvas class="z5canvas" width="640" height="1008"></canvas>
+            
+            <div class="z5-box">
+                <!--span class="z5x z5x1">
+                    <span class="z5x1-1"></span>
+                    <span class="z5x1-2"></span>
+                    <span class="zi">我</span>
+                </span-->
+            </div>
+            
+            
+            
+            
+        <img src="{IMG_PATH}yinyue/t1.png" class="txt0" />
+            <span class="btn btn1"></span>
+            <span class="btn btn2"></span>
+   	  <span class="btn btn3"></span>
+            
+            
+    </div>
+</div>    
+<audio id="sound0" src="{SOUND_PATH}4.mp3" preload="preload" loop style="position:absolute; top:999999px"></audio>
+<audio src="{SOUND_PATH}2.mp3" id="audio1" preload="preload" style="position:absolute; top:999999px"></audio>
+<audio src="{SOUND_PATH}3.mp3" id="audio2" preload="preload" style="position:absolute; top:999999px"></audio>
+
+</body>
+</html>
+<script src="{JS_PATH}animate.js?11"></script>
+<script src="{JS_PATH}weixinjs.js?11"></script>
+<script>
+
+var windowHeight = $(window).height()
+$('#main , .step-box').height(windowHeight);
+$(window).resize( function (){
+	$('#main , .step-box').height(windowHeight);
+	$(window).scrollTop(0);
+	
+});
+</script>
+<script src="{JS_PATH}init.js?12"></script>

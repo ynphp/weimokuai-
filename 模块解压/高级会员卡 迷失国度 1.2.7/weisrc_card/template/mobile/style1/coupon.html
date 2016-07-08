@@ -1,0 +1,223 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css?v=4" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dialog_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/mymain.js"></script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<script>
+    $().ready(function () {
+        $("#nav_1 a").on("touchstart touchend mouseover mouseout", function (e) {
+            switch (e.type) {
+                case "touchstart":
+                case "mouseover":
+                    this.classList.add("hover");
+                    break;
+                case "touchend":
+                case "mouseout":
+                    this.classList.remove("hover");
+                    break;
+            }
+        });
+    });
+
+    function getCoupon(id, type) {
+        loading(true);
+        $.ajax({
+            url: "{php echo $this->createMobileUrl('getcoupon', array(), true)}",
+            type: "POST",
+            dataType: "json",
+            data: {
+                cou_id: id,
+                type: type,
+                from_user:"{$from_user}"
+            },
+            success: function (data) {
+                loading(false);
+                if (data.status == 0) {
+                    alert(data.message, 1500);
+                    setTimeout("location.reload()", 1500);
+                } else {
+                    alert(data.message, 1500)
+                }
+            }
+        });
+    }
+</script>
+<style>
+    .tbox_other {
+        width: 100%;
+    }
+    .tbox_other > * {
+        height: 100%;
+        display: table-cell;
+        vertical-align: top;
+    }
+    .tbox_other > *:last-child {
+        width: 100%;
+    }
+</style>
+<div class="container coupon {if $type == 3}exchange{/if} {if $type == 2}cash_coupon{/if} {if empty($coupons)}none{/if}">
+<header>
+    <nav id="nav_1" class="p_10">
+        <ul class="box" style="width:300px;">
+            <li><a href="{php echo $this->createMobileUrl('coupon', array('type' => 1), true)}" {if $type==1}class="on"{/if}>优惠券</a></li>
+            <li><a href="{php echo $this->createMobileUrl('coupon', array('type' => 2), true)}" {if $type==2}class="on"{/if}>代金券</a></li>
+            <li><a href="{php echo $this->createMobileUrl('coupon', array('type' => 3), true)}" {if $type==3}class="on"{/if}>礼品券</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="body">
+    <ul class="{if $type==1 ||  $type == 3}list_coupon{elseif $type==2}list_coupon_ul{/if}">
+        {if $type == 1 ||  $type == 3}
+        <ol>
+            {loop $coupons $item}
+            {php $flag = true;}
+            <!--总数不限制-->
+            {if $item['totalcount']==0}
+                <!--个人有限制-->
+                {if $item['count']!=0}
+                    {if $arr_user_coupon[$item['id']]>=$item['count']}
+                        {php $flag = false;}
+                    {/if}
+                {/if}
+            {else}
+                <!--总数有限制-->
+                {if $arr_coupon[$item['id']] >= $item['totalcount']}
+                    {php $flag = false;}
+                {else}
+                    {if $item['count']!=0}
+                        {if $arr_user_coupon[$item['id']]>=$item['count']}
+                            {php $flag = false;}
+                        {/if}
+                    {/if}
+                {/if}
+            {/if}
+            <li data-card="" onclick="this.classList.toggle('toggle');" class="on">
+                <!--<a href="javascript:;" onclick="this.classList.toggle('toggle');" class="on">-->
+                    <header>
+                        <label>{$item['title']}</label>
+                        <label class="fr" style="font-size:12px;">
+                            数量:{if $item['totalcount'] == 0}
+                            不限{else}{$item['totalcount']}{/if}
+                            <br/>
+                            可领取:{if $item['count'] == 0}
+                            不限{else}{$item['count']}{/if}
+                            <br/>
+                            已领取:{if empty($arr_user_coupon[$item['id']])}0{else}{$arr_user_coupon[$item['id']]}{/if}
+                        </label>
+                    </header>
+                    <section>
+                        <div>
+                            <figure class="tbox_other"{if $flag==true} style="background: none repeat scroll 0 0 #5AC5D4;"{/if}>
+                                <div>
+                                    <img src="{if strstr($item['thumb'], 'http') || strstr($item['thumb'], '../addons/')}{$item['thumb']}{else}{$_W['attachurl']}{$item['thumb']}{/if}"  onerror="this.src='{RES}mobile/{php echo $this->cur_tpl}/images/youhuiquan.jpg'">
+                                </div>
+                            {if $flag==true}<div onclick="getCoupon({$item['id']},{$item['type']});event.stopPropagation();"><label>领取</label></div>
+                            {else}
+                            <div><label>已领取</label></div>
+                            {/if}
+                            </figure>
+                        </div>
+                        <div class="des">
+                            <dl>
+                                <dt onclick="this.classList.toggle('on');event.stopPropagation();">有效期至{php echo date('Y-m-d', $item[endtime]);}</dt>
+                                <dd>
+                                    {php echo htmlspecialchars_decode($item['content']);}
+                                </dd>
+                                <dd>
+                                    <p style="white-space:pre-line;">适用门店：
+                                        {if $item['storeid'] == 0}
+                                        {loop $stores $row}
+                                        {$row['title']}<br/>
+                                        {/loop}
+                                        {else}
+                                        {$stores[$item['storeid']]['title']}
+                                        {/if}
+                                    </p>
+                                </dd>
+                            </dl>
+                        </div>
+                    </section>
+                <!--</a>-->
+            </li>
+            {/loop}
+        </ol>
+        {elseif $type == 2}
+        {loop $coupons $item}
+            {php $flag = true;}
+            <!--总数不限制-->
+            {if $item['totalcount']==0}
+                <!--个人有限制-->
+                {if $item['count']!=0}
+                    {if $arr_user_coupon[$item['id']]>=$item['count']}
+                        {php $flag = false;}
+                    {/if}
+                {/if}
+            {else}
+                <!--总数有限制-->
+                {if $arr_coupon[$item['id']] >= $item['totalcount']}
+                    {php $flag = false;}
+                {else}
+                    {if $item['count']!=0}
+                        {if $arr_user_coupon[$item['id']]>=$item['count']}
+                            {php $flag = false;}
+                        {/if}
+                    {/if}
+                {/if}
+            {/if}
+        <li>
+            <a class="on" href="javascript:;">
+                <p><span>{$item['dmoney']}</span>元</p>
+                <p>★订单满{$item['give_value']}元可使用</p>
+                <p>有效期至{php echo date('Y年m月d日', $item[endtime]);}</p>
+                <p style="margin-left:13px;"></p>
+                {if $flag==true}
+                <p onclick="getCoupon({$item['id']},{$item['type']})">领取</p>
+                {else}
+                <p style="top: 20px;">已领取</p>
+                {/if}
+            </a>
+        </li>
+        {/loop}
+        {/if}
+    </ul>
+</div>
+{if !empty($card)}
+{php include $this->template($this->cur_tpl.'/_footer');}
+{/if}
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        WeixinJSBridge.call('hideToolbar');
+    });
+</script>
+</div>
+</body>
+</html>
+<!--<p>-->
+<!--领用条件:官网公众号微信会员才能使用【演示】-->
+<!--</p>-->
+<!--<p>-->
+<!--<br>-->
+<!--</p>-->
+<!--<span>适用范围</span><span>【演示】</span><br>-->
+<!--<span>1、使用范围：此券在全国实体门店均可使用</span><br>-->
+<!--<span>2、券有效期：请在2015年05月07日之前使用，逾期无效</span><br>-->
+<!--<span>3、使用提示：一次消费仅可使用一次，此券不挂失，不找零，不兑换现金</span><br>-->
+<!--<p>-->
+<!--4、客服电话：400-6305-400-->
+<!--</p>-->
+<!--<p>-->
+<!--<br>-->
+<!--</p>-->
+<!--<p>-->
+<!--<span>优惠</span><span-->
+<!--style="line-height:1.5;">券的最终解释权归店铺所有，如有任何疑问请进入商家店铺咨询服务</span>-->
+<!--</p>-->

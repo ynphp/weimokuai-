@@ -1,0 +1,284 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li {if $op == 'post'}class="active"{/if}><a
+		href="{php echo $this->createWebUrl('index', array('op' => 'post'))}">添加二维码</a></li>
+	<li {if !$op}class="active"{/if}><a
+		href="{php echo $this->createWebUrl('index')}">二维码列表</a></li>
+	<li><a
+		href="{php echo $this->createWebUrl('scan')}">扫描统计</a></li>
+</ul>
+
+{if !$op}
+<style>
+ .cate_edit{
+	 float: right;
+	margin-top: 12px;
+	margin-right: 50px;
+	cursor: pointer;
+	font-size: 1.3em;
+ }
+ 
+ .cate_label{
+ 	padding: 5px;
+	font-size: 1.2em;
+	background-color: green;
+ }
+ 
+ .margin_bottom{
+ 	margin-bottom: 6px;
+ }
+ 
+ img{
+ 	width: 100px;
+	height: 100px;
+ }
+ 
+ th{
+ 	text-align:center !important;
+ }
+ td{
+ 	text-align:center !important;
+ 	white-space:normal !important;
+ }
+</style>
+<div class="panel panel-default">
+	<div class="panel-heading"><label>二维码类别</label>
+		<select id='cate_select' style='margin-top:10px;width: auto;display: inline;' class="form-control" onchange='selectCate(this)'>
+			<option value="0">全部</option>
+			{loop $cates $c}
+			<option {if $cid == $c['id']}selected="selected"{/if} value="{$c['title']}" data-cid="{$c['id']}">{$c['title']}</option>
+			{/loop}
+		</select>
+		<span id="addCate" style="margin-top:15px;display:none">
+			<input placeholder='类别' class='span2 form-control' id='new_cate'  style="width: auto;display: inline;">
+				<a class='btn btn-primary' onclick='eidtCate(0)' style='margin-top:0;margin-left:10px'>添加</a>
+				<a class='btn btn-primary' onclick='$("#addCate").hide();' style='margin-top:0;'>取消</a>
+			</span> 
+			<a class='icon-plus-sign-alt' style='margin-left:10px;cursor:pointer'>添加分类</a>
+			<a class='cate_edit'>编辑分类</a>
+			<div style='clear:both'></div>
+			<div id="newsEdit" style="border-top: 1px solid thistle;padding-top: 10px;margin-top: 10px;display: none">
+				<span style='margin:10%;padding: 30px;'>
+					<a class='label cate_label'>类别名字</a>
+						<input id='cate_name' class='span2 margin_bottom form-control' style="margin-left: 5px;width: auto;display: inline;" >
+					<a class='btn btn-primary margin_bottom' onclick='eidtCate(1)'>修改</a>
+					<input type='hidden' id='old_cate'>
+					<a class='btn btn-danger margin_bottom' onclick='eidtCate(2)'>删除</a>
+				</span>
+			</div>
+	</div>
+	<div class="panel-body">					
+			<table class="table table-hover">
+				<thead class="navbar-inner">
+					<tr>
+						<th>标题</th>
+						<th style="width: 80px;">总扫描量</th>
+						<th style="width: 80px;">有效扫描</th>
+						<th>备注</th>
+						<th style="width: 80px;">状态</th>
+						<th>到期时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody id='table_content'>
+					{loop $list $l}
+						<tr>
+							<td>{$l['title']}</td>
+							<td>{if $l['scancount']}{$l['scancount']}{else}0{/if}</td>
+							<td>{if $l['scancount2']}{$l['scancount2']}{else}0{/if}</td>
+							<td>{$l['comment']}</td>
+							<td>{if $l['status']}<label class='label label-success'>开启</label>{else}<label class='label label-danger'>禁用</label>{/if}</td>
+							<td>{$l['deadline']}</td>
+							<td >
+							<a href='{php echo $this->createWebUrl("down",array("qid"=>$l["id"]));}' class='btn btn-warning'>下载</a>
+							<a href='{php echo $this->createWebUrl("scan",array("qid"=>$l["id"]));}' class='btn btn-default'>统计</a>
+							<a href='{php echo $this->createWebUrl("index",array("op"=>"post","qid"=>$l["id"]));}' class='btn btn-primary'>详情</a>
+							<a onclick='return confirm("删除后将无法找回数据，确定删除吗");' href='{php echo $this->createWebUrl("index",array("op"=>"delete","qid"=>$l["id"],"cate"=>$l["cate"]));}' class='btn btn-danger'>删除</a></td>
+						</tr>
+					{/loop}
+				</tbody>
+			</table>
+			{$pager}
+	</div>
+</div>
+<script>
+	$('.icon-plus-sign-alt').click(function(){
+		$('#addCate').show();
+	});
+	
+	$('.cate_edit').click(function(){
+		if($('#cate_select').val() != 0){
+			$("#newsEdit").toggle();
+			$('#old_cate').val($('#cate_select').val());
+			$('#cate_name').val($('#cate_select').val());
+		}
+	});
+	function deleteconfirm(){
+		return confirm("删除后将无法找回数据，确定删除吗");
+	}
+	
+	function eidtCate(type){
+		var data = {type:type,cid:$('#cate_select option:selected').attr('data-cid')};
+		if(type == 0){ //添加分类
+			if($('#new_cate').val() == ''){
+				alert('请输入分类名字');
+				return;
+			}
+			data['new_cate'] = $('#new_cate').val();
+		}else if(type == 1){ //修改分类
+			if($('#cate_name').val() == ''){
+				alert('请输入分类名字');
+				return;
+			}
+			data['new_cate'] = $('#cate_name').val();
+			data['old_cate'] = $('#old_cate').val();
+		}else if(type == 2){ //删除分类
+			if(confirm('删除二维码分类，将删除该分类下的所有二维码，且数据将不能找回，确认删除吗？')){
+				data['new_cate'] = $('#cate_name').val();
+			}else return;
+		}
+		$.ajax({
+			url:'{php echo $this->createWebUrl("editcate");}',
+			type: "POST",
+			data:data,
+			dataType: "json",
+			error : function(msg) {
+				alert("发送请求失败，请重试");
+			},
+			success : function(msg) {
+				if(msg > 0){
+					if(type == 0){
+						alert("添加分类成功");
+						$('#cate_select').append('<option data-cid="'+msg+'" selected="selected">'+$('#new_cate').val()+'</option>');
+						$('#table_content').empty();
+						$('#addCate').hide();
+					}else if(type == 1){
+						alert("修改分类成功");
+						$('#cate_select').find("option:selected").text($('#cate_name').val());
+						$(".float_window").hide();
+					}else if(type == 2){
+						alert("删除分类成功");
+						window.location.reload();
+					}
+				}else if(msg == -1){
+					alert("该分类已存在");
+				}else alert("编辑分类失败");
+			}
+		});
+	}
+	
+	function selectCate(obj){
+		var cate = '&cate='+$('#cate_select option:selected').attr('data-cid');
+		if($(obj).val() == '0')
+			cate = '';
+		location.href = "{php echo $this->createWebUrl('index')}"+cate;
+	}
+</script>
+{else}
+{php load()->func('tpl')}
+<style>
+	.tb2{
+		margin-left: 5%;
+		margin-top: 2%;
+   		width: 90%;
+	}
+	
+	th{
+		width: 10%;
+	}
+	
+	.redstar{
+		color:red;
+	}
+	.tips{
+		display: none;
+	}
+</style>
+<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+<div class="panel panel-default">
+	<div class="panel-body">
+		<input type="hidden" name="qid" value="{$adv['id']}" />
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">类别</label>
+					<div class="col-sm-2 col-xs-12">
+						<select style='width: auto;display: inline;' class="form-control" name="cate">
+							{loop $cates $cate}
+							<option {if $adv['cate'] == $cate['id']}selected="selected"{/if} value='{$cate["id"]}'>{$cate['title']}</option>
+							{/loop}
+						</select>
+					</div>
+				</div>
+				{if $adv['id']}
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">二维码</label>
+					<div class="col-sm-9 col-xs-12">
+						<img src="{$_W['attachurl']}qrcodemanagement/{php echo $this->modulename}{$adv['id']}.png" onerror="$('.tips').show()" style="width: 200px;border: 1px solid gainsboro;height: 200px;">
+						<div class="help-block tips">若图片不存在，请确保网站目录下的 attachment和attachment/qrcodemanagement目录有写入权限</div>
+						<div class="help-block">浏览器对图片有缓存，若图片不是最新的，多刷新即可</div>
+					</div>
+				</div>
+				{/if}
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">商家logo</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('logo',$adv['logo'])}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">标题</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" name="title" class="form-control" value="{$adv['title']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">链接</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_link('url',$adv['url'])}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">过期时间</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_date('deadline',$adv['deadline'],true)}
+					</div>
+				</div>
+				 <div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">备注</label>
+					<div class="col-sm-9 col-xs-12">
+						<textarea class="form-control richtext-clone" name="comment" >{$adv['comment']}</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">条件</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class='radio-inline'>
+							<input type='radio' name='must_fans' value='0' checked /> 必须关注
+						</label>
+						<label class='radio-inline'>
+							<input type='radio' name='must_fans' value='1' {if $adv['must_fans']==1}checked{/if} /> 不用关注
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">状态</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class='radio-inline'>
+							<input type='radio' name='status' value='1' checked /> 开启
+						</label>
+						<label class='radio-inline'>
+							<input type='radio' name='status' value='0' {if $adv['status']==='0'}checked{/if} /> 禁用
+						</label>
+					</div>
+				</div>
+				<div class="form-group" style="margin-top: 10px;">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+						<input type="hidden" name="token" value="{$_W['token']}" />
+					</div>
+				</div>
+			</div>
+		</div>
+</form>
+{/if}
+{template 'common/footer'}

@@ -1,0 +1,96 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dialog_min.js"></script>
+    <style>
+        .tbox_other {
+            width: 100%;
+        }
+        .tbox_other > * {
+            height: 100%;
+            display: table-cell;
+            vertical-align: top;
+        }
+        .tbox_other > *:last-child {
+            width: 100%;
+        }
+    </style>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<div class="container bill {if empty($datalist)}none{/if}">
+    <header>
+        <div class="bill_header">
+            <ul class="bill_detail box">
+                <li>
+                    <label>收入:<span>{$totalMoney}</span></label>
+                </li>
+                <li>
+                    <label>支出:<span>{$totalMoney2}</span></label>
+                </li>
+                <li>
+                    <div>
+                        <select name="date" id="monthSelectElement">
+                            {$page_date}
+                        </select>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="body">
+        <ul class="list_message list_bill">
+            {loop $datalist $item}
+            <li>
+                <a href="javascript:;">
+                    <dl class="tbox_other">
+                        <dd>
+                            <span class="icon_5"><img src="" class="vhidden"></span>
+                            <div>
+                                {if $item['type']==1}现金{elseif $item['type']==2}消费{elseif $item['type']==3}余额{/if}
+                            </div>
+                        </dd>
+                        <dd>
+                            <h3>{$item['title']}</h3>
+                            <p>{php echo date('Y-m-d H:i:s', $item[dateline]);}</p>
+                        </dd>
+                        <dd>
+                            <label>{if $item['operationtype']==0}-{/if}{$item['money']}元</label>
+                        </dd>
+                    </dl>
+                </a>
+            </li>
+            {/loop}
+        </ul>
+    </div>
+    <script>
+        /**
+         * 日期变更
+         */
+        $("#monthSelectElement").on("change", function () {
+            url = "{php echo $this->createMobileUrl('bill', array(), true)}";
+            if (url.indexOf('?') >= 0) {
+                url = url + "&month=" + $("#monthSelectElement").val();
+            } else {
+                url = url + "?month=" + $("#monthSelectElement").val();
+            }
+            setTimeout("location.href='" + url + "'", 20);
+        })
+
+    </script>
+    {if !empty($card)}
+    {php include $this->template($this->cur_tpl.'/_footer');}
+    {/if}
+    <script type="text/javascript">
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+        });
+    </script>
+</div>
+</body>
+</html>

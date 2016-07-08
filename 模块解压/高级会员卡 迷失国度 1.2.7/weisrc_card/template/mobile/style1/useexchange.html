@@ -1,0 +1,169 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>会员卡</title>
+    {php include $this->template($this->cur_tpl.'/_common_meta');}
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/main.css" media="all">
+    <link rel="stylesheet" type="text/css" href="{RES}mobile/{php echo $this->cur_tpl}/css/dialog.css" media="all">
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/jquery_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/main.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/dialog_min.js"></script>
+    <script type="text/javascript" src="{RES}mobile/{php echo $this->cur_tpl}/js/mymain.js"></script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;" style="">
+<section id="dialoger">
+    <div class="dialogCover"></div>
+</section>
+<div class="container coupon_use">
+    <header>
+        <div>
+            <figure>
+                <figcaption>
+                    <label>大牌精品优惠券【演示】</label>
+                </figcaption>
+                <div class="img_wrap">
+                    <img src="http://img.weimob.com/static/1c/38/3c/image/20140221/20140221174541_80870.jpg"
+                         style="max-height:320px;">
+                </div>
+            </figure>
+            <div class="sn">
+                <p><label>序列号：<span>A002112050709009746</span></label></p>
+
+                <p><label>请提供序列号给工作人员或在当前页面消费 </label></p>
+            </div>
+        </div>
+    </header>
+    <div class="body">
+        <div>
+            <form id="form_1" name="form" action="javascript:;" method="post">
+                <input name="discount" type="hidden" value="1359137">
+                <ul class="list_input p_10" data-card="">
+                    <li class="tbox input">
+                        <div>
+                            <label class="pre">请选择消费门店：</label>
+                        </div>
+                        <div>
+                            <select class="select" name="store" style="width:100%;">
+                                <option value="0" selected="selected">总部</option>
+                                <option value="26949">邻家小厨3号</option>
+                                <option value="25368">邻家小厨2号</option>
+                                <option value="25355">邻家小厨1号</option>
+                                <option value="13717">小火锅4号店</option>
+                                <option value="13715">小火锅3号店</option>
+                                <option value="13713">小火锅2号店</option>
+                                <option value="68">小火锅1号店</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="tbox input">
+                        <div>
+                            <label class="pre">请选择支付方式：</label>
+                        </div>
+                        <div>
+                            <select id="paytype" name="paytype" class="select" style="width:100%;">
+                                <option value="168">支付宝</option>
+                                <option value="446">微支付</option>
+                                <option value="4049">财付通</option>
+                                <option value="8611">银联全民付</option>
+                                <option value="2">余额支付</option>
+                                <option value="1">现金付款</option>
+                            </select>
+                        </div>
+                    </li>
+                    <li class="tbox input">
+                        <div><label class="pre">消费金额：</label></div>
+                        <div>
+                            <input type="number" name="money" class="input" placeholder="请输入实际消费金额" maxlength="10">
+                        </div>
+                    </li>
+                    <li class="tbox input" id="vcode" style="display: block;">
+                        <div>
+                            <input type="password" placeholder="会员卡密码：" maxlength="30" class="input" name="pay_pass">
+                        </div>
+                    </li>
+                    <li class="tbox input" id="password" style="display: none;">
+                        <div><label class="pre">商家密码：</label></div>
+                        <div>
+                            <input type="password" placeholder="商家确认密码：" maxlength="30" class="input" name="password">
+                        </div>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <nav class="nav_add_addr">
+            <ul class="tbox">
+                <li>
+                    <a href="/Webnewmemberscore/MyCoupon/pid/1071/wechatid/osXr8jhe5nzI0v2N6h6FpkUBx0GI/is_use/0"
+                       class="icons icons_before">&nbsp;</a>
+                </li>
+                <li class="align_right">
+                    <a href="javascript:smtpay();" class="btn">确&nbsp;&nbsp;定</a>
+                </li>
+            </ul>
+        </nav>
+    </footer>
+</div>
+
+<script>
+
+    $("#paytype").change(function () {
+        var payid = $(this).val();
+        changePay(payid);
+    })
+
+    function changePay(payid) {
+        if (payid == 2) {
+            $("#vcode").show();
+            $("#password").hide();
+        } else if (payid == 1) {
+            $("#vcode").hide();
+            $("#password").show();
+        } else {
+            $("#vcode").hide();
+            $("#password").hide();
+        }
+    }
+
+    //选择第一条支付方式
+    $("#paytype option:first").prop("selected", 'selected');
+    changePay($("#paytype option:first").val());
+
+    //提交支付
+    function smtpay() {
+        loading(true);
+        $.ajax({
+            url: "/Webnewmemberscore/Pay/pid/1071/wechatid/osXr8jhe5nzI0v2N6h6FpkUBx0GI/bid",
+            type: "post",
+            data: $("#form_1").serialize(),
+            dataType: 'json',
+            success: function (data) {
+                loading(false);
+                if (data.errno == 0) {
+                    if (data.pay_url == undefined) {
+                        alert(data.error, 1500);
+                        //专挑到支付成功页面
+                        setTimeout("location.href='" + data.pay_result_url + "'", 1500);
+                    } else {
+                        //alert(data.pay_url);
+                        setTimeout("location.href='" + data.pay_url + "'", 1500);
+                    }
+
+                } else {
+                    alert(data.error, 1500);
+                    return false;
+                }
+            }
+        });
+
+    }
+</script>
+
+<script type="text/javascript">
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        WeixinJSBridge.call('hideOptionMenu');
+    });
+</script>
+</body>
+</html>
