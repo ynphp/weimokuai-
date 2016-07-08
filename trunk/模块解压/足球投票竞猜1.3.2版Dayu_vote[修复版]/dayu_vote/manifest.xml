@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[足球投票竞猜]]></name>
+		<identifie><![CDATA[dayu_vote]]></identifie>
+		<version><![CDATA[1.3.2]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[足球投票竞猜，通用投票竞猜]]></ability>
+		<description><![CDATA[足球投票竞猜，通用投票竞猜]]></description>
+		<author><![CDATA[不错吧]]></author>
+		<url><![CDATA[http://www.bcb5.com]]></url>
+
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="投票列表" do="display" state="" direct="false" />
+			<entry title="新建投票" do="post" state="" direct="false" />
+		</menu>
+		<home>
+			<entry call="getHomeTiles" title="" do="import" state="" direct="false" />
+		</home>
+		<home>
+			<entry title="我的投票" do="mydayu_vote" state="" direct="false" />
+		</home>
+	</bindings>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

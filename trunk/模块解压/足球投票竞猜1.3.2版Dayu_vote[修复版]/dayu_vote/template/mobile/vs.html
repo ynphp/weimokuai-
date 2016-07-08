@@ -1,0 +1,442 @@
+{template 'header'} 
+<style>
+.box_swipes{position:relative;height:200px;width:100%;text-align:center;
+	background: url({php echo tomedia($activity['thumb'])}) no-repeat center center;
+	background-size: 100% auto;
+	}
+.am-text-ir {color:#333;float:left;margin:0.8rem 0.5rem 0 0;height:4rem;width:4rem;background: url({if !empty($fans['tag']['avatar'])}{$fans['tag']['avatar']}{else}resource/images/noavatar_middle.gif{/if}) no-repeat left center;-webkit-background-size: 4rem auto;background-size: 4rem auto;}
+body .am-g{position: relative;top:1rem;right:0.3rem;}
+.am-form-icon i{margin-left:1rem;}
+.coun{text-align:center;font-size:2rem;
+	height:3rem;line-height:3rem;
+	position: relative;
+	z-index:10;
+	margin-top:-3rem;}
+.am-form-horizontal .am-form-label,
+.am-form-horizontal .am-radio,
+.am-form-horizontal .am-checkbox,
+.am-form-horizontal .am-radio-inline,
+.am-form-horizontal .am-checkbox-inline { padding-top: 0rem;}
+.am-thumbnails > li {padding: 0 .5rem 1rem .5rem;line-height:3.5rem;height:3.5rem;}
+
+.upload{opacity: 0;position: absolute;z-index: 10;width:100%;height:80px;}
+.am-u-sm-6,.am-u-sm-8{padding:0;}
+.am-u-sm-6:first-child{padding-right:0.5rem;}
+label.am-u-sm-4{font-weight:500;font-size:1.5rem;line-height:4rem;}
+.am-form-icon [class*='am-icon-'] {left: 0em;}
+.head-nav{height:50px;position:absolute;bottom:0; line-height:2rem;width:100%; padding-top:0.7rem; background:rgba(0,0,0,0.2);}
+.head-nav .head-nav-list{display:inline-block; float:left; text-decoration:none; color:#FFF;  width:33%; text-align:center; font-size:1.4rem; background:-webkit-gradient(linear, 0 0, 0 100, from(rgba(255,255,255,0.5)), to(rgba(255,255,255,0.5)) ) no-repeat left center; -webkit-background-size:0.1rem 75%;}
+.head-nav .head-nav-list:first-child{background:none;}
+.head-nav .head-nav-list > span{font-weight:bold; min-width:60px;display:block; font-size:1.2rem;}
+.head-nav .head-nav-list > span.iconfont{font-size:1.5rem;}
+
+.am-u-sm-4{width:25%;}
+.am-u-sm-8{padding:0;width:75%;}
+
+.am-form-icon .iconfont {
+  position: absolute;
+  left: 0em;
+  top: 50%;
+  display: block;
+  margin-top: -0.5em;
+  line-height: 1;
+  z-index: 2;
+}
+.am-popup {bottom: 0;top:auto;width: 100%;height: 90%;}
+.am-gallery-overlay .am-gallery-desc{font-size: 1.4rem;color: #FFF;position: absolute;top: 0;right:1rem;display:inline-block;}
+
+legend {font-size: 17px;}
+
+fieldset {width:100%;border: 0;}
+
+.checklist {list-style: none;margin: 0;padding: 0;width:100%;}
+
+.checklist li.selected {background-color:#a0dc4f;}
+.checklist li.selected .checkbox-select {display: none;}
+.checkbox-select {display: block;float: left; position: absolute;top: 118px;left: 0px;width: 100%;text-align:center;}
+.checklist li input {display: none;	}
+a.checkbox-deselect {display: none;color: white;font-weight: bold;text-decoration: none;position: absolute;top: 120px;right: 10px;}
+.checklist li.selected a.checkbox-deselect {display: block;}
+.checklist li label {display: block;text-align: center;}
+.checklist .iconfont {font-size:1rem;color:#fb8c00;}
+.checklist li span {display: block;text-align: center;}
+
+
+.checklists {list-style: none;margin: 0;padding: 0;width:100%;}
+.checklists li {padding: 8px;text-align:center;
+	float: left;
+	margin: 0 1% 10px;border-radius:5px;
+	width: 48%;
+	height: 210px;
+	position: relative;
+	background-color:#eee;
+	font: normal 11px/1.3 "Lucida Grande","Lucida","Arial",Sans-serif;
+}
+.checklists li img {height:150px;width:100%;}
+
+.checklists > div.vs{position:relative;bottom:0;font-size:1.3rem;display:block;background: url({TEMPLATE_PATH}images/vs.png) no-repeat bottom center;background-size:auto 7rem;width:5rem;height:15rem;margin:0 auto;}
+</style>
+	<script type="text/javascript">
+var p_tag,inputs,selectInputs=[];
+onload = function(){
+    p_tag = document.getElementById("inputsParent");
+    inputs = p_tag.getElementsByTagName("input");
+    for(var i=0; i<inputs.length; i++){
+        if(inputs[i].checked == true) selectInputs.push(inputs[i]);
+    }
+    document.title = selectInputs.length;
+}
+function check_count(th){
+    var i=n=0;
+    if(th.checked == true)
+    {
+        selectInputs.push(th);
+        if(selectInputs.length > 1){
+            selectInputs[0].checked = false;
+            selectInputs.shift();
+			
+        }
+    }else{
+        if(selectInputs.length>1){
+            for(var i=0; i<selectInputs.length; i++){
+                if(th == selectInputs[i]) selectInputs.splice(i,1);
+            }
+        }else{
+            th.checked = true;
+            return false;
+        }
+    }
+}
+function validate(){
+var result=false;
+var radios = document.getElementsByName("item");
+for(var i=0;i<radios .length;i++)
+{
+    
+    if(radios[i].checked)
+    {
+      result=true;
+    }
+}
+if(!result)
+{
+    alert("投票对象不能为空，请选择一个");
+}
+return result;
+}
+</script>
+		<header data-am-widget="header" id="header" class="am-header am-header-fixed pro">
+            <div class="am-header-left am-header-nav">
+              <a class="am-text-ir am-circle"></a><font>{$fans['nickname']}</font>
+            </div>
+            <div class="am-header-right my am-header-nav">
+              <a href="{php echo $this->createMobileUrl('mydayu_vote', array('name' => 'dayu_vote', 'weid' => $_W['uniacid'], 'id' => $reid))}"><span class="am-header-icon iconfont">&#xe608;</span>
+              </a>
+            </div>
+		</header>
+<div style="height:200px;margin-top:-5rem;">
+	<div class="box_swipes">
+		<div class="head-nav">
+			<a class="head-nav-list" href="javascript:;" data-am-modal="{target: '#explain'}"><span class="iconfont">&#xe611;</span><span>活动规则</span></a>
+			<a class="head-nav-list" href="#gift" data-am-offcanvas><span class="iconfont">&#xe60c;</span><span>奖品</span></a>
+			<a class="head-nav-list line" href="#"><span class="iconfont">&#xe610;</span><span>{$activity['view']}</span></a>
+		</div>
+	</div>
+<div class="am-popup" id="explain">
+  <div class="am-popup-inner">
+    <div class="am-popup-hd">
+      <h4 class="am-popup-title">{$activity['title']}</h4>
+      <span data-am-modal-close
+            class="am-close">&times;</span>
+    </div>
+    <div class="am-popup-bd">
+    {php echo htmlspecialchars_decode($activity['content'])}
+    </div>
+  </div>
+</div>
+</div>
+    <div class="am-g">
+		<form action="" class="am-form am-form-inline am-form-horizontal" enctype="multipart/form-data" method="POST" id="form1" onSubmit="validate()" data-am-validator>
+	<div class="am-u-sm-12" style="padding:0 10px;">
+			<legend>{$activity['title']}</legend>
+			<ul class="checklists">
+		{loop $item $c}
+				<li>
+					<label for="choice_{$c['id']}"><img src="{php echo tomedia($c['thumb'])}" class="am-radius"></label>
+					<span class="am-text-default">{$c['title']}</span>
+					<label class="am-checkbox"><input name="item" value="{$c['id']}" type="checkbox" onclick="check_count(this)" id="choice_{$c['id']}"/ data-am-ucheck> <span class="am-fr am-text-sm">{$c['num']} 票</span></label>
+				</li>
+		{/loop}
+		<div class="vs"></div>
+			</ul>
+	</div>
+{if $pretotal >= $activity['pretotal']}
+	<div class="am-u-sm-12">
+            <div class="am-form-group" style="margin-top:1rem;">
+				<div class="am-u-sm-12">
+				<span class="am-btn am-btn-default am-btn-block">您已经投过票了,每人只能投票{$activity['pretotal']}次！</span>
+				</div>
+            </div>
+            <div class="am-form-group" style="margin-top:1rem;">
+				<div class="am-u-sm-12">
+			<a href="{php echo $this->createMobileUrl('mydayu_vote', array('name' => 'dayu_vote', 'weid' => $_W['uniacid'], 'id' => $reid))}" class="am-btn am-btn-warning am-btn-block">查看我的投票记录</a>
+			</div>
+            </div>
+	</div>
+{if $activity['iscredit']==1}
+            <div class="am-form-group" style="margin-top:1rem;">
+				<div class="am-u-sm-12">
+				<a class="am-btn am-btn-default am-btn-block am-btn-primary" href="javascript:;" data-am-modal="{target: '#credit'}">查看积分排名</a>
+				</div>
+            </div>
+	</div>
+<div class="am-popup" id="credit">
+  <div class="am-popup-inner">
+    <div class="am-popup-hd">
+      <h4 class="am-popup-title">积分排名</h4>
+      <span data-am-modal-close
+            class="am-close">&times;</span>
+    </div>
+    <div class="am-popup-bd" style="padding:0;">
+	<ul class="am-list">
+		{loop $members $m}
+  <li style="padding:5px;"><img src="{$m['avatar']}" class="middle am-circle" style="height:25px"> {$m['nickname']}	<span class="am-fr">{$m['credit1']}</span></li>
+		{/loop}
+</ul>
+    </div>
+  </div>
+</div>
+{/if}
+{else}
+		<div class="am-u-sm-12" style="margin-top:1rem;border-top:0.1rem solid #f2f2f2;padding-top:1.5rem;">
+            <div class="am-form-group">
+				<label class="am-u-sm-4 am-form-label">姓名</label>			
+				<div class="am-u-sm-8 am-form-icon">
+				<i class="am-icon iconfont">&#xe60e;</i>
+				<input type="text" name="member" value="{$userinfo['realname']}" class="am-form-field" placeholder="请输入您的姓名" required>
+				</div>
+            </div>
+            <div class="am-form-group">
+				<label class="am-u-sm-4 am-form-label">手机</label>	
+				<div class="am-u-sm-8 am-form-icon">
+				<i class="am-icon iconfont">&#xe606;</i>
+				<input type="number" name="mobile" value="{$userinfo['mobile']}" class="am-form-field" placeholder="请输入您的手机号码" required>
+				</div>
+            </div>
+		
+				{loop $ds $row}			
+				{if $row['type'] == 'text'}
+            <div class="am-form-group">
+				<label class="am-u-sm-4 am-form-label">{$row['title']}</label>	
+				<div class="am-u-sm-8 am-form-icon">
+				<i class="am-icon iconfont">&#xe604;</i>
+				<input type="text" name="field_{$row['refid']}_{$row['bind']}" value="{$row['default']}" class="am-form-field" placeholder="请输入{$row['title']}" {if $row['essential']}required{/if}>
+				</div>
+            </div>
+				{/if}
+				{if $row['type'] == 'email'}
+            <div class="am-form-group">
+				<label class="am-u-sm-4 am-form-label">{$row['title']}</label>	
+				<div class="am-u-sm-8 am-form-icon">
+				<i class="am-icon iconfont">&#xe604;</i>
+				<input type="email" name="field_{$row['refid']}_{$row['bind']}" value="{if $row['default']}{$row['default']}{else}@{/if}" class="am-form-field" placeholder="请输入{$row['title']}" {if $row['essential']}required{/if}>
+				</div>
+            </div>
+				{/if}
+				{if $row['type'] == 'number'}
+            <div class="am-form-group">
+				<label class="am-u-sm-4 am-form-label">{$row['title']}</label>	
+				<div class="am-u-sm-8 am-form-icon">
+				<i class="am-icon iconfont">&#xe60b;</i>
+				<input type="number" name="field_{$row['refid']}_{$row['bind']}" value="{$row['default']}" class="am-form-field" placeholder="请输入{$row['title']}" {if $row['essential']}required{/if}>
+				</div>
+            </div>
+				{/if}
+				{if $row['type'] == 'textarea'}
+            <div class="am-form-group">
+				<label class="am-u-sm-4 am-form-label">{$row['title']}</label>	
+				<div class="am-u-sm-8 am-form-icon">
+						<textarea name="field_{$row['refid']}_{$row['bind']}" rows="5" placeholder="{$row['title']}" {if $row['essential']}required{/if} />{$row['default']}</textarea>
+				</div>
+            </div>
+				{/if}				
+				{if $row['type'] == 'radio'}
+            <div class="am-form-group">
+				<label class="am-u-sm-4 am-form-label">{$row['title']}</label>	
+				<div class="am-u-sm-8">
+				<ul class="am-avg-sm-2 am-thumbnails">
+					{loop $row['options'] $v}
+					<li><label class="am-radio-inline"><input type="radio" name="field_{$row['refid']}_{$row['bind']}" value="{$c['id']}" data-am-ucheck {if $v == $row['default']}checked{/if}> {$v}</label></li>
+					{/loop}
+				</ul>
+				</div>
+            </div>
+				{/if}					
+				
+				{if $row['type'] == 'checkbox'}
+            <div class="am-form-group">
+				<label class="am-u-sm-4 am-form-label">{$row['title']}</label>	
+				<div class="am-u-sm-8">
+				<ul class="am-avg-sm-2 am-thumbnails">
+					{loop $row['options'] $v}
+					<li><label class="am-checkbox-inline"><input type="checkbox" name="field_{$row['refid']}_{$row['bind']}" value="{$c['id']}" data-am-ucheck {if $v == $row['default']}checked{/if}> {$v}</label></li>
+					{/loop}
+				</ul>
+				</div>
+            </div>
+				{/if}
+						
+						{if $row['type'] == 'select'}
+            <div class="am-form-group">
+				<label class="am-u-sm-4 am-form-label">{$row['title']}</label>	
+				<div class="am-u-sm-8">
+					<select name="field_{$row['refid']}_{$row['bind']}" data-am-selected>
+					{loop $row['options'] $v}
+						<option value="{$v}" {if $v == $row['default']} selected="selected"{/if} />{$v}</option>
+					{/loop}
+					</select>
+				</div>
+            </div>
+						{/if}
+						
+						
+						{if $row['type'] == 'calendar'}
+            <div class="am-form-group">
+				<label class="am-u-sm-4 am-form-label">{$row['title']}</label>	
+				<div class="am-u-sm-8 am-form-icon">		
+				<i class="am-icon-calendar"></i>
+							<input type="text" name="field_{$row['refid']}_{$row['bind']}" class="am-form-field" id="my-end-2" placeholder="请选择{$row['title']}" data-am-datepicker readonly {if $row['essential']}required{/if}/>
+				</div>
+            </div>
+<script>
+  $(function() {
+    var nowTemp = new Date();
+    var nowDay = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0).valueOf();
+    var nowMoth = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), 1, 0, 0, 0, 0).valueOf();
+    var nowYear = new Date(nowTemp.getFullYear(), 0, 1, 0, 0, 0, 0).valueOf();
+
+    var checkout = $('#my-end-2').datepicker({
+      onRender: function(date, viewMode) {
+        var inTime = checkin.date;
+        var inDay = inTime.valueOf();
+        var inMoth = new Date(inTime.getFullYear(), inTime.getMonth(), 1, 0, 0, 0, 0).valueOf();
+        var inYear = new Date(inTime.getFullYear(), 0, 1, 0, 0, 0, 0).valueOf();
+
+        // 默认 days 视图，与当前日期比较
+        var viewDate = inDay;
+
+        switch (viewMode) {
+          // moths 视图，与当前月份比较
+          case 1:
+            viewDate = inMoth;
+            break;
+          // years 视图，与当前年份比较
+          case 2:
+            viewDate = inYear;
+            break;
+        }
+
+        return date.valueOf() <= viewDate ? 'am-disabled' : '';
+      }
+    }).on('changeDate.datepicker.amui', function(ev) {
+      checkout.close();
+    }).data('amui.datepicker');
+  });
+</script>
+						{/if}
+
+						{if $row['type'] == 'range'}
+            <div class="am-form-group">
+				<label class="am-u-sm-4 am-form-label">{$row['title']}</label>	
+				<div class="am-u-sm-8">
+					<select name="field_{$row['refid']}_{$row['bind']}" data-am-selected {if $row['essential']}required{/if}>
+							<option value="0:00-1:00" >0:00-1:00</option>
+							<option value="1:00-2:00">1:00-2:00</option>
+							<option value="2:00-3:00">2:00-3:00</option>
+							<option value="3:00-4:00">3:00-4:00</option>
+							<option value="4:00-5:00">4:00-5:00</option>
+							<option value="5:00-6:00">5:00-6:00</option>
+							<option value="6:00-7:00">6:00-7:00</option>
+							<option value="7:00-8:00">7:00-8:00</option>
+							<option value="8:00-9:00">8:00-9:00</option>
+							<option value="9:00-10:00">9:00-10:00</option>
+							<option value="10:00-11:00">10:00-11:00</option>
+							<option value="11:00-12:00">11:00-12:00</option>
+							<option value="12:00-13:00">12:00-13:00</option>
+							<option value="13:00-14:00">13:00-14:00</option>
+							<option value="14:00-15:00">14:00-15:00</option>
+							<option value="15:00-16:00">15:00-16:00</option>
+							<option value="16:00-17:00">16:00-17:00</option>
+							<option value="17:00-18:00">17:00-18:00</option>
+							<option value="18:00-19:00">18:00-19:00</option>
+							<option value="19:00-20:00">19:00-20:00</option>
+							<option value="20:00-21:00">20:00-21:00</option>
+							<option value="21:00-22:00">21:00-22:00</option>
+							<option value="22:00-23:00">22:00-23:00</option>
+							<option value="23:00-24:00">23:00-24:00</option>
+					</select>
+				</div>
+            </div>
+						{/if}
+						
+						{if $row['type'] == 'reside'}
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="{TEMPLATE_PATH}js/amazeui.chosen.js" type="text/javascript" charset="utf-8"></script>
+		<script src="{TEMPLATE_PATH}js/jquery.citiesChange.js"></script>
+            <div class="am-form-group">
+				<label class="am-u-sm-4 am-form-label">{$row['title']}</label>	
+				<div class="am-u-sm-8">
+				<div class="am-u-sm-6">
+					<select name="reside[province]" id="province" {if $row['essential']}required{/if}>
+						<option>广东省</option>
+					</select>
+				</div>
+				
+				<div class="am-u-sm-6">
+					<select name="reside[city]" id="city" {if $row['essential']}required{/if}>
+						<option>广州市</option>
+					</select>
+				</div>
+		<script type="text/javascript">
+			$(function() {
+				$.initProv("#province", "#city");
+			})
+		</script>
+				</div>
+            </div>
+						{/if}
+				{if !empty($row['description'])}<div class="am-form-group" style="margin-top:-1.5rem;"><label class="am-u-sm-4 am-form-label"></label><div class="am-u-sm-8 am-text-sm">{php echo urldecode($row['description']);}</div></div>{/if}
+				
+				{/loop}
+				
+            <div class="am-form-group">
+				<div class="am-u-sm-12">
+				<input type="hidden" name="token" value="{$_W['token']}" />
+				<input type="submit" name="submit" value="提交" class="am-btn am-btn-warning am-btn-block">
+				</div>
+            </div>
+		</div>
+{/if}
+		</form>
+	</div>
+<div id="gift" class="am-offcanvas">
+  <div class="am-offcanvas-bar">
+    <div class="am-offcanvas-content">
+      <p>{php echo htmlspecialchars_decode($activity['giftdec'])}</p>
+	    <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }" >
+		{loop $gift $g}
+      <li>
+        <div class="am-gallery-item">
+            <a href="{$g['thumb']}" class="">
+              <img src="{$g['thumb']}" class="am-radius" style="width:100%;">
+                <h3 class="am-gallery-title">{$g['title']}</h3>
+                <div class="am-gallery-desc">{$g['num']}</div>
+            </a>
+        </div>
+      </li>
+		{/loop}
+  </ul>
+    </div>
+  </div>
+</div>
+{template 'footer'}
