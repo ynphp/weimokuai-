@@ -1,0 +1,236 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>{$reply['title']}</title>
+  <meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+  <link rel="stylesheet"  href="{CSS_PATH}style.css">
+  <script src="{JS_PATH}jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="{JS_PATH}layer.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet"  href="{CSS_PATH}layer.css" >
+  <script src="{JS_PATH}common.js" type="text/javascript" charset="utf-8"></script>
+  {php echo register_jssdk();}
+  <style>
+body {
+  background: #21225A
+}
+#viewporter{background: url({IMG_PATH}0ee7c9c97cb1d8d2d0811b46953d2985.jpg) no-repeat 100% 100%;background-size: cover;display: none;height: 100%}
+.aBtnList{}
+.aBtnList ul li{height:53px;text-align: center;margin: 10px 0}
+.aBtnList ul li a{display: inline-block;width: 177.5px;height: 53px;background: url("{IMG_PATH}abtn6.png") no-repeat;background-size: cover}
+.aBtnList ul li:nth-child(1) a{background-position: 0 0}
+.aBtnList ul li:nth-child(2) a{background-position: 0 -64px}
+.aBtnList ul li:nth-child(3) a{background-position: 0 -129px}
+.aBtnList ul li:nth-child(4) a{background-position: 0 -195px}
+.aBtnList ul li:nth-child(5) a{background-position: 0 -261px}
+.aBtnList ul li:nth-child(6) a{background-position: 0 -326px}
+.aBtnList ul li a:hover,.aBtnList ul li a.on{background: url("{IMG_PATH}abtn6-hover.png") no-repeat;background-size: cover}
+.aBtnList ul li:nth-child(1) a:hover,.aBtnList ul li:nth-child(1) a.on{background-position: 0 0}
+.aBtnList ul li:nth-child(2) a:hover,.aBtnList ul li:nth-child(2) a.on{background-position: 0 -64px}
+.aBtnList ul li:nth-child(3) a:hover,.aBtnList ul li:nth-child(3) a.on{background-position: 0 -129px}
+.aBtnList ul li:nth-child(4) a:hover,.aBtnList ul li:nth-child(4) a.on{background-position: 0 -195px}
+.aBtnList ul li:nth-child(5) a:hover,.aBtnList ul li:nth-child(5) a.on{background-position: 0 -261px}
+.aBtnList ul li:nth-child(6) a:hover,.aBtnList ul li:nth-child(6) a.on{background-position: 0 -326px}
+
+@media screen and (max-height:600px){
+    .aBtnList ul li{height:42px }
+    .aBtnList ul li a{display: inline-block;width: 140px;height:42px;background: url("{IMG_PATH}abtn6.png") no-repeat;background-size: cover}
+    .aBtnList ul li:nth-child(1) a{background-position: 0 0}
+    .aBtnList ul li:nth-child(2) a{background-position: 0 -51px}
+    .aBtnList ul li:nth-child(3) a{background-position: 0 -102px}
+    .aBtnList ul li:nth-child(4) a{background-position: 0 -154px}
+    .aBtnList ul li:nth-child(5) a{background-position: 0 -205px}
+    .aBtnList ul li:nth-child(6) a{background-position: 0 -256px}
+    .aBtnList ul li a:hover,.aBtnList ul li a.on{background: url("{IMG_PATH}abtn6-hover.png") no-repeat;background-size: cover}
+    .aBtnList ul li:nth-child(1) a:hover,.aBtnList ul li:nth-child(1) a.on{background-position: 0 0}
+    .aBtnList ul li:nth-child(2) a:hover,.aBtnList ul li:nth-child(2) a.on{background-position: 0 -51px}
+    .aBtnList ul li:nth-child(3) a:hover,.aBtnList ul li:nth-child(3) a.on{background-position: 0 -102px}
+    .aBtnList ul li:nth-child(4) a:hover,.aBtnList ul li:nth-child(4) a.on{background-position: 0 -154px}
+    .aBtnList ul li:nth-child(5) a:hover,.aBtnList ul li:nth-child(5) a.on{background-position: 0 -205px}
+    .aBtnList ul li:nth-child(6) a:hover,.aBtnList ul li:nth-child(6) a.on{background-position: 0 -256px}
+}
+
+@media  screen and (max-height:500px){
+    .aBtnList ul li{height:34px;margin: 8px 0 }
+    .aBtnList ul li a{display: inline-block;width: 120px;height:34px;background: url("{IMG_PATH}abtn6.png") no-repeat;background-size: cover}
+    .aBtnList ul li:nth-child(1) a{background-position: 0 0}
+    .aBtnList ul li:nth-child(2) a{background-position: 0 -44px}
+    .aBtnList ul li:nth-child(3) a{background-position: 0 -88px}
+    .aBtnList ul li:nth-child(4) a{background-position: 0 -132px}
+    .aBtnList ul li:nth-child(5) a{background-position: 0 -176px}
+    .aBtnList ul li:nth-child(6) a{background-position: 0 -220px}
+    .aBtnList ul li a:hover,.aBtnList ul li a.on{background: url("{IMG_PATH}abtn6-hover.png") no-repeat;background-size: cover}
+    .aBtnList ul li:nth-child(1) a:hover,.aBtnList ul li:nth-child(1) a.on{background-position: 0 0}
+    .aBtnList ul li:nth-child(2) a:hover,.aBtnList ul li:nth-child(2) a.on{background-position: 0 -44px}
+    .aBtnList ul li:nth-child(3) a:hover,.aBtnList ul li:nth-child(3) a.on{background-position: 0 -88px}
+    .aBtnList ul li:nth-child(4) a:hover,.aBtnList ul li:nth-child(4) a.on{background-position: 0 -132px}
+    .aBtnList ul li:nth-child(5) a:hover,.aBtnList ul li:nth-child(5) a.on{background-position: 0 -176px}
+    .aBtnList ul li:nth-child(6) a:hover,.aBtnList ul li:nth-child(6) a.on{background-position: 0 -220px}
+}
+
+@media (device-height:568px) and (-webkit-min-device-pixel-ratio:2){/* ¼æÈÝiphone5 */
+    .aBtnList ul li{height:42px }
+    .aBtnList ul li a{display: inline-block;width: 140px;height:42px;background: url("{IMG_PATH}abtn6.png") no-repeat;background-size: cover}
+    .aBtnList ul li:nth-child(1) a{background-position: 0 0}
+    .aBtnList ul li:nth-child(2) a{background-position: 0 -51px}
+    .aBtnList ul li:nth-child(3) a{background-position: 0 -102px}
+    .aBtnList ul li:nth-child(4) a{background-position: 0 -154px}
+    .aBtnList ul li:nth-child(5) a{background-position: 0 -205px}
+    .aBtnList ul li:nth-child(6) a{background-position: 0 -256px}
+    .aBtnList ul li a:hover,.aBtnList ul li a.on{background: url("{IMG_PATH}abtn6-hover.png") no-repeat;background-size: cover}
+    .aBtnList ul li:nth-child(1) a:hover,.aBtnList ul li:nth-child(1) a.on{background-position: 0 0}
+    .aBtnList ul li:nth-child(2) a:hover,.aBtnList ul li:nth-child(2) a.on{background-position: 0 -51px}
+    .aBtnList ul li:nth-child(3) a:hover,.aBtnList ul li:nth-child(3) a.on{background-position: 0 -102px}
+    .aBtnList ul li:nth-child(4) a:hover,.aBtnList ul li:nth-child(4) a.on{background-position: 0 -154px}
+    .aBtnList ul li:nth-child(5) a:hover,.aBtnList ul li:nth-child(5) a.on{background-position: 0 -205px}
+    .aBtnList ul li:nth-child(6) a:hover,.aBtnList ul li:nth-child(6) a.on{background-position: 0 -256px}
+}
+@media (device-height:480px) and (-webkit-min-device-pixel-ratio:2){/* ¼æÈÝiphone4/4s */
+    .aBtnList ul li{height:34px;margin: 8px 0 }
+    .aBtnList ul li a{display: inline-block;width: 120px;height:34px;background: url("{IMG_PATH}abtn6.png") no-repeat;background-size: cover}
+    .aBtnList ul li:nth-child(1) a{background-position: 0 0}
+    .aBtnList ul li:nth-child(2) a{background-position: 0 -44px}
+    .aBtnList ul li:nth-child(3) a{background-position: 0 -88px}
+    .aBtnList ul li:nth-child(4) a{background-position: 0 -132px}
+    .aBtnList ul li:nth-child(5) a{background-position: 0 -176px}
+    .aBtnList ul li:nth-child(6) a{background-position: 0 -220px}
+    .aBtnList ul li a:hover,.aBtnList ul li a.on{background: url("{IMG_PATH}abtn6-hover.png") no-repeat;background-size: cover}
+    .aBtnList ul li:nth-child(1) a:hover,.aBtnList ul li:nth-child(1) a.on{background-position: 0 0}
+    .aBtnList ul li:nth-child(2) a:hover,.aBtnList ul li:nth-child(2) a.on{background-position: 0 -44px}
+    .aBtnList ul li:nth-child(3) a:hover,.aBtnList ul li:nth-child(3) a.on{background-position: 0 -88px}
+    .aBtnList ul li:nth-child(4) a:hover,.aBtnList ul li:nth-child(4) a.on{background-position: 0 -132px}
+    .aBtnList ul li:nth-child(5) a:hover,.aBtnList ul li:nth-child(5) a.on{background-position: 0 -176px}
+    .aBtnList ul li:nth-child(6) a:hover,.aBtnList ul li:nth-child(6) a.on{background-position: 0 -220px}
+}
+</style>
+  <script type="text/javascript">
+  function onLoad(nub){
+            if(nub==1){
+                $(".fullBg").show();
+                $(".pwpage").show();
+            }else if(nub==2){
+                 layer.msg('您好，游戏还未开始，请耐心等候。', {
+                 offset: 110,
+                 shift: 6
+                 });              
+            }else if(nub==3){
+                 layer.msg('您好，游戏已经结束，感谢您的支持。', {
+                 offset: 110,
+                 shift: 6
+                 });               
+            }else if(nub==4){
+                 layer.msg('最多只能玩0次，感谢您的参与。', {
+                 offset: 110,
+                 shift: 6
+                 });
+            }else if(nub==5){//填写手机号
+                  $(".fullBg").show();
+                  $(".oLogin").show();             
+            }else{
+              window.location="{php echo $this->createMobileUrl('main',array('id'=>$id))}";
+            }
+  }
+</script>
+</head>
+<body>
+
+  <div id="viewporter" style="display: block;">
+    <div class="headerImg">
+      <img src="{php echo tomedia($reply['homelogo'])}" style="width:85%;height:150px"></div>
+    <div class="aBtnList" id="aBtnList">
+      <ul>
+        <li>
+          <a href="javascript:onLoad({$ss});"></a>
+        </li>
+        <li>
+          <a href="{php echo $this->createMobileUrl('rule',array('id'=>$id))}"></a>
+        </li>
+        <li>
+          <a href="{php echo $this->createMobileUrl('awards',array('id'=>$id))}"></a>
+        </li>
+        <li>
+          <a href="{php echo $this->createMobileUrl('paiming',array('id'=>$id))}"></a>
+        </li>
+        <li>
+          <a href="javascript:;" onclick="showPwd()"></a>
+        </li>
+        <li>
+          <a href="javascript:;" onclick="showShare()"></a>
+        </li>
+      </ul>
+    </div>
+    <div class="fullBg"></div>
+    <div class="oWindow oLogin">
+      <div class="windowThis">
+        <div class="bd">
+          <form action="{php echo $this->createMobileUrl('savemobile',array('id'=>$id))}" method="post">
+            <div class="adMargin">
+              <div class="row">
+                <div class="putBorder"> <i></i>
+                  <input type="text" placeholder="请先输入您的手机号" value="" name="phone">
+                  <input type="hidden" name="purl" value="{php echo $this->createMobileUrl('main',array('id'=>$id))}"></div>
+              </div>
+              <div class="row">
+                <button>确定</button>
+              </div>
+            </div>
+          </form>
+          <a href="javascript:;" onclick="aClosed()" class="oClosed"></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="oWindow oShare"></div>
+    <div class="oWindow pwpage">
+      <div class="pwd">
+        <h1>第一步：长按二维码并识别</h1>
+        <p class="title">请长按下图并选择识别图中二维码</p>
+        <img class="erweima" src="{$_W['account']['qrcode']}">
+        <div>
+          <p class="title">无法识别二维码请点击一键关注按钮</p>
+          <p>
+            <a href="{$_W['account']['subscribeurl']}" class="px">一键关注</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  //图片预加载
+  // 判断是否需要启动界面
+  _PreLoadImg(['{IMG_PATH}headerImg.png','{IMG_PATH}indexBg.jpg','{IMG_PATH}0ee7c9c97cb1d8d2d0811b46953d2985.jpg','{IMG_PATH}oshare.png','{IMG_PATH}abtn6.png','{IMG_PATH}abtn6-hover.png'],function(){
+    setTimeout(function(){
+      var loader = document.getElementById('loading'),
+          container = document.getElementById('viewporter'),
+          is_start = '1';
+      document.body.removeChild(loader);
+      if(is_start>0){
+        container.style.display = 'block';        
+      }else{
+        window.location="{php echo $this->createMobileUrl('main',array('id'=>$id))}";
+      }
+    },2000);
+  });
+</script>
+<script>
+  wx.ready(function () {
+    sharedata = {
+      title: '{$reply['share_title']}',
+      desc: '{$reply['share_content']}',
+      link: '{$_W['siteroot']}{php echo str_replace('./','',$this->createMobileUrl('home',array('id'=>$id,'share_from'=>base64_encode($_W['openid']))))}',
+      imgUrl: '{php echo tomedia($reply['share_img'])}',
+      success: function(){
+        alert('分享成功！');
+      },
+      cancel: function(){
+        alert('可能网络不太好，在分享一次？');
+      }
+    };
+    wx.onMenuShareTimeline(sharedata);
+    wx.onMenuShareAppMessage(sharedata);
+    wx.onMenuShareQQ(sharedata);
+    wx.onMenuShareWeibo(sharedata);
+    wx.onMenuShareQZone(sharedata);
+  });
+</script>
+</body>
+</html>

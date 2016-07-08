@@ -1,0 +1,37 @@
+{template 'common/header'}
+<div class="main">
+<ul class="nav nav-tabs">
+	<li><a href="./index.php?c=platform&a=reply&m=jing_christmas">活动列表</a></li>
+	<li><a href="./index.php?c=platform&a=reply&do=post&m=jing_christmas">添加活动</a></li>
+	<li class="active"><a href="">中奖记录</a></li>
+</ul>	
+	<div style="padding:15px;">
+		<form action="" method="post">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th align="center" style="width:20px;text-align:center;">排名</th>						
+                    <th align="center" style="width:20px;text-align:center;">昵称</th>
+					
+					<th align="center" style="width:60px;text-align:center;">最后游戏时间</th>
+					<th align="center" style="width:60px;text-align:center;">最高得分</th>
+					<th align="center" style="width:60px;text-align:center;">游戏次数</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $key $row}
+					<tr>		
+						<td align="center" style="text-align:center;">{php echo $key+1}</td>
+                        <td align="center" style="text-align:center;{if $row['status'] == '0'}color:red;{/if}">{$row['nickname']}</td>
+						<td align="center" style="font-size:12px; color:#666; text-align:center;">{php echo date('Y-m-d H:i:s',$row['last_time'])}</td>
+						<td align="center" style="font-size:12px; color:#666; text-align:center;">{$row['best_score']}</td>
+						<td align="center" style="font-size:12px; color:#666; text-align:center;">{$row['totalnum']}</td>
+					</tr>
+				{/loop}
+			</tbody>
+		</table>
+	</form>
+		{$pager}
+	</div>
+</div>
+{template 'common/footer'}

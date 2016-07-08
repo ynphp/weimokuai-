@@ -1,0 +1,127 @@
+<style>
+    body{
+        background-color:#e7a32d;
+        background-size:100% auto;
+        background-repeat:no-repeat;
+        {if !empty($activity['banner'])}background-image:url({php echo tomedia($activity['banner'])});{else}background-image:url({$modulePublic}img/bg.jpg);{/if}
+    }
+    .bg{
+        background-size:100% auto;
+        background-repeat:no-repeat;
+        background-image:url({$modulePublic}img/pack.png);
+        position:fixed;
+        top:100px;
+        left:50px;
+        right:50px;
+        bottom:0;
+    }
+    .bg h5, .bg h4{line-height:1.5em;color:#fff;}
+    .bg small{line-height:1.5em;color:#ccc;}
+    .share-dialog{display:none;}
+    .share-dialog .dialog-cover{
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        z-index:20;
+        background-color:#000;
+        opacity:0.7;
+    }
+    .share-dialog .dialog-content{
+        position:fixed;
+        top:0;
+        left:20px;
+        right:20px;
+        bottom:0;
+        z-index:21;
+        color:#fff;
+        padding-top:30%;
+        background-image:url({$modulePublic}img/arrow.png);
+        background-repeat:no-repeat;
+        background-position:right top;
+    }
+    .rules-dialog{display:none;}
+    .rules-dialog .dialog-cover{
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        z-index:20;
+        background-color:#fff;
+        opacity:0.3;
+    }
+    .rules-dialog .dialog-close{
+        position:absolute;
+        top:0;
+        right:0;
+        z-index:22;
+        width:80px;
+        height:80px;
+        background-image:url({$modulePublic}img/close.png);
+        background-repeat:no-repeat;
+        background-size:100% 100%;
+    }
+    .rules-dialog .dialog-content{
+        position:fixed;
+        top:150px;
+        left:20px;
+        right:20px;
+        bottom:20px;
+        z-index:21;
+        color:#666;
+        padding:50px 20px;
+        background-image:url({$modulePublic}img/scroll.png);
+        background-repeat:no-repeat;
+        background-size:100% 100%;
+    }
+    .btn, .list-group-item{font-size:1.2em;}
+    .btn-danger{background-color:#ed3c19;}
+    .btns{position:fixed;bottom:5px;left:0;right:0}
+    .tips{position:fixed;top:20%;margin:auto 50px;}
+    .tips h5{color:#ec971f;}
+</style>
+<script>
+    function shareDialog() {
+        require(['jquery'], function($){
+            $('.share-dialog').show();
+        })
+    }
+    function rulesDialog() {
+        require(['jquery'], function($){
+            $('.rules-dialog .dialog-content').removeClass('fadeOutDownBig').addClass('fadeInUpBig');
+            $.post('{php echo $this->createMobileUrl("rules")}').success(function(dat){
+                $('.rules-dialog .dialog-content .content').html(dat);
+                $('.rules-dialog').show();
+            });
+        })
+    }
+    $(function(){
+        $('.share-dialog .dialog-content').click(function(){
+            $(this).parent().hide();
+        });
+        $('.rules-dialog .dialog-content .dialog-close').click(function(){
+            var o = $(this).parent();
+            o.removeClass('fadeInUpBig').addClass('fadeOutDownBig');
+            setTimeout(function() {
+                o.parent().hide();
+            }, 500);
+        });
+    });
+</script>
+<div class="share-dialog">
+    <div class="dialog-cover"></div>
+    <div class="dialog-content">
+        <h4 style="line-height:1.5em;">你可以发送给你的好友, 或者分享到朋友圈. 给他们拜年讨红包</h4>
+    </div>
+</div>
+<div class="rules-dialog">
+    <div class="dialog-cover"></div>
+    <div class="dialog-content animated fadeInUpBig">
+        <div class="dialog-close"></div>
+        <div style="overflow-x:hidden;overflow-y:auto;position:absolute;top:60px;left:25px;right:25px;bottom:60px;">
+            <div class="content"></div>
+        </div>
+    </div>
+</div>

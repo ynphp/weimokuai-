@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+<meta charset="utf-8">
+<head>
+<title>失物招领</title>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+<meta content="telephone=no" name="format-detection" />
+<meta content="email=no" name="format-detection" />
+<script src="{$yobyurl}ui/zepto.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="{$yobyurl}ui/yoby.css">
+<style>
+body {
+  font-family: "Helvetica Neue",Helvetica,STHeiTi,sans-serif;
+  color: black;
+  background-color: #f8f8f8;
+  -webkit-user-select: none;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  outline: 0; }
+.pager {
+	font-size: 14px;
+}
+
+.pager-left {
+	width: 40%;
+	border: 0px solid #D5D5D5;
+	text-align: center;
+	background-color: #fff;
+	border-radius: 5px;
+	float: left;
+}
+
+.pager-cen {
+	float: left;
+	width: 19%;
+	text-align: center;
+	padding: 7px 0;
+}
+
+.pager-right {
+	width: 40%;
+	border: 0px solid #D5D5D5;
+	text-align: center;
+	background-color: #fff;
+	border-radius: 5px;
+	float: right;
+}
+
+.pager-first {
+	width: 44%;
+	padding: 7px 0;
+	float: left;
+	border-right: 1px solid #EFEFEF;
+}
+
+.pager-pre {
+	width: 55%;
+	padding: 7px 0;
+	float: right;
+}
+
+.pager-next {
+	width: 55%;
+	padding: 7px 0;
+	float: left;
+	border-right: 1px solid #EFEFEF;
+}
+
+.pager-end {
+	width: 44%;
+	padding: 7px 0;
+	float: right;
+}
+</style>
+
+</head>
+<body>
+<div class='container'>
+<header class="bar bar-nav">
+<a class="btn bg-blue f-white left" href="{$url}">
+   关注 
+  </a>
+<a class="btn bg-blue f-white right" href="{php echo $this->createMobileUrl('fabu');}">
+   发布 
+  </a>
+	<div class="title">失物招领</div>
+</header>
+<form class="f" style="margin-top:48px;" action="index.php" method="get">
+<div class="f-block">
+  <input type="text" required="required" id="keyword" name="keyword" placeholder="输入查找的失物关键字" value="{$_GPC['keyword']}">
+  </div>
+      <div class="f-block" style='margin-top:10px;'>
+      		<input type="hidden" name="c" value="entry" />
+      		
+		<input type="hidden" name="do" value="fm" />
+		<input type="hidden" name="i" value="{$_GPC['i']}" />
+		<input type="hidden" name="m" value="yoby_lost" />
+    	<button type="submit" name="submit" class="btn bg-green btn-block btn-md f-white"><span class="icon icon-search"></span>查找</button>
+    </div>
+</form>
+<script>
+	$('.f').submit(function(){
+  var touser = $('#keyword').val();
+  if(touser==''){
+    alert("亲,查找关键字不能为空");
+    return false;
+  }
+});
+WeixinApi.ready(function(Api) {
+    Api.hideOptionMenu();
+});
+</script>
+<ul class="ul" style="margin-top:10px;">
+{loop $list $item}
+  <li class="ul-li">
+    <a class="ul-right" href="{php echo $this->createMobileUrl('chakan',array('id'=>$item['id']))}">
+     {if $item['type']==0}<p class='tcenter'>失物招领</p>{else}<p class='tcenter'>寻物启事</p>{/if}{if !empty($item['img'])}[有图]{/if}
+     <p>{php echo cutstr($item['content'], 150, $havedot=1, $charset='utf8')}</p>
+     <p>
+     {if $item['isok']==0}是否认领:<span class='f-red'>未认领</span><br>{else}是否认领:<span class='f-green'>已认领</span><br>{/if}
+     手机/电话: {$item['mobile']}<br>
+    {if !empty($item['qq']) }QQ:{$item['qq']}<br>{/if}
+    {if !empty($item['wx']) }微信:{$item['wx']}<br>{/if}
+     	时间: {$item['createtime']}<br>
+     </p>
+    </a>
+  </li>
+  {/loop}
+</ul>
+
+
+
+</div>
+{$pager}
+
+<div style="margin:5px auto;height:40px;"></div>
+</body>
+</html>

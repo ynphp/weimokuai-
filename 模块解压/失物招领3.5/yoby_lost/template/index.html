@@ -1,0 +1,94 @@
+{template 'common/header'}
+
+<div class='container' style='padding:0 5px 10px;margin:0;width:100%'>
+
+<ul class="nav nav-tabs">
+  <li {if $op == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('shiwu',array('op'=>'display'));}">管理失物招领</a></li>
+ 
+</ul>
+{if $op =='display'}
+<div class="panel panel-success">
+  <div class="panel-heading">常用工具 > 失物招领</div>
+  
+    <div class="panel-body">
+    <form action="./index.php" method="get" class="form-horizontal" role="form">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+		<input type="hidden" name="do" value="shiwu" />
+		<input type="hidden" name="m" value="yoby_lost" />
+		<input type="hidden" name="op" value="display" />
+					<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关键字</label>
+				<div class="col-sm-8">
+						<input class="form-control" name="keyword" id="" type="text" placeholder="搜索联系人或手机号或详情" value="{$_GPC['keyword']}">
+				</div>
+				
+						<div class=" col-xs-12 col-sm-2 col-lg-1">
+					<button class="btn btn-block btn-success"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+								
+			</div>
+</form>
+  </div>
+</div>
+
+<div style="padding:15px;">
+<form id="form2" class="form-horizontal" method="post">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+				<th style="width:70px;"></th>
+					<th style="width:100px;">联系人</th>
+					<th style="width:100px;">手机号</th>
+					<th style="width:50px;">QQ</th>
+					<th style="width:50px;">微信</th>
+					<th style="width:100px;">是否认领</th>
+					<th style="width:100px;">类型</th>
+					<th style="width:100px;">时间</th>
+					<th style="min-width:60px;width:100px;">删除</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+				<td><input type="checkbox" value="{$item['id']}" name="delete[]"></td>
+					<td><a href="javascript:void(0)" title="{$item['content']}">{$item['xm']}</a></td>
+					<td>{$item['mobile']}</td>
+					<td>{$item['qq']}</td>
+					<td>{$item['wx']}</td>
+					<td>{if $item['isok']==1}<span class="label label-default">已认领</span>{else}<span class="label label-success">未认领</span>{/if}</td>
+					<td>{if $item['type']==0}<span class="label label-primary">失物招领</span>{else}<span class="label label-info">寻物启事</span>{/if}</td>
+					<td>{$item['createtime']}</td>
+					<td>
+					<a onclick="return confirm('此操作不可恢复，确认吗？'); return false;" href="{php echo $this->createWebUrl('shiwu', array('id' => $item['id'],'op'=>'del'))}" title="删除" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+					</td>				
+				</tr>
+				{/loop}
+					<tr >
+				<td><input type="checkbox"  onclick="var ck = this.checked;$(':checkbox').each(function(){this.checked = ck});" name=''>    <input class="btn btn-primary" type="submit" value="删除" name="submit" ></td><td></td><td></td><td></td>
+				</tr>
+			</tbody>
+		</table>
+			<input type="hidden" value="shiwu" name="do">
+		<input type="hidden" value="del" name="op">
+		<input type="hidden" name="token" value="{$_W['token']}" />
+		</form>
+		{$pager}
+	</div>
+		<script>
+
+		
+					$('#form2').submit(function(){
+if($(":checkbox[name='delete[]']:checked").size() > 0){
+return confirm('删除后不可恢复，您确定删除吗？');
+}
+return false;
+}); 
+
+
+		</script>
+	
+{/if}	
+</div>
+
+{template 'common/footer'}

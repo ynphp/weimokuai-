@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[商品推广]]></name>
+		<identifie><![CDATA[tp_goods]]></identifie>
+		<version><![CDATA[2.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[商品推广]]></ability>
+		<description><![CDATA[帮助你推广商品，让客户更快了解你的商品！]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="商品入口" do="inside" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="添加商品" do="add" state="" direct="false" />
+			<entry title="商品列表" do="list" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_tb_add` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` text NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `remark` text NOT NULL,
+  `remark1` text NOT NULL,
+  `remark2` text NOT NULL,
+  `remark3` text NOT NULL,
+  `uniacid` int(11) NOT NULL,
+  `show` int(11) NOT NULL,
+  `text` text NOT NULL,
+  `lian` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='推广宝贝';
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,177 @@
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <h5 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">基本参数</a>
+            </h5>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="panel-body">
+                <input type="hidden" name="reply_id" value="{$reply['id']}" />
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动标题</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['title']}" class="span2" name="title">
+                        <div class="help-block">活动的标题</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">缩略图</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_image('thumb',$reply['thumb'],'', $options);}
+                        <div class="help-block">图文消息的缩略图</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动简介</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" name="description">{$reply['description']}</textarea>
+                        <div class="help-block">图文消息的简介</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动时间</label>
+                    <div class="col-sm-4">
+                        {php echo tpl_form_field_daterange('time', array('start'=>date('Y-m-d H:i:s',$reply['starttime']),'end'=>date('Y-m-d H:i:s',$reply['endtime'])), true)}
+                        <div class="help-block">输入活动的起止时间</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动状态</label>
+                    <div class="col-sm-4" style="padding-top:6px;">
+                        <label>
+                            <input type="radio" value="0" name="status" {if $reply['status'] == 0 }checked{/if}> 结束</label>&nbsp;&nbsp;
+                        <label>
+                            <input type="radio" value="1" name="status" {if $reply['status'] == 1 }checked{/if}> 正常</label>&nbsp;&nbsp;
+                        <label>
+                            <input type="radio" value="2" name="status" {if $reply['status'] == 2 }checked{/if}> 暂停</label>&nbsp;&nbsp;
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">是否需要登记手机号</label>
+                    <div class="col-sm-4" style="padding-top:6px;">
+                        <label>
+                            <input type="radio" value="0" name="needmobile" {if $reply['needmobile'] == 0 }checked{/if}> 否</label>&nbsp;&nbsp;
+                        <label>
+                            <input type="radio" value="1" name="needmobile" {if $reply['needmobile'] == 1 }checked{/if}> 是</label>&nbsp;&nbsp;
+                    </div>
+                </div>       
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">每人可游戏次数</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input class="form-control" type="text" value="{$reply['playnum']}" class="span2" name="playnum">
+                            <span class="input-group-addon">次</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">转发赠送游戏次数</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon">每转发</span>
+                            <input class="form-control" type="text" value="{$reply['zfcs']}" class="span2" name="zfcs">
+                            <span class="input-group-addon">次，增加总数</span>
+                            <input class="form-control" type="text" value="{$reply['zjcs']}" class="span2" name="zjcs">
+                            <span class="input-group-addon">次</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">每人最多游戏次数</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input class="form-control" type="text" value="{$reply['totalnum']}" class="span2" name="totalnum">
+                            <span class="input-group-addon">次</span>
+                        </div>
+                        <span>最多抽奖次数为每天可抽奖次数与转发增加次数的总和</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">游戏首页logo</label>
+                    <div class="col-sm-8">
+                        {php echo tpl_form_field_image('homelogo',$reply['homelogo']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">游戏背景音乐</label>
+                    <div class="col-sm-8">
+                        {php echo tpl_form_field_audio('audio',$reply['audio']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">游戏规则</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <span class="input-group-addon">单局游戏时间</span>
+                            <input class="form-control" type="text" value="{$reply['gametime']}" class="span2" name="gametime">
+                            <span class="input-group-addon">秒</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动规则</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_ueditor('tips',$reply['tips'])}
+                        <div class="help-block">活动规则说明，活动时间等</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动奖项</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_ueditor('prizeinfo',$reply['prizeinfo'])}
+                        <div class="help-block">活动的奖项设置</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingThree">
+            <h5 class="panel-title">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">分享信息</a>
+            </h5>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['share_title']}" class="span2" name="share_title">
+                        <div class="help-block">分享给好友或朋友圈时的标题</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">游戏结束后分享标题</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" value="{$reply['share_title2']}" class="span2" name="share_title2">
+                        <div class="help-block">游戏结束后分享给好友或朋友圈时的标题，[score]代表得分</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享图片</label>
+                    <div class="col-sm-9">
+                        {php echo tpl_form_field_image('share_img',$reply['share_img'],'', $options);}
+                        <div class="help-block">分享给好友或朋友圈时的图片</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享描述</label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" name="share_content">{$reply['share_content']}</textarea>
+                        <div class="help-block">分享给好友或朋友圈时的描述</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  window.initReplyController = function($scope) {
+    
+  };
+  window.validateReplyForm = function(form, $, _, util, $scope) {
+    
+    return true;
+  };
+</script>

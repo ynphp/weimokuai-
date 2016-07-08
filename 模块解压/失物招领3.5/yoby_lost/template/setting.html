@@ -1,0 +1,54 @@
+{template 'common/header'}
+
+<div class='container' style='padding:0 5px 10px;margin:0;width:100%'>
+<div class="panel panel-success">
+  <div class="panel-heading">参数设置</div>
+  <div class="panel-body">
+    <form class="form-horizontal" action="" method="post">
+  <div class="form-group">
+    <label for="address" class="col-sm-2 control-label">引导关注地址</label>
+     <div class="col-sm-10">
+    <input type="text" class="form-control" id="address" name='address' placeholder="填写网址" value="{$settings['address']}">
+    <span class="help-block">地址是你引导用户关注你的微信官方网站网址,同时也是分享后的跳转地址</span>
+    </div>
+  </div>
+   <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+    <input name="token" type="hidden" value="{$_W['token']}" />
+  <button type="submit" class="btn btn-success col-sm-2" name="submit" value="提交"><i class="fa fa-check-circle"></i> 提交</button>
+  </div>
+  </div>
+   		<?php if($_W['isfounder']) { ?>
+		 <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+  <a class="btn btn-danger col-sm-6" id="ver" href="javascript:void(0);" target="_blank"><span id='v'></span></a>
+  </div>
+  </div>
+  						<?php 
+$vs= $this->module['version'];
+?>
+<script type="text/javascript">
+$(function(){
+//&callback=?
+   $.getJSON("http://weixin10.sinaapp.com/api2.php?op=api_mod&id=5&callback=?", function(data) {
+   var v = "{$vs}";
+   var t  = new Date(data.createtime * 1000).toLocaleString().substr(0,10);
+   document.getElementById("ver").href=data.url;
+   if( parseFloat(data.version) > parseFloat(v) ){
+ document.getElementById("v").innerHTML =	"发现新版本:"+data.version+" 更新时间:"+t;
+  document.getElementById("v").style.color = "white";
+ }else{
+ document.getElementById("v").innerHTML ="已经是最新版: "+v;
+ }
+    });
+})
+</script>
+<?php } ?>
+  
+</form>
+  </div>
+</div>
+
+</div>
+
+{template 'common/footer'}
