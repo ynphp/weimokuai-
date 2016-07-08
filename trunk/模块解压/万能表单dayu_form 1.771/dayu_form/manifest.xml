@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[万能表单]]></name>
+		<identifie><![CDATA[dayu_form]]></identifie>
+		<version><![CDATA[1.771]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[行业通用万能表单]]></ability>
+		<description><![CDATA[行业通用万能表单]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="万能表单列表" do="display" state="" direct="false" />
+			<entry title="新建表单" do="post" state="" direct="false" />
+		</menu>
+		<home call="getHomeTiles">
+		</home>
+		<profile>
+			<entry title="我的表单" do="mydayu_form" />
+		</profile>
+	</bindings>
+	<install><![CDATA[
+
+
+CREATE TABLE IF NOT EXISTS `ims_dayu_form` (
+  `reid` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL DEFAULT '',
+  `description` varchar(1000) NOT NULL,
+  `content` text NOT NULL,
+  `information` varchar(500) NOT NULL DEFAULT '',
+  `thumb` varchar(200) NOT NULL DEFAULT '',
+  `inhome` tinyint(4) NOT NULL DEFAULT '0',
+  `createtime` int(10) NOT NULL DEFAULT '0',
+  `starttime` int(10) NOT NULL DEFAULT '0',
+  `endtime` int(10) unsigned NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `pretotal` int(10) unsigned NOT NULL DEFAULT '1',
+  `noticeemail` varchar(50) NOT NULL DEFAULT '',
+  `k_templateid` varchar(50) NOT NULL DEFAULT '',
+  `kfid` varchar(50) NOT NULL DEFAULT '',
+  `m_templateid` varchar(50) NOT NULL DEFAULT '',
+  `kfirst` varchar(100) NOT NULL COMMENT '客服模板页头',
+  `kfoot` varchar(100) NOT NULL COMMENT '客服模板页尾',
+  `mfirst` varchar(100) NOT NULL COMMENT '客户模板页头',
+  `mfoot` varchar(100) NOT NULL COMMENT '客户模板页尾',
+  `accountsid` varchar(50) NOT NULL DEFAULT '',
+  `tokenid` varchar(50) NOT NULL DEFAULT '',
+  `appId` varchar(50) NOT NULL DEFAULT '',
+  `templateId` varchar(50) NOT NULL DEFAULT '',
+  `mobile` varchar(50) NOT NULL DEFAULT '',
+  `mname` varchar(10) NOT NULL DEFAULT '',
+  `skins` varchar(20) NOT NULL DEFAULT 'submit',
+  `custom_status` int(1) NOT NULL DEFAULT '0' COMMENT '客服消息状态',
+  PRIMARY KEY (`reid`),
+  KEY `weid` (`weid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+CREATE TABLE IF NOT EXISTS `ims_dayu_form_data` (
+  `redid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `reid` int(11) NOT NULL,
+  `rerid` int(11) NOT NULL,
+  `refid` int(11) NOT NULL,
+  `data` varchar(800) NOT NULL,
+  PRIMARY KEY (`redid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=48 ;
+
+CREATE TABLE IF NOT EXISTS `ims_dayu_form_fields` (
+  `refid` int(11) NOT NULL AUTO_INCREMENT,
+  `reid` int(11) NOT NULL DEFAULT '0',
+  `title` varchar(200) NOT NULL DEFAULT '',
+  `type` varchar(20) NOT NULL DEFAULT '',
+  `essential` tinyint(4) NOT NULL DEFAULT '0',
+  `bind` varchar(30) NOT NULL DEFAULT '',
+  `value` varchar(300) NOT NULL DEFAULT '',
+  `description` varchar(500) NOT NULL DEFAULT '',
+  `displayorder` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`refid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=34 ;
+
+CREATE TABLE IF NOT EXISTS `ims_dayu_form_info` (
+  `rerid` int(11) NOT NULL AUTO_INCREMENT,
+  `reid` int(11) NOT NULL,
+  `member` varchar(50) NOT NULL,
+  `mobile` varchar(11) NOT NULL,
+  `openid` varchar(50) NOT NULL,
+  `status` int(1) NOT NULL COMMENT '订单状态',
+  `yuyuetime` int(10) NOT NULL DEFAULT '0' COMMENT '客服确认时间',
+  `kfinfo` varchar(100) NOT NULL COMMENT '客服信息',
+  `createtime` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`rerid`),
+  KEY `reid` (`reid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+
+CREATE TABLE IF NOT EXISTS `ims_dayu_form_reply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) NOT NULL,
+  `reid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+
+    ]]></install>
+	<uninstall><![CDATA[
+DROP TABLE IF EXISTS `ims_dayu_form`;
+DROP TABLE IF EXISTS `ims_dayu_form_data`;
+DROP TABLE IF EXISTS `ims_dayu_form_fields`;
+DROP TABLE IF EXISTS `ims_dayu_form_reply`;
+DROP TABLE IF EXISTS `ims_dayu_form_info`;    
+    ]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

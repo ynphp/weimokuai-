@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="www.we7.cc" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[微活动]]></name>
+		<identifie><![CDATA[we7_activity]]></identifie>
+		<version><![CDATA[2.1]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[报名，议程，嘉宾！]]></ability>
+		<description><![CDATA[报名，议程，嘉宾，地图导航，邮件提醒！]]></description>
+		<author><![CDATA[柒.柒.源.码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="活动管理" do="activityManger" state="" direct="false" />
+			<entry title="提醒设置" do="tip" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

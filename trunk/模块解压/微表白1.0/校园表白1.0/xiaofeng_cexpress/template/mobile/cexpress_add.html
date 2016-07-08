@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<head>
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+<title>发布表白</title>
+<style>
+input,textarea
+{
+	width:97%;	
+}
+</style>
+<link href="{MODULE_URL}template/css/style.css" rel="stylesheet" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+</head>
+<body>
+	<header>
+        <div class="logo" style="width:90%; color:white; font-size:10px;text-align:center;">
+         <img src="{MODULE_URL}template/img/whiteheart.png" style="float:left"/>大学表白墙
+        </div>
+		<div class="clear"></div>
+    </header>
+    <div class="content">
+        <article>
+        <form action="" method="post"   class="label-top" onsubmit="return checkInfo(this);">
+                    <div>
+                         <label for="">接收人： <span class="red">*</span></label>
+                         <input type="text"  name="receiver" id="receiver"  tabindex="1" />
+                    </div>
+                    <div>
+                         <label for="">发送人：<span class="red">*</span></label>
+                         <input name="sender" type="text" value="匿名" tabindex="1" />
+                    </div>
+                    <div>
+                        <label for="">内容： <span class="red">*</span></label>
+                        <textarea type="text" name="content" tabindex="1"  cols="40" rows="8"></textarea>
+                    </div>
+                    <div style='margin:0 auto;text-align:center'>
+                        <button type="submit" style="height:30px;width:80%;background:#54bcde;border:0;border-radius: 3px;color:#fff;" name="submit" value="提交">提交</button>
+                        <input type="hidden" name="token" value="{$_W['token']}" />
+                    </div>
+        </form>
+        </article>
+    </div>
+ 	<div style="font-size: 12px;line-height: 24px;width: 100%;text-align: center;color: #444;margin-top: 10px;">
+        {$_W['account']['name']}
+    </div>
+</body>
+</html>
+<script language="javascript" type="text/javascript">
+<!--
+	function checkInfo(form) {
+		
+		if (!form['receiver'].value) {
+			alert('接收人不能为空，请认真填写');
+			return false;
+		}
+	
+		
+		if (!form['realname'].value) {
+			alert('发送人不能为空，请重新填写');
+			return false;
+		}
+		if (!form['content'].value) {
+			alert('内容不能为空');
+			return false;
+		}
+		if (!form['content'].value.length<4) {
+			alert("内容太少了，有刷屏的嫌疑!\n\n呵呵，请重新输入你的表白。");
+			return false;
+		};
+	
+//-->
+</script>

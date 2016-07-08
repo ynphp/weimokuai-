@@ -1,0 +1,77 @@
+{template 'header'}
+<link type="text/css" rel="stylesheet" href="../addons/dayu_form/template/mobile/common.mobile.css" />
+<style>
+.title{float:left;width:100%;height:38px;color:#333;background-color:#e7e7e7;}
+.title h3{font-size:14px;font-weight:bolder;margin:0;padding-left:10px;line-height:38px;}
+.title span{float:right;height:25px;display:block;line-height:20px;background-color:#3bb4f2;color:#fff;padding:2px 5px;margin:7px 8px;}
+.title h3 span{background-color:#f8f8f8;color:#666;font-weight:normal;font-size:12px;line-height:23px;}
+.mobile-div{width:100%;margin:0;border:0;}
+.mobile-hds{height:45px;line-height:45px;font-size:16px;padding:0 10px;color: #fff;border-bottom:1px solid #C6C6C6;background-color:#dd514c;}
+.mobile-li{background-color:#fff;height:68px;padding:0;}
+.mobile-li p{height:38px;}
+.time{width:100%;height:20px;background-color:#fff;margin:0;}
+
+.mobile-div ul.list{float:left;line-height:30px;font-size:12px;padding:0 10px;}
+.zt{float:right;font-size:16px;display:block;padding-left:10px;font-weight:bolder;margin-right:10px;text-align:center;line-height:48px;text-overflow:ellipsis;white-space:nowrap;overflow: hidden;color:#e20000;}
+.info label{margin-right:10px;width:60px;}
+</style>
+{if $operation == 'display'}
+<div class="mobile-div img-rounded">
+	<div class="mobile-hds" style="border-bottom:0;">表单列表<span class="pull-right">表单状态</span></div>
+	{loop $rows $item}
+	<a class="mobile-li" style="height:68px;" href="{php echo $this->createMobileUrl('Mydayu_form', array('id' => $item['rerid'], 'op' => 'detail'))}">
+	<div class="title">
+				<span>
+				{if $item['status'] == 0} 等待客服确认
+                {elseif $item['status'] == 1} <font color="red">已确认，客服受理中</font> 
+                {elseif $item['status'] == 2} <font color="red">拒绝受理申请</font>
+                {elseif $item['status'] == 3} <font color="green">已完成</font>				
+				{/if}
+				</span>
+				<h3>{$item['member']}<span>{$item['mobile']}</span></h3></div>
+            <ul class="list">
+                <li>
+                    提交时间：{php echo date('Y年m月d日 H:i', $item['createtime'])}{if $item['status'] != 0}<br>客服受理时间：{php echo date('Y年m月d日 H:i', $item['yuyuetime'])}{/if}
+                </li>
+            </ul>
+	</a>
+	{/loop}
+</div>
+{elseif $operation == 'detail'}
+<div class="mobile-div img-rounded">
+	<div class="mobile-hds">{$dayu_form['title']}</div>
+	<div class="mobile-content">{$dayu_form['content']}</div>
+</div>
+<div class="mobile-div img-rounded">
+	<div class="mobile-hds" style="background-color:#0e90d2">受理结果
+	<span class="zt">
+            {if $row['status'] == 0} <em class="no">等待客服确认</em>
+                {elseif $row['status'] == 1} <em class="no"><font color="red">已确认，客服受理中</font></em> 
+                {elseif $row['status'] == 2} <em class="no"><font color="red">拒绝受理申请</font></em> 
+                {elseif $row['status'] == 3} <em class="no"><font color="green">已完成</font></em> 				
+            {/if}
+	</span>
+	</div>
+	{if $row['status'] != 0}<div class="mobile-content">客服受理时间：{php echo date('Y年m月d日 H:i', $row['yuyuetime'])}</div>{/if}
+	<div class="mobile-content">{$row['kfinfo']}</div>
+</div>
+<div class="mobile-div img-rounded">
+	<div class="mobile-hds" style="background-color:#f37b1d">我的表单信息</div>
+	<div class="mobile-content info">
+	<p><label>客户姓名</label>{$row['member']}</p>
+	<p><label>客户手机</label>{$row['mobile']}</p>
+	<p><label>提交时间</label>{php echo date('Y年m月d日 H:i', $row['createtime'])}</p>
+              	{loop $ds $fid $ftitle}
+                <p><label>{$ftitle['fid']}：</label>
+                {if $ftitle['type'] == 'image'}
+                <a target="_blank" href="{php echo tomedia($row['fields'][$fid]);}">点击查看{$ftitle['fid']}</a>
+                 {else}
+                <span class="label label-success" style="font-size:12px;">{if !empty($row['fields'][$fid])}{$row['fields'][$fid]}{else}用户未填{/if}</span>
+                {/if}&nbsp;
+                </p>
+                {/loop}
+	</div>
+</div>
+{/if}
+
+{template 'footer'}

@@ -1,0 +1,74 @@
+{template 'common/header'}
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" id="setting-form">
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">设置</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">支付接口</label>
+					<div class="col-xs-12 col-sm-8">
+						<label class="radio radio-inline">
+							<input type="radio" name="status" value="1" {if intval($settings['status']) == 1}checked="checked"{/if}> 微擎支付接口
+						</label>
+						<label class="radio radio-inline">
+							<input type="radio" name="status" value="2" {if intval($settings['status']) == 2}checked="checked"{/if}> 微信原生接口（限微信支付）
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">分享标题</label>
+					<div class="col-sm-8">
+						<input type="text" name="share_title" class="form-control" value="{$settings['share_title']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">分享图片</label>
+					<div class="col-sm-8">
+						{php echo tpl_form_field_image('share_image', $settings['share_image']);}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">分享描述</label>
+					<div class="col-sm-8">
+						<textarea style="height:150px;" id="description" name="share_desc" class="form-control description" cols="60">{$settings['share_desc']}</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">引导关注链接</label>
+					<div class="col-sm-8">
+						<input type="text" name="url" class="form-control" value="{$settings['url']}" />
+						<span class="help-block">关注链接用于分享后，引导用户关注(已认证服务号和有微信支付的请无视)</span>
+					</div>
+				</div>
+			</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">拼团介绍</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">拼团介绍</label>
+					<div class="col-sm-9 col-xs-12">
+						<textarea name="content" class="form-control richtext" cols="70">{$settings['content']}</textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-sm-12">
+			<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			<input type="hidden" name="token" value="{$_W['token']}" />
+		</div>
+	</form>
+</div>
+
+<script>
+require(['jquery', 'util'], function($, u){
+	$(function(){
+		u.editor($('.richtext')[0]);
+	});
+});
+</script>
+
+{template 'common/footer'}

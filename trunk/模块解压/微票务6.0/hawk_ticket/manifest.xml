@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com versionCode="0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[微票务]]></name>
+		<identifie><![CDATA[hawk_ticket]]></identifie>
+		<version><![CDATA[6.0]]></version>
+		<type><![CDATA[dz]]></type>
+		<ability><![CDATA[最高效的活动邀请，在线购票，扫码验票换票管理系统]]></ability>
+		<description><![CDATA[微票务可快速应用于各类活动如培训讲座，拼团活动，沙龙论坛，会所演出等需要购票验票的场景]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="view" />
+			<message type="enter" />
+		</subscribes>
+		<handles>
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="enter" />
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="微票务首页" do="list" state="" direct="false" />
+		</cover>
+		<rule>
+			<entry title="微票务" do="list" state="" direct="false" />
+		</rule>
+		<menu>
+			<entry title="使用说明" do="entry" state="" direct="false" />
+			<entry title="活动管理" do="activity" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="微票务" do="list" state="" direct="false" />
+		</home>
+		<profile>
+			<entry title="微票务" do="list" state="" direct="false" />
+		</profile>
+		<shortcut>
+			<entry title="微票务" do="list" state="" direct="false" />
+		</shortcut>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_hticket_activity` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `title` varchar(50) NOT NULL COMMENT '活动标题',
+  `description` varchar(100) NOT NULL COMMENT '活动描述',
+  `shareimg` varchar(100) NOT NULL,
+  `singleimg` varchar(100) NOT NULL COMMENT '单页图片地址',
+  `content` text NOT NULL,
+  `status` tinyint(1) unsigned DEFAULT '0' COMMENT '活动状态',
+  `starttime` int(11) unsigned NOT NULL COMMENT '开始时间',
+  `endtime` int(11) unsigned NOT NULL COMMENT '结束时间',
+  `place` varchar(100) NOT NULL COMMENT '活动地点',
+  `createtime` int(11) unsigned NOT NULL COMMENT '创建时间',
+  `extype` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '展示类型0内容1图片',
+  `proname` varchar(50) NOT NULL COMMENT '产品名称',
+  `tlimit` int(11) unsigned NOT NULL COMMENT '票数限制',
+  `scantimes` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '卡可刷次数',
+  `fee` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '票价',
+  `author` varchar(50) NOT NULL COMMENT '主办单位',
+  `groups` varchar(200) NOT NULL COMMENT '核销用户组',
+  `viewnums` int(11) unsigned NOT NULL COMMENT '浏览次数',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`),
+  KEY `status` (`status`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_hticket_log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `orderid` int(11) unsigned NOT NULL COMMENT '对应订单号',
+  `actid` int(11) unsigned NOT NULL COMMENT '活动ID',
+  `scanown` varchar(50) NOT NULL COMMENT '刷卡人openid',
+  `type` int(2) unsigned NOT NULL DEFAULT '1' COMMENT '日志类型',
+  `remark` varchar(100) NOT NULL COMMENT '备注',
+  `createtime` int(11) unsigned NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`),
+  KEY `orderid` (`orderid`),
+  KEY `actid` (`actid`),
+  KEY `scanown` (`scanown`),
+  KEY `type` (`type`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_hticket_order` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `openid` varchar(50) NOT NULL,
+  `actid` int(11) unsigned NOT NULL COMMENT '活动ID',
+  `type` varchar(20) NOT NULL COMMENT '支付类型',
+  `fee` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '费用',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '下单1已付款2已核销3已关闭4',
+  `scanown` varchar(50) NOT NULL COMMENT '审核人',
+  `remark` varchar(50) NOT NULL COMMENT '备注说明',
+  `createtime` int(11) unsigned NOT NULL COMMENT '创建时间',
+  `paytime` int(11) unsigned NOT NULL COMMENT '支付时间',
+  `scantime` int(11) unsigned NOT NULL COMMENT '核销时间',
+  `closetime` int(11) unsigned NOT NULL COMMENT '关闭时间',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`),
+  KEY `openid` (`openid`),
+  KEY `actid` (`actid`),
+  KEY `status` (`status`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

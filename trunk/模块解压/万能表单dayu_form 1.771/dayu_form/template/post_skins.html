@@ -1,0 +1,26 @@
+
+        <div class="panel panel-default">
+            <div class="panel-heading">前台列表名称设置</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">列表名称</label>
+                    <div class="col-xs-12 col-sm-5">
+                    <input type="text" name="mname" class="form-control" value="{$activity['mname']}" />
+                    </div>
+					<div class="col-xs-12 col-sm-4">例：我的表单 或是 我的预约、我的报名等</div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">前台模板设置</div>
+            <div class="panel-body">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">选择模板</label>
+          <div class="col-sm-8 col-xs-12">
+            <div class="row row-fix">
+              {template 'skins'}
+            </div>
+          </div>
+        </div>
+            </div>
+        </div>
