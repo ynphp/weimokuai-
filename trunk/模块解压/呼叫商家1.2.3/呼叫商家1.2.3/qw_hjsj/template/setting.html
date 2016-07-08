@@ -1,0 +1,749 @@
+{template 'common/header'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                提醒设置
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">订单成功通知模板</label>
+                    <div class="col-md-7">
+                        <input type="text" name="tplid" class="form-control" value="{$settings['tplid']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-7">
+                        <div class="col-md-4 ">
+                            <input type="text" name="lefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" value="{$lefttpl[0]}" >
+                        </div>
+                        <div class="col-md-7 col-md-offset-1">
+                            <input type="text" name="righttpl[]" class="form-control" placeholder="填写内容" value="{$righttpl[0]}" >
+                        </div>
+                    </div>
+                </div>
+                {loop $lefttpl $index $v}
+                {if $index>0&&$index<($count-1)}
+                <div class="form-group ls">
+                    <div class="col-md-offset-2 col-md-7">
+                        <div class="col-md-4 ">
+                            <input type="text" name="lefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" value="{$lefttpl[$index]}">
+                        </div>
+                        <div class="col-md-7 col-md-offset-1">
+                            <input type="text" name="righttpl[]" class="form-control" placeholder="填写内容" value="{$righttpl[$index]}" >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="javascript:;" onclick="deleteItem(this)" class="btn btn-default">删除</a>
+                    </div>
+                </div>
+                {/if}
+                {/loop}
+                <div id="last">
+                </div>
+                <div class="form-group" >
+                    <div class="col-md-offset-2 col-md-7">
+                        <div class="col-md-4 ">
+                            <input type="text" name="lefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" value="{$lefttpl[$num]}" >
+                        </div>
+                        <div class="col-md-7 col-md-offset-1">
+                            <input type="text" name="righttpl[]" class="form-control" placeholder="填写内容" value="{$righttpl[$num]}" >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button class=" btn btn-default addtpl">添加</button> <!--<button class="btn btn-default col-md-offset-1 deltpl">删除</button>-->
+                    </div>
+                </div>
+                <div class="btn-block">
+                    <p>提示:[sn]为订单号，[time]为时间,[name]为姓名,[address]为地址</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                审核设置
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">审核结果通知模板</label>
+                    <div class="col-md-7">
+                        <input type="text" name="shenhetplid" class="form-control" value="{$settings['shenhetplid']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-7">
+                        <div class="col-md-4 ">
+                            <input type="text" name="shenhelefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" value="{$shenhelefttpl[0]}" >
+                        </div>
+                        <div class="col-md-7 col-md-offset-1">
+                            <input type="text" name="shenherighttpl[]" class="form-control" placeholder="填写内容" value="{$shenherighttpl[0]}" >
+                        </div>
+                    </div>
+                </div>
+                {loop $shenhelefttpl $index $v}
+                {if $index>0&&$index<($shenhecount-1)}
+                <div class="form-group ls">
+                    <div class="col-md-offset-2 col-md-7">
+                        <div class="col-md-4 ">
+                            <input type="text" name="shenhelefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" value="{$shenhelefttpl[$index]}">
+                        </div>
+                        <div class="col-md-7 col-md-offset-1">
+                            <input type="text" name="shenherighttpl[]" class="form-control" placeholder="填写内容" value="{$shenherighttpl[$index]}" >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="javascript:;" onclick="deleteItem(this)" class="btn btn-default">删除</a>
+                    </div>
+                </div>
+                {/if}
+                {/loop}
+                <div id="shenhelast">
+                </div>
+                <div class="form-group" >
+                    <div class="col-md-offset-2 col-md-7">
+                        <div class="col-md-4 ">
+                            <input type="text" name="shenhelefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" value="{$shenhelefttpl[$shenhenum]}" >
+                        </div>
+                        <div class="col-md-7 col-md-offset-1">
+                            <input type="text" name="shenherighttpl[]" class="form-control" placeholder="填写内容" value="{$shenherighttpl[$shenhenum]}" >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button class=" btn btn-default shenheaddtpl">添加</button> <!--<button class="btn btn-default col-md-offset-1 deltpl">删除</button>-->
+                    </div>
+                </div>
+                <div class="btn-block">
+                    <p>提示:[time]为时间,[name]为商家名字,[phone]为联系方式,[jieguo]为结果</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                接单成功设置
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">接单通知模板</label>
+                    <div class="col-md-7">
+                        <input type="text" name="jiedantplid" class="form-control" value="{$settings['jiedantplid']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-7">
+                        <div class="col-md-4 ">
+                            <input type="text" name="jiedanlefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" value="{$jiedanlefttpl[0]}" >
+                        </div>
+                        <div class="col-md-7 col-md-offset-1">
+                            <input type="text" name="jiedanrighttpl[]" class="form-control" placeholder="填写内容" value="{$jiedanrighttpl[0]}" >
+                        </div>
+                    </div>
+                </div>
+                {loop $jiedanlefttpl $index $v}
+                {if $index>0&&$index<($jiedancount-1)}
+                <div class="form-group ls">
+                    <div class="col-md-offset-2 col-md-7">
+                        <div class="col-md-4 ">
+                            <input type="text" name="jiedanlefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" value="{$jiedanlefttpl[$index]}">
+                        </div>
+                        <div class="col-md-7 col-md-offset-1">
+                            <input type="text" name="jiedanrighttpl[]" class="form-control" placeholder="填写内容" value="{$jiedanrighttpl[$index]}" >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="javascript:;" onclick="deleteItem(this)" class="btn btn-default">删除</a>
+                    </div>
+                </div>
+                {/if}
+                {/loop}
+                <div id="jiedanlast">
+                </div>
+                <div class="form-group" >
+                    <div class="col-md-offset-2 col-md-7">
+                        <div class="col-md-4 ">
+                            <input type="text" name="jiedanlefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" value="{$jiedanlefttpl[$jiedannum]}" >
+                        </div>
+                        <div class="col-md-7 col-md-offset-1">
+                            <input type="text" name="jiedanrighttpl[]" class="form-control" placeholder="填写内容" value="{$jiedanrighttpl[$jiedannum]}" >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button class=" btn btn-default jiedanaddtpl">添加</button> <!--<button class="btn btn-default col-md-offset-1 deltpl">删除</button>-->
+                    </div>
+                </div>
+                <div class="btn-block">
+                    <p>提示:[time]为时间,[name]为商家名字,[sn]为单号,[phone]为商家电话</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                完成订单通知
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">完成通知模板</label>
+                    <div class="col-md-7">
+                        <input type="text" name="succtplid" class="form-control" value="{$settings['succtplid']}" />
+                    </div>
+                    <!--<div class="col-md-3">-->
+                    <!--<button class=" btn btn-default addtpl">添加</button><button class="btn btn-default col-md-offset-1 deltpl">删除</button>-->
+                    <!--</div>-->
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-7">
+                        <div class="col-md-4 ">
+                            <input type="text" name="succlefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" value="{$succlefttpl[0]}" >
+                        </div>
+                        <div class="col-md-7 col-md-offset-1">
+                            <input type="text" name="succrighttpl[]" class="form-control" placeholder="填写内容" value="{$succrighttpl[0]}" >
+                        </div>
+                    </div>
+                </div>
+                {loop $succlefttpl $index $v}
+                {if $index>0&&$index<($succcount-1)}
+                <div class="form-group ls">
+                    <div class="col-md-offset-2 col-md-7">
+                        <div class="col-md-4 ">
+                            <input type="text" name="succlefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" value="{$succlefttpl[$index]}">
+                        </div>
+                        <div class="col-md-7 col-md-offset-1">
+                            <input type="text" name="succrighttpl[]" class="form-control" placeholder="填写内容" value="{$succrighttpl[$index]}" >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a href="javascript:;" onclick="deleteItem(this)" class="btn btn-default">删除</a>
+                    </div>
+                </div>
+                {/if}
+                {/loop}
+                <div id="succlast"></div>
+                <div class="form-group" >
+                    <div class="col-md-offset-2 col-md-7">
+                        <div class="col-md-4 ">
+                            <input type="text" name="succlefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" value="{$succlefttpl[$succnum]}" >
+                        </div>
+                        <div class="col-md-7 col-md-offset-1">
+                            <input type="text" name="succrighttpl[]" class="form-control" placeholder="填写内容" value="{$succrighttpl[$succnum]}" >
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button class=" btn btn-default succaddtpl">添加</button> <!--<button class="btn btn-default col-md-offset-1 deltpl">删除</button>-->
+                    </div>
+                </div>
+                <div class="btn-block">
+                    <p>提示:[time]为支付时间,[name]为用户姓名,[sname]为商家名字,[paytype]为支付方式,[money]为支付金额,[wxyj]为微信结算佣金</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                首页基本设置
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页标题</label>
+                    <div class="col-md-7">
+                        <input type="text" name="sytitle" class="form-control" value="{$settings['sytitle']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页图片</label>
+                    <div class="col-md-7">
+                        {php echo tpl_form_field_image('sypic', $settings['sypic'])}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">支付定金时的提示</label>
+                    <div class="col-md-5">
+                        <input type="text" name="djinfo" class="form-control" value="{$settings['djinfo']}" />
+                    </div>
+                    <div class="help-block">提示:[dingjin]为定金</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页分享标题</label>
+                    <div class="col-md-7">
+                        <input type="text" name="fxtitle" class="form-control" value="{$settings['fxtitle']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页分享描述</label>
+                    <div class="col-md-7">
+                        <input type="text" name="fxdes" class="form-control" value="{$settings['fxdes']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页分享图片</label>
+                    <div class="col-md-7">
+                        {php echo tpl_form_field_image('fxpic', $settings['fxpic'])}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                支付证书设置
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户号</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="merchant_id" value="{$settings['merchant_id']}" class="form-control">
+                        <span class="help-block">您的微信支付商户号, 开通微信支付才能获得商户号</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户支付密钥</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="api_secret" value="{$settings['api_secret']}" class="form-control">
+                        <span class="help-block">您的微信支付商户所使用的支付密钥, 开通微信支付才能获得商户号</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">商户支付证书{if $is_apiclient_cert}<span style='color:red'>(已上传)</span>{/if}</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <textarea class="form-control" name="cert" rows="8" placeholder="为保证安全性, 不显示证书内容. 若要修改, 请直接输入"></textarea>
+                        <span class="help-block">从商户平台上下载支付证书, 解压并取得其中的 <mark>apiclient_cert.pem</mark> 用记事本打开并复制文件内容, 填至此处</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">支付证书私钥{if $is_apiclient_key}<span style='color:red'>(已上传)</span>{/if}</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <textarea class="form-control" name="key" rows="8" placeholder="为保证安全性, 不显示证书内容. 若要修改, 请直接输入"></textarea>
+                        <span class="help-block">从商户平台上下载支付证书, 解压并取得其中的 <mark>apiclient_key.pem</mark> 用记事本打开并复制文件内容, 填至此处</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">支付根证书{if $is_rootca}<span style='color:red'>(已上传)</span>{/if}</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <textarea class="form-control" name="ca" rows="8" placeholder="为保证安全性, 不显示证书内容. 若要修改, 请直接输入"></textarea>
+                        <span class="help-block">从商户平台上下载支付证书, 解压并取得其中的 <mark>rootca.pem</mark> 用记事本打开并复制文件内容, 填至此处</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                资金设置
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">佣金比例</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="yjbl" value="{$settings['yjbl']}" class="form-control">
+                        <span class="help-block">提示:百分比</span>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">呼叫定金</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="hjdj" value="{$settings['hjdj']}" class="form-control">
+                        <span class="help-block">请输入数字金额,支持小数</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">提现资金限额</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="txxz" value="{$settings['txxz']}" class="form-control">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">提现手续费</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="sxmoney" value="{$settings['sxmoney']}" class="form-control">
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">提现说明</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <textarea id="txinfo" cols="5" name="txinfo" class="form-control weui_textarea">{$settings['txinfo']}</textarea>
+                        <span class="help-block"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">提现提交模板消息ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="txtjid" value="{$settings['txtjid']}" class="form-control">
+                        <span class="help-block">ID:TM00979,标题：提现提交通知</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">提现成功模板消息ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="txsuccid" value="{$settings['txsuccid']}" class="form-control">
+                        <span class="help-block">ID:TM00980,标题：提现成功通知</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">结算成功模板消息ID</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" name="jssuccid" value="{$settings['jssuccid']}" class="form-control">
+                        <span class="help-block">订单结算ID:OPENTM400059656 标题：订单结算通知</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="succclonett">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-7">
+                    <div class="col-md-4 ">
+                        <input type="text" name="succlefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" >
+                    </div>
+                    <div class="col-md-7 col-md-offset-1">
+                        <input type="text" name="succrighttpl[]" class="form-control" placeholder="填写内容" >
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <a href="javascript:;" onclick="deleteItem(this)" class="btn btn-default">删除</a>
+                </div>
+            </div>
+        </div>
+        <div id="jiedanclonett">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-7">
+                    <div class="col-md-4 ">
+                        <input type="text" name="jiedanlefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" >
+                    </div>
+                    <div class="col-md-7 col-md-offset-1">
+                        <input type="text" name="jiedanrighttpl[]" class="form-control" placeholder="填写内容" >
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <a href="javascript:;" onclick="deleteItem(this)" class="btn btn-default">删除</a>
+                </div>
+            </div>
+        </div>
+        <div id="clonett">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-7">
+                    <div class="col-md-4 ">
+                        <input type="text" name="lefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" >
+                    </div>
+                    <div class="col-md-7 col-md-offset-1">
+                        <input type="text" name="righttpl[]" class="form-control" placeholder="填写内容" >
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <a href="javascript:;" onclick="deleteItem(this)" class="btn btn-default">删除</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="shenheclonett">
+            <div class="form-group">
+
+                <div class="col-md-offset-2 col-md-7">
+                    <div class="col-md-4 ">
+                        <input type="text" name="shenhelefttpl[]" class="form-control" placeholder="{{name.DATA}}，填写name" >
+                    </div>
+                    <div class="col-md-7 col-md-offset-1">
+                        <input type="text" name="shenherighttpl[]" class="form-control" placeholder="填写内容" >
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <a href="javascript:;" onclick="deleteItem(this)" class="btn btn-default">删除</a>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-offset-2 col-sm-12">
+            <input name="submit" type="submit" value="保存设置" id="send" class="btn btn-primary span3">
+
+            <input type="hidden" name="token" value="{$_W['token']}" />
+        </div>
+    </form>
+</div>
+{template 'common/footer'}
+<script>
+    $(".panel-body").hide();
+    $("#clonett").hide();
+    $("#succclonett").hide();
+    $("#shenheclonett").hide();
+    $("#jiedanclonett").hide();
+    
+    function deleteItem(o) {
+        $(o).parent().parent().remove();
+    }
+    $(document).ready(function(){
+        $(".addtpl").on('click',function(){
+            $("#last").before($("#clonett").find(".form-group").clone());
+            return false;
+        });
+        $(".succaddtpl").on('click',function(){
+            $("#succlast").before($("#succclonett").find(".form-group").clone());
+            return false;
+        });
+        $(".shenheaddtpl").on('click',function(){
+            $("#shenhelast").before($("#shenheclonett").find(".form-group").clone());
+            return false;
+        });
+        $(".jiedanaddtpl").on('click',function(){
+            $("#jiedanlast").before($("#jiedanclonett").find(".form-group").clone());
+            return false;
+        });
+        $("#send").on('click',function(){
+            var $elements = $("input[name='lefttpl[]']");
+            var rightlen= $("input[name='righttpl[]']").length;
+            var leftlen = $elements.length;
+            var i=1;
+            var j=1;
+            var x=1;
+            var y=1
+            var succi=1;
+            var succj=1;
+            var succx=1;
+            var succy=1
+            var shenhei=1;
+            var shenhej=1;
+            var shenhex=1;
+            var shenhey=1;
+            var jiedani=1;
+            var jiedanj=1;
+            var jiedanx=1;
+            var jiedany=1;
+            var $succelements = $("input[name='succlefttpl[]']");
+            var succrightlen= $("input[name='succrighttpl[]']").length;
+            var succleftlen = $succelements.length;
+            var $shenheelements = $("input[name='shenhelefttpl[]']");
+            var shenherightlen= $("input[name='shenherighttpl[]']").length;
+            var shenheleftlen = $shenheelements.length;
+            var $jiedanelements = $("input[name='jiedanlefttpl[]']");
+            var jiedanrightlen= $("input[name='jiedanrighttpl[]']").length;
+            var jiedanleftlen = $jiedanelements.length;
+            $("input[name='lefttpl[]']").each(function(index,item){
+                if(index<(leftlen-1)){
+                    if(i!=j){
+                        return false;
+                    }
+                    j+=1;
+                    if($(this).val().trim()==''){
+                        $(this).focus();
+                        alert("左侧栏目请不要留空！");
+                    }else {
+                        i+=1;
+                    }
+                }
+            })
+            if(i!=j){
+                return false;
+            }
+            $("input[name='righttpl[]']").each(function(index,item){
+                if(index<(rightlen-1)){
+                    if(x!=y){
+                        return false;
+                    }
+                    y+=1;
+                    if($(this).val().trim()==''){
+                        $(this).focus();
+                        alert("右侧栏目请不要留空！");
+                    }else {
+                        x+=1;
+                    }
+                }
+            })
+            if(x!=y){
+                return false;
+            }
+//完成订单
+            $("input[name='succlefttpl[]']").each(function(index,item){
+                if(index<(succleftlen-1)){
+                    if(succi!=succj){
+                        return false;
+                    }
+                    succj+=1;
+                    if($(this).val().trim()==''){
+                        $(this).focus();
+                        alert("左侧栏目请不要留空！");
+                    }else {
+                        succi+=1;
+                    }
+                }
+            })
+            if(succi!=succj){
+                return false;
+            }
+            $("input[name='succrighttpl[]']").each(function(index,item){
+                if(index<(succrightlen-1)){
+                    if(succx!=succy){
+                        return false;
+                    }
+                    succy+=1;
+                    if($(this).val().trim()==''){
+                        $(this).focus();
+                        alert("右侧栏目请不要留空！");
+                    }else {
+                        succx+=1;
+                    }
+                }
+            })
+            if(succx!=succy){
+                return false;
+            }
+            //审核
+            $("input[name='shenhelefttpl[]']").each(function(index,item){
+                if(index<(shenheleftlen-1)){
+                    if(shenhei!=shenhej){
+                        return false;
+                    }
+                    shenhej+=1;
+                    if($(this).val().trim()==''){
+                        $(this).focus();
+                        alert("左侧栏目请不要留空！");
+                    }else {
+                        shenhei+=1;
+                    }
+                }
+            })
+            if(shenhei!=shenhej){
+                return false;
+            }
+            $("input[name='shenherighttpl[]']").each(function(index,item){
+                if(index<(shenherightlen-1)){
+                    if(shenhex!=shenhey){
+                        return false;
+                    }
+                    shenhey+=1;
+                    if($(this).val().trim()==''){
+                        $(this).focus();
+                        alert("右侧栏目请不要留空！");
+                    }else {
+                        shenhex+=1;
+                    }
+                }
+            })
+            if(shenhex!=shenhey){
+                return false;
+            }
+            //接单
+            $("input[name='jiedanlefttpl[]']").each(function(index,item){
+                if(index<(jiedanleftlen-1)){
+                    if(jiedani!=jiedanj){
+                        return false;
+                    }
+                    jiedanj+=1;
+                    if($(this).val().trim()==''){
+                        $(this).focus();
+                        alert("左侧栏目请不要留空！");
+                    }else {
+                        jiedani+=1;
+                    }
+                }
+            })
+            if(jiedani!=jiedanj){
+                return false;
+            }
+            $("input[name='jiedanrighttpl[]']").each(function(index,item){
+                if(index<(jiedanrightlen-1)){
+                    if(jiedanx!=jiedany){
+                        return false;
+                    }
+                    jiedany+=1;
+                    if($(this).val().trim()==''){
+                        $(this).focus();
+                        alert("右侧栏目请不要留空！");
+                    }else {
+                        jiedanx+=1;
+                    }
+                }
+            })
+            if(jiedanx!=jiedany){
+                return false;
+            }
+            //检测首页基本设置是否填写
+            var fxtitle = $("input[name='fxtitle']").val();
+            var fxdes = $("input[name='fxdes']").val();
+            var fxpic = $("input[name='fxpic']").val();
+            if($.trim(fxtitle)==''){
+                alert("请输入分享标题");
+                return false;
+            }
+            if($.trim(fxdes)==''){
+                alert("请填写分享描述");
+                return false;
+            }
+            if($.trim(fxpic)==''){
+                alert("请上传分享图片");
+                return false;
+            }
+            //检测资金设置是否填写正确
+            var hjdj = $("input[name='hjdj']");
+            var txxz = $("input[name='txxz']");
+            var yjbl = $("input[name='yjbl']");
+            var sxmoney = $("input[name='sxmoney']");
+           if(!checknum(hjdj,0.01)){
+
+               return false;
+           }
+
+            if(!checknum(txxz,1)){
+
+                return false;
+            }
+
+            if(!checknum(yjbl,0)){
+
+                return false;
+            }
+
+            if(!checknum(sxmoney,0)){
+
+                return false;
+            }
+
+
+        })
+//展开收缩
+        $(".panel-heading").each(function(){
+            $(this).click(function(){
+                var rr = $(this).parent().find(".panel-body");
+                if(rr.is(':hidden')){
+                    $(".panel-body").hide();
+                    rr.show(100);
+                    return false;
+                }else{
+                    rr.hide(100);
+                    return false;
+                }
+            })
+        })
+    })
+    function checknum(money,min){
+        var jine = money.val();
+     
+        if (isNaN(jine)||$.trim(jine)=='') {
+            money.parent().parent().parent().show();
+            money.focus();
+            alert("请输入数字");
+            return false;
+        }
+        if(jine<0){
+            money.parent().parent().parent().show();
+            money.focus();
+            alert("请输入大于0的数字")
+            return false;
+        }
+        var dot = jine.indexOf(".");
+        if(dot!=-1) {
+            var dotCnt = jine.substring(dot + 1, jine.length);
+            if (dotCnt.length > 2) {
+                money.parent().parent().parent().show();
+                money.focus();
+                alert("小数位已超过2位！");
+                return false;
+            }
+        }
+        if(jine<min){
+            money.parent().parent().parent().show();
+            money.focus();
+            alert("请输入大于"+min+"数值");
+            return false;
+        }
+        return true;
+    }
+</script>

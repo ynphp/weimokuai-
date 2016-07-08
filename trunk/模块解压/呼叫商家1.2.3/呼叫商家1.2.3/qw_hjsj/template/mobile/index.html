@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>{$set['sytitle']}</title>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/weui.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/jquery-weui.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/example.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/common.css"/>
+    <link rel="shortcut icon" href="/images/global/wechat.jpg" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <style>
+        .animated {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            -webkit-animation-iteration-count: 300000;
+            animation-iteration-count: 300000;
+        }
+        @-webkit-keyframes pulse {
+            0% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+            50% {
+                -webkit-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+            100% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+        @keyframes pulse {
+            0% {
+                -webkit-transform: scale(1);
+                -ms-transform: scale(1);
+                transform: scale(1);
+            }
+
+            50% {
+                -webkit-transform: scale(1.1);
+                -ms-transform: scale(1.1);
+                transform: scale(1.1);
+            }
+
+            100% {
+                -webkit-transform: scale(1);
+                -ms-transform: scale(1);
+                transform: scale(1);
+            }
+        }
+
+        .pulse {
+            -webkit-animation-name: pulse;
+            animation-name: pulse;
+        }
+        @-webkit-keyframes bounceOut{
+            20%{
+                -webkit-transform:scale3d(.9,.9,.9);
+                transform:scale3d(.9,.9,.9)
+            }
+            50%,55%{
+                opacity:1;
+                -webkit-transform:scale3d(1.1,1.1,1.1);
+                transform:scale3d(1.1,1.1,1.1)
+            }
+            100%{
+                opacity:0;
+                -webkit-transform:scale3d(.3,.3,.3);
+                transform:scale3d(.3,.3,.3)}
+        }
+        @keyframes bounceOut{
+            20%{
+                -webkit-transform:scale3d(.9,.9,.9);
+                transform:scale3d(.9,.9,.9)
+            }
+            50%,55%{
+                opacity:1;
+                -webkit-transform:scale3d(1.1,1.1,1.1);
+                transform:scale3d(1.1,1.1,1.1)
+            }
+            100%{
+                opacity:0;
+                -webkit-transform:scale3d(.3,.3,.3);
+                transform:scale3d(.3,.3,.3)}
+        }
+        .bounceOut{
+            -webkit-animation-name:bounceOut;
+            animation-name:bounceOut;
+            -webkit-animation-duration: 1.5s;
+            animation-duration: 1.5s;
+            -webkit-animation-iteration-count:1;
+        }
+        .recorder { visibility: hidden;}
+    </style>
+</head>
+<body ontouchstart>
+<div class="container">
+    <div class="weui_cells_title">
+        <div style="background: url('{php echo tomedia($set['sypic'])}') no-repeat;background-size: 100%;background-position: 50%;height:160px;border-radius:20px 0;"></div>
+    </div>
+    <div class="box">
+        <div class="go">
+            <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label"><img src="/addons/qw_hjsj/assets/img/user_icon.png" /></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="text" name="truename" placeholder="请输入您的姓名" value="{$lastorder['truename']}">
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label"><img src="/addons/qw_hjsj/assets/img/tel_icon.png" /></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="number" pattern="[0-9]*" name="phone" placeholder="请输入手机号码" value="{$lastorder['phone']}">
+                </div>
+            </div>
+            <div class="weui_cell">
+                <div class="weui_cell_hd"><label class="weui_label"><img src="/addons/qw_hjsj/assets/img/posi_icon.png" /></label></div>
+                <div class="weui_cell_bd weui_cell_primary">
+                    <input class="weui_input" type="text"  name="gpsaddress" placeholder="请输入您的地址" >
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="recorder_new">
+        <input type="image" src="/addons/qw_hjsj/assets/img/tele.png" id="tele" class="bofang" />
+            <img src="/addons/qw_hjsj/assets/img/btn.png" id="hj_btn" class="hj_btn" />
+            <p class="recordtext" style="display: none;"></p>
+        <audio class="recorder" src=""></audio>
+        <span class="bofangtext" style="display:none;"></span>
+        <input type="image" src="/addons/qw_hjsj/assets/img/submit.png" id="submit" />
+        <div class="clearFix"></div>
+    </div>
+</div>
+<div id="zhifu">
+    <h4>订单信息</h4>
+    <div class="panel">
+        <div class="clearfix" style="padding-top:10px;">
+            <p>商品名称 :<span class="pull-right otitle">{$params['title']}</span></p>
+            <p>订单编号 :<span class="pull-right ordersn" >{$params['ordersn']}</span></p>
+            <p>商家名称 :<span class="pull-right shangjia">{$_W['account']['name']}</span></p>
+            <p>支付金额 :<span class="pull-right jine">￥{php echo sprintf('%.2f', $params['fee']);} 元</span></p>
+
+        </div>
+    </div>
+    <div class="pay-btn" id="wechat-panel">
+        <form action="{php echo url('mc/cash/wechat');}" method="post">
+            <input type="hidden" name="params" value=""  />
+            <input type="hidden" name="token" value="{$_W['token']}" />
+            <button class="btn btn-success btn-block col-sm-12" disabled="disabled" type="submit" id="wBtn" value="wechat">微信支付(必须使用微信内置浏览器)</button>
+        </form>
+    </div>
+    <script type="text/javascript">
+        document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+            $('#wBtn').removeAttr('disabled');
+            $('#wBtn').html('微信支付');
+        });
+    </script>
+</div>
+<script src="/addons/qw_hjsj/assets/js/jquery-2.1.4.js"></script>
+<script src="/addons/qw_hjsj/assets/js/jquery-weui.js"></script>
+<script>
+    $(function(){
+        //$(".weui_input").focus();//输入框获得焦点
+        $('<audio id="chatAudio"><source src="http://www.helloweba.com/demo/notifysound/notify.ogg" type="audio/ogg"><source src="notify.mp3" type="http://www.helloweba.com/demo/notifysound/audio/mpeg"><source src="notify.wav" type="http://www.helloweba.com/demo/notifysound/audio/wav"></audio>').appendTo('body');//载入声音文件
+
+        $(".weui_input").focus(function(){
+            //$.alert("不响打你");
+            $("#chatAudio")[0].play(); //播放声音
+        });
+    });
+</script>
+<script>
+    $(function(){
+        $('<audio id="submitAudio"><source src="http://ftp.flash1890.com/audio2/shenghuo/20130925/2.mp3" type="audio/mp3"></audio>').appendTo('body');//载入声音文件
+    });
+</script>
+<script>
+    var i=0;//录音计次;
+    $(".hj_btn").mousedown(function(){
+        event.preventDefault();
+        var ttt = $(".hj_btn");
+        $(".bofang").attr('src','/addons/qw_hjsj/assets/img/tele.png').removeClass("animated pulse");
+        $("#submit").attr('src','/addons/qw_hjsj/assets/img/submit.png').removeClass("animated pulse");
+        if(ttt.hasClass("btnstop")){
+
+            ttt.attr('src','/addons/qw_hjsj/assets/img/btn.png').removeClass("btnstop");
+            //sub();
+            wx.stopRecord({
+                success: function (res) {
+                    var localId = res.localId;
+                    upload(localId);
+                    $(".bofang").show();
+                }
+            });
+            i++;
+            return false;
+        }else{
+            ttt.attr('src','/addons/qw_hjsj/assets/img/btn.gif').addClass("btnstop");
+
+            //开始录音
+            wx.startRecord();
+            //$(".bofang").hide();
+        }
+    })
+    function upload(ilocalid){
+        wx.uploadVoice({
+            localId: ilocalid,
+            isShowProgressTips: 1,
+            success: function(rest){
+
+                var serverId=rest.serverId;
+
+                //提交到后台
+
+                $(".recordtext").empty().text(serverId);
+                download(serverId);
+                return true;
+            }
+        })
+    }
+    function download(serverId){
+        wx.downloadVoice({
+            serverId: serverId,
+            isShowProgressTips: 1, // 默认为1，显示进度提示
+            success: function(resj){
+                var localId = resj.localId; // 返回音频的本地ID
+                $(".recorder").attr('src',localId);
+                $(".bofang").attr('src','/addons/qw_hjsj/assets/img/tele-l_icon.png');
+                $(".hj_btn").attr('src','/addons/qw_hjsj/assets/img/rebtn.png');
+                $("#submit").attr('src','/addons/qw_hjsj/assets/img/submit-l_icon.png');
+                $(".bofangtext").empty().text(localId);
+                return true;
+                //处理显示
+            }
+        })
+
+    }
+    $(".bofang").click(function(){
+        $(".bofang").attr('src','/addons/qw_hjsj/assets/img/tele-l_icon.png').addClass("animated pulse");
+
+        var localId=$(".bofangtext").text();
+        wx.playVoice({
+            localId: localId // 需要播放的音频的本地ID，由stopRecord接口获得
+        });
+        wx.onVoicePlayEnd({
+            success: function (res) {
+                $(".bofang").attr('src','/addons/qw_hjsj/assets/img/tele-l_icon.png').removeClass("animated pulse");
+                $("#submit").attr('src','/addons/qw_hjsj/assets/img/submit-l_icon.png').addClass("animated pulse");
+            }
+        });
+
+    })
+
+    $("#submit").click(function() {
+            var truename = $("input[name='truename']").val();
+            var phone = $("input[name='phone']").val();
+            var gpsaddress = $("input[name='gpsaddress']").val();
+            var uploadsrc = $(".recordtext").text();
+            var localsrc =$(".bofangtext").text();
+
+            //判断数字
+            if(uploadsrc==""){
+                $.alert("请呼叫录音上提交");
+                return false;
+            }
+            if($.trim(truename)==''){
+                $.alert("请输入您的姓名");
+                return false;
+            }
+            if(phone.length==0)
+            {
+                $.alert('请输入手机号码！');
+                return false;
+            }
+            if(phone.length!=11)
+            {
+                $.alert('请输入有效的手机号码！');
+                return false;
+            }
+            var myreg = /^1[3|4|5|8|7][0-9]\d{4,8}$/;
+            if(!myreg.test(phone))
+            {
+                $.alert('请输入有效的手机号！');
+                return false;
+            }
+
+        //30s提交
+        var jietime="{$jietime}";
+        var nowtime = $.now().toString();
+        nowtime=nowtime.substr(0,10);
+        if((nowtime-jietime)<30){
+            $.alert("请不要频繁提交,30s再提交");
+            return false;
+        }
+        $.showLoading();
+        setTimeout(function() {
+            $.hideLoading();
+        }, 6000)
+            var Url = "{php echo $this->createMobileurl('jie')}";
+            var vdata = {truename:truename,phone:phone,gpsaddress:gpsaddress,uploadsrc:uploadsrc,localsrc:localsrc};
+            $.post(Url,vdata,function(data){
+                var data = $.parseJSON(data);
+                if(data.error==1){
+//
+//                    $("#submitAudio")[0].play();
+//                    setTimeout(function() {
+//                        var purl = "{php echo $this->createMobileurl('p_center')}";
+//                        window.location.href=purl;
+//                        }, 3000);
+                    var djinfo = "{$djinfo}";
+                    var r = $.confirm(djinfo,"确认", function() {
+                        $.showLoading();
+                        setTimeout(function() {
+                            $.hideLoading();
+                        }, 3000)
+                        var hid=data.hid;
+                        var Durl= "{php echo $this->createMobileurl('index')}";
+                        var Ddata = {hid:hid,fee:0.01};
+                        $.post(Durl,Ddata,function (msg) {
+                            var msg = $.parseJSON(msg);
+                            if(msg.error=="1"){
+                                var result = msg.arr;
+                                $("#shouye").hide(1000);
+                                $(".otitle").empty().append(result.xq);
+                                $(".ordersn").empty().append(result.ordersn);
+                                $(".shangjia").empty().append(result.title);
+                                $(".jine").empty().append(result.fee);
+                                $("input[name='params']").val(msg.params);
+                                $("#wBtn").click();
+                            }else{
+                                alert(msg.message);
+                            }
+                        })
+                    }, function() {
+                        //取消操作
+                    });
+
+                }else{
+                    alert(data.message);
+                }
+
+            });
+            //$(document).on("click", "#submit", function() {
+//                $(".go").addClass("animated bounceOut");
+//
+//                setTimeout(function() {
+//                    $.toast("您已呼叫成功,请等待商家联系");
+//                 },1000)
+
+
+
+
+        });
+
+
+
+
+</script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6mLUAH03gAY3BakwXgn9Mryy"></script>
+{php echo register_jssdk(false);}
+<script type="text/javascript">
+    $("#zhifu").hide();
+    //定义一些常量
+    var x_PI = 3.14159265358979324 * 3000.0 / 180.0;
+    var PI = 3.1415926535897932384626;
+    var a = 6378245.0;
+    var ee = 0.00669342162296594323;
+    function gcj02tobd09(lng, lat) {
+        var z = Math.sqrt(lng * lng + lat * lat) + 0.00002 * Math.sin(lat * x_PI);
+        var theta = Math.atan2(lat, lng) + 0.000003 * Math.cos(lng * x_PI);
+        var bd_lng = z * Math.cos(theta) + 0.0065;
+        var bd_lat = z * Math.sin(theta) + 0.006;
+        return [bd_lng, bd_lat]
+    }
+    var host = window.location.host;
+    var uniacid = "{$uniacid}";
+    var fxtitle = "{$fxtitle}";
+    var fxdes = "{$fxdes}";
+    var fxpic = "{$fxpic}";
+    wx.ready(function () {
+        var link = "http://"+host+"/app/index.php?i="+uniacid+"&c=entry&do=index&m=qw_hjsj";
+        var shareData = {
+            title: fxtitle,
+            desc: fxdes,
+            link: link,
+            imgUrl: fxpic,
+        };
+//分享朋友
+        wx.onMenuShareAppMessage({
+            title: shareData.title,
+            desc: shareData.desc,
+            link: shareData.link,
+            imgUrl:shareData.imgUrl,
+            trigger: function (res) {
+            },
+            success: function (res) {
+                //  window.location.href =adurl;
+
+                // $.alert("fenxiangchenggong");
+
+            },
+            cancel: function (res) {
+            },
+            fail: function (res) {
+                // $.alert(JSON.stringify(res));
+            }
+        });
+        //朋友圈
+        wx.onMenuShareTimeline({
+            title: shareData.title+"---"+shareData.desc,
+            link: shareData.link,
+            imgUrl:shareData.imgUrl,
+            trigger: function (res) {
+            },
+            success: function (res) {
+                // window.location.href =adurl;
+                // $.alert("fenxiangchenggong");
+            },
+            cancel: function (res) {
+            },
+            fail: function (res) {
+                //$.alert(JSON.stringify(res));
+            }
+        });
+        //QQ
+        wx.onMenuShareQQ({
+            title: shareData.title+"---"+shareData.desc,
+            link: shareData.link,
+            imgUrl:shareData.imgUrl,
+            trigger: function (res) {
+            },
+            success: function (res) {
+                // window.location.href =adurl;
+                $.alert("fenxiangchenggong");
+            },
+            cancel: function (res) {
+            },
+            fail: function (res) {
+                //$.alert(JSON.stringify(res));
+            }
+        });
+        //QQ空间
+        wx.onMenuShareQZone({
+            title: shareData.title+"---"+shareData.desc,
+            link: shareData.link,
+            imgUrl:shareData.imgUrl,
+            trigger: function (res) {
+            },
+
+            success: function (res) {
+                // window.location.href =adurl;
+                //$.alert("fenxiangchenggong");
+            },
+            cancel: function (res) {
+            },
+            fail: function (res) {
+                //$.alert(JSON.stringify(res));
+            }
+        });
+        wx.getLocation({
+            type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: function (res) {
+                var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                var speed = res.speed; // 速度，以米/每秒计
+                var accuracy = res.accuracy; // 位置精度
+                var jingzhun = gcj02tobd09(longitude,latitude);
+                longitude = jingzhun[0];
+                latitude = jingzhun[1];
+                var map = new BMap.Map("allmap");
+                var point = new BMap.Point(longitude,latitude);
+                var gc = new BMap.Geocoder();
+                gc.getLocation(point, function(rs){
+                    var addComp = rs.addressComponents;
+                    //$.alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+                    var address = addComp.district+addComp.street+addComp.streetNumber;
+                    $("input[name='gpsaddress']").val(address);
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

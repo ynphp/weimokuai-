@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>呼叫商家-收款</title>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/weui.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/jquery-weui.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/example.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/common.css"/>
+    <link rel="shortcut icon" href="/images/global/wechat.jpg" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+</head>
+<body ontouchstart>
+<style>
+    body { background-color: white;color:#323232;background-image: none;}
+    .success_q { display: none;text-align: center;}
+</style>
+<div class="container">
+    <div class="pull-right right"><a href="/app/index.php?i=20&c=entry&do=m_center&m=qw_hjsj"><img src="/addons/qw_hjsj/assets/img/home_back.png" /></a> </div>
+<div class="p_pay margin-50">
+    <input class="weui_input p_num" type="number" name="money" placeholder="请输入金额（元）" />
+    <a href="javascript:;" id="show-toast" class="weui_btn weui_btn_primary p_btn" style="background-color: #78D8FF;border-radius:20px;">现金支付</a>
+    <a href="javascript:;" class="weui_btn weui_btn_primary p_btn p_sao" style="background-color: #78D8FF;border-radius:20px;">扫码支付</a>
+    <p class="hjid" style="display: none;">{$idd}</p> <p class="sid" style="display: none">{$sid}</p>
+</div>
+    <div class="padding-10 success_q">
+        <h3 class="text-center p_sao_t">￥1000</h3>
+        <img src="http://qr.topscan.com/api.php?text=sdf" class="code" />
+    </div>
+</div>
+<script src="/addons/qw_hjsj/assets/js/jquery-2.1.4.js"></script>
+<script src="/addons/qw_hjsj/assets/js/jquery-weui.js"></script>
+<script>
+    $(document).on("click", "#show-toast", function() {
+
+        var money = $("input[name='money']").val();
+        //检测输入金额是否正确
+        if(money==''){
+            $.alert("请输入金额");
+            return false;
+        }else{
+            var dot = money.indexOf(".");
+            if(dot != -1){
+                var dotCnt = money.substring(dot+1,money.length);
+                if(dotCnt.length > 2){
+                    $.alert("小数位已超过2位！");
+                    return false;
+                }
+            }
+        }
+        if(money<=0){
+            $.alert("请输入大于0的金额");
+            return false;
+        }
+        var idd= $(".hjid").text();
+        var sid = $(".sid").text();
+
+
+        var Url = "{php echo $this->createMobileurl('cash')}";
+
+        var vdata = {idd:idd,sid:sid,money:money};
+        $.post(Url,vdata,function(data){
+
+            var data = $.parseJSON(data);
+
+            if(data.error==1){
+
+                //支付成功
+                $.confirm("您已支付成功,是否跳转到订单列表?","温馨提示",function(){
+                    var surl = "{php echo $this->createMobileurl('m_center')}";
+                    window.location.href=surl;
+                },function(){
+
+                    $.alert('你点击取消');
+                });
+
+            }else{
+
+                $.alert(data.message);
+            }
+
+        })
+
+
+        //$.toast("操作成功");
+    });
+    $(document).on("click", ".p_sao", function() {
+        var money = $("input[name='money']").val();
+        //检测输入金额是否正确
+        if(money==''){
+
+            return false;
+        }else{
+            var dot = money.indexOf(".");
+            if(dot != -1){
+                var dotCnt = money.substring(dot+1,money.length);
+                if(dotCnt.length > 2){
+                    $.alert("小数位已超过2位！");
+                    return false;
+                }
+            }
+        }
+        if(money<=0){
+            $.alert("请输入大于0的金额");
+            return false;
+        }
+        var idd= $(".hjid").text();
+        var sid = $(".sid").text();
+        var liantu="http://qr.topscan.com/api.php?text=";
+      //拼接支付url
+        var host = window.location.host;
+        var payurl="http://"+host+"/app/index.php?i="+{php echo $uniacid}+"%26c=entry%26idd="+idd+"%26sid="+sid+"%26money="+money+"%26do=pay%26m=qw_hjsj";
+        var vhtml='<h3 class="text-center p_sao_t">￥'+money+'</h3><img src="'+liantu+payurl+'" class="code" />';
+        $(".code").parent().empty().append(vhtml);
+        $(".success_q").show();
+    });
+</script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6mLUAH03gAY3BakwXgn9Mryy"></script>
+</body>
+</html>
+{php echo register_jssdk(false);}

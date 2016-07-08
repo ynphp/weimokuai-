@@ -1,0 +1,123 @@
+body { background: url("/addons/qw_hjsj/assets/img/bg.png") 50% 0 no-repeat;background-size:cover;color:#fff;font-family: "Microsoft YaHei";}
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { font-family: "Microsoft YaHei";color: #fff;font-size: 14px;}
+.fixedTop{ top:0;position: fixed;background-color: #e6e6e6;width:100%;z-index: 2000;}
+a.detaildingdan { color:#EF4F4F;}
+.red { color:#ff6d1e;}
+.big_font { font-size:200%;}
+.tixian { border-top:10px solid #e6e6e6;}
+.border-bottom-1 { border-bottom: 1px solid #e6e6e6;}
+#tabs { width:100%;background-color: #33c3ff;height:50px;list-style: none;}
+#tabs li { width:50%;float:left;text-align: center;}
+#tabs li a { color:white;line-height: 50px;display: block;}
+#current { background-color: #24aee7;}
+.clearFix { clear:both;}
+.pull-left { float:left;}
+.pull-right { float:right;}
+.btn_group { margin:20px 50px;}
+.btn_group img{ width:80px;}
+.margin-50 { margin-top: 50px;}
+.padding-bottom { padding-bottom:50px;}
+.padding-10 { padding:0 10px;}
+.padding-10-10 { padding:10px;}
+.text-padding { padding:10px 0;}
+.border-bottom { border-bottom: 1px solid #e6e6e6;}
+.text-color { color:#646464;line-height: 2;}
+.star { width:100%;}
+.text-center { text-align: center;}
+.text-right { text-align: right;}
+.hj { width:100%;text-align: center;}
+.hj img { width:60%;margin:10px auto;}
+.lala { margin:20px 10px;}
+.weui_label { width:35px;}
+.weui_cells_title { font-size: inherit;padding:5% 30px 15px;min-height:170px;margin-top:0;}
+.weui_cells_title img { max-height:160px;border-radius:20px 0;}
+.weui_cell { padding:5px 15px;}
+.weui_label img { width:20px;}
+.weui_toast { color:#33c3ff;background-color: transparent;}
+.weui_icon_toast:before { color:#33c3ff;}
+.weui_input { color:white;border-bottom:1px solid white;}
+.weui_tabbar_item { background-color: white;color:#646464;}
+.weui_bar_item_on { background-color: #33c3ff;}
+.weui_navbar_item { color:white;background-color: #33c3ff;}
+.weui_navbar_item.weui_bar_item_on { background-color: #24aee7;color:white;}
+.weui_navbar_item:after { border:none;}
+.weui_tabbar { height:49px;position: fixed;}
+.weui_tabbar_item.weui_bar_item_on .weui_tabbar_label { color:white;}
+.weui_tabbar_icon + .weui_tabbar_label { margin-top:0;}
+.weui_tabbar_icon img { width:110%;height:auto;}
+.box { margin:0 10px; padding: 5px 15%; }
+.box img { width:20px;vertical-align: middle;}
+.recorder_new { margin-top:32%;text-align: center;}
+.hj_btn { width:30%;vertical-align: middle;/*pointer-events: none; */}
+#tele,#submit { width:40px;vertical-align: middle;margin:0 40px;}
+.low { opacity: 0.2;}
+.weui_btn { line-height: 2;}
+.weui_toast { top:100px;margin-left:0;left:10%;width:80%;}
+.weui_cells:after { border:none;}
+.weui_media_box:before { width:92%;}
+.weui_media_box .weui_media_desc { line-height: 1.5;}
+.weui_cell:before { border:none;width: auto;}
+.weui_btn_plain_primary { color: #33c3ff; border: 1px solid #14a9ff;}
+.m_pic { width:80px;height:80px;margin-right:5px;display:block}
+.p_center { width:30px;}
+.weui_toast { top:100px;margin-left:0;left:10%;width:80%;}
+.weui_dialog_title { color:#888;}
+.p_top { height: 40px; border-bottom: 10px solid #e6e6e6; text-align: center; line-height: 50px;}
+.p_top img { width:25px;}
+.icon_g { width:25px; vertical-align: bottom;margin-right:10px;}
+.left { position: absolute;top:5px;left:10px;}
+.right { position: fixed;bottom:30px;right:10px;background: rgba(51, 195, 255, 0.53);border-radius:100%;width:50px;height:50px;line-height: 65px;text-align: center;z-index:2000;}
+.right img { width:30px;}
+.border-top-bottom { border-top:1px solid #f7f6f6;border-bottom:10px solid #f7f6f6;}
+.voice { height:50px;}
+.success { margin:0 auto;width:80%;}
+.paiing { color:#EF4F4F;}
+.p_pay { padding:20px 10%;}
+.p_num { border:1px solid #e6e6e6;padding:10px;border-radius:20px;margin-bottom:10px;text-align: center;width:93%;color:#646464;}
+.p_btn { border-radius:20px;padding:5px;}
+.p_sao_t { border-bottom: 1px dotted #e6e6e6;width:30%;margin:10px auto;}
+.code { margin:0 auto;width:60%;}
+.weui_msg { padding-top:50px;}
+
+/* all sign style */
+.ratyli .rate{color: #ccc; font-size: 24px;}
+
+/* empty sign style */
+.ratyli .rate-empty{color: #666;}
+
+/* full sign style after rating*/
+.ratyli.rated .rate-full{color: #fe5845;}
+
+/* active signs (hover)*/
+.ratyli .rate-active{color: #a94039;}
+
+.messagesMain { width: 94%; padding-bottom: 10px; padding-top: 0; margin: 0 3%; }
+
+.messagesMain .messageMore { width: 100%; display: table; }
+.messagesMain .messageList { width: 100%; margin-bottom: 20px; display: table; }
+
+.messagesMain .messageList .messageItem { width: 100%; display: table; }
+
+.messagesMain .messageList .messageItem .messageTime { width: 100%; display: table; margin: 15px 0; text-align: center; }
+
+.messagesMain .messageList .messageItem .messageTime.empty { margin: 8px 0; }
+
+.messagesMain .messageList .messageItem .messageTime span { border-radius: 10px; padding: 2px 10px; background-color: #D1D1D1; color: #FFF; font-size: 12px; }
+
+.messagesMain .messageList .messageItem .messageTime.empty span { display: none; }
+
+.messagesMain .messageList .messageItem .messager { float: left; width: 50px; height: 50px; margin: 0 5px; border-radius: 3px; }
+
+.messagesMain .messageList .messageItem.self .messager { float: right; }
+
+.messagesMain .messageList .messageItem .messager img { width: 100%; height: 100%; border-radius: 3px; border: none; }
+
+.messagesMain .messageList .messageItem .tail { float: left; height: 10px; width: 20px; margin: 20px -10px 0 0; background-image: url("../img/messageTail.png"); background-repeat: no-repeat; background-size: 100%; }
+
+.messagesMain .messageList .messageItem .content { position: relative; float: left; font-size: 15px; max-width: 58%; line-height: 20px; border-radius: 10px; background-color: transparent; word-break: break-word; }
+
+.messagesMain .messageList .messageItem .content a { color: #6388d4; text-decoration: underline; }
+
+.messagesMain .messageList .messageItem.self .content { float: right; background-color: #00bc9d; }
+
+.messagesMain .messageList .messageItem .content img.emoji { width: 20px; height: 20px; vertical-align: middle; margin-top: -2px; margin-left: 1px; margin-right: 1px; }

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>呼叫商家-商家抢单</title>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/weui.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/jquery-weui.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/example.css"/>
+    <link rel="stylesheet" href="/addons/qw_hjsj/assets/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="/addons/qw_hjsj/assets/css/star-rating-svg.css">
+    <link rel="shortcut icon" href="/images/global/wechat.jpg" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+</head>
+<body ontouchstart>
+<style>
+    body { background-color: white;color:#323232;background-image: none;}
+    .success_q { display: none;text-align: center;}
+    .weui_cells:before { border:none;}
+</style>
+<div class="container">
+
+            <div class="right"><a href="/app/index.php?i=20&c=entry&do=m_center&m=qw_hjsj"><img src="/addons/qw_hjsj/assets/img/m_center.png" /></a> </div>
+            <p class="idd" style="display: none" >{$hxq['id']}</p>
+
+    <div class="weui_cells">
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p><label><img src="/addons/qw_hjsj/assets/img/posi_gray.png" class="icon_g" />客户位置：</label>{$hxq['gpsaddress']}</p>
+            </div>
+        </div>
+    </div>
+    <div class="messagesMain">
+        <div class="messageList">
+            <div class="messageItem text">
+                <div class="messageTime">
+                    <span>{php echo date('Y-m-d H:i:s',$hxq['addtime'])}</span>
+                </div>
+                <div class="messager">
+                    <img src="{$hxq['avatar']}" class="avatar" />
+                </div>
+                <div class="content"><img src="/addons/qw_hjsj/assets/img/voice.png" class="voice" />
+                <p class="uploadsrc" style="display:none;">{$hxq['uploadsrc']}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="padding-10 success_q">
+        <img src="/addons/qw_hjsj/assets/img/success_q.png" class="success" />
+        <a href="javascript:;" class="weui_btn weui_btn_primary open-popup" data-target="#about" style="background-color: #78D8FF;border-radius:20px;padding:2px;width:90%;">获取联系方式</a>
+    </div>
+    <div class="padding-10">
+        <a href="javascript:;" class="weui_btn weui_btn_primary q sqiang" style="background-color: #78D8FF;border-radius:20px;padding:2px;width:90%;">抢单</a>
+    </div>
+</div>
+
+
+
+<div id="about" class="weui-popup-container">
+    <div class="weui-popup-modal">
+
+
+        <article class="weui_article">
+            <h1 class="text-center">联系方式</h1>
+            <section class="margin-50">
+
+                {if $qiang==1}
+
+
+                <div class="contact">
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>联系人</p>
+                        </div>
+                        <div class="weui_cell_ft succname">{$hxq['truename']}</div>
+                    </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>手机号</p>
+                        </div>
+                        <div class="weui_cell_ft succphone"><a href="tel://{hxq['phone']}" style="color: #33c3ff;">{$hxq['phone']}</a> </div>
+                    </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>收货地址</p>
+                        </div>
+                        <div class="weui_cell_ft succaddress">{$hxq['gpsaddress']}</div>
+                    </div>
+                </div>
+
+                {else}
+
+
+                <div class="contact">
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>联系人</p>
+                        </div>
+                        <div class="weui_cell_ft succname">六爷</div>
+                    </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>手机号</p>
+                        </div>
+                        <div class="weui_cell_ft succphone"><a href="" style="color: #33c3ff;">18615254****</a> </div>
+                    </div>
+                    <div class="weui_cell">
+                        <div class="weui_cell_bd weui_cell_primary">
+                            <p>收货地址</p>
+                        </div>
+                        <div class="weui_cell_ft succaddress">济南市历下区舜泰广场</div>
+                    </div>
+                </div>
+                {/if}
+            </section>
+                <section class="margin-50">
+                    <a href="javascript:;" class="weui_btn weui_btn_plain_primary close-popup">关闭</a>
+                </section>
+        </article>
+    </div>
+</div>
+<script src="/addons/qw_hjsj/assets/js/jquery-2.1.4.js"></script>
+<script src="/addons/qw_hjsj/assets/js/jquery-weui.js"></script>
+{php echo register_jssdk(false);}
+<script>
+    $(".voice").click(function() {
+        $(".voice").attr("src", "/addons/qw_hjsj/assets/img/voice_play.gif");
+        var serverId = $(".uploadsrc").text();
+        wx.ready(function () {
+            wx.downloadVoice({
+                serverId: serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                isShowProgressTips: 0, // 默认为1，显示进度提示
+                success: function (res) {
+                    var localId = res.localId; // 返回音频的本地ID
+
+                    wx.playVoice({
+                        localId: localId // 需要播放的音频的本地ID，由stopRecord接口获得
+                    })
+                    wx.onVoicePlayEnd({
+                        success: function (res) {
+                            $(".voice").attr('src','/addons/qw_hjsj/assets/img/voice.png');
+                        }
+                    });
+                }
+            });
+        })
+    })
+</script>
+
+<script>
+
+    $(document).ready(function(){
+
+        var qiang = "{php echo $qiang}";
+        if(qiang==1){
+
+            $(".sqiang").hide();
+            $(".success_q").show();
+
+        }
+
+    $(".sqiang").click(function(){
+        var idd = $(".idd").text();
+        var Url = "{php echo $this->createMobileurl('m_qiang')}";
+        var vdata = {idd:idd};
+        $.post(Url,vdata,function(data){
+            var data = $.parseJSON(data);
+            if(data.error==1){
+                $(".succname").text(data.result.truename);
+                $(".succphone").find('a').text(data.result.phone).attr('href','tel://'+data.result.phone);
+                $(".succaddress").text(data.result.gpsaddress);
+                $(".success_q").show();
+                $(".q").hide();
+            }else{
+                alert(data.message);
+            }
+        })
+    })
+    })
+</script>
+
+
+</body>
+</html>
