@@ -1,0 +1,127 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#">管理参与者</a></li>
+</ul>
+<script>
+require(['bootstrap'],function($){
+	$('.btn,.tips').hover(function(){
+		$(this).tooltip('show');
+	},function(){
+		$(this).tooltip('hide');
+	});
+});
+</script>
+<style>
+.tl span{color:#999;}
+</style>
+<div class="main">
+  <form action="" class="form-horizontal form">
+    <div class="panel panel-default">
+      <div class="panel-heading"> {$item['title']} </div>
+      <div class="panel-body tl">
+        <div class="form-group ">
+          <div class="col-sm-6 col-xs-6"> <span>报名时间：</span> {php echo date('Y-m-d',$item['joinstarttime'])} 至 {php echo date('m-d',$item['joinendtime'])} </div>
+          <div class="col-sm-6 col-xs-6"> <span>活动举行时间：</span> {php echo date('Y-m-d',$item['starttime'])} 至 {php echo date('m-d',$item['endtime'])} </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-6 col-xs-6"> <span>报名人数：</span> {if empty($item['applicants'])}不限{else}{$item['applicants']}{/if} </div>
+          <div class="col-sm-6 col-xs-6"> <span>入选人数：</span> {if empty($item['quota'])}不限{else}{$item['quota']}{/if} </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-6 col-xs-6"> <span>可参与对象：</span> {if $item['usertype']==-1}<span class="label label-default">所有人</span>{elseif $item['usertype']==0}<span class="label label-info">普通粉丝</span>{else}<span class="label label-warning">摄影师</span>{/if} </div>
+          <div class="col-sm-6 col-xs-6"> <span>报名情况：</span> {php echo $count1} / {php echo count($list)} </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="category">
+    <form action="" method="post" onsubmit="return formcheck(this)">
+      <div class="panel panel-default">
+        <div class="panel-body table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th style="width:50px">#</th>
+                <th>微信昵称</th>
+                <th>昵称</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>电话</th>
+                <th>报名时间</th>
+                {loop $field $row}
+                <th>{$row}</th>
+                {/loop}
+                <th>状态</th>
+                <th style="text-align:right">操作</th>
+              </tr>
+            </thead>
+            <tbody>
+            
+            {php $i=1;}
+            {loop $list $row}
+            {php $profile=mc_fetch($row['from_user'],array('mobile','realname','nickname','gender','birthyear',));}
+            <tr>
+              <td>{php echo $i}</td>
+              <td>{php echo pdo_fetchcolumn("SELECT nickname FROM ".tablename('mc_mapping_fans')." WHERE openid='".$row['from_user']."'")}</td>
+              <td>{$profile['nickname']}</td>
+              <td>{$row['realname']}</td>
+              <td>{if $row['gender']==1}<span class="label label-danger">先生</span>{else}<span class="label label-success">女士</span>{/if}</td>
+              <td>{$row['mobile']}</td>
+              <td>{php echo date("m-d H:i",$row['createtime'])}</td>
+              {php $p=json_decode($row['parama'],true);}
+              {php foreach($parama as $index=>$val){ }
+              <td> {if $val==1}
+                {php echo $p[$index]}
+                {else} <img src="{php echo $p[$index]}" width="80" height="80" ordernum="{php echo $i}" class="viewimg tips" style="cursor:pointer" data-toggle="tooltip" data-placement="bottom" title="点击放大" onerror="this.src='./resource/images/nopic-small.jpg'"/> {/if} </td>
+              {php }}
+              <td>{if $row['status']==-1}<span class="label label-default">落选</span>{elseif $row['status']==0}{elseif $row['status']==1}<span class="label label-default">待审核</span>{else}<span class="label label-success">入选</span>{/if}</td>
+              <td style="text-align:right"><a href="{php echo $this->createWebUrl('joiner', array('op' => 'in', 'uid' => $row['id'],'id' => $rid))}" onclick="return confirm('确认让其入选本次活动吗？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="入选"><i class="fa fa-thumbs-o-up"></i></a>&nbsp;&nbsp; <a href="{php echo $this->createWebUrl('joiner', array('op' => 'out', 'uid' => $row['id'],'id' => $rid))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="落选"><i class="fa fa-thumbs-o-down"></i></a>&nbsp;&nbsp; <a href="{php echo $this->createWebUrl('joiner', array('op' => 'delete', 'uid' => $row['id'],'id' => $rid))}" onclick="return confirm('确认删除吗，删除后，客户可以重新报名？');return false;" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除,重新报名"><i class="fa fa-times"></i></a></td>
+            </tr>
+            {php $i++}
+            {/loop}
+              </tbody>
+            
+          </table>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="2%" id="btn_up"><i class="fa fa-angle-left"></i>&nbsp;</td>
+            <td><img src=""  style="width:100%" id="showImg"/></td>
+            <td width="2%" id="btn_down" align="right">&nbsp;<i class="fa fa-angle-right"></i></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+$('.viewimg').click(function(){
+	src=$(this).attr("src");
+	ordernum=$(this).attr("ordernum");
+	$("#showImg").attr("src",src).attr("ordernum",ordernum);
+	$("#myModal").modal("show");
+});
+$("#btn_up").on('click',function(){
+	ordernum=parseInt($("#showImg").attr("ordernum"));
+	ordernum--;
+	src=$(".viewimg[ordernum='"+ordernum+"']").attr("src");
+	if(!src)return false;
+	$("#showImg").attr("src",src).attr("ordernum",ordernum);
+})
+$("#btn_down").on('click',function(){
+	ordernum=parseInt($("#showImg").attr("ordernum"));
+	ordernum++;
+	src=$(".viewimg[ordernum='"+ordernum+"']").attr("src");
+	if(!src)return false;
+	$("#showImg").attr("src",src).attr("ordernum",ordernum);
+})
+</script> 
+{template 'common/footer'} 

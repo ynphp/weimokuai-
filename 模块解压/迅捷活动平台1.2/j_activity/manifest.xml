@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[捷迅活动中心]]></name>
+		<identifie><![CDATA[j_activity]]></identifie>
+		<version><![CDATA[1.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[用于活动的报名，通知，介绍等]]></ability>
+		<description><![CDATA[用于活动的报名，通知，介绍等]]></description>
+		<author><![CDATA[柒|柒|源|码]]></author>
+		<url><![CDATA[http://H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+	<cover>
+			<entry title="活动列表" do="list" state="" direct="false" />
+
+		</cover>
+	<rule>
+		    <entry title="活动管理" do="joiner" state="" />
+		</rule>
+		<home call="getItemTiles">
+		
+		<entry title="精彩活动" do="info" state="" direct="false" />
+		</home>
+		<profile>
+			<entry title="活动记录" do="history" state="" direct="false" />
+		</profile>
+	</bindings>
+	<install><![CDATA[DROP TABLE IF EXISTS ims_j_activity_reply;
+CREATE TABLE `ims_j_activity_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `weid` int(10) DEFAULT '0',
+  `fid` int(10) DEFAULT '0' COMMENT '外链接ID',
+  `picture` varchar(200) NOT NULL COMMENT '活动图片',
+  `qrcode` varchar(200) NOT NULL DEFAULT '' COMMENT '二维码',
+  `clientpic` varchar(200) NOT NULL COMMENT '转发图片',
+  `title` varchar(100) NOT NULL COMMENT '活动标题',
+  `description` varchar(100) NOT NULL COMMENT '转发介绍',
+  `info` varchar(2000) NOT NULL COMMENT '活动介绍',
+  `rule` text NOT NULL COMMENT '规则描述',
+  `content` text NOT NULL COMMENT '活动完成介绍',
+  `applicants` int(10) NOT NULL DEFAULT '0' COMMENT '报名名额',
+  `quota` int(10) NOT NULL DEFAULT '0' COMMENT '名额',
+  `joinstarttime` int(10) unsigned NOT NULL COMMENT '报名开始时间',
+  `joinendtime` int(10) unsigned NOT NULL COMMENT '报名结束时间',
+  `starttime` int(10) unsigned NOT NULL COMMENT '活动开始时间',
+  `endtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '活动结束时间',
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `appendcode` varchar(10) NOT NULL DEFAULT '',
+  `usertype` tinyint(1) NOT NULL DEFAULT '-1' COMMENT '会员组要求，-1不要求，0只允许普通粉丝，1只允许高级粉丝',
+  `credit_join` int(10) NOT NULL DEFAULT '0' COMMENT '报名送积分',
+  `credit_in` int(10) NOT NULL DEFAULT '0' COMMENT '入选积分',
+  `credit_append` int(10) NOT NULL DEFAULT '0' COMMENT '签到积分',
+  `parama` varchar(1000) NOT NULL COMMENT '参数',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+DROP TABLE IF EXISTS ims_j_activity_winner;
+CREATE TABLE `ims_j_activity_winner` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `aid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL COMMENT '用户唯一身份ID',
+  `openid` varchar(50) NOT NULL COMMENT '借用身份',
+  `mobile` varchar(20) NOT NULL,
+  `nickname` varchar(50) NOT NULL,
+  `gender` smallint(1) NOT NULL DEFAULT '0',
+  `realname` varchar(20) NOT NULL,
+  `parama` varchar(1000) NOT NULL COMMENT '参数',
+  `status` smallint(1) NOT NULL DEFAULT '0',
+  `attend` smallint(1) NOT NULL DEFAULT '0',
+  `endtime` varchar(10) NOT NULL,
+  `createtime` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`,`from_user`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,118 @@
+{template 'header'}
+{php $_showMenu=1;}
+<style>
+a:visited{color:#FFF;}
+.panel-body img{ max-width:100%;}
+.panel-body h1,h2,h3{ font-size:18px; font-weight:bolder}
+.userlist{ padding:0;}
+.userlist ul ,.userlist ul li{ list-style:none; margin:0; padding:0;}
+.userlist ul li{ border-bottom:1px solid #CCC; padding:5px;}
+.userlist ul li:last-child{ border:none;}
+.userlist ul li .row div{ padding-left:0; padding-right:0;}
+.userlist ul li .row div:last-child{text-align:right;}
+</style>
+<img src="$_W['attachurl'].$item['picture']" class="hidden" />
+<nav class="navbar navbar-default header navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-2 col-sm-2 col-md-2"> <A href="javascript:history.back()"><i class="fa fa-angle-left"></i></A> </div>
+      <div class="col-xs-8 col-sm-8 col-md-8">
+        <h1>签到处</h1>
+      </div>
+      <div class="col-xs-2 col-sm-2 col-md-2"> <A href="javascript:location.reload()"><i class="fa fa-refresh"></i></A></div>
+    </div>
+  </div>
+</nav>
+<div class="fixed_first">&nbsp;</div>
+{if $operation=="display" }
+<div class="jp_10_5">
+  <div class="panel panel-default">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data"  onsubmit="return checkmyFrom(this);">
+      <input type="hidden" name="id" value="{php echo $id}"/>
+      <input type="hidden" name="op" value="check"/>
+      <div class="panel-heading"><b>{$item['title']}</b></div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-xs-3 col-sm-3 col-md-3 control-label">验证码</label>
+          <div class="col-xs-9 col-sm-9 col-md-9">
+            <input type="password" name="appendcode" class="form-control" required="required" maxlength="10" />
+          </div>
+        </div>
+      </div>
+      <div style="padding:0 10px 10px 10px;">
+        <input type="submit" name="submit" class="btn btn-block btn-info" value="提交" />
+        <input type="hidden" name="token" value="{$_W['token']}" />
+      </div>
+    </form>
+  </div>
+</div>
+<script language="javascript">
+function checkmyFrom(){
+	if($("input[name='appendcode']").val()!="{$item['appendcode']}"){
+		alert("验证码错误！");
+		return false;
+	}else{
+		location.href="{php echo $this->createMobileUrl('append',array('id'=>$item['id'],'op'=>'ok',))}";
+	}
+	return false;
+}
+</script> 
+{elseif $operation=="ok"}
+<div class="jp_10_5">
+  <div class="panel panel-info">
+    <div class="panel-heading"><b>{$item['title']}</b></div>
+    <div class="panel-body text-center">
+    	{php echo "<img src='".$codename."'/>"}
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">参与成员列表</div>
+    <div class="panel-body userlist">
+      <ul>
+      	{php $i=1;}
+        {php $imgList=array()}
+      	{loop $list $row}
+        <li>
+          <div class="container-fluid">
+            <div class="row">
+            	<div class="col-xs-1 col-sm-1 col-md-1">{php echo $i}</div>
+                <div class="col-xs-2 col-sm-2 col-md-2">
+              {php $p=json_decode($row['parama'],true);}
+              
+              {php foreach($parama as $index=>$val){ }
+              {if $val==2}{php array_push($imgList,$_W["siteroot"].str_replace("../","",$p[$index]))}<img src="{php echo $_W['siteroot'].str_replace('../','',$p[$index])}" style="width:90%;" height="50" ordernum="{php echo $i}" class="viewimg tips" onerror="this.src='./resource/images/nopic-small.jpg'"/> {/if}
+              {php }}
+                </div>
+              <div class="col-xs-2 col-sm-2 col-md-2">
+              {$row['realname']}
+              <p><span class="label label-warning">
+              {if $row['status']==-1}未入围{elseif $row['status']==0}落{elseif $row['status']==1}审核中{elseif $row['status']>1}已入选{/if}
+              </span></p>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4">
+              <small>{$row['nickname']}</small>
+              <p>{if $row['attend']}<span class="label label-success"><i class="fa fa-thumbs-up"></i></span>{else}<span class="label label-default"><i class="fa fa-paper-plane-o"></i></span>{/if}</p>
+              </div>
+              <div class="col-xs-3 col-sm-3 col-md-3"><a href="tel:{$row['mobile']}" class="btn btn-xs btn-info"><i class="fa fa-phone"></i></a> <a href="tel:{$row['mobile']}" class="btn btn-xs btn-info"><i class="fa fa-eye"></i></a></div>
+            </div>
+          </div>
+        </li>
+        {php $i++;}
+        {/loop}
+      </ul>
+    </div>
+  </div>
+</div>
+<script>
+wx.ready(function () {
+	$(".viewimg").on('click',function(){
+		imgsss=$(this).attr("src");
+		wx.previewImage({
+			current: imgsss,
+			urls: ['{php echo implode("','",$imgList)}']
+		});
+	});
+});
+</script>
+{/if}
+{template 'footer2'}

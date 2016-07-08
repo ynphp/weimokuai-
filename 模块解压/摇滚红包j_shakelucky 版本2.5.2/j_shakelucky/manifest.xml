@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[摇滚红包]]></name>
+		<identifie><![CDATA[j_shakelucky]]></identifie>
+		<version><![CDATA[2.5.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[摇滚吧，红包]]></ability>
+		<description><![CDATA[摇滚吧，红包]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="手机核销" do="cancellation" state="" direct="false" />
+		</cover>
+		<rule>
+			<entry title="参与者管理" do="joiner" state="" direct="false" />
+			<entry title="赞助商管理" do="sponsor" state="" direct="false" />
+		</rule>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS  `ims_j_shakelucky_award` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `isprize` smallint(1) NOT NULL DEFAULT '0' COMMENT '是不是中奖，0不中，1中',
+  `thumb` varchar(255) DEFAULT NULL COMMENT '奖品图片',
+  `sponsor` varchar(50) DEFAULT NULL COMMENT '赞助商',
+  `title` varchar(50) NOT NULL COMMENT '奖品名称',
+  `description` varchar(100) NOT NULL DEFAULT '' COMMENT '描述',
+  `total` int(5) NOT NULL COMMENT '数量',
+  `remain` int(5) NOT NULL COMMENT '剩余数量',
+  `othernum` int(5) NOT NULL COMMENT '其他数量',
+  `probalilty` int(3) NOT NULL COMMENT '概率单位%',
+  `absolute` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0参与，1不参与',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE IF NOT EXISTS `ims_j_shakelucky_invent` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL COMMENT '用户唯一身份ID',
+  `inventor` varchar(50) NOT NULL COMMENT '邀请者',
+  `nickname` varchar(50) NOT NULL,
+  `gender` smallint(1) NOT NULL DEFAULT '0',
+  `createtime` int(10) NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE IF NOT EXISTS `ims_j_shakelucky_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `weid` int(10) DEFAULT '0',
+  `fid` int(10) DEFAULT '0' COMMENT '外链接ID',
+  `picture` varchar(200) NOT NULL COMMENT '活动图片',
+  `qrcode` varchar(200) NOT NULL DEFAULT '' COMMENT '二维码',
+  `clientpic` varchar(200) NOT NULL COMMENT '转发图片',
+  `titleimg` varchar(200) NOT NULL COMMENT '标题图片',
+  `bodycolor` varchar(50) NOT NULL COMMENT '底部背景颜色',
+  `title` varchar(100) NOT NULL COMMENT '活动标题',
+  `description` varchar(200) NOT NULL COMMENT '转发介绍',
+  `rule` varchar(2000) NOT NULL COMMENT '规则描述',
+  `gamecontent` varchar(2000) NOT NULL COMMENT '奖品介绍',
+  `content` varchar(2000) NOT NULL COMMENT '活动完成介绍',
+  `quota` int(10) NOT NULL DEFAULT '0' COMMENT '名额',
+  `starttime` int(10) unsigned NOT NULL COMMENT '活动开始时间',
+  `endtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '活动结束时间',
+  `gamestarttime` varchar(50) NOT NULL COMMENT '活动开始时间',
+  `gameendtime` varchar(50) NOT NULL COMMENT '活动结束时间',
+  `code` varchar(50) NOT NULL COMMENT '密码',
+  `ruletype` tinyint(1) NOT NULL DEFAULT '0' COMMENT '1是摇一摇中奖',
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `maxlottery` int(2) NOT NULL DEFAULT '0' COMMENT '每人每日可玩次数',
+  `parama` varchar(1000) NOT NULL COMMENT '参数',
+  `fstatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '报名状态',
+  `fattend` tinyint(1) NOT NULL DEFAULT '0' COMMENT '签到状态',
+  `sharehelp` int(2) NOT NULL DEFAULT '0' COMMENT '最大分享可玩次数',
+  `onlyone` int(10) NOT NULL DEFAULT '0' COMMENT '只能中奖1次',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE IF NOT EXISTS `ims_j_shakelucky_sponsor` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `title` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `prizes` varchar(1000) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE IF NOT EXISTS  `ims_j_shakelucky_winner` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL COMMENT '规则ID',
+  `aid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '中奖ID',
+  `isprize` smallint(1) NOT NULL DEFAULT '0' COMMENT '是否中奖，0不中，1中',
+  `prizeid` int(10) NOT NULL DEFAULT '0' COMMENT '奖品ID',
+  `weid` int(10) NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL COMMENT '用户唯一身份ID',
+  `avatar` varchar(255) NOT NULL,
+  `mobile` varchar(20) NOT NULL,
+  `nickname` varchar(50) NOT NULL,
+  `gender` smallint(1) NOT NULL DEFAULT '0',
+  `realname` varchar(20) NOT NULL,
+  `status` smallint(1) NOT NULL DEFAULT '0',
+  `createtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '活动结束时间',
+  `endtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '活动结束时间',
+  `remark` varchar(200) NOT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+	]]></install>
+	<uninstall><![CDATA[
+	]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
