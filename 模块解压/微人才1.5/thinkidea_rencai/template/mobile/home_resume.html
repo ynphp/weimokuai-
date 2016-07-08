@@ -1,0 +1,52 @@
+{template 'common_header'}
+    <!-- 头部 -->
+    <header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
+        <ul class="am-avg-sm-3">
+             <li class="am-text-left" style="padding:10px 0 0 5px"><a href="javascript:history.back();" class="am-icon-mail-reply">&nbsp;返回</a></li>
+             <li class="am-text-center" style="padding-top:10px">求职频道</li>
+             <li class="am-text-right" style="padding:10px 5px 0 0"><a href="{php echo $this->createMobileUrl('PublicIndex');}" class="am-icon-plus" style="color:#FFF">&nbsp;发布</a></li>
+        </ul>
+    </header>
+    <!-- 置顶 -->
+	{loop $top_lists $person}
+	    <div class="am-g" style="background-color:#FFF;margin-top:0;padding-top:5px" onclick="location.href='{php echo $this->createMobileUrl('ShowResumeInfo', array('person_id' => $person['id']));}';">
+	        <div class="am-u-sm-3">
+	            <img class="am-img-thumbnail am-radius" style="width:80px;height:80px" src="{$person['headimgurl']}"/>
+	        </div>
+	         <div class="am-u-sm-8">
+	              <span class="am-badge am-badge-warning am-radius">置顶</span>
+	              <strong>{$person['username']}</strong>
+	              <font size="1.2rem">{if $person['sex'] == 1}先生{else}女士{/if}</font>
+                  <font size="1.2rem">更新于：{$person['updatetime']}</font>
+                  <p style="font-size:12px;margin:5px 0 5px 0">
+                        年龄：{$person['age']}&nbsp;&nbsp;
+                        学历：{$config['educational'][$person['educational']]}&nbsp;&nbsp;
+                  </p>
+                  <p style="font-size:12px;margin:5px 0 5px 0">
+                        期望工作地：{$person['workaddress']}&nbsp;&nbsp;
+	              </p>
+	         </div>
+	   </div>
+	{/loop}
+
+    <!-- 普通 -->
+	{loop $lists $person}
+	    <div class="am-g" style="background-color:#FFF;margin-top:1px;" onclick="location.href='{php echo $this->createMobileUrl('ShowResumeInfo', array('person_id' => $person['id']));}';">
+	        <div class="am-u-sm-3">
+	            <img class="am-img-thumbnail am-radius" style="width:80px;height:80px" src="{$person['headimgurl']}"/>
+	        </div>
+	         <div class="am-u-sm-8">
+	              <strong>{$person['username']}</strong>
+	              <font size="1.2rem">{if $person['sex'] == 1}先生{else}女士{/if}</font>
+                  <font size="1.2rem">更新于：{$person['updatetime']}</font>
+                  <p style="font-size:12px;margin:5px 0 5px 0">
+                     年龄：{$person['age']}&nbsp;&nbsp;
+                     学历：{$config['educational'][$person['educational']]}&nbsp;&nbsp;
+                  </p>
+                  <p style="font-size:12px;margin:5px 0 5px 0">
+                     期望工作地：{$person['workaddress']}&nbsp;&nbsp;
+                  </p>
+	         </div>         
+	   </div>
+	{/loop} 
+    {template 'common_footer'}

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$ptitle}-{$desc}</title>
+<meta name="description" content="{$desc}"/>
+<meta name="keywords" content="{$desd}"/>
+<link rel="stylesheet" href="static/ui/j.ui.css" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../addons/wechat_daili/template/mobile/static/css/public.css">
+<link rel="stylesheet" type="text/css" href="../addons/wechat_daili/template/mobile/static/css/style.css">
+<script type="text/javascript"  src="../addons/wechat_daili/template/mobile/static/script/kt.j.js"></script>
+<script type="text/javascript"  src="../addons/wechat_daili/template/mobile/static/script/kt.js"></script>
+<script type="text/javascript"  src="../addons/wechat_daili/template/mobile/static/ui/j.ui.js"></script>
+<script type="text/javascript" src="../addons/wechat_daili/template/mobile/static/script/public.js"></script>
+<script type="text/javascript" src="../addons/wechat_daili/template/mobile/static/script/jquery.nav.js"></script>
+</head>
+<body>
+<div class="top_bar">
+	<div class="left_side lt"> <span><i class="ico ic_phone"></i>客服热线：<a rel="tel:0551-64278115">{$kefutel}</a></span> </div>
+	<div class="right_side rt">
+	<a href="#" >套餐价格</a> 
+	<a href="#" >托管运营</a>
+	<a href="#" >营销策划</a> 
+	<a href="{php echo $this->createMobileUrl('fabu');}" target="_blank">注册</a>
+	<a href="../web/index.php?c=user&a=login&" target="_blank">管理</a>
+		<div class="cl"></div>
+	</div>
+</div>
+<!---顶部内容结束--> 
+<!---头部内容开始-->
+<div class="headerCont">
+	<div class="header pagewd">
+		<div class="logo lt"><a href="#" title="{$ptitle}"><img src="{$topimg}"></a></div>
+		<div class="main_nav rt">
+			<div class="main_nav_menu" id="mainNavMenu">
+				<ul id="navfouce">
+					<li  class="current"><a href="#"><span>首页</span></a>
+					</li>
+					<li ><a href="#"><span>新品推荐</span></a>
+					</li>
+					<li ><a href="#A"><span>服务套餐</span></a>
+					</li>
+					<li ><a href="#B"><span>功能一览</span></a>
+					</li>
+					<li ><a href="#C"><span>解决方案</span></a>
+					</li>
+					<li ><a href="#D"><span>客户案例</span></a>
+					</li>
+					<li ><a href="../web/index.php?c=user&a=login&"><span>登陆管理</span></a>
+					</li>
+					<li ><a href="#E"><span>联系我们</span></a>
+					</li>
+				</ul>
+			</div>
+			<div class="main_nav_box" id="mainNavBox">
+				<div class="cont"></div>
+				<div class="cont"> 
+					<a href="#">
+					<dl>
+						<dd class="ico1"></dd>
+						<dt><b>活动营销平台搭建</b></dt>
+					</dl>
+					</a> 
+					<a href="#">
+					<dl>
+						<dd class="ico2"></dd>
+						<dt><b>产品分销人人商城</b></dt>
+					</dl>
+					</a> 
+					<a  href="#">
+					<dl>
+						<dd class="ico3"></dd>
+						<dt>定制游戏活动竞赛</dt>
+					</dl>
+					</a> <a href="#">
+					<dl>
+						<dd class="ico4"></dd>
+						<dt>投票比赛活动定制</dt>
+					</dl>
+					</a> <a href="#">
+					<dl>
+						<dd class="ico5"></dd>
+						<dt>家居建材整体营销</dt>
+					</dl>
+					</a> <a href="#">
+					<dl>
+						<dd class="ico6"></dd>
+						<dt>酒店餐饮平台搭建</dt>
+					</dl>
+					</a> 
+					<a href="#">
+					<dl>
+						<dd class="ico7"></dd>
+						<dt>神码粉丝营销产品</dt>
+					</dl>
+					</a>
+ </div>
+				<div class="cont"> </div>
+				<div class="cont"> </div>
+				<div class="cont"></div>
+				<div class="cont"></div>
+				<div class="cont"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$('.main_nav_box .cont dl').mouseover(function(){
+		$(this).find('dd'). css('background-position-y','0px');
+	}).mouseout(function(){
+		$(this).find('dd'). css('background-position-y','-50px');
+	});
+(function(){
+	var res = GetRequest();
+	var par = res['index'];
+	if(par!='gfan'){
+		var ua=navigator.userAgent.toLowerCase();
+		var contains=function (a, b){
+			if(a.indexOf(b)!=-1){return true;}
+		};
+
+		var toMobileVertion = function(){
+			window.location.href = '{$uuu}'
+		}
+ 
+		if(contains(ua,"ipad")||(contains(ua,"rv:1.2.3.4"))||(contains(ua,"0.0.0.0"))||(contains(ua,"8.0.552.237"))){return false}
+		if((contains(ua,"android") && contains(ua,"mobile"))||(contains(ua,"android") && contains(ua,"mozilla")) ||(contains(ua,"android") && contains(ua,"opera"))
+	||contains(ua,"ucweb7")||contains(ua,"iphone")){toMobileVertion();}
+	}
+})();
+function GetRequest() {
+   var url = location.search; //获取url中"?"符后的字串
+   var theRequest = new Object();
+   if (url.indexOf("?") != -1) {
+      var str = url.substr(1);
+      strs = str.split("&");
+      for(var i = 0; i < strs.length; i ++) {
+         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+      }
+   }
+   return theRequest;
+}
+</script>  
+<!---顶部内容开始-->
+<div class="header_banner" id="kinMaxShow">
+	<div><a href="#" title="{$ptitle}"><img src="{$adimg1}" /></a></div>
+	<div><a href="#" title="{$ptitle}"><img src="{$adimg2}" /></a></div>
+	<div><a href="#" title="{$ptitle}"><img src="{$adimg3}"/></a></div>
+	<div><a href="#" title="{$ptitle}"><img src="{$adimg4}" /></a></div>
+	<div><a href="#" title="{$ptitle}"><img src="{$adimg5}" /></a></div>
+    <div><a href="#" title="{$ptitle}"><img src="{$adimg6}"/></a></div>  
+</div>
+<!---头部内容结束-->
+<div class="staCustomer"> 超过<i>1</i><i>2</i><i>0</i><i>0</i>+家品牌企业 </div>
+<!---开发系统内容开始-->
+<div class="pagewd">
+	<div class="indexTit"><div id="A">
+	</div>
+		<h1>我们提供的产品</h1>
+		<small>{$product0}</small> </div>
+	<div class="sixSystem">
+		<ul class="sideUl lt">
+			<li class="five">
+				<a href="#" class="clearfix">
+				<h2>{$product1}</h2>
+				<p>{$product1s}</p>
+				</a>
+				<div class="price"> <span class="lt">{$product1m}</span> <a href="#" class="rt btn">立即咨询</a>
+					<div class="cl"></div>
+				</div>
+			</li>
+			<li class="two"> <a href="#" class="clearfix">
+				<h2>{$product2}</h2>
+				<p>{$product2s}</p>
+				</a>
+				<div class="price"> <span class="lt">{$product2m}</span> <a href="#" class="rt btn">立即咨询</a>
+					<div class="cl"></div>
+				</div>
+			</li>
+			<li class="three"><a href="#" class="clearfix">
+				<h2>{$product3}</h2>
+				<p>{$product3s}</p>
+				</a>
+				<div class="price"> <span class="lt">{$product3m}</span> <a href="#" class="rt btn">立即咨询</a>
+					<div class="cl"></div>
+				</div>
+			</li>
+		</ul>
+		<ul class="middleUl lt">
+			<li class="one zz"> <a href="#" class="clearfix"><b></b><i></i>
+				<h2>{$product4}</h2>
+				<p>{$product4s}</p>
+				</a>
+				<div class="price"> <span class="lt">{$product4m}</span> <a href="#" class="rt btn">立即咨询</a>
+					<div class="cl"></div>
+				</div>
+			</li>
+			<li class="four jm"> <a href="#" class="clearfix"><b></b><i></i>
+				<h2>{$product5}</h2>
+				<p>{$product5s}</p>
+				</a>
+				<div class="price"> <span class="lt">{$product5m}</span> <a href="#" class="rt btn">立即咨询</a>
+					<div class="cl"></div>
+				</div>
+			</li>
+		</ul>
+		<ul class="sideUl rt">
+			<li class="six"> <a href="#" class="clearfix">
+				<h2>{$product6}</h2>
+				<p>{$product6s}</p>
+				</a>
+				<div class="price"> <span class="lt">{$product6m}</span> <a href="#" class="rt btn">立即咨询</a>
+					<div class="cl"></div>
+				</div>
+			</li>
+			<li class="five"><a href="#" class="clearfix">
+				<h2>{$product7}</h2>
+				<p>{$product7s}</p>
+				</a>
+				<div class="price"> <span class="lt">{$product7m}</span> <a href="#" class="rt btn">立即咨询</a>
+					<div class="cl"></div>
+				</div>
+			</li>
+			<li class="seven"><a href="#" class="clearfix">
+				<h2>{$product8}</h2>
+				<p>{$product8s}</p>
+				</a>
+				<div class="price"> <span class="lt">{$product8m}</span> <a href="#" class="rt btn">立即咨询</a>
+					<div class="cl"></div>
+				</div>
+			</li>
+			
+		</ul>
+		<div class="cl"></div>
+	</div>
+</div>
+<!---开发系统内容结束--> 
+<!---功能展示内容开始-->
+<div class="grayBg"><div id="B">
+	</div>
+	<div class="pagewd">
+		<div class="indexTit">
+			<h1>各行业功能特色</h1>
+			<small>集结当下热门的流行营销手法，别人有的，我们都有，别人没有的，我们也有，没有我们做不到的，只有你想不到的</small> </div>
+		<div class="function_cont">
+			<ul>
+				<li class="f01"><img src="../addons/wechat_daili/template/mobile/static/ad/first1.jpg" alt="微KTV">
+				</li>
+				<li class="f02"><img src="../addons/wechat_daili/template/mobile/static/ad/first2.jpg" alt="微餐饮">
+				</li>
+				<li class="f03"><img src="../addons/wechat_daili/template/mobile/static/ad/first3.jpg" alt="微地产">
+				</li>
+				<li class="f04"><img src="../addons/wechat_daili/template/mobile/static/ad/first4.jpg" alt="微花店">
+				</li>
+				<li class="f05"><img src="../addons/wechat_daili/template/mobile/static/ad/first5.jpg" alt="微婚纱">
+				</li>
+				<li class="f06"><img src="../addons/wechat_daili/template/mobile/static/ad/first6.jpg" alt="微健身">
+				</li>
+				<li class="f07"><img src="../addons/wechat_daili/template/mobile/static/ad/first7.jpg" alt="微教育">
+				</li>
+				<li class="f08"><img src="../addons/wechat_daili/template/mobile/static/ad/first8.jpg" alt="微酒吧">
+				</li>
+				<li class="f09"><img src="../addons/wechat_daili/template/mobile/static/ad/first9.jpg" alt="微酒店">
+				</li>
+				<li class="f10"><img src="../addons/wechat_daili/template/mobile/static/ad/first10.jpg" alt="微旅游">
+				</li>
+				<li class="f11"><img src="../addons/wechat_daili/template/mobile/static/ad/first11.jpg" alt="微美容">
+				</li>
+				<li class="f12"><img src="../addons/wechat_daili/template/mobile/static/ad/first12.jpg" alt="微汽车">
+				</li>
+				<li class="f13"><img src="../addons/wechat_daili/template/mobile/static/ad/first13.jpg" alt="微商场">
+				</li>
+				<li class="f14"><img src="../addons/wechat_daili/template/mobile/static/ad/first14.jpg" alt="微食品">
+				</li>
+				<li class="f15"><img src="../addons/wechat_daili/template/mobile/static/ad/first15.jpg" alt="微物业">
+				</li>
+				<li class="f16"><img src="../addons/wechat_daili/template/mobile/static/ad/first16.jpg" alt="微医药">
+				</li>
+				<li class="f17"><img src="../addons/wechat_daili/template/mobile/static/ad/first17.jpg" alt="微医院">
+				</li>
+				<li class="f18"><img src="../addons/wechat_daili/template/mobile/static/ad/first18.jpg" alt="微政务">
+				</li>
+				<li class="f19"><img src="../addons/wechat_daili/template/mobile/static/ad/first19.jpg" alt="微装修">
+				</li>
+				<li class="f20"><img src="../addons/wechat_daili/template/mobile/static/ad/first20.jpg" alt="更多">
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!---功能展示内容结束--> 
+<!---解决方案内容开始-->
+<div class="blueBg"><div id="C">
+	</div>
+	<div class="pagewd">
+		<div class="indexTit indexTit_white">
+			<h1>微营销解决方案</h1>
+			<small>不同行业微信营销解决方案，助你把控最新商机</small> </div>
+		<div class="indexSo"><ul>
+  {loop $top $lists}
+ <?php
+ $urlw=  $lists['url'];
+if(!strexists($urlw, 'http://')) {
+		$urlw ='http://'.$urlw;
+	}
+ 
+ ?>
+								<li>
+					<div class="indexSo_cont"> <a href="{$urlw}">
+						<div class="pic"><img src="<?php if(empty($lists['logo'])){ echo 'icon.png';}else{echo toimage($lists['logo']);} ?>" ></div>
+						<div class="info">
+							<h3>{$lists['title']}</h3>
+							<p> 
+	{$lists['money']}</p>
+							<span class="more btn">{$lists['sale']}</span> </div>
+						</a> </div>
+				</li>
+{/loop}</ul>
+ <div class="nodata"></div>
+{$paper} 
+			<div class="cl"></div>
+		</div>
+	</div>
+</div>
+<!---解决方案内容结束--> 
+<!---客户案例内容开始-->
+<div class="grayBg"><div id="D">
+	</div>
+	<div class="pagewd">
+		<div class="indexTit">
+			<h1>合作单位</h1>
+		<div class="indexCase">
+			<ul>  {loop $coop $lists}
+ <?php
+ $urlw=  $lists['url'];
+if(!strexists($urlw, 'http://')) {
+		$urlw ='http://'.$urlw;
+	}
+ 
+ ?>
+<li>  <img src="<?php if(empty($lists['logo'])){ echo 'icon.png';}else{echo toimage($lists['logo']);} ?>" alt="{$lists['title']}"/> </li>{/loop}
+</ul>
+<div class="cl"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.sixSystem ul li').mouseover(function(){
+		$(this).addClass('current');	
+	}).mouseout(function(){
+		$(this).removeClass('current');	
+	});
+	
+	$('.indexCase ul li').mouseover(function(){
+		$(this).addClass('current');	
+	}).mouseout(function(){
+		$(this).removeClass('current');
+	});
+	
+	$('.indexfo_video ul li a').mouseover(function(){
+		$(this).find('.video_box .video_per').addClass('current');	
+	}).mouseout(function(){
+		$(this).find('.video_box .video_per').removeClass('current');
+	});
+	
+	$(".indexFour .indexFourBox a").mouseover(function(){
+    var index=$(this).index();
+         $(".indexFour .indexFourBox a").each(function(a){    
+            if(a == index){
+                $(this).addClass('current');
+                $('.foCont').find('.indexfo_cont').eq(a).show();
+            }
+            else{
+			   $(this).removeClass('current');
+			   $('.foCont').find('.indexfo_cont').eq(a).hide();
+             }
+         })                
+     });                   
+$(".indexFour .indexFourBox a").eq(0).mouseover();
+});
+</script> 
+<script type="text/javascript"  src="../addons/wechat_daili/template/mobile/static/script/jquery.kinMaxShow.js"></script>
+<script type="text/javascript">
+$(".htit a").mouseover(function(){
+		 var index = $(this).index();
+		 $(".htit a").each(function(a){
+			 if(a == index){
+				 $(this).addClass('on');
+				 $(".newslist").eq(a).show();
+			 }else{
+				 $(this).removeClass('on');
+				  $(".newslist").eq(a).hide();
+			 }
+		 });
+	});
+$(".htit a").eq(0).mouseover();
+</script>
+<!---客户案例内容结束--> 
+<div class="cotactLink">
+	<div class="pagewd"> 经营方针：用最高效率的服务，影响客户和客户身边的每一个用户，创造服务式营销领先品牌！
+    </div>
+</div>
+<!---底部内容开始--> 
+<div class="footer"><div id="E">
+	</div>
+	<div class="pagewd">
+		<div class="footer_left lt">
+			<div class="logo_weibo">
+				<div class="footer_logo lt"><a href="#" title="{$ptitle}"><img src="{$topimg}"></a></div>
+				<div class="medium lt"> <a href="{$usina}" class="medium-link no-line ml-10" target="_blank" rel="nofollow"> <img src="../addons/wechat_daili/template/mobile/static/images/weibo1.png" alt="新浪微博"/> </a> </div>
+				<div class="cl"></div>
+			</div>
+			<p class="link"> <a href="#">关于我们</a> |<a href="#">客户案例</a> |<a href="#">新品推荐</a> |<a href="#">帮助中心</a> |<a href="#">分销商城</a> |<a href="#">营销策划</a> </p>
+			<p>地　址：{$kefuad}</p>
+			<p>All Rights Reserved ICP备案：京ICP备88888888号</p>
+            <p>
+                <a href="#" title="品质保障"><img src="../addons/wechat_daili/template/mobile/static/ad/foot-logo.png"></a></p>
+		</div>
+		<div class="footer_mid lt ">
+			<h2>销售热线</h2>
+			<div class="tel"> {$kefutel}<small>(9:00 - 18:00)</small> </div>
+			<div class="openqq"> <a href="http://wpa.qq.com/msgrd?v=3&uin={$kefuq1}&site=qq&menu=yes" class="icon-qq white" id="wpa" title="在线QQ客服">{$kefuq1}</a> </div>
+			<h2>售后服务</h2>
+			<div class="tel">{$kefutel}<small>(9:00 - 18:00)</small> </div>
+		</div>
+		<div class="footer_weixin rt">
+			<div class="clearfix"><img src="{$footerimg}"></div>
+			<p>微信扫一扫</p>
+			<p>免费为您服务</p>
+		</div>
+	</div>
+	<div class="cl"></div>
+</div>
+<!---底部内容结束--> 
+<!---右侧客服内容开始-->
+<div class="rtService">
+	<div class="open_rtser"></div>
+	<div class="se_main">
+		<div class="close_se"> <a href="javascript:void(0);" title="点击关闭"></a> </div>
+		<a href="http://wpa.qq.com/msgrd?v=3&uin={$kefuq1}&site=qq&menu=yes" class="im_qq qq_a" title="在线QQ客服" onclick="_hmt.push(['_trackEvent', 'qqEvent', 'Consultation', 'qqZixun']);">
+		<div class="qq-container"></div>
+		<div class="qq_hover">        
+         <img class="img_qq" src="../addons/wechat_daili/template/mobile/static/images/qq.png"> </div>
+		<span> QQ在线咨询</span></a>
+		<div class="ser_tel">
+			<p>售前咨询</p>
+            <p><b class="fontcl2"><a href="http://wpa.qq.com/msgrd?v=3&uin={$kefuq2}&site=qq&menu=yes">{$kefuq2}</a></b></p>
+            <p><b class="fontcl2"><a href="http://wpa.qq.com/msgrd?v=3&uin={$kefuq3}&site=qq&menu=yes">{$kefuq3}</a></b></p>
+			<p>售后服务</p>
+			<p><b class="fontcl2">{$kefutel}</b></p>
+		</div>
+		<div class="ser_side">
+			<div class="weixin_cont lt">
+				<div class="weixin_show" >
+					<p>微信扫一扫</p>
+					<p>免费为您服务 </p>
+					<img class="weixin_ma" src="{$footerimg}">
+					<div class="weixin_sanjiao"></div>
+					<div class="weixin_sanjiao_border"></div>
+				</div>
+			</div>
+			<div class="go_top rt"> <a href="javascript:;" title="返回顶部"></a> </div>
+			<div class="cl"></div>
+		</div>
+	</div>
+</div>
+<!---右侧客服内容结束--> 
+</body>
+</html>

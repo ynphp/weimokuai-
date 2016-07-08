@@ -1,0 +1,255 @@
+{template 'common/header'}
+{template 'common'}
+<style>
+.form_short{
+  width: 5%;
+  height: 34px;
+  padding: 6px 12px;
+  margin: 0px 5px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+</style>
+<ul class="nav nav-tabs">
+	<li {if $op == 'display'} class="active" {/if}><a href="{php echo $this->createWebUrl('red',array('op' =>'display'))}">红包</a></li>
+	<li{if empty($red['id']) && $op == 'post'} class="active" {/if}><a href="{php echo $this->createWebUrl('red',array('op' =>'post'))}">添加红包</a></li>
+	{if !empty($red['id']) && $op== 'post'} <li class="active"><a href="{php echo $this->createWebUrl('red',array('op' =>'post','id'=>$red['id']))}">编辑红包</a></li> {/if}
+</ul>
+
+{if $op == 'display'}
+<div class="main panel panel-default">
+	<div class="panel-body table-responsive">
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th style="width:100px;">红包编号</th>
+					<th style="width:100px;">红包名称</th>
+					<th style="width:100px;">图片</th>
+					<th style="width:100px;">参加人数</th>
+					<th style="width:120px;">红包支付</th>
+					<th style="width:120px;">猜红包范围</th>
+					<th style="width:100px;">红包金额</th>
+					<th style="width:80px;">仿刷机制</th>
+					<th style="width:150px;">发起时间</th>
+					<th style="width:150px;">结束时间</th>
+					<th style="width:100px;">状态</th>
+					<th style="width:150px;">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+					<td>{$item['id']}</td>
+					<td>{$item['title']}</td>
+					<td><img src="{php echo tomedia($item[img])}" width="80px"/></td>
+					<td>{$item['joinnum']}</td>
+					<td>{$item['pay']}分</td>
+					<td>{$item['cmin']}-{$item['cmax']}分</td>
+					<td>{$item['money']}分</td>
+					<td>{if $item['virtual']==1}<span class="label label-success">已开启</span>
+					{else}<span class="label label-danger">未开启</span>{/if}</td>
+					<td>{php echo date('Y-m-d H:i:s',$item['stime'])}</td>
+					<td>{if !empty($item['etime'])}{php echo date('Y-m-d H:i:s',$item['etime'])}{/if}</td>
+					<td>{if $item['status']==0}<span class="label label-info">正进行</span>
+					{else}<span class="label label-danger">已结束</span>{/if}</td>
+					
+					<td style="text-align:left;">
+						<a href="{php echo $this->createWebUrl('red', array('op' => 'post', 'id' => $item['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="修改"><i class="fa fa-pencil"></i></a>
+						<a href="{php echo $this->createWebUrl('red', array('op' => 'delete', 'id' => $item['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="删除"><i class="fa fa-times"></i></a>
+						<a href="{php echo $this->createWebUrl('fans', array('rid' => $item['id']))}" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="bottom" title="粉丝"><i class="fa fa-user-md"></i></a>
+				</td>
+				</tr>
+				{/loop}
+				
+			</tbody>
+                    <div class="col-sm-20 col-xs-12">
+                        <div class="alert alert-info">
+                       特别提醒：红包金额不要低于1块钱，猜红包的范围要将红包金额包含在内。
+                         
+                        </div>
+                    </div>
+              
+		</table>
+		{$pager}
+		
+	</div>
+</div>
+
+<script>
+	require(['bootstrap'],function($){
+		$('.btn').hover(function(){
+			$(this).tooltip('show');
+		},function(){
+			$(this).tooltip('hide');
+		});
+	});
+</script>
+
+{elseif $op == 'post'}
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit='return formcheck()'>
+		<input type="hidden" name="id" value="{$red['id']}" />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				红包设置
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>红包名称</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id='rname' name="title" class="form-control" value="{$red['title']}" />
+					</div>
+				</div>
+	<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">红包图片</label>
+					<div class="col-sm-9 col-xs-12">
+						{php echo tpl_form_field_image('img', $red['img'])}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">参加人数</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="input-group input-medium">
+		<input type="text" name="joinnum" id='joinnum' class="form-control input-medium" value="{$red['joinnum']}" />
+							<span class="input-group-addon">人</span>
+						</div>
+					</div>
+				</div>
+			<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">支付金额</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="row row-fix">
+                            <div class="col-sm-4 col-xs-2">
+                                <div class="input-group">
+                                    <input type="text" name="pay" id="pay" class="form-control ng-pristine ng-untouched ng-valid" value="{$red['pay']}">
+                                 <span class="input-group-addon">分</span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="help-block">金额范围, 最终金额将在金额范围内随机生成. 如果金额固定, 请输入相同的金额</span>
+                        <span class="help-block"><strong>根据接口限制, 最低1分</strong></span>
+                     </div>                    
+                </div>
+			<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">猜红包范围</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="row row-fix">
+                            <div class="col-sm-4 col-xs-2">
+                                <div class="input-group">
+                                    <input type="text" name="cmin" id="cmin" class="form-control ng-pristine ng-untouched ng-valid" value="{$red['cmin']}">
+                                    <span class="input-group-addon" style="border-left:none;border-right:none;">至</span>
+                                    <input type="text" name="cmax" id="cmax" class="form-control ng-pristine ng-untouched ng-valid" value="{$red['cmax']}">
+                                    <span class="input-group-addon">分</span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="help-block">金额范围, 最终金额将在金额范围内随机生成. 如果金额固定, 请输入相同的金额</span>
+                        <span class="help-block"><strong>最低100分</strong></span>
+                     </div>                    
+                </div>
+
+                
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">红包金额</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="input-group input-medium">
+							<input type="text" name="money" id='money' class="form-control input-medium" value="{$red['money']}" />
+							<span class="input-group-addon">分</span>
+						</div>
+                        <span class="help-block"><strong>根据接口限制,最低100分</strong></span>
+					</div>
+				</div>
+							<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否虚拟中奖</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" name="virtual" value="1" {if $red[virtual]==1}checked{/if}>是
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="virtual" value="0" {if $red[virtual]==0}checked{/if}>否
+						</label>
+						<span class="help-block">开启仿刷机制</span>
+					</div>
+					
+					</div>
+			<div class="form-group" id="brush" style="display:none">
+				<label class="col-xs-12 col-sm-3 col-md-2 control-label">仿刷规则</label>
+				<div class="col-sm-9 col-xs-12">
+					仿刷范围为正确金额上下<input type="text" name="brush" class="form_short" value="{$red['brush']}" />分，
+					<input type="text" name="times" class="form_short" value="{$red['times']}" />次
+				</div>
+			</div>	
+			         <div class="form-group" id="money">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">查看排名消耗积分</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <div class="row row-fix">
+                            <div class="col-sm-4 col-xs-2">
+                                <div class="input-group">
+                                    <input type="text" name="rank" id="rank" class="form-control ng-pristine ng-untouched ng-valid" value="{$red['rank']}">
+                                 <span class="input-group-addon">分</span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="help-block"><strong>填-1表示排名不显示高低，0表示全显示高低</strong></span>
+                     </div>                    
+                </div>
+                
+		</div>
+	</div>
+	<div class="form-group col-sm-12">
+		<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" onclick="return formcheck()" />
+		<input type="hidden" name="token" value="{$_W['token']}" />
+	</div>
+	</form>
+</div>
+
+<script language='javascript'>
+	function formcheck() {
+		if ($("#rname").isEmpty()) {
+			Tip.focus("rname", "请填写红包名称!", "top");
+			return false;
+		}
+		return true;
+	}
+	$(function() {
+		$("#common_corp").change(function() {
+			var obj = $(this);
+			var sel = obj.find("option:selected");
+			$("#red_name").val(sel.attr("data-name"));
+			$("#red_url").val(sel.attr("data-url"));
+		});
+	})
+		$(function() {
+		var virtual="{$red[virtual]}";
+
+		if(virtual==1){
+			$("#brush").show();
+		}
+
+	
+
+		$("input[name=virtual]").click(function(){
+			var item=$(this).val(); 
+			if(item==0){
+				$("#brush").hide();
+			}else{
+				$("#brush").show();
+			}
+		})
+	})
+</script>
+
+{/if}
+
+{template 'common/footer'}

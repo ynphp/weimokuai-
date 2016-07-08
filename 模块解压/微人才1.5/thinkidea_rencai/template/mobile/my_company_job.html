@@ -1,0 +1,33 @@
+{template 'common_header'}
+
+<!-- 头部 -->
+<header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
+    <ul class="am-avg-sm-3">
+        <li class="am-text-left" style="padding:10px 0 0 5px"><a href="javascript:history.back();" class="am-icon-mail-reply">&nbsp;返回</a></li>
+        <li class="am-text-center" style="padding-top:10px">我发布的职位</li>
+        <li class="am-text-right" style="padding:10px 5px 0 0"><a href="{php echo $this->createMobileUrl('PublicIndex');}" class="am-icon-plus" style="color:#FFF">&nbsp;发布</a></li>
+    </ul>
+</header>
+
+
+<div class="am-g" style="margin-top:5px">
+    
+    
+    <div class="am-u-sm-12">
+    	{loop $job_lists $job}
+        <div class="am-panel am-panel-default" onclick="location.href='{php echo $this->createMobileUrl('JobShow', array('job_id' => $job['id']));}';" style="margin-bottom:5px">
+            <div class="am-panel-hd"  >
+                <h3 class="am-panel-title">{$job['title']}</h3>
+            </div>
+            <ul class="am-list am-list-static">
+                <!-- <li class="am-text-sm"><font color="red">{$config['payroll'][$job['payroll']]}</font></li> -->
+                <li class="am-text-xs"><em>{$job['dateline']}</em></li>
+            </ul>
+        </div>
+        {/loop}
+    </div>
+</div>
+
+
+
+{template 'common_footer'}

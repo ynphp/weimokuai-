@@ -1,0 +1,22 @@
+{template 'common_header'}
+
+    <!-- 头部 -->
+    <header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
+        <ul class="am-avg-sm-3">
+             <li class="am-text-left" style="padding:10px 0 0 5px"><a href="javascript:history.back();" class="am-icon-mail-reply">&nbsp;返回</a></li>
+             <li class="am-text-center" style="padding-top:10px">发布类型</li>
+             <li class="am-text-right" style="padding:10px 5px 0 0"><a href="{php echo $this->createMobileUrl('PublicIndex');}" class="am-icon-plus" style="color:#FFF">&nbsp;发布</a></li>
+        </ul>
+    </header>
+    
+    <div class="am-g" style="margin-top:20px">
+        <div class="am-u-sm-12">
+            <button onclick="location.href='{php echo $this->createMobileUrl('PublicJob');}';" class="am-btn am-btn-block am-btn-success am-round">企业招人</button>
+        </div>
+        
+        <div class="am-u-sm-12" style="margin-top:20px">
+            <button onclick="location.href='{php echo $this->createMobileUrl('PublicResumeBasic');}';" class="am-btn am-btn-block am-btn-primary am-round">我要求职</button>
+        </div>
+    </div>
+
+    {template 'common_footer'}

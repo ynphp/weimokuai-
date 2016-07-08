@@ -1,0 +1,166 @@
+{template 'common/header'}
+
+<div class='container' style='padding:0 5px 10px;margin:0;width:100%'>
+
+<ul class="nav nav-tabs">
+  <li {if $op == 'post'}class="active"{/if}><a href="{php echo $this->createWebUrl('dailishop', array('op' => 'post'));}">注册用户</a></li>
+  <li {if $op == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('dailishop',array('op'=>'display'));}">管理用户</a></li>
+ 
+</ul>
+{if $op =='display'}
+<div class="panel panel-success">
+  <div class="panel-heading">注册用户 > 用户管理</div>
+  
+
+</div>
+<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+			<input type="hidden" value="wechat_daili" name="m">
+			<input type="hidden" value="dailishop" name="do">
+			<input type="hidden" value="display" name="op">
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关键字</label>
+				<div class="col-sm-8">
+						<input type="text" placeholder="搜索用户名称" value="{$_GPC['keyword']}" id="" name="keyword" class="form-control">
+				</div>				
+			</div>
+			<div class="form-group">
+				<div class="pull-right col-xs-12 col-sm-2 col-lg-1">
+					<button class="btn btn-block"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+<div style="padding:15px;">
+<form id="form2" class="form-horizontal" method="post">
+
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+				<th style="width:50px;">全选</th>
+					<th style="width:50px;">序号</th>
+					<th style="width:100px;">账号</th>
+					<th style="width:100px;">密码</th>
+					<th style="width:100px;">联系电话</th>
+					<th style="min-width:60px;width:100px;">审核 | 修改 |  删除</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<tr>
+				<td><input type="checkbox" value="{$item['id']}" name="delete[]"></td>
+					<td>{$item['id']}</td>
+					<td>{$item['title']}</td>
+					<td>{$item['url']}</a></td>
+					<td>{$item['jianjie']}</a></td>
+					<td>
+					
+<a id="id{$item['id']}" href="javascript:shen('{php echo $this->createWebUrl('dailishop', array('op' => 'shenhe', 'id' =>$item['id'],'isok'=>$item['isok']))}',{$item['id']});" title="{if $item['isok']==0}未审核{else}已审核{/if}" class="shen btn btn-mini {if $item['isok']==0}btn-danger{else}btn-success{/if}"><i class="fa fa-check"></i></a>
+					<a href="{php echo $this->createWebUrl('dailishop', array('op' => 'post', 'id' => $item['id']))}" title="编辑" class="btn btn-mini btn-primary"><i class="fa fa-edit"></i></a>
+					<a onclick="return confirm('此操作不可恢复，确认吗？'); return false;" href="{php echo $this->createWebUrl('dailishop', array('id' => $item['id'],'op'=>'del'))}" title="删除" class="btn btn-mini btn-danger"><i class="fa fa-times"></i></a>
+					</td>				
+				</tr>
+				
+				{/loop}
+				<tr >
+				<td><input type="checkbox"  onclick="var ck = this.checked;$(':checkbox').each(function(){this.checked = ck});" name=''>    <input class="btn btn-primary" type="submit" value="删除" name="submit" ></td><td></td><td></td><td></td>
+				</tr>
+			</tbody>
+		</table>
+		<input type="hidden" value="dailishop" name="do">
+		<input type="hidden" value="del" name="op">
+		<input type="hidden" name="token" value="{$_W['token']}" />
+		
+		
+		</form>
+		{$pager}
+			<script>
+
+function shen(url,id){
+						$.getJSON(url,function(data){
+						if(data.a==0){
+						$("#id"+id).removeClass('btn-success');
+						$("#id"+id).addClass('btn-danger');
+						}else if(data.a==1){
+						$("#id"+id).removeClass('btn-danger');
+						$("#id"+id).addClass('btn-success');
+						}
+						location.reload();
+						})
+						
+}
+	</script>
+	<script>
+
+		
+					$('#form2').submit(function(){
+if($(":checkbox[name='delete[]']:checked").size() > 0){
+return confirm('删除后不可恢复，您确定删除吗？');
+}
+return false;
+}); 
+
+
+		</script>	
+	</div>
+{elseif $op == 'post'}
+<div class="panel panel-success">
+  <div class="panel-heading">注册用户 > 用户管理</div>
+  
+
+</div>
+<div class="main">
+	<form action="" method="post" class="form-horizontal form">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+		添加用户（此处添加仅供记录所用，暂时无法同步系统新增用户）
+		</div>
+		
+		<div class="panel-body">
+
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">账号名称</label>
+				<div class="col-sm-8">
+					<input type="text" name="title" class="form-control" value="{$item['title']}" /> 
+					<span class="help-block">填写账号名称</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">账号密码</label>
+				<div class="col-sm-8">
+					<input type="text" name="url" class="form-control" value="{$item['url']}" /> 
+					<span class="help-block">用户账号密码</span>
+				</div>
+			</div>	
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">联系方式</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" name="jianjie" rows="5">{$item['jianjie']}</textarea>
+						<span class="help-block">帮助（用户联系方式）</span>
+					</div>
+				</div>						
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
+				<div class="col-sm-4">
+				<input type="hidden" name="id" value="{$item[id]}">
+				<input type="hidden" name="token" value="{$_W['token']}" />
+					<input name="submit" type="submit" value="提交" class="btn btn-primary span3" />
+					
+				</div>
+			</div>
+			
+			</div>
+			</div>
+	</form>
+</div>
+
+
+{/if}	
+</div>
+
+{template 'common/footer'}

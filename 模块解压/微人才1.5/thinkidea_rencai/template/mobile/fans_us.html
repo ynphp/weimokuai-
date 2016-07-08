@@ -1,0 +1,25 @@
+{template 'common_header'}
+    
+    <!-- 头部 -->
+    <header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
+        <ul class="am-avg-sm-3">
+             <li class="am-text-left" style="padding:10px 0 0 5px"><a href="javascript:history.back();" class="am-icon-mail-reply">&nbsp;返回</a></li>
+             <li class="am-text-center" style="padding-top:10px">关注微人才</li>
+             <li class="am-text-right" style="padding:10px 5px 0 0"><a href="{php echo $this->createMobileUrl('PublicIndex');}" class="am-icon-plus" style="color:#FFF">&nbsp;发布</a></li>
+        </ul>
+    </header>
+    
+    <div class="am-g" style="margin-top:15px">
+        <div class="am-u-sm-12 am-text-center">
+            <img src="{$_W['attachurl']}{$qrcode}" class="img-rounded">
+        </div>
+       <div class="am-u-sm-12 am-text-center am-text-sm" style="margin-top:15px">
+       	（长按二维码，选择“<font color="red">识别二维码</font>”关注）
+         <p>{$message}</p>
+         <p>即可享受<font color="red">免费发布招聘、求职信息</font></p>
+       </div>
+    </div>
+    
+
+    
+{template 'common_footer'}

@@ -1,0 +1,49 @@
+{template 'common_header'}
+
+    <!-- 头部 -->
+    <header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
+        <ul class="am-avg-sm-3">
+             <li class="am-text-left" style="padding:10px 0 0 5px"><a href="javascript:history.back();" class="am-icon-mail-reply">&nbsp;返回</a></li>
+             <li class="am-text-center" style="padding-top:10px">查看简历</li>
+             <li class="am-text-right" style="padding:10px 5px 0 0"><a href="{php echo $this->createMobileUrl('PublicIndex');}" class="am-icon-plus" style="color:#FFF">&nbsp;发布</a></li>
+        </ul>
+    </header>
+
+    <div class="am-g" style="background-color:#FFF;margin-top:0;padding-top:0" onclick="location.href='{php echo $this->createMobileUrl('ShowResumeInfo', array('person_id' => $person['id']));}';">
+        <div class="am-u-sm-3">
+            <img class="am-img-thumbnail am-radius" style="width:80px;height:80px" src="{$person['headimgurl']}"/>
+        </div>
+         <div class="am-u-sm-8">
+              <strong>{$person['username']}</strong>
+              <font size="1.2rem">{if $person['sex'] == 1}先生{else}女士{/if}</font>
+              <p class="am-serif" style="color:red">{$person['mobile']}</p>
+              <p style="font-size:12px;margin:5px 0 5px 0">
+                               {$person['views']}人浏览              
+                                            更新于：{$person['updatetime']}   
+              </p>
+         </div>         
+    </div>
+   
+   	<div class="am-g" style="margin-top:3px;padding-top:0">
+   		<!-- 基本信息 -->
+        <ul class="am-list am-list-static" style="margin-top: 0">
+          <li>年龄：{$person['age']}</li>
+          <li>学历：{$config['educational'][$person['educational']]}</li>
+          <li>专业：{$person['professional']}</li>
+          <li>经验：{$person['workexperience']}年</li>
+          <li>期望工作地：{$person['workaddress']}</li>
+          <li>自我评价：</li>
+          <li style="font-size:14px">{$person['assessment']}</li>
+        </ul>
+		<!-- 工作经验 -->
+        {loop $resumes $resume}
+            <ul class="am-list am-list-static" style="background-color:#FFF;">
+              <li>公司：{$resume['company_name']}</li>
+              <li>时间：{$resume['dateline']}</li>
+              <li>工作描述：</li>
+              <li style="font-size:14px">{$resume['work_description']}</li>
+            </ul>
+        {/loop}
+	</div>
+	
+    {template 'common_footer'}

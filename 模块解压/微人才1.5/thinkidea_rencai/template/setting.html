@@ -1,0 +1,81 @@
+{template 'common/header'}
+<div class="main">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="./index.php?c=platform&amp;a=reply&amp;m=thinkidea_secondmarket">微人才参数设置</a></li>
+	</ul>
+	
+    <form class="form-horizontal form" id="form2" action="" method="post">
+    	<div class="panel panel-default">
+	        <div class="panel-body">
+	        	<label class="col-sm-2 control-label">请上传二维码</label>
+	            <div class="col-sm-4">
+	                {php echo tpl_form_field_image('qrcode', $settings['qrcode']);}
+	            </div>
+	        </div>
+        </div>
+        
+        <div class="panel panel-default">
+            <div class="panel-body">
+            	<label class="col-sm-2 control-label">联系电话</label>
+             	<div class="col-sm-4">
+                	<input type="text" value="{php echo $this->module['config']['telephone']}" class="form-control" name="telephone">
+	             </div>
+            </div>
+        </div>  
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+            	<label class="col-sm-2 control-label">企业查看简历数初始免费数</label>
+             	<div class="col-sm-4">
+                	<input type="text" value="{php echo $this->module['config']['viewresumenums']}" class="form-control" name="viewresumenums">
+	             </div>
+            </div>
+        </div>  
+        
+        <div class="panel panel-default">
+            <div class="panel-body">
+            	<label class="col-sm-2 control-label">是否开启营业执照</label>
+             	<div class="col-sm-4">
+	              <select class="form-control" name="isopenlicense">
+	                <option value="1" {if $settings['isopenlicense'] == 1}selected{/if}>是</option>
+	                <option value="0" {if $settings['isopenlicense'] == 0}selected{/if}>否</option>
+	              </select>
+	             </div>
+            </div>
+            
+             <div class="panel-body">
+            	<label class="col-sm-2 control-label">营业执照允许上传最大值</label>
+             	<div class="col-sm-4">
+	              <input type="text" value="{php echo $this->module['config']['maxfilesize']}" class="form-control" name="maxfilesize">
+	              <p><em>0:为不限制。默认2M。单位：M，直接输入数字</em></p>
+	             </div>
+            </div>           
+        </div> 
+
+        <div class="panel panel-default">
+           <div class="panel-body">
+                <label class="col-sm-2 control-label">头像允许上传最大值</label>
+                <div class="col-sm-4">
+                  <input type="text" value="{php echo $this->module['config']['headimgurlsize']}" class="form-control" name="headimgurlsize">
+                  <p><em>0:为不限制。默认2M。单位：M，直接输入数字</em></p>
+                 </div>
+            </div> 
+            
+            <div class="panel-body">
+                <label class="col-sm-2 control-label">头像尺寸宽度</label>
+                <div class="col-sm-8">
+                    <input type="text" value="{php echo $this->module['config']['headimgurlwidth']}" class="form-control" name="headimgurlwidth">
+                    <p><em>系统将按此尺寸进行缩略。建议尺寸为200。</em></p>
+                    <p><em>(Tips:头像尺寸：最好是正方形 200X200，最清晰的头像，但具体取决于用户上传)</em></p>
+                 </div>
+            </div>
+        </div>  
+        
+                              
+        <div class="form-group col-sm-12">
+            <input name="token" type="hidden" value="{$_W['token']}" />
+            <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+        </div>
+    </form>
+</div>
+{template 'common/footer'}

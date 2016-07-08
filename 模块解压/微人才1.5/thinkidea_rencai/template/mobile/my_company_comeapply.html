@@ -1,0 +1,30 @@
+{template 'common_header'}
+    <!-- 头部 -->
+    <header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
+        <ul class="am-avg-sm-3">
+        
+             <li class="am-text-left" style="padding:10px 0 0 5px"><a href="javascript:history.back();" class="am-icon-mail-reply">&nbsp;返回</a></li>
+             <li class="am-text-center" style="padding-top:10px">来应聘的</li>
+             <li>&nbsp;</li>
+        </ul>
+    </header>
+	<table class="am-table">
+    <thead>
+        <tr>
+            <th>用户</th>
+            <th>时间</th>
+            <th>职位</th>
+        </tr>
+    </thead>
+    <tbody>
+    	{loop $applys $apply}
+        <tr>
+            <td><a href="{php echo $this->createMobileUrl('ShowResumeInfo', array('person_id' => $apply['person_id']))}">{$person[$apply['person_id']]['username']}</a></td>
+            <td>{$apply['dateline']}</td>
+            <td>{$jobs[$apply['job_id']]['title']}</td>
+        </tr>
+        {/loop}
+    </tbody>
+    </table>
+{template 'common_footer'}
+    

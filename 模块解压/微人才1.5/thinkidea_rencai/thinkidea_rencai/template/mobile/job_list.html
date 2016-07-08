@@ -1,0 +1,99 @@
+{template 'common_header'}
+
+    <!-- 头部 -->
+    <header class="am-topbar am-topbar-inverse am-topbar-fixed-top">
+        <ul class="am-avg-sm-3">
+             <li class="am-text-left" style="padding:10px 0 0 5px"><a href="javascript:history.back();" class="am-icon-mail-reply">&nbsp;返回</a></li>
+             <li class="am-text-center" style="padding-top:10px">{$ret['name']}</li>
+             <li class="am-text-right" style="padding:10px 5px 0 0"><a href="{php echo $this->createMobileUrl('PublicIndex');}" class="am-icon-plus" style="color:#FFF">&nbsp;发布</a></li>
+        </ul>
+    </header>
+    
+
+    <div class="am-g" style="margin-top:5px">
+    	<!-- 搜索框 -->
+    	<div class="am-u-sm-12" style="padding-left:0px">
+		    <form  action="" class="am-form" method="POST">
+		    	<div class="am-u-sm-10">
+		    		<input type="text" name="keyword" class="am-input-sm" placeholder="输入职位名称">
+		    	</div>
+		    	<div class="am-u-sm-2">
+		    		<input type="submit" type="submit" class="am-btn am-btn-success am-btn-sm" value="搜索" required />
+		    	</div>
+			</form>
+		</div>
+		
+		<!-- 显示检索条件 -->
+		<div class="am-u-sm-12" style="margin-top:5px;height:50px">
+			<div class="am-alert">
+			条件：<span class="am-badge am-badge-success">{$ret['name']}</span>
+			{if $query_positiontype}&nbsp;&nbsp;<span class="am-badge am-badge-success">{$config['positiontype'][$query_positiontype]}</span>{/if}
+			{if $query_payroll}&nbsp;&nbsp;<span class="am-badge am-badge-success">{$config['payroll'][$query_payroll]}</span>{/if}
+			{if $keyword}&nbsp;&nbsp;<span class="am-badge am-badge-success">"{$keyword}"</span>{/if}
+			</div>
+		</div>
+
+		<!-- 下拉框搜索 -->
+		<div class="am-u-sm-12" style="margin-top:10px">
+			<div class="am-avg-sm-3">
+				<div class="am-dropdown" data-am-dropdown style="width:32%">
+				  <button class="am-btn am-btn-block am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>职位 <span class="am-icon-caret-down"></span></button>
+				  <ul class="am-dropdown-content" id="JobCategory">
+				    <li><a href="{php echo $this->createMobileUrl('JobList', array('cid' => $parent_id));}">不限</a></li>
+				    {loop $sub_cates $sub}
+				    <li><a href="{php echo $this->createMobileUrl('JobList', array('cid' => $sub['id']));}">{$sub['name']}</a></li>
+				    {/loop}
+				  </ul>
+				</div>
+				
+				<div class="am-dropdown" data-am-dropdown style="width:32%">
+				  <button class="am-btn am-btn-block am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>薪资 <span class="am-icon-caret-down"></span></button>
+				  <ul class="am-dropdown-content" id="Payroll">
+				  	<li><a href="{php echo $this->createMobileUrl('JobList', array('cid' => $cid));}">不限</a></li>
+				  	{loop $config['payroll'] $k $payroll}
+				    <li><a href="{php echo $this->createMobileUrl('JobList', array('cid' => $cid, 'payroll' => $k, 'positiontype' => $query_positiontype));}">{$payroll}</a></li>
+				    {/loop}
+				  </ul>
+				</div>
+				
+				<div class="am-dropdown" data-am-dropdown style="width:32%">
+				  <button class="am-btn am-btn-block am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle>类型<span class="am-icon-caret-down"></span></button>
+				  <ul class="am-dropdown-content" id="Positiontype">
+				  	<li><a href="{php echo $this->createMobileUrl('JobList', array('cid' => $cid));}">不限</a></li>
+				  	{loop $config['positiontype'] $k $positiontype}
+				    <li><a href="{php echo $this->createMobileUrl('JobList', array('cid' => $cid, 'positiontype' => $k, 'payroll' => $query_payroll));}">{$positiontype}</a></li>
+				  	{/loop}
+				  </ul>
+				</div>
+			</div>
+		</div>
+	</div>
+    
+    <div class="am-g" style="margin-top:10px">
+    	{loop $job_lists $job}
+    	<div class="am-u-sm-12" onclick="location.href='{php echo $this->createMobileUrl('JobShow', array('job_id' => $job['job_id']));}';">
+		    <div class="am-panel am-panel-default" style="margin-bottom:0">
+			<div class="am-panel-hd">
+			  <h3 class="am-panel-title">{$job['job_title']}</h3>
+			</div>
+			<ul class="am-list am-list-static">
+				<li class="am-text-sm"><font color="red">{$config['payroll'][$job['job_payroll']]}</font></li>
+                <li class="am-text-sm">
+                	<em>{$job['company_name']}</em>
+                {if $job['company_isauth'] == 0}
+					<span class="am-badge am-badge-default">未认证</span>
+				{elseif $job['company_isauth'] == 1}
+					<span class="am-badge am-badge-success">电话认证</span>
+				{elseif $job['company_isauth'] == 2}
+					<span class="am-badge am-badge-success">营业执照已认证</span>	
+				{elseif $job['company_isauth'] == -1}
+					<span class="am-badge">认证失败</span>
+				{/if}
+                </li>
+			</ul>
+			</div>
+		</div>
+		{/loop}
+    </div>
+
+    {template 'common_footer'}

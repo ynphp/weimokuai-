@@ -1,0 +1,325 @@
+{template 'common/header'}
+{php load()->func('tpl');}
+<div class='container' style='padding:0 5px 10px;margin:0;width:100%'>
+<div class="panel panel-success">
+  <div class="panel-heading">参数设置</div>
+  <div class="panel-body">
+    <form class="form-horizontal" action="" method="post">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">微信端顶部图片</label>
+					<div class="col-sm-8">
+						{php echo tpl_form_field_image('img', $settings['img'])}
+						<span class="help-block">图片大小（168px*60px）</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">头部广告一</label>
+					<div class="col-sm-8">
+						{php echo tpl_form_field_image('img1', $settings['img1'])}
+						<span class="help-block">图片大小（1920px*400px）</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">头部广告二</label>
+					<div class="col-sm-8">
+						{php echo tpl_form_field_image('img2', $settings['img2'])}
+						<span class="help-block">图片大小（1920px*400px）</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">头部广告三</label>
+					<div class="col-sm-8">
+						{php echo tpl_form_field_image('img3', $settings['img3'])}
+						<span class="help-block">图片大小（1920px*400px）</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">头部广告四</label>
+					<div class="col-sm-8">
+						{php echo tpl_form_field_image('img4', $settings['img4'])}
+						<span class="help-block">图片大小（1920px*400px）</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">头部广告五</label>
+					<div class="col-sm-8">
+						{php echo tpl_form_field_image('img5', $settings['img5'])}
+						<span class="help-block">图片大小（1920px*400px）</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">头部广告六</label>
+					<div class="col-sm-8">
+						{php echo tpl_form_field_image('img6', $settings['img6'])}
+						<span class="help-block">图片大小（1920px*400px）</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">底部二维码</label>
+					<div class="col-sm-8">
+						{php echo tpl_form_field_image('eimg', $settings['eimg'])}
+						<span class="help-block">图片大小（400px*400px）</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">标题</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="title" value="{$settings['title']}">
+						<span class="help-block">标题</span>
+					</div>
+				</div>
+	
+		<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">关键词</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" name="desc" rows="5">{$settings['desc']}</textarea>
+						<span class="help-block">描述</span>
+					</div>
+				</div>
+  		<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">描述内容</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" name="desd" rows="5">{$settings['desd']}</textarea>
+						<span class="help-block">描述</span>
+					</div>
+				</div>
+  				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">手机跳转</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="uuu" value="{$settings['uuu']}">
+						<span class="help-block">手机跳转(可跳转任意地址或者链接)</span>
+					</div>
+				</div>
+  				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">官方微博</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="usina" value="{$settings['usina']}">
+						<span class="help-block">官方微博(填写新浪官方微博链接)</span>
+					</div>
+				</div>
+  				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">售前客服</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="kefuq1" value="{$settings['kefuq1']}">
+						<span class="help-block">(仅需填写数字QQ号码)</span>
+					</div>
+				</div>
+  				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">售后客服</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="kefuq2" value="{$settings['kefuq2']}">
+						<span class="help-block">(仅需填写数字QQ号码)</span>
+					</div>
+				</div>
+  				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">招商加盟</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="kefuq3" value="{$settings['kefuq3']}">
+						<span class="help-block">(仅需填写数字QQ号码)</span>
+					</div>
+				</div>
+  				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">联系电话</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="kefutel" value="{$settings['kefutel']}">
+						<span class="help-block">(仅需填写数字电话号码)</span>
+					</div>
+				</div>
+  				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">联系地址</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="kefuad" value="{$settings['kefuad']}">
+						<span class="help-block">(填写代理公司办公地点)</span>
+					</div>
+				</div>
+<div class="panel panel-success">
+  <div class="panel-heading">参数设置 > 产品设置</div>
+</div>
+  		<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">产品服务简述</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" name="product0" rows="5">{$settings['product0']}</textarea>
+						<span class="help-block">产品区我们提供的产品下方小字设置</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">一号产品设置</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product1" value="{$settings['product1']}">
+						<span class="help-block">一号产品标题，建议7-8个文字最佳显示效果</span>
+					</div>
+				</div>
+  		<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">一号产品简述</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" name="product1s" rows="5">{$settings['product1s']}</textarea>
+						<span class="help-block">一号产品简述,请直接填写文字即可</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">一号产品价格</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product1m" value="{$settings['product1m']}">
+						<span class="help-block">一号产品价格，填写例子：￥8888</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">二号产品设置</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product2" value="{$settings['product2']}">
+						<span class="help-block">二号产品标题，建议7-8个文字最佳显示效果</span>
+					</div>
+				</div>
+  		<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">二号产品简述</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" name="product2s" rows="5">{$settings['product2s']}</textarea>
+						<span class="help-block">二号产品简述,请直接填写文字即可</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">二号产品价格</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product2m" value="{$settings['product2m']}">
+						<span class="help-block">二号产品价格，填写例子：￥8888</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">三号产品设置</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product3" value="{$settings['product3']}">
+						<span class="help-block">三号产品标题，建议7-8个文字最佳显示效果</span>
+					</div>
+				</div>
+  		<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">三号产品简述</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" name="product3s" rows="5">{$settings['product3s']}</textarea>
+						<span class="help-block">三号产品简述,请直接填写文字即可</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">三号产品价格</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product3m" value="{$settings['product3m']}">
+						<span class="help-block">三号产品价格，填写例子：￥8888</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">四号产品设置</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product4" value="{$settings['product4']}">
+						<span class="help-block">四号产品标题，建议7-8个文字最佳显示效果</span>
+					</div>
+				</div>
+  		<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">四号产品简述</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" name="product4s" rows="5">{$settings['product4s']}</textarea>
+						<span class="help-block">四号产品简述,请直接填写文字即可</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">四号产品价格</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product4m" value="{$settings['product4m']}">
+						<span class="help-block">四号产品价格，填写例子：￥8888</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">五号产品设置</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product5" value="{$settings['product5']}">
+						<span class="help-block">五号产品标题，建议7-8个文字最佳显示效果</span>
+					</div>
+				</div>
+  		<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">五号产品简述</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" name="product5s" rows="5">{$settings['product5s']}</textarea>
+						<span class="help-block">五号产品简述,请直接填写文字即可</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">五号产品价格</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product5m" value="{$settings['product5m']}">
+						<span class="help-block">五号产品价格，填写例子：￥8888</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">六号产品设置</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product6" value="{$settings['product6']}">
+						<span class="help-block">六号产品标题，建议7-8个文字最佳显示效果</span>
+					</div>
+				</div>
+  		<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">六号产品简述</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" name="product6s" rows="5">{$settings['product6s']}</textarea>
+						<span class="help-block">六号产品简述,请直接填写文字即可</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">六号产品价格</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product6m" value="{$settings['product6m']}">
+						<span class="help-block">六号产品价格，填写例子：￥8888</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">七号产品设置</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product7" value="{$settings['product7']}">
+						<span class="help-block">七号产品标题，建议7-8个文字最佳显示效果</span>
+					</div>
+				</div>
+  		<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">七号产品简述</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" name="product7s" rows="5">{$settings['product7s']}</textarea>
+						<span class="help-block">七号产品简述,请直接填写文字即可</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">七号产品价格</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product7m" value="{$settings['product7m']}">
+						<span class="help-block">七号产品价格，填写例子：￥8888</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">八号产品设置</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product8" value="{$settings['product8']}">
+						<span class="help-block">八号产品标题，建议7-8个文字最佳显示效果</span>
+					</div>
+				</div>
+  		<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">八号产品简述</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" name="product8s" rows="5">{$settings['product8s']}</textarea>
+						<span class="help-block">八号产品简述,请直接填写文字即可</span>
+					</div>
+				</div>
+ 				<div class="form-group">
+					<label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">八号产品价格</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="writer" name="product8m" value="{$settings['product8m']}">
+						<span class="help-block">八号产品价格，填写例子：￥8888</span>
+					</div>
+				</div>
+				   <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+    <input name="token" type="hidden" value="{$_W['token']}" />
+  <button type="submit" class="btn btn-success col-sm-2" name="submit" value="提交"><i class="fa fa-check-circle"></i> 提交</button>
+  </div>
+  </div>
+</form>
+  </div>
+</div>
+
+</div>
+
+{template 'common/footer'}
