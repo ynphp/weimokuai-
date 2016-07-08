@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[拼图红包]]></name>
+		<identifie><![CDATA[deam_puzzleredpack]]></identifie>
+		<version><![CDATA[2.5.1]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[拼图红包，红包金额可随机（1-200元）；拼图难度可选择（2*2、3*3、4*4）；自定义拼图图片，可设定为产品图片，为产品做宣传。]]></ability>
+		<description><![CDATA[拼图红包，红包金额可随机（1-200元）；拼图难度可选择（2*2、3*3、4*4）；自定义拼图图片，可设定为产品图片，为产品做宣传。]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="活动管理" do="actset" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_deam_puzzleredpack_guanzhu` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `openid` varchar(50) NOT NULL,
+  `gztime` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `openid` (`openid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
+CREATE TABLE IF NOT EXISTS `ims_deam_puzzleredpack_packetset` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `send_name` varchar(100) NOT NULL COMMENT '商户名称',
+  `total_num` int(1) NOT NULL DEFAULT '1' COMMENT '固定，单个红包发放总人数',
+  `wishing` varchar(100) NOT NULL,
+  `act_name` varchar(100) NOT NULL,
+  `remark` varchar(100) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '1',
+  `total_prize` decimal(10,2) NOT NULL,
+  `minprize` decimal(10,2) NOT NULL,
+  `maxprize` decimal(10,2) NOT NULL,
+  `is_subscribe` int(1) NOT NULL,
+  `pagetitle` varchar(200) NOT NULL,
+  `puzzleimage` varchar(200) NOT NULL,
+  `qrcodeimage` varchar(200) NOT NULL,
+  `puzzlelevel` int(1) NOT NULL,
+  `starttime` int(11) NOT NULL,
+  `endtime` int(11) NOT NULL,
+  `ads_type` int(1) NOT NULL,
+  `ads_color` varchar(50) NOT NULL,
+  `ads_button_color` varchar(50) NOT NULL,
+  `ads_text` varchar(200) NOT NULL,
+  `ads_link` varchar(200) NOT NULL,
+  `share_title` varchar(200) NOT NULL,
+  `share_img` varchar(200) NOT NULL,
+  `noshare_title` varchar(200) NOT NULL,
+  `isshare` int(1) NOT NULL,
+  `createtime` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
+CREATE TABLE IF NOT EXISTS `ims_deam_puzzleredpack_record` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `actid` int(10) NOT NULL,
+  `mch_billno` varchar(28) NOT NULL,
+  `mch_id` varchar(30) NOT NULL,
+  `wxappid` varchar(50) NOT NULL,
+  `openid` varchar(100) NOT NULL,
+  `total_amount` int(10) NOT NULL,
+  `send_time` varchar(20) NOT NULL,
+  `send_listid` varchar(100) NOT NULL,
+  `mytime` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `openid` (`openid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
+CREATE TABLE IF NOT EXISTS `ims_deam_puzzleredpack_report` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `actid` int(10) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `image` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ;
+	]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[拼车一族]]></name>
+		<identifie><![CDATA[yoby_car]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[微拼车,车主拉人,拼车合租,一起外出旅游,回家,必备的工具]]></ability>
+		<description><![CDATA[微拼车,车主拉人,拼车合租,一起外出旅游,回家,广告展示,留言等,是拼车的最好工具!]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="封面设置" do="fm" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="报名管理" do="baoming" state="" direct="false" />
+			<entry title="留言管理" do="liuyan" state="" direct="false" />
+			<entry title="活动管理" do="huodong" state="" direct="false" />
+			<entry title="赞助商管理" do="zanzhu" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_yoby_car` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(500) DEFAULT NULL COMMENT '用户唯一',
+  `title` varchar(50) DEFAULT NULL COMMENT '车主或乘客姓名',
+  `createtime` int(10) DEFAULT NULL COMMENT '发车时间',
+  `address` varchar(150) DEFAULT NULL COMMENT '区间',
+  `num` varchar(20) DEFAULT NULL COMMENT '最多携带人数',
+  `beizhu` varchar(100) DEFAULT NULL COMMENT '手机,qq,微信,邮箱等联系方式',
+  `type` tinyint(1) DEFAULT '0' COMMENT '0是乘客报名1是车主报名',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_yoby_car_huodong` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '活动介绍',
+  `weid` int(10) DEFAULT NULL,
+  `title` varchar(40) DEFAULT NULL COMMENT '标题',
+  `url` varchar(512) DEFAULT NULL COMMENT '连接',
+  `createtime` int(10) DEFAULT NULL,
+  `orderby` int(10) DEFAULT '0' COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_yoby_car_say` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '留言表',
+  `weid` int(10) DEFAULT NULL,
+  `from_openid` varchar(500) DEFAULT NULL COMMENT '发布者openid',
+  `to_openid` varchar(500) DEFAULT NULL COMMENT '接收者openid',
+  `content` varchar(1000) DEFAULT NULL COMMENT '内容',
+  `createtime` int(10) DEFAULT NULL COMMENT '时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_yoby_car_zanzhu` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '赞助商表',
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(500) DEFAULT NULL,
+  `logo` varchar(200) DEFAULT NULL COMMENT '图标地址',
+  `title` varchar(500) DEFAULT NULL COMMENT '赞助商简介',
+  `url` varchar(512) DEFAULT NULL COMMENT '赞助商网址',
+  `createtime` int(10) DEFAULT NULL COMMENT '时间',
+  `num` int(10) DEFAULT '0' COMMENT '点击量',
+  `isok` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

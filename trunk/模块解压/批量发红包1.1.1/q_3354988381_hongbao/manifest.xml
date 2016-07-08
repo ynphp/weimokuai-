@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[批量给用户发红包]]></name>
+		<identifie><![CDATA[q_3354988381_hongbao]]></identifie>
+		<version><![CDATA[1.1.1]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[批量给用户发红包]]></ability>
+		<description><![CDATA[可设置发送红包的公司名称、公司昵称、祝福语、备注信息、活动描述（在微信用户打开收到的红包时将显示这些内容）]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="click" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="入口设置" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="红包发放" do="sendrec" state="" direct="false" />
+		</menu>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_fhb_sendrec` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL,
+  `openid` varchar(32) CHARACTER SET utf8 NOT NULL,
+  `memberid` int(10) NOT NULL COMMENT '微信平台会员id',
+  `user_info_id` int(10) NOT NULL COMMENT '第三方平台用户id',
+  `money` int(10) NOT NULL COMMENT '单位：分',
+  `send_res` varchar(100) CHARACTER SET utf8 NOT NULL COMMENT '发放结果',
+  `bill_no` varchar(32) CHARACTER SET utf8 NOT NULL,
+  `send_finish` char(1) CHARACTER SET utf8 NOT NULL COMMENT '是否完成，是不可再修改',
+  `receive_flag` char(1) CHARACTER SET utf8 NOT NULL COMMENT '用户提取状态Y/n',
+  `remark` varchar(200) CHARACTER SET utf8 NOT NULL,
+  `send_time` datetime NOT NULL,
+  `createtime` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `weid` (`weid`,`openid`),
+  KEY `memberid` (`memberid`),
+  KEY `user_info_id` (`user_info_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='发放红包记录';
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

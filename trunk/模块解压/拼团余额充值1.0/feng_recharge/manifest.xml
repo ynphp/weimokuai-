@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[拼团余额充值]]></name>
+		<identifie><![CDATA[feng_recharge]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[customer]]></type>
+		<ability><![CDATA[拼团余额充值]]></ability>
+		<description><![CDATA[拼团余额充值]]></description>
+		<author><![CDATA[柒|柒|源|码]]></author>
+		<url><![CDATA[http://H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="充值入口" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="充值记录" do="order" state="" direct="false" />
+			<entry title="幻灯片设置" do="adv" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+	CREATE TABLE IF NOT EXISTS `ims_recharge_adv` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `advname` varchar(50) DEFAULT '',
+  `link` varchar(255) DEFAULT '',
+  `thumb` varchar(255) DEFAULT '',
+  `displayorder` int(11) DEFAULT '0',
+  `enabled` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_weid` (`weid`),
+  KEY `indx_enabled` (`enabled`),
+  KEY `indx_displayorder` (`displayorder`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_recharge_order`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_recharge_order` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `from_user` varchar(50) NOT NULL,
+  `ordersn` varchar(20) NOT NULL,
+  `price` varchar(10) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '-1取消状态，0普通状态，1为已付款，2为已发货，3为成功',
+  `paytype` tinyint(1) unsigned NOT NULL COMMENT '1为余额，2为在线',
+  `transid` varchar(30) NOT NULL DEFAULT '0' COMMENT '微信支付单号',
+  `remark` varchar(1000) NOT NULL DEFAULT '',
+  `createtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_rule`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_rule` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `module` varchar(50) NOT NULL,
+  `displayorder` int(10) unsigned NOT NULL,
+  `status` tinyint(1) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_rule_keyword`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_rule_keyword` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL,
+  `uniacid` int(10) unsigned NOT NULL,
+  `module` varchar(50) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `type` tinyint(1) unsigned NOT NULL,
+  `displayorder` tinyint(3) unsigned NOT NULL,
+  `status` tinyint(1) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_content` (`content`),
+  KEY `idx_rid` (`rid`),
+  KEY `idx_uniacid_type_content` (`uniacid`,`type`,`content`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+	]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
