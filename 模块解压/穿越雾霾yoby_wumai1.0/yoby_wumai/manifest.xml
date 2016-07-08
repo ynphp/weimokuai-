@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[穿越雾霾]]></name>
+		<identifie><![CDATA[yoby_wumai]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[类似打飞机的游戏]]></ability>
+		<description><![CDATA[穿越雾霾]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[
+	CREATE TABLE `ims_yoby_wumai_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `start_time` int(10) DEFAULT NULL COMMENT '开始时间',
+  `end_time` int(10) DEFAULT NULL COMMENT '结束时间',
+  `share_title` varchar(50) DEFAULT NULL COMMENT '分享标题',
+  `share_img` varchar(200) DEFAULT NULL COMMENT '分享小图标',
+  `share_desc` varchar(300) DEFAULT NULL COMMENT '分享描述',
+  `hd_title` varchar(50) DEFAULT NULL COMMENT '活动图文标题',
+  `hd_img` varchar(200) DEFAULT NULL COMMENT '活动图文图片',
+  `hd_desc` varchar(300) DEFAULT NULL COMMENT '活动图文描述',
+  `ad_img` varchar(200) DEFAULT NULL COMMENT '可替换背景图',
+  `max_num` mediumint(8) DEFAULT NULL COMMENT '总次数',
+  `day_num` mediumint(8) DEFAULT NULL COMMENT '每天最多次数',
+  `desc` text COMMENT '本次活动介绍页面',
+  `share_url` varchar(200) DEFAULT NULL COMMENT '分享链接或图片二维码',
+  `copyright` varchar(100) DEFAULT NULL COMMENT '版权信息',
+  `game_time` varchar(20) DEFAULT '60' COMMENT '游戏时间秒',
+  `data` text COMMENT '参数设置',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `ims_yoby_wumai_fans` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `weid` int(10) DEFAULT NULL,
+  `names` varchar(20) DEFAULT NULL COMMENT '姓名',
+  `play_num` int(10) DEFAULT '0' COMMENT '所玩次数',
+  `phone` varchar(20) DEFAULT NULL COMMENT '手机号',
+  `max_fen` int(10) DEFAULT '0' COMMENT '最高纪录',
+  `nickname` varchar(100) DEFAULT NULL COMMENT '昵称',
+  `headimgurl` varchar(500) DEFAULT NULL COMMENT '头像',
+  `openid` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_yoby_wumai_num` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(60) DEFAULT NULL,
+  `createtime` varchar(10) DEFAULT NULL COMMENT '所玩时间',
+  `day_num` int(10) DEFAULT '0' COMMENT '当天所玩次数',
+  `rid` int(10) DEFAULT NULL,
+  `is_share` tinyint(1) DEFAULT '0' COMMENT '是否分享过',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `ims_yoby_wumai_top` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(128) DEFAULT NULL,
+  `createtime` varchar(20) DEFAULT NULL COMMENT '所玩时间',
+  `fen` int(10) DEFAULT NULL COMMENT '本次分数成绩',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+	]]></install>
+	<uninstall><![CDATA[
+	DROP TABLE IF EXISTS `ims_yoby_wumai_reply`;
+	DROP TABLE IF EXISTS `ims_yoby_wumai_fans`;
+	DROP TABLE IF EXISTS `ims_yoby_wumai_num`;
+	DROP TABLE IF EXISTS `ims_yoby_wumai_top`;
+	]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
