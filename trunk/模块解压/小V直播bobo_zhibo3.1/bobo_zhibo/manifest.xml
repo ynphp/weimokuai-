@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[小V直播]]></name>
+		<identifie><![CDATA[bobo_zhibo]]></identifie>
+		<version><![CDATA[3.1]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[小V直播，首个直播模块]]></ability>
+		<description><![CDATA[小V直播，首个直播模块]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="直播列表入口设置" do="index1" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="视频直播列表" do="shipinlist" state="" direct="false" />
+			<entry title="图文直播列表" do="list" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="直播首页" do="index" state="" direct="false" />
+		</home>
+	</bindings>
+	
+<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_bobo_zhibo_dashang` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `zhiboid` int(11) NOT NULL,
+  `fee` varchar(50) NOT NULL,
+  `c_time` varchar(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_bobo_zhibo_guanggaolist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `zhiboid` int(11) NOT NULL,
+  `imgurl` varchar(150) NOT NULL,
+  `url` varchar(150) NOT NULL,
+  `wenzi` varchar(300) NOT NULL,
+  `create_at` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_bobo_zhibo_pinglunlist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `zhiboid` int(11) NOT NULL,
+  `zhiboziid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `ip` varchar(50) NOT NULL,
+  `content` varchar(600) NOT NULL,
+  `create_time` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_bobo_zhibo_reply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) NOT NULL,
+  `weid` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `start_picurl` varchar(150) NOT NULL,
+  `description` varchar(400) NOT NULL,
+  `renshu` int(11) NOT NULL,
+  `fudong` int(11) NOT NULL,
+  `share_title` varchar(100) NOT NULL,
+  `share_url` varchar(100) NOT NULL,
+  `share_img` varchar(150) NOT NULL,
+  `share_desc` varchar(400) NOT NULL,
+  `zhibo_title` varchar(100) NOT NULL,
+  `zhibo_jianjie` varchar(400) NOT NULL,
+  `zhibo_picurl` varchar(150) NOT NULL,
+  `zhibo_type` int(4) NOT NULL,
+  `zhibo_logo` varchar(150) NOT NULL,
+  `isjieshu` int(4) NOT NULL DEFAULT '1',
+  `create_at` int(11) NOT NULL,
+  `update_at` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_bobo_zhibo_shipin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `zhiboid` int(11) NOT NULL,
+  `huodongid` varchar(50) NOT NULL,
+  `create_at` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_bobo_zhibo_shipinpinglunlist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `zhiboid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `ip` varchar(50) NOT NULL,
+  `content` varchar(600) NOT NULL,
+  `create_time` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_bobo_zhibo_tuwen` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `zhiboid` int(11) NOT NULL,
+  `zhibo_picurl` varchar(150) NOT NULL,
+  `zhibo_shipin` varchar(150) NOT NULL,
+  `zhibo_yinpin` varchar(150) NOT NULL,
+  `wenzi` varchar(600) NOT NULL,
+  `create_at` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_bobo_zhibo_userlist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `openid` varchar(100) NOT NULL,
+  `uname` varchar(100) NOT NULL,
+  `phonenum` char(11) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `imgurl` varchar(150) NOT NULL,
+  `isadmin` int(4) NOT NULL,
+  `adminarr` varchar(200) NOT NULL,
+  `create_at` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_bobo_zhibo_zanlist` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `zhiboid` int(11) NOT NULL,
+  `zhiboziid` int(11) NOT NULL,
+  `ip` varchar(50) NOT NULL,
+  `create_time` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

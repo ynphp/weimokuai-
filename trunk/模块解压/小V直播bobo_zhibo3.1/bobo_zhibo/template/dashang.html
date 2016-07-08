@@ -1,0 +1,37 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li class="" ><a href="{php echo $this->createWebUrl('shipinlist')}">直播列表</a></li>
+	<li class="active" ><a href="{php echo $this->createWebUrl('dashang',array('zhiboid' =>$zhiboid))}">打赏详细列表</a></li>
+</ul>
+<div class="main">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				打赏详细列表
+			</div>
+			<div class="panel-body">
+			<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+					<th align="center" style="width:20px;text-align:center;">ID</th>						
+			                    <th align="center" style="width:150px;text-align:center;">打赏金额(￥)</th>
+			                    <th align="center" style="width:150px;text-align:center;">会员昵称</th>
+					<th align="center" style="width:100px;text-align:center;">创建时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $row}
+				{php $uinfo=$this->getuinfo($row['uid'])}
+					<tr>		
+						<td align="center" style="text-align:center;">{$row['id']}</td>
+                        <td align="center" style="text-align:center;">{$row['fee']}</td>
+                        <td align="center" style="text-align:center;">{$uinfo['uname']}</td>
+						<td align="center" style=" text-align:center;">{php echo date('Y-m-d H:i',$row['c_time'])}</td>
+					</tr>
+				{/loop}
+			</tbody>
+		</table>
+			</div>
+		</div>
+</div>
+
+{template 'common/footer'}

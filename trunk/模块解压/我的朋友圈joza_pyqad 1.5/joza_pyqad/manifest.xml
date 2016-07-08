@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[我的朋友圈]]></name>
+		<identifie><![CDATA[joza_pyqad]]></identifie>
+		<version><![CDATA[1.5]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[我的朋友圈]]></ability>
+		<description><![CDATA[我的朋友圈]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[
+	CREATE TABLE IF NOT EXISTS `ims_pyqad_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT '0',
+  `weid` int(11) DEFAULT '0',
+  `title` varchar(50) DEFAULT '',
+  `description` varchar(255) DEFAULT '',
+  `ad_url` varchar(300) DEFAULT '',
+  `ad_urlimg` varchar(300) DEFAULT '',
+  `ad_avatar` varchar(300) DEFAULT '',
+  `ad_title` varchar(50) DEFAULT '',
+  `ad_description` varchar(50) DEFAULT '',
+  `ad_img1` varchar(300) DEFAULT '',
+  `ad_img2` varchar(300) DEFAULT '',
+  `ad_img3` varchar(300) DEFAULT '',
+  `ad_img4` varchar(300) DEFAULT '',
+  `ad_img5` varchar(300) DEFAULT '',
+  `ad_img6` varchar(300) DEFAULT '',
+  `ad_des1` varchar(50) DEFAULT '',
+  `ad_des2` varchar(50) DEFAULT '',
+  `ad_des3` varchar(50) DEFAULT '',
+  `ad_erweima` varchar(300) DEFAULT '',
+  `ad_banner` varchar(300) DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+	
+	]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

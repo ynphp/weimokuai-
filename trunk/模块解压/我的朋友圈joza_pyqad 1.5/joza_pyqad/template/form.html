@@ -1,0 +1,134 @@
+<input type="hidden" name="reply_id" value="{$reply['id']}" />
+<div class="panel panel-default">
+    <div class="panel-heading">
+        活动设置
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 活动名称</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="text" id="title" class="form-control" placeholder="" name="title" value="{$reply['title']}">
+            </div>
+        </div>
+ 		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 活动图片</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_image('ad_urlimg',$reply['ad_urlimg']);}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 活动说明</label>
+            <div class="col-sm-9 col-xs-12">
+               	<textarea style="height:60px;" id='description' name="description" class="form-control" cols="60">{$reply['description']}</textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        推广广告区域设置
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>广告标题</label>
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" id="ad_title" class="form-control" placeholder="" name="ad_title" value="{$reply['ad_title']}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>广告头像图片(108*108)</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_image('ad_avatar',$reply['ad_avatar']);}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 广告描述</label>
+            <div class="col-sm-9 col-xs-12">
+                <input id='ad_description' name="ad_description" class="form-control" type="text" value="{$reply['ad_description']}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 广告链接</label>
+            <div class="col-sm-9 col-xs-12">
+                <input id='ad_url' name="ad_url" class="form-control" type="text" value="{$reply['ad_url']}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>广告详情图片(150*150)</label>
+            <div class="col-sm-9 col-xs-12">
+
+                <div class="col-sm-4 col-xs-12">
+                    {php echo tpl_form_field_image('ad_img1',$reply['ad_img1']);}
+                </div>
+                <div class="col-sm-4 col-xs-12">
+                    {php echo tpl_form_field_image('ad_img2',$reply['ad_img2']);}
+                </div>
+                <div class="col-sm-4 col-xs-12">
+                    {php echo tpl_form_field_image('ad_img3',$reply['ad_img3']);}
+                </div>
+                <div class="col-sm-4 col-xs-12">
+                    {php echo tpl_form_field_image('ad_img4',$reply['ad_img4']);}
+                </div>
+                <div class="col-sm-4 col-xs-12">
+                    {php echo tpl_form_field_image('ad_img5',$reply['ad_img5']);}
+                </div>
+                <div class="col-sm-4 col-xs-12">
+                    {php echo tpl_form_field_image('ad_img6',$reply['ad_img6']);}
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 评论话术一</label>
+            <div class="col-sm-9 col-xs-12">
+                <input id='ad_des1' name="ad_des1" class="form-control" type="text" value="{$reply['ad_des1']}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 评论话术二</label>
+            <div class="col-sm-9 col-xs-12">
+                <input id='ad_des2' name="ad_des2" class="form-control" type="text" value="{$reply['ad_des2']}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 评论话术三</label>
+            <div class="col-sm-9 col-xs-12">
+                <input id='ad_des3' name="ad_des3" class="form-control" type="text" value="{$reply['ad_des3']}">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        二维码广告设置
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>二维码图片(344*344)</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_image('ad_erweima',$reply['ad_erweima']);}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        赞助商广告设置
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>赞助商图片(450*100)</label>
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_image('ad_banner',$reply['ad_banner']);}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

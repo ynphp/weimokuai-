@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="format-detection" content="telephone=no"/>
+            {if $bobo_zhibo_ctoken!='00'}
+    <meta http-equiv="refresh" content="{$bobo_zhibo_ctoken}">
+    {/if}
+        <title>{$reply['zhibo_title']}</title>
+    <link href="{RES}css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="{RES}bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="{RES}js/jquery-2.0.0.min.js"></script>
+<script type="text/javascript" src="{RES}bootstrap/js/bootstrap.min.js"></script>
+<style type="text/css">
+body{background-color:#08132b;}
+			body,p,div,ul,li{margin:0;padding:0;}	
+			ul,li{list-style:none;}		
+			.head{width:100%;height:50px;background-color:#102141;background-image:url("{RES}img/dingbu.jpg");}
+			/*清除浮动代码*/ 
+			.clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0;} 
+			.clearfloat{zoom:1}
+			.logo{float:left;height:50px;line-height:50px;}
+			.logo img{margin-left:10px;width:80px;vertical-align:middle;}
+			.head-user{float:right;text-align:right;height:50px;line-height:50px;color:#32fbef;font-size:16px;}
+			.head-user img{margin-right:10px;border:1px solid #32fbef;border-radius:50%;width:26px;height:26px;vertical-align:middle;margin-left:3px;}
+			.info{width:100%;height:46px;line-height:46px;border-bottom:1px solid #252e43;background-color:#08132b;font-size:14px;}
+			.info1{float:left;color:#fff;margin-left:10px;;}
+			.info2{float:right;color:#fff;margin-right:10px;}
+			.info1-span{display:inline-block;margin-left:5px;margin-top:9px;width:70px;text-align:center;height:29px;line-height:26px;border:2px solid #2bdbd2;border-radius:4px;color:#2bdbd2;font-size:12px;}
+			.info2 img{vertical-align:middle; width:20px; height:18px;}
+			.introduce{width:100%;background-color:#08132b;padding-bottom:15px; }
+			.introduce-1{color:#2bdbd2;margin-left:10px;font-size:14px;line-height:32px; text-align:left;}
+			.introduce-2{color:#fff;margin-left:10px;font-size:12px;line-height:24px;overflow:hidden;}
+			.introduce-2-h{height:70px;}
+			.introduce-3{text-align:center;margin-top:10px;margin-bottom:10px;}
+			.introduce-3 img{width:20px;}
+			.live-1{width:100%;height:40px;line-height:40px;background-color:#102141;}
+			.live-1-1{float:left;color:#cbcbcb;font-size:14px;margin-left:10px;}
+			.live-1-2{float:right;color:#cbcbcb;margin-right:10px;font-size:12px;}
+			.live-1-21{color:#32fbef;}
+			.live-1-22{color:#32fbef;font-size:14px;}
+			.live-2{width:100%;background-color:#08132b;padding-top:10px;padding-bottom:10px;}
+			.live-21{width:100%;text-align:center;margin-bottom:5px;}
+			.live-21 img{width:90%;}
+			.live-22{float:right;color:#cbcbcb;font-size:14px;height:30px;text-align:right;}
+			.live-22 img{width:17px;margin-right:5px;}
+			.zan{float:left;background-repeat:no-repeat;height:30px;line-height:30px;color:#32fbef;margin-right:20px;}
+			.ping{float:left;background-repeat:no-repeat;height:30px;line-height:30px;color:#cbcbcb;margin-right:10px;}
+			.pinglun-list{background-color:#08132b;overflow:hidden;width:96%;margin:0 auto;}
+			.pinglun-list1{border-top:1px solid #cbcbcb;width:100%;margin:0 auto;}
+			.pinglun-list-11{width:18%;}
+			.pinglun-list-12{width:80%;}
+			.pinglun-list-11,.pinglun-list-12{float:left;margin-top:15px;}
+			.pinglun-list-13{float:right;color:#cbcbcb;font-size:14px;}		
+			.pinglun-list-12-1{color:#32fbef;font-size:16px;}	
+			.pinglun-list-12-2{width:100%;color:#cbcbcb;font-size:12px;line-height:24px;}
+			.pinglun-list-12{margin-left:2%;}
+			.pinglun-list-11 img{border:2px solid #2bdbd2;width:40px;height:40px;border-radius:50%;}
+			.pinglun{width:120px;height:30px;line-height:30px;border:1px solid #f99d30;text-align:center;color:#f99d30;border-radius:6px;margin:0 auto;cursor:pointer;}
+			.slide img{width:100%;}
+			.slider-num{position:absolute;bottom:0;right:0;}	
+			.h5-mp4{text-align:center;}		
+			.more-bottom{background-color:#08132b;padding-top:10px;height:50px;}
+			#shuaxinid option{
+				height:40px;
+				width:120px;
+			}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){ 
+    $("#loadMore").click(function(){
+       loadmore();
+   });
+}); 
+
+
+   function loadmore(){
+       var daid=$('#daid').val();
+       var replyid=$('#replyid').val();
+       var hidguanggao=$('#hidguanggao').val();
+       $.ajax({
+           type: "POST",
+           url: '{php echo $this->createMobileUrl('getmore', array())}',
+           dataType: 'json',
+           data: {hidguanggao:hidguanggao,replyid:replyid,daid:daid,randomshu:Math.random()},
+           success:function(result){
+               if(result.status==1){
+                   $('#daid').val(result.daid);
+                   $("#timeBox").append(result.html);
+               }else{
+                   $('#loadMore').html('无更多内容');
+               }
+               
+           }
+       });
+   }
+function shuaxin(){
+   var shuaxinid=$('#shuaxinid').val();
+   $.ajax({
+       url: '{php echo $this->createMobileUrl('setshuaxintime', array())}',
+       type: 'POST',
+       dataType: 'html',
+       data: {stime: shuaxinid,randomshu:Math.random()},
+       success: function (result) {
+               alert('设置刷新成功');
+               window.location.reload();
+       }
+   });
+}
+function pinglun(zhiboziid){
+	$('#zhiboziid').val(zhiboziid);
+	$('#myModal').modal('show');
+}
+function zan(zhiboziid){
+
+   $.ajax({
+       url: '{php echo $this->createMobileUrl('zan', array())}',
+       type: 'POST',
+       dataType: 'json',
+       data: {zhiboziid: zhiboziid,randomshu:Math.random()},
+       success: function (result) {
+           if(result.status==1){
+               alert(result.msg);
+               window.location.reload();
+           }else{
+               alert(result.msg);
+               window.location.reload();
+           }
+       }
+   });
+}
+function tijiao(){
+	var zhiboziid=$('#zhiboziid').val();
+	var content=$('#content').val();
+	if(zhiboziid==''){
+		alert('参数错误！');
+		return false;
+	}
+	if(content==''){
+		alert('评论内容不能为空！');
+		return false;
+	}
+	$.ajax({
+       url: '{php echo $this->createMobileUrl('tijiao', array())}',
+       type: 'POST',
+       dataType: 'json',
+       data: {zhiboziid: zhiboziid,content:content,randomshu:Math.random()},
+       success: function (result) {
+       	if(result.status==1){
+       		alert(result.msg);
+       		window.location.reload();
+       	}else{
+       		alert(result.msg);
+       		window.location.reload();
+       	}
+       }
+   });
+}
+</script>
+	</head> 
+	<body>
+	<input type="hidden" id="replyid" value="{$replyid}" />
+	    <div class="head clearfloat">
+		  <div class="logo"><img src="{$reply['zhibo_logo']}"></div>
+		  <div class="head-user">
+		  {$_SESSION['bobo_zhibo_uinfo']['nickname']}<img src="{$_SESSION['bobo_zhibo_uinfo']['headimgurl']}"></div>
+		</div>
+		<div class="info clearfloat">
+		  <div class="info1">LIVE<span class="info1-span">{if $reply['isjieshu']==1}直播中{else}已结束{/if}</span></div>
+		  <div class="info2"><img src="{RES}img/renshu.png">&nbsp;{$renshu}人</div>
+		</div>
+		<div class="introduce">		  
+			  <div class="introduce-1">直播简介</div>
+			  <div class="introduce-2 introduce-2-h">{$reply['description']}</div>
+			   	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="width: 92%;margin: 0 auto;">
+				  <!-- Indicators -->
+				  <ol class="carousel-indicators">
+				  {loop $guanggaolist $index $guanggao1}
+				    <li data-target="#carousel-example-generic" data-slide-to="{$index}" {if $index==0}class="active"{/if}></li>
+				    {/loop}
+				  </ol>
+				
+				  <!-- Wrapper for slides -->
+				  <div class="carousel-inner" role="listbox">
+				    {loop $guanggaolist $index2 $guanggao2}
+				    {if $guanggao['url']}
+				     <a href="{$guanggao2['url']}">
+				    <div class="item {if $index2==0}active{/if}">
+				      <img src="{$guanggao2['imgurl']}">
+				      <div class="carousel-caption">{$guanggao2['wenzi']}
+				      </div>
+				    </div>
+				    </a>
+				     {else}
+				     <div class="item active">
+				      <img src="{$guanggao2['imgurl']}">
+				      <div class="carousel-caption">{$guanggao2['wenzi']}
+				      </div>
+				    </div>
+				      {/if}
+				    {/loop}
+				  </div>
+				</div>
+	</div>
+	
+{loop $zhibolist $key $zhibo}
+	<div>
+	   <div class="live-1 clearfloat">
+		  <div class="live-1-1">{$reply['zhibo_title']}</div>
+		  <div class="live-1-2">2015.03.15|<span class="live-1-21">19:</span><span class="live-1-22">30</span></div>
+		</div>
+		<div class="live-2 clearfloat">
+		  <div class="live-21">
+		  {if $zhibo['zhibo_picurl']}
+                        <img src="{$zhibo['zhibo_picurl']}"  width="100%">
+                        {/if}
+                        </div>
+		  <div class="h5-mp4">
+		    {if $zhibo['zhibo_shipin']}
+                        <video id="video1" style="margin-top: 10px;">
+					    	<source src="{$zhibo['zhibo_shipin']}" type="video/mp4" />
+					  </video>
+                        {/if}
+                     
+		  </div>
+		  <div class="h5-mp4">
+		     {if $zhibo['zhibo_yinpin']}
+                        <audio src="{$zhibo['zhibo_yinpin']}" controls="controls" style="margin-top: 10px;width: 100%;"></audio>
+                        {/if}
+		  </div>
+		  <div class="introduce-2 introduce-2-h">{$zhibo['wenzi']}</div>
+		  <div class="live-22">		    
+		     <div class="zan"><img src="{RES}img/zan1.png" onclick="zan({$zhibo['id']})"/>{php echo $this->getzan($zhibo['id'])}</div>
+		     <div class="ping"><img src="{RES}img/pinglun1.png" onclick="pinglun({$zhibo['id']})"/>{php echo $this->getpinglunsum($zhibo['id'])}</div>		     
+		  </div>
+		</div>
+		<div class="pinglun-list">
+		{php $pinglunlist=$this->getpinglunlist($zhibo['id'])}
+                        {loop $pinglunlist $pinglun}	
+		  <div class="pinglun-list1 clearfloat">
+		    <div class="pinglun-list-11"><img src="{$pinglun['img']}""></div>
+		    <div class="pinglun-list-12">
+		      <p class="pinglun-list-12-1">{$pinglun['nickname']}<span class="pinglun-list-13">{php echo date('Y-m-d H:i',$pinglun['cteate_at'])}</span></p>		      
+		      <p class="pinglun-list-12-2">{$pinglun['content']}</p>
+		    </div>
+		  </div>
+		  {/loop}
+		</div>
+		</div>
+{/loop}	
+	
+ <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document" style="margin-top: 30%;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加评论</h4>
+      </div>
+      <input type="hidden" id="zhiboziid" />
+      <div class="modal-body" style="text-align: center;">
+        <textarea id="content" rows="" cols="" style="width: 90%;border: 1px solid gray;height: 100px; resize:none;"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary" onclick="tijiao()">提交评论</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+wx.config({
+    debug: false,
+    appId: '{$signPackage["appId"]}',
+    timestamp: '{$signPackage["timestamp"]}',
+    nonceStr: '{$signPackage["nonceStr"]}',
+    signature: '{$signPackage["signature"]}',
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage'
+    ]
+});
+wx.ready(function () {
+    wx.onMenuShareTimeline({
+        title: "{$reply['share_title']}",
+        link: "{$reply['share_url']}",
+        imgUrl: "{$reply['share_img']}",
+      });
+    wx.onMenuShareAppMessage({
+        title: "{$reply['share_title']}",
+        desc: "{$reply['share_desc']}",
+        link: "{$reply['share_url']}",
+        imgUrl: "{$reply['share_img']}",
+      });
+});
+    </script>
+	</body>
+</html>

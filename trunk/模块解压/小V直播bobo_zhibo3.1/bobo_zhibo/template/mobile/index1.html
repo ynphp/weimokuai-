@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>直播-列表</title>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <link href="{RES}bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="{RES}js/jquery-2.0.0.min.js"></script>
+	<script type="text/javascript" src="{RES}bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	$('.carousel').carousel({
+		  interval: 2000
+		})
+	</script>
+	<style type="text/css">
+		._ih{
+		    display: none;
+		}
+		body{
+		background-color:#08132b;
+		}
+		.item img{
+			width:100%;
+		}
+			.index-list{width:94%;margin:20px auto;}
+			.index-list1{margin-bottom:15px;width:50%;float:left;text-align:center;position:relative;}
+			.index-list1 img{width:95%;}
+			.index-list1-txt{width:95%;left:2.5%;background-color:rgba(0,0,0,0.5);position:absolute;bottom:3px;height:27px;line-height:27px;color:#fff;}
+			.index-list1-txt-left{float:left;text-indent:5px; font-size:10px;}
+			.index-list1-txt-right{float:right;margin-right:5px;font-size:10px;}
+			.index-list1-txt-right img{width:10px;height:10px;}
+	</style>
+</head>
+<body>  
+	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+  {loop $topdisplay $key $item}
+    <li data-target="#carousel-example-generic" data-slide-to="{$keys}" {if $key==0}class="active"{/if}></li>
+    {/loop}
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+  {loop $topdisplay $key1 $item1}
+  <a href="{php echo $this->createMobileUrl('index', array('id' => $item1['rid'])}">
+    <div class="item  {if $key1==0}active{/if}">
+      <img src="{$item1['start_picurl']}">
+      <div class="carousel-caption">{$item1['title']}
+      </div>
+    </div>
+    </a>
+    {/loop}
+  </div>
+</div>
+	    <div class="index-list clearfloat">
+	     {loop $zhibolist $list}
+	      <a href="{php echo $this->createMobileUrl('index', array('id' => $list['rid'])}">
+      <div class="index-list1">
+        <img src="{$list['start_picurl']}">
+        <div class="index-list1-txt">
+          <div class="index-list1-txt-left">{if $list['zhibo_type']==1}(图){/if}{$list['title']}</div>
+          <div class="index-list1-txt-right"><img src="{RES}img/renshu.png">&nbsp;{$list['renshu']}</div>
+        </div>
+      </div>
+      </a>
+      {/loops}
+    </div>
+</body>
+</html>
