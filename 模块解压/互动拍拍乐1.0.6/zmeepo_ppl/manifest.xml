@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[互动拍拍乐]]></name>
+		<identifie><![CDATA[zmeepo_ppl]]></identifie>
+		<version><![CDATA[1.0.6]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[互动拍拍乐、现场粉丝拍照、现场粉丝投票、抽奖]]></ability>
+		<description><![CDATA[互动拍拍乐、现场粉丝拍照、现场粉丝投票、抽奖]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="image" />
+			<message type="click" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_meepo_paipaile_reply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(5) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `votenum` int(5) NOT NULL,
+  `background` varchar(300) NOT NULL,
+  `wxbackground` varchar(300) NOT NULL,
+  `logo` varchar(300) NOT NULL,
+  `wxlogo` varchar(300) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` varchar(500) NOT NULL,
+  `cover` varchar(300) NOT NULL,
+  `musicurl` varchar(300) NOT NULL,
+  `qr` varchar(300) NOT NULL,
+  `rereshtime` int(5) NOT NULL,
+  `votestatus` int(2) NOT NULL DEFAULT '2',
+  `photosnum` int(4) NOT NULL DEFAULT '20',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_meepo_paipaile_activity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(5) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `onoff` tinyint(1) NOT NULL,
+  `createtime` int(12) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_meepo_paipaile_cj` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(5) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `actid` int(10) NOT NULL,
+  `openid` varchar(100) NOT NULL,
+  `createtime` int(12) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_meepo_paipaile_photo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(5) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `actid` int(10) NOT NULL,
+  `openid` varchar(100) NOT NULL,
+  `picurl` varchar(500) NOT NULL,
+  `nickname` varchar(100) NOT NULL,
+  `avatar` varchar(300) NOT NULL,
+  `voteres` int(10) NOT NULL,
+  `createtime` int(12) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_meepo_paipaile_reply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(5) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `votenum` int(5) NOT NULL,
+  `background` varchar(300) NOT NULL,
+  `wxbackground` varchar(300) NOT NULL,
+  `logo` varchar(300) NOT NULL,
+  `wxlogo` varchar(300) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` varchar(500) NOT NULL,
+  `cover` varchar(300) NOT NULL,
+  `musicurl` varchar(300) NOT NULL,
+  `qr` varchar(300) NOT NULL,
+  `rereshtime` int(5) NOT NULL,
+  `votestatus` int(2) NOT NULL DEFAULT '2',
+  `photosnum` int(4) NOT NULL DEFAULT '20',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_meepo_paipaile_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `actid` int(11) NOT NULL,
+  `openid` varchar(100) NOT NULL,
+  `nickname` varchar(100) NOT NULL,
+  `headimgurl` varchar(300) NOT NULL,
+  `createtime` int(12) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_meepo_paipaile_vote` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(5) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `actid` int(10) NOT NULL,
+  `openid` varchar(100) NOT NULL,
+  `voteid` int(10) NOT NULL,
+  `createtime` int(12) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html><head>
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script src="{RES}mobile/style/jquery2.js"></script>
+<link rel="stylesheet" type="text/css" href="{RES}mobile/style/public.css">
+<link rel="stylesheet" type="text/css" href="{RES}mobile/style/mycss.css">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+<meta http-equiv="cleartype" content="on">
+<link rel="stylesheet" type="text/css" href="{RES}mobile/style/base.css?201534">
+<link rel="stylesheet" type="text/css" href="{RES}mobile/style/preset.css?201534">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">body,td,th{font-family:\5FAE\8F6F\96C5\9ED1,"Microsoft YaHei",Helvetica,STHeiti,"Droid Sans Fallback";}</style>
+{php echo register_jssdk(false);}
+</head>
+<body>
+<div>
+<input id="userName" type="hidden" value="{$keyword}"/>
+<input id="hidName" type="hidden" value="{$article['title']}"/>
+<div class="container">
+    <article class="wrap-act">
+        <section class="top-bar">
+            {if !empty($reply['ad'])}
+            <span class="arr">
+                <a href="{if empty($reply['ad_url'])}#{else}{$reply['ad_url']}{/if}"><img src="{RES}mobile/style/i_topbar_arr.png"></a>
+            </span>
+            <span class="btn-logo">
+                <a href="{if empty($reply['ad_url'])}#{else}{$reply['ad_url']}{/if}"><img src="{php echo tomedia($reply['ad']);}"></a>
+            </span>
+            {/if}
+        </section>
+        <section class="act-cont">
+            <div class="theme">
+                <img id="DetialImg" src="{php echo tomedia($article['logo']);}">
+            </div>
+            <div class="title">
+                {$keyword}<span>最适合:</span><br>{$article['title']}
+            </div>
+            <div id="divDes" class="intro">{$article['content']}</div>
+            {if empty($tofrom_user)}
+            <a href="javascript:void(0);" class="btn" onclick=" shareGuideShow(); ">告诉小伙伴</a>
+            {else}
+            <a href="{php echo $this->createMobileUrl('index', array('id' => $id), true)}" class="btn">我也要去撒欢</a>
+            {/if}
+        </section>
+    </article>
+    {if !empty($reply['ad2'])}
+    <div class="rst-app-promo"><br>
+        <a href="{if empty($reply['ad_url2'])}#{else}{$reply['ad_url2']}{/if}">
+            <img src="{php echo tomedia($reply['ad2']);}">
+        </a>
+    </div>
+    {/if}
+<div id="shareGuide" onclick=" $(this).hide(); " class="share-guide">
+<img src="{RES}mobile/style/share_guide.png">
+</div>
+</div>
+    <script>
+        function shareGuideShow() {
+            $("#shareGuide").show();
+        }
+
+        wx.ready(function () {
+            sharedata = {
+                title: '{$share_title}',
+                desc: '{$share_desc}',
+                link: '{$share_url}',
+                imgUrl: '{$share_image}',
+                success: function(){
+                    var url = "{php echo $this->createMobileUrl('share', array('id' => $id), true)}";
+                    $.ajax
+                    ({
+                        url: url,
+                        type:'POST',
+                        data: {},
+                        dataType:'json',
+                        error: function () {
+                        },
+                        success: function (result) {
+                        }
+                    });
+                },
+                cancel: function(){
+                    //alert('cancel');
+                }
+            };
+            wx.onMenuShareAppMessage(sharedata);
+            wx.onMenuShareTimeline(sharedata);
+        });
+    </script>
+</div>
+</body></html>

@@ -1,0 +1,41 @@
+no_red{
+    color:red;
+}
+body#vote {
+font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei", sans-serif !important;
+background: #FCFCFC url('../images/mobile-bg.jpg') repeat;
+margin: 0px;
+padding: 0px;
+color: #555555;
+min-width: 320px;
+}
+.mobile-bg{
+    position:fixed;
+	width:100%;
+	height:100%;
+	z-index:-10;
+}
+.top-img{width:100%}
+.userpic{width:100%}
+.userbox{background:#e7e7e7;}
+.username{background:#e7e7e7;padding:10px 0;text-align:center;}
+.votebutton{position:fixed;bottom:0;z-index:1002;}
+
+.select{width:100%;height:100%;z-index:1001;position:absolute}
+.loadmassage{height:20em;width:100%;color:#fff;text-align:center;padding-top:4em;}
+.main{
+	margin:1em 0 2em 0;
+	
+	}
+.content{
+font-size:1em;	
+	}
+.voteright{
+	position:absolute;
+	font-size:0.7em;
+	line-height:2em;
+	right: 13%;
+	}
+.footer{
+color:#888888;
+}

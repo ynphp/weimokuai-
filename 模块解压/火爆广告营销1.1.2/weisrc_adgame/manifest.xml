@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[火爆广告营销]]></name>
+		<identifie><![CDATA[weisrc_adgame]]></identifie>
+		<version><![CDATA[1.1.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[火爆广告营销]]></ability>
+		<description><![CDATA[火爆广告营销]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.Com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="活动管理" do="manage" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+	CREATE TABLE IF NOT EXISTS `ims_weisrc_adgame_article` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `rid` int(11) DEFAULT '0',
+  `logo` varchar(500) DEFAULT '' COMMENT '用户ID',
+  `title` varchar(200) DEFAULT '',
+  `content` varchar(500) DEFAULT '',
+  `dateline` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=42 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_adgame_fans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `rid` int(11) DEFAULT '0',
+  `from_user` varchar(50) DEFAULT '' COMMENT '用户ID',
+  `nickname` varchar(50) DEFAULT '',
+  `headimgurl` varchar(500) DEFAULT '',
+  `number` int(11) DEFAULT '0',
+  `sex` tinyint(1) DEFAULT '0',
+  `dateline` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_adgame_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT '0',
+  `weid` int(11) DEFAULT '0',
+  `title` varchar(50) DEFAULT '',
+  `description` varchar(255) DEFAULT '',
+  `content` varchar(200) DEFAULT '',
+  `rule` text,
+  `award` text,
+  `bg` varchar(500) DEFAULT '',
+  `logo` varchar(500) DEFAULT '',
+  `qrcode` varchar(500) DEFAULT '',
+  `ad` varchar(500) DEFAULT '',
+  `ad_url` varchar(500) DEFAULT '',
+  `ad2` varchar(500) DEFAULT '',
+  `ad_url2` varchar(500) DEFAULT '',
+  `nickname` varchar(50) DEFAULT '',
+  `desc` varchar(200) DEFAULT '',
+  `start_picurl` varchar(500) DEFAULT '',
+  `end_theme` varchar(50) DEFAULT '',
+  `end_instruction` varchar(200) DEFAULT '',
+  `end_picurl` varchar(500) DEFAULT '',
+  `banner` varchar(200) DEFAULT '',
+  `starttime` int(10) DEFAULT '0',
+  `endtime` int(10) DEFAULT '0',
+  `view` int(10) DEFAULT '0',
+  `sharecount` int(11) DEFAULT '0',
+  `cover` varchar(500) DEFAULT '',
+  `share_title` varchar(500) DEFAULT '',
+  `share_title2` varchar(500) DEFAULT '',
+  `share_url` varchar(100) DEFAULT '',
+  `share_desc` varchar(300) DEFAULT '',
+  `share_image` varchar(500) DEFAULT '',
+  `follow_url` varchar(100) DEFAULT '',
+  `follow_title` varchar(100) DEFAULT '',
+  `copyright` varchar(100) DEFAULT '',
+  `copyrighturl` varchar(200) DEFAULT '',
+  `isneedfollow` tinyint(1) DEFAULT '1',
+  `status` tinyint(1) DEFAULT '0',
+  `dateline` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_adgame_result` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `rid` int(11) DEFAULT '0',
+  `keyword` varchar(200) DEFAULT '',
+  `articleid` int(11) DEFAULT '0',
+  `dateline` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2815 ;
+	]]></install>
+	<uninstall><![CDATA[
+	drop table `ims_weisrc_adgame_article`;
+	drop table `ims_weisrc_adgame_reply`;
+	drop table `ims_weisrc_adgame_fans`;
+	]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

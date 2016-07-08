@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+<meta http-equiv="cleartype" content="on">
+<title>{$reply['title']}</title>
+<script src="{RES}mobile/style/jquery2.js"></script>
+<link rel="stylesheet" type="text/css" href="{RES}mobile/style/public.css">
+<link rel="stylesheet" type="text/css" href="{RES}mobile/style/mycss.css">
+{php echo register_jssdk(false);}
+<script type="text/javascript">
+        function Join() {
+            var v = $("#userName").val();
+            if (v.length == 0) {
+                alert('请输入测试用户名！');
+                return;
+            }
+            location.href = "{php echo $this->createMobileUrl('result', array('id' => $id), true)}&keyword=" + v;
+        }
+    </script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">body,td,th{font-family:\5FAE\8F6F\96C5\9ED1,"Microsoft YaHei",Helvetica,STHeiti,"Droid Sans Fallback";}</style>
+</head>
+<body class="join-page">
+<div id="page" class="page">
+<div class="container">
+<article class="wrap-act">
+<section class="act-join"> <img src="{$cover}" class="show">
+<div class="field"> <span class="field-tt">姓名</span>
+<input type="text" class="field-ipt" id="userName" placeholder="输入姓名">
+</div>
+<a href="javascript:void(0);" onclick="Join()" class="btn">全球扫描，开始！</a> </section>
+</article>
+</div>
+    <script>
+        wx.ready(function () {
+            sharedata = {
+                title: '{$share_title}',
+                desc: '{$share_desc}',
+                link: '{$share_url}',
+                imgUrl: '{$share_image}',
+                success: function(){
+                    var url = "{php echo $this->createMobileUrl('share', array('id' => $id), true)}";
+                    $.ajax
+                    ({
+                        url: url,
+                        type:'POST',
+                        data: {},
+                        dataType:'json',
+                        error: function () {
+                        },
+                        success: function (result) {
+                        }
+                    });
+                },
+                cancel: function(){
+                    //alert('cancel');
+                }
+            };
+            wx.onMenuShareAppMessage(sharedata);
+            wx.onMenuShareTimeline(sharedata);
+        });
+    </script>
+</div>
+</body>
+</html>

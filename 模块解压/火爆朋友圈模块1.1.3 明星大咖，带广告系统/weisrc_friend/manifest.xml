@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[火爆朋友圈]]></name>
+		<identifie><![CDATA[weisrc_friend]]></identifie>
+		<version><![CDATA[1.1.3]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[火爆朋友圈]]></ability>
+		<description><![CDATA[火爆朋友圈]]></description>
+		<author><![CDATA[色彩传媒]]></author>
+		<url><![CDATA[http://renren.wx008.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+				<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="活动管理" do="manage" state="" direct="false" />
+		</menu>
+		<home   call="getItemTiles">
+		</home>
+	</bindings>
+	<install><![CDATA[
+	CREATE TABLE IF NOT EXISTS `ims_weisrc_friend_fans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `rid` int(11) DEFAULT '0',
+  `from_user` varchar(50) DEFAULT '' COMMENT '用户ID',
+  `nickname` varchar(50) DEFAULT '',
+  `headimgurl` varchar(500) DEFAULT '',
+  `number` int(11) DEFAULT '0',
+  `sex` tinyint(1) DEFAULT '0',
+  `dateline` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=84 ;
+
+CREATE TABLE IF NOT EXISTS `ims_weisrc_friend_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT '0',
+  `weid` int(11) DEFAULT '0',
+  `title` varchar(50) DEFAULT '',
+  `description` varchar(255) DEFAULT '',
+  `content` varchar(200) DEFAULT '',
+  `rule` text,
+  `award` text,
+  `bg` varchar(500) DEFAULT '',
+  `logo` varchar(500) DEFAULT '',
+  `qrcode` varchar(500) DEFAULT '',
+  `ad_url` varchar(500) DEFAULT '',
+  `nickname` varchar(50) DEFAULT '',
+  `desc` varchar(200) DEFAULT '',
+  `start_picurl` varchar(500) DEFAULT '',
+  `end_theme` varchar(50) DEFAULT '',
+  `end_instruction` varchar(200) DEFAULT '',
+  `end_picurl` varchar(500) DEFAULT '',
+  `banner` varchar(200) DEFAULT '',
+  `starttime` int(10) DEFAULT '0',
+  `endtime` int(10) DEFAULT '0',
+  `view` int(10) DEFAULT '0',
+  `cover` varchar(500) DEFAULT '',
+  `share_title` varchar(200) DEFAULT '',
+  `share_url` varchar(100) DEFAULT '',
+  `share_desc` varchar(300) DEFAULT '',
+  `share_image` varchar(500) DEFAULT '',
+  `follow_url` varchar(100) DEFAULT '',
+  `follow_title` varchar(100) DEFAULT '',
+  `copyright` varchar(100) DEFAULT '',
+  `copyrighturl` varchar(200) DEFAULT '',
+  `isneedfollow` tinyint(1) DEFAULT '1',
+  `status` tinyint(1) DEFAULT '0',
+  `dateline` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ alter table  ims_weisrc_friend_reply add `sharecount` int(11) DEFAULT '0';
+	]]></install>
+	<uninstall><![CDATA[drop TABLE `ims_weisrc_friend_reply` , `ims_weisrc_friend_reply` ]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>
