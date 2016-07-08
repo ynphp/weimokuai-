@@ -1,0 +1,103 @@
+{template 'common/header'}
+
+<div class='container' style='padding:0 5px 10px;margin:0;width:100%'>
+
+<ul class="nav nav-tabs">
+
+ 
+</ul>
+{if $op =='display'}
+<div class="panel panel-success">
+  <div class="panel-heading">营销活动 > 签到管家</div>
+  
+
+</div>
+<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="./index.php" method="get" class="form-horizontal" role="form">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+			<input type="hidden" value="yobyqiandao" name="m">
+			<input type="hidden" value="jilu" name="do">
+			<input type="hidden" value="display" name="op">
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关键字</label>
+				<div class="col-sm-8">
+						<input type="text" placeholder="搜索排名" value="{$_GPC['keyword']}" id="" name="keyword" class="form-control">
+				</div>				
+			</div>			
+			<div class="form-group">
+				<div class="pull-right col-xs-12 col-sm-2 col-lg-1">
+					<button class="btn btn-block"><i class="fa fa-search"></i> 搜索</button>
+				</div>
+				
+			</div>
+			</form>
+		</div>
+	</div>
+<div style="padding:15px;">
+<form id="form2" class="form-horizontal" method="post">
+
+		<table class="table table-hover">
+			<thead class="navbar-inner">
+				<tr>
+				<th style="width:80px;">全选</th>
+					<th style="width:150px;">openID</th>
+					<th style="width:100px;">姓名</th>				
+					<th style="width:130px;">签到时间</th>
+					<th style="width:100px;">获得积分</th>
+					<th style="width:100px;">天排名</th>
+					<th style="min-width:60px;width:100px;">删除</th>
+				</tr>
+			</thead>
+			<tbody>
+				{loop $list $item}
+				<td><input type="checkbox" value="{$item['id']}" name="delete[]"></td>
+					<td>{$item['openid']}</td>
+					<td>
+					{php $fans = fans_search($item['openid']);}
+					{if empty($fans['realname']) && empty($fans['nickname'])}匿名用户{else}{$fans['realname']}
+					  {if empty($fans['realname'])}{$fans['nickname']}{/if}
+					{/if}</td>
+					<td>{php echo date('Y-m-d H:i:s',$item['createtime'])}</td>
+					<td>{$item['jifen']}				
+					</td>
+					<td>{$item['top10']}		
+					</td>
+					<td>
+					<a onclick="return confirm('此操作不可恢复，确认吗？'); return false;" href="{php echo $this->createWebUrl('mjilu', array('id' => $item['id'],'op'=>'del'))}" title="删除" class="btn btn-mini btn-danger"><i class="fa fa-times"></i></a>
+					</td>				
+				</tr>
+				
+				{/loop}
+				<tr >
+				<td><input type="checkbox"  onclick="var ck = this.checked;$(':checkbox').each(function(){this.checked = ck});" name=''>    <input class="btn btn-primary" type="submit" value="删除" name="submit" ></td><td></td><td></td><td></td>
+				</tr>
+			</tbody>
+		</table>
+		<input type="hidden" value="mjilu" name="do">
+		<input type="hidden" value="del" name="op">
+		<input type="hidden" name="token" value="{$_W['token']}" />
+		
+		
+		</form>
+		{$pager}
+
+	<script>
+
+		
+					$('#form2').submit(function(){
+if($(":checkbox[name='delete[]']:checked").size() > 0){
+return confirm('删除后不可恢复，您确定删除吗？');
+}
+return false;
+}); 
+
+
+		</script>	
+	</div>
+{/if}		
+</div>
+
+{template 'common/footer'}

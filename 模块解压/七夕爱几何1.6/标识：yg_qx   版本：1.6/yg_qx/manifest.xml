@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[七夕爱几何]]></name>
+		<identifie><![CDATA[yg_qx]]></identifie>
+		<version><![CDATA[1.6]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[七夕爱几何]]></ability>
+		<description><![CDATA[七夕爱几何]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="爱的入口" do="import" state="" direct="false" />
+		</cover>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_yg_qx_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL,
+  `uniacid` int(10) unsigned NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `thumb` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `starttime` int(10) unsigned NOT NULL,
+  `endtime` int(10) unsigned NOT NULL,
+  `sharepic` varchar(500) NOT NULL,
+  `sharedesc` varchar(255) NOT NULL,
+  `sharetitle` varchar(10) NOT NULL,
+  `createtime` int(10) unsigned NOT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `indexpic1` varchar(255) DEFAULT NULL,
+  `indexpic3` varchar(255) DEFAULT NULL,
+  `indexpic2` varchar(255) DEFAULT NULL,
+  `indexpic4` varchar(255) DEFAULT NULL,
+  `indexpic5` varchar(255) DEFAULT NULL,
+  `indexpic6` varchar(255) DEFAULT NULL,
+  `indexpic7` varchar(255) DEFAULT NULL,
+  `indexpic8` varchar(255) DEFAULT NULL,
+  `indexpic9` varchar(255) DEFAULT NULL,
+  `music1` varchar(255) DEFAULT NULL,
+  `music2` varchar(255) DEFAULT NULL,
+  `music3` varchar(255) DEFAULT NULL,
+  `music4` varchar(255) DEFAULT NULL,
+  `music5` varchar(255) DEFAULT NULL,
+  `music6` varchar(255) DEFAULT NULL,
+  `music7` varchar(255) DEFAULT NULL,
+  `indexmsg` varchar(255) DEFAULT NULL,
+  `music8` varchar(255) DEFAULT NULL,
+  `music9` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
