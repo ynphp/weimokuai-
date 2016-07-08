@@ -1,0 +1,75 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{CSS_PATH}style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>排名记录</title>
+{php echo register_jssdk();}
+</head>
+<body>
+<div class="vgy_user">
+  <div class="info2" style="padding-top: 40px"> <a href="javascript:history.go(-1);">
+    <div class="update back"><img src="{IMG_PATH}back_01.png"></div>
+    </a> <img class="touxiang" src="{php echo tomedia($user_info['headimgurl'])}">
+    <p class="name">{$user_info['nickname']}</p>
+    <ul>
+      <li><span>{$user_info['best_score']}</span>
+        <p>最高记录</p>
+      </li>
+      <li><span>{$paiming}</span>
+        <p>排行</p>
+      </li>
+    </ul>
+    <div class="Ranking">
+      <div class="left">参与人数：{$total}人</div>
+    </div>
+  </div>
+</div>
+<div class="list">
+  <ul id="rank_list">
+    {loop $list $key $row}
+    <li>
+      <div class="NO">{php echo $key+1}</div>
+      <div class="Head"> <img src="{$row['headimgurl']}" width="100%"> </div>
+      <div class="text">
+        <div class="his">
+          <h1>{$row['nickname']}</h1>
+          <h2>游戏{$row['totalnum']}次</h2>
+        </div>
+        <div class="gift">
+          <p>{$row['best_score']}<span>分</span></p>
+        </div>
+      </div>
+    </li>
+    {/loop}
+    </ul>
+  <ul id="more_ul">
+
+  </ul>
+</div>
+<script>
+  wx.ready(function () {
+    sharedata = {
+      title: '{$reply['share_title']}',
+      desc: '{$reply['share_content']}',
+      link: '{$_W['siteroot']}{php echo str_replace('./','',$this->createMobileUrl('home',array('id'=>$id,'share_from'=>base64_encode($_W['openid']))))}',
+      imgUrl: '{php echo tomedia($reply['share_img'])}',
+      success: function(){
+        alert('分享成功！');
+      },
+      cancel: function(){
+        alert('可能网络不太好，在分享一次？');
+      }
+    };
+    wx.onMenuShareTimeline(sharedata);
+    wx.onMenuShareAppMessage(sharedata);
+    wx.onMenuShareQQ(sharedata);
+    wx.onMenuShareWeibo(sharedata);
+    wx.onMenuShareQZone(sharedata);
+  });
+</script>
+</body>
+</html>

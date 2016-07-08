@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[商户门店LBS]]></name>
+		<identifie><![CDATA[dayu_shangjia]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[商户门店信息展示，及测距与导航]]></ability>
+		<description><![CDATA[通过回复地理位置，检索商户门店地理位置，并展示商户门店信息，及测距与导航]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://code.h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="location" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="门店列表" do="display" state="" direct="false" />
+			<entry title="添加门店" do="post" state="" direct="false" />
+			<entry title="幻灯片管理" do="adv" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_dayu_shangjia` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `thumb` varchar(255) NOT NULL,
+  `content` varchar(1000) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `qq` varchar(15) NOT NULL,
+  `province` varchar(50) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `dist` varchar(50) NOT NULL,
+  `address` varchar(500) NOT NULL,
+  `lng` varchar(10) NOT NULL,
+  `lat` varchar(10) NOT NULL,
+  `industry1` varchar(10) NOT NULL,
+  `industry2` varchar(10) NOT NULL,
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_lat_lng` (`lng`,`lat`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_shangjia_ada` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `advname` varchar(50) DEFAULT '',
+  `link` varchar(255) DEFAULT '',
+  `thumb` varchar(255) DEFAULT '',
+  `displayorder` int(11) DEFAULT '0',
+  `enabled` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_weid` (`weid`),
+  KEY `indx_enabled` (`enabled`),
+  KEY `indx_displayorder` (`displayorder`)
+) ENGINE=MyISAM AUTO_INCREMENT=9380 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_dayu_shangjia_adv` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `advname` varchar(50) DEFAULT '',
+  `link` varchar(255) DEFAULT '',
+  `thumb` varchar(255) DEFAULT '',
+  `displayorder` int(11) DEFAULT '0',
+  `enabled` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_weid` (`weid`),
+  KEY `indx_enabled` (`enabled`),
+  KEY `indx_displayorder` (`displayorder`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

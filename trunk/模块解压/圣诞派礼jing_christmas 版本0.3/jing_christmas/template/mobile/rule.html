@@ -1,0 +1,48 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	{php echo register_jssdk();}
+	<title>活动规则</title>
+	<style>.rule img{max-width:100%;}</style>
+	<link rel="stylesheet" type="text/css" href="{CSS_PATH}style.css"></head>
+<body>
+	<div class="vgy_user">
+		<div class="info2 noBg">
+			<a href="javascript:history.go(-1);">
+				<div class="update back">
+					<img src="{IMG_PATH}back_01.png"></div>
+			</a>
+			<img src="{IMG_PATH}hdgz.png" width="100%"></div>
+		<div class="content">
+			<h3>活动规则</h3>
+			{$reply['tips']}
+		</div>
+	</div>
+<script>
+	wx.ready(function () {
+		sharedata = {
+			title: '{$reply['share_title']}',
+			desc: '{$reply['share_content']}',
+			link: '{$_W['siteroot']}{php echo str_replace('./','',$this->createMobileUrl('home',array('id'=>$id,'share_from'=>base64_encode($_W['openid']))))}',
+			imgUrl: '{php echo tomedia($reply['share_img'])}',
+			success: function(){
+				alert('分享成功！');
+			},
+			cancel: function(){
+				alert('可能网络不太好，在分享一次？');
+			}
+		};
+		wx.onMenuShareTimeline(sharedata);
+		wx.onMenuShareAppMessage(sharedata);
+		wx.onMenuShareQQ(sharedata);
+		wx.onMenuShareWeibo(sharedata);
+		wx.onMenuShareQZone(sharedata);
+	});
+</script>
+<div style="display:none"></div>
+</body>
+</html>

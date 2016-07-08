@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[失物招领]]></name>
+		<identifie><![CDATA[yoby_lost]]></identifie>
+		<version><![CDATA[3.5]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[失物招领]]></ability>
+		<description><![CDATA[失物招领]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="封面设置" do="fm" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="管理失物招领" do="shiwu" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_yoby_auth_auth` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL COMMENT '微信编号',
+  `openid` varchar(128) DEFAULT NULL COMMENT '借调openid',
+  `from_user` varchar(128) DEFAULT NULL COMMENT '获取openid',
+  `num` int(10) DEFAULT NULL COMMENT '关注排名',
+  PRIMARY KEY (`id`),
+  KEY `openid` (`openid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_auth_base` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `num` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_auth_top` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `title` varchar(200) DEFAULT NULL COMMENT '标题',
+  `url` varchar(256) DEFAULT NULL,
+  `img` varchar(300) DEFAULT NULL COMMENT '图片',
+  `sorting` mediumint(6) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_car` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(500) DEFAULT NULL COMMENT '用户唯一',
+  `title` varchar(50) DEFAULT NULL COMMENT '车主或乘客姓名',
+  `createtime` int(10) DEFAULT NULL COMMENT '发车时间',
+  `address` varchar(150) DEFAULT NULL COMMENT '区间',
+  `num` varchar(20) DEFAULT NULL COMMENT '最多携带人数',
+  `beizhu` varchar(100) DEFAULT NULL COMMENT '手机,qq,微信,邮箱等联系方式',
+  `type` tinyint(1) DEFAULT '0' COMMENT '0是乘客报名1是车主报名',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_car_huodong` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '活动介绍',
+  `weid` int(10) DEFAULT NULL,
+  `title` varchar(40) DEFAULT NULL COMMENT '标题',
+  `url` varchar(512) DEFAULT NULL COMMENT '连接',
+  `createtime` int(10) DEFAULT NULL,
+  `orderby` int(10) DEFAULT '0' COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_car_say` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '留言表',
+  `weid` int(10) DEFAULT NULL,
+  `from_openid` varchar(500) DEFAULT NULL COMMENT '发布者openid',
+  `to_openid` varchar(500) DEFAULT NULL COMMENT '接收者openid',
+  `content` varchar(1000) DEFAULT NULL COMMENT '内容',
+  `createtime` int(10) DEFAULT NULL COMMENT '时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_car_zanzhu` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '赞助商表',
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(500) DEFAULT NULL,
+  `logo` varchar(200) DEFAULT NULL COMMENT '图标地址',
+  `title` varchar(500) DEFAULT NULL COMMENT '赞助商简介',
+  `url` varchar(512) DEFAULT NULL COMMENT '赞助商网址',
+  `createtime` int(10) DEFAULT NULL COMMENT '时间',
+  `num` int(10) DEFAULT '0' COMMENT '点击量',
+  `isok` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=15 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_change_fans` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `weid` int(10) DEFAULT NULL,
+  `names` varchar(20) DEFAULT NULL COMMENT '姓名',
+  `play_num` int(10) DEFAULT '0' COMMENT '所玩次数',
+  `phone` varchar(20) DEFAULT NULL COMMENT '手机号',
+  `max_fen` int(10) DEFAULT '0' COMMENT '最高纪录',
+  `openid` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_change_num` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(60) DEFAULT NULL,
+  `createtime` varchar(10) DEFAULT NULL,
+  `day_num` int(10) DEFAULT '0',
+  `rid` int(10) DEFAULT NULL,
+  `is_share` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_change_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `start_time` int(10) DEFAULT NULL COMMENT '开始时间',
+  `end_time` int(10) DEFAULT NULL COMMENT '结束时间',
+  `share_title` varchar(50) DEFAULT NULL COMMENT '分享标题',
+  `share_img` varchar(200) DEFAULT NULL COMMENT '分享小图标',
+  `share_desc` varchar(300) DEFAULT NULL COMMENT '分享描述',
+  `hd_title` varchar(50) DEFAULT NULL COMMENT '活动图文标题',
+  `hd_img` varchar(200) DEFAULT NULL COMMENT '活动图文图片',
+  `hd_desc` varchar(300) DEFAULT NULL COMMENT '活动图文描述',
+  `ad_img` varchar(200) DEFAULT NULL COMMENT '可替换背景图',
+  `max_num` mediumint(8) DEFAULT NULL COMMENT '总次数',
+  `day_num` mediumint(8) DEFAULT NULL COMMENT '每天最多次数',
+  `desc` text COMMENT '本次活动介绍页面',
+  `share_url` varchar(200) DEFAULT NULL COMMENT '分享链接',
+  `copyright` varchar(100) DEFAULT NULL COMMENT '版权信息',
+  `game_time` smallint(6) DEFAULT '60',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_change_top` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(128) DEFAULT NULL,
+  `createtime` varchar(20) DEFAULT NULL COMMENT '所玩时间',
+  `fen` int(10) DEFAULT NULL COMMENT '本次分数成绩',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_czz_fans` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(500) DEFAULT NULL,
+  `title` varchar(20) DEFAULT NULL COMMENT '姓名',
+  `phone` varchar(16) DEFAULT NULL COMMENT '手机',
+  `num` int(10) DEFAULT '0' COMMENT '所玩次数',
+  `top10` int(10) DEFAULT '0' COMMENT '排行榜',
+  `maxnum` int(10) DEFAULT '0' COMMENT '最高纪录粽子数量',
+  `rid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_czz_num` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(500) DEFAULT NULL,
+  `createtime` varchar(10) DEFAULT NULL,
+  `daynum` int(10) DEFAULT '0' COMMENT '限制次数',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_czz_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `start_time` int(10) DEFAULT NULL,
+  `end_time` int(10) DEFAULT NULL,
+  `jianjie` varchar(300) DEFAULT NULL COMMENT '活动简介',
+  `maxday` int(10) DEFAULT '0' COMMENT '每天最多玩次数',
+  `title` varchar(50) DEFAULT NULL,
+  `img` varchar(200) DEFAULT NULL,
+  `guize` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_czz_top` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `openid` varchar(500) DEFAULT NULL,
+  `weid` int(10) DEFAULT NULL,
+  `createtime` int(10) DEFAULT NULL,
+  `num` int(10) DEFAULT '0' COMMENT '吃的粽子',
+  `rid` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_dg_fans` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `weid` int(10) DEFAULT NULL,
+  `names` varchar(20) DEFAULT NULL COMMENT '姓名',
+  `play_num` int(10) DEFAULT '0' COMMENT '所玩次数',
+  `phone` varchar(20) DEFAULT NULL COMMENT '手机号',
+  `max_fen` int(10) DEFAULT '0' COMMENT '最高纪录',
+  `openid` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_dg_num` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(60) DEFAULT NULL,
+  `createtime` varchar(10) DEFAULT NULL,
+  `day_num` int(10) DEFAULT '0',
+  `rid` int(10) DEFAULT NULL,
+  `is_share` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_dg_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `start_time` int(10) DEFAULT NULL COMMENT '开始时间',
+  `end_time` int(10) DEFAULT NULL COMMENT '结束时间',
+  `share_title` varchar(50) DEFAULT NULL COMMENT '分享标题',
+  `share_img` varchar(200) DEFAULT NULL COMMENT '分享小图标',
+  `share_desc` varchar(300) DEFAULT NULL COMMENT '分享描述',
+  `hd_title` varchar(50) DEFAULT NULL COMMENT '活动图文标题',
+  `hd_img` varchar(200) DEFAULT NULL COMMENT '活动图文图片',
+  `hd_desc` varchar(300) DEFAULT NULL COMMENT '活动图文描述',
+  `ad_img` varchar(200) DEFAULT NULL COMMENT '可替换背景图',
+  `max_num` mediumint(8) DEFAULT NULL COMMENT '总次数',
+  `day_num` mediumint(8) DEFAULT NULL COMMENT '每天最多次数',
+  `desc` text COMMENT '本次活动介绍页面',
+  `share_url` varchar(200) DEFAULT NULL COMMENT '分享链接',
+  `copyright` varchar(100) DEFAULT NULL COMMENT '版权信息',
+  `game_time` smallint(6) DEFAULT '60',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_dg_top` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(128) DEFAULT NULL,
+  `createtime` varchar(20) DEFAULT NULL COMMENT '所玩时间',
+  `fen` int(10) DEFAULT NULL COMMENT '本次分数成绩',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_ds_friend` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `fromuser` varchar(60) DEFAULT NULL COMMENT '我的id',
+  `wid` varchar(10) DEFAULT NULL COMMENT '朋友id',
+  `yname` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_ds_sms` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `content` varchar(144) DEFAULT NULL COMMENT '字数',
+  `createtime` int(10) DEFAULT NULL,
+  `fromuser` varchar(64) DEFAULT NULL,
+  `touser` varchar(64) DEFAULT NULL,
+  `isread` tinyint(1) DEFAULT '0',
+  `weid` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_ds_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL COMMENT '微信编号',
+  `wid` varchar(10) DEFAULT NULL COMMENT '聊天编号',
+  `sex` tinyint(1) DEFAULT '0',
+  `yname` varchar(30) DEFAULT NULL COMMENT '姓名',
+  `xi` varchar(100) DEFAULT NULL COMMENT '年级与系别',
+  `fromuser` varchar(64) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_edu_chengji` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `xid` int(10) DEFAULT NULL COMMENT '学号',
+  `kid` int(10) DEFAULT NULL COMMENT '科目id',
+  `fenshu` varchar(10) DEFAULT NULL COMMENT '分数',
+  `isok` tinyint(1) DEFAULT '0' COMMENT '是否补考',
+  `fid` int(10) DEFAULT NULL COMMENT '学期',
+  `mid` int(10) DEFAULT NULL COMMENT '考试名称',
+  `bid` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_edu_class` (
+  `bid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `title` varchar(30) DEFAULT NULL COMMENT '班级',
+  `orderby` int(10) DEFAULT NULL,
+  PRIMARY KEY (`bid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_edu_gg` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `fid` int(11) DEFAULT NULL COMMENT '学期编号',
+  `createtime` int(11) DEFAULT NULL,
+  `ly` varchar(50) DEFAULT NULL COMMENT '来源',
+  `title` varchar(100) DEFAULT NULL COMMENT '标题',
+  `content` text COMMENT '内容',
+  `img` varchar(200) DEFAULT NULL,
+  `num` int(10) DEFAULT '0',
+  `orderby` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+
+INSERT INTO `ims_yoby_edu_gg` (`id`, `weid`, `fid`, `createtime`, `ly`, `title`, `content`, `img`, `num`, `orderby`) VALUES
+(1, 1, 1, 1433850691, '体育', '爱奢侈品终会演变成爱“奢侈体验”，这是精品度假网站“赞那度”想抓住的消费升级', '&lt;p&gt;爱奢侈品终会演变成爱&ldquo;奢侈体验&rdquo;，这是精品度假网站&ldquo;赞那度&rdquo;想抓住的消费升级&lt;/p&gt;\r\n&lt;p class=&quot;text&quot;&gt;物联网是此次全球创新学院的研究重点课题。谈到微软在这一领域的布局时，沈向洋解释说，&ldquo;物联网毫无疑问是智能手机之后 的最大市场和计算平台。微软在物联网有着非常清晰的布局，包括两个层面&mdash;&mdash;云和设备。在云的层面，微软已经与很多公司在合作。微软会对上载的数据进行分 析，进行智能化以及视觉化，有着一整套解决方案。而设备层面则有着Windows10。&rdquo;&lt;/p&gt;\r\n&lt;p class=&quot;text&quot;&gt;&ldquo;我们基本是从两个方面，一方面是只要有数据上载到云里面，你在云里面可以做什么，我们可以提 供什么服务。另外一方面就是在设备这个层面，跟Windows相关的，云那里什么状态都没关系，只要采取数据都要处理。另外Windows这里我们也提供 一整套这个层面的服务。可以想像，微软研究院里未来还有更多的相关项目。&rdquo;&lt;img title=&quot;images//2015/06/V45l5XQu3Q63vnLxngR45PDld3NKkp.png&quot;src=&quot;../attachment/images/2015/06/V45l5XQu3Q63vnLxngR45PDld3NKkp.png&quot;alt=&quot;images//2015/06/V45l5XQu3Q63vnLxngR45PDld3NKkp.png&quot;/&gt;&lt;/p&gt;', NULL, 1011, 0),
+(2, 1, 1, 1433850691, '体育', '接发初创企业Mayvenn获1000万美元融资', '&lt;p&gt;接发初创企业Mayvenn获1000万美元融资&lt;/p&gt;\r\n&lt;p&gt;&lt;img title=&quot;images/1/2015/06/HmSzhIuIy34S5s443BxZCS4m0c33sM.jpg&quot;src=&quot;../attachment/images/1/2015/06/HmSzhIuIy34S5s443BxZCS4m0c33sM.jpg&quot;alt=&quot;images/1/2015/06/HmSzhIuIy34S5s443BxZCS4m0c33sM.jpg&quot;/&gt;&lt;/p&gt;', NULL, 123457, 0),
+(3, 1, 1, 1433850691, '体育', 'Twitter 试水社会化电商，上线全新版块“Collection”', 'Twitter 试水社会化电商，上线全新版块“Collection”', NULL, 2, 0),
+(4, 1, 1, 1433850691, '体育', '9点1氪：蚂蚁金服已完成新一轮融资，估值或超450亿美元；谷歌要被欧盟重罚', '9点1氪：蚂蚁金服已完成新一轮融资，估值或超450亿美元；谷歌要被欧盟重罚', NULL, 0, 0),
+(5, 1, 1, 1433850691, '体育', '出海归来的“点应”，将在国内做语伴交换平台', '出海归来的“点应”，将在国内做语伴交换平台', NULL, 0, 0),
+(6, 1, 1, 1433850691, '体育', '苹果与IBM的合作拓展到教育领域，将面向学校推出学生成绩应用', '苹果与IBM的合作拓展到教育领域，将面向学校推出学生成绩应用', NULL, 0, 0),
+(7, 1, 1, 1433850691, '体育', '36氪每日投融资笔记：亲子出行平台“偶们”获 5000 万人民币 A 轮融资；理财师移动营销管理平台“天天有钱”获千万级天使轮融资', '36氪每日投融资笔记：亲子出行平台“偶们”获 5000 万人民币 A 轮融资；理财师移动营销管理平台“天天有钱”获千万级天使轮融资', NULL, 0, 0),
+(8, 1, 1, 1433850691, '体育', '广告不会消失，只会变得更“霸道”？', '广告不会消失，只会变得更“霸道”？', NULL, 0, 0),
+(9, 1, 1, 1433850691, '体育', '【大公司晚报】京东618移动端订单破60%；美团 Android 应用被曝强杀对手应用', '【大公司晚报】京东618移动端订单破60%；美团 Android 应用被曝强杀对手应用', NULL, 0, 0),
+(10, 1, 1, 1433850691, '体育', '「下 · 一个应用」6月第3周最棒的5个APP', '「下 · 一个应用」6月第3周最棒的5个APP', NULL, 0, 0),
+(11, 1, 1, 1433850691, '体育', '暴风科技冯鑫：尝试一家公司，没有老板，“包产到户”', '暴风科技冯鑫：尝试一家公司，没有老板，“包产到户”', NULL, 0, 0);
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_edu_kaoshi` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `fid` int(10) DEFAULT NULL COMMENT '学期',
+  `bid` int(10) DEFAULT NULL COMMENT '班级',
+  `kid` varchar(100) DEFAULT NULL COMMENT '科目id',
+  `createtime` varchar(20) DEFAULT NULL COMMENT '考试时间',
+  `address` varchar(100) DEFAULT NULL COMMENT '地点',
+  `mid` int(10) DEFAULT NULL COMMENT '考试名称',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_edu_kaoshimc` (
+  `mid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `orderby` int(10) DEFAULT NULL,
+  PRIMARY KEY (`mid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_edu_kebiao` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `fid` int(10) DEFAULT NULL COMMENT '学期',
+  `bid` int(10) DEFAULT NULL COMMENT '班级',
+  `kid` int(10) DEFAULT NULL COMMENT '科目',
+  `xq` varchar(10) DEFAULT NULL COMMENT '星期0是周日',
+  `jieci` varchar(30) DEFAULT NULL COMMENT '节次',
+  `beizhu` varchar(100) DEFAULT NULL COMMENT '备注填写老师和教师以及其他信息',
+  `fj` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_edu_kemu` (
+  `kid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `title` varchar(100) DEFAULT NULL COMMENT '科目名称',
+  `orderby` int(10) DEFAULT '0',
+  PRIMARY KEY (`kid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_edu_student` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `openid` varchar(512) DEFAULT NULL,
+  `xid` varchar(30) DEFAULT NULL COMMENT '学号',
+  `title` varchar(20) DEFAULT NULL COMMENT '姓名',
+  `sex` tinyint(1) DEFAULT NULL,
+  `birthday` varchar(10) DEFAULT NULL COMMENT '生日',
+  `address` varchar(100) DEFAULT NULL COMMENT '地址',
+  `phone` varchar(30) DEFAULT NULL COMMENT '联系方式',
+  `bid` int(10) DEFAULT NULL COMMENT '班级id',
+  `rtime` varchar(20) DEFAULT NULL COMMENT '入学时间',
+  `createtime` int(10) DEFAULT NULL,
+  `fphone` varchar(16) DEFAULT NULL COMMENT '家长手机号',
+  `weid` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_edu_teacher` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `title` varchar(20) DEFAULT NULL COMMENT '教师姓名',
+  `age` tinyint(3) unsigned DEFAULT '0' COMMENT '年龄',
+  `sex` tinyint(1) DEFAULT NULL COMMENT '性别',
+  `phone` varchar(20) DEFAULT NULL COMMENT '联系方式',
+  `email` varchar(128) DEFAULT NULL,
+  `rtime` varchar(20) DEFAULT NULL COMMENT '入职时间',
+  `pic` varchar(200) DEFAULT NULL COMMENT '照片',
+  `orderby` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_edu_xuefei` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `fid` int(10) DEFAULT NULL COMMENT '学期号',
+  `xid` int(10) DEFAULT NULL COMMENT '学号',
+  `xuefei` int(10) DEFAULT NULL COMMENT '学费',
+  `shufei` int(10) DEFAULT NULL COMMENT '书费',
+  `isok` tinyint(1) DEFAULT '1' COMMENT '是否缴清',
+  `xtime` varchar(20) DEFAULT NULL COMMENT '限制时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_edu_xueqi` (
+  `fid` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '学期id',
+  `weid` int(10) DEFAULT NULL,
+  `title` varchar(30) DEFAULT NULL COMMENT '学期号',
+  `orderby` int(10) DEFAULT NULL,
+  PRIMARY KEY (`fid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_pig` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) DEFAULT NULL,
+  `createtime` int(10) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL COMMENT '省市',
+  `title` varchar(200) DEFAULT NULL,
+  `content` varchar(1000) DEFAULT NULL,
+  `img` varchar(300) DEFAULT NULL COMMENT '二维码或图片',
+  `url` varchar(300) DEFAULT NULL COMMENT '关注引导',
+  `openid` varchar(100) DEFAULT NULL,
+  `isok` tinyint(1) DEFAULT '0' COMMENT '0不审核1审核',
+  `cid` int(10) DEFAULT NULL COMMENT '分类id',
+  `num` int(10) DEFAULT '0',
+  `flag` tinyint(1) DEFAULT '0',
+  `topn` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_pig_c` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) DEFAULT NULL,
+  `title` varchar(30) DEFAULT NULL,
+  `descs` varchar(40) DEFAULT NULL,
+  `type` tinyint(1) DEFAULT '0' COMMENT '0是群1是名片2是微商',
+  `img` varchar(300) DEFAULT NULL,
+  `isok` tinyint(1) DEFAULT '0' COMMENT '本分类是否要审核0不审核1审核',
+  `createtime` int(10) DEFAULT NULL,
+  `jifen` int(10) DEFAULT '0' COMMENT '0积分表示不需要积分',
+  `orderby` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_pig_j` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) DEFAULT NULL,
+  `openid` varchar(100) DEFAULT NULL,
+  `pid` int(10) DEFAULT NULL COMMENT '积分查看记录',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_pig_x` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `openid` varchar(200) DEFAULT NULL,
+  `wechat` varchar(50) DEFAULT NULL,
+  `uid` int(10) DEFAULT NULL,
+  `isok` tinyint(1) DEFAULT '1',
+  `friend` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_qd_goon` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(128) DEFAULT NULL COMMENT '签到用户',
+  `days` int(10) DEFAULT '0' COMMENT '连续签到次数',
+  `createtime` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_qd_log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(128) DEFAULT NULL,
+  `createtime` int(10) DEFAULT NULL COMMENT '签到时间',
+  `jifen` int(10) DEFAULT '0' COMMENT '积分',
+  `top10` int(10) DEFAULT '0' COMMENT '排行榜',
+  `uid` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_qd_reply` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL COMMENT '规则id',
+  `weid` int(10) DEFAULT NULL COMMENT '微信id',
+  `jifen` varchar(10) DEFAULT '0,10' COMMENT '积分规则,默认随机0,10',
+  `jifen2` varchar(2) DEFAULT '8' COMMENT '连续两天',
+  `jifen3` varchar(2) DEFAULT '11' COMMENT '连续3天',
+  `jifen4` varchar(2) DEFAULT '15' COMMENT '4天',
+  `jifen5` varchar(2) DEFAULT '19' COMMENT '5天',
+  `jifen6` varchar(2) DEFAULT '24' COMMENT '6天',
+  `jifen7` varchar(2) DEFAULT '29' COMMENT '大于等于7天',
+  `oktishi` varchar(300) DEFAULT '签到成功!' COMMENT '签到成功提示',
+  `errortishi` varchar(300) DEFAULT '不在签到时间之内!' COMMENT '失败提示',
+  `start_time` varchar(10) DEFAULT '00:00:00' COMMENT '开始签到时间',
+  `end_time` varchar(10) DEFAULT '23:59:59' COMMENT '结束签到时间',
+  `top10` int(10) DEFAULT '10' COMMENT '显示排行榜位数',
+  `ad` text COMMENT '广告',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_sd` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `content` text COMMENT '内容',
+  `bgcolor` char(12) DEFAULT NULL COMMENT '背景色',
+  `createtime` int(10) DEFAULT NULL COMMENT '时间',
+  `num` int(10) DEFAULT '0' COMMENT '点击量',
+  `say` int(10) DEFAULT '0' COMMENT '评论数',
+  `zan` int(10) DEFAULT '0' COMMENT '点赞数',
+  `openid` varchar(128) DEFAULT NULL COMMENT '洞主openid',
+  `bid` int(10) DEFAULT NULL COMMENT '树洞id,仅仅输出',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_sd_say` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(128) DEFAULT NULL,
+  `sid` int(10) DEFAULT NULL COMMENT '树洞id',
+  `createtime` int(10) DEFAULT NULL,
+  `bgcolor` char(12) DEFAULT NULL COMMENT '颜色',
+  `content` varchar(1024) DEFAULT NULL COMMENT '内容',
+  `zan` int(10) DEFAULT '0' COMMENT '点赞',
+  `pid` int(10) DEFAULT NULL COMMENT '评论名次',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_tougao` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `createtime` int(10) DEFAULT NULL,
+  `openid` varchar(512) DEFAULT NULL,
+  `wechat` varchar(50) DEFAULT NULL COMMENT '微信号',
+  `author` varchar(40) DEFAULT NULL COMMENT '作者笔名',
+  `title` varchar(100) DEFAULT NULL,
+  `content` text,
+  `cid` int(10) DEFAULT NULL COMMENT '分类id',
+  `gaofei` tinyint(1) DEFAULT '0' COMMENT '稿费',
+  `num` int(10) DEFAULT '0',
+  `isok` tinyint(1) unsigned DEFAULT '0',
+  `zan` int(10) DEFAULT '0' COMMENT '点赞次数',
+  `yuanyin` varchar(100) DEFAULT NULL,
+  `img` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_tougao_c` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `title` varchar(20) DEFAULT NULL COMMENT '分类标题',
+  `orderby` int(10) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_tougao_zan` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `tid` int(10) DEFAULT NULL,
+  `openid` varchar(512) DEFAULT NULL,
+  `zan` tinyint(1) DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_xxl_fans` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `weid` int(10) DEFAULT NULL,
+  `names` varchar(20) DEFAULT NULL COMMENT '姓名',
+  `play_num` int(10) DEFAULT '0' COMMENT '所玩次数',
+  `phone` varchar(20) DEFAULT NULL COMMENT '手机号',
+  `max_fen` int(10) DEFAULT '0' COMMENT '最高纪录',
+  `openid` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_xxl_num` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(60) DEFAULT NULL,
+  `createtime` varchar(10) DEFAULT NULL,
+  `day_num` int(10) DEFAULT '0',
+  `rid` int(10) DEFAULT NULL,
+  `is_share` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_xxl_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `start_time` int(10) DEFAULT NULL COMMENT '开始时间',
+  `end_time` int(10) DEFAULT NULL COMMENT '结束时间',
+  `share_title` varchar(50) DEFAULT NULL COMMENT '分享标题',
+  `share_img` varchar(200) DEFAULT NULL COMMENT '分享小图标',
+  `share_desc` varchar(300) DEFAULT NULL COMMENT '分享描述',
+  `hd_title` varchar(50) DEFAULT NULL COMMENT '活动图文标题',
+  `hd_img` varchar(200) DEFAULT NULL COMMENT '活动图文图片',
+  `hd_desc` varchar(300) DEFAULT NULL COMMENT '活动图文描述',
+  `ad_img` varchar(200) DEFAULT NULL COMMENT '可替换背景图',
+  `max_num` mediumint(8) DEFAULT NULL COMMENT '总次数',
+  `day_num` mediumint(8) DEFAULT NULL COMMENT '每天最多次数',
+  `desc` text COMMENT '本次活动介绍页面',
+  `share_url` varchar(200) DEFAULT NULL COMMENT '分享链接',
+  `copyright` varchar(100) DEFAULT NULL COMMENT '版权信息',
+  `game_time` smallint(6) DEFAULT '60',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_xxl_top` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(128) DEFAULT NULL,
+  `createtime` varchar(20) DEFAULT NULL COMMENT '所玩时间',
+  `fen` int(10) DEFAULT NULL COMMENT '本次分数成绩',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_zg_fans` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `weid` int(10) DEFAULT NULL,
+  `names` varchar(20) DEFAULT NULL COMMENT '姓名',
+  `play_num` int(10) DEFAULT '0' COMMENT '所玩次数',
+  `phone` varchar(20) DEFAULT NULL COMMENT '手机号',
+  `max_fen` int(10) DEFAULT '0' COMMENT '最高纪录',
+  `openid` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_zg_num` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(60) DEFAULT NULL,
+  `createtime` varchar(10) DEFAULT NULL,
+  `day_num` int(10) DEFAULT '0',
+  `rid` int(10) DEFAULT NULL,
+  `is_share` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_zg_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `start_time` int(10) DEFAULT NULL COMMENT '开始时间',
+  `end_time` int(10) DEFAULT NULL COMMENT '结束时间',
+  `share_title` varchar(50) DEFAULT NULL COMMENT '分享标题',
+  `share_img` varchar(200) DEFAULT NULL COMMENT '分享小图标',
+  `share_desc` varchar(300) DEFAULT NULL COMMENT '分享描述',
+  `hd_title` varchar(50) DEFAULT NULL COMMENT '活动图文标题',
+  `hd_img` varchar(200) DEFAULT NULL COMMENT '活动图文图片',
+  `hd_desc` varchar(300) DEFAULT NULL COMMENT '活动图文描述',
+  `ad_img` varchar(200) DEFAULT NULL COMMENT '可替换背景图',
+  `max_num` mediumint(8) DEFAULT NULL COMMENT '总次数',
+  `day_num` mediumint(8) DEFAULT NULL COMMENT '每天最多次数',
+  `desc` text COMMENT '本次活动介绍页面',
+  `share_url` varchar(200) DEFAULT NULL COMMENT '分享链接',
+  `copyright` varchar(100) DEFAULT NULL COMMENT '版权信息',
+  `game_time` smallint(6) DEFAULT '60',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_yoby_zg_top` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) DEFAULT NULL,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(128) DEFAULT NULL,
+  `createtime` varchar(20) DEFAULT NULL COMMENT '所玩时间',
+  `fen` int(10) DEFAULT NULL COMMENT '本次分数成绩',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

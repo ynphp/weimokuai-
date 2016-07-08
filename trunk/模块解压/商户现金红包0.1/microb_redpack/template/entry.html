@@ -1,0 +1,73 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+    <li class="active"><a href="{php echo $this->createWebUrl('entry');}">活动参与方式</a></li>
+    <li><a href="{php echo $this->createWebUrl('activity');}">红包活动选项</a></li>
+    <li><a href="{php echo $this->createWebUrl('records');}">红包发放记录</a></li>
+    <li><a href="{php echo $this->createWebUrl('api');}">接口参数</a></li>
+</ul>
+<div class="clearfix">
+    <div class="alert alert-danger">
+        <h4>模块使用前需要注意</h4>
+        <p>
+            商户现金红包功能不同于市面上现有的红包功能. 用户领取后不需要提现, 打开后直接存入微信钱包零钱. <br>
+            主要功能使用 <mark>支持支付的认证服务号</mark>, 订阅号和未认证的服务号可以借用接口. <br>
+        </p>
+        <p>
+            <strong>
+                注意: 借用的接口发布活动, 领取红包后. 腾讯将使用认证服务号(借用的号)来发放红包. 因此用户将会有关注认证服务号的机会. <br>
+                因此使用借用接口发布活动将会推两个公众号, 介意的用户请注意
+            </strong>
+        </p>
+        <p>
+            <strong>
+                注意: 微信红包接口生效时间为每天 08:00 - 23:59, 不在这个时间段, 将无法领取红包. 可以随后在后台重新发放, 或者通知粉丝重新领取红包
+            </strong>
+        </p>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            使用关键字回复来参与
+        </div>
+        <div class="panel-body">
+            <div class="alert alert-info">
+                <p>
+                    经典的方式: 可以使用关键字回复, 然后点击图文消息链接来参与活动
+                </p>
+                <p>
+                    设置方式: 商户红包 - 关键字参与活动
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            使用微信自定义菜单来参与
+        </div>
+        <div class="panel-body">
+            <div class="alert alert-info">
+                <p>
+                    可以将活动链接设置为自定义菜单的跳转链接, 粉丝直接点击链接即可参与活动
+                </p>
+                <p>
+                    <a class="alert-link" href="{url 'platform/menu'}">访问自定义菜单</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            活动链接 (二维码只供测试访问, 不要直接发布. 泄露后会造成发红包不增粉的情况)
+        </div>
+        <div class="panel-body">
+            <div class="alert alert-info">
+                <p>
+                    <a class="alert-link" href="{$url}" target="_blank">{$url}</a>
+                </p>
+                <p style="margin-top:20px;">
+                    <img src="{php echo $this->createWebUrl('qr', array('raw' => base64_encode($url)))}" alt="" class="img-rounded" />
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{template 'common/footer'}

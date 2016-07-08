@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[圣诞派礼]]></name>
+		<identifie><![CDATA[jing_christmas]]></identifie>
+		<version><![CDATA[0.3]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[圣诞派礼]]></ability>
+		<description><![CDATA[圣诞派礼]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://code.h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<rule>
+			<entry title="活动管理" do="list" state="" direct="false" />
+		</rule>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_jing_christmas_fans` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `reply_id` int(10) unsigned NOT NULL DEFAULT '0',
+  `from_user` varchar(50) NOT NULL DEFAULT '',
+  `nickname` varchar(20) NOT NULL,
+  `mobile` varchar(11) NOT NULL,
+  `headimgurl` varchar(255) NOT NULL,
+  `totalnum` int(10) unsigned NOT NULL DEFAULT '0',
+  `awardnum` int(10) unsigned NOT NULL DEFAULT '0',
+  `last_time` int(10) unsigned NOT NULL DEFAULT '0',
+  `last_score` int(10) unsigned DEFAULT NULL,
+  `best_score` int(10) unsigned NOT NULL,
+  `createtime` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_jing_christmas_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL,
+  `uniacid` int(10) unsigned NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `thumb` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `starttime` int(10) unsigned NOT NULL,
+  `endtime` int(10) unsigned NOT NULL,
+  `playnum` int(10) unsigned NOT NULL,
+  `zfcs` int(10) unsigned NOT NULL,
+  `zjcs` int(10) unsigned NOT NULL,
+  `totalnum` int(10) unsigned NOT NULL,
+  `tips` text NOT NULL,
+  `prizeinfo` text NOT NULL,
+  `score` int(10) unsigned NOT NULL,
+  `homelogo` varchar(255) DEFAULT NULL,
+  `audio` varchar(255) DEFAULT NULL,
+  `gametime` int(10) unsigned DEFAULT NULL,
+  `share_title` varchar(100) NOT NULL,
+  `share_title2` varchar(100) NOT NULL,
+  `share_img` varchar(255) NOT NULL,
+  `share_content` varchar(255) NOT NULL,
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '0结束1正常2暂停',
+  `needmobile` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `createtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_jing_christmas_share` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `reply_id` int(10) unsigned NOT NULL,
+  `from_user` varchar(50) NOT NULL,
+  `share_from` varchar(50) NOT NULL,
+  `share_time` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+	
+	]]></install>
+	<uninstall><![CDATA[
+	drop table ims_jing_christmas_fans;
+	drop table ims_jing_christmas_reply;
+	drop table ims_jing_christmas_share;
+	]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

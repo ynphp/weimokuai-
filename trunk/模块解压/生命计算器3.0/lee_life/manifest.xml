@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[生命计算器]]></name>
+		<identifie><![CDATA[lee_life]]></identifie>
+		<version><![CDATA[3.0]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[计算生命时间。]]></ability>
+		<description><![CDATA[计算生命时间。]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="首入口设置" do="index" state="" direct="false" />
+		</cover>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_lee_life` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `scannum` varchar(50) NOT NULL DEFAULT '',
+  `sharenum` varchar(50) NOT NULL DEFAULT '',
+  `createtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
