@@ -1,0 +1,10 @@
+/*--签到--*/
+#sign{width:892px;height:572px;position:absolute;top:142px;left:116px;z-index:7;}
+.sign-butt{ width:180px; height:20px; position:absolute; top:569px; left:360px;}
+.sign-small{width:645px;height:485px; margin:0 auto;overflow:hidden;-webkit-mask-image: url(splatter-mask_1.png); 
+	mask-image: url(splatter-mask_1.png);}
+.sign-endbutt{ display:none;position:absolute;top:490px; left:330px;}
+.perhead{display:none;float:left;}
+.sign img{display:none;float:left;width:107px; height:110px;  margin-left:4px;margin-top:4px}
+.sign-text{width:107px !important; height:30px !important; line-height:30px !important;color:#FFF; font-size:20px; font-weight:300;white-space:nowrap; overflow:hidden;margin-left:4px;margin-top:4px;bottom: 0!important; }
+.shine-img{width:645px;height:485px;left:124.2px;display: none;background: url(shine.png); position:absolute}

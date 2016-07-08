@@ -1,0 +1,115 @@
+{template 'common/header'}
+
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li  ><a
+                href="{php echo $this->createWebUrl('gameManage');}">游戏管理</a></li>
+
+        <li>
+            <a href="{php echo $this->createWebUrl('gameAdmin')}">核销人员</a>
+        </li>
+
+        <li class="active">
+            <a href="{php echo $this->createWebUrl('gameAdmin', array('op' => 'edit'))}">添加核销人员</a>
+        </li>
+
+
+    </ul>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {if $item}
+                编辑核销人员
+            {else}
+                添加核销人员
+            {/if}
+        </div>
+
+        <div class="table-responsive panel-body">
+            <form action="" method="post" class="form-horizontal form">
+                <input type="hidden" id="aid"   name="aid" value="{$aid}">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 游戏名称：</label>
+                    <div class="col-sm-9 col-xs-12">
+                        <select name="gid" id="gid"  class="form-control">
+                            {loop $games $game}
+                            <option value="{$game['id']}" {if $game['id']==$item['gid'] }selected="selected"{/if}>{$game['gname']}</option>
+                            {/loop}
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>用户名：</label>
+
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" id="admin" class="form-control span7"
+                               placeholder="" name="admin" value="{$item['admin']}">
+
+                        <div class="help-block">
+                            <div class="alert alert-warning" role="alert">
+                                请使用英文字母或者数字作为登录用户名
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>登录密码：</label>
+
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" id="pwd" class="form-control span7"
+                               placeholder="" name="pwd" value="{$item['pwd']}">
+
+                        <div class="help-block">
+                            <div class="alert alert-warning" role="alert">
+                                请使用英文字母或者数字作为密码
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>备注说明：</label>
+
+                    <div class="col-sm-9 col-xs-12">
+                        <input type="text" id="remark" class="form-control span7"
+                               placeholder="" name="remark" value="{$item['remark']}">
+
+                    </div>
+
+
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+                    <div class="col-sm-9 col-xs-12">
+                        <p/>
+                        <input name="submit" type="submit" value="提交" class="btn btn-primary span3" />
+                        <input type="hidden" name="token" value="{$_W['token']}" />
+                    </div>
+                </div>
+
+
+            </form>
+
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{template 'common/footer'}

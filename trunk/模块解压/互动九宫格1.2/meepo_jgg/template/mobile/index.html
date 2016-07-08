@@ -1,0 +1,491 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{if empty($meepo_jgg['title'])}互动九宫格{else}{$meepo_jgg['title']}{/if}</title>
+<link rel="stylesheet" href="{MEEPO_PATH}css/wxwall.css" type="text/css">
+<link rel="stylesheet" href="{MEEPO_PATH}css/emoji.css" type="text/css">
+<link rel="stylesheet" href="{MEEPO_PATH}css/semantic.min.css" type="text/css">
+<link rel="stylesheet" href="{MEEPO_PATH}css/style.css" type="text/css">
+<link rel="stylesheet" href="{MEEPO_PATH}css/jgg.css" type="text/css">
+
+<script src="{MEEPO_PATH}js/jquery-1.8.3.min.js" type="text/javascript"></script>
+<script src="{MEEPO_PATH}js/sweetalert.min.js"></script>
+<link rel="stylesheet" href="{MEEPO_PATH}js/sweetalert.css" />
+</head>
+<body style="background: url({if empty($meepo_jgg['jggbg'])}{MEEPO_PATH}images/kuxuan.jpg{else}{$_W['attachurl']}{$meepo_jgg['jggbg']}{/if}) 50% 0px no-repeat rgb(255, 255, 255);">
+<img src="{MEEPO_PATH}images/music.png" style="width: 38px; height: 38px; right: 19px; top: 19px; opacity: 0.7; position: absolute; display: block; z-index: 1000; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" id="playbox">
+<div style="display:none">
+        <audio id="audio" autoplay="autoplay" loop="" src="{if empty($meepo_jgg['musicurl'])}http://wl.dcx4.cn/addons/mon_egg/images/default.mp3{else}{$_W['attachurl']}{$meepo_jgg['musicurl']}{/if}" style="pointer-events:none;display:none;width:0!important;height:0!important;"></audio>
+</div>
+<div class="main">
+<!--顶部end-->
+
+<div class="top"  data-position="right center" data-content="二维码，快捷键M" style="padding-top:10px">
+	<div class="top-logo" style="margin-left:10px">{if !empty($meepo_jgg['companylogo'])}<img src= "{$_W['attachurl']}{$meepo_jgg['companylogo']}" width=250 height=100>{/if}<div class="sides"></div></div>
+	<div class="top-logo" style="width:100px;float:right">{if !empty($meepo_jgg['accountlogo'])}<img src= "{$_W['attachurl']}{$meepo_jgg['accountlogo']}" width=100 height=100 class="bottom-code" />{/if}<div class="sides"></div></div>
+</div>
+<!--顶部end-->
+<!--九宫格区start-->
+<div class="ui transition" id="style">
+<div id="lottery">
+        <div class="NO" style="margin-bottom:20px">
+        <ul>
+         <li class="lottery-unit lottery-unit-0"><span class="active"></span><img
+                src="{if empty($meepo_jgg['prize_img_1'])}{php echo $this->p_img(1);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_1']}{/if}"/>
+        </li>
+        <li class="lottery-unit lottery-unit-1"><span></span><img
+                src="{if empty($meepo_jgg['prize_img_2'])}{php echo $this->p_img(2);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_2']}{/if}"/>
+        </li>
+        <li class="lottery-unit lottery-unit-2"><span></span><img
+                src="{if empty($meepo_jgg['prize_img_3'])}{php echo $this->p_img(3);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_3']}{/if}"/>
+        </li>
+        <li class="lottery-unit lottery-unit-7"><span></span><img
+                src="{if empty($meepo_jgg['prize_img_0'])}{php echo $this->p_img(0);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_0']}{/if}"/>
+        </li>
+        
+
+
+        <li><a><img src="{MEEPO_PATH}images/start.jpg" style="cursor:pointer;"/></a></li>
+
+        
+
+        <li class="lottery-unit lottery-unit-3"><span></span><img
+                src="{if empty($meepo_jgg['prize_img_4'])}{php echo $this->p_img(4);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_4']}{/if}"/>
+        </li>
+        <li class="lottery-unit lottery-unit-6"><span></span><img
+                src="{if empty($meepo_jgg['prize_img_7'])}{php echo $this->p_img(7);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_7']}{/if}"/>
+        </li>
+        <li class="lottery-unit lottery-unit-5"><span></span><img
+                src="{if empty($meepo_jgg['prize_img_6'])}{php echo $this->p_img(6);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_6']}{/if}"/>
+        </li>
+        <li class="lottery-unit lottery-unit-4"><span></span><img
+                src="{if empty($meepo_jgg['prize_img_5'])}{php echo $this->p_img(5);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_5']}{/if}"/>
+        </li>
+        <div class="clr"></div>
+    </ul>
+
+</div>
+</div>
+
+<!--九宫格区start-->
+<!--奖品区start-->
+<div class="lotteryLayer ui transition" id="vote_layer" style="text-align:center;display:none">
+     
+     
+    <div class="promptbox" style="padding-top:0">
+	    
+        <div class="box">
+		<span class="myClose" onclick="closeshow()"></span>
+		<h1>奖品秀</h1>
+            <div class="line"><img src="{MEEPO_PATH}images/line_yellow.png" width="100%"/></div>
+            <div class="user">
+                <div class="text" style="text-align:center">
+                    <span  class="awardshow">参与奖: 谢谢参与</span><br/><br/>
+                    <img src="" style="width:500px;height:400px;" id="awardimg" />
+                    <div class="clr"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--奖品区end-->
+<!--div main end-->
+</div> 
+<!--中奖区域start-->
+<div id="zjl" class="pop" >
+    <div class="promptbox">
+	    
+        <div class="box">
+		<span class="myClose" onclick="closezjl()"></span>
+		<h1>恭喜您！您的运气实在太好了！</h1>
+
+            <div class="line"><img src="{MEEPO_PATH}images/line_yellow.png" width="100%"/></div>
+            <div class="user">
+                
+
+                <div class="text" style="text-align:center">
+                    <span id="jptype">参与奖: 谢谢参与</span><br/><br/>
+                    
+                    <img id="jpimg" src="{MEEPO_PATH}images/common_141_no36KKnN.png"/ >
+ 
+                    <div class="clr"></div>
+                </div>
+                <div class="but_con">
+                    <button class="button_01">进入下一轮抽奖</button>
+                    <div class="clr"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--中奖区域end-->
+<!--未中奖区域start-->
+<div id="mzj" class="pop">
+    <div class="promptbox">
+        <div class="box">
+		<span class="myClose" onclick="closemzj()"></span>
+		<h1>啊哦，很遗憾!</h1>
+          
+            <div class="line"><img src="{MEEPO_PATH}images/line_yellow.png" width="100%"/></div>
+            <div class="user">
+               
+
+                <div class="text" style="text-align:center">
+                    <span id="ncz">没抽中任何奖品!</span><br/><br/>
+                    <img id="jpimg" src="{MEEPO_PATH}images/p0.png"/ >
+                    <div class="clr"></div>
+                </div>
+                <div class="but_con">
+                    <button class="button_01">进入下一轮抽奖</button>
+                    <div class="clr"></div>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--未中奖end--->
+<!--big code start-->
+<div class="pop" id="pop-code">
+				  <a class="pop-close" href="javascript:;"></a>
+				  <div class="pop-code">
+					<p>
+					  <span><img src="{$_W['attachurl']}{$meepo_jgg['accountlogo']}" ></span>
+					  <small>微信扫一扫，即可参与活动哦！</small>
+					</p>
+				  </div>
+				</div>
+</div>  
+<!--big code end-->
+<!---main end-->
+		 
+		 <div class="index-number mod-number" style="position: relative;left: 0;width: 100%;text-align: center;z-index: 1000;bottom: -550px;">
+		     <span ><i class="animate-rotate2" style="width:100px" id="0">抽奖</i></span>
+             <span ><i class="animate-rotate2" id="1">1</i></span>
+			 <span ><i class="animate-rotate2" id="2">2</i></span>
+			 <span ><i class="animate-rotate2" id="3">3</i></span>
+			 <span ><i class="animate-rotate2" id="4">4</i></span>
+			 <span ><i class="animate-rotate2" id="5">5</i></span>
+			 <span ><i class="animate-rotate2" id="6">6</i></span>
+			 <span ><i class="animate-rotate2" id="7">7</i></span>
+			 <span><i class="animate-rotate2" style="width:100px" onclick="fullScreen(document.documentElement)">全屏</i></span>
+			 <div style="height:40px;line-height:30px;text-align:center;color:#fff">地址: {$meepo_jgg['address']} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;联系电话:{$meepo_jgg['telephone']}</div>
+         </div>
+		  
+<!--未中奖区域end-->
+<img class="bg" src="{if empty($meepo_jgg['jggbg'])}{MEEPO_PATH}images/kuxuan.jpg{else}{$_W['attachurl']}{$meepo_jgg['jggbg']}{/if}"/>
+<script type="text/javascript">
+    //全屏显示函数
+function fullScreen(element){
+  if(element.requestFullscreen) {
+    element.requestFullscreen();
+  } else if(element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if(element.webkitRequestFullscreen) {
+    element.webkitRequestFullscreen();
+  } else if(element.msRequestFullscreen) {
+    element.msRequestFullscreen();
+  }
+}
+    
+    function closezjl() {
+       $("#zjl").hide();
+    }
+	function closemzj() {
+       $("#mzj").hide();
+    }
+    function closeshow(){
+		if($('#vote_layer').css('display') == 'block'){
+			 $("#vote_layer").hide();
+		}
+		if($('#lottery').css('display') == 'none'){
+			 $("#lottery").show();
+		}
+	}
+    
+
+    var lottery = {
+        index: 0,
+        count: 0,
+        timer: 0,
+        speed: 1000,
+        times: 0,
+        cycle: 50,
+        prize: -1,
+        init: function (id) {
+            if ($("#" + id).find(".lottery-unit").length > 0) {
+                slottery = $("#" + id);
+                sunits = slottery.find(".lottery-unit");
+                this.obj = slottery;
+                this.count = sunits.length;
+                slottery.find(".lottery-unit-" + this.index).find('span').addClass("active");
+            }
+            ;
+        },
+        roll: function () {
+            var index = this.index;
+            var count = this.count;
+            var lottery = this.obj;
+            $(lottery).find(".lottery-unit-" + index).find('span').removeClass("active");
+            index += 1;
+            if (index > count - 1) {
+                index = 0;
+            }
+            ;
+            $(lottery).find(".lottery-unit-" + index).find('span').addClass("active");
+            this.index = index;
+            return false;
+        },
+        stop: function (index) {
+            this.prize = index;
+            return false;
+        }
+    };
+
+    function roll() {
+        lottery.times += 1;
+        lottery.roll();
+        if (lottery.times > lottery.cycle + 10 && lottery.prize == lottery.index) {
+            clearTimeout(lottery.timer);
+            lottery.prize = -1;
+            lottery.times = 0;
+            click = false;
+            if (lottery.index < 7) {
+                setTimeout('$("#zjl").show()', 1300);
+            } else {
+                setTimeout('$("#mzj").show()', 1300);
+            }
+        } else {
+            if (lottery.times < lottery.cycle) {
+                lottery.speed -= 10;
+            } else if (lottery.times == lottery.cycle) {
+                index = myindex;//Math.random()*(lottery.count)|0;
+                lottery.prize = index;
+            } else {
+                if (lottery.times > lottery.cycle + 10 && ((lottery.prize == 0 && lottery.index == 7) || lottery.prize == lottery.index + 1)) {
+                    lottery.speed += 110;
+                } else {
+                    lottery.speed += 20;
+                }
+            }
+            if (lottery.speed < 40) {
+                lottery.speed = 40;
+            }
+            ;
+            lottery.timer = setTimeout(roll, lottery.speed);
+        }
+        return false;
+    }
+    function roll2() {
+       
+        lottery.roll();
+        
+        lottery.timer = setTimeout(roll2, lottery.speed);
+       
+        
+    }
+    var allTimes = "5";
+    allTimes = allTimes * 1;
+
+    var useTimes = "0";
+    useTimes = useTimes * 1;
+
+    var zjStatus = "0";
+    zjStatus = zjStatus * 1;
+
+    var leftCount = "{$meepo_jgg['day_play_count']}";//次数
+
+    var click = false;
+    var flag = 1;
+    var myindex = 7;
+    var submintCjStatus = 0;
+    window.onload = function () {
+        lottery.init('lottery');
+		lottery.speed = 400;
+		roll2();
+        $("#lottery a").click(function () {
+		  clearTimeout(lottery.timer);
+            if (click) {
+                return false;
+            } else {
+                if (submintCjStatus == 1) {
+                    return false;
+                }
+                if (leftCount <= 0) {
+
+                    $('#ncz').html('你的机会已经用完');
+                    $('#mzj').show();
+                    flag = 0;
+                    return false;
+                }
+
+
+                submintCjStatus = 1;
+
+
+                $.ajax({
+                    url: "{php echo $this->createMobileUrl('ajax',array('rid'=>$rid))}",
+                    type: "POST",
+                    data: {},
+                    dataType: "json",
+                    beforeSend: function () {
+                        $('#zjl').hide();
+                        $('#mzj').hide();
+                    },
+                    success: function (data) {
+					  console.log(data);
+                        submintCjStatus = 0;
+                        leftCount-- ;
+                        if (data.prize == 1) {
+							 $('#jptype').html("{$meepo_jgg['prize_level_1']}: {$meepo_jgg['prize_name_1']}");
+							 $('#jpimg').attr("src", "{if empty($meepo_jgg['prize_img_1'])}{php echo $this->p_img(1);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_1']}{/if}");
+                            flag = data.status;
+                            myindex = 0;
+                        } else if (data.prize == 2) {
+                             $('#jptype').html("{$meepo_jgg['prize_level_2']}: {$meepo_jgg['prize_name_2']}");
+							 $('#jpimg').attr("src", "{if empty($meepo_jgg['prize_img_2'])}{php echo $this->p_img(2);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_2']}{/if}");
+                            flag = data.status;
+                            myindex = 1;
+                        } else if (data.prize == 3) {
+                             $('#jptype').html("{$meepo_jgg['prize_level_3']}: {$meepo_jgg['prize_name_3']}");
+							 $('#jpimg').attr("src", "{if empty($meepo_jgg['prize_img_3'])}{php echo $this->p_img(3);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_3']}{/if}");
+                            flag = data.status;
+                            myindex = 2;
+                        } else if (data.prize == 4) {
+							 $('#jptype').html("{$meepo_jgg['prize_level_4']}: {$meepo_jgg['prize_name_4']}");
+							 $('#jpimg').attr("src", "{if empty($meepo_jgg['prize_img_4'])}{php echo $this->p_img(4);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_4']}{/if}");
+                            flag = data.status;
+                            myindex = 3;
+                        } else if (data.prize == 5) {
+                             $('#jptype').html("{$meepo_jgg['prize_level_5']}: {$meepo_jgg['prize_name_5']}");
+							 $('#jpimg').attr("src", "{if empty($meepo_jgg['prize_img_5'])}{php echo $this->p_img(5);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_5']}{/if}");
+                            flag = data.status;
+                            myindex = 4;
+                        } else if (data.prize == 6) {
+                             $('#jptype').html("{$meepo_jgg['prize_level_6']}: {$meepo_jgg['prize_name_6']}");
+							 $('#jpimg').attr("src", "{if empty($meepo_jgg['prize_img_6'])}{php echo $this->p_img(6);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_6']}{/if}");
+                            flag = data.status;
+                            myindex = 5;
+                        } else if (data.prize == 7) {
+                             $('#jptype').html("{$meepo_jgg['prize_level_7']}: {$meepo_jgg['prize_name_7']}");
+							 $('#jpimg').attr("src", "{if empty($meepo_jgg['prize_img_7'])}{php echo $this->p_img(7);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_7']}{/if}");
+                            flag = data.status;
+                            myindex = 6;
+                        } else if (data.prize == 0) {
+                            $('#ncz').text("没抽中任何奖品!");
+                            flag = data.status;
+                            myindex = 7;
+                        } else {
+                            $('#ncz').text(data.msg);
+                            flag = data.status;
+                            myindex = 7;
+                        }
+
+                    },
+                    complete: function () {
+                        if (flag == 1) {
+                            lottery.speed = 100;
+                            roll();
+                            click = true;
+                            return false;
+                        } else {
+						  
+                            $('#mzj').show();
+                            myindex = 7;
+                        }
+                    }
+                });
+
+
+            }
+        });
+		
+    };
+
+    //$(document).ready(function () { 
+     $(".index-number span i").click(function () {
+	  var cur = $(this).attr("id");
+	  var img = '';
+	  var award_level = '';
+	  var award_name = '';
+	  //alert(cur);
+	    if(cur != '' && cur != undefined){
+		 if(cur == '0'){
+		      
+		      clearTimeout(lottery.timer);
+		      $("#vote_layer").hide();
+			  $("#lottery").show();
+		 }else{
+		      $("#lottery").hide();
+              $(this).addClass("backcover").siblings().removeClass("backcover");
+			  if(cur ==1){
+				 img = "{if empty($meepo_jgg['prize_img_1'])}{php echo $this->p_img(1);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_1']}{/if}";
+	             award_level = "{$meepo_jgg['prize_level_1']}";
+				 award_name = "{$meepo_jgg['prize_name_1']}";
+			  }else if(cur ==2){
+                 img = "{if empty($meepo_jgg['prize_img_2'])}{php echo $this->p_img(2);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_2']}{/if}";
+				 award_level = "{$meepo_jgg['prize_level_2']}";
+				 award_name = "{$meepo_jgg['prize_name_2']}";
+			  }else if(cur ==3){
+				 img = "{if empty($meepo_jgg['prize_img_3'])}{php echo $this->p_img(3);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_3']}{/if}";
+				 award_level = "{$meepo_jgg['prize_level_3']}";
+				 award_name = "{$meepo_jgg['prize_name_3']}";
+			  }else if(cur ==4){
+				img = "{if empty($meepo_jgg['prize_img_4'])}{php echo $this->p_img(4);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_4']}{/if}";
+			    award_level = "{$meepo_jgg['prize_level_4']}";
+				award_name = "{$meepo_jgg['prize_name_4']}";
+			  }else if(cur ==5){
+				img = "{if empty($meepo_jgg['prize_img_5'])}{php echo $this->p_img(5);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_5']}{/if}";
+				award_level = "{$meepo_jgg['prize_level_5']}";
+				award_name = "{$meepo_jgg['prize_name_5']}";
+			  }else if(cur ==6){
+				img = "{if empty($meepo_jgg['prize_img_6'])}{php echo $this->p_img(6);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_6']}{/if}";
+				award_level = "{$meepo_jgg['prize_level_6']}";
+				award_name = "{$meepo_jgg['prize_name_6']}";
+			  }else{
+				img = "{if empty($meepo_jgg['prize_img_'])}{php echo $this->p_img(7);}{else}{$_W['attachurl']}{$meepo_jgg['prize_img_7']}{/if}";
+			    award_level = "{$meepo_jgg['prize_level_7']}";
+				award_name = "{$meepo_jgg['prize_name_7']}";
+			  }
+			  $(".awardshow").html(award_level + ": " + award_name);
+			  $("#vote_layer #awardimg").attr("src",img);
+		      if($('#vote_layer').css('display') == 'none'){
+			       $("#vote_layer").show();
+			  }
+			  
+		 }
+	    }
+	 });
+     $(".button_01").click(function () {
+        leftCount = "{$meepo_jgg['day_play_count']}";//次数
+		$("#zjl").hide();
+		$("#mzj").hide();
+	 });
+	
+
+    function checkMobile(s) {
+        var regu = /^[1][3|8|4|5][0-9]{9}$/;
+        var re = new RegExp(regu);
+        if (re.test(s)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    $(".pop-close,.bottom-code").click(function() { $("#pop-code").fadeToggle(); });
+     $("#playbox").click(function() {
+            
+			if ($(this).attr('src').indexOf('no') != '-1') {
+                $("#audio").get(0).play();
+                $(this).attr('src','{MEEPO_PATH}images/music.png')
+            } else {
+                $("#audio").get(0).pause();
+                $(this).attr('src','{MEEPO_PATH}images/nomusic.png')
+            }
+
+        });
+
+</script>
+</body>
+</html>

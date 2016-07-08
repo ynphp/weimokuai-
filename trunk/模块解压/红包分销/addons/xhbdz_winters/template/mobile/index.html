@@ -1,0 +1,64 @@
+{template 'common/_header'}
+<title>首页</title>
+<style>
+li img{width:100%;height:210px;}
+</style>
+ <div data-am-widget="slider" class="am-slider am-slider-default">
+  <ul class="am-slides">
+      <li><img src="{php echo $_W['attachurl_local'].$settings['logo']}"></li>
+        	{if !empty($settings['logo2'])}
+        	<li><img src="{php echo $_W['attachurl_local'].$settings['logo2']}"></li>
+        	{/if}
+        	{if !empty($settings['logo3'])}
+        	<li><img src="{php echo $_W['attachurl_local'].$settings['logo3']}"></li>
+        	{/if}
+
+  </ul>
+</div>
+ <div data-am-widget="intro" class="am-intro am-cf am-intro-default">
+
+      <div class="am-intro-hd" style="background-color:red;">
+        <h2 class="am-intro-title">{$goods1['title']}</h2>
+      </div>
+    <div class="am-g am-intro-bd">
+        <div class="am-intro-left am-u-sm-5">
+        <img src="{$_W['attachurl']}{$goods2['picimg']}" /></div>
+        <div class="am-intro-right am-u-sm-7">
+        <p></p>
+        <div align="center">
+        <p style="font-size:20px;color:#7acef6">{$goods1['name']} ￥{$goods1['price']}</p>
+		<button type="button" class="am-btn am-btn-secondary am-round am-btn-xl" onclick='location.href="{php echo $this->createMobileUrl('paygoods', array('gid'=>$goods1['id']))}";'>立即购买</button></div>
+        </div>
+    </div>
+
+      <div class="am-intro-hd" style="background-color:red;">
+        <h2 class="am-intro-title">{$goods2['title']}</h2>
+      </div>
+    <div class="am-g am-intro-bd">
+        <div class="am-intro-left am-u-sm-5">
+        <img src="{$_W['attachurl']}{$goods2['picimg']}" /></div>
+        <div class="am-intro-right am-u-sm-7">
+        <p></p>
+        <div align="center">
+        <p style="font-size:20px;color:#7acef6">{$goods2['name']} ￥{$goods2['price']}</p>
+		<button type="button" class="am-btn am-btn-secondary am-round am-btn-xl" onclick='location.href="{php echo $this->createMobileUrl('paygoods', array('gid'=>$goods2['id']))}";'>立即购买</button></div>
+        </div>
+    </div>
+
+
+      <div class="am-intro-hd" style="background-color:red;">
+        <h2 class="am-intro-title">{$goods3['title']}</h2>
+      </div>
+    <div class="am-g am-intro-bd">
+        <div class="am-intro-left am-u-sm-5">
+        <img src="{$_W['attachurl']}{$goods3['picimg']}" /></div>
+        <div class="am-intro-right am-u-sm-7">
+        <p></p>
+        <div align="center">
+        <p style="font-size:20px;color:#7acef6">{$goods3['name']} ￥{$goods3['price']}</p>
+		<button type="button" class="am-btn am-btn-secondary am-round am-btn-xl" onclick='location.href="{php echo $this->createMobileUrl('paygoods', array('gid'=>$goods3['id']))}";'>立即购买</button></div>
+        </div>
+    </div>
+
+  </div>
+{template 'common/_footer'}

@@ -1,0 +1,304 @@
+<style>
+/*-----------------stay------------------*/
+.stay {
+	wdith: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.stay_content {
+	height: auto;
+	overflow: hidden;
+}
+
+.stay_box {
+	padding: 0px;
+	height: auto;
+	overflow: hidden;
+	background: #fff;
+	border: 1px solid #e1e2e4;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-ms-border-radius: 8px;
+	-o-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	margin-top: 8px;
+	color: #000;
+	width: 49%;
+	float: left;
+	margin-left: 1px;
+}
+
+.stay_box img {
+	padding: 0px;
+	height: auto;
+	width: 100%;
+}
+
+.stay_box span.stay_lump_l, .stay_box span.stay_chunk_l {
+	color: #6f6f6f;
+	display: block;
+}
+
+.stay_title {
+	padding: 5px 10px;
+	height: auto;
+	line-height: 26px;
+	text-align: left;
+	font-size: 18px;
+	color: #000;
+	font-weight: bold;
+}
+
+.stay_main {
+	width: 100%;
+	height: auto;
+	padding-bottom: 8px;
+	overflow: hidden;
+	font-size: 14px;
+}
+
+.stay_banner {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	margin-bottom: 8px;
+}
+
+.stay_banner img {
+	width: 100%;
+	height: 150px;
+	display: block;
+}
+
+.stay_item {
+	padding: 0px 8px;
+	height:;
+	overflow: hidden;
+}
+.stay_lump {
+	padding: 1px;
+	height: auto;
+	overflow: hidden;
+	display: box;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -o-box;
+	display: -ms-box;
+}
+
+.stay_lump_l {
+	padding: 0px 4px 0px 0px;
+}
+
+.stay_lump_r {
+	width: 100%;
+	box-flex: 1;
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-ms-box-flex: 1;
+	-o-box-flex: 1;
+}
+
+.stay_chunk {
+	padding: 2px 8px;
+	height: auto;
+	display: box;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -o-box;
+	display: -ms-box;
+}
+
+.stay_chunk_l {
+	padding: 0px 4px 0px 0px;
+}
+
+.stay_chunk_r {
+	width: 100%;
+	box-flex: 1;
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	-ms-box-flex: 1;
+	-o-box-flex: 1;
+}
+
+.stay_btn_layer {
+	width: 100%;
+	height: 52px;
+	overflow: hidden;
+	margin-top: 8px;
+}
+
+.stay_btn_l {
+	width: 50%;
+	height: 52px;
+}
+
+.stay_btn_r {
+	width: 50%;
+	height: 52px;
+}
+
+.stay_btn_x {
+	width: 100%;
+	height: 52px;
+}
+
+.stay_btn_layer a {
+	display: block;
+	margin: 0px 8px;
+	height: 52px;
+	text-align: center;
+	line-height: 52px;
+	color: #fff;
+	font-size: 18px;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-ms-border-radius: 8px;
+	-o-border-radius: 8px;
+	-webkit-border-radius: 8px;
+}
+
+.stay_btn_l a {
+	background: #5d5b58;
+	position: relative;
+}
+
+.stay_btn_l a span {
+	width: 108px;
+	height: 52px;
+	display: block;
+	text-indent: 32px;
+	text-align: center;
+	line-height: 52px;
+	background: url(../image/positioning1.png) 8px center no-repeat;
+	background-size: 18px 26px;
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	margin-left: -60px;
+}
+
+.stay_btn_r a {
+	background: #7acd03;
+}
+
+.stay_btn_x a {
+	background: #7acd03;
+}
+
+.fansname {
+	font-size: 20px;
+	margin: 5px 0px 8px 0px;
+}
+
+.img-rounded img {
+	border-radius: 50%
+}
+
+.button {width:100%; height:30px; overflow:hidden; margin-top:8px;}
+.button a{ display:block; margin:0px 8px; height:30px; text-align:center; line-height:30px; color:#fff; font-size:18px; border-radius:8px;-moz-border-radius:8px;-ms-border-radius:8px;-o-border-radius:8px;-webkit-border-radius:8px;background:orange;}
+.gray {background:gray;}
+.record{
+  height: 30px !important;
+  line-height: 30px !important;
+}
+</style>
+<section class="stay">
+{if $order}
+	<section class="order_content">
+		<section class="order_item"><section style="height: 30px" class="button"><a class="record" href="{php echo $this->createMobileUrl('order',array('pid'=>$pid))}">我的兑换</a></section></section>
+	</section>
+{/if}
+	<!--content-->
+	<section class="stay_content" id="content" style="padding-bottom: 10px;">
+	</section>
+	<!--content end-->
+</section>
+{template 'info'}
+<script>
+$(function(){
+	$.ajax({
+		url:'{php echo $this->createMobileUrl("goods")}',
+		type:'post',
+		success:function(data){
+			if(data != '0'){
+				data = JSON.parse(data);
+				for(var i=0; i < data.length; i++){
+					var str = '<section class="stay_box">';
+					str += '<aside class="stay_title">'+data[i]['title']+'</aside>';
+					str += '<article class="stay_main"><p class="stay_banner"><img src="'+data[i]['thumb']+'"></p>';
+					str += '<section class="stay_item"><section class="stay_item_r fl"><section class="stay_lump"><span class="stay_lump_l">价值：</span><p class="stay_lump_r"><span>'+data[i]['price']+'元</span></p></section></section>';
+					str += '<section class="stay_item_l fl"><section class="stay_lump"><span class="stay_lump_l">剩余数量：</span><p class="stay_lump_r"><span>'+data[i]['num']+'</span></p></section></section>';
+					str += '<section class="stay_item_r fl"><section class="stay_lump"><span class="stay_lump_l">消耗{$creditname}：</span><p class="stay_lump_r"><span>'+data[i]['score']+'{$creditname}</span></p></section></section>';
+					if(data[i]['takelimit'] > 0)
+						str += '<section class="stay_item_r fl"><section class="stay_lump"><span class="stay_lump_l">每人限领：</span><p class="stay_lump_r"><span>'+data[i]['takelimit']+'份</span></p></section></section>';
+					str += '<section class="stay_content" style="height: 60px;">'+data[i]['description']+'</section>';
+					if(parseInt("{$credit}") < data[i]['score'])
+						str += '<section class="button"><a class="gray" href="###" style="background: #d7d7d7">{$creditname}不足</a></section>';
+					else str += '<section class="button"><a class="gray" onclick="onEx('+data[i]['id']+','+data[i]['type']+')" style="background: orange">立即兑换</a></section>';
+					str += '</article></section>';
+					$('#content').append(str);
+				}
+			}else{
+				$('#content').append('暂无礼品');
+			}
+		},
+	});
+});
+var goodid = 0;
+var gtype = 0;
+function onEx(gid,type){
+	goodid = gid;
+	gtype = type;
+	if(type == 1) $('#address').parent().hide();
+	else $('#address').parent().show();
+	$('.paycover').show();
+}
+
+var click = 0;
+function exchange(){
+	var name = $.trim($('#realname').val());
+	var mobile = $.trim($('#mobile').val());
+	var address = $.trim($('#address').val());
+	if(name == '') return alert('请输入收货人姓名！');
+	if(mobile == '') return alert('请输入收货人手机号码！');
+	if(gtype == 0 && address == '') return alert('请输入收货人地址！');  
+	if(click > 0) return;
+	click++;
+	$.ajax({
+		url:'{php echo $this->createMobileUrl("exchange",array("pid"=>$pid))}',
+		type:'post',
+		data:{gid:goodid,realname:name,mobile:mobile,address:address},
+		success:function(data){
+			data = JSON.parse(data);
+			if(data['code'] == 0){
+				swal({
+					title:data['msg'],
+					text: '', 
+					type:'warning'
+				},function(){
+					location.reload();
+				}); 
+			}else if(data['code'] == 1){
+				swal({
+					title:data['msg'],
+					text: '', 
+					type:'success'
+				},function(){
+					location.reload();
+				}); 
+			}else{
+				swal({
+					title:data['msg'],
+					text: '', 
+					type:'error'
+				},function(){
+					location.reload();
+				}); 
+			}
+		},
+	});
+}
+</script>

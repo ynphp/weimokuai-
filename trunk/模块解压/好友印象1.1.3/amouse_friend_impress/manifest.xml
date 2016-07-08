@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[好友印象]]></name>
+		<identifie><![CDATA[amouse_friend_impress]]></identifie>
+		<version><![CDATA[1.1.3]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[好友印象,匿名说出您对好友的印象吧。]]></ability>
+		<description><![CDATA[好友印象,匿名说出您对好友的印象吧]]></description>
+		<author><![CDATA[柒.柒.源.码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="匿名印象入口" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="会员管理" do="manages" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_amouse_impress_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL COMMENT '公众账号id',
+  `oid` varchar(50) NOT NULL COMMENT '微信会员openID',
+  `nickname` varchar(200) NOT NULL COMMENT '昵称',
+  `avatar` varchar(255) NOT NULL COMMENT '头像',
+  `mobile` varchar(11) NOT NULL COMMENT '手机号码',
+  `createtime` int(10) unsigned NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='参与人';
+CREATE TABLE IF NOT EXISTS `ims_amouse_impress_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL COMMENT 'uid',
+  `oid` varchar(100) NOT NULL COMMENT '微信会员openID',
+  `vote` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '赞',
+  `nickname` varchar(200) NOT NULL COMMENT '用户昵称',
+  `realname` varchar(200) NOT NULL COMMENT '昵称',
+  `content` varchar(200) NOT NULL COMMENT '印象内容',
+  `createtime` int(10) unsigned NOT NULL COMMENT '评论时间',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='印象记录';
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
