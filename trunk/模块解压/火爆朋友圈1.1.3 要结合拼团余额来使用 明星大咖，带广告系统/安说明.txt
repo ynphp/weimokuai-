@@ -1,0 +1,35 @@
+1.��ģ����԰�װ��΢�棬΢������΢���ϣ�ģ��Ҫ���ƴ�������ʹ�á�
+
+2.�ϴ�ģ�鵽addons��
+
+3.�޸�manifest.xml  <manifest xmlns="http://www.012wz.com" versionCode="0.6"> ��� http://www.012wz.com ��ַ��
+
+   ΢�޸ĳɣ� http://www.012wz.com
+   
+   ΢������http://www.wdlcms.com
+
+
+�޸���ȫ���ϴ�---ϵͳ---ģ��---��װģ��
+
+ע������Ҳ�����װģ�飬���޸�manifest.xml ��ĵ�ַ�ĳ��Լ���Ӧ����վ��������Щ�Լ��Ĺ��
+
+�޸���������嵥������
+\weisrc_friend\template\mobile\js\data3.js
+
+
+�����ʾ��΢��ֻ��ͨ����ƽ̨��װ������޸� framework\model\cloud.mod.php Ҳ����ֱ�����Ұ�����ļ��滻��
+
+        �޸�ʾ��
+
+      $pars['method'] = 'module.check';
+   $pars['module'] = $name;
+   $dat = ihttp_post('http://v2.addons.we7.cc/gateway.php', $pars);
+   if (is_error($dat)) {
+      return $dat;
+   }
+   /*if ($dat['content'] == 'install-module-protect') {
+      return error('-1', '��ģ�������ð�Ȩ��������ֻ��ͨ����ƽ̨����װ��');
+   }*/
+
+
+

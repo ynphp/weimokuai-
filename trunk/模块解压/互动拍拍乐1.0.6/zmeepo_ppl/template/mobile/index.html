@@ -1,0 +1,410 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>{$paipaile_rid['title']}</title>
+<script src="{MODULE_URL}template/mobile/js/jquery.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/js/semantic.min.js"></script> 
+<script src="{MODULE_URL}template/mobile/js/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/emoji.css" type="text/css">
+<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/shake.css" type="text/css">
+<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/semantic.min.css" type="text/css">
+</head>
+<body>
+<script type="text/javascript">
+var scrwidth;
+$(function(){
+var hoko;
+var ss=3;
+var isstop = 0;
+var tt;
+var stime=3*1000;
+//抽奖数量
+var cjnum=1;
+var gogo_ppl=1;
+var pplcj_step=0;
+var cjuserinfo=new Array();
+var pplcj_gogo=new Array();
+function querystart(){
+	   $.get("{php echo $this->createMobileUrl('start',array('actid'=>$actid,'rid'=>$rid))}", function(startnum){
+		  // var startnum = 1;
+		  if(startnum >= 1){
+			$("#bignum").hide();
+			$("#voting").show();
+			gocirculation();
+		  }else{
+			  setTimeout(function(){
+			      querystart();
+			  },3*1000);
+		  }
+		});
+   }
+ function count(){
+    $(".lg").html(ss);
+    ss=ss-1;  
+    if(ss<=-1){
+        $(".lg").html('<div id="updataing"></div>');
+		querystart();
+    }else{
+        setTimeout(count,1000)
+    }
+
+  }
+ $("#c").click(function(){
+    count();
+ })
+$('.ui.dropdown').dropdown('setting', {
+    onChange:function(value){
+        cjnum=value;
+        changepplcjnum(value);
+    }
+});
+//添加抽奖框函数
+function changepplcjnum(value){
+    var userhtml='<div class="pplcjuser" name=""><div class="pplfrombox"></div><img src="{MODULE_URL}template/mobile/images/pair-default.jpg" class="pplluky"><center><a class="ui red label pplcjname">。。。</a></center></div>';
+    $("#pplcjuserbox").empty();
+        if(value>3){
+            $("#pplcjmodal").css("margin-top","-364px");
+        }else{
+            $("#pplcjmodal").css("margin-top","-245px");
+        }
+    for(var i=0;i<value;i++){
+        $("#pplcjuserbox").append(userhtml);
+    }
+}
+//抽奖模块点击触发事件
+$("#votestop").click(function(){
+    if(confirm('确定结束本轮投票，并开始抽奖吗？')){
+        gogo_ppl=0;
+    	$('#pplcjmodal').modal('setting', {
+            closable  : false,
+            onShow:function(){
+              readycjinfo();  
+            },
+            onHide : function() {
+               
+                //getwendacj();//所调用函数
+            }
+            }).modal('show');
+        }
+    });
+//准抽奖信息函数
+function readycjinfo(){
+    $.getJSON("{php echo $this->createMobileUrl('getcj',array('actid'=>$actid,'rid'=>$rid))}",{}, function(json){
+		if(json){
+		    cjuserinfo=json;
+		    $(".pplbutton").text('开始抽奖');
+		    pplcj_step = 1;
+			}
+    });
+}
+//抽奖按钮点击触发事件
+$(".pplbutton").click(function(){
+    switch(pplcj_step){
+		case 1:
+		start_pplcj();
+		break;
+		case 2:
+		stop_pplcj();
+		break;
+    }
+});
+//开启的大抽奖进程抽奖
+function start_pplcj(){
+    var len = cjuserinfo.length;
+	if(len>0){
+		pplcj_step =2
+		for(var i=0;i<cjnum;i++){
+		    smallcj(i,len);
+		}
+        $(".pplbutton").text("停止");
+	}else{
+		alert("目前还没有人符合抽奖条件哦！");
+	}
+    function smallcj(step_num,len){
+        pplcj_gogo[step_num] = setInterval(function(){
+    	    var num = Math.floor(Math.random()*len);
+    		//var id = obj[num]['id'];
+    		$(".pplcjuser").eq(step_num).attr("date-key",cjuserinfo[num].id); 
+            $(".pplluky").eq(step_num).attr("src",cjuserinfo[num].headimgurl);
+     //$(".pplfromtype").eq(step_num).attr("src","{MODULE_URL}template/mobile/images/ico-"+cjuserinfo[num].headimgurl+".png");
+            $(".pplcjuser").eq(step_num).attr("name",cjuserinfo[num].openid); 
+    		$(".pplcjname").eq(step_num).html(cjuserinfo[num].nickname); 
+    	    },100);
+    }
+}
+//写入数据库中奖人等
+function posttocopy(zjuser){
+$.post("{php echo $this->createMobileUrl('savecj',array('actid'=>$actid,'rid'=>$rid))}", { zjuser: zjuser},
+   function(data){
+      $(".pplfooter").html('<center><a class="huge ui green button" id="pplend" href="#" onclick="window.location.reload();">数据已经记录，点击进入下一轮</a></center>');
+   });
+}
+function stop_pplcj(){
+		pplcj_step =1;
+        var zjuser=new Array();
+		for(var i=0;i<cjnum;i++){
+		    smallcj(i);
+		}
+		$(".pplfooter").empty();
+        posttocopy(zjuser);
+    function smallcj(step_num){
+        clearInterval(pplcj_gogo[step_num]);
+        var len = cjuserinfo.length;
+        var num = Math.floor(Math.random()*len);
+        if(cjuserinfo[num] != null){
+            $(".pplluky").eq(step_num).attr("src",cjuserinfo[num].headimgurl);
+            //$(".pplfromtype").eq(step_num).attr("src","{MODULE_URL}template/mobile/images/ico-"+cjuserinfo[num].headimgurl+".png");
+            $(".pplcjuser").eq(step_num).attr("name",cjuserinfo[num].openid); 
+    		$(".pplcjname").eq(step_num).html(cjuserinfo[num].nickname);
+            zjuser[step_num]=cjuserinfo[num].openid;
+            cjuserinfo.splice(num,1);
+        }else{
+            $(".pplluky").eq(step_num).attr("src","{MODULE_URL}template/mobile/images/pair-default.jpg");
+            $(".pplfromtype").eq(step_num).attr("src","{MODULE_URL}template/mobile/images/ico-weixin.png");
+    		$(".pplcjname").eq(step_num).html("。。。"); 
+        }
+    }
+}
+$("body").on("click","#votefresh", function(){
+    gofreshvote();
+});
+//music
+$("body").on("click","#playbox", function(){
+            
+			if ($(this).attr('src').indexOf('no') != '-1') {
+                $("#audio").get(0).play();
+                $(this).attr('src','{MODULE_URL}template/mobile/images/music.png')
+            } else {
+                $("#audio").get(0).pause();
+                $(this).attr('src','{MODULE_URL}template/mobile/images/nomusic.png')
+            }
+
+        });
+$("body").on("click",".pop-close,#qrcode", function(){$("#pop-code").fadeToggle(); });
+//3s循环刷新投票区域
+function gocirculation(){
+    if(gogo_ppl){
+        gofreshvote();
+        setTimeout(function(){
+    			      gocirculation();
+    			  },{php echo $paipaile_rid['rereshtime']*1000});
+    }
+}
+//重新刷新vote区域
+function gofreshvote(){
+    $('#wrap').empty().ready(function(){
+		 getStartNum = 0;
+	    getppldata();
+	 });
+}
+	//模拟数据
+	var ppldata = new Array;
+	var datalen;
+	var voteaddnum = 0;
+	function getppldata(){
+			$.getJSON("{php echo $this->createMobileUrl('getpic',array('actid'=>$actid,'rid'=>$rid))}", function(json){
+				if(json){
+					ppldata = json;
+					datalen=ppldata.length;
+					voteaddnum = 0;
+					addbox();
+				}
+				});
+		}
+	function addbox(){
+			var ppli=voteaddnum;
+			var key = ppli + 1;
+			var img = new Image();
+			 var tmp='<div class="box"><div class="info ui left medium image"> <a class="ui left corner red label"><div class="text">'+key+'</div></a><div class="pic"><img src="'+ppldata[ppli].picurl+'"></div><div class="title"><a href="#"><img class="ui avatar image" src="'+ppldata[ppli].avatar+'">'+ppldata[ppli].nickname+'</a><div class="pplprogress ui grid"> <div class="three wide column"><center>'+ppldata[ppli].voteres+'票 </center></div><div class="thirteen wide column"><div class="ui red progress"><div class="bar" style="width:'+ppldata[ppli].progress+'%"></div> </div></div></div></div></div></div>';
+			 img.src =ppldata[ppli].picurl;
+			 
+			  img.onload = function(){
+				 $('#wrap').append(tmp);
+				 voteaddnum++;
+				 if(voteaddnum<datalen){
+					 addbox();
+				 }else if(voteaddnum=datalen){
+					PBL('wrap','box');
+				 }
+				}
+	}
+/**
+* 瀑布流主函数
+* @param  wrap	[Str] 外层元素的ID
+* @param  box 	[Str] 每一个box的类名
+*/
+function PBL(wrap,box){
+	//	1.获得外层以及每一个box
+	var wrap = document.getElementById(wrap);
+	var boxs  = getClass(wrap,box);
+	//	2.获得屏幕可显示的列数
+	var boxW = boxs[0].offsetWidth;
+	var colsNum = Math.floor($('#wrap').width()/boxW);
+	
+	//	3.循环出所有的box并按照瀑布流排列
+	var everyH = [];//定义一个数组存储每一列的高度
+	for (var i = 0; i < boxs.length; i++) {
+		if(i<colsNum){
+			everyH[i] = boxs[i].offsetHeight;
+		}else{
+			var minH = Math.min.apply(null,everyH);//获得最小的列的高度
+			var minIndex = getIndex(minH,everyH); //获得最小列的索引
+			
+			getStyle(boxs[i],minH,boxs[minIndex].offsetLeft,i);
+			everyH[minIndex] += boxs[i].offsetHeight;//更新最小列的高度
+		}
+	}
+}
+/**
+* 获取类元素
+* @param  warp		[Obj] 外层
+* @param  className	[Str] 类名
+*/
+function getClass(wrap,className){
+	var obj = wrap.getElementsByTagName('*');
+	var arr = [];
+	for(var i=0;i<obj.length;i++){
+		if(obj[i].className == className){
+			arr.push(obj[i]);
+		}
+	}
+
+	return arr;
+}
+/**
+* 获取最小列的索引
+* @param  minH	 [Num] 最小高度
+* @param  everyH [Arr] 所有列高度的数组
+*/
+function getIndex(minH,everyH){
+	for(index in everyH){
+		if (everyH[index] == minH ) return index;
+	}
+}
+/**
+* 数据请求检验
+*/
+function getCheck(){
+	var documentH = document.documentElement.clientHeight;
+	var scrollH = document.documentElement.scrollTop || document.body.scrollTop;
+	return documentH+scrollH>=getLastH() ?true:false;
+}
+/**
+* 获得最后一个box所在列的高度
+*/
+function getLastH(){
+	var wrap = document.getElementById('wrap');
+	var boxs = getClass(wrap,'box');
+	return boxs[boxs.length-1].offsetTop+boxs[boxs.length-1].offsetHeight;
+}
+/**
+* 设置加载样式
+* @param  box 	[obj] 设置的Box
+* @param  top 	[Num] box的top值
+* @param  left 	[Num] box的left值
+* @param  index [Num] box的第几个
+*/
+var getStartNum = 0;//设置请求加载的条数的位置
+function getStyle(box,top,left,index){
+    if (getStartNum>=index) return;
+    $(box).css({
+    	'position':'absolute',
+        'top':top,
+        "left":left,
+        "opacity":"0"
+    });
+    $(box).stop().animate({
+        "opacity":"1"
+    },999);
+    getStartNum = index;//更新请求数据的条数位置
+}
+
+});
+</script>
+<img src="{MODULE_URL}template/mobile/images/music.png" style="width: 38px; height: 38px; right: 19px; top: 19px; opacity: 0.7; position: absolute; display: block; z-index: 1000; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" id="playbox">
+{if !empty($paipaile_rid['qr'])}<img src="{$_W['attachurl']}{$paipaile_rid['qr']}" style="width: 100px; height: 100px; right: 120px; top: 19px; opacity: 1; position: absolute; display: block; z-index: 1000; -webkit-user-select: none; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" id="qrcode">
+<!--big code start-->
+<div class="pop" id="pop-code">
+				  <a class="pop-close" href="javascript:;"></a>
+				  <div class="pop-code">
+					<p>
+					  <span><img src="{$_W['attachurl']}{$paipaile_rid['qr']}" ></span>
+					  <small>微信扫一扫，发送 "{$keyword}" 即可参与活动哦！</small>
+					</p>
+				  </div>
+				</div>
+</div>  
+
+<!--big code end-->
+{/if}
+
+<div style="display:none">
+        <audio id="audio" autoplay="autoplay" loop="" src="{if empty($paipaile_rid['musicurl'])}http://wl.dcx4.cn/addons/mon_egg/images/default.mp3{else}{$_W['attachurl']}{$paipaile_rid['musicurl']}{/if}" style="pointer-events:none;display:none;width:0!important;height:0!important;"></audio>
+</div>
+<div class="page">
+<!-- 头部 -->
+<div class="head">
+<center><img src="{if empty($paipaile_rid['logo'])}{MODULE_URL}template/mobile/images/PC-title.png{else}{$_W['attachurl']}{$paipaile_rid['logo']}{/if}"/></center>
+<div class="clear"></div>
+</div>
+<!--<div id="dd"><input id="ddd" type="button" value="初始化游戏"></div>-->
+<div id="bignum" class="ui page grid">
+<div class="lg">
+    <!-- 上传中层-->
+    <div class="bigstart">
+        <div class="lg_top"></div>
+        <div class="lg_main">
+            <div class="lg_m_1">
+            <div class="bigtext-box">　　点击菜单、按照提示回复即可参与！</div>
+            </div>
+        </div>
+        <div class="lg_foot">
+        <a  class="bn" id="c" /></a>
+    </div>
+</div>
+</div>
+</div>
+<!--投票层-->
+<div id="voting" class="ui page grid">
+		<div id="voting" class="ui page grid" style="display: block;">
+		<div id="wrap"></div>
+		<!--a href="#" id="votefresh" style="position: fixed; display: block;"></a>
+		<a href="#" id="votestop" style="position: fixed; display: block;"></a-->
+</div>
+		<a href="#" id="votefresh" style="position: fixed; display: block;"></a>
+		<a href="#" id="votestop" style="position: fixed; display: block;"></a>
+</div>
+<!--抽奖弹层-->
+<div class="ui modal" id="pplcjmodal">
+    <i class="close icon"></i>
+    <div class="header ppltit" id="ppldaan">
+        <i class="gift basic icon"></i>将从参与投票的用户中抽取<b><div class="ui inline dropdown selectred" data-unuse="1">
+      <div class="text" data-unuse="1">1</div>
+      <i class="dropdown icon"></i>
+      <div class="menu" data-unuse="1">
+          <div class="item"  data-unuse="1">1</div>
+          <div class="item"  data-unuse="1">2</div>
+          <div class="item"  data-unuse="1">3</div>
+          <div class="item"  data-unuse="1">4</div>
+          <div class="item" data-unuse="1">5</div>
+          <div class="item" data-unuse="1">6</div>
+      </div>
+  </div></b>位中奖观众
+    </div>
+    <div class="content">
+    <center>
+		<center id="pplcjuserbox">
+		    <div class="pplcjuser" name=""><div class="pplfrombox"></div><img src="{MODULE_URL}template/mobile/images/pair-default.jpg" class="pplluky"><center><a class="ui red label pplcjname">。。。</a></center></div>
+		</center>
+	</center>
+    </div>
+    <div class="pplfooter">
+        <center><div class="huge ui red button pplbutton">正在准备数据...</div></center>
+    </div>
+</div>
+<!--END-->
+</div>
+<img class="bg" src="{if empty($paipaile_rid['background'])}{MODULE_URL}template/mobile/images/background.jpg{else}{$_W['attachurl']}{$paipaile_rid['background']}{/if}"/>
+</body>
+</html>

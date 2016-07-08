@@ -1,0 +1,1 @@
+放在 app\resource\js\app 目录下

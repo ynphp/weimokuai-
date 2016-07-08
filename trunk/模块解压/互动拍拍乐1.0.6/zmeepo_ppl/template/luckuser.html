@@ -1,0 +1,78 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+<li {if !empty($id) && !empty($actid)}class="active"{/if}><a href="{php echo $this->createWebUrl('luckuser',array('id'=>$id,'actid'=>$actid))}">中奖粉丝</a></li>
+
+{if !empty($id) && !empty($actid)}<li><a href="{php echo $this->createWebUrl('list',array('id'=>$id,'actid'=>$actid))}">参与粉丝</a></li>{/if}
+{if !empty($id) && !empty($actid)}<li><a href="{php echo $this->createWebUrl('photos',array('id'=>$id,'actid'=>$actid))}">投票图片</a></li>{/if}
+<li><a href="{php echo $this->createWebUrl('manage', array('id' => $id))}">活动管理</a></li>
+</ul>
+{if $op == 'list'}
+
+<form action="" method="post" class="form-horizontal" role="form" ng-controller="formCtrl" id="form2">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			中奖粉丝
+		</div>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover" style="display:auto;">
+				<thead class="navbar-inner">
+					<tr >
+					   <th style="width:5em;text-align:center" >选？</th>
+					   <th style="width:20em;text-align:center">粉丝信息</th>
+					   <th style="width:20em;text-align:center">中奖时间</th>
+                       <th style="width:40em;text-align:center">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $lists $key $item}
+					<tr>
+						<td><input type="checkbox" name="select[]" value="{php echo $item['id']}"></td>
+						
+					  	<td class="row-hover" style="text-align:center">
+								<img width="50" src="{$item['headimgurl']}" class="avatar" />
+								<div class="mainContent">
+									<div class="nickname" style="text-align:center">{$item['nickname']}</div>
+								</div>
+					    </td>
+						<td class="row-hover" style="text-align:center">
+								{php echo  date('Y-m-d H:i:s',$item['createtime'])}
+					    </td>
+						<td style="text-align:center">
+							<a class="btn btn-danger" href="{php echo $this->createWebUrl('luckuser',array('op'=>'delete','id'=>$id,'luckid'=>$item['id'],'actid'=>$actid))}"
+								ng-mouseenter="tooltip()" data-toggle="tooltip" data-placement="top" title="删除">删除
+								<i class="fa fa-times"></i>
+							</a>
+						</td>
+					</tr>
+					{/loop}
+				</tbody>
+				<tr>
+					<td><input type="checkbox" onclick="var ck = this.checked;$(':checkbox').each(function(){this.checked = ck});"></td>
+                    <td colspan="12">
+                        <input type="submit" class="btn btn-danger" name="delete" value="删除选定" />
+						<!--input type="submit" class="btn btn-pramary" name="upload" value="导出选定数据" />
+                        <input type="submit" class="btn btn-pramary" name="uploadall" value="导出所有数据" /-->
+						<input type="hidden" name="token" value="{$_W['token']}">
+                    </td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+</form>
+{$pager}
+<script>
+	require(['angular', 'jquery', 'util'], function(angular, $, util){
+
+		var app = angular.module('app', []);
+		app.controller('formCtrl', function($scope,$http){
+			$scope.tooltip = function(){
+		      $('[data-toggle="tooltip"]').tooltip();
+		    }
+		});
+		angular.bootstrap(document, ['app']);
+	});
+</script>
+{/if}
+
+{template 'common/footer'}

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[会员中心]]></name>
+		<identifie><![CDATA[stonefish_member]]></identifie>
+		<version><![CDATA[0.20150401]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[会员中心－签到、消息、留言、任务、手机验证、积分商城]]></ability>
+		<description><![CDATA[会员中心－签到积分奖励、会员消息通知、留言反馈咨询、领取任务获取奖励、手机验证增加粉丝真实性、积分兑换商城]]></description>
+		<author><![CDATA[微赞]]></author>
+		<url><![CDATA[http://H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="会员入口设置" do="member" state="" direct="false" />
+			<entry title="签到入口设置" do="signin" state="" direct="false" />
+			<entry title="消息入口设置" do="message" state="" direct="false" />
+			<entry title="留言入口设置" do="feedback" state="" direct="false" />
+			<entry title="任务入口设置" do="task" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="等级头衔" do="level" state="" direct="false" />
+			<entry title="短信中心" do="sms" state="" direct="false" />
+			<entry title="签到中心" do="signin" state="" direct="false" />
+			<entry title="消息中心" do="message" state="" direct="false" />
+			<entry title="留言中心" do="feedback" state="" direct="false" />
+			<entry title="任务中心" do="task" state="" direct="false" />
+			<entry title="会员中心" do="member" state="" direct="false" />
+			<entry title="会员模板" do="template" state="" direct="false" />
+			<entry title="粉丝统计" do="fanslog" state="" direct="false" />
+			<entry title="会员统计" do="memberlog" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="会员中心" do="member" state="" direct="false" />
+			<entry title="签到中心" do="signin" state="" direct="false" />
+			<entry title="消息中心" do="message" state="" direct="false" />
+			<entry title="留言中心" do="feedback" state="" direct="false" />
+			<entry title="任务中心" do="task" state="" direct="false" />
+		</home>		
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_stonefish_member` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `uid` int(10) DEFAULT NULL COMMENT '会员UID',
+  `districtid` int(10) DEFAULT NULL COMMENT '商家网点ID',
+  `templateid` int(10) DEFAULT NULL COMMENT '会员模板ID',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0锁定1正常2手机验证',
+  `createtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_stonefish_member_template` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `tempname` varchar(20) NOT NULL DEFAULT '' COMMENT '模板名称',
+  `templateimg` varchar(255) NOT NULL DEFAULT '' COMMENT '模板展示图',
+  `tempdescription` varchar(1000) NOT NULL DEFAULT '' COMMENT '模板说明',
+  `homebg` varchar(255) NOT NULL DEFAULT '../addons/stonefish_member/template/images/head-bg.png' COMMENT '会员首页顶部背景图',
+  `memberbgcolor` varchar(7) NOT NULL DEFAULT '#EBEBEB' COMMENT '背景色',
+  `membercolor` varchar(7) NOT NULL DEFAULT '#333333' COMMENT '文字色',
+  `membernavcolor` varchar(7) NOT NULL DEFAULT '#999999' COMMENT '导航文字色',
+  `membernavacolor` varchar(7) NOT NULL DEFAULT '#45C017' COMMENT '导航选中文字色',
+  `memberiocncolor` varchar(7) NOT NULL DEFAULT '#0EADFE' COMMENT '左测图标色',
+  `memberbntcolor` varchar(7) NOT NULL DEFAULT '#5ac5d4' COMMENT '按钮背景色',
+  `memberbnttcolor` varchar(7) NOT NULL DEFAULT '#d0f2f7' COMMENT '按钮文字色',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_stonefish_member_config` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `homebg` varchar(255) NOT NULL DEFAULT '../addons/stonefish_member/template/images/head-bg.png' COMMENT '会员首页顶部背景图',
+  `memberbgcolor` varchar(7) NOT NULL DEFAULT '#EBEBEB' COMMENT '背景色',
+  `membercolor` varchar(7) NOT NULL DEFAULT '#333333' COMMENT '文字色',
+  `membernavcolor` varchar(7) NOT NULL DEFAULT '#999999' COMMENT '导航文字色',
+  `membernavacolor` varchar(7) NOT NULL DEFAULT '#45C017' COMMENT '导航选中文字色',
+  `memberiocncolor` varchar(7) NOT NULL DEFAULT '#0EADFE' COMMENT '左测图标色',
+  `memberbntcolor` varchar(7) NOT NULL DEFAULT '#5ac5d4' COMMENT '按钮背景色',
+  `memberbnttcolor` varchar(7) NOT NULL DEFAULT '#d0f2f7' COMMENT '按钮文字色',
+  `sharetitle` varchar(50) NOT NULL DEFAULT '' COMMENT '分享标题',
+  `sharedesc` varchar(100) NOT NULL DEFAULT '' COMMENT '分享简介',
+  `sharepic` varchar(300) NOT NULL DEFAULT '' COMMENT '分享图片',
+  `shareurl` varchar(300) NOT NULL DEFAULT '' COMMENT '引导网址',
+  `levelcredit` varchar(50) NOT NULL DEFAULT '' COMMENT '等级积分',
+  `links` text NOT NULL COMMENT '快捷链接',
+  `smstype` tinyint(1) NOT NULL DEFAULT '1' COMMENT '短信类型',
+  `smskey` varchar(50) DEFAULT '' COMMENT '短信验证KEY',
+  `tpl_id` varchar(50) DEFAULT '' COMMENT '短信验证模板',
+  `sign` varchar(50) DEFAULT '' COMMENT '短信验证签名',
+  `aging` int(10) DEFAULT '180' COMMENT '短信验证时效',
+  `agingrepeat` tinyint(1) NOT NULL DEFAULT '1' COMMENT '短信验证时效1只能使用一次0为时效内有限',
+  `smsstatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '短信验证状态1为开启0为关闭',
+  `dsigninfo` varchar(500) NOT NULL DEFAULT '' COMMENT '签到提示词',
+  `dsigncredit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '每天签到奖励积分',
+  `dsigntype` varchar(50) DEFAULT '0' COMMENT '每天签到奖励积分类型',
+  `showrank` tinyint(1) NOT NULL DEFAULT '0' COMMENT '每日签到排名',
+  `tsign` tinyint(1) NOT NULL DEFAULT '0' COMMENT '累计签到次数',
+  `tsigncredit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '累计签到奖励积分',
+  `tsigntype` varchar(50) DEFAULT '0' COMMENT '累计签到奖励积分类型',
+  `csign` tinyint(1) NOT NULL DEFAULT '0' COMMENT '连续签到次数',
+  `csigncredit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '连续签到奖励积分',
+  `csigntype` varchar(50) DEFAULT '0' COMMENT '连续签到奖励积分类型',
+  `osign` tinyint(1) NOT NULL DEFAULT '0' COMMENT '签到第一累计签到次数',
+  `osigncredit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '签到第一累计奖励积分',
+  `osigntype` varchar(50) DEFAULT '0' COMMENT '签到第一累计奖励积分类型',
+  `start_time` varchar(10) NOT NULL COMMENT '签到开始时间',
+  `end_time` varchar(10) NOT NULL COMMENT '签到结束时间',
+  `signindescription` text NOT NULL COMMENT '签到规则说明',
+  `signinstatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '签到状态1为开启0为关闭',
+  `feedbackstatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否开启留言1为开启0为关闭',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_stonefish_member_sms` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `smstotal` int(10) DEFAULT '0' COMMENT '短信条数',
+  `smsdraw` int(10) DEFAULT '0' COMMENT '短信条数',
+  `smsinfo` varchar(50) NOT NULL DEFAULT '' COMMENT '充值说明',
+  `createtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_stonefish_member_smsrecord` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `uid` int(10) DEFAULT NULL COMMENT '会员UID',
+  `code` varchar(50) NOT NULL DEFAULT '' COMMENT '验证码',
+  `mobile` varchar(50) NOT NULL DEFAULT '' COMMENT '手机号',
+  `createtime` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_stonefish_member_level` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `grade` varchar(50) NOT NULL DEFAULT '' COMMENT '等级名称',
+  `integral_start` int(10) NOT NULL DEFAULT '0' COMMENT '等级开始积分',
+  `integral_end` int(10) NOT NULL DEFAULT '0' COMMENT '等级结束积分',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_stonefish_member_signin_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `from_user` varchar(50) DEFAULT '0' COMMENT '用户ID',
+  `today_rank` int(11) NOT NULL COMMENT '今日排名',
+  `sign_time` int(11) NOT NULL DEFAULT '0' COMMENT '签到时间',
+  `last_sign_time` int(11) NOT NULL DEFAULT '0' COMMENT '最后签到时间',
+  `continue_sign_days` int(11) NOT NULL DEFAULT '0' COMMENT '连续签到次数',
+  `maxcontinue_sign_days` int(11) NOT NULL DEFAULT '0',
+  `continue_sign_maxdays` int(11) NOT NULL DEFAULT '0',
+  `total_sign_num` int(11) NOT NULL DEFAULT '0' COMMENT '签到累计数',
+  `maxtotal_sign_num` int(11) NOT NULL DEFAULT '0',
+  `first_sign_days` int(11) NOT NULL DEFAULT '0' COMMENT '签到第一累计数',
+  `maxfirst_sign_days` int(11) NOT NULL DEFAULT '0',
+  `dsigncredit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '每天签到奖励积分',
+  `dsigntype` varchar(50) DEFAULT '0' COMMENT '每天签到奖励积分类型',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_stonefish_member_signin_prize` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `from_user` varchar(50) DEFAULT '0' COMMENT '用户ID',
+  `prizetype` varchar(50) DEFAULT '0' COMMENT '奖励类型',
+  `signcredit` tinyint(1) NOT NULL DEFAULT '0' COMMENT '积分',
+  `signtype` varchar(50) DEFAULT '0' COMMENT '积分类型',
+  `sign_time` int(11) NOT NULL COMMENT '签到时间',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_stonefish_member_message` (
+  `messageid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `type` tinyint(4) NOT NULL,
+  `title` varchar(30) NOT NULL DEFAULT '',
+  `description` text,  
+  `starttime` int(10) unsigned NOT NULL,
+  `endtime` int(10) unsigned NOT NULL,
+  `limit` int(11) NOT NULL DEFAULT '0',
+  `dosage` int(11) unsigned NOT NULL DEFAULT '0',
+  `amount` int(11) unsigned NOT NULL,
+  `thumb` varchar(500) NOT NULL,
+  `credit` int(10) unsigned NOT NULL,
+  `creditshare` int(10) unsigned NOT NULL,
+  `creditview` int(10) unsigned NOT NULL,
+  `credittype` varchar(20) NOT NULL,  
+  `sharetitle` varchar(50) NOT NULL DEFAULT '' COMMENT '分享标题',
+  `sharedesc` varchar(100) NOT NULL DEFAULT '' COMMENT '分享简介',
+  `shareurl` varchar(300) NOT NULL DEFAULT '' COMMENT '分享网址',
+  `share_cancel` varchar(50) NOT NULL DEFAULT '' COMMENT '取消分享提示',
+  `share_fail` varchar(50) NOT NULL DEFAULT '' COMMENT '接品失败提示',
+  `share_confirm` varchar(50) NOT NULL DEFAULT '' COMMENT '成功分享提示',
+  PRIMARY KEY (`messageid`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_stonefish_member_message_allocation` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `messageid` int(10) unsigned NOT NULL,
+  `groupid` int(10) unsigned NOT NULL,
+  `uid` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`,`uid`,`messageid`,`groupid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_stonefish_member_message_record` (
+  `recid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `grantmodule` varchar(50) NOT NULL DEFAULT '',
+  `granttime` int(10) unsigned NOT NULL DEFAULT '0',
+  `usemodule` varchar(50) NOT NULL DEFAULT '',
+  `usetime` int(10) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `remark` varchar(300) NOT NULL DEFAULT '',
+  `messageid` int(10) unsigned NOT NULL,
+  `uniacid` int(10) unsigned NOT NULL,
+  `operator` varchar(30) NOT NULL,
+  PRIMARY KEY (`recid`),
+  KEY `messageid` (`uid`,`grantmodule`,`usemodule`,`status`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_stonefish_member_message_data` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `messageid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'messageid',
+  `uniacid` int(11) DEFAULT '0' COMMENT '公众号ID',
+  `from_user` varchar(50) NOT NULL DEFAULT '' COMMENT '用户openid',
+  `fromuser` varchar(50) NOT NULL DEFAULT '' COMMENT '分享人openid',
+  `avatar` varchar(512) NOT NULL DEFAULT '' COMMENT '微信头像',
+  `nickname` varchar(50) NOT NULL DEFAULT '' COMMENT '微信昵称',  
+  `visitorsip` varchar(15) NOT NULL DEFAULT '' COMMENT '访问IP',
+  `visitorstime` int unsigned NOT NULL COMMENT '访问时间',
+  `viewnum` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '查看次数',
+  PRIMARY KEY (`id`),
+  KEY `indx_messageid` (`messageid`),
+  KEY `indx_uniacid` (`uniacid`)
+) ENGINE = MYISAM DEFAULT CHARSET = utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_stonefish_member_feedback` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned DEFAULT '0',
+  `from_user` varchar(100) DEFAULT '',
+  `parentid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '0为第一级',
+  `fid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '分类ID',
+  `username` varchar(100) DEFAULT '',
+  `nickname` varchar(100) DEFAULT '',
+  `headimgurl` varchar(500) DEFAULT '',
+  `content` varchar(1000) DEFAULT '' COMMENT '留言内容',
+  `contents` varchar(1000) DEFAULT '' COMMENT '回复内容',
+  `displayorder` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `contentstatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '回复状态',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态审核',
+  `visitorsip` varchar(15) NOT NULL DEFAULT '' COMMENT '访问IP',
+  `createtime` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_stonefish_member_feedback_category` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT '0' COMMENT '所属帐号',
+  `parentid` int(11) DEFAULT '0',
+  `cname` varchar(255) DEFAULT '',
+  `description` text COMMENT '描述',
+  `displayorder` int(11) DEFAULT '0',
+  `pagesize` int(10) unsigned DEFAULT '10' COMMENT '每页显示数量 默认为10',
+  `topimgurl` varchar(500) DEFAULT '' COMMENT '顶部图片',
+  `pagecolor` varchar(7) DEFAULT '' COMMENT '页面色调',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否需要审核',
+  `open` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1公开0隐私',
+  `feedtype` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1管理回复0人人回复',
+  PRIMARY KEY (`id`),
+  KEY `idx_uniacid` (`uniacid`),
+  KEY `idx_parentid` (`parentid`),
+  KEY `idx_displayorder` (`displayorder`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+	]]></install>
+	<uninstall><![CDATA[
+drop table `ims_stonefish_member`;
+drop table `ims_stonefish_member_template`;
+drop table `ims_stonefish_member_config`;
+drop table `ims_stonefish_member_sms`;
+drop table `ims_stonefish_member_smsrecord`;
+drop table `ims_stonefish_member_level`;
+drop table `ims_stonefish_member_signin_record`;
+drop table `ims_stonefish_member_signin_prize`;
+drop table `ims_stonefish_member_message`;
+drop table `ims_stonefish_member_message_allocation`;
+drop table `ims_stonefish_member_message_record`;
+drop table `ims_stonefish_member_feedback`;
+drop table `ims_stonefish_member_feedback_category`;
+	]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

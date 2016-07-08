@@ -1,0 +1,134 @@
+<input type="hidden" name="reply_id" value="{$reply['id']}" />
+   <div class="panel panel-default">
+            <div class="panel-heading">
+                添加拍拍乐活动
+            </div>
+            <div class="panel-body">    
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">活动名称</label>
+					<div class="col-sm-9">
+						<input type="text"  class="form-control" name="title" value="{$reply['title']}">
+						<span class="help-block">活动名称
+						</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">活动简述</label>
+					<div class="col-sm-9">
+						<input type="text"  class="form-control" name="description" value="{$reply['description']}">
+						<span class="help-block">活动简述
+						</span>
+					</div>
+				</div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">活动封面</label>
+                    <div class="col-xs-12 col-sm-9">
+                     	{php echo tpl_form_field_image('cover', $reply['cover'])}
+                    </div>
+                </div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">公众号二维码</label>
+                    <div class="col-xs-12 col-sm-9">
+                     	{php echo tpl_form_field_image('qr', $reply['qr'])}
+                    </div>
+                </div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>每轮上传照片总数</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="input-group">
+							<input type="text" name="photosnum" id="photosnum" class="form_time form-control"
+								   value="{if $reply['photosnum']}{$reply['photosnum']}{else}20{/if}">
+											<span class="input-group-addon">
+											   张
+											</span>
+						</div>
+
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">每轮上传照片达到上传设置总数才可投票</label>
+					<div class="col-sm-9 col-lg-8">
+						<label class="radio-inline">
+							<input type="radio" name="votestatus" value="1" id="votestatus" {if $reply['votestatus'] == '1'}checked="true"{/if}> 是
+						</label>
+						<label class="radio-inline">
+							<input type="radio" name="votestatus" value="2" id="votestatus"  {if $reply['votestatus'] == '2'}checked="true"{/if}>否
+						</label>
+						<span class="help-block">当每轮投票粉丝上传的照片总是达到设置的总是才可开始投票</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>每人每轮投票限制：</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="input-group">
+							<input type="text" name="votenum" id="votenum" class="form_time form-control"
+								   value="{if $reply['votenum']}{$reply['votenum']}{else}1{/if}">
+											<span class="input-group-addon">
+											   人/票
+											</span>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>web端投票图片刷新时间设置:</label>
+					<div class="col-sm-9 col-xs-12">
+						<div class="input-group">
+							<input type="text" name="rereshtime" id="rereshtime" class="form_time form-control"
+								   value="{if $reply['rereshtime']}{$reply['rereshtime']}{else}5{/if}">
+											<span class="input-group-addon">
+											   秒
+											</span>
+						</div>
+
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> web端音乐上传:</label>
+					<div class="col-sm-9 col-xs-12">
+					{php echo tpl_form_field_audio('musicurl',$reply['musicurl'])}
+						
+					</div>
+				</div>
+				<div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">网页logo</label>
+                    <div class="col-xs-12 col-sm-9">
+                     	{php echo tpl_form_field_image('logo', $reply['logo'])}
+						<span class="help-block">规则：693 * 174
+						</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">网页背景图片</label>
+                    <div class="col-xs-12 col-sm-9">
+                     	{php echo tpl_form_field_image('background', $reply['background'])}
+						<span class="help-block">规则：1600 * 900
+						</span>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">微信logo</label>
+                    <div class="col-xs-12 col-sm-9">
+                     	{php echo tpl_form_field_image('wxlogo', $reply['wxlogo'])}
+						<span class="help-block">规则: 420 * 105
+						</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">微信背景图片</label>
+                    <div class="col-xs-12 col-sm-9">
+                     	{php echo tpl_form_field_image('wxbackground', $reply['wxbackground'])}
+						<span class="help-block">规则：523 * 900
+						</span>
+                    </div>
+                </div>
+            </div>
+   </div>
+   </div>
+
+<script type="text/javascript">
+    require(['util'],function(util){
+        util.editor($('#rule')[0]);
+    })
+</script>

@@ -1,0 +1,136 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+<li class="active"><a href="{php echo $this->createWebUrl('manage', array('id' => $id))}">活动管理</a></li>
+</ul>
+
+{if $op == 'list'}
+<!--div class="panel panel-default">
+	<div class="panel-heading">筛选</div>
+	<div class="panel-body">
+		<form action="./index.php" method="get" class="form-horizontal" role="form" id="form1">
+			<input type="hidden" name="c" value="site" />
+			<input type="hidden" name="a" value="entry" />
+			<input type="hidden" name="m" value="meepo_paipaile" />
+			<input type="hidden" name="do" value="manage" />
+            <input type="hidden" name="id" value="{$id}" />
+           
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">奖品名称</label>
+				<div class="col-xs-12 col-sm-8 col-lg-8">
+					<input class="form-control" name="award_name" id="" type="text" value="{$_GPC['award_name']}" placeholder="请输入奖品名称">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">奖项名称</label>
+				<div class="col-xs-12 col-sm-8 col-lg-8">
+					<input class="form-control" name="award_level" id="" type="text" value="{$_GPC['award_level']}" placeholder="请输入奖项名称">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label"></label>
+				<div class="col-sm-8 col-lg-9 col-xs-12">
+					<input class="btn btn-primary" id="" type="submit" value="搜索">
+				</div>
+			</div>
+		</form>
+	</div>
+</div-->
+<form action="" method="post" class="form-horizontal" role="form" ng-controller="formCtrl" id="form2">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			投票纪实
+		</div>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover" style="display:auto;">
+				<thead class="navbar-inner">
+					<tr>
+					   <th style="width:2em;">选？</th>
+					   <th style="width:20em;">活动名称</th>
+					   <th style="width:5em;">轮数</th>
+					   <th style="width:10em;">当前状态</th>
+                       <th style="width:40em;">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $lists $key $item}
+					<tr>
+						<td><input type="checkbox" name="select[]" value="{php echo $item['id']}"></td>
+						
+					  	<td>{$reply['title']}</td>
+                        <td>{php echo $key + 1}</td>
+						<td>{if $item['onoff'] == '1'}未开始{elseif $item['onoff']=='2'}正在投票{else}已结束{/if}</td>
+						<td >
+						    <a class="btn btn-primary" data-toggle="dropdown" aria-expanded="false" onclick="displayUrl({$item['id']});">活动相关</a>
+                                
+						    <a class="btn btn-success" href="{php echo $this->createWebUrl('list',array('id'=>$id,'actid'=>$item['id']))}"
+								ng-mouseenter="tooltip()" data-toggle="tooltip" data-placement="top" title="参与粉丝">参与粉丝
+								<i class="fa fa-edit"></i>
+							</a>
+							<a class="btn btn-success" href="{php echo $this->createWebUrl('photos',array('id'=>$id,'actid'=>$item['id']))}"
+								ng-mouseenter="tooltip()" data-toggle="tooltip" data-placement="top" title="投票图片">投票图片
+								<i class="fa fa-edit"></i>
+							</a>
+							<a class="btn btn-success" href="{php echo $this->createWebUrl('luckuser',array('id'=>$id,'actid'=>$item['id']))}"
+								ng-mouseenter="tooltip()" data-toggle="tooltip" data-placement="top" title="中奖粉丝">中奖粉丝
+								<i class="fa fa-edit"></i>
+							</a>
+							<a class="btn btn-danger" href="{php echo $this->createWebUrl('manage',array('op'=>'delete','id'=>$id,'actid'=>$item['id']))}"
+								ng-mouseenter="tooltip()" data-toggle="tooltip" data-placement="top" title="删除本轮">删除本轮
+								<i class="fa fa-times"></i>
+							</a>
+						</td>
+					</tr>
+					{/loop}
+				</tbody>
+				<tr>
+					<td><input type="checkbox" onclick="var ck = this.checked;$(':checkbox').each(function(){this.checked = ck});"></td>
+                    <td colspan="12">
+                        <input type="submit" class="btn btn-danger" name="delete" value="删除选定" />
+						<!--input type="submit" class="btn btn-pramary" name="upload" value="导出选定数据" />
+                        <input type="submit" class="btn btn-pramary" name="uploadall" value="导出所有数据" /-->
+						<input type="hidden" name="token" value="{$_W['token']}">
+                    </td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+</form>
+<script>
+            function displayUrl(actid) {
+                require(['jquery', 'util'], function($, u) {
+				  var url = "{php echo $this->createWebUrl('manage',array('op'=>'ajax','id'=>$id))}&actid="+actid;
+					$.post(url, function(data){
+					  var data  = JSON.parse(data);  
+						 var content = '<p class="form-control-static" style="word-break:break-all">图片数量: <font color=red size=5em>' + data.pic + '</font> 张</p>';
+                         content += '<p class="form-control-static" style="word-break:break-all">参与本轮粉丝数量:<font color=red size=5em>' + data.user + '</font> 人</p>';
+							content += '<p class="form-control-static" style="word-break:break-all">本轮投票数量:<font color=red size=5em>' + data.vote + '</font> 票</p>';
+                    var footer =
+                            '<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>';
+                            var diaobj = u.dialog('本轮数据', content, footer);
+							diaobj.find('.btn-default').click(function() {
+								diaobj.modal('hide');
+							});
+							diaobj.modal('show');
+					});
+                   
+                });
+            }
+            
+        </script>
+{$pager}
+<script>
+	require(['angular', 'jquery', 'util'], function(angular, $, util){
+
+		var app = angular.module('app', []);
+		app.controller('formCtrl', function($scope,$http){
+			$scope.tooltip = function(){
+		      $('[data-toggle="tooltip"]').tooltip();
+		    }
+		});
+		angular.bootstrap(document, ['app']);
+	});
+</script>
+{/if}
+
+{template 'common/footer'}

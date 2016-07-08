@@ -1,0 +1,95 @@
+{template 'common/header'}
+{template 'common'}
+<ul class="nav nav-tabs">
+    <li><a href="{php echo $this->createWebUrl('manage');}">活动管理</a></li>
+    <li><a href="{php echo url('platform/reply/post',array('m'=>'weisrc_adgame'));}">添加规则</a></li>
+    <li{if $operation == 'display'} class="active"{/if}><a href="{php echo $this->createWebUrl('article', array('op' => 'display', 'rid' => $rid))}">文案管理</a></li>
+    <li{if $operation == 'post'} class="active"{/if}><a href="{php echo $this->createWebUrl('article', array('id' => $item['id'], 'op' => 'post', 'rid' => $rid))}">添加文案</a></li>
+</ul>
+{if $operation == 'display'}
+<div class="main">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row-fluid">
+                <div class="span8 control-group">
+                    <a class="btn btn-default" data-toggle="tooltip" data-placement="top" href="{php echo url('platform/reply/post',array('m'=>'weisrc_adgame','rid'=> $rid));}" title="编辑"><i class="fa fa-edit"> 编辑活动</i></a>
+                    <a class="btn btn-success" data-toggle="tooltip" data-placement="top" href="{php echo $this->createWebUrl('article', array('op' => 'addall', 'rid' => $rid))}" title="内置文案" onclick="return confirm('此操作不可恢复，确认？');return false;" ><i class="fa fa-edit"> 内置文案</i></a>
+                    <a class="btn btn-danger" data-toggle="tooltip" data-placement="top" href="{php echo $this->createWebUrl('article', array('op' => 'deleteall', 'rid' => $rid))}" title="清空文案" onclick="return confirm('此操作不可恢复，确认？');return false;" ><i class="fa fa-edit"> 清空文案</i></a>
+                </div>
+            </div>
+        </div>
+        <div style="position:relative">
+            <div class="panel-body table-responsive">
+                <table class="table table-hover" style="position:relative">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th style="width: 10%;">编号</th>
+                        <th style="width: 20%;">标题</th>
+                        <th style="width: 50%;">内容</th>
+                        <th style="width: 20%;">编辑/删除</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loop $list $key $row}
+                    <tr>
+                        <td>
+                            {php echo $row['id']}
+                        </td>
+                        <td style="white-space:normal;">
+                            {$row['title']}
+                        </td>
+                        <td>
+                            {$row['content']}
+                        </td>
+                        <td>
+                            <a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('article', array('id' => $row['id'], 'op' => 'post', 'rid' => $rid))}" title="编辑"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;
+                            <a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('article', array('id' => $row['id'], 'op' => 'delete', 'rid' => $rid))}" onclick="return confirm('此操作不可恢复，确认删除？');return false;" title="删除"><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {$pager}
+</div>
+{elseif $operation == 'post'}
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" autocomplete = "off">
+        <input type="hidden" name="parentid" value="{$parent['id']}" />
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                文案编辑
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">标题</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="title" name="title" class="form-control" value="{$item['title']}" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span> 图像</label>
+                    <div class="col-sm-9 col-xs-12">
+                        {php echo tpl_form_field_image('logo',$item['logo']);}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">内容</label>
+                    <div class="col-sm-9">
+                        <input type="text" id="content" name="content" class="form-control" value="{$item['content']}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交">保存设置</button>
+                <input type="hidden" name="token" value="{$_W['token']}" />
+            </div>
+        </div>
+    </form>
+</div>
+{/if}
+{template 'common/footer'}

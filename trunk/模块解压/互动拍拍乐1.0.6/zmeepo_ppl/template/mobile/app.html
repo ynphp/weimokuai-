@@ -1,0 +1,164 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<script type="text/javascript"> 
+var judge;
+var ua = navigator.userAgent.toLowerCase();
+if(ua.match(/MicroMessenger/i) == 'micromessenger'){ 
+judge =true; 
+}else{ 
+judge= false; 
+if(ua.match(/windows/i) != 'windows'){
+	judge =true; 
+}
+}
+if(!judge){ 
+  window.location='index.php';
+} 
+</script> 
+<!-- Standard Meta -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>{$paipaile_rid['title']}</title>
+<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/style.css" type="text/css">
+<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/semantic.min.css" type="text/css">
+<script src="http://libs.baidu.com/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="{MODULE_URL}template/mobile/js/semantic.min.js"></script>
+<script>
+var votecannum="{$paipaile_rid['votenum']}";
+var hasvoted=0;
+
+$(function() {
+	//$('#dimmer1').dimmer('toggle');
+	$.getJSON("{php echo $this->createMobileUrl('appvote',array('actid'=>$actid,'rid'=>$rid))}", function(json){
+	 
+		if(json.length != 0){
+		  
+			/**
+			**
+			首先获取当前状态。
+				json[0].state = 1表示未上传
+			 * 2表示上传中
+			 * 3表示投票中
+			*/
+			if(json[0].state == 3){
+			 
+				$(".loadmassage").hide();
+				$("#votebox").show();
+				$("#votebutton").html('<div class="fluid ui green button votebutton" id="votesubmit">确 定</div>');
+				$.each(json, function(i,v){
+					var columnid=chosecolumn();
+					adduserinfo(i,v,columnid);
+				});
+					$('.select').on("click", function(){
+                	    if ($("input[type='checkbox']:checked").length<votecannum){
+                	        $(this).parent().find("input").click();
+                			$('#dimmer'+$(this).parent().attr('name')).dimmer('toggle');
+                	    }else{
+                	        if($(this).parent().find("input").prop("checked")){
+                				$('#dimmer'+$(this).parent().attr('name')).dimmer('toggle');
+                    	        $(this).parent().find("input").click();
+                	        }else{
+                				alert('最多选择'+votecannum+'个！');
+                	        }
+                	    }
+                	});
+
+			}else{
+			  
+				//还没开始投票
+				$(".loadmassage").html("<h1>本轮投票已结束，请返回等待下一轮投票开始！</h1>");
+			}
+		}else{
+			$(".loadmassage").html("<h1>本轮投票还未上传图片！</h1>");	
+		}
+	});
+	$("body").on("click","#votesubmit", function(){
+	    if($("input[type='checkbox']:checked").length!=votecannum){
+	       alert('请选择'+votecannum+'个选项再提交！');
+	    }else{
+			var valarr=new Array ();
+			$.each($("input[type='checkbox']:checked"),function(i,n){
+				valarr[i]=$("input[type='checkbox']:checked:eq("+i+")").val();
+			});
+			$.post("{php echo $this->createMobileUrl('votesubmit',array('actid'=>$actid,'rid'=>$rid))}", { voteid: valarr},
+			   function(data){
+				 
+				   if(data== "1"){
+						 alert("请选"+votecannum+"个选项！");
+				   }else if(data== "2"){
+					    alert("对不起您已经投过票了！");
+				   }else if(data== "3"){
+					    alert("对不起,投票已经结束！");
+				   }else if(data == '4'){
+						alert('错误、请重新进入！');
+				   }else if(data == '5'){
+						alert("大屏幕上照片总数达到{$paipaile_rid['photosnum']}才可开始投票哦！");
+				   }else{
+					   
+				        alert("您已经成功投票了！");
+				 
+				   }
+				   location.href="{php echo $this->createMobileUrl('app',array('actid'=>$actid,'rid'=>$rid))}";
+			   });
+		}
+    });
+	$('#closewindow').on("click",function(){
+		WeixinJSBridge.invoke('closeWindow',{});
+		})
+		function adduserinfo(i,json,columnid){
+		    var newi = i +1;
+			var userhtmls='<div class="ui left floated medium image userbox " name="'+json.id+'"><div class="select"></div><input type="checkbox" value="'+json.id+'" hidden /><div class="ui dimmer" id="dimmer'+json.id+'"><div class="content"><div class="center"><i class="icon circular inverted emphasized red checkmark"></i>get</div></div></div> <a class="ui left corner label"> <div class="text">'+newi+'</div> </a><img src="'+json.picurl+'"><div class="username">'+json.nickname+'('+json.voteres+'票)'+'</div></div>';
+			$("#column"+columnid).append(userhtmls);
+		}
+			function chosecolumn(){
+				if($("#column1").height()>=$("#column2").height()){
+					return 2;
+				}else{
+					return 1;
+				}
+			}
+	
+});
+		function onBridgeReady(){
+		 WeixinJSBridge.call('hideOptionMenu');
+		}
+		
+		if (typeof WeixinJSBridge == "undefined"){
+			if( document.addEventListener ){
+				document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+			}else if (document.attachEvent){
+				document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+				document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+			}
+		}else{
+			onBridgeReady();
+		}
+</script>
+</head>
+<body id="vote"> 
+<img src="{if empty($paipaile_rid['wxbackground'])}{MODULE_URL}template/mobile/images/mobile-bg.jpg{else}{$_W['attachurl']}{$paipaile_rid['wxbackground']}{/if}" class="mobile-bg">
+<div class="container">
+			<div class="ui page grid">
+			   <div class="column">
+					<img src="{if empty($paipaile_rid['wxlogo'])}{MODULE_URL}template/mobile/images/loginCont.png{else}{$_W['attachurl']}{$paipaile_rid['wxlogo']}{/if}" class="top-img">
+					<div class="loadmassage">
+						  <h1>加载中 。。。。</h1>
+					</div>
+					<!--投票层-->
+					<div id="votebox" hidden="" style="display: none;">
+						<h3 style="text-align:center;color:#fff">注：需要选择{$paipaile_rid['votenum']}项投票！</h3>
+						<div class="ui grid">
+							  <div class="eight wide column" id="column1"></div>
+						  <!--第二列-->
+							  <div class="eight wide column" id="column2">
+								  
+							  </div>
+						 </div>
+					</div>
+			   </div>
+			</div>
+	        <div id="votebutton">
+			        <div class="fluid ui green button votebutton" id="votesubmit">确 定</div>
+		    </div>
+</div>
+</body>
+</html>
