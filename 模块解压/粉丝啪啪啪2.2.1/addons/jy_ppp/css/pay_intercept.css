@@ -1,0 +1,30 @@
+/*充值*/
+.click_op_top { height:20px; line-height:20px; margin:10px 0; color:#555; font-size: 14px;}
+.click_op_top  .write,
+.click_op_top  .bean{ display:inline-block; width:20px; height:20px;background:url(../images/charge_write.png) no-repeat; vertical-align:middle; margin:0 4px 0 0; background-size: 20px;}
+.click_op_top .bean{background:url(../images/charge_bean.png) no-repeat; background-size: 20px;}
+.click_op_top  span{ font-size:12px; color:#999; margin: 0 0 0 5px;}
+.tit label{ display:inline-block; width:50px;}
+.tit span{ margin:0 0 0 5%;}
+.blue{ color:#52A4CA;}
+.yellow{ color:#E2A41F;}
+.click_op{background-color: #fff;margin: 1px 0 0 0;font-size: 14px;height: 40px;line-height: 40px;display: block}
+.click_op li:first-child{float: left;width: 72%;margin-left: 3%}
+.click_op li:last-child{float: right;width: 22%;margin-right: 3%;text-align: right;color: #555;}
+
+/*收信宝title*/
+.shouxinbao{ display:inline-block; width:20px; height:20px; background:url(../images/shouxinbao.png) center center no-repeat #EC8AA3; vertical-align:middle; margin:-2px 4px 0 0;}
+
+
+/*  new css   begin  */
+.btn-type .pink{color:#666666;font-size:12px;line-height: 16px;padding:6px 0;text-align:center;background-color:#f0e7e9;border-bottom:1px solid #efd9df;}
+.btn-type .click_op_top .write,.btn-type .click_op_top .bean{border-radius:50%;}
+.btn-type .click_op{margin:10px 0 30px;background-color:#ed376a;color:#ffffff;text-align:center;border-radius:8px;margin-left:0;}
+.btn-type .click_op li{width:100%;text-align:center;margin-left:0;position:relative;font-weight: bolder;}
+.btn-type .click_op li:nth-child(2){float:initial;width: 100%;margin-right: 0;text-align: center;color: #999;font-size: 10px;line-height:20px;font-weight: normal;}
+.btn-type .doubi .click_op{margin:10px 0;}
+.btn-type .doubi .click_op li:nth-child(2){display:none;}
+.click_op li:last-child{color: #ffffff;}
+.btn-type .click_op li .hot{display:block;position:absolute;right:0;top:0;background:url(../images/hot.png) no-repeat center center;background-size:100% 100%;width:30px;height:30px;}
+/*  new css    end   */
+.box-shadow>a{display: block}

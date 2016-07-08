@@ -1,0 +1,127 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<title>{if !empty($sitem['aname'])}{$sitem['aname']}{else}有缘网{/if}</title>
+<link href="../addons/jy_ppp/css/public_reset.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/public.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/public_list.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="top_blank">
+</div>
+<nav class="nav" style="position: absolute;">
+<h2>诚信认证</h2>
+<div class="left" onclick="history.go(-1)">
+    <i class="le_trg"></i>返回
+</div>
+</nav>
+<section class="content">
+<p style="margin: 0 0 10px;line-height: 22px;">
+    诚信认证可让您得到更多的推荐机会<br/>与您相遇，实名才能有份。请进行实名认证
+</p>
+<div class="box-shadow">
+    <a href="{php echo $this->createMobileUrl('basic')}"><ul class="p_list">
+        <li>
+        <label>资料完善度达到90%。</label>
+        {if $basic==1}
+        <span>已完成</span>
+        {else}
+        <span class="pink">去完善</span>
+        {/if}
+        </li>
+        <div class="re_trg">
+        </div>
+    </ul></a>
+    <a href="{php echo $this->createMobileUrl('upload')}"><ul class="p_list">
+        <li>
+        <label>上传3张本人照。</label>
+        {if $upload==1}
+        <span>已完成</span>
+        {else}
+        <span class="pink">去上传</span>
+        {/if}
+        </li>
+        <div class="re_trg">
+        </div>
+    </ul></a>
+    {if $sitem['sms_type']!=2}
+    <a href="{php echo $this->createMobileUrl('mobile')}"><ul class="p_list">
+        <li>
+        <label>手机号认证。</label>
+        {if $member['mobile_auth']==1}
+        <span class="pink">已完成</span>
+        {else}
+        <span class="pink">去认证</span>
+        {/if}
+        </li>
+        <div class="re_trg">
+        </div>
+    </ul></a>
+    {/if}
+    <a href="{php echo $this->createMobileUrl('idcard')}"><ul class="p_list">
+        <li>
+        <label>身份证核查。</label>
+        {if $member['card_auth']==1}
+        <span class="pink">已完成</span>
+        {else}
+        <span class="pink">去核查</span>
+        {/if}
+        </li>
+        <div class="re_trg">
+        </div>
+    </ul></a>
+</div>
+</section>
+</body>
+<script src="../addons/jy_ppp/js/zepto.min.js"></script>
+<script src="../addons/jy_ppp/js/public.js"></script>
+{if $weixin==1}
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    {php $signPackage=$_W['account']['jssdkconfig'];}
+    <script>
+
+        var appid = '{$_W['account']['jssdkconfig']['appId']}';
+        var timestamp = '{$_W['account']['jssdkconfig']['timestamp']}';
+        var nonceStr = '{$_W['account']['jssdkconfig']['nonceStr']}';
+        var signature = '{$_W['account']['jssdkconfig']['signature']}';
+
+        wx.config({
+            debug: false,
+            appId: appid,
+            timestamp: timestamp,
+            nonceStr: nonceStr,
+            signature: signature,
+            jsApiList: ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo']
+        });
+    </script>
+    <script type="text/javascript">
+        var params = {
+            {if empty($sitem['sharetitle'])}
+            title:"有缘网",
+            {else}
+            title: "{$sitem['sharetitle']}",
+            {/if}
+            {if empty($sitem['sharedesc'])}
+            desc: "有缘网!",
+            {else}
+            desc: "{$sitem['sharedesc']}",
+            {/if}
+            link: "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('index'),2)}",
+            {if empty($sitem['sharelogo'])}
+            imgUrl: "{$_W['siteroot']}addons/jy_ppp/icon.jpg",
+            {else}
+            imgUrl: "{$_W['attachurl']}{$sitem['sharelogo']}",
+            {/if}
+        };
+        wx.ready(function () {
+            wx.showOptionMenu();
+            wx.onMenuShareAppMessage.call(this, params);
+            wx.onMenuShareTimeline.call(this, params);
+        });
+    </script>
+    {/if}
+</html>

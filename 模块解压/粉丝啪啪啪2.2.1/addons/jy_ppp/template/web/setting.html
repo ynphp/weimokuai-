@@ -1,0 +1,338 @@
+{template 'common/header'}
+{template 'web/nav'}
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form"
+		enctype="multipart/form-data">
+		<input type="hidden" name="id" value="{$item['id']}" />
+
+
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				基本设置
+			</div>
+			<div class="panel-body">
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+					<div class="col-sm-7 col-xs-12">
+						<a onclick="return confirm('您确定需要一键恢复系统初始状态吗？恢复后将删除所有用户及该系统所有相关数据!'); return false;" href="{php echo $this->CreateWebUrl('setting',array('op'=>'huifu'))}"><span class="btn btn-danger" >一键恢复系统初始状态</span></a>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">系统名称</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="aname" class="form-control" value="{$item['aname']}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="sharetitle" class="form-control"
+							   value="{$item['sharetitle']}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享描述</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="sharedesc" class="form-control"
+							   value="{$item['sharedesc']}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享logo</label>
+					<div class="col-sm-7 col-xs-12">
+						{php echo tpl_form_field_image('sharelogo', $item['sharelogo']);}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">注册页背景图</label>
+					<div class="col-sm-7 col-xs-12">
+						{php echo tpl_form_field_image('zhuce_bg', $item['zhuce_bg']);}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">注册页宣传语</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="zhuce_text" class="form-control" value="{$item['zhuce_text']}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">管理员头像</label>
+					<div class="col-sm-7 col-xs-12">
+						{php echo tpl_form_field_image('adminthumb', $item['adminthumb']);}
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">短信平台</label>
+					<div class="col-sm-7 col-xs-12">
+						<label for="enabled1" class="radio-inline"><input type="radio" name="sms_type" value="0" id="enabled1" onclick="sms_change()" {if empty($item['sms_type']) || $item['sms_type'] == 0}checked="true"{/if} /> 网讯</label>
+	                    &nbsp;&nbsp;&nbsp;
+	                    <label for="enabled2" class="radio-inline"><input type="radio" name="sms_type" value="1" id="enabled2" onclick="sms_change1()" {if !empty($item['sms_type']) && $item['sms_type'] == 1}checked="true"{/if} /> 互亿无线</label>
+	                    &nbsp;&nbsp;&nbsp;
+	                    <label for="enabled3" class="radio-inline"><input type="radio" name="sms_type" value="2" id="enabled3" onclick="sms_change2()" {if !empty($item['sms_type']) && $item['sms_type'] == 2}checked="true"{/if} /> 无需</label>
+	                    <br>
+	                   	<span>网讯接口为(http://120.24.55.238/msg/index.jsp) ; 互亿无线接口为(http://106.ihuyi.cn) ; 无需时则没有手机认证</span>
+					</div>
+				</div>
+
+				<div class="form-group" id="sms_sign">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">短信平台签名</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="sms_sign" class="form-control"
+							   value="{$item['sms_sign']}" />
+					</div>
+				</div>
+
+				<div class="form-group" id="sms_product">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">短信平台产品名</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="sms_product" class="form-control"
+							   value="{$item['sms_product']}" />
+					</div>
+				</div>
+
+				<div class="form-group" id="sms_username">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">短信平台用户名</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="sms_username" class="form-control"
+							   value="{$item['sms_username']}" />
+					</div>
+				</div>
+
+				<div class="form-group" id="sms_pwd">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">短信平台密码</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="sms_pwd" class="form-control"
+							   value="{$item['sms_pwd']}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">版权文字</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="copyright" class="form-control" value="{$item['copyright']}" />
+						<span>不填则无版权显示</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">版权跳转url</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="copyrighturl" class="form-control" value="{$item['copyrighturl']}" />
+						<span>不填则不跳转</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">虚拟货币名称</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="doubi" class="form-control"
+							   value="{$item['doubi']}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">虚拟货币单位</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="unit" class="form-control"
+							   value="{$item['unit']}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">开通与某个用户聊天消耗的货币</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="chat" class="form-control"
+							   value="{$item['chat']}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">身份认证消耗的货币</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="idcard" class="form-control"
+							   value="{$item['idcard']}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">用户居住地设定</label>
+					<div class="col-sm-7 col-xs-12">
+						<label for="enabled49" class="checkbox-inline"><input type="radio" name="address" value="0" id="enabled49"  {if empty($item['address'])} checked="true" {/if} /> 根据IP获取</label>
+	                    &nbsp;&nbsp;&nbsp;
+	                    <label for="enabled50" class="checkbox-inline"><input type="radio" name="address" value="1" id="enabled50" {if !empty($item['address']) && $item['address']==1} checked="true" {/if}  /> 默认居住地</label>
+	                    &nbsp;&nbsp;&nbsp;
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">默认居住地</label>
+					<div class="col-sm-2 col-xs-3">
+						<select name="province" id="live_province" class="form-control" >
+						</select>
+					</div>
+					<div class="col-sm-2 col-xs-3">
+						<select name="city" id="live_city" class="form-control"></select>
+					</div>
+					<label>选择了省未选择市的则默认为那个省的省会,若通过ip地址未能获取，则直接显示是默认居住地</label>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">客服电话</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="tel" class="form-control"
+							   value="{$item['tel']}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">客服工作时间</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="kftime" class="form-control"
+							   value="{$item['kftime']}" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">注册须知</label>
+					<div class="col-sm-7 col-xs-12">
+						<textarea name="rule" id="rule" class="form-control" rows="10">{$item['rule']}</textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">客服消息提醒时间间隔(分钟)</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="jiange" class="form-control"
+							   value="{$item['jiange']}" />
+							   <label>避免被用户举报客服接口骚扰太频繁，建议设置时间间隔</label>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">客服消息提醒上限次数</label>
+					<div class="col-sm-7 col-xs-12">
+						<input type="text" name="shangxian" class="form-control"
+							   value="{$item['shangxian']}" />
+						<label>避免被用户举报客服接口骚扰太频繁，建议设置上限次数</label>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+					<div class="col-sm-9 col-xs-12">
+						<input name="submit" type="submit" value="提交" class="btn btn-primary span3"> 
+						<input type="hidden" name="token" value="{$_W['token']}" />
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</form>
+</div>
+<script src="../addons/jy_ppp/js/area_id.js"></script>
+<script>
+
+{if empty($item['province'])}
+	for(var i in area_array){
+	    $("#live_province").append('<option value="'+ i+'">'+ area_array[i]+'</option>');
+	}
+{else}
+	for(var i in area_array){
+        if({$item['province']}==i)
+        {
+            $("#live_province").append('<option value="'+ i+'" selected>'+ area_array[i]+'</option>');
+        }
+        else
+        {
+            $("#live_province").append('<option value="'+ i+'">'+ area_array[i]+'</option>');
+        }
+    }
+{/if}
+
+$("#live_city").empty();
+{if empty($item['city'])}
+	{if empty($item['province'])}
+		{php $item['province']=11;}
+	{/if}
+    for(var i in sub_array[{$item['province']}]){
+        $("#live_city").append('<option value="'+ i+'">'+ sub_array[{$item['province']}][i]+'</option>');
+    }
+{else}
+    for(var i in sub_array[{$item['province']}]){
+        if({$item['city']}==i)
+        {
+            $("#live_city").append('<option value="'+ i+'" selected>'+ sub_array[{$item['province']}][i]+'</option>');
+        }
+        else
+        {
+            $("#live_city").append('<option value="'+ i+'">'+ sub_array[{$item['province']}][i]+'</option>');
+        }
+    }
+{/if}
+
+$("#live_province").bind("change",function(){
+    var p=$("#live_province").eq(0).val();
+    $("#live_city").empty();
+    $("#live_city").append('<option value="0">请选择城市</option>');
+    for(var i in sub_array[p]){
+        $("#live_city").append('<option value="'+ i+'">'+ sub_array[p][i]+'</option>');
+    }
+});
+
+require(['jquery', 'util'], function($, u){
+	$(function(){
+		u.editor($('#rule')[0]);
+	});
+});
+
+function sms_change()
+{
+	$("#sms_product").show();
+	$("#sms_sign").show();
+	$("#sms_username").show();
+	$("#sms_pwd").show();
+}
+
+function sms_change1()
+{
+	$("#sms_product").hide();
+	$("#sms_sign").hide();
+	$("#sms_username").show();
+	$("#sms_pwd").show();
+}
+
+function sms_change2()
+{
+	$("#sms_product").hide();
+	$("#sms_sign").hide();
+	$("#sms_username").hide();
+	$("#sms_pwd").hide();
+}
+
+$(function () {
+
+	{if $item['sms_type']==1}
+		$("#sms_product").hide();
+		$("#sms_sign").hide();
+	{/if}
+
+	{if $item['sms_type']==2}
+		$("#sms_product").hide();
+		$("#sms_sign").hide();
+		$("#sms_username").hide();
+		$("#sms_pwd").hide();
+	{/if}
+
+});
+</script>

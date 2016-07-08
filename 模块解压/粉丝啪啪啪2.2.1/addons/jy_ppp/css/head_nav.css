@@ -1,0 +1,24 @@
+/*首页导航*/
+.head{ width:100%; height:52px; line-height:52px; background:#FAFAFA; position:fixed; left:0; top:0; right:0; z-index: 100; box-shadow:1px 1px 2px rgba(0,0,0,0.1);}
+.head h1.logo{ width:18%; height:52px; float:left; margin:0 0 0 2%;background: url(../images/logo.png) center no-repeat;background-size: 44px 18px;}
+.head .main_nav{ width:80%; height:52px;color:#555; float:left;}
+.head .main_nav li{width:25%;font-weight:bold;position:relative;}
+.head .main_nav li.active{ border-bottom:2px solid #EC3868; color:#EF265D;}
+.head .main_nav .red-dot{ display:none; padding:1px;min-width:10px;height:10px; line-height:10px; font-style:normal; color: #fff; text-align:center; font-size:11px; border-radius:10px; background:#d00; position:absolute; left:75%; top:9px;}
+.head .main_nav li>a{ display:block; color:#555;box-flex:1; -moz-box-flex:1;-moz-box-flex:1;-webkit-box-flex:1;-o-box-flex:1;-ms-box-flex:1;text-align:center;}
+.head .main_nav li.active>a{ color:#EF265D;}
+
+
+/*促打招呼推荐底部弹窗*/
+.Receive{ width:54px; height:54px; border:1px solid #D2D2D2; background:#fff; position:fixed; right:10px; bottom:10px; border-radius:54px; box-shadow:1px 1px 2px rgba(0,0,0,.1);}
+.Receive>.peo{ display:block; width:50px; height:50px; border-radius:50px; margin:2px auto 0;}
+.Receive .icon_Receive{ display:block; width:20px; height:18px; position:absolute; left:4px; top:-4px; background:url(../images/icon_Receive.png) no-repeat;}
+.Receive_alert{ height:66px; background:rgba(63, 55, 57,.9); border-radius:8px; position:fixed; left:10px; bottom:10px; right:10px;}
+.Receive_alert>.user>dt{ float:left; margin:10px;}
+.Receive_alert>.user>dt>img{ display:block; width:50px; height:50px; border-radius:50px;}
+.Receive_alert>.user>dd{ float:left; margin:10px 0 0;width: 75%;}
+.Receive_alert>.user>dd>.name{ display:block;color:#fff; padding:0 0 8px; font-size: 12px; font-weight: bold;}
+.Receive_alert>.user>dd .tally>span{ display: block; float: left; width: 30%; height: 24px; line-height: 24px; text-align: center; border:1px solid #8d898a; color:#bdbdbd; margin:0 2% 0 0; font-size: 12px;}
+.Receive_alert>.user>dd .tally>span.blue_col{ border-color:#638288; color:#73b9c3;}
+.Receive_alert>.user>dd .tally>span.pink_col{ border-color:#945e6e; color:#f26089;}
+.Receive_alert .close{ display:block; width:10px; height:10px; background:url(../images/closed.png) no-repeat; position:absolute; right:10px; top:10px;}

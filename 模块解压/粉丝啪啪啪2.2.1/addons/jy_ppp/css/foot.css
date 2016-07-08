@@ -1,0 +1,30 @@
+.foot {
+    text-align: center;
+    padding: 10px 0 60px;
+    max-width: 480px;
+    margin: 0 auto
+}
+
+.foot > ul {
+    width: 70%;
+    margin: 0 auto 10px;
+    overflow: hidden
+}
+
+.foot > ul > li {
+    float: left;
+    text-align: center;
+    color: #555;
+    width: 25%;
+    height: 20px;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+.foot > ul > li:last-child {
+    border: 0
+}
+
+.foot > p {
+    clear: both
+}

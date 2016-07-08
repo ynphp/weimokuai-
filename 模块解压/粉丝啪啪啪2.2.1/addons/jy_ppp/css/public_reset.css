@@ -1,0 +1,33 @@
+/* CSS Document清除默认样式 */
+html, body, div, span,iframe,h1, h2, h3, h4, h5, h6, p, pre,a, em, img,small,strong,b, i,dl, dt, dd, ol, ul, li, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td, footer, header,  menu, nav, section {
+    margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align: baseline;}
+/* HTML5 display-role reset for older browsers */
+aside, footer, header,  menu, nav, section {display: block;}
+ol, ul {list-style: none;}
+table {border-collapse: collapse;border-spacing: 0;}
+/*全局控制*/
+a{display:inline-block; text-decoration:none; cursor:default;}
+/*追加*/
+.blank1{ height:1px; font-size:0; clear:both; overflow:hidden;}
+.blank5{ height:5px; font-size:0; clear:both; overflow:hidden;}
+.blank10{ height:10px; font-size:0; clear:both; overflow:hidden;}
+.blank15{ height:15px; font-size:0; clear:both; overflow:hidden;}
+.blank20{ height:20px; font-size:0; clear:both; overflow:hidden;}
+.blank25{ height:25px; font-size:0; clear:both; overflow:hidden;}
+.blank30{ height:30px; font-size:0; clear:both; overflow:hidden;}
+.blank35{ height:35px; font-size:0; clear:both; overflow:hidden;}
+.blank40{ height:40px; font-size:0; clear:both; overflow:hidden;}
+.blank45{ height:45px; font-size:0; clear:both; overflow:hidden;}
+.blank50{ height:50px; font-size:0; clear:both; overflow:hidden;}
+.blank60{ height:60px; font-size:0; clear:both; overflow:hidden;}
+.blank70{ height:70px; font-size:0; clear:both; overflow:hidden;}
+.blank80{ height:80px; font-size:0; clear:both; overflow:hidden;}
+.blank90{ height:90px; font-size:0; clear:both; overflow:hidden;}
+/*** wx ***/
+.wx .Botblank80{height:80px; font-size:0; clear:both; overflow:hidden; display:block !important}
+.wx .mail_promise{top:0}
+/*** oldPage myspace.jsp ***/
+.wx #myspace_section{padding-top:10px; padding-bottom:100px;}
+
+
+.pu .Botblank80{ height:30px;}

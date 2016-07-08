@@ -1,0 +1,147 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<title>{if !empty($sitem['aname'])}{$sitem['aname']}{else}有缘网{/if}</title>
+<link href="../addons/jy_ppp/css/public_reset.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/public.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/new_helpRecharge.css" rel="stylesheet" type="text/css">
+<link href="../addons/jy_ppp/css/foot.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="top_blank">
+</div>
+<nav class="nav" style="position: absolute;">
+<h2>在线提问</h2>
+<div class="left" onclick="history.go(-1)">
+    <i class="le_trg"></i>返回
+</div>
+
+</nav>
+<section class="honest honest_05">
+<ul class="test_box">
+    <li>管理员在线为您答疑</li>
+    <li id="question"><textarea placeholder="请输入不少于10个字的问题描述，尽量写清操作步骤及页面提示（列如：点击我-头像，上传相片，总是提示图片过大)" id="tex1" class="area"></textarea></li>
+    <li id="number"><input placeholder="请输入您的手机号码，方便与您联系" id="tex2" type="tel" class="phone_num" value="{$member['mobile']}"></li>
+</ul>
+<span id="sendBtn" class="see_more">发送</span>
+<div class="bottom_num">
+    <p>
+        {if !empty($sitem['tel'])}
+        致电客服：<a class="blue" href="tel:{$sitem['tel']}">{$sitem['tel']}</a><br>
+        {/if}
+        {if !empty($sitem['kftime'])}
+        客服工作时间：{$sitem['kftime']}
+        {/if}
+    </p>
+</div>
+</section>
+{template footer}
+</body>
+<script src="../addons/jy_ppp/js/zepto.min.js"></script>
+<script src="../addons/jy_ppp/js/public.js"></script>
+<script src="../addons/jy_ppp/js/waiting.js"></script>
+<script>
+
+//在线提问
+var Online=(function(){
+    return {
+            submit:function(val1,val2){
+                $.ajax({url:"{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('feedback',array('op'=>'add')),2)}",
+                    data:{content:val1,mobile:val2},
+                    type:'post',dataType:'text',
+                    error:function(){
+                        $.tips("网络不畅，请稍后再试.");  
+                    },
+                    success:function(data){
+                        if(data==1){
+                            location.href = "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('fdbk_s'),2)}";
+                        }else if(data==2){
+                            $.tips("10秒内不允许连续发信!");
+                        }else {
+                            $.tips("发送失败，请重新发送.");
+                        }
+                    }
+                });
+            }
+        };
+
+})();
+
+$(function () {
+    //聚焦
+    $("#sendBtn").bind("click",function(){
+            var val1=$("#tex1").val();
+            var val2=$("#tex2").val();
+            if(val1&&val2)
+            {
+                if (val1.length < 10) {
+                    $.tips("不能少于10个字");
+                }
+                else
+                {
+                    var myreg = /^1[345789]\d{9}$/;
+                    if(val2.length!=11 || !myreg.test(val2)) {
+                        $.tips('请输入有效的手机号码！');
+                    }
+                    else
+                    {
+                        Online.submit(val1,val2);
+                    }
+                }
+            }else{
+                $.tips("内容不能为空.");
+            }
+        });
+
+});
+</script>
+{if $weixin==1}
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    {php $signPackage=$_W['account']['jssdkconfig'];}
+    <script>
+
+        var appid = '{$_W['account']['jssdkconfig']['appId']}';
+        var timestamp = '{$_W['account']['jssdkconfig']['timestamp']}';
+        var nonceStr = '{$_W['account']['jssdkconfig']['nonceStr']}';
+        var signature = '{$_W['account']['jssdkconfig']['signature']}';
+
+        wx.config({
+            debug: false,
+            appId: appid,
+            timestamp: timestamp,
+            nonceStr: nonceStr,
+            signature: signature,
+            jsApiList: ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo']
+        });
+    </script>
+    <script type="text/javascript">
+        var params = {
+            {if empty($sitem['sharetitle'])}
+            title:"有缘网",
+            {else}
+            title: "{$sitem['sharetitle']}",
+            {/if}
+            {if empty($sitem['sharedesc'])}
+            desc: "有缘网!",
+            {else}
+            desc: "{$sitem['sharedesc']}",
+            {/if}
+            link: "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('index'),2)}",
+            {if empty($sitem['sharelogo'])}
+            imgUrl: "{$_W['siteroot']}addons/jy_ppp/icon.jpg",
+            {else}
+            imgUrl: "{$_W['attachurl']}{$sitem['sharelogo']}",
+            {/if}
+        };
+        wx.ready(function () {
+            wx.showOptionMenu();
+            wx.onMenuShareAppMessage.call(this, params);
+            wx.onMenuShareTimeline.call(this, params);
+        });
+    </script>
+    {/if}
+</html>

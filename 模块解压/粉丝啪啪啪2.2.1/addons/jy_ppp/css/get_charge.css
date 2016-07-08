@@ -1,0 +1,24 @@
+@charset "utf-8";
+body{background:#ED2772;}
+/* CSS Document */
+.for_charge{ width:100%; margin:0px 0 0; font-size:12px;  padding-bottom: 1px;}
+.for_charge .min_top{ text-align:center; height:26px; line-height:26px; background:#F8A9C8; color:#BB1150;}
+.for_charge .banner{ height:150px; width:100%;}
+.for_charge .banner img{ display:block; width:285px; height:150px; margin:0 auto;}
+.for_charge .buy{ height:170px; width:300px; margin:0 auto;}
+.for_charge .buy  a{width:144px;height:170px;float:left;margin: 0;padding: 0}
+.for_charge .buy a:first-child{ margin:0 12px 0 0;}
+.for_charge .buy li{ width:144px; height:170px; background:#FEFE9A; text-align:center; position:relative; font-size:14px;}
+.for_charge .buy li .day{ display:block; height:56px; line-height:70px; background:#FEFF7D; border-bottom:1px solid #E3E671; color:#FD881F;}
+.for_charge .buy li .btn{ display:block; width:124px; height:32px; line-height:32px; background:#ED2772; color:#fff; border-radius:3px; margin:0 auto;}
+.for_charge .buy li .money{ display:block; font-size:36px; color:#FF8824; font-weight:bolder; padding:13px 0;font-family: "微软雅黑";}
+.for_charge .buy li .money span{ font-size:14px; font-weight:normal; padding:0 0 0 4px;}
+.for_charge .buy li .price_trg{display:block; width:53px; height:53px; position:absolute; left:46px;top:-27px;}
+
+.for_charge .buy li.last{ background:#C8FFC5;}
+.for_charge .buy li.last .day{ color:#559C4E; background:#B0FBA9; border-bottom:1px solid #A0E99A;} 
+.for_charge .bottom{ margin:10px; background:#F676A6; line-height:20px; color:#9D2C57;}
+.for_charge .bottom dt{ height:34px; line-height:34px; border-bottom:1px solid #EB6296; padding:0 10px; font-size:14px;}
+.for_charge .bottom dt .square{ display:inline-block; width:8px; height:8px; background:#9C2B56; transform:rotate(45deg); -moz-transform:rotate(45deg);-webkit-transform:rotate(45deg);-o-transform:rotate(45deg);-ms-transform:rotate(45deg); margin:0 6px 0 0;}
+.for_charge .bottom dd{ padding:10px;}
+.back_btn{display: block;margin: 10px;background: #F676A6;color: #9D2C57;font-size: 18px;font-weight:bold;line-height: 38px;text-align: center;}

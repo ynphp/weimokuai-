@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+.content {}
+.herd_hello{ font-size:14px;}
+.herd_hello .pro{ width:100%; padding:50px 0; line-height:22px; text-align:center;}
+.all_com{ overflow:hidden; background:#fff;}
+.all_com .title{ height:36px; line-height:36px; border-bottom:1px solid #ECECEC; padding:0 0 0 10px; color:#555;}
+.all_com .pto{ overflow:hidden; width:298px; margin:0 auto;}
+.all_com .pto>a{display: inline-block}
+.all_com .pto>a>li{ width:67px; float:left; margin:10px 0px}
+/*.all_com .pto>a>li:first-child{ margin:10px 0 0;}*/
+.all_com .pto>a>li>img{ display:block; width:67px; height:82px; border-radius:3px;}
+.all_com .pto>a>li>p{ width:67px; height:20px; line-height:20px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:12px; text-align:center; padding:5px 0;}
+.all_com .btn_box{ overflow:hidden; padding:10px;}
+.all_com .btn, .all_com .hai_out{ display:block; height:40px; line-height:40px; background:#F14F7E; text-align:center; color:#fff; font-weight:bold; font-size:16px; box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); border-radius:3px;}
+.all_com .hai_out{ background: #c8c8c8;}

@@ -1,0 +1,15 @@
+/*横排box*/
+.disbox-hor{ box-sizing: border-box;
+    display:box; display:-webkit-box; display:-moz-box;display:-ms-box;
+    box-orient:horizontal;-webkit-box-orient:horizontal;-moz-box-orient:horizontal;-ms-box-orient:horizontal;}
+/*纵排box*/
+.disbox-ver{ box-sizing:border-box;
+    display:box; display:-webkit-box;display:-moz-box;display:-ms-box;
+    box-orient:vertical; -webkit-box-orient:vertical;-moz-box-orient:vertical;-ms-box-orient:vertical;}
+/*内容居中box*/
+.disbox-center{box-sizing:border-box;
+    display: -webkit-box; display: -moz-box;display: -ms-box;display: box;
+    box-pack: center; -webkit-box-pack: center;-moz-box-pack: center;-ms-box-pack: center;
+    box-align: center;-webkit-box-align: center;-webkit-box-align: center;-moz-box-align: center;}
+/*box子元素自动占满空白*/
+.disbox-flex{ box-flex:1; -webkit-box-flex:1; -moz-box-flex:1; -ms-box-flex:1;}

@@ -1,0 +1,8 @@
+.album { width: 100%; overflow: hidden;max-width: 480px;margin: 0 auto}
+.album img { max-width: 100%;}
+.album li { width: 100%;text-align: center;}
+.album_foot{position: fixed;bottom: 0;left:0;right:0;height: 40px;background: rgba(0,0,0,0.5);color:#fff;font-size: 14px;}
+.album_foot span {display: inline-block; margin-top: 10px; height: 20px; line-height: 20px; width: 80px; text-align: center;}
+.album_foot span:first-child{ border-right: 1px solid #fff;}
+.album_foot span:last-child{float: right; border-left: 1px solid #fff;}
+.album_foot span:active{ background-color: rgba(255,255,255,0.5)}

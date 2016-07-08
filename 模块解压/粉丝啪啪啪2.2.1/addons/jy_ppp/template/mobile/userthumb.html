@@ -1,0 +1,130 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <title>{if !empty($sitem['aname'])}{$sitem['aname']}{else}有缘网{/if}</title>
+    <link href="../addons/jy_ppp/css/public_reset.css" rel="stylesheet" type="text/css" />
+    <link href="../addons/jy_ppp/css/public.css" rel="stylesheet" type="text/css" />
+    <link href="../addons/jy_ppp/css/public_disbox.css" rel="stylesheet" type="text/css" />
+    <link href="../addons/jy_ppp/css/public_headmessage.css" rel="stylesheet" type="text/css" />
+    <link href="../addons/jy_ppp/css/user_album.css" rel="stylesheet" type="text/css" />
+    <link href="../addons/jy_ppp/css/bottom_call.css" rel="stylesheet" type="text/css" />
+</head>
+<body class="disbox-ver">
+<nav class="nav" id="album_top">
+    <h2>{$detail['nicheng']}（<span id="now">{$thumbid}</span>/<span id="all">{php echo count($thumb)}</span>）</h2>
+    <div class="left" onclick="history.go(-1)">
+        <i class="le_trg"></i>返回
+    </div>
+</nav>
+<div class="album disbox-flex disbox-hor">
+    <ul class="disbox-hor" id="photo_list">
+        {loop $thumb $t}
+        <li class="disbox-flex disbox-center"><img src="{$_W['attachurl']}{$t['thumb']}"/></li>
+        {/loop}
+    </ul>
+</div>
+<div class="bottomNext" id="album_bottom">
+    {if $ltlx==1}
+	<div><span onclick="sayHello(this)"><i class="icon-bt-hello"></i>打招呼</span></div>
+    {/if}
+    {if $ltlx==2}
+    <div><span onclick="chat(this)"><i class="icon-bt-hello"></i>写信</span></div>
+    {/if}
+    {if $ltlx==3}
+    <div><span onclick="huifu(this)"><i class="icon-bt-hello"></i>回复并索要联系方式</span></div>
+    {/if}
+</div>
+<input type="hidden"  value="{php echo $thumbid-1}" id="photo_index">
+</body>
+<script src="../addons/jy_ppp/js/zepto.min.js"></script>
+<script src="../addons/jy_ppp/js/public.js"></script>
+<script src="../addons/jy_ppp/js/waiting.js"></script>
+<script src="../addons/jy_ppp/js/user_album.js"></script>
+<script>
+function sayHello(obj){
+    $.ajax({url: "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('userthumb',array('op'=>'zhaohu','id'=>$id)),2);}", data: {}, dataType: 'text', type: 'post', success: function (re) {
+        if (re == 1) {
+            $(obj).removeClass("hello").addClass("hello_out").html('<i class="icon-bt-hello"></i>已打招呼');
+            $.tips("招呼已发出，请耐心等待Ta的回复");
+        }else if (re == 2) {
+            $(obj).removeClass("hello").addClass("hello_out").html('<i class="icon-bt-hello"></i>已打招呼');
+            $.tips("你今天已经向Ta打过招呼了。");
+        } else {
+            $.tips("网络问题,请稍后重试");
+        }
+    }, error: function () {
+        $.tips("网络问题,请稍后重试");
+    }
+    });
+}
+function huifu(obj){
+    $.ajax({url: "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('userthumb',array('op'=>'huifu','id'=>$id)),2);}", data: {}, dataType: 'text', type: 'post', success: function (re) {
+        if (re == 1) {
+            window.location.href="{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('cz',array('id'=>$id)),2)}";
+        }else if (re == 2) {
+            window.location.href="{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('xhdoubi',array('id'=>$id)),2)}";
+        }
+        else if (re == 3) {
+            window.location.href="{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('chat',array('id'=>$id)),2)}";
+        } else {
+            $.tips("网络问题,请稍后重试");
+        }
+    }, error: function () {
+        $.tips("网络问题,请稍后重试");
+    }
+    });
+}
+function chat(obj){
+    window.location.href="{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('chat',array('id'=>$id)),2)}";
+}
+</script>
+{if $weixin==1}
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    {php $signPackage=$_W['account']['jssdkconfig'];}
+    <script>
+
+        var appid = '{$_W['account']['jssdkconfig']['appId']}';
+        var timestamp = '{$_W['account']['jssdkconfig']['timestamp']}';
+        var nonceStr = '{$_W['account']['jssdkconfig']['nonceStr']}';
+        var signature = '{$_W['account']['jssdkconfig']['signature']}';
+
+        wx.config({
+            debug: false,
+            appId: appid,
+            timestamp: timestamp,
+            nonceStr: nonceStr,
+            signature: signature,
+            jsApiList: ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo']
+        });
+    </script>
+    <script type="text/javascript">
+        var params = {
+            {if empty($sitem['sharetitle'])}
+            title:"有缘网",
+            {else}
+            title: "{$sitem['sharetitle']}",
+            {/if}
+            {if empty($sitem['sharedesc'])}
+            desc: "有缘网!",
+            {else}
+            desc: "{$sitem['sharedesc']}",
+            {/if}
+            link: "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('index'),2)}",
+            {if empty($sitem['sharelogo'])}
+            imgUrl: "{$_W['siteroot']}addons/jy_ppp/icon.jpg",
+            {else}
+            imgUrl: "{$_W['attachurl']}{$sitem['sharelogo']}",
+            {/if}
+        };
+        wx.ready(function () {
+            wx.showOptionMenu();
+            wx.onMenuShareAppMessage.call(this, params);
+            wx.onMenuShareTimeline.call(this, params);
+        });
+    </script>
+    {/if}
+</html>

@@ -1,0 +1,117 @@
+<html> 
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <title>{if !empty($sitem['aname'])}{$sitem['aname']}{else}有缘网{/if}</title>
+    <link href="../addons/jy_ppp/css/public_reset.css" rel="stylesheet" type="text/css" />
+    <link href="../addons/jy_ppp/css/public.css" rel="stylesheet" type="text/css" />
+    <link href="../addons/jy_ppp/css/phone_register.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="top_blank"></div>
+<nav class="nav" style="position: absolute">
+    <h2>登录</h2>
+</nav>
+<div class="content">
+    <ul class="test_box">
+        <li>
+            <input name="username" type="text" placeholder="请输入帐号">
+        </li>
+        <li>
+            <input name="password" type="password" placeholder="请输入密码">
+        </li>
+    </ul>
+    <span id="login_btn" class="see_more">立即登录</span>
+    <div class="forget">
+        <a href="{php echo $this->createMobileUrl('forget')}"><span>忘记密码？</span></a>
+    </div>
+</div>
+<footer class="coverFoot">
+    <p>还没有账号<a href="{php echo $this->createMobileUrl('zhuce')}">立即注册</a></p>
+</footer>
+<script src="../addons/jy_ppp/js/zepto.min.js"></script>
+<script src="../addons/jy_ppp/js/waiting.js"></script>
+<script>
+$(function () {
+    $("#login_btn").bind("click",function(){
+        var username=$('input[name="username"]').val();
+        var password=$('input[name="password"]').val();
+
+        if(username == ''){
+            $.tips("请输入账号");
+            return ;
+        }
+        if(password==''){
+            $.tips("请输入密码");
+            return;
+        }
+        // ajax
+        $.post("{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('login',array('op'=>'add')),2)}"+"&mobile="+username+"&password="+password,function(data){
+              if (data == 1) {
+                  window.location.href="{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('index'),2)}";
+              }
+              else if (data==2)
+              {
+                  $.tips("用户名或密码错误!");
+              }
+              else if (data==3)
+              {
+                  $.tips("不存在该用户!");
+              }
+              else{
+                  $.tips("登陆失败！");
+              }
+          });
+    })
+});
+    </script>
+</body>
+{if $weixin==1}
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    {php $signPackage=$_W['account']['jssdkconfig'];}
+    <script>
+
+        var appid = '{$_W['account']['jssdkconfig']['appId']}';
+        var timestamp = '{$_W['account']['jssdkconfig']['timestamp']}';
+        var nonceStr = '{$_W['account']['jssdkconfig']['nonceStr']}';
+        var signature = '{$_W['account']['jssdkconfig']['signature']}';
+
+        wx.config({
+            debug: false,
+            appId: appid,
+            timestamp: timestamp,
+            nonceStr: nonceStr,
+            signature: signature,
+            jsApiList: ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo']
+        });
+    </script>
+    <script type="text/javascript">
+        var params = {
+            {if empty($sitem['sharetitle'])}
+            title:"有缘网",
+            {else}
+            title: "{$sitem['sharetitle']}",
+            {/if}
+            {if empty($sitem['sharedesc'])}
+            desc: "有缘网!",
+            {else}
+            desc: "{$sitem['sharedesc']}",
+            {/if}
+            link: "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('index'),2)}",
+            {if empty($sitem['sharelogo'])}
+            imgUrl: "{$_W['siteroot']}addons/jy_ppp/icon.jpg",
+            {else}
+            imgUrl: "{$_W['attachurl']}{$sitem['sharelogo']}",
+            {/if}
+        };
+        wx.ready(function () {
+            wx.showOptionMenu();
+            wx.onMenuShareAppMessage.call(this, params);
+            wx.onMenuShareTimeline.call(this, params);
+        });
+    </script>
+    {/if}
+</html>

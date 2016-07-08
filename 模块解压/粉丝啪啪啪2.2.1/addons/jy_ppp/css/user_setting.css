@@ -1,0 +1,14 @@
+.habit-top{margin-bottom: 10px; line-height: 22px; color: #555; font-size: .9em;}
+.habit-list{ overflow:hidden; font-size:.9em;box-shadow: 1px 1px 2px rgba(0,0,0,0.1);}
+.habit-list li{ height:37px; line-height:37px; margin:0 0 1px 0; background:#fff; padding:0 10px;}
+.habit-list li .left{ float:left; color:#555;}
+/*生活习惯修改后*/
+.habit-list li .right{ float:right; position:relative; height: 37px; line-height: 37px;}
+.habit-list li .right .select{ float:left; margin:0;position:relative; height: 37px;}
+.habit-list li .right .value{ color:#555; margin:0 10px 0 22px;}
+.habit-list li .right .value_select{width:90%; height:37px; line-height:37px; position:absolute; right:0px; top:0; opacity:0; margin:0; padding:0;}
+.habit-list li .right input{ border:1px solid #eee; margin:5px -4px 0 0;height:27px; line-height:27px; padding-right:4px;text-align: right;}
+.bot_trged{ width:0; height:0; border:3px solid transparent;border-top:6px solid #ccc; position:absolute; right:0; top:50%; margin:-3px 0px 0 0;}
+.seach_sure{ display:block; width:50px; height:26px; line-height:26px; background:#ED376A;position:absolute; right:10px; top:12px; text-align:center; color:#fff; border-radius:3px;font-size:.8em;}
+.desc_textarea{ height:150px; width:100%; resize:none;padding: 5px;border:1px #ccc solid;font-size: 16px;line-height: 20px;color: #333;}
+.content .limit{ margin:10px 0 0; font-size:.9em;}

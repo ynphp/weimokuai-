@@ -1,0 +1,84 @@
+<html>
+<head>  
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <title>{if !empty($sitem['aname'])}{$sitem['aname']}{else}有缘网{/if}</title>
+    
+        <link href="../addons/jy_ppp/css/public_reset.css" rel="stylesheet" type="text/css" />
+        <link href="../addons/jy_ppp/css/public.css" rel="stylesheet" type="text/css" />
+        <link href="../addons/jy_ppp/css/forget_password.css" rel="stylesheet" type="text/css" />
+    
+</head>
+<body>
+<div class="top_blank"></div>
+<nav class="nav">
+    <h2>密码找回</h2>
+    <div class="left" onclick="history.go(-1)">
+        <i class="le_trg"></i>返回
+    </div>
+</nav>
+<div class="content">
+<section class="find_key">
+    <dl class="main">
+        <dt>您可以通过以下方式找回密码</dt>
+        <dd>
+<!--             1.如果绑定过手机号，请发送“有缘网”三个字到<a href="sms:12114">12114</a>.系统会在几分钟内发短信到绑定手机，告知您的密码。<br /> -->
+            拨打客服号码<a href="tel:{$sitem['tel']}">{$sitem['tel']}</a>找回密码
+        </dd>
+    </dl>
+<!--     <div class="row_btn">
+        <a href="sms:12114">短信找回</a>
+        <a href="tel:{$sitem['tel']}">电话找回</a>
+    </div> -->
+</section>
+</div>
+</body>
+{if $weixin==1}
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    {php $signPackage=$_W['account']['jssdkconfig'];}
+    <script>
+
+        var appid = '{$_W['account']['jssdkconfig']['appId']}';
+        var timestamp = '{$_W['account']['jssdkconfig']['timestamp']}';
+        var nonceStr = '{$_W['account']['jssdkconfig']['nonceStr']}';
+        var signature = '{$_W['account']['jssdkconfig']['signature']}';
+
+        wx.config({
+            debug: false,
+            appId: appid,
+            timestamp: timestamp,
+            nonceStr: nonceStr,
+            signature: signature,
+            jsApiList: ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo']
+        });
+    </script>
+    <script type="text/javascript">
+        var params = {
+            {if empty($sitem['sharetitle'])}
+            title:"有缘网",
+            {else}
+            title: "{$sitem['sharetitle']}",
+            {/if}
+            {if empty($sitem['sharedesc'])}
+            desc: "有缘网!",
+            {else}
+            desc: "{$sitem['sharedesc']}",
+            {/if}
+            link: "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('index'),2)}",
+            {if empty($sitem['sharelogo'])}
+            imgUrl: "{$_W['siteroot']}addons/jy_ppp/icon.jpg",
+            {else}
+            imgUrl: "{$_W['attachurl']}{$sitem['sharelogo']}",
+            {/if}
+        };
+        wx.ready(function () {
+            wx.showOptionMenu();
+            wx.onMenuShareAppMessage.call(this, params);
+            wx.onMenuShareTimeline.call(this, params);
+        });
+    </script>
+    {/if}
+</html>

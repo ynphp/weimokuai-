@@ -1,0 +1,137 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<title>{if !empty($sitem['aname'])}{$sitem['aname']}{else}有缘网{/if}</title>
+<link href="../addons/jy_ppp/css/public_reset.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/public.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/photo_notice.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="top_blank">
+</div>
+<nav class="nav" style="position: absolute;">
+<h2>我的相册</h2>
+<div class="left" onclick="history.go(-1)">
+    <i class="le_trg"></i>返回
+</div>
+</nav>
+<div class="content">
+    <section class="show_people">
+    <p class="top">
+        避免以下情况，您的照片会快速通过审核。
+    </p>
+    <ul class="photo">
+        <li><img src="../addons/jy_ppp/images/show_people01.jpg"/>
+        <p>
+            非本人
+        </p>
+        </li>
+        <li><img src="../addons/jy_ppp/images/show_people02.jpg"/>
+        <p>
+            带联系方式的
+        </p>
+        </li>
+        <li><img src="../addons/jy_ppp/images/show_people03.jpg"/>
+        <p>
+            合影的
+        </p>
+        </li>
+        <li><img src="../addons/jy_ppp/images/show_people04.jpg"/>
+        <p>
+            恶搞的
+        </p>
+        </li>
+        <li><img src="../addons/jy_ppp/images/show_people05.jpg"/>
+        <p>
+            裸露的
+        </p>
+        </li>
+        <li><img src="../addons/jy_ppp/images/show_people06.jpg"/>
+        <p>
+            浓妆不清的
+        </p>
+        </li>
+        <li><img src="../addons/jy_ppp/images/show_people07.jpg"/>
+        <p>
+            年龄不符的
+        </p>
+        </li>
+        <li><img src="../addons/jy_ppp/images/show_people08.jpg"/>
+        <p>
+            显示不全的
+        </p>
+        </li>
+        <li><img src="../addons/jy_ppp/images/show_people09.jpg"/>
+        <p>
+            色情的
+        </p>
+        </li>
+        <li><img src="../addons/jy_ppp/images/show_people010.jpg"/>
+        <p>
+            闪动的
+        </p>
+        </li>
+        <li><img src="../addons/jy_ppp/images/show_people011.jpg"/>
+        <p>
+            PS失真的
+        </p>
+        </li>
+        <li><img src="../addons/jy_ppp/images/show_people012.jpg"/>
+        <p>
+            模糊不清的
+        </p>
+        </li>
+    </ul>
+    </section>
+</div>
+</body>
+    {if $weixin==1}
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    {php $signPackage=$_W['account']['jssdkconfig'];}
+    <script>
+
+        var appid = '{$_W['account']['jssdkconfig']['appId']}';
+        var timestamp = '{$_W['account']['jssdkconfig']['timestamp']}';
+        var nonceStr = '{$_W['account']['jssdkconfig']['nonceStr']}';
+        var signature = '{$_W['account']['jssdkconfig']['signature']}';
+
+        wx.config({
+            debug: false,
+            appId: appid,
+            timestamp: timestamp,
+            nonceStr: nonceStr,
+            signature: signature,
+            jsApiList: ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo']
+        });
+    </script>
+    <script type="text/javascript">
+        var params = {
+            {if empty($sitem['sharetitle'])}
+            title:"有缘网",
+            {else}
+            title: "{$sitem['sharetitle']}",
+            {/if}
+            {if empty($sitem['sharedesc'])}
+            desc: "有缘网!",
+            {else}
+            desc: "{$sitem['sharedesc']}",
+            {/if}
+            link: "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('index'),2)}",
+            {if empty($sitem['sharelogo'])}
+            imgUrl: "{$_W['siteroot']}addons/jy_ppp/icon.jpg",
+            {else}
+            imgUrl: "{$_W['attachurl']}{$sitem['sharelogo']}",
+            {/if}
+        };
+        wx.ready(function () {
+            wx.showOptionMenu();
+            wx.onMenuShareAppMessage.call(this, params);
+            wx.onMenuShareTimeline.call(this, params);
+        });
+    </script>
+    {/if}
+</html>

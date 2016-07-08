@@ -1,0 +1,10 @@
+@charset "utf-8";
+/* CSS Document */
+.set_center{margin: 62px auto;max-width: 480px}
+.honest .pd_Box{ padding:0 10px;}
+.honest .pd_Box>.user-list { width:100%; padding: 6px 0;border-bottom: 1px solid #ECECEC;background: #fff;position: relative;}
+.honest .pd_Box>.user-list>li {padding:0 10px;}
+.set_center .pd_Box>.user-list>li>a>.tit {color: #555;padding:8px 0;font-size:12px; line-height: 18px;}
+.honest .pd_Box>.user-list>li.pink {color: #EE3869;}
+.honest .pd_Box>.user-list>li:last-child {padding: 0 14px 0 0;}
+.pd_Box .user-list>li .re_trg {position: absolute;right: 12px;top: 50%;margin: -4px 0 0 -4px;}

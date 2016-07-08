@@ -1,0 +1,55 @@
+<link rel="stylesheet" href="../addons/jy_ppp/css/h5menu.css">
+<div class="h5menu"><div>
+    {if $menu==1}
+    <div class="myy myy1 myy1on">
+    {else}
+    <div class="myy myy1 ">
+    {/if}
+        <a href="{php echo $this->createMobileUrl('index')}">
+        <div class="icon_">
+        </div>
+        <div class="txt_">
+            缘分
+        </div>
+        </a>
+    </div>
+    {if $menu==2}
+    <div class="myy myy2 myy2on">
+    {else}
+    <div class="myy myy2">
+    {/if}
+        <a href="{php echo $this->createMobileUrl('mail')}">
+        <div class="icon_">
+        </div>
+        <div class="txt_">
+            消息
+        </div>
+        </a>
+    </div>
+    {if $menu==3}
+    <div class="myy myy3 myy3on">
+    {else}
+    <div class="myy myy3">
+    {/if}
+        <a href="{php echo $this->createMobileUrl('luck')}">
+        <div class="icon_">
+        </div>
+        <div class="txt_">
+            附近
+        </div>
+        </a>
+    </div>
+    {if $menu==4}
+    <div class="myy myy4 myy4on">
+    {else}
+    <div class="myy myy4">
+    {/if}
+        <a href="{php echo $this->createMobileUrl('geren')}">
+        <div class="icon_">
+        </div>
+        <div class="txt_">
+            我
+        </div>
+        </a>
+    </div></div>
+</div>

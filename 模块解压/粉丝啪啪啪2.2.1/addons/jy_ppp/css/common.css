@@ -1,0 +1,83 @@
+@charset "utf-8";
+html, body, div, span,iframe,h1, h2, h3, h4, h5, h6, p, pre,a, em, img,small,strong,b, i,dl, dt, dd, ol, ul, li, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td, footer, header,  menu, nav, section,input{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font:inherit;
+    vertical-align: baseline;}
+/* HTML5 display-role reset for older browsers */
+aside, footer, header,  menu, nav, section {display: block;}
+ol, ul {list-style: none;}
+table {border-collapse: collapse;border-spacing: 0;}
+/*全局控制*/
+body {line-height:1;background:#f0f0f0;color:#999;font-size:16px;}
+a{display:block; text-decoration:none; cursor:default;color: #555}
+.bodybox{max-width: 480px;margin: 0 auto}
+.no_margin{ margin:0;}
+.pink{ color:#EE3869;}
+.yellow{ color:#FFF17E;}
+.blue{ color:#75B9C6;}
+.gray{ color:#C4C4C4;}
+/* CSS Document */
+/*全局头部导航*/
+.head, .min_nav{width:100%;position:fixed;top:0;z-index: 100;}
+.head, .min_nav>div{max-width: 480px; background:#FAFAFA;height:50px; line-height:50px;box-shadow:1px 1px 2px rgba(0,0,0,0.1);margin: 0 auto;border-bottom: 2px solid #f78aa9}
+.head h1.logo{ width:18%; height:40px; float:left; margin:0 0 0 2%;}
+.head h1.logo img{ width:44px; position: absolute; top:10px;}
+.head .nav{ width:80%; height:40px;color:#555; float:left;}
+.head .nav li{width:25%;font-weight:bold;position:relative;}
+.head .nav li.active{ border-bottom:2px solid #EC3868; color:#EF265D;}
+.head .nav .Redot{ display:none; padding:1px;min-width:10px;height:10px; line-height:10px; font-style:normal; color: #fff; text-align:center; font-size:11px; border-radius:10px; background:#d00; position:absolute; left:75%; top:9px;}
+.top_blank{margin-top: 52px}
+.hidden{display: none}
+
+/*min_nav全局副导航*/
+.content_02, .life_habit{ margin:50px 0 0 0;}
+.min_nav{ text-align:center}
+.min_nav .title{ color:#555;font-size: 16px; font-weight:bold;}
+.min_nav .title .vip{ display:inline-block; width:24px; height:14px; line-height:14px; background:#EF678F; text-align:center; border-radius:2px; color:#fff; font-size:10px; margin:0 0 0 4px;}
+.min_nav .reture{ position:absolute; top:0;}
+.min_nav .reture .le_trg{ float:left; margin:18px 0 0 10px;}
+.min_nav .reture .but, .min_nav .next{ display:inline;float:left;color:#555; font-size: 16px;}
+.min_nav .next, .min_nav .repair{ position:absolute; right:10px; top:0; color:#555; font-size: 16px;}
+.min_nav .repair .house_icon{ display:block; width:20px; height:50px; background:url(../images/home.png) center center no-repeat; background-size:16px;}
+.min_nav .seach_sure{ display:block; width:50px; height:26px; line-height:26px; background:#ED376A;position:absolute; right:10px; top:7px; text-align:center; color:#fff; border-radius:3px; font-size:.9em;}
+.min_nav .give_up{ position:absolute; left:10px; top:0;}
+
+.waiting{ width:104px; height:82px; line-height:120px; background:rgba(0,0,0,0.5) url(../images/loading.gif) center 14px no-repeat ; background-size: 20px;position:fixed; left:50%; top:150px; margin:-41px 0 0 -52px;  border-radius:10px;color:#fff; text-align:center;display:none;z-index:1000;}
+.tips{width: 80%;  min-height: 25px;word-wrap: break-word;word-break: break-all; padding:10px 0; overflow: hidden;background: rgba(0,0,0,0.5);border-radius: 10px;color: #fff;text-align: center;display: none;position: fixed;top: 20%;left: 10%;z-index: 1000;border:1px solid #fff}
+.loading{display:none; width:100%; height:50px; line-height:50px;text-align: center;}
+.loading i{display: inline-block; height: 20px;width: 30px;margin-bottom: -4px;background:url(../images/loading.gif)  10% center no-repeat; background-size: 20px;}
+
+/*左右箭头-全局控制*/
+.le_trg{display: inline-block;width:9px; height:9px; border-right:2px solid #555;border-bottom:2px solid #555; transform:rotate(135deg);-webkit-transform: rotate(135deg);-moz-transform: rotate(135deg);-o-transform: rotate(135deg);-ms-transform: rotate(135deg);}
+.re_trg{display: inline-block;width:9px; height:9px; border-right:2px solid #ccc;border-bottom:2px solid #ccc; transform:rotate(-45deg);-webkit-transform: rotate(-45deg);-moz-transform: rotate(-45deg);-o-transform: rotate(-45deg);-ms-transform: rotate(-45deg);}
+.bot_trg{display: inline-block;width:9px; height:9px; border-right:2px solid #ccc;border-bottom:2px solid #ccc; transform:rotate(45deg);-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-o-transform: rotate(45deg);-ms-transform: rotate(45deg);margin-top: -10px;}
+.top_trg{display: inline-block;width:9px; height:9px; border-right:2px solid #ccc;border-bottom:2px solid #ccc; transform:rotate(-135deg);-webkit-transform: rotate(-135deg);-moz-transform: rotate(-135deg);-o-transform: rotate(-135deg);-ms-transform: rotate(-135deg);}
+
+/*按钮全局控制*/
+.see_more, .writing_load{ font-size: 16px;display:block;height:42px; line-height:42px; background:#fff; color:#72BAC6; text-align:center; margin:10px 0;box-shadow: 1px 1px 2px rgba(0,0,0,0.1);font-weight: bold;}
+/*横排box*/
+.disbox_sizing{ box-sizing: border-box;
+    display:box; display:-webkit-box; display:-moz-box;display:-ms-box;
+    box-orient:horizontal;-webkit-box-orient:horizontal;-moz-box-orient:horizontal;-ms-box-orient:horizontal;}
+/*纵排box*/
+.disbox-ver{ box-sizing:border-box;
+    display:box; display:-webkit-box;display:-moz-box;display:-ms-box;
+    box-orient:vertical; -webkit-box-orient:vertical;-moz-box-orient:vertical;-ms-box-orient:vertical;}
+/*内容居中box*/
+.disbox-center{box-sizing:border-box;
+    display: -webkit-box; display: -moz-box;display: -ms-box;display: box;
+    box-pack: center; -webkit-box-pack: center;-moz-box-pack: center;-ms-box-pack: center;
+    box-align: center;-webkit-box-align: center;-webkit-align-pack: center;-moz-box-align: center;}
+/*box子元素自动占满空白*/
+.disbox-flex{ box-flex:1; -webkit-box-flex:1; -moz-box-flex:1; -ms-box-flex:1;}
+.disbox-hor {display:box; display:-webkit-box; display:-moz-box; display:-ms-box;
+    box-orient:horizontal;-webkit-box-orient:horizontal;-moz-box-orient:horizontal;-ms-box-orient:horizontal;}
+
+/*手机验证、身份证验证，验证标识全局*/
+.phone, .identity , .noCheck {display: inline-block;height: 22px;line-height: 22px;padding: 0 5px 0 20px;border-radius: 2px;margin: 0 6px 0 0;color: #fff;font-size:12px;}
+.phone {background: url(../images/icon_phone.png) 4px center no-repeat #00c5c4;background-size: 14px 14px;}
+.identity {background: url(../images/icon_write.png) 4px center no-repeat #2acb64;background-size: 14px 14px;}
+.noCheck {background-color:#d5d5d5;}

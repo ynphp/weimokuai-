@@ -1,0 +1,7 @@
+/*页眉 信箱提醒*/
+.mail_promise{height:0px;overflow: hidden ;line-height:40px;background:url(../images/xinxiang.jpg) 10px center no-repeat rgba(2,159,195,0.9); top: 52px;left: 0;right: 0;position:fixed;z-index: 300; box-shadow: 1px 1px 2px rgba(0,0,0,0.1);overflow:hidden;}
+.scrBox{position:absolute;top:0;left:0;overflow:hidden;padding:0 40px 0 34px;}
+.mail_promise .tt{color:#fff;height:40px;}
+.mail_promise .closed{ display:block; width:40px; height:40px; position:absolute; right:0px; top:0px; background:url(../images/closed.png) no-repeat center center;z-index:20;}
+.mail_promise .tt span{display:block;line-height:40px;height:40px;}
+

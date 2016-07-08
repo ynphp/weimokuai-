@@ -1,0 +1,18 @@
+/*忽略未读*/
+.information{ width: 100%;height: 40px;line-height: 40px;background: #fff;margin-bottom: 5px;text-align: center;font-size: 0.9em;}
+.cycle_tag{display: inline-block;padding: 3px 5px;border-radius: 3px;color: #fff;font-size: 12px;background: #F1668D;position: absolute;right: 10px;top: 40px;}
+/*user_list全局聊天-访客 样式共用*/
+
+
+/*免打扰设置*/
+.onekey_set{ height:36px; line-height:36px; border-bottom:1px solid #E8E8E8; background:url(../images/pink_warn.png) 10px center no-repeat #F9F9F9; padding:0 10px 0 30px; font-size:.8em;display:none;}
+.onekey_set>.re_trg{ float:right; margin:13px 12px 0 0;}
+
+
+/*修改*/
+#mail_list .user-list > li .tit{ padding:2px 0;}
+.user-list > li .bot_ht{ color:#555; font-size:14px;}
+.top_noread{ width:100%; height:30px; line-height:30px; text-align:center; font-size:13px; background:#F5F5F5;}
+.user-list>li.foot-icon>img.green_icon{position:absolute;bottom:0;left:0;width:11px;height:11px;}
+/*信箱晒心情*/
+.user-list > li.foot-icon .red_dot{background: #ed376a;border-radius: 100px; color: #fff; display: block;font-size: 10px;height: 12px;line-height: 12px;padding: 3px; position: absolute;right: -5px;text-align: center; top: -5px;min-width:12px;}.user-list>li.foot-icon>img.green_icon{position:absolute;bottom:0;left:0;width:11px;height:11px;}

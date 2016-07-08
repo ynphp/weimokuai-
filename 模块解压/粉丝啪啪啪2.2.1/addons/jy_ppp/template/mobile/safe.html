@@ -1,0 +1,102 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<title>{if !empty($sitem['aname'])}{$sitem['aname']}{else}有缘网{/if}</title>
+<link href="../addons/jy_ppp/css/common.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/new_safety_center.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/foot.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="min_nav"><div>
+    <h2 class="title">安全中心</h2>
+    <a class="reture" href="{php echo $this->createMobileUrl('geren')}">
+        <i class="le_trg"></i>
+        <span class="but">返回</span>
+    </a></div>
+</div>
+<section class="safety_center">
+{loop $list $l}
+    {if $l['paixu']==1}
+        <div class="set_Box">
+            <h2 class="List_top">{$l['name']}</h2>
+            <ul class="List">
+                {php $i=0;}
+                {loop $l['list'] $d}
+                    {if $i==0}
+                    <li>
+                    {/if}
+                    <a href="{php echo $this->createMobileUrl('safe_l',array('id'=>$d['id']))}">{$d['name']}</a>
+                    {php $i=$i+1;}
+                    {if $i==2}
+                    </li>
+                    {php $i=0;}
+                    {/if}
+                {/loop}
+            </ul>
+        </div>
+    {else}
+        <div class="set_Box">
+            <h2 class="List_top">{$l['name']}</h2>
+            <ul class="List List_colone">
+                {loop $l['list'] $d}
+                <li><a href="{php echo $this->createMobileUrl('safe_l',array('id'=>$d['id']))}">{$d['name']}</a></li>
+                {/loop}
+            </ul>
+        </div>
+    {/if}
+{/loop}
+</section>
+{template footer}
+</body>
+<script src="../addons/jy_ppp/js/zepto.min.js"></script>
+<script src="../addons/jy_ppp/js/public.js"></script>
+{if $weixin==1}
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    {php $signPackage=$_W['account']['jssdkconfig'];}
+    <script>
+
+        var appid = '{$_W['account']['jssdkconfig']['appId']}';
+        var timestamp = '{$_W['account']['jssdkconfig']['timestamp']}';
+        var nonceStr = '{$_W['account']['jssdkconfig']['nonceStr']}';
+        var signature = '{$_W['account']['jssdkconfig']['signature']}';
+
+        wx.config({
+            debug: false,
+            appId: appid,
+            timestamp: timestamp,
+            nonceStr: nonceStr,
+            signature: signature,
+            jsApiList: ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo']
+        });
+    </script>
+    <script type="text/javascript">
+        var params = {
+            {if empty($sitem['sharetitle'])}
+            title:"有缘网",
+            {else}
+            title: "{$sitem['sharetitle']}",
+            {/if}
+            {if empty($sitem['sharedesc'])}
+            desc: "有缘网!",
+            {else}
+            desc: "{$sitem['sharedesc']}",
+            {/if}
+            link: "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('index'),2)}",
+            {if empty($sitem['sharelogo'])}
+            imgUrl: "{$_W['siteroot']}addons/jy_ppp/icon.jpg",
+            {else}
+            imgUrl: "{$_W['attachurl']}{$sitem['sharelogo']}",
+            {/if}
+        };
+        wx.ready(function () {
+            wx.showOptionMenu();
+            wx.onMenuShareAppMessage.call(this, params);
+            wx.onMenuShareTimeline.call(this, params);
+        });
+    </script>
+    {/if}
+</html>
