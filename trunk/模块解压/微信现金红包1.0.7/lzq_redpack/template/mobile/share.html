@@ -1,0 +1,53 @@
+﻿<?php
+$touch=$this->module['config']['touch'];
+$appid=$this->module['config']['appid'];
+global $_W;
+$openid=$_W['openid'];
+if(empty($openid)||$openid==null||$openid==''){
+	$result="请在微信客户端中打开！！！";
+	include_once(MODULE_ROOT."/template/mobile/template.php");
+	exit();
+}
+
+load()->model('mc');
+$isExist=mc_fansinfo($openid,$_W['account']['acid']);
+if($isExist==null){
+	$result="请先关注公众号！！！";
+	include_once(MODULE_ROOT."/template/mobile/template.php");
+	exit();
+}
+
+$touch=$this->module['config']['touch'];
+$now=date("y-m-d h:i:s");
+$starttime=$this->module['config']['starttime'];
+$endtime=$this->module['config']['endtime'];
+
+if(strtotime($now)<strtotime($starttime)){
+	$result="您来早了，活动还没开始！！！";
+	include_once(MODULE_ROOT."/template/mobile/template.php");
+	exit();
+}
+if(strtotime($endtime)<strtotime($now)){
+	$result="您来迟了，活动已结束！！！";
+	include_once(MODULE_ROOT."/template/mobile/template.php");
+	exit();
+}
+
+
+$result = pdo_fetchall("SELECT * FROM ".tablename('we7_redpack_reply')." WHERE openid = :openid and appid = :appid ",array(':openid' => $openid,':appid' => $appid),'openid');
+			
+if(count($result)==1){
+	if($result[$openid]['hasSub']==true){
+		$result="您已参与过本活动，请不要重复操作！！！";
+		include_once(MODULE_ROOT."/template/mobile/template.php");
+	}else{			
+		$result=$this->sendRedpack($openid);
+		include_once(MODULE_ROOT."/template/mobile/template.php");
+	}
+}else if(count($result)==0){
+	pdo_insert('we7_redpack_reply', array('appid'=>$appid,'openid'=>$openid,'hasSub'=>false),false);
+	$result=$this->sendRedpack($openid);
+	include_once(MODULE_ROOT."/template/mobile/template.php");
+}
+
+?>

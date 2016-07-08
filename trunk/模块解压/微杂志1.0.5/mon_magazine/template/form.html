@@ -1,0 +1,276 @@
+<style>
+    .red {
+        color: red;
+    }
+</style>
+<input type="hidden" name="mid" value="{$reply['id']}"/>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        基本设置
+    </div>
+    <div class="panel-body">
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>杂志名称：</label>
+
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" id="title" class="form-control span7"
+                       placeholder="" name="title" value="{$reply['title']}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>封面</label>
+
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_image('cover_img',$reply['cover_img'],MonUtil::defaultImg(MonUtil::$IMG_COVER_IMG));}
+                建议宽*高(200*200)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>咨询电话</label>
+
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" id="zx_tel" class="form-control span7"
+                       placeholder="" name="zx_tel" value="{$reply['zx_tel']}">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>目录底部快捷图标组</label>
+
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_image('btn_icons',$reply['btn_icons'],MonUtil::defaultImg(MonUtil::$IMG_BTN_CONS));}
+                <div class="help-block">对图标不满意，可以右键另存为图片，按照此图片尺寸进行对应位置图标进行修改后，重新上传即可！</div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>快捷图标一名称</label>
+
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" id="btn1_name" class="form-control span7"
+                       placeholder="" name="btn1_name" value="{$reply['btn1_name']}">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>快捷图标一链接</label>
+
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" id="btn1_url" class="form-control span7"
+                       placeholder="" name="btn1_url" value="{$reply['btn1_url']}">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>快捷图标二名称</label>
+
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" id="btn2_name" class="form-control span7"
+                       placeholder="" name="btn2_name" value="{$reply['btn2_name']}">
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>快捷图标二链接</label>
+
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" id="btn2_url" class="form-control span7"
+                       placeholder="" name="btn2_url" value="{$reply['btn2_url']}">
+            </div>
+        </div>
+
+
+
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        图文设置
+    </div>
+    <div class="panel-body">
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>图文标题：</label>
+
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" id="new_title" class="form-control span7" placeholder="" name="new_title"
+                       value="{$reply['new_title']}">
+
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>图文 图标：</label>
+
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_image('new_icon',$reply['new_icon']);}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>图文描述：</label>
+
+            <div class="col-sm-9 col-xs-12">
+			<textarea style="height: 60px;" name="new_content"
+                      class="form-control span7" cols="60">{$reply['new_content']}</textarea>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                目录设置
+            </div>
+            <div class="panel-body">
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span></label>
+
+            <div class="col-sm-9 col-xs-12">
+
+
+                <table class='table'>
+
+                    <thead>
+                    <tr>
+                        <th>页数</th>
+                        <th>目录名称</th>
+                        <th>链接</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+
+                    <tbody id="mag_pages">
+
+
+                    {loop $mag_pages $mag_page}
+                    <tr >
+                        <td><input name="pages[]" type="text"
+                                   class="form-control span3" value="{$mag_page['page']}"
+                                /></td>
+                        <td><input name="pnames[]" type="text"
+                                   class="form-control span3" value="{$mag_page['pname']}"
+                                /></td>
+
+                        <td><input name="purls[]" type="text"
+                                   class="form-control span1" value="{$mag_page['purl']}"
+                                /></td>
+
+                        <td>
+                            <input  name="page_ids[]" type="hidden" value="{$mag_page['id']}" />
+                            <a href='javascript:;' onclick='removePage(this)'><i
+                                    class='glyphicon glyphicon-remove'></i> 删除</a></td>
+                    </tr>
+
+                    {/loop}
+
+                    </tbody>
+
+                </table>
+
+
+
+
+
+                <a href="javascript:;" onclick="addPage();"><i class="glyphicon glyphicon-plus" title="添加目录"></i>添加目录</a>
+
+
+
+            </div>
+        </div>
+
+</div>
+  </div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        分享设置
+    </div>
+    <div class="panel-body">
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>分享标题：</label>
+
+            <div class="col-sm-9 col-xs-12">
+                <input type="text" id="share_title" class="form-control span7" placeholder="" name="share_title"
+                       value="{$reply['share_title']}">
+                <div class="help-block"></div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>分享图标：</label>
+
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_image('share_icon',$reply['share_icon']);}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>分享引导图片：</label>
+
+            <div class="col-sm-9 col-xs-12">
+                {php echo tpl_form_field_image('share_Layer',$reply['share_Layer'],MonUtil::defaultImg(MonUtil::$IMG_SHARE_LAYER));}
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class='red'>*</span>分享描述：</label>
+
+            <div class="col-sm-9 col-xs-12">
+			<textarea style="height: 60px;" name="share_content"
+                      class="form-control span7" cols="60">{$reply['share_content']}</textarea>
+                <div class="help-block"></div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    require(['jquery', 'util'], function ($, u) {
+        $(function () {
+            u.editor($('#hd_intro')[0]);
+            u.editor($('#rule_intro')[0]);
+            u.editor($('#prize_intro')[0]);
+            u.editor($('#add_intro')[0]);
+        });
+    });
+
+    function addPage() {
+        var index = $("#mag_pages tr").length + 1;
+        var html = "<tr>";
+        html += '<td><input name="pages[]" type="text" class="form-control span3" value="'+index+'" /></td>';
+        html += ' <td><input name="pnames[]" type="text" class="form-control span3" value=""/></td>';
+        html += ' <td><input name="purls[]" type="text" class="form-control span3" value=""/></td>';
+        html += '<td> <input  name="page_ids[]" type="hidden" value="" />&nbsp;<a href="javascript:;" onclick="removePage(this)" ><i class="glyphicon glyphicon-remove"></i> 删除</a></td>';
+        html += "</tr>";
+        $("#mag_pages").append(html);
+    }
+
+    function removePage(obj) {
+        $(obj).parent().parent().remove();
+    }
+
+</script>

@@ -1,0 +1,84 @@
+{template 'common/header'}
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li class="active" ><a href="{php echo $this->createWebUrl('magManage');}">杂志管理</a></li>
+        <li ><a href="{php echo url('platform/reply/post',array('m'=>'mon_magazine'));}">添加微杂志</a></li>
+
+    </ul>
+
+
+    <div class="panel panel-info">
+        <div class="panel-heading">筛选</div>
+        <div class="panel-body">
+            <form action="./index.php" method="get" class="form-horizontal" role="form">
+                <input type="hidden" name="c" value="site" />
+                <input type="hidden" name="a" value="entry" />
+                <input type="hidden" name="m" value="mon_baton" />
+                <input type="hidden" name="do" value="jlmanage" />
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-2 col-md-2 col-lg-1 control-label">关键字</label>
+                    <div class="col-sm-8 col-lg-9">
+                        <input class="form-control" name="keyword" id="" type="text" value="{$_GPC['keyword']}">
+                    </div>
+                    <div class=" col-xs-12 col-sm-2 col-lg-2">
+                        <button class="btn btn-default"><i class="fa fa-search"></i> 搜索</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="panel panel-default">
+        <div class="table-responsive panel-body">
+
+
+
+
+            <div class="row">
+
+                {loop $list $row}
+
+
+                <div class="thumbnail" style="width:270px;height: 400px;float: left">
+                    <img src="{php echo MonUtil::defaultImg(MonUtil::$IMG_COVER_IMG,$row)}" alt="{$row['title']}" style="height:200px;width: 280px">
+                    <div class="caption">
+                        <h3>名称：{$row['title']}</h3>
+                        <h3>创建时间：{php echo date("Y-m-d H:i", $row['createtime'])}</h3>
+                        <h3>更新时间：{php echo date("Y-m-d H:i", $row['updatetime'])}</h3>
+                        <p>
+                            <a href="{php echo create_url('platform/reply/post', array( 'm' => 'mon_magazine','rid'=>$row['rid']))}" class="btn btn-default" role="button"><i class="glyphicon glyphicon-edit"></i>编辑</a>
+
+                            <a href="{php echo $this->createWebUrl('magManage', array( 'id' => $row['id'], 'op' => 'delete'))}" class="btn btn-default" role="button"  onclick="return confirm('此操作不可恢复，确认删除？');return false;"><i class="glyphicon glyphicon-remove"></i>删除</a>
+
+                        <a href="{php echo MonUtil::str_murl($this->createMobileUrl('index',array('mid'=>$row['id']),true))}"  target="_blank" class="btn btn-default" role="button"><i class="glyphicon glyphicon-zoom-in"></i>预览</a>
+                    </p>
+                    </div>
+                </div>
+
+                {/loop}
+                {$pager}
+
+            </div>
+
+
+
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+</div>
+
+
+{template 'common/footer'}

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[微信扫码收款]]></name>
+		<identifie><![CDATA[czt_wx_collection]]></identifie>
+		<version><![CDATA[1.0.5]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[微信扫码收款]]></ability>
+		<description><![CDATA[微信扫码收款]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="true" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="微信扫码收款" do="scan_collection" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="扫码收款记录" do="scan_record" state="" direct="false" />
+			<entry title="收款门店添加" do="scan_class" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

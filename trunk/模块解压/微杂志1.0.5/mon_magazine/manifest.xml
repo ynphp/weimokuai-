@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[微杂志]]></name>
+		<identifie><![CDATA[mon_magazine]]></identifie>
+		<version><![CDATA[1.0.5]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[微杂志！！！]]></ability>
+		<description><![CDATA[微杂志！！！！！！]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://H770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="view" />
+			<message type="enter" />
+		</subscribes>
+		<handles>
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="enter" />
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+
+		<menu>
+			<entry title="微杂志管理" do="magManage" state="" />
+		</menu>
+	</bindings>
+
+	<install><![CDATA[
+	CREATE TABLE IF NOT EXISTS `ims_mon_magazine` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) NOT NULL,
+  `weid` int(11) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `cover_img` varchar(500) NOT NULL,
+  `zx_tel` varchar(50) DEFAULT NULL,
+  `btn_icons` varchar(500) DEFAULT NULL,
+  `btn1_name` varchar(500) DEFAULT NULL,
+  `btn1_url` varchar(500) DEFAULT NULL,
+  `btn2_name` varchar(500) DEFAULT NULL,
+  `btn2_url` varchar(500) DEFAULT NULL,
+  `new_title` varchar(200) DEFAULT NULL,
+  `new_icon` varchar(200) DEFAULT NULL,
+  `new_content` varchar(200) DEFAULT NULL,
+  `share_title` varchar(200) DEFAULT NULL,
+  `share_icon` varchar(200) DEFAULT NULL,
+  `share_content` varchar(200) DEFAULT NULL,
+  `share_Layer` varchar(500) DEFAULT NULL,
+  `createtime` int(10) DEFAULT NULL,
+  `updatetime` int(10) DEFAULT NULL,
+  `view_count` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+
+CREATE TABLE IF NOT EXISTS `ims_mon_magazine_page` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `mid` int(10) NOT NULL,
+  `page` int(3) DEFAULT NULL,
+  `pname` varchar(50) DEFAULT NULL,
+  `purl` varchar(500) DEFAULT NULL,
+  `createtime` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+	]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

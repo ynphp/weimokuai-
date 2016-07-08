@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="{MON_MAGAZINE_RES}/weixin/resources/v2.1/style/style.css">
+    <link rel="stylesheet" type="text/css" href="{MON_MAGAZINE_RES}/weixin/resources/v2.1/style/yb.css">
+</head>
+<body>
+
+<div class="bytopf">
+    <div class="con">
+        <i></i>
+
+        <p>目录<span>Contents</span></p>
+    </div>
+</div>
+<div class="bmu-box" style="margin-bottom: 150px;">
+    <div class="bmu">
+        <ul>
+
+            <li>
+                <a href="" data-pageId="1">
+                    <p>封面<em></em></p>
+                    <span>1</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="" data-pageId="2">
+                    <p>目录<em></em></p>
+                    <span>2</span>
+                </a>
+            </li>
+
+            {loop $mag_pages $page}
+            <li>
+                <a href="" data-pageId="{php echo $page['page']+2}">
+                    <p>{$page['pname']}<em></em></p>
+                    <span>{php echo $page['page']+2}</span>
+                </a>
+            </li>
+
+            {/loop}
+
+
+        </ul>
+    </div>
+</div>
+<div class="bybot-box">
+    <div class="byjie">
+        <ul>
+            <li>
+                <a href="tel:{$mag['tel']}" contact="true"
+                   data=""
+                   type="xf_tel" tj_data="zhongshan_296" id="telBtn"
+                   gather="">
+                    <i class="i1" style="background: url({php echo MonUtil::defaultImg(MonUtil::$IMG_BTN_CONS,$mag)}) no-repeat; background-position:0 0;display:block; width:50px; height:50px; margin:0 auto; background-size:51px 509px;"></i>
+
+                    <p>咨 询</p>
+                </a>
+            </li>
+            <li>
+                <a href="{$mag['btn1_url']}" class="external">
+                    <i class="i2" style="background: url({php echo MonUtil::defaultImg(MonUtil::$IMG_BTN_CONS,$mag)}) no-repeat; background-position:0 -51px;display:block; width:50px; height:50px; margin:0 auto; background-size:51px 509px;"></i>
+
+
+                </a>
+                <p>{$mag['btn1_name']}</p>
+            </li>
+            <li>
+                <a href="{$mag['btn2_url']}" class="external">
+                    <i class="i3" style="background: url({php echo MonUtil::defaultImg(MonUtil::$IMG_BTN_CONS,$mag)}) no-repeat;background-position:0 -102px;display:block; width:50px; height:50px; margin:0 auto; background-size:51px 509px;"></i>
+                </a>
+                <p>{$mag['btn2_name']}</p>
+            </li>
+            <li>
+                <a href="#" id="shareBtn">
+                    <i class="i4" style="background: url({php echo MonUtil::defaultImg(MonUtil::$IMG_BTN_CONS,$mag)}) no-repeat; background-position:0 -153px;display:block; width:50px; height:50px; margin:0 auto; background-size:51px 509px;"></i>
+
+                    <p>分 享</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="bymu">
+        <a href="./weixin/housebook/book_index.html?type=1&city=zhongshan&hid=296" class="mu1">目录</a>
+        <a href="tel:{$mag['zx_tel']}" class="zi" contact="true"
+           data="{&quot;img&quot;:&quot;http:\/\/src.house.sina.com.cn\/imp\/imp\/deal\/16\/78\/8\/b80bd92bc3d93fb8f812e18b1d9_p7_mk7_os7baf08_cm320X240.jpg&quot;,&quot;title&quot;:&quot;\u9633\u5149\u534a\u5c9b&quot;,&quot;address&quot;:&quot;\u4e2d\u5c71\u5e02\u6c99\u6eaa\u9547\u534a\u5c9b\u8def1\u53f7\uff08\u6c99\u6eaa\u661f\u5b9d\u8def\u6bb5\uff09&quot;,&quot;url&quot;:&quot;\/touch\/house\/zhongshan\/296\/&quot;}"
+           type="xf_tel" tj_data="zhongshan_296" id="telBtn"
+           gather="{event:'weixin_xf_call',event_name:'新房拨打电话',city:'中山',level1_page:'xf',level2_page:'xf_info',param1:'',param2:'61526',param3:'阳光半岛',param4:''}">咨询</a>
+
+        <div class="con">
+            <span>目录</span>
+
+            <div class="gun">
+                <p><em>01</em>/24</p>
+                <strong></strong>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="maskshare none"><img src="{php echo MonUtil::defaultImg(MonUtil::$IMG_SHARE_LAYER,$mag)}" style="width: 100%;"/></div>
+
+<script type="text/javascript" src="{MON_MAGAZINE_RES}/resources/js/dist/seajs/1.3.1/sea.js"></script>
+<script type="text/javascript">
+    seajs.use("{MON_MAGAZINE_RES}/resources/js/dist/app/mLejuWxV1/house_trend/house_trend.js");
+</script>
+</body>
+</html>

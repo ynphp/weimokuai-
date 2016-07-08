@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[微预约支付版]]></name>
+		<identifie><![CDATA[dayu_yuyuepay]]></identifie>
+		<version><![CDATA[1.8.7.1]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[行业通用预约模块]]></ability>
+		<description><![CDATA[]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="服务项目列表" do="yyxmdisplay" state="" direct="false" />
+			<entry title="预约列表" do="display" state="" direct="false" />
+			<entry title="新建预约" do="post" state="" direct="false" />
+			<entry title="新增服务项目" do="yyxmpost" state="" direct="false" />
+		</menu>
+		<home call="getHomeTiles">
+		</home>
+		<profile>
+			<entry title="我的预约" do="mydayu_yuyuepay" state="" direct="false" />
+		</profile>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_dayu_yuyuepay` (
+  `reid` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL DEFAULT '',
+  `description` varchar(1000) NOT NULL,
+  `content` text NOT NULL,
+  `information` varchar(500) NOT NULL DEFAULT '',
+  `thumb` varchar(200) NOT NULL DEFAULT '',
+  `inhome` tinyint(4) NOT NULL DEFAULT '0',
+  `createtime` int(10) NOT NULL DEFAULT '0',
+  `starttime` int(10) NOT NULL DEFAULT '0',
+  `endtime` int(10) unsigned NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '0',
+  `pretotal` int(10) unsigned NOT NULL DEFAULT '1',
+  `pay` int(10) unsigned NOT NULL DEFAULT '1',
+  `xmshow` int(10) unsigned NOT NULL DEFAULT '0',
+  `xmname` varchar(50) NOT NULL DEFAULT '',
+  `yuyuename` varchar(50) NOT NULL DEFAULT '',
+  `noticeemail` varchar(50) NOT NULL DEFAULT '',
+  `k_templateid` varchar(50) NOT NULL DEFAULT '',
+  `kfid` varchar(50) NOT NULL DEFAULT '',
+  `m_templateid` varchar(50) NOT NULL DEFAULT '',
+  `accountsid` varchar(50) NOT NULL DEFAULT '',
+  `tokenid` varchar(50) NOT NULL DEFAULT '',
+  `appId` varchar(50) NOT NULL DEFAULT '',
+  `templateId` varchar(50) NOT NULL DEFAULT '',
+  `mobile` varchar(50) NOT NULL DEFAULT '',
+  `mname` varchar(10) NOT NULL DEFAULT '',
+  `skins` varchar(20) NOT NULL DEFAULT 'submit',
+  `kfirst` varchar(100) NOT NULL COMMENT '客服模板页头',
+  `kfoot` varchar(100) NOT NULL COMMENT '客服模板页尾',
+  `mfirst` varchar(100) NOT NULL COMMENT '客户模板页头',
+  `mfoot` varchar(100) NOT NULL COMMENT '客户模板页尾',
+  `share_url` varchar(100) NOT NULL DEFAULT '',
+  `follow` tinyint(1) DEFAULT '0',
+  `kaishi` int(11) NOT NULL DEFAULT '1',
+  `jieshu` int(11) NOT NULL DEFAULT '22',
+  `tianshu` int(11) NOT NULL DEFAULT '15',
+  `code` tinyint(1) DEFAULT '0',
+  `is_time` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`reid`),
+  KEY `weid` (`weid`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_dayu_yuyuepay_data` (
+  `redid` bigint(20) NOT NULL AUTO_INCREMENT,
+  `reid` int(11) NOT NULL,
+  `rerid` int(11) NOT NULL,
+  `refid` int(11) NOT NULL,
+  `data` varchar(800) NOT NULL,
+  PRIMARY KEY (`redid`)
+) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_dayu_yuyuepay_fields` (
+  `refid` int(11) NOT NULL AUTO_INCREMENT,
+  `reid` int(11) NOT NULL DEFAULT '0',
+  `title` varchar(200) NOT NULL DEFAULT '',
+  `type` varchar(20) NOT NULL DEFAULT '',
+  `essential` tinyint(4) NOT NULL DEFAULT '0',
+  `bind` varchar(30) NOT NULL DEFAULT '',
+  `value` varchar(300) NOT NULL DEFAULT '',
+  `description` varchar(500) NOT NULL DEFAULT '',
+  `displayorder` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`refid`)
+) ENGINE=MyISAM AUTO_INCREMENT=156 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_dayu_yuyuepay_info` (
+  `rerid` int(11) NOT NULL AUTO_INCREMENT,
+  `reid` int(11) NOT NULL,
+  `member` varchar(50) NOT NULL,
+  `mobile` varchar(11) NOT NULL,
+  `openid` varchar(50) NOT NULL,
+  `status` tinyint(1) NOT NULL COMMENT '预约状态',
+  `xmid` int(11) NOT NULL,
+  `price` varchar(10) NOT NULL DEFAULT '',
+  `ordersn` varchar(20) NOT NULL COMMENT '订单编号',
+  `paystatus` tinyint(4) NOT NULL COMMENT '付款状态',
+  `paytype` tinyint(4) NOT NULL COMMENT '付款方式',
+  `yuyuetime` int(10) NOT NULL DEFAULT '0' COMMENT '客服确认时间',
+  `kfinfo` varchar(100) NOT NULL COMMENT '客服信息',
+  `createtime` int(10) NOT NULL DEFAULT '0',
+  `transid` varchar(30) NOT NULL COMMENT '微信订单号',
+  PRIMARY KEY (`rerid`),
+  KEY `reid` (`reid`)
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_dayu_yuyuepay_reply` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `rid` int(11) NOT NULL,
+  `reid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_dayu_yuyuepay_xiangmu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `reid` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL DEFAULT '',
+  `price` varchar(10) NOT NULL DEFAULT '',
+  `displayorder` tinyint(3) NOT NULL DEFAULT '0',
+  `isshow` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `weid` (`weid`)
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

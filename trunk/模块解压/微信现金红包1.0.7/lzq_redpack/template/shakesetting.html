@@ -1,0 +1,80 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+	<li><a href="{php echo $this->createWebUrl('netshake', array('op'=>'display'));}">摇一摇广告管理</a></li>
+	<li><a href="{php echo $this->createWebUrl('netshake', array('op'=>'edit'));}">添加摇一摇广告</a></li>
+	<li class="active"><a href="{php echo $this->createWebUrl('shakesetting', array('op'=>'edit'));}">设置活动页面</a></li>
+	<li><a href="{php echo $this->createWebUrl('sharesetting', array('op'=>'edit'));}">设置分享内容</a></li>
+</ul>
+
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" id="form">
+		<div class="panel panel-default">
+			<div class="panel-heading">设置活动页面数据</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">活动页标题</label>
+					<div class="col-xs-12 col-sm-8">
+						<input type="text" name="activity[title]" class="form-control" value="{$_title}" placeholder="显示在网页最上方"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">活动背景图</label>
+					<div class="col-xs-12 col-sm-8">
+						<?php echo tpl_form_field_image("activity[bg]", $_bg);?>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">一键关注链接</label>
+					<div class="col-xs-12 col-sm-8">
+						<input type="text" name="activity[link]" class="form-control" value="{$_link}" >
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 col-lg-2 control-label">活动规则</label>
+					<div class="col-sm-8">
+						<input id="comment" name="activity[comment]" class="form-control" placeholder="显示在活动页左侧按钮点击的内容" value="{$_comment}"/>
+						<span class="help-block">多条说明之间请用\n分隔，比如1，说明1\n2，说明2\n3，说明3</span>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10 col-sm-offset-3 col-md-offset-2 col-lg-offset-2">
+						<input name="submit" type="submit" value="保存" class="btn btn-primary" />
+						<input type="hidden" name="token" value="{$_W['token']}" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script>
+require(['jquery', 'util'], function($, util){
+	$(function(){
+		$('#form').submit(function(){
+			if($('input[name="activity[title]"]').val() == ''){
+				util.message('活动页标题不能为空.');
+				return false;
+			}
+			if($('input[name="activity[bg]"]').val() == ''){
+				util.message('请选择活动页背景图.');
+				return false;
+			}
+			
+			if($('input[name="activity[link]"]').val() == ''){
+				util.message('请填写一键关注链接.');
+				return false;
+			}
+			if($('input[name="activity[comment]"]').val() == ''){
+				util.message('请填写活动规则.');
+				return false;
+			}
+			return true;
+		});
+	});
+});
+</script>
+
+{template 'common/footer'}

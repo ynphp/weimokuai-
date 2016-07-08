@@ -1,0 +1,60 @@
+{template 'common/header'}
+
+<ul class="nav nav-tabs">
+
+	<li class="active"><a href="{php echo $this->createWebUrl('netshake', array('op'=>'display'));}">摇一摇广告管理</a></li>
+	<li><a href="{php echo $this->createWebUrl('netshake', array('op'=>'edit'));}">添加摇一摇广告</a></li>
+	<li><a href="{php echo $this->createWebUrl('shakesetting', array('op'=>'display'));}">设置活动页面</a></li>
+	<li><a href="{php echo $this->createWebUrl('sharesetting', array('op'=>'display'));}">设置分享内容</a></li>
+</ul>
+
+<div class="main">
+	<div class="panel panel-default">
+		<div class="panel-heading">网页摇一摇入口地址，请将以下链接通过文本消息或者文本消息发送至用户，用户在微信客户端进入该链接即可进入活动页面！</div>
+		<div class="panel-body">
+			{$url}
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">历史广告列表</div>
+		<div class="panel-body">
+			<div class="table-responsive panel-body">
+				<table class="table table-hover" style="min-width: 300px;">
+					<thead class="navbar-inner">
+						<tr>
+							<th class="col-sm-1">id</th>
+							<th class="col-sm-2">图标</th>
+							<th class="col-sm-4">广告内容</th>
+							<th class="col-sm-3">广告链接</th>
+							<th class="col-sm-2 text-right">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{loop $advertices $adverticeid $advertice}
+						<tr>
+							<td>{$advertice['id']}</td>
+							<td><img src="<?php echo '../attachment/'.$advertice['icon'];?>" width="40" height="40"/></td>
+							<td>{$advertice['content']}</td>
+							<td>{$advertice['url']}</td>
+							<td class="text-right">
+								<a href="{php echo $this->createWebUrl('netshake', array('op'=>'edit', 'id'=>$adverticeid));}" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="编辑"><i class="fa fa-pencil"></i></a>
+								<a onclick="if(!confirm('删除后将不可恢复,确定删除吗?')) return false;" href="{php echo $this->createWebUrl('netshake', array('op'=>'delete', 'id'=>$adverticeid));}" class="btn btn-default btn-danger" data-toggle="tooltip" data-placement="top" title="" data-original-title="删除"><i class="fa fa-times"></i> </a>
+							</td>
+						</tr>
+						{/loop}
+						{if empty($advertices)}
+						<tr>
+							<td colspan="8">
+								暂无历史广告数据
+							</td>
+						</tr>
+						{/if}
+					</tbody>
+				</table>
+				{$pager}
+			</div>
+		</div>
+	</div>
+</div>
+
+{template 'common/footer'}
