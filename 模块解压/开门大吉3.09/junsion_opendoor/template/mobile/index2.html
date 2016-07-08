@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+{php $MOBILE = '../addons/'.$this->modulename.'/template/mobile/';}
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      name="viewport">
+ <script type="text/javascript" src="{$MOBILE}js/jquery-1.7.2.min.js"></script>
+ <script type="text/javascript" src="{$MOBILE}js/sweetalert.min.js"></script>
+ <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5PESLgvMcSbSUbPjmDKgvGZ3"></script>
+ <link rel="stylesheet" href="{$MOBILE}css/style.css?i={TIMESTAMP}">
+ <link rel="stylesheet" href="{$MOBILE}css/sweetalert.css">
+<title>{$rule['title']}</title>
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+	-webkit-touch-callout: none;
+}
+html,body{width:100%;height:100%;overflow:hidden;position: relative;}
+.slider{
+	height: {$rule['slideH']}px !important;
+}
+.slider img{
+	height: {$rule['slideH']}px !important;
+}
+.slogo{
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	top: 0;
+	left: 0;
+}
+.slogo span{
+	background: transparent url({php echo toimage($rule['logo'])}) top left no-repeat;
+	background-size: 100% 100%;
+	display: inline-block;
+	width: 50px;
+	height: 25px;
+	margin-top: 1%;
+}
+.sbg{
+	background: transparent url({php echo toimage($rule['sbg'])}) top left no-repeat;
+	background-size: 100% 100%;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.gcontent{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	overflow: hidden;
+}
+.doorbg{
+	background: transparent url({php echo toimage($rule['door'])}) top left no-repeat;
+	background-size: 100% 100%;
+	width: 100%;
+	height: 75%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 100;
+}
+.bottom{
+	background: transparent url({php echo toimage($rule['sbottom'])}) top left no-repeat;
+	background-size: 100% 100%;
+	width: 100%;
+	height: 29%;
+	position: absolute;
+	left: 0;
+	bottom: 0;	
+}
+.sicon{
+	background: transparent url({php echo toimage($rule['icon'])}) top left no-repeat;
+	background-size: 100% 100%;
+	width: 0;
+	height: 0;
+	position: absolute;
+	left: 50%;
+	top: 10%;
+}
+
+.sbtns{
+	position: absolute;
+	width: 100%;
+	top: 40%;
+}{if $player['score'] >= intval($rule['minlevel'])}.rank{	height: 256px !important;}{/if}
+.sbtn{
+	background: transparent url({php echo toimage($rule['sbtn'])}) top left no-repeat;
+	background-size: 100% 100%;
+	width: 55%;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	font-size: 20px;
+	font-weight: bold;
+	color: white;
+	margin: 0 auto;
+	display: block;
+	margin-bottom: 5px;
+	text-decoration: none;
+}
+#J-album{
+	position: absolute;
+	bottom: 0;
+	height: 110px;
+}
+#J-album img{
+	height: 110px;
+}
+a:visited{
+	color: white;
+}
+.icontent{
+  height: 290px;
+  overflow-y: scroll;
+  display: none;
+}
+.rule{
+  padding: 10px;
+  word-break: break-word;
+  line-height: 20px;
+  font-size: 15px;
+  color: orange;
+  height: 270px;
+}.rtitle{
+	color: orangered;font-size: 18px;font-weight: bold;margin-bottom: 5px;
+}
+</style>
+</head>
+<body>{if $infos}<form action='{php echo $this->createMobileUrl("info",array("pid"=>$player["id"]))}' method="post" onsubmit="return checksubmit()"><div style="position: absolute;top:0;left:0;width: 100%;height: 100%;background: rgba(0,0,0,.3);z-index: 2000;">	<input type="hidden" name="op" value="1">	<div class="bootstrap-frm"  style="margin-top: 20%;" id="info">		<h1>{$rule['awardtips']}</h1>		{if $rule['isrealname']}<label><span>真实姓名</span><input type="text" name="realname" id="realname" value="{$mc['realname']}"></label>{/if}		{if $rule['ismobile']}<label><span>手机号码</span><input type="tel" name="mobile" id="mobile" value="{$mc['mobile']}"></label>{/if}		{if $rule['isqq']}<label><span>QQ</span><input type="tel" name="qq" id="qq" value="{$mc['qq']}"></label>{/if}		{if $rule['isemail']}<label><span>邮箱</span><input type="email" name="email" id="email" value="{$mc['email']}"></label>{/if}		{if $rule['isaddress']}<label><span>地址</span><textarea id="address" name="address">{$mc['address']}</textarea></label>{/if}		<label><button type="submit" class="btn" id="btn_submit">提交</button></label>	</div></div></form>{/if}
+<audio src="{php echo toimage($rule['bgsong'])}" autoplay="autoplay" loop="loop"></audio>
+<div class="sbg"></div>
+<div class="gcontent">
+<div class='doorbg'>
+	<div class="slogo"><span></span></div>
+	<div class="sicon"></div>
+	<div class="sbtns">
+		{if !empty($award)}
+		<a class="sbtn" name="dialog3" onclick="$('.dialog3').show();$('#self').hide();">我的奖品</a>
+		{else}
+		<a class="sbtn" href="{php echo $this->createMobileUrl('game',array('rid'=>$rid))}">开始闯关</a>
+		{/if}
+		<a class="sbtn" name="rank">排行榜</a>
+		<a class="sbtn" name="award">活动奖品</a>
+		<a class="sbtn" name="rule">活动规则</a>
+	</div>
+</div>
+<div class="bottom">
+	{template 'slider'}
+</div>
+</div>
+
+<div class="sdialog">
+	<div class="titles"><div id="rank" class="stitle redtitle">排行榜</div><div id="award" class="stitle redtitle">奖品</div><div id="rule" class="stitle redtitle">活动规则</div><div id="friend" class="stitle redtitle">亲友团</div></div>
+	<div class="dcontent">
+		<div class="icontent rank">
+			<div class="rank_item item_th"><label>排名</label><label>头像</label><label>昵称</label><label>关卡</label><label>耗时</label></div>
+			{php $inrank = false}<!-- 判断自己是否在排行榜中 -->
+			{loop $rank $k $r}
+			<div class="rank_item rank_td">
+				<label>{if $k < 3}<i class="saward saward{$k}"></i>{else}<i class="saward">{php echo $k+1}</i>{/if}</label><label class="fans"><img src="{$r['avatar']}"></label><label>{$r['nickname']}</label><label>{$r['score']}</label><label>{php echo date('i\'s\"',$r['atime']/1000)}</label>
+			</div>
+			{/loop}
+
+			{if $player['score'] < intval($rule['minlevel'])}
+			<div class="rank_item rank_td" style="background:antiquewhite;text-align: center;color: orangered;">
+				闯到第{$rule['minlevel']}关才可以上排行榜哦！敢上来不？
+			</div>
+			{/if}
+		</div>		{if $player['score'] >= intval($rule['minlevel'])}			<div class="rank_item rank_td" id="self" style="background:antiquewhite;position: absolute;width: 100%;bottom: 0;border: 1px dashed orangered;">				<label><i class="saward">{$curRank}</i></label><label class="fans"><img src="{$player['avatar']}"></label><label>{$player['nickname']}</label><label>{$player['score']}</label><label>{php echo date('i\'s\"',$player['atime']/1000)}</label>			</div>		{/if}
+		
+		<div class="icontent award">
+			<div class="award_item item_th"><label></label><label>奖励</label><label>名称</label><label>数量</label></div>
+			{loop $prize $p}
+			<div class="award_item award_td"><label><img src="{php echo toimage($p['prizepic'])}"></label><label>{$p['prizepro']}</label><label>{$p['prizename']}</label><label>{$p['prizetotal']}</label></div>
+			{/loop}
+		</div>
+		
+		<div class="icontent rule">
+			<div class="rtitle">活动时间：</div>
+			<div>{php echo date('Y-m-d H:i',$rule['starttime'])} 至 {php echo date('Y-m-d H:i',$rule['endtime'])}</div>
+			<div class="rtitle" style="margin-top: 20px;">活动规则：</div>
+			<pre>{$rule['content']}</pre>
+		</div>
+		
+		<div class="icontent friend">
+			<div class="rank_item item_th"><label style="width: 30%;">头像</label><label style="width: 40%;">昵称</label><label style="width: 30%;">助力值</label></div>
+			{loop $share $k $r}
+			<div class="rank_item rank_td" style="background:antiquewhite">
+				<label class="fans" style="width: 30%;"><img src="{$r['avatar']}"></label><label style="width: 40%;">{$r['nickname']}</label><label style="width: 30%;">{$r['blessing_num']}</label>
+			</div>
+			{/loop}
+		</div>
+	</div>
+</div>
+{if !empty($award)}
+<div class="dialog dialog3" {if !$player['status']}style="display: block;"{/if}>
+<div class="dialog_close" onclick="$('.dialog3').hide()" style="top: 95px;right: 20px;"></div>
+<div class="prize_content">
+	<div style="text-align: center;"><span class="prize_index"><b>{$award['prize']['prizepro']}</b></span></div>
+	<div class="prize_info"><img src="{php echo toimage($award['prize']['prizepic'])}"><b>{$award['prize']['prizename']}</b></div>
+	{if $rule['prizetime'] <= time()}
+	<div class="qrcode"><img src="{$MOBILE}img/over.png"><p>抱歉，已过了兑奖时间！</p></div>
+	{else}
+	{if $award['prize']['prizetype']}{if $award['prize']['prizetype'] == 6}	<p style="margin: 5px 5px 0 5px;text-align: center;color: orangered;">{$cfg['redtips']}</p>{else}	<a class='sbtn' href="{$url}" style="height: 30px;line-height: 30px;margin-top: 10px;">前往会员卡</a>{/if}
+	{else}
+	<div class="qrcode"><img src="{php echo toimage($award['url'])}"><p>向商家员工出示该二维码</p><p>扫码后即可领奖</p></div>
+	{/if}
+	{/if}
+	{if $store}<div style="text-align: center;"><a style="font-size: 15px;color: blue;" href="{php echo $this->createMobileUrl('map',array('rid'=>$rid,'pid'=>$award['prize']['id']))}">商家地址</a></div>{/if}
+</div>
+</div>
+{/if}
+</body>
+<script type="text/javascript">var submit = 0;function checksubmit(){	if(submit > 0) return false;	var inputs = $('#info').find('input');	for(var i = 0;i < inputs.length; i++ ){		if($.trim(inputs.eq(i).val()) == ''){			swal('请完善您的信息！','','warning');			return false;		}	}	if($('#address').length > 0 && $.trim($('#address').val()) == ''){		swal('请完善您的信息！','','warning');		return false;	}	submit++;}
+
+$('.sicon').animate({
+	width: '70%',
+	height: '25%',
+	left: '15%',
+},2000,'swing');
+
+$('.stitle').click(function(){
+	$('.stitle').removeClass('yeltitle');
+	$(this).addClass('yeltitle');
+	$('.icontent').hide();	if($(this).attr('id') == 'rank'){		$('#self').show();	}else $('#self').hide();
+	$('.'+$(this).attr('id')).show();
+});
+$('.sbtn').click(function(){
+	if(!$(this).attr('name') || $(this).attr('name') == 'dialog3') return;
+	$('.sdialog').show();
+	$('.icontent').hide();
+	$('.'+$(this).attr('name')).show();		if($(this).attr('name') == 'rank'){		$('#self').show();	}else $('#self').hide();
+	$('.stitle').removeClass('yeltitle');
+	$('#'+$(this).attr('name')).addClass('yeltitle');
+});
+$('.dcontent').click(function(){
+	$('.sdialog').hide();
+});
+</script>
+{template 'share'}
+</html>

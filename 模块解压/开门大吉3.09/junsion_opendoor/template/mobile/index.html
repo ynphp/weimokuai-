@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+{php $MOBILE = '../addons/'.$this->modulename.'/template/mobile/';}
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      name="viewport">
+ <script type="text/javascript" src="{$MOBILE}js/jquery-1.7.2.min.js"></script>
+ <script type="text/javascript" src="{$MOBILE}js/sweetalert.min.js"></script>
+ <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5PESLgvMcSbSUbPjmDKgvGZ3"></script>
+ <link rel="stylesheet" href="{$MOBILE}css/style.css?i={TIMESTAMP}">
+ <link rel="stylesheet" href="{$MOBILE}css/sweetalert.css">
+<title>{$rule['title']}</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+html,body{width:100%;height:100%;overflow:hidden;position: relative;}
+.bg {
+	width: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: -1;
+	min-height: 100%;
+	background: url("{php echo toimage($rule['indexbg'])}") no-repeat;
+	background-size: 100% 100%;
+}
+.start{
+	width: 60px;
+	height: 60px;
+	margin: 0 auto;
+	background: url("{php echo toimage($rule['button2'])}") no-repeat;
+	background-size: 100% 100%;
+	margin-bottom: 30px;
+}
+.btns{
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	bottom: 15%;
+}
+.btn{
+	width: 60%;
+	margin-bottom: 10px;
+	background: #ee2f40;
+	border: 2px solid white;
+	border-radius: 5px;
+	padding: 5px 10px;
+	color: white;
+	font-weight: bold;
+}
+.mcard{
+	
+}
+</style>
+</head>
+<body>{if $infos}<form action='{php echo $this->createMobileUrl("info",array("pid"=>$player["id"]))}' method="post" onsubmit="return checksubmit()"><div style="position: absolute;top:0;left:0;width: 100%;height: 100%;background: rgba(0,0,0,.3);z-index: 2000;"><input type="hidden" name="op" value="1">	<div class="bootstrap-frm"  style="margin-top: 20%;" id="info">		<h1>{$rule['awardtips']}</h1>		{if $rule['isrealname']}<label><span>真实姓名</span><input type="text" name="realname" id="realname" value="{$mc['realname']}"></label>{/if}		{if $rule['ismobile']}<label><span>手机号码</span><input type="tel" name="mobile" id="mobile" value="{$mc['mobile']}"></label>{/if}		{if $rule['isqq']}<label><span>QQ</span><input type="tel" name="qq" id="qq" value="{$mc['qq']}"></label>{/if}		{if $rule['isemail']}<label><span>邮箱</span><input type="email" name="email" id="email" value="{$mc['email']}"></label>{/if}		{if $rule['isaddress']}<label><span>地址</span><textarea id="address" name="address">{$mc['address']}</textarea></label>{/if}		<label><button type="submit" class="btn" id="btn_submit">提交</button></label>	</div></div></form>{/if}
+<audio src="{php echo toimage($rule['bgsong'])}" autoplay="autoplay" loop="loop"></audio>
+<div class="bg"></div>
+<div class="btns">
+	<div class="start"></div>
+	<button class="btn" onclick="$('.dialog').hide();$('.rank').show()">排行榜</button>
+	<button class="btn" onclick="$('.dialog').hide();$('.award').show()">奖品</button>
+	<button class="btn" onclick="$('.dialog').hide();$('.rule').show()">规则</button>
+</div>
+<div class='dialog rank'>
+	<div class="dialog_title" style="background: url({$MOBILE}img/title_rank.png);background-size: 100% 100%;"></div>
+	<div class="dialog_close" onclick="$('.rank').hide()"></div>
+	<div class="list_dialog">
+		{php $inrank = false}<!-- 判断自己是否在排行榜中 -->
+		{loop $rank $k $r}
+		<div class="item_dialog {if $r['id'] == $player['id']}{php $inrank = true;}item_dialog2{/if}">
+		{if $k < 3}
+			<div style="background: transparent url({$MOBILE}img/award{$k}.png) top left no-repeat;background-size: 100% 100%;display: inline-block;height: 40px;position: absolute;width: 30px;top: 8px;left: 20px;"></div>
+		{else}
+			<div class="icon_rank"><font>{php echo $k+1}</font></div>
+		{/if}
+			<div class="item_img" style="background: url({$r['avatar']});background-size: 100% 100%;"></div>
+			<div class="rank_name">{if $r['nickname']}{$r['nickname']}{else if $r['realname']}{$r['realname']}{else}粉丝{php echo $k+1}{/if}</div>
+			<div class="rank_score">答时：{php echo date('i\'s\"',$r['atime']/1000)}</div>
+			<div class="rank_level">{if $r['score']}{$r['score']}{else}0{/if}</div>
+		</div>
+		{/loop}
+		{if !$inrank}
+		{if $player['score'] >= intval($rule['minlevel'])}
+		<div class="item_dialog item_dialog2">
+			<div class="icon_rank"><font>{$curRank}</font></div>
+			<div class="item_img" style="background: url({$player['avatar']});background-size: 100% 100%;"></div>
+			<div class="rank_name">{if $player['nickname']}{$player['nickname']}{else if $player['realname']}{$player['realname']}{else}粉丝{php echo $k+1}{/if}</div>
+			<div class="rank_score">答时：{php echo date('i\'s\"',$player['atime']/1000)}</div>
+			<div class="rank_level">{if $player['score']}{$player['score']}{else}0{/if}</div>
+		</div>
+		{else}
+		<div class="item_dialog item_dialog2" style="height: auto;padding-top:5px;color: orangered;text-align: center;">闯到第{$rule['minlevel']}关才可以上排行榜哦！敢上来不？</div>
+		{/if}
+		{/if}
+	</div>
+</div>
+<div class='dialog award'>
+	<div class="dialog_title" style="background: url({$MOBILE}img/title_award.png);background-size: 100% 100%;"></div>
+	<div class="dialog_close" onclick="$('.award').hide()"></div>
+	<div class="list_dialog">
+	{loop $prize $p}
+		<div class="item_dialog item_dialog2">
+			<div class="item_img" style="background: url({php echo toimage($p['prizepic'])});background-size: 100% 100%;left: 30px;"></div>
+			<div class="item_award"><font>{$p['prizepro']}</font></div>
+			<div class="award_text">{$p['prizename']}</div>
+			<div class="award_count">数量：<font>{$p['prizetotal']}</font></div>
+			{if $award && $award['prize']['id'] == $p['id']}{if !$player['status']}<div class="award_btn" onclick="$('.dialog3').show();">领奖</div>{else}<div class="award_btn" style="background: green;right: 10px;">已领奖</div>{/if}{/if}
+		</div>
+	{/loop}
+	</div>
+</div>
+<div class='dialog rule' {if $player['score'] == 0}style="display:block;"{/if}>
+	<div class="dialog_title" style="background: url({$MOBILE}img/title_rule.png);background-size: 100% 100%;"></div>
+	<div class="dialog_close" onclick="$('.rule').hide()"></div>
+	<pre class="rule_content">{$rule['content']}</pre>
+</div>
+{if !empty($award)}
+<div class="dialog dialog3" {if !$player['status']}style="display: block;"{/if}>
+<div class="dialog_close" onclick="$('.dialog3').hide()" style="top: 95px;right: 20px;"></div>
+<div class="prize_content">
+	<div style="text-align: center;"><span class="prize_index"><b>{$award['prize']['prizepro']}</b></span></div>
+	<div class="prize_info"><img src="{php echo toimage($award['prize']['prizepic'])}"><b>{$award['prize']['prizename']}</b></div>
+	{if $rule['prizetime'] <= time()}
+	<div class="qrcode"><img src="{$MOBILE}img/over.png"><p>抱歉，已过了兑奖时间！</p></div>
+	{else}
+	{if $award['prize']['prizetype']}{if $award['prize']['prizetype'] == 6}	<p style="margin: 5px 5px 0 5px;text-align: center;color: orangered;">{$cfg['redtips']}</p>{else}	<a class='sbtn' href="{$url}" style="height: 30px;line-height: 30px;margin-top: 10px;">前往会员卡</a>{/if}
+	{else}
+	<div class="qrcode"><img src="{php echo toimage($award['url'])}"><p>向商家员工出示该二维码</p><p>扫码后即可领奖</p></div>
+	{/if}
+	{/if}
+	{if $store}<div style="text-align: center;"><a style="font-size: 15px;color: blue;" href="{php echo $this->createMobileUrl('map',array('rid'=>$rid,'pid'=>$award['prize']['id']))}">商家地址</a></div>{/if}
+</div>
+</div>
+{/if}
+</body>
+<script type="text/javascript">function checksubmit(){	if(submit > 0) return false;	var inputs = $('#info').find('input');	for(var i = 0;i < inputs.length; i++ ){		if($.trim(inputs.eq(i).val()) == ''){			swal('请完善您的信息！','','warning');			return false;		}	}	if($('#address').length > 0 && $.trim($('#address').val()) == ''){		swal('请完善您的信息！','','warning');		return false;	}	submit++;}
+$('.start').click(function(){
+	{if $rule['starttime'] > time()}
+	swal('很抱歉，该活动还未开始！','请耐心等候活动开始吧……','error');
+	return;
+	{/if}
+	{if $rule['endtime'] <= time()}
+		swal('很抱歉，该活动已经结束！','下次活动记得来参加哦，亲！','error');
+		return;
+	{/if}
+	location.href='{php echo $this->createMobileUrl("game",array("rid"=>$rid))}'
+});
+</script>
+{template 'share'}
+</html>

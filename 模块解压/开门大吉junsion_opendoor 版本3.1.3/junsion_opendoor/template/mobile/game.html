@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+{php $MOBILE = '../addons/'.$this->modulename.'/template/mobile/';}
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+      name="viewport">
+ <script type="text/javascript" src="{$MOBILE}js/jquery-1.7.2.min.js"></script>
+ <script type="text/javascript" src="{$MOBILE}js/sweetalert.min.js"></script>
+ <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=5PESLgvMcSbSUbPjmDKgvGZ3"></script>
+ <link rel="stylesheet" href="{$MOBILE}css/style.css">
+ <link rel="stylesheet" href="{$MOBILE}css/sweetalert.css">
+<title>{$rule['title']}</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+	-webkit-touch-callout: none;
+}
+html,body{width:100%;height:100%;overflow:hidden;position: relative;}
+.game{
+	height: 100%;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	background: url({$sbg});
+	background-size: 100% 100%;
+}
+
+.slider {
+	height: {$rule['slideH']}px
+}
+
+.slider img {
+	height: {$rule['slideH']}px
+}
+
+.bg{
+{if $rule['direction']}
+	width: 100%;
+	height: 40%;
+{else}
+	width: 50%;
+	height: 100%;
+	top: 0;
+{/if}
+	position: absolute;
+	z-index: 100;
+}
+.bg1{
+	background: url("{php echo toimage($rule['leftbg'])}") no-repeat;
+	background-size: 100% 100%;
+	left: 0;
+}
+.bg2{
+	background: url("{php echo toimage($rule['rightbg'])}") no-repeat;
+	background-size: 100% 100%;
+	right: 0;
+	bottom: 0;
+	{if $rule['direction']}
+	height: 60%;
+	{/if}
+}
+.level{
+	background: url("{$MOBILE}img/levels.png") no-repeat;
+	background-size: 100% 100%;
+	width: 60px;
+	height: 120px;
+	margin: 0 auto;
+	position: relative;
+	z-index: 200;
+	top: -120px;
+}
+.level font{
+	font-size: 35px;
+	color: white;
+	font-weight: bold;
+	line-height: 60px;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+}
+
+.song{
+	position: absolute;
+	{if $rule['direction']}
+	top: 33%;
+	{else}
+	top: 30%;
+	{/if}
+	width: 100%;
+	text-align: center;
+	opacity: 0;
+	color: white;
+	display: none;
+}
+.song b{
+	font-size: 25px;
+	max-width: 55%;
+	
+}
+.button{
+	text-align: center;
+	position: absolute;
+	width: 100%;
+	top: 37%;
+	z-index: 200;
+}
+.button .btn{
+	background: url("{php echo toimage($rule['button'])}") no-repeat;
+	background-size: 100% 100%;
+	width: 80px;
+	height: 80px;
+	display: inline-block;
+	border: 0;
+	-webkit-tap-highlight-color:transparent;
+}
+.sbtn{
+	  background: transparent url({$MOBILE}img/redbtn.png) top left no-repeat;
+	  background-size: 100% 100%;
+	  width: 55%;
+	  height: 40px;
+	  text-align: center;
+	  line-height: 40px;
+	  font-size: 20px;
+	  font-weight: bold;
+	  color: white;
+	  margin: 0 auto;
+	  display: block;
+	  text-decoration: none;
+	  margin-top: 50px;
+}
+a:visited{
+	color: white;
+}
+#down{
+	vertical-align: middle;
+  	color: orange;
+  	{if !$down}display: none;{/if}
+}
+</style>
+</head>
+<body oncontextmenu=self.event.returnValue=false onselectstart="return false">
+<div class="loading"><div></div></div>
+{if !$rule['adv']}
+<div class='slider'>
+{template 'slider'}
+</div>
+{/if}
+<div class="game">
+<div class="count">剩余次数:<font id="times">{$player['times']}</font><label id="down">(<label id="countdown">{$down}</label>)</label></div>
+<span class="bg bg1"></span>
+<span class="bg bg2"></span>
+<div class="level"><font>{$level}</font></div>
+<div class="clock"><font>{php echo date('s',$rule['pretime']).":00"}</font></div>
+<div class="button">
+	<button class="btn" id="listen"></button>
+	<div class="input">
+	<input id="song" placeholder="请输入歌曲名" {if !$input}style="display:none;"{/if}>
+	{if !$input}
+	{loop $randomSongKey $k}
+	<button class="radioBtn">{$songs[$k]['name']}</button>
+	{/loop}
+	{/if}
+	<div id="confirm">确定</div></div>
+</div>
+<div class="song">
+	<b>《<label>{$song['name']}</label>》</b>
+	<p>{$song['singer']}</p>
+	{if $level < $rule['totalsong']}<a class="sbtn" href="{php echo $this->createMobileUrl('game',array('rid'=>$rid))}">下一关</a>{/if}
+</div>
+</div>
+{if $rule['adv']}
+<div class='slider'>
+{template 'slider'}
+</div>
+{/if}
+<audio src="{php echo toimage($song['surl'])}" id="rhythm" style="display: none;" loop="loop"></audio>
+<audio src="{php echo toimage($song['ourl'])}" id="orginsong" style="display: none;"></audio>
+<div id="describe" onclick="$(this).hide()" style="display:none;position: fixed;top:0;background: rgba(0,0,0,.5);width: 100%;height: 100%;z-index: 1000;text-align: right; padding: 0 10px;">
+	<img  src="{$MOBILE}img/describe.png" style="width: 100%;">
+</div>
+
+<div style="position: absolute;top:0;left:0;width: 100%;height: 100%;background: rgba(0,0,0,.3);z-index: 2000;display: none;">
+	<div class="bootstrap-frm"  style="margin-top: 20%;" id="info">
+		<h1>{$rule['awardtips']}</h1>
+		{if $rule['isrealname']}<label><span>真实姓名</span><input type="text" id="realname" value="{$mc['realname']}"></label>{/if}
+		{if $rule['ismobile']}<label><span>手机号码</span><input type="tel" id="mobile" value="{$mc['mobile']}"></label>{/if}
+		{if $rule['isqq']}<label><span>QQ</span><input type="tel" id="qq" value="{$mc['qq']}"></label>{/if}
+		{if $rule['isemail']}<label><span>邮箱</span><input type="email" id="email" value="{$mc['email']}"></label>{/if}
+		{if $rule['isaddress']}<label><span>地址</span><textarea id="address">{$mc['address']}</textarea></label>{/if}
+		<label><button type="button" class="btn" id="btn_submit">提交</button></label>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+$('.level').animate({
+	top: '0',
+},1500);
+$('.game').css('height',$(window).height()-parseInt('{$rule["slideH"]}'))
+function openDoor(){
+{if $level != $rule['totalsong']}
+	swal.close();
+{/if}
+document.getElementById('orginsong').play();
+$('.song').show();
+{if $rule['direction']}
+	$('.bg1').animate({
+		top: '-10%',
+	},3000);
+	$('.bg2').animate({
+		bottom: '-10%',
+	},3000);
+	$('.clock').hide();
+	$('.level').animate({
+		left: '-200px',
+	},3000);
+	$('.button').animate({
+		left: '90%',
+	},4000);
+	$('.song').animate({
+		opacity: 1,
+	},3000);
+{else}
+	$('.bg1').animate({
+		left: '-30%',
+	},3000);
+	$('.bg2').animate({
+		right: '-30%',
+	},3000);
+	$('.clock').hide();
+	$('.level').animate({
+		top: '-120px',
+	},3000);
+	$('.button').animate({
+		top: '90%',
+	},4000);
+	$('.song').animate({
+		opacity: 1,
+	},3000);
+{/if}
+	$.ajax({
+		url: '{php echo $this->createMobileUrl("record",$params)}',
+		type:'post',
+		data:{op:'done'},
+		success:function(data){
+			{if $level == $rule['totalsong']}
+			gameThrough(data);
+			{/if}
+		}
+	});	shareData['title'] = "{$rule['sharetitle']}".replace('|#关卡#|','{$level}');	shareData['desc'] = "{$rule['sharedesc']}".replace('|#关卡#|','{$level}');
+}
+</script>
+{template 'comfunc'}
+{template 'share'}
+</html>

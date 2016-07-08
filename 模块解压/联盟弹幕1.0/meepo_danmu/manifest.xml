@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[联盟弹幕]]></name>
+		<identifie><![CDATA[meepo_danmu]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[ 联盟弹幕]]></ability>
+		<description><![CDATA[ 联盟弹幕]]></description>
+		<author><![CDATA[柒|柒|源|码]]></author>
+		<url><![CDATA[http://H770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+            <message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+        <cover>
+            <entry title="弹幕入口" do="platform" />
+        </cover>
+
+		<menu>
+            <entry title="基本设置" do="set" state="" direct="true" />
+			<entry title="链接管理" do="cat" direct="true" />  
+		</menu>
+    </bindings>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_meepo_danmu_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `url` varchar(250) NOT NULL,
+  `click` int(11) DEFAULT '0',
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_meepo_danmu_set` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `title` varchar(120) NOT NULL,
+  `logo` varchar(120) NOT NULL,
+  `wx_name` varchar(80) NOT NULL,
+  `wx_num` varchar(100) NOT NULL,
+  `share_title` varchar(200) NOT NULL,
+  `share_content` text NOT NULL,
+  `share_img` varchar(420) NOT NULL,
+  `num` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+]]></install>
+<uninstall><![CDATA[
+DROP TABLE IF EXISTS `ims_meepo_danmu_data`;
+DROP TABLE IF EXISTS `ims_meepo_danmu_set`;]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

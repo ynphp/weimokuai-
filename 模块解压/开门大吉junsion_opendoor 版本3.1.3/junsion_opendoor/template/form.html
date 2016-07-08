@@ -1,0 +1,462 @@
+<style>
+.control-label{
+	padding-top: 0 !important;
+}
+.item{
+		padding: 10px;
+		border: 1px solid gainsboro;
+		margin: 5px;
+		width: 330px;
+		float: left;
+		position: relative;
+		text-align: center;
+	}
+	
+	.item img{
+		width: 100%;
+	}
+	
+	.item input{
+		margin-top: 10px;
+		display: inline;
+	}
+	
+	.item input[type=text]{
+		width: 65%;
+	}
+	.item input[type=number]{
+		width: 30%;
+		margin-right: 2%;
+	}
+	
+	.item span{
+		position: absolute;
+		right: 0;
+		font-size: 25px;
+		color: red;
+	}
+	.item span:hover{
+		font-size: 30px;
+		border: 1px solid gainsboro;
+		border-radius: 5px;
+		background: black;
+		cursor: pointer;
+	}
+	.img_group p{
+		text-align: center;
+	}
+{if !empty($rule)}.setting{	display: none;}{/if}</style>{php load()->func('tpl');}{if !empty($rule)}<ul class="nav nav-tabs">	<li class="active"><a>活动设置</a></li>    <li><a>界面设置</a></li>	<li><a>游戏设置</a></li>	<li><a>奖品设置</a></li>	<li><a>幻灯片设置</a></li>	<li><a>关卡底图设置</a></li>	<li><a>分享设置</a></li></ul>{/if}
+<div class="panel panel-default setting" {if !empty($rule)}style="display: block;"{/if}>
+	<div class="panel-heading">活动设置</div>
+	<div class="panel-body">
+		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 活动名称</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="text" id="title" class="form-control" placeholder="" name="title" value="{if $rule['title']}{$rule['title']}{else}玩开门大吉,赢大奖{/if}">
+            </div>
+        </div>
+ 		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 活动图片</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_image('thumb',!empty($rule['thumb'])?$rule['thumb']:"../addons/$this->modulename/icon.jpg");}
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 活动说明</label>
+            <div class="col-sm-9 col-xs-12">
+               	<textarea style="height:60px;" id='description' name="description" class="form-control" cols="60">{if $rule['description']}{$rule['description']}{else}玩开门大吉,赢大奖{/if}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 活动时间</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_daterange('datelimit', array('start'=>date('Y-m-d H:i',$rule['starttime']?$rule['starttime']:time()),'end'=>date('Y-m-d H:i',$rule['endtime']?$rule['endtime']:time()+3600*24*7)), true)}
+            </div>
+        </div> 
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 活动地区</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_district('place',$places)}
+            </div>
+        </div> 
+         <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 不在活动地区提示语</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input name="outtips" class="form-control" value="{if $rule['outtips']}{$rule['outtips']}{else}很抱歉，你不能参与活动{/if}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 参与条件</label>
+            <div class="col-sm-9 col-xs-12">
+               	<label><input type="radio" name="describe_limit" value="0" checked> 必须关注</label>
+               	<label style="margin-left: 20px;"><input type="radio" name="describe_limit" value="1" {if $rule['describe_limit']}checked{/if}> 不必关注</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 排行榜显示人数</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="number" min="0" id="rank" class="form-control" name="rank" value="{if $rule['rank']}{$rule['rank']}{else}10{/if}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 获奖最低关数要求</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="number" min="0" id="rank" class="form-control" name="minlevel" value="{if $rule['minlevel']}{$rule['minlevel']}{else}10{/if}">
+               	<div class="help-block">达到这个关数才有领奖资格</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 活动规则</label>
+            <div class="col-sm-9 col-xs-12">
+               	<textarea name="content" class="form-control richtext-clone" style="height: 100px;" >{if !empty($rule)}{$rule['content']}{else}{/if}</textarea>
+            </div>
+        </div>		<div class="form-group"> 			<label class="col-xs-12 col-sm-3 col-md-2 control-label">信息填写</label>            <div class="col-sm-9 col-xs-6">				<label><input type="radio" name="isinfo2" value="0" checked> 参与活动前</label>								<label style="margin-left: 20px;"><input type="radio" name="isinfo2" value="1" {if $rule['isinfo2']==1}checked{/if}> 活动结束后</label>            </div>        </div>		
+        <div class="form-group">
+ 			<label class="col-xs-12 col-sm-3 col-md-2 control-label">兑奖输入项提示词</label>
+            <div class="col-sm-9 col-xs-6">
+				<input type="text" class="form-control" name="awardtips" value="{if $rule['awardtips']}{$rule['awardtips']}{else}为了将活动奖品更快、更准确的送达您手中，请留下您的个人信息，谢谢!{/if}">
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 兑奖输入参数项</label>
+            <div class="col-sm-9 col-xs-12">
+				<div style="border:1px #eee dashed; padding:10px;background:#F5F5F5;">					
+               	    <label for="isrealname" class="checkbox-inline"><input id="isrealname" type="checkbox" name="isrealname" value="1" {if $rule['isrealname'] || !$rule}checked{/if}> 姓名</label>
+				    <label for="ismobile" class="checkbox-inline"><input id="ismobile" type="checkbox" name="ismobile" value="1"  {if $rule['ismobile'] || !$rule}checked{/if}> 手机</label>
+				    <label for="isqq" class="checkbox-inline"><input id="isqq" type="checkbox" name="isqq" value="1" {if $rule['isqq']}checked{/if}> QQ号</label>
+				    <label for="isemail" class="checkbox-inline"><input id="isemail" type="checkbox" name="isemail" value="1" {if $rule['isemail']}checked{/if}> 邮箱</label>
+				    <label for="isaddress" class="checkbox-inline"><input id="isaddress" type="checkbox" name="isaddress" value="1" {if $rule['isaddress']}checked{/if}> 地址</label>
+				</div>
+					<div class="help-block">活动开启后最好不要修改 </div>
+            </div>
+        </div>
+		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label" style="padding-top: 7px !important;"> 兑奖输入参数同步</label>
+            <div class="col-sm-9 col-xs-12">
+				<label for="isfans_0" class="radio-inline"><input id="isfans_0" type="radio" name="isinfo" value="0" checked> 参数项只保留本模块下</label>
+				<label for="isfans_1" class="radio-inline"><input id="isfans_1" type="radio" name="isinfo" value="1"  {if $rule['isinfo']}checked{/if}> 参数项同步更新至官方会员信息表中</label>
+            </div>
+        </div>                <div class="form-group">            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 欢迎引导页</label>            <div class="col-sm-9 col-xs-12">               	{php echo tpl_form_field_image('advImg',$rule['advImg']);}				<div class="help-block">全屏显示，建议上传像素为640*1008的图片，图片尽可能的小，切记不可太大，会影响加载速度</div>            </div>        </div>                <div class="form-group">            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 引导页时间</label>            <div class="col-sm-9 col-xs-12">               		<div class="input-group" >						 <input type="number" min="0"  class="form-control" name="advTime" value="{$rule['advTime']}">						 <div class="input-group-addon">毫秒</div>					</div>					<div class="help-block">建议时间为2500毫秒</div>            </div>        </div>
+	</div>
+</div>
+<div class="panel panel-default setting">
+	<div class="panel-heading">界面设置</div>
+	<div class="panel-body">
+		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 游戏风格</label>
+            <div class="col-sm-9 col-xs-12">
+               	<label style="margin-right: 10px;" onclick="$('.gstyle').hide();$('#style1').show();"><input type="radio" name="style" value="0" checked> 风格1</label>
+               	<label onclick="$('.gstyle').hide();$('#style2').show();"><input type="radio" name="style" value="1" {if $rule['style']}checked{/if}> 风格2</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">首页背景音乐</label>
+            <div class="col-sm-9 col-xs-12">
+               	 {php echo tpl_form_field_audio('bgsong',empty($rule['bgsong'])?"../addons/$this->modulename/template/mobile/img/bg.mp3":$rule['bgsong'])}
+            </div>
+        </div>
+		<div class="gstyle" id="style1" {if $rule['style']}style="display: none;"{/if}>
+			<div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 首页背景图</label>
+	            <div class="col-sm-9 col-xs-12">
+	               	{php echo tpl_form_field_image('indexbg',!empty($rule['indexbg'])?$rule['indexbg']:"../addons/$this->modulename/template/mobile/img/bg.jpg");}
+	               	<div class="help-block">建议上传640*1008像素的图片</div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 首页开始按钮</label>
+	            <div class="col-sm-9 col-xs-12">
+	               	{php echo tpl_form_field_image('button2',!empty($rule['button2'])?$rule['button2']:"../addons/$this->modulename/template/mobile/img/button2.png");}
+	               	<div class="help-block">建议上传60*60像素的图片</div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 门方向</label>
+	            <div class="col-sm-9 col-xs-12">
+	               	<label style="margin-right: 10px;"><input type="radio" name="direction" value="0" checked> 左右门</label>
+	               	<label><input type="radio" name="direction" value="1" {if $rule['direction']}checked{/if}> 上下门</label>
+	            </div>
+	        </div>
+			<div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 门1</label>
+	            <div class="col-sm-9 col-xs-12">
+	               	{php echo tpl_form_field_image('leftbg',!empty($rule['leftbg'])?$rule['leftbg']:"../addons/$this->modulename/template/mobile/img/bg1.jpg");}
+	               	<div class="help-block">建议上传640*504(上下门)、320*1008(左右门)像素的图片(注意高度要扣除幻灯片高度)</div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label">门2</label>
+	            <div class="col-sm-9 col-xs-12">
+	               	{php echo tpl_form_field_image('rightbg',!empty($rule['rightbg'])?$rule['rightbg']:"../addons/$this->modulename/template/mobile/img/bg2.jpg");}
+	               	<div class="help-block">建议上传640*504(上下门)、320*1008(左右门)像素的图片(注意高度要扣除幻灯片高度)</div>
+	            </div>
+	        </div>
+	    </div>
+		<div class="gstyle" id="style2" {if !$rule['style']}style="display: none;"{/if}>
+			<div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 顶部logo</label>
+	            <div class="col-sm-9 col-xs-12">
+	               	{php echo tpl_form_field_image('logo',!empty($rule['logo'])?$rule['logo']:"../addons/$this->modulename/template/mobile/img/logo.png");}
+	               	<div class="help-block">建议上传50*25像素的图片</div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 首页背景图</label>
+	            <div class="col-sm-9 col-xs-12">
+	               	{php echo tpl_form_field_image('sbg',!empty($rule['sbg'])?$rule['sbg']:"../addons/$this->modulename/template/mobile/img/sbg.jpg");}
+	               	<div class="help-block">建议上传640*1008像素的图片</div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 门框</label>
+	            <div class="col-sm-9 col-xs-12">
+	               	{php echo tpl_form_field_image('door',!empty($rule['door'])?$rule['door']:"../addons/$this->modulename/template/mobile/img/door.png");}
+	               	<div class="help-block">建议上传640*766像素的图片</div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 底座</label>
+	            <div class="col-sm-9 col-xs-12">
+	               	{php echo tpl_form_field_image('sbottom',!empty($rule['sbottom'])?$rule['sbottom']:"../addons/$this->modulename/template/mobile/img/bottom.png");}
+	               	<div class="help-block">建议上传640*281像素的图片</div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 开门大吉</label>
+	            <div class="col-sm-9 col-xs-12">
+	               	{php echo tpl_form_field_image('icon',!empty($rule['icon'])?$rule['icon']:"../addons/$this->modulename/template/mobile/img/icon.png");}
+	               	<div class="help-block">建议上传441*229像素的图片</div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 首页按钮</label>
+	            <div class="col-sm-9 col-xs-12">
+	               	{php echo tpl_form_field_image('sbtn',!empty($rule['sbtn'])?$rule['sbtn']:"../addons/$this->modulename/template/mobile/img/redbtn.png");}
+	               	<div class="help-block">建议上传371*82像素的图片</div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 门方向</label>
+	            <div class="col-sm-9 col-xs-12">
+	               	<label style="margin-right: 10px;"><input type="radio" name="sdirection" value="0" checked> 左右门</label>
+	               	<label><input type="radio" name="sdirection" value="1" {if $rule['sdirection'] || !$rule}checked{/if}> 上下门</label>
+	            </div>
+	        </div>
+			<div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 门1</label>
+	            <div class="col-sm-9 col-xs-12">
+	               	{php echo tpl_form_field_image('slbg',!empty($rule['slbg'])?$rule['slbg']:"../addons/$this->modulename/template/mobile/img/srbg.png");}
+	               	<div class="help-block">建议上传640*316(上下门)、320*732(左右门)像素的图片</div>
+	            </div>
+	        </div>
+	        <div class="form-group">
+	            <label class="col-xs-12 col-sm-3 col-md-2 control-label">门2</label>
+	            <div class="col-sm-9 col-xs-12">
+	               	{php echo tpl_form_field_image('srbg',!empty($rule['srbg'])?$rule['srbg']:"../addons/$this->modulename/template/mobile/img/slbg.png");}
+	               	<div class="help-block">建议上传640*316(上下门)、320*732(左右门)像素的图片</div>
+	            </div>
+	        </div>
+		</div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label">门铃</label>
+            <div class="col-sm-9 col-xs-12">
+               	{php echo tpl_form_field_image('button',!empty($rule['button'])?$rule['button']:"../addons/$this->modulename/template/mobile/img/button.png");}
+               	<div class="help-block">建议上传80*80像素的图片</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default setting">
+	<div class="panel-heading">游戏设置</div>
+	<div class="panel-body">
+		<div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 初始游戏次数</label>
+            <div class="col-sm-9 col-xs-12">
+               	<input type="number" min="0" id="free_times" class="form-control" name="free_times" value="{if !empty($rule)}{$rule['free_times']}{else}10{/if}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label" style="vertical-align: middle;"> 次数增长模式</label>
+            <div class="col-sm-9 col-xs-12">
+               	<label style="margin-right: 20px;"><input type="radio" name="more_type" value="0" checked> 加入游戏就开始增长</label>
+               	<label>
+               		<input type="radio" name="more_type" value="1" {if $rule['more_type']}checked{/if}>
+		            <div class="input-group" style="display: inline-table;vertical-align: middle;width: 350px;">
+						 <div class="input-group-addon"> 当游戏次数小于等于</div>
+						 <input type="number" min="0"  class="form-control" name="more_num" value="{$rule['more_num']}" >
+						 <div class="input-group-addon">次时开始增长</div>
+					</div>
+				</label>
+            </div>
+        </div>        		<div class="form-group"> 			<label class="col-xs-12 col-sm-3 col-md-2 control-label">积分玩游戏</label>            <div class="col-sm-9 col-xs-6">				<label style="margin-right: 20px;" onclick="$('.score').hide();"><input type="radio" name="isscore" value="0" checked> 关闭</label>								<label onclick="$('.score').show();"><input type="radio" name="isscore" value="1" {if $rule['isscore']==1}checked{/if}> 开启</label>            </div>        </div>                <div class="form-group score" {if $rule['isscore']==0}style="display:none"{/if}>            <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>            <div class="col-sm-9 col-xs-12">               		<div class="input-group" >						 <div class="input-group-addon">消耗</div>						 <input type="number" class="form-control" name="score" value="{if !empty($rule)}{$rule['score']}{else}10{/if}">						 <div class="input-group-addon">积分/次</div>					</div>            </div>        </div>                <div class="form-group score" {if $rule['isscore']==0}style="display:none"{/if}>            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 积分获取引导链接</label>            <div class="col-sm-9 col-xs-12">               	<input type="text" class="form-control" name="scoreurl" value="{$rule['scoreurl']}">				<div class="help-block">请带上http://</div>            </div>        </div>        
+         <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 增长游戏次数</label>
+            <div class="col-sm-9 col-xs-12">
+               		<div class="input-group" >
+						 <div class="input-group-addon">每</div>
+						 <input type="number" min="0"  class="form-control" name="more_time" value="{if !empty($rule)}{$rule['more_time']}{else}10{/if}">
+						 <div class="input-group-addon">分钟，自动增加</div>
+						 <input type="number" min="0"  class="form-control" name="more_times" value="{if !empty($rule)}{$rule['more_times']}{else}1{/if}">
+						 <div class="input-group-addon">游戏次数</div>
+					</div>
+            </div>
+        </div>
+         <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 朋友助力</label>
+            <div class="col-sm-9 col-xs-12">
+               	<div class="input-group" >
+					 <div class="input-group-addon"><input type="radio" name="limit_type" value="0" checked> 每个朋友可提供</div>
+					 <input type="number" min="0"  class="form-control" name="love_limit" value="{if $rule['love_limit']}{$rule['love_limit']}{else}5{/if}">
+					 <div class="input-group-addon">游戏次数</div>
+				</div>
+				<div class="input-group" style="margin-top: 10px;">
+					 <div class="input-group-addon"><input type="radio" name="limit_type" value="1" {if $rule['love_limit'] === 0}checked{/if}> 每个朋友可随机提供</div>
+					 <input type="number" min="0"  class="form-control" name="love_limit1" value="{$rule['love_limit1']}">
+					 <div class="input-group-addon">至</div>
+					 <input type="number" min="0"  class="form-control" name="love_limit2" value="{$rule['love_limit2']}">
+					 <div class="input-group-addon">游戏次数</div>
+				</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 歌曲库</label>
+            <div class="col-sm-9 col-xs-12">
+               	<select class="form-control" name='cate'>
+					{loop $cates $c}
+					<option {if $c['id'] == $rule['cate']}selected="selected"{/if} value="{$c['id']}">{$c['title']}</option>
+					{/loop}
+				</select>
+            </div>
+        </div>
+         <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 聆听时间</label>
+            <div class="col-sm-9 col-xs-12">
+               		<div class="input-group" >
+						 <input type="number" min="1"  class="form-control" name="pretime" value="{if !empty($rule)}{$rule['pretime']}{else}15{/if}">
+						 <div class="input-group-addon">秒</div>
+					</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 答歌时间</label>
+            <div class="col-sm-9 col-xs-12">
+               		<div class="input-group" >
+						 <input type="number" min="1"  class="form-control" name="limittime" value="{if !empty($rule)}{$rule['limittime']}{else}15{/if}">
+						 <div class="input-group-addon">秒</div>
+					</div>
+					<div class="help-block">超过时间则失败</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 总关卡数</label>
+            <div class="col-sm-9 col-xs-12">
+				<input type="number" min="1" class="form-control" name="totalsong" value="{if !empty($rule)}{$rule['totalsong']}{else}100{/if}">				<div class="help-block">请设置为歌曲库拥有的歌曲数量-3至7以下的数字(例如83首歌曲，总关卡数最好设置76至80，具体的根据答题选项数)，因为已答对的题目不会作为选项</div>
+            </div>
+        </div>		<div class="form-group"> 			<label class="col-xs-12 col-sm-3 col-md-2 control-label">答题二次确认</label>            <div class="col-sm-9 col-xs-6">				<label><input type="radio" name="aconfirm" value="0" checked> 开启</label>								<label style="margin-left: 20px;"><input type="radio" name="aconfirm" value="1" {if $rule['aconfirm']==1}checked{/if}> 关闭</label>            </div>        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 答题模式</label>
+            <div class="col-sm-9 col-xs-12">
+				<label><input type="radio" name="answertype" value="0" checked onclick="$('#choice').hide();$('#random').hide();">填写歌曲</label>
+				<label style="margin-left: 5px" onclick="$('#choice').hide();$('#random').hide();" ><input type="radio" name="answertype" value="1" {if $rule['answertype'] == 1}checked{/if}>选择歌曲
+					<select class="form-control" style="display: inline-block;width: auto" name="choiceval">
+						<option value="2" {if $rule['choiceval']==2}selected{/if}>二</option>
+						<option value="3" {if $rule['choiceval']==3}selected{/if}>三</option>
+						<option value="4" {if !$rule || $rule['choiceval']==4}selected{/if}>四</option>
+						<option value="5" {if $rule['choiceval']==5}selected{/if}>五</option>
+						<option value="6" {if $rule['choiceval']==6}selected{/if}>六</option>
+						<option value="7" {if $rule['choiceval']==7}selected{/if}>七</option>
+						<option value="8" {if $rule['choiceval']==8}selected{/if}>八</option>
+					</select>选一
+				</label>
+				<label style="margin-left: 5px" onclick="$('#choice').hide();$('#random').show();"><input type="radio" name="answertype" value="2" {if $rule['answertype'] == 2}checked{/if}>前两种随机</label>
+				<label style="margin-left: 5px" onclick="$('#random').hide();$('#choice').show();"><input type="radio" name="answertype" value="3" {if $rule['answertype'] == 3}checked{/if}>先选择后填写</label>
+            </div>
+        </div>
+         <div class="form-group" id="random" {if $rule['answertype'] != 2}style="display: none;"{/if}>
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-xs-12">
+				<div class="input-group" >
+					<div class="input-group-addon">使用填写歌曲模式的几率</div>
+					<input type="number" min="0" maxlength="2" class="form-control" name="answerval1" value="{if !empty($rule)}{$rule['answerval']}{else}50{/if}">
+					<div class="input-group-addon">%</div>
+				</div>
+            </div>
+        </div>
+        <div class="form-group" id="choice" {if $rule['answertype'] != 3}style="display: none;"{/if}>
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"></label>
+            <div class="col-sm-9 col-xs-12">
+				<div class="input-group" >
+					<div class="input-group-addon">前</div>
+					<input type="number" min="0" maxlength="2" class="form-control" name="answerval2" value="{if !empty($rule)}{$rule['answerval']}{else}15{/if}">
+					<div class="input-group-addon">题使用选择歌曲模式，后面使用填写模式</div>
+				</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-2 control-label"> 答题失败</label>
+            <div class="col-sm-9 col-xs-12">
+            	<label style="margin-right: 10px;"><input type="radio" name="reset" checked value="0"> 接着当前关卡数</label>
+               	<label><input type="radio" name="reset" {if $rule['reset']}checked{/if} value="1"> 重零开始</label>
+            </div>
+        </div>
+    </div>
+</div>
+{template 'prizes'}
+<div class="panel panel-default setting">
+	<div class="panel-heading">
+		幻灯片
+	</div>
+	<div class="panel-body">
+				<span id="selectimage1" class="btn btn-primary"><i class="icon-plus"></i> 上传图片</span>
+					<div class="input-group" style="display: inline-table;width: 220px;vertical-align: middle;">
+						 <span class="input-group-addon">幻灯片高度</span>
+                        <input class="form-control" type="number" maxlength="3" min="0"  name="slideH" value="{if $rule}{$rule['slideH']}{else}110{/if}">
+                        <span class="input-group-addon">像素</span>
+                    </div>
+                {if !$rule['style']}<div style="display: inline-block;margin-left: 40px;"><label style="margin-right: 10px;"><input type="radio" name="adv" value="0" checked> 置于顶部</label><label><input type="radio" value="1" name="adv" {if $rule['adv']}checked{/if}> 置于底部</label></div>{/if}
+				<div id="listimage1" style="margin-top: 10px;">
+				{loop $slider $p}
+					<div class="item">
+						<span onclick="$(this).parent().remove()" class="glyphicon glyphicon-remove-circle"></span>
+						<img src="{php echo toimage($p['picurl'])}">
+						<input name="picurl[{$p['id']}]" value="{$p['picurl']}" type="hidden">
+						<input placeholder="排序" class="form-control" name="displayorder[{$p['id']}]" type="number"  min="0" value="{$p['displayorder']}">
+						<input placeholder="链接地址" class="form-control" name="link[{$p['id']}]" type="text" value="{$p['link']}">
+					</div>
+				{/loop}
+				</div>
+     </div>
+ </div>
+ <div class="panel panel-default setting">
+	<div class="panel-heading">
+		关卡底图
+	</div>
+	<div class="panel-body">
+         {php echo tpl_form_field_multi_image('sbgs',$sbgs);}
+     </div>
+ </div>
+<div class="panel panel-default setting">
+	<div class="panel-heading">
+		分享设置
+	</div>
+	<div class="panel-body">            <div class="form-group">	            <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>	            <div class="col-sm-9 col-xs-12">	               	<input type="text" class="form-control" placeholder="玩开门大吉,赢大奖,我已经闯到第|#关卡#|关了" name="sharetitle" value="{if $rule['sharetitle']}{$rule['sharetitle']}{else}玩开门大吉,赢大奖,我已经闯到第|#关卡#|关了{/if}">					<div class="help-block">注意：|#关卡#| 为第几关的标签</div>	            </div>	        </div>		         <div class="form-group">                <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享图片</label>                <div class="col-sm-9">					{php echo tpl_form_field_image('sharethumb',!empty($rule['sharethumb'])?$rule['sharethumb']:"../addons/$this->modulename/icon.jpg");}				</div>            </div>	        <div class="form-group">	            <label class="col-xs-12 col-sm-3 col-md-2 control-label">分享概述</label>	            <div class="col-sm-9 col-xs-12">	               	<input type="text" class="form-control" placeholder="玩开门大吉,赢大奖,我已经闯到第|#关卡#|关了" name="sharedesc" value="{if $rule['sharedesc']}{$rule['sharedesc']}{else}玩开门大吉,赢大奖,我已经闯到第|#关卡#|关了{/if}">					<div class="help-block">注意：|#关卡#| 为第几关的标签</div>	            </div>	        </div>	     </div>
+ </div>
+<script type="text/javascript">	$('.nav-tabs li').click(function(){		$('.nav-tabs li').removeClass('active');		$(this).addClass('active');		$('.setting').hide();		$('.setting').eq($(this).index()).show();	});
+	require(['jquery', 'util'], function($, util){
+		$(function(){
+			// 对象绑定点击事件
+			$('#selectimage1').click(function(){
+				util.uploadMultiPictures(function(list){
+					// your code here
+					for(var i=0; i<list.length; i++){
+						var s = '<div class="item"><span onclick="$(this).parent().remove()" class="glyphicon glyphicon-remove-circle"></span>';
+						s += '<img src="'+list[i]['url']+'">';
+						s += '<input name="picurl[]" type="hidden" value="'+list[i]['filename']+'">';
+						s += '<input placeholder="排序" class="form-control" name="displayorder[]" type="number" min="0" value="0">';
+						s += '<input placeholder="跳转链接" class="form-control" name="link[]" type="text"></div>';
+						$('#listimage1').append(s);
+					}
+				});
+			});
+		});
+	});</script>
