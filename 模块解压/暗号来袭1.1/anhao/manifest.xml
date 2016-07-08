@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[暗号来袭]]></name>
+		<identifie><![CDATA[anhao]]></identifie>
+		<version><![CDATA[1.1]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[暗号来袭]]></ability>
+		<description><![CDATA[暗号来袭]]></description>
+		<author><![CDATA[柒|柒|源|码]]></author>
+		<url><![CDATA[http://H770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<rule>
+			<entry title="查看参与名单" do="anhaolist" state="" />
+			<entry title="准备开奖" do="kaijiang" state="" />
+			<entry title="获奖者名单" do="houjiang" state="" />
+		</rule>
+		<home call="getanhaoTiles"></home>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_anhao_ceshi` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `anhao` int(10) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `openid` varchar(255) NOT NULL,
+  `yuananhao` int(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_anhao_ceshihou`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_anhao_ceshihou` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `anhao` int(10) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `openid` varchar(255) NOT NULL,
+  `state` int(2) NOT NULL,
+  `yuananhao` int(20) NOT NULL,
+  `name` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `tel` varchar(20) NOT NULL,
+  `ewai` int(8) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_anhao_item`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_anhao_item` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '字段id',
+  `rid` int(10) unsigned NOT NULL COMMENT '规则id',
+  `fieldname` varchar(20) NOT NULL COMMENT '字段名称',
+  `type` int(10) unsigned NOT NULL COMMENT '字段类型',
+  `fieldcontent` varchar(50) NOT NULL COMMENT '字段内容',
+  `isdefault` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否默认',
+  `orderid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '排序id',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_anhao_kaijiang`
+--
+CREATE TABLE IF NOT EXISTS `ims_anhao_kaijiang` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '字段id',
+  `rid` int(10) unsigned NOT NULL COMMENT '规则id',
+  `haoma` int(20) NOT NULL COMMENT '开奖号码',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_anhao_order`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_anhao_order` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `rid` int(20) NOT NULL COMMENT '规则',
+  `suiji` int(10) NOT NULL COMMENT '号码',
+  `from_user` varchar(255) NOT NULL,
+  `havetime` varchar(255) NOT NULL,
+  `suiji1` int(10) NOT NULL,
+  `suiji2` int(10) NOT NULL,
+  `openidpd` varchar(255) NOT NULL,
+  `suiji3` int(10) NOT NULL,
+  `suiji4` int(10) NOT NULL,
+  `openidpd1` varchar(255) NOT NULL,
+  `suiji5` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=37 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_anhao_orders`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_anhao_orders` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `suiji` int(10) NOT NULL,
+  `suiji1` int(10) NOT NULL,
+  `suiji2` int(10) NOT NULL,
+  `suiji3` int(10) NOT NULL,
+  `suiji4` int(10) NOT NULL,
+  `suiji5` int(10) NOT NULL,
+  `anhao` varchar(40) NOT NULL,
+  `from_user` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_anhao_reply`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_anhao_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `rid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '规则id',
+  `title` varchar(50) NOT NULL COMMENT '规则标题',
+  `description` varchar(255) NOT NULL COMMENT '描述',
+  `picture` varchar(100) NOT NULL COMMENT '图片',
+  `headimage` varchar(100) NOT NULL COMMENT '订单头部图片',
+  `address` varchar(100) NOT NULL COMMENT '暗号地址',
+  `tel` varchar(50) NOT NULL COMMENT '暗号电话',
+  `start_time` int(10) unsigned NOT NULL COMMENT '开始时间',
+  `end_time` int(10) unsigned NOT NULL COMMENT '结束时间',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '开关状态',
+  `headimage1` varchar(100) NOT NULL,
+  `headimage2` varchar(100) NOT NULL,
+  `address1` varchar(255) NOT NULL,
+  `address2` varchar(255) NOT NULL,
+  `max` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+
+
+	]]></install>
+	<uninstall><![CDATA[
+drop table `ims_anhao_item`;
+drop table `ims_anhao_reply`;	
+drop table `ims_anhao_order`;
+drop table `ims_anhao_orders`;
+drop table `ims_anhao_ceshi`;
+drop table `ims_anhao_ceshihou`;
+drop table `ims_anhao_kaijiang`;
+	]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

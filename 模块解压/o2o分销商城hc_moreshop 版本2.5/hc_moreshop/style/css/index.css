@@ -1,0 +1,219 @@
+html{background:#efeff4;}
+*{-webkit-box-sizing: border-box;-moz-box-sizing: border-box; margin:0; padding:0; }
+.index .div_section_receive{height:160px;position:relative;background:-webkit-gradient(linear, 0 0, 0 100%, from(#ff5c3d), to(#ff204d), color-stop(68%,#ff204d) ); padding:24px 20px 0 20px;}
+.index .div_section_receive a{ color:#fff; display:block}
+.index .div_section_receive .all_income{  padding:3px 0;padding-bottom:18px; display:none; }
+.index .announcement{ width:100%; height:28px; font-size:13px; color:#4a4a4a; line-height:28px; background-color:#fff08c; background-image:url(../imgs/announcement.png); background-repeat:no-repeat; background-position: 20px center; background-size:15px auto; padding-left:45px;}
+.index .div_section_receive .all_income.show{ display:block}
+.index .div_section_receive .all_income label{ display:inline-block;}
+.index .div_section_receive .all_income label>span{ display:inline-block;	padding:0 18px;	font-size: 18px;}
+.index .div_section_receive .today{font-size:14px; line-height:25px;	}
+.index .div_section_receive .today span{padding:12px 0;font-size:36px;	display: inline-block;}
+.index .div_section_receive .tuikuan{font-size:14px; line-height:25px; margin-top:14px;	}
+.index .div_section_receive .tuikuan span{ font-size:14px;padding:0;}
+.index .div_section_receive .help{ position:absolute; width:25px; height:25px; border:1px solid #fff; border-radius:50%; text-align:center; line-height:25px; color:#fff; font-size:16px;  right:14px; top:24px;}
+.index .div_section_receive .arrow { display:none;color:#fff; padding:0 20px; position:absolute; bottom:0; left:0; width:100%; height:42px; line-height:42px; background:#fd345d; box-shadow:0px -2px 4px #f81f4b;}
+.index .div_section_receive .arrow .adron { float:right;}
+.index .div_section_receive .arrow .adron >span{ display:block; width:10px; height:10px;  border:1px solid #fff; float:right; -webkit-transform:rotate(45deg); border-left:none; border-bottom:none;margin-top:15px;}
+.index .div_section_receive .arrow .look{ float:right; display:none;}
+.index .div_section_receive .arrow .w_p{ display:none;}
+.index .div_section_receive .arrow.package{ background-image:url(../imgs/package.png); background-size:16px 16px; padding-left:45px; background-repeat:no-repeat; background-position: 20px center}
+.index .div_section_receive .arrow.package .look{display:inline-block}
+.index .div_section_receive .arrow.package .w_p{ display:inline-block}
+.index .div_section_receive .arrow.package .bind{ display:none}
+.div_section_count_tab{
+	width: 100%;
+	list-style-type: none;
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	height:44px; line-height:44px;
+	background:#fff;
+	-webkit-border-image: url(../imgs/border_light2.gif) 2 stretch;
+	border-width:0 0 1px 0;
+	display:none;
+}
+.div_section_count_tab li{
+	position:relative;
+	list-style: none;
+	-webkit-box-align: center;
+	-webkit-box-flex: 1;
+	text-align:center;
+	
+}
+.div_section_count_tab li.on{ color:#ff204d}
+.div_section_count_tab li.on .adron{
+	position:absolute;width:10px; height:10px; -webkit-border-image: url(../imgs/border_light2.gif) 2 stretch;
+	border-width:1px 0px 0px 1px; -webkit-transform:rotate(45deg); bottom:-5px; left:50%; background:#fff; margin-left:-5px;
+}
+.div_section_count{
+	overflow:hidden;
+	font-size:12px;
+	border:1px solid #cdd8dd;
+	-webkit-border-image: url(../imgs/border_light2.gif) 2 stretch;
+	border-width:0 0 1px 0;
+	-webkit-box-shadow: 0 1px 1px rgba(100,100,100,0.1);
+	position:relative;
+	background: #fff;
+}
+
+.div_section_count ul{
+	padding: 0 15px;
+}
+.div_section_count ul>div{
+	display: table;
+	text-align:center;
+	padding:13px 0;
+	width:100%;
+}
+.div_section_count ul>div:nth-of-type(n+2){
+	border:1px solid #cdd8dd;
+	border-width:1px 0 0 0;
+	-webkit-border-image: url(../imgs/border_light2.gif) 2 stretch;
+}
+.div_section_count li{
+	display: table-cell;
+	vertical-align: middle;
+	width:50%;
+	height:50px;
+}
+.div_section_count li:nth-of-type(n+2){
+	border:1px solid #cdd8dd;
+	border-width:0 0 0 1px;
+	-webkit-border-image: url(../imgs/border_light2.gif) 2 stretch;
+}
+.div_section_count li a{
+	display:block;
+	width:80%;
+	margin:auto;
+	color:#747989;
+}
+.div_section_count li a p:nth-of-type(1){
+	height:18px;
+	line-height:18px;
+}
+.div_section_count li a p:nth-of-type(2){
+	height:30px;
+	line-height:30px;
+	color:#fd345d;
+}
+.div_section_count li a p:nth-of-type(2) span{
+	font-size: 24px;
+}
+.div_section_question{
+	margin-top:15px;
+	border:1px solid #cdd8dd;
+	border-width:1px 0;
+	-webkit-border-image: url(../imgs/border_light2.gif) 2 stretch;
+	-webkit-box-shadow: 0 1px 1px rgba(100,100,100,0.1);
+	background:#ffffff;
+}
+.div_section_question a{
+	display:block;
+	position:relative;
+	color:#434a54;
+	height:40px;
+	line-height:40px;
+	font-size:12px;
+	padding-left:5px;
+}
+.div_section_question a::after{
+	content:"";
+	display:inline-block;
+	width:9px;
+	height:9px;
+	border:1px solid #434a54;
+	border-width:1px 1px 0 0;
+	-webkit-transform:rotate(45deg);
+	position:absolute;
+	right:5px;
+	top:50%;
+	margin-top:-5px;
+}
+.div_section_question  ol a{
+	color:#a1a1a1;
+	border:1px solid #cdd8dd;
+	border-width:0 0 1px 0;
+	-webkit-border-image: url(../imgs/border_light2.gif) 2 stretch;
+}
+.div_section_question  ol a::after{
+	border-color:#a1a1a1;
+	right:25px;
+}
+
+.div_section_question ol{
+	margin-left:20px;
+}
+.div_section_question ul>div{
+	padding:0 20px;
+}
+/******************/
+.btn_link_glist .widget_wrap{
+	height:60px;
+}
+.btn_link_glist .widget_wrap ul{
+	height:57px;
+	width:100%;
+	position:fixed;
+	left:0;
+	bottom:0;
+}
+.btn_link_glist a{
+	display:block;
+	margin:0 auto;
+	width: 50%;
+	height:36px;
+	border-radius: 50px;
+	background:#ff2c4a;
+	font-size:14px;
+	color:#ffffff;
+	text-align: center;
+	line-height: 36px;
+	min-width:200px;
+	text-align:center;
+}
+
+.btn_link_glist a span{  height:100%;  }
+.btn_link_glist a span label{height:20px; line-height:20px;  margin:8px 10px 0 10px}
+.btn_link_glist a span.share{ padding-left:16px;}
+.btn_link_glist a span.share1{ border-left:1px solid #fff;}
+
+.index .div_section_count >ul{ display:none}
+.index.role1 .div_section_receive{ height:190px}
+.index.role1 .div_section_count >ul{ display:none}
+.index.role1 .div_section_count #ul_weike_own{ display:block }
+.index.role1 .arrow{ display:block;}
+
+.index.role2 .div_section_count >ul{ display:none}
+.index.role2 .div_section_receive{ height:150px}
+.index.role2 .div_section_count_tab{ display:-webkit-box;}
+.index.role2 .div_section_count_tab #all{ display: block;}
+.index.role2 .div_section_count_tab #fenxiaoshang{ display: none;}
+.index.role2 .div_section_count_tab #weike{ display:block;}
+
+.index.role3 .div_section_count >ul{ display:none}
+.index.role3 .div_section_receive{ height:150px}
+.index.role3 .div_section_count_tab{ display:-webkit-box;}
+.index.role3 .div_section_count_tab #all{ display: block;}
+.index.role3 .div_section_count_tab #fenxiaoshang{ display: block;}
+.index.role3 .div_section_count_tab #weike{ display:block;}
+
+.index.role4 .div_section_receive{ height:195px}
+.index.role4 .div_section_count_tab{ display:-webkit-box;}
+.index.role4 .div_section_count_tab #all{ display: none;}
+.index.role4 .div_section_count_tab #fenxiaoshang{ display: block;}
+.index.role4 .div_section_count_tab #weike{ display:block;}
+
+
+.index.role5 .div_section_receive{ height:150px}
+.index.role5 .div_section_count #ul_salesperson{ display:block }
+
+/****/
+.index.wallet .tips{ line-height:36px; height:58px;  text-align:center; color:#fff; display:none;}
+.index.wallet .tips>a{ color:#fff; display:block; width:50%; margin:0 auto; background:#ff2c4a; font-size:15px; border-radius:5px;}
+.index.wallet .tips>a.gray{ background:#a1a1a1}
+.index.wallet .w_yj{ display:none}
+.index.wallet .div_section_receive { height:80px; padding:12px 0 0 20px;}
+.index.wallet .div_section_count >ul{ display:block}
+.index.wallet .div_section_receive >div{ height:100%; padding-left:65px; width:100%; background-image:url(../imgs/wallet.png); background-repeat:no-repeat; background-size:auto 58px; color:#fff; }
+.index.wallet .div_section_receive >div p{ font-size:12px; line-height:26px;}
+.index.wallet .div_section_receive >div p.title{ font-size:14px; }

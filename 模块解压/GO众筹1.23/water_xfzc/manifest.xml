@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://bbs.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[GO众筹]]></name>
+		<identifie><![CDATA[water_xfzc]]></identifie>
+		<version><![CDATA[2.7]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[GO众筹]]></ability>
+		<description><![CDATA[GO众筹]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="我的众筹" do="myzc" />
+			<entry title="众筹列表" do="zclist" />
+        </cover>
+		<menu>
+			<entry title="活动设置" do="theme" state="" direct="false" />
+			
+		</menu>
+	</bindings>
+	<install><![CDATA[
+	CREATE TABLE IF NOT EXISTS `ims_water_xfzc_theme` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `uniacid` int(11) NOT NULL,
+	  `tname` varchar(100) NOT NULL,
+	  `keyword` varchar(100) NOT NULL,
+	  `kftel` varchar(100) NOT NULL,
+	  `hlogo` varchar(300) NOT NULL,
+	  `zcxcy` varchar(500) NOT NULL,
+	  `flogo` varchar(300) NOT NULL,
+	  `jszc` varchar(100) NOT NULL,
+	  `jszcurl` varchar(300) NOT NULL,
+	  `tdays` int(11) NOT NULL,
+	  `zcjefw` varchar(100) NOT NULL,
+	  `jetype` varchar(100) NOT NULL,
+	  `xieyi` varchar(5000) NOT NULL,
+	  `rdrange0` int(11) NOT NULL,
+	  `rdrange1` int(11) NOT NULL,
+	  `rdmb` varchar(200) NOT NULL,
+	  `mbremark` varchar(200) NOT NULL,
+	  `smsname` varchar(100) NOT NULL,
+	  `smspwd` varchar(100) NOT NULL,
+	  `smsmb` varchar(500) NOT NULL,
+	  `sharedesc` varchar(300) NOT NULL,
+	  `sharetitle` varchar(100) NOT NULL,
+	  `fansdo` int(2) NOT NULL,
+	  PRIMARY KEY (`id`)
+	) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+	
+	CREATE TABLE IF NOT EXISTS `ims_water_xfzc_setting` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `uniacid` int(11) NOT NULL,
+	  `toppic1` varchar(300) NOT NULL,
+	  `toppic2` varchar(300) NOT NULL,
+	  `admindo` int(2) NOT NULL DEFAULT 0,
+	  PRIMARY KEY (`id`)
+	) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+	
+	
+	CREATE TABLE IF NOT EXISTS `ims_water_xfzc_rule` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `uniacid` int(11) NOT NULL,
+	  `themeid` int(11) NOT NULL,
+	  `img1` varchar(300) NOT NULL,
+	  `img2` varchar(300) NOT NULL,
+	  `img3` varchar(300) NOT NULL,
+	  `img4` varchar(300) NOT NULL,
+	  `img5` varchar(300) NOT NULL,
+	  `img6` varchar(300) NOT NULL,
+	  `content` varchar(5000) NOT NULL,
+	  PRIMARY KEY (`id`)
+	) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+	
+	
+	CREATE TABLE IF NOT EXISTS `ims_water_xfzc_huoj` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `themeid` int(11) DEFAULT NULL,
+	  `uniacid` int(11) DEFAULT NULL,
+	  `memberid` int(11) DEFAULT NULL,
+	  `openid` varchar(100) DEFAULT NULL,
+	  `nickname` varchar(100) DEFAULT NULL,
+	  `headimg` varchar(100) DEFAULT NULL,
+	  `goodid` int(11) DEFAULT NULL,
+	  `gname` varchar(100)  DEFAULT NULL,
+	  `state` int(2) DEFAULT '0',
+	  PRIMARY KEY (`id`)
+	) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+		
+	CREATE TABLE IF NOT EXISTS `ims_water_xfzc_goods` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `uniacid` int(11) DEFAULT NULL,
+	  `themeid` int(11) DEFAULT NULL,
+	  `gname` varchar(100) DEFAULT NULL,
+	  `gprice` varchar(100) DEFAULT NULL,
+	  `djdz` varchar(200) DEFAULT NULL,
+	  `djdh` varchar(200) DEFAULT NULL,
+	  `jpurl` varchar(200) DEFAULT NULL,
+	  `jpimg` varchar(100) DEFAULT NULL,
+	  `minp` float DEFAULT NULL,
+	  `maxp` float DEFAULT NULL,
+	  PRIMARY KEY (`id`)
+	)ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+	
+	
+	CREATE TABLE IF NOT EXISTS `ims_water_xfzc_member` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `uniacid` int(11) NOT NULL,
+	  `themeid` int(11) NOT NULL,
+	  `openid` varchar(300) NOT NULL,
+	  `nickname` varchar(100) NOT NULL,
+	  `headlogo` varchar(300) NOT NULL,
+	  `name1` varchar(100) NOT NULL,
+	  `name2` varchar(100) NOT NULL,
+	  `zcgy` varchar(300) NOT NULL,
+	  `zcsum` decimal(10,2) NOT NULL,
+	  `tel` varchar(20) NOT NULL,
+	  `zctime` varchar(100) NOT NULL,
+	  `type` varchar(10) NOT NULL,
+	  `state` varchar(10) NOT NULL,
+	  `scannum` int(11) NOT NULL,
+	  PRIMARY KEY (`id`)
+	) ENGINE=MyISAM  DEFAULT CHARSET=utf8;	
+	
+	CREATE TABLE IF NOT EXISTS `ims_water_xfzc_fans` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `uniacid` int(11) NOT NULL,
+	  `themeid` int(11) NOT NULL,
+	  `openid` varchar(300) NOT NULL,
+	  `nickname` varchar(100) NOT NULL,
+	  `headimg` varchar(300) NOT NULL,
+	  `tel` varchar(20) NOT NULL,
+	  `type` varchar(10) NOT NULL,
+	  `state` varchar(10) NOT NULL,
+	  PRIMARY KEY (`id`)
+	) ENGINE=MyISAM  DEFAULT CHARSET=utf8;	
+	
+	CREATE TABLE IF NOT EXISTS `ims_water_xfzc_helper` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `uniacid` int(11) NOT NULL,
+	  `themeid` int(11) NOT NULL,
+	  `memberid` int(11) NOT NULL,
+	  `openid` varchar(300) NOT NULL,
+	  `helpid` varchar(300) NOT NULL,
+	  `zcje` decimal(10,2) NOT NULL,
+	  `zfy` varchar(300) NOT NULL,
+	  `tid` varchar(100) NOT NULL,
+	  PRIMARY KEY (`id`)
+	) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+		
+	CREATE TABLE IF NOT EXISTS `ims_water_xfzc_system` (
+	  `id` int(11) NOT NULL AUTO_INCREMENT,
+	  `uniacid` int(11) NOT NULL,
+	  `themeid` int(11) NOT NULL,
+	  `leftimg` varchar(300) NOT NULL,
+	  `rightimg` varchar(300) NOT NULL,
+	  `img1` varchar(300) NOT NULL,
+	  `name1` varchar(50) NOT NULL,
+	  `name2` varchar(50) NOT NULL,
+	  `img2` varchar(300) NOT NULL,
+	  `img3` varchar(300) NOT NULL,
+	  `img4` varchar(300) NOT NULL,
+	  `img5` varchar(300) NOT NULL,
+	  `img6` varchar(300) NOT NULL,
+	  PRIMARY KEY (`id`)
+	) ENGINE=MyISAM  DEFAULT CHARSET=utf8;		
+	]]></install>
+	<uninstall><![CDATA[
+	DROP TABLE IF EXISTS `ims_water_xfzc_theme`;
+	DROP TABLE IF EXISTS `ims_water_xfzc_setting`;
+	DROP TABLE IF EXISTS `ims_water_xfzc_rule`;
+	DROP TABLE IF EXISTS `ims_water_xfzc_huoj`;
+	DROP TABLE IF EXISTS `ims_water_xfzc_goods`;
+	DROP TABLE IF EXISTS `ims_water_xfzc_member`;
+	DROP TABLE IF EXISTS `ims_water_xfzc_fans`;
+	DROP TABLE IF EXISTS `ims_water_xfzc_helper`;
+	DROP TABLE IF EXISTS `ims_water_xfzc_system`;
+	]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

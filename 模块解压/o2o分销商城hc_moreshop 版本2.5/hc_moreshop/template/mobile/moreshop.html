@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<title>开店申请</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../addons/hc_moreshop/style/css/style.css"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+<meta name="mobileOptimized" content="width" />
+<meta name="handheldFriendly" content="true" />
+<meta http-equiv="Cache-Control" content="max-age=0" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+</head>
+<body>
+	
+<section class="main animated fadeInDown">
+	<div class="main-box">
+		
+		<h1 class="jjr-register"></h1>
+		<p class="rb-row"><input type="text" id="realname" placeholder="姓名" class="input" value="{$member['realname']}"/></p>
+		<p class="rb-row"><input type="tel" id="mobile" placeholder="手机" class="input" value="{$member['mobile']}"/></p>
+		<p class="rb-row"><input type="password" id="password" placeholder="密码" class="input" value=""/></p>
+	
+		<div class="rb-row registerRuleBox border-box">
+			<div class="recommend-tips">
+				<h6>提示</h6>
+				<p>请输入正确的姓名以及电话，否则可能无法审核。</p>
+			</div>
+			<p class="rb-submit"><div onclick="apply();" class="btn" style="font-size:20px;">申请开店</div></p>
+		</div>
+</section>
+<footer class="foot"><a>&copy; {$_W['account']['name']}</a></footer>
+
+<script src="http://libs.baidu.com/jquery/1.7.1/jquery.min.js"></script>
+<script src="../addons/hc_moreshop/style/js/com.js"></script>
+<script>
+//开店申请信息
+function apply() {
+	var reg = /^1[3458]\d{9}$/;
+	var bank = /^\d*$/g;
+
+	realname = $("#realname").val();
+	mobile 	 = $("#mobile").val();
+	password = $("#password").val();
+	if (realname == "") {
+		TopBox.alert("姓名不能为空!");
+		return;
+	} else if (!reg.test(mobile)) {
+		TopBox.alert("手机格式不正确!");
+		return;
+	} else if (password.length < 6) {
+		TopBox.alert("密码至少为6位!");
+		return;
+	} else {
+		$.ajax({
+			type: "POST",
+			url: "{php echo $this->createMobileurl('moreshop',array('op'=>'apply'))}",
+			data: { realname:realname, mobile:mobile, password:password},
+			dataType: "text",
+			
+			success: function (d) {
+				if (d == 1) {
+					TopBox.alert("提交成功，请耐心等待审核。。", function () { window.location.href = "{php echo $this->createMobileurl('fansindex');}"});
+				}
+			},
+			error: function (xml, text, thrown) {
+				TopBox.alert("出错啦!");
+			}
+		});
+	}
+}
+
+</script>
+</body>
+</html>

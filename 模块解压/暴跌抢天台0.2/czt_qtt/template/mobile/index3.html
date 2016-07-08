@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>暴跌抢天台</title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width,maximum-scale=1.5, user-scalable=no">
+	<meta content="telephone=no" name="format-detection" />
+	<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/a.css">
+	<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/ld.css">
+	<link rel="stylesheet" href="{MODULE_URL}template/mobile/css/public.css"></head>
+	</head>
+<body>
+	<div class="loadingmask">
+		<div class="loader-inner pacman">
+		  <div></div>
+		  <div></div>
+		  <div></div>
+		  <div></div>
+		  <div></div>
+		  <p>Loading...</p>
+		</div>
+	</div>
+	<img src="{MODULE_URL}template/mobile/images/share_mask.png" class="hide share_mask w100p h100p" alt="">	
+	<div class="p3_topbox">
+	</div>
+	<div class="p3_textbox posr">
+		<p class="p3_slideup_text">手指轻轻上滑</p>
+		<img src="{MODULE_URL}template/mobile/images/p3_btn.png" class="p3_btn posa j_center share_mask_btn" width="176" alt="">
+		<img src="{MODULE_URL}template/mobile/images/up.png" class="p3_up a_up_down posa j_center" width="30" alt="">
+		<img src="{MODULE_URL}template/mobile/images/shouzhi.png" alt="">
+	</div>
+	<div class="p3_bottom">
+		<div class="ewmbox pt20 white_bg" style="text-align: center;">
+			<img src="{php if(substr($settings['qr'],0,7)=='http://') echo $settings['qr']; else echo $_W['attachurl'].$settings['qr'];}" alt="">
+		</div>
+		<p style="text-align: center;">{php if(!empty($settings['footer'])) echo base64_decode($settings['footer']);}</p>
+	</div>
+</body>
+
+<script src="{MODULE_URL}template/mobile/js/jquery.js"></script>
+<script src="{MODULE_URL}template/mobile/js/jquery.cookie.js"></script>
+<script src="{MODULE_URL}template/mobile/js/public.js"></script>
+{php echo register_jssdk(false);}
+<script>
+	window.onload=function(){
+		$('.loadingmask').fadeOut();
+	}
+
+	if($.cookie('type')=='zz'){
+
+		$('.p3_topbox').append('<img src="{MODULE_URL}template/mobile/images/zz.png" width="270" class="center-block pt10" alt="">')
+		$('.p3_textbox').append('<img src="{MODULE_URL}template/mobile/images/zz_test.png" width="240" class="changeimg posa j_center zsj_test alt="">');
+
+		var sTitle='暴跌抢天台';//朋友
+		var sDesc=$.cookie('name')+'在暴跌中顺利解套，打算请客吃饭，欢迎报名';
+		var sTitle2=$.cookie('name')+'在暴跌中顺利解套，打算请客吃饭，欢迎报名'; //朋友圈
+		var sLink='';//分享的链接,要修改
+		var imgUrl='{MODULE_URL}template/mobile/images/share1.jpg';//分享图片的地址,要修改
+
+	}
+	if($.cookie('type')=='gzt'){
+
+		$('.p3_topbox').append('<img src="{MODULE_URL}template/mobile/images/gzt.png" width="250" class="center-block pt10" alt="">')
+		$('.p3_textbox').append('<img src="{MODULE_URL}template/mobile/images/gzt_test.png" width="240" class="changeimg posa j_center zsj_test" alt="">');
+
+		var sTitle='暴跌抢天台';//朋友
+		var sDesc='股市暴跌,'+$.cookie('name')+'挥刀割肉，十元一斤，大甩卖啦';
+		var sTitle2='股市暴跌,'+$.cookie('name')+'挥刀割肉，十元一斤，大甩卖啦'; //朋友圈
+		var sLink='';//分享的链接,要修改
+		var imgUrl='{MODULE_URL}template/mobile/images/share2.jpg';//分享图片的地址,要修改
+	}
+	if($.cookie('type')=='pads'){
+
+		$('.p3_topbox').append('<img src="{MODULE_URL}template/mobile/images/pads.png" width="200" class="center-block pt10" alt="">')
+		$('.p3_textbox').append('<img src="{MODULE_URL}template/mobile/images/pads_test.png" width="240" class="changeimg posa j_center zsj_test "  alt="">');
+
+		var sTitle='暴跌抢天台';//朋友
+		var sDesc='股神'+$.cookie('name')+'输光内裤，已登上平安大厦天台，直播求围观';
+		var sTitle2='股神'+$.cookie('name')+'输光内裤，已登上平安大厦天台，直播求围观'; //朋友圈
+		var sLink='';//分享的链接,要修改
+		var imgUrl='{MODULE_URL}template/mobile/images/share3.jpg';//分享图片的地址,要修改
+	}
+	if($.cookie('type')=='zsj'){
+
+		$('.p3_topbox').append('<img src="{MODULE_URL}template/mobile/images/zsj.png" width="270" class="center-block" alt="">')
+		$('.p3_textbox').append('<img src="{MODULE_URL}template/mobile/images/zsj_test.png" width="240" class="changeimg posa j_center zsj_test "  alt="">');
+
+
+		var sTitle='暴跌抢天台';//朋友
+		var sDesc=$.cookie('name')+'股市失手，痛不欲生，已登上直升机跳台，别了。。。';
+		var sTitle2=$.cookie('name')+'股市失手，痛不欲生，已登上直升机跳台，别了。。。'; //朋友圈
+		var sLink="{php echo $this->createMobileUrl('index',array(),1);}";//分享的链接,要修改
+		var imgUrl='{MODULE_URL}template/mobile/images/share4.jpg';//分享图片的地址,要修改
+	}
+	shareData = {
+		"imgUrl": "{MODULE_URL}template/mobile/images/share0.jpg",
+		"link": "{php echo $_W['siteroot'].'app/'.$this->createMobileUrl('index',array(),1);}",
+		"title": "暴跌抢天台",
+		"desc": "我已经在排队抢天台了，你们别拦我！！！"
+	};
+	shareData.imgUrl=imgUrl;
+	shareData.desc=sDesc;
+	shareData.title=sTitle2;
+	wx.ready(function () {
+		wx.onMenuShareAppMessage(shareData);
+		wx.onMenuShareTimeline(shareData);
+	});
+</script>
+</html>
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[暴跌抢天台]]></name>
+		<identifie><![CDATA[czt_qtt]]></identifie>
+		<version><![CDATA[0.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[暴跌抢天台]]></ability>
+		<description><![CDATA[暴跌抢天台]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="暴跌抢天台" do="index" state="" direct="false" />
+		</cover>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

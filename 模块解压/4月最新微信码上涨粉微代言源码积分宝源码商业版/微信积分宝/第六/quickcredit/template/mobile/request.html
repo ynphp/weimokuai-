@@ -1,0 +1,95 @@
+{template 'header'}
+
+<link type="text/css" rel="stylesheet" href="{RES_CSS}base.css" />
+<link type="text/css" rel="stylesheet" href="{RES_CSS}style.css?v=203" />
+<script type="text/javascript" src="{RES_JS}script.js"></script>
+
+<title>我兑换的奖品</title>
+<style>
+  .fansname {
+    font-size:20px;
+    margin:5px 0px 8px 0px;
+  }
+
+  .img-rounded img{ border-radius:50%} 
+</style>
+
+<div class="fansinfo" style="background:#F3F3F3; padding-top:20px;">
+  <div class="img-rounded" style='width:100%;text-align:center;'><center><img  src="{php echo preg_replace('/\/0$/', '/96', stripslashes($fans1['avatar']));}" style="display:block;"/></center></div>
+  <div class="" style='text-align:center;width:100%;'>
+    <div class="fansname" style="padding-top:10px;">{$fans1['nickname']}<br><font style="font-size:16px;line-height:30px;color:#555555">关注时间：{php echo date('Y-m-d H:i', $fans1['createtime'])}</font></div>
+
+    <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td align="center" height="25">粉丝数</td>
+        <td align="center"height="25">总积分</td>
+      </tr>
+      <tr>
+        <td align="center" style="font-size:30px;color:#1EB21C;font-family:Arial" width="50%"><b>{if $is_follow}{php echo count($mylist1)} {else} 0 {/if}</b></td>
+        <td align="center" style="font-size:30px;font-family:Arial" width="50%"><b>{php echo floor($fans1['credit1'])}</b></td>
+      </tr>
+    </table>
+
+  </div>
+ <div style="clear:both;">&nbsp;</div>
+ <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background:#EFEEF4;padding-top:6px;padding-bottom:6px;border-top:1px #DDDCE2 solid;">
+  <tr>
+    <td align="center" valign="middle" height=80 style="border-right:1px #DDDCE2 solid;padding-top:6px;"><a href="/app/index.php?i={$fans1['uniacid']}&c=entry&do=Credit&m=quicklink"><img src="/addons/quicklink/template/mobile/m1.jpg" width=40 /></a>我的积分</td>
+    <td align="center" valign="middle" style="border-right:1px #DDDCE2 solid;padding-top:6px;"><a href="/app/index.php?i={$fans1['uniacid']}&c=entry&do=goods&m=quickcredit"><img src="/addons/quicklink/template/mobile/m2.jpg" width=40 /></a>兑换中心</td>
+    <td align="center" valign="middle" style="padding-top:6px;"><a href="/app/index.php?i={$fans1['uniacid']}&c=entry&do=TopCredit&m=quicklink"><img src="/addons/quicklink/template/mobile/m3.jpg" width=40 /></a>积分排行</td>
+  </tr>
+</table>
+</div>
+
+	<section class="order">
+        <section class="order_content">
+            <section class="order_item">
+			<aside>我的积分：{$fans['credit1']}</aside>
+			<!--aside>我的会员积分：{$member['credit1']}</aside-->
+	            <section class="button">
+				<a href="{php echo $this->createMobileUrl('goods')}">继续兑换更多奖品</a>
+		        </section>
+            </section>
+		</section>
+
+    	<!--content-->
+        <section class="order_content">
+			{loop $goods_list $item}
+        	<!--item-->
+            <section class="order_item">
+				<aside>{$item['title']}</aside>
+                <article>
+
+        <section class="order_item_l"><img src="{php echo strpos($item['logo'], 'http://') === FALSE ? $_W['attachurl'] . $item['logo'] : $item['logo']}" /></section>
+                	<section class="order_item_r">
+					<p>价值：<span class="red20">{$item['price']}元</span></p>
+					<p>消耗积分：{$item['cost']}</p>
+					<p>兑换日期： {php echo date('Y-m-d H:i:s', $item['createtime'])}</p> 
+					<p>兑换人： {$item['realname']}</p>
+					<p>联系电话： {$item['mobile']}</p>
+          {if $item['type']==1}
+					<p>收件地址： {$item['residedist']}</p>
+          {else if $item['type'] == 0}
+					<p>支付宝： {$item['alipay']}</p>
+          {/if}
+					{if "" != $item['note']}<p>备注： {$item['note']}</p>{/if}
+                   
+                   </section>
+		</article>
+         {if $item['dj_link']} <p><section class="button" style="padding:0;margin:0"><a href="{php echo $item['dj_link']}">点击领取</a></section></p>{/if}
+				<!--
+				{if $item['status'] != 'done'}
+	            <section class="button">
+				<a href="{php echo $this->createMobileUrl('DoneExchange', array('id' => $item['id']))}" onclick="return confirm('此按钮由管理员点击。确认后表示兑奖成功。若为邮寄奖品，商家寄出商品后本按钮自动消失，用户请不要操作。')">完成兑换</a>
+				</section>
+				{/if}
+				-->
+            </section>
+            <!--item end-->
+			{/loop}
+        </section>
+        <!--content end-->
+		</section>
+
+<div style="width:100%; line-height:25px; text-align:center">技术支持：微平台
+</div>

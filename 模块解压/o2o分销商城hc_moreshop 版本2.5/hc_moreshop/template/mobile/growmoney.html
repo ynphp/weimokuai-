@@ -1,0 +1,99 @@
+<html lang="zh-CN">
+	<head>
+		<title>我是微客</title>
+		<meta charset="utf-8">
+		<meta content="" name="description">
+		<meta content="" name="keywords">
+		<meta content="eric.wu" name="author">
+		<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+		<!-- <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+		<meta content="no-cache" http-equiv="pragma">
+		<meta content="0" http-equiv="expires"> -->
+		<meta content="telephone=no, address=no" name="format-detection">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<link href="../addons/hc_moreshop/style/css/reset.css?v=20150211" rel="stylesheet">
+		<link href="../addons/hc_moreshop/style/css/index.css?v=20150723" rel="stylesheet">
+	</head>
+	<body onselectstart="return true;" ondragstart="return false;">
+		<div data-role="container" class="container index role1">
+			<div class="body">
+				<header data-role="header">
+						<!---->
+				</header>
+				<section data-role="body" class="body" style="min-height: 652px;">
+					<div class="div_section_receive">
+						<a class="today">
+							<label>
+								<p>
+									今日<label class="xsy_tc">收入</label>(含待确认)
+								</p>
+								<p><span>￥{$todayinputmoney}</span></p>
+							</label>
+						</a>
+						<a href="{php echo $this->createMobileUrl('mygrowmoney', array('op'=>'questions'));}" class="help">?</a>
+                        <a class="tuikuan">
+							<label>
+								<p>今日退款：<span>￥{$rebackmoney}</span></p>
+							</label>
+						</a>
+					</div>
+					<div class="div_section_count">		
+						<ul id="ul_weike_own"><!--微客-->
+							<div>
+								<li>
+									<a>
+										<p>累计收入(元)</p>
+										<p><span>￥{$allcommissioned}</span></p>
+									</a>
+								</li>
+								<li>
+									<a href="{php echo $this->createMobileUrl('myorder');}">
+										<p>交易额(元)</p>
+										<p><span>￥{$allorderprice}</span></p>
+									</a>
+								</li>
+							</div>
+							<div>
+								<li>
+									<a  href="{php echo $this->createMobileUrl('mylows');}">
+										<p>客户数</p>
+										<p><span>{$alllowfansnum}</span></p>
+									</a>
+								</li>
+								<li>
+									<a href="{php echo $this->createMobileUrl('myorder');}">
+										<p>交易量(件)</p>
+										<p><span>{$allordernum}</span></p>
+									</a>
+								</li>
+							</div>
+						</ul>
+					</div>
+					<div class="div_section div_section_question">
+						<ul>
+							<ol>
+								<a href="{php echo $this->createMobileUrl('mygrowmoney', array('op'=>'questions'));}">常见问题</a>
+							</ol>
+							<div>
+								{loop $questions $q}
+									<li><a href="{php echo $this->createMobileUrl('mygrowmoney', array('op'=>'questions', 'qid'=>$q['id']));}">{$q['title']}</a></li>
+								{/loop}
+							</div>
+						</ul>
+					</div>
+				</section>
+				<footer data-role="footer">
+					<div data-role="widget" data-widget="btn_link_glist" class="btn_link_glist">
+						<div class="widget_wrap">
+							<ul>
+								<li>
+									<a href="{php echo $this->createMobileUrl('fansindex', array('op'=>'myqrcode'));}"><span class="share"><label>分享商品</label></span><span class="share1"><label>推广二维码</label></span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+	</body>
+</html>

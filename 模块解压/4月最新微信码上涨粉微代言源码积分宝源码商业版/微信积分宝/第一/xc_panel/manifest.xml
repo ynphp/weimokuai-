@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[人人赚分销面板]]></name>
+		<identifie><![CDATA[xc_panel]]></identifie>
+		<version><![CDATA[2.0]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[人人赚分销面板]]></ability>
+		<description><![CDATA[分销面板 	模块说明：包含常用模块入口]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+		</handles>
+		<rule embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="管理面板" do="panel" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

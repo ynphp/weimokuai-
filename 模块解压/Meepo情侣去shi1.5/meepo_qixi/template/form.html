@@ -1,0 +1,229 @@
+<input type="hidden" name="reply_id" value="{$reply['id']}" />
+<div class="panel panel-info">
+	<div class="panel-heading">
+	    <font color=red> 回复 </font>基本设置
+	</div>
+	<div class="panel-body">
+		
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">规则图文消息图片</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('picture', $reply['picture']);}
+				<span class="help-block">活动图片 <strong>规格 700*300</strong> </span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">规则图文消息图片简介</label>
+			<div class="col-sm-9 col-lg-8">
+				<textarea style="height:150px;" name="description" class="span7" cols="60">{$reply['description']}</textarea>
+				<span class="help-block">用于回复图文显示的简介内容</span>
+			</div>
+		</div>
+</div>
+</div>
+<div class="panel panel-info">
+	<div class="panel-heading">
+	    <font color=red> 活动规则 </font>基本设置
+		<br><br>
+		1: 请尽量简明扼要，主要是用于点击活动规则显示的内容
+	</div>
+	<div class="panel-body">
+		
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">1: 活动起止时间</label>
+			<div class="col-sm-9 col-lg-8">
+				
+						{php echo tpl_form_field_daterange('times',array('start'=>date('Y-m-d H:m:s',empty($reply['starttime'])?time():$reply['starttime']),'end'=>date('Y-m-d H:m:s',empty($reply['endtime'])?time()+3600*240:$reply['endtime'])));}
+				<span class="help-block">活动起止时间</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">2: 奖品发放计划</label>
+			<div class="col-sm-9 col-lg-8">
+				<textarea style="height:150px;" name="awardwords" class="span7" cols="60">{$reply['awardwords']}</textarea>
+				<span class="help-block">如:排行榜前10名，可获取本平台发放的奖品。</span>
+			</div>
+		</div>
+		
+		
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">3: 填写姓名以及联系方式说辞</label>
+			<div class="col-sm-9 col-lg-8">
+				<textarea style="height:150px;" name="namemobile" class="span7" cols="60">{$reply['namemobile']}</textarea>
+				<span class="help-block">如:为了方便后期发放奖品，请务必填写您的姓名和联系方式！</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">4: 活动解释权说辞</label>
+			<div class="col-sm-9 col-lg-8">
+				<textarea style="height:150px;" name="explanation" class="span7" cols="60">{$reply['explanation']}</textarea>
+				<span class="help-block">如:此活动最终解释权由{$_W['account']['name']}所有。</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">本次活动详细介绍图文消息链接</label>
+			<div class="col-sm-9 col-lg-8">
+				<input type="text"  class="form-control" name="detailurl" value="{$reply['detailurl']}">
+				<span class="help-block">活动详情 需要自行编辑图文消息 将图文链接放于此处
+				</span>
+			</div>
+		</div>
+</div>
+</div>
+
+<div class="panel panel-info">
+	<div class="panel-heading">
+	    <font color=red> 首页 </font>基本设置
+	</div>
+	<div class="panel-body">
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">首页背景</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('start_page', $reply['start_page']);}
+				<span class="help-block">首页背景 <strong>规格 640*1007</strong> </span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">游戏结束背景</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('score_bg', $reply['score_bg']);}
+				<span class="help-block">游戏结束背景 <strong>规格 640*1007</strong> </span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">分享提示背景</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('share', $reply['share']);}
+				<span class="help-block">分享提示背景 <strong>规格 1280*1376</strong> </span>
+			</div>
+		</div>
+		<div class="form-group">
+								<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">点击音效</label>
+
+								<div class="col-sm-9 col-lg-8">
+
+					{php echo tpl_form_field_audio('musicurl',$reply['musicurl'])}
+						
+					</div>
+				</div>
+		<div class="form-group">
+			
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">比赛倒计时秒数</label>
+			<div class="col-sm-9 col-lg-8">
+				<input type="text"  class="form-control" name="maxtime" value="{$reply['maxtime']}">
+				<span class="help-block">活动比赛倒计时秒数 只可为整数 单位: 秒
+				</span>
+			</div>
+			
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">点击错误的图片后效果图</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('blood', $reply['blood']);}
+				<span class="help-block">点击错误的图片后效果图 <strong>规格 264*129</strong> </span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">单人情侣1图片</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('single_0', $reply['single_0']);}
+				<span class="help-block">单人情侣1 <strong>规格 259*235</strong> </span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">单人情侣2图片</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('single_1', $reply['single_1']);}
+				<span class="help-block">单人情侣1 <strong>规格 259*235</strong> </span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">单人情侣3图片</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('single_2', $reply['single_2']);}
+				<span class="help-block">单人情侣1 <strong>规格 259*235</strong> </span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">单人情侣4图片</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('single_3', $reply['single_3']);}
+				<span class="help-block">单人情侣1 <strong>规格 259*235</strong> </span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">双人情侣1图片</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('lovers_0', $reply['lovers_0']);}
+				<span class="help-block">双人情侣1图片 <strong>规格 259*235</strong> </span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">双人情侣2图片</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('lovers_1', $reply['lovers_1']);}
+				<span class="help-block">双人情侣2图片 <strong>规格 259*235</strong> </span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">双人情侣3图片</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('lovers_2', $reply['lovers_2']);}
+				<span class="help-block">双人情侣3图片 <strong>规格 259*235</strong> </span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">双人情侣4图片</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('lovers_3', $reply['lovers_3']);}
+				<span class="help-block">双人情侣4图片 <strong>规格 259*235</strong> </span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">左上角标题背景</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('titlebg', $reply['titlebg']);}
+				<span class="help-block">左上角标题背景 <strong>规格 259*235</strong> </span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">右上角图片背景</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('photobg', $reply['photobg']);}
+				<span class="help-block">右上角图片背景 <strong>规格 259*235</strong> </span>
+			</div>
+		</div>
+
+</div>
+</div>
+<div class="panel panel-info">
+	<div class="panel-heading">
+	    <font color=red> 分享 </font>基本设置
+	</div>
+	<div class="panel-body">
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">分享标题</label>
+			<div class="col-sm-9 col-lg-8">
+				<textarea style="height:150px;" name="share_title" class="span7" cols="60">{$reply['share_title']}</textarea>
+				<span class="help-block">分享标题</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">分享内容</label>
+			<div class="col-sm-9 col-lg-8">
+				<textarea style="height:150px;" name="share_content" class="span7" cols="60">{$reply['share_content']}</textarea>
+				<span class="help-block">分享标题</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 col-lg-4 control-label">分享图片</label>
+			<div class="col-sm-9 col-lg-8">
+				{php echo tpl_form_field_image('share_img', $reply['share_img']);}
+				<span class="help-block">分享图片 <strong>规格 700*300</strong> </span>
+			</div>
+		</div>
+</div>
+</div>
+
+
+

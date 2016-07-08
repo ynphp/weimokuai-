@@ -1,0 +1,78 @@
+{template 'common/header'}
+<style>
+.col-md-1 {
+	width: 10%;
+}
+</style>
+<div class="main">
+	<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" onsubmit='return formcheck()'>
+		<input type="hidden" name="id" value="{$shopholder['id']}">
+		<input type="hidden" name="op" value="status">
+		<input type="hidden" name="do" value="shopholder" />
+		<input type="hidden" name="c" value="site" />
+		<input type="hidden" name="a" value="entry" />
+		<input type="hidden" name="m" value="hc_moreshop" />
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				店家详细信息
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 control-label">设置店家权限</label>
+				<div class="col-sm-9 col-xs-12">
+					<label class="radio-inline">
+						<input type="radio" name="status" value="1" {if $shopholder['status']==1}checked="true"{/if} /> 可用
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="status" value="0" {if $shopholder['status']==0}checked="true"{/if} /> 禁用
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 control-label">是否审核</label>
+				<div class="col-sm-9 col-xs-12">
+					<label class="radio-inline">
+						<input type="radio" name="ischeck" value="1" {if $shopholder['ischeck']==1}checked="true"{/if} /> 是
+					</label>
+					<label class="radio-inline">
+						<input type="radio" name="ischeck" value="0" {if $shopholder['ischeck']==0}checked="true"{/if} /> 否
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 control-label">真实姓名</label>
+				<div class="col-sm-9 col-xs-12">
+					{if $shopholder['realname']!=""} {$shopholder['realname']}{else}--{/if}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 control-label">手机号码</label>
+				<div class="col-sm-9 col-xs-12">
+					{if $shopholder['mobile']!=""} {$shopholder['mobile']}{else}--{/if}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 control-label">密码</label>
+				<div class="col-sm-9 col-xs-12">
+					{if $shopholder['pwd']!=""} {$shopholder['pwd']}{else}--{/if}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 control-label">申请时间</label>
+				<div class="col-sm-9 col-xs-12">
+					{php echo date('Y-m-d H:i:s', $shopholder['createtime']);}
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-xs-12 col-sm-3 col-md-1 control-label">备注</label>
+				<div class="col-sm-3 col-xs-12">
+					<textarea name="content" class="form-control">{$shopholder['content']}</textarea>
+				</div>
+			</div>
+			<div class="form-group col-sm-12">
+				<input type="hidden" name="token" value="{$_W['token']}" />
+				<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+			</div>
+		</div>
+	</form>
+</div>
+{template 'common/footer'}

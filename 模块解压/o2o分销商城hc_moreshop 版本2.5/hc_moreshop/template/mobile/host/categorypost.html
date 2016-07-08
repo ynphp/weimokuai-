@@ -1,0 +1,117 @@
+{template 'host/menuhead'}
+<style>
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+color: #FFF;
+background-color: #428bca;
+border-color: #428bca;
+}
+.panel-default {
+border-color: #ddd;
+margin-top: 20px;
+}
+</style>
+<div class="col-xs-12 col-sm-9 col-lg-10">
+	<ul class="nav nav-tabs">
+	  <li class="active"><a href="{php echo $this->createMobileUrl('category', array('op'=>'post'));}">添加分类</a></li> 
+	  <li><a href="{php echo $this->createMobileUrl('category');}">管理分类</a></li> 
+	</ul>
+	<div class="main">
+		<form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="form1">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					商品分类
+				</div>
+				<div class="panel-body">
+					{if !empty($parentid)}
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">上级分类</label>
+						<div class="col-sm-9 col-xs-12 control-label" style="text-align:left;">{$parent['name']}</div>
+					</div>
+					{/if}
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">排序</label>
+						<div class="col-sm-9 col-xs-12">
+							<input type="text" name="displayorder" class="form-control" value="{$category['displayorder']}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red">*</span>分类名称</label>
+						<div class="col-sm-9 col-xs-12">
+							<input type="text" name="catename" class="form-control" value="{$category['name']}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style="color:red"></span>分类图片</label>
+						<div class="col-sm-9 col-xs-12">
+						<input type="file" id="file" name="file" accept="image/*">
+						<input type='hidden' id='pic_url' name='thumb' value="{$category['thumb']}"/>
+						<label for="headUpload"><span id="aaa"></span><img style="display:block;" id="fileimg" src="{if !empty($active['thumb'])}{$_W['attachurl']}{$active['thumb']}{/if}" width="120px;" class="hl-bdrs-16 fileimg"></label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">分类描述</label>
+						<div class="col-sm-9 col-xs-12">
+							<textarea name="description" class="form-control" cols="70">{$category['description']}</textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">首页推荐</label>
+						<div class="col-sm-9 col-xs-12">
+							 <label class='radio-inline'>
+								 <input type='radio' name='isrecommand' value=1' {if $category['isrecommand']==1}checked{/if} /> 是
+							 </label>
+							 <label class='radio-inline'>
+								 <input type='radio' name='isrecommand' value=0' {if $category['isrecommand']==0}checked{/if} /> 否
+							 </label>
+						</div>
+					</div>
+					 <div class="form-group">
+						<label class="col-xs-12 col-sm-3 col-md-2 control-label">是否显示</label>
+						<div class="col-sm-9 col-xs-12">
+							<label class='radio-inline'>
+								<input type='radio' name='enabled' value=1' {if $category['enabled']==1}checked{/if} /> 是
+							</label>
+							<label class='radio-inline'>
+								<input type='radio' name='enabled' value=0' {if $category['enabled']==0}checked{/if} /> 否
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group col-sm-12">
+				<input type="submit" name="submit" value="提交" class="btn btn-primary col-lg-1" />
+				<input type="hidden" name="token" value="{$_W['token']}" />
+			</div>
+		</form>
+	</div>
+</div>
+<script type="text/javascript">		
+//图片上传
+var btn = $("body");
+$("#file").wrap('<form method="post" id="formUpload" action="{php echo $this->createMobileUrl('uploadimage');}" enctype="multipart/form-data"></form>');			
+$("#file").change(function(){
+	document.getElementById('fileimg').style.display = 'none';
+	document.getElementById('aaa').innerHTML = '正在上传，请耐心等候...';
+	$("#formUpload").ajaxSubmit({
+		dataType:  'json',
+		beforeSend: function() {
+		},
+		uploadProgress: function(event, position, total, percentComplete) {
+		},
+		success: function(data) {
+			if(data.error==1) {
+			}else{
+				var pic_url = data.filename;
+				$('.fileimg').attr('src','{$_W['attachurl']}'+pic_url);
+				$('#pic_url').attr('value',pic_url);
+				document.getElementById('fileimg').style.display = 'block';
+				document.getElementById('aaa').innerHTML = '';
+				//window.location.href='cut?path='+data;
+			}
+		},
+		error:function(xhr){
+			btn.html("上传失败3");
+		}
+	});
+});
+</script>

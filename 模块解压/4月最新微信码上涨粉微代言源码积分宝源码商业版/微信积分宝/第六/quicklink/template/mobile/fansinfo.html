@@ -1,0 +1,35 @@
+<style>
+  .fansname {
+    font-size:20px;
+    margin:5px 0px 8px 0px;
+  }
+
+  .img-rounded img{ border-radius:50%} 
+</style>
+
+<div class="fansinfo" style="background:#F3F3F3; padding-top:20px;">
+  <div class="img-rounded" style='width:100%;text-align:center;'><img  src="{php echo preg_replace('/\/0$/', '/96', stripslashes($fans['avatar']));}" /></div>
+  <div class="" style='text-align:center;width:100%;'>
+    <div class="fansname" style="padding-top:10px;">{$fans['nickname']}<br><font style="font-size:16px;line-height:30px;color:#555555">关注时间：{php echo date('Y-m-d H:i', $fans['createtime'])}</font></div>
+
+    <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td align="center" height="25">粉丝数</td>
+        <td align="center"height="25">总积分</td>
+      </tr>
+      <tr>
+        <td align="center" style="font-size:30px;color:#1EB21C;font-family:Arial" width="50%"><b>{if $is_follow}{php echo count($mylist)} {else} 0 {/if}</b></td>
+        <td align="center" style="font-size:30px;font-family:Arial" width="50%"><b>{php echo floor($fans['credit1'])}</b></td>
+      </tr>
+    </table>
+
+  </div>
+ <div style="clear:both;">&nbsp;</div>
+ <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background:#EFEEF4;padding-top:6px;padding-bottom:6px;border-top:1px #DDDCE2 solid;">
+  <tr>
+    <td align="center" valign="middle" height=80 style="border-right:1px #DDDCE2 solid;"><a href="/app/index.php?i={$fans['uniacid']}&c=entry&do=Credit&m=quicklink"><img src="/addons/quicklink/template/mobile/m1.jpg" width=40 /></a><Br>我的积分</td>
+    <td align="center" valign="middle" style="border-right:1px #DDDCE2 solid;"><a href="/app/index.php?i={$fans['uniacid']}&c=entry&do=goods&m=quickcredit"><img src="/addons/quicklink/template/mobile/m2.jpg" width=40 /></a><Br>兑换中心</td>
+    <td align="center" valign="middle"><a href="/app/index.php?i={$fans['uniacid']}&c=entry&do=TopCredit&m=quicklink"><img src="/addons/quicklink/template/mobile/m3.jpg" width=40 /></a><Br>积分排行</td>
+  </tr>
+</table>
+</div>

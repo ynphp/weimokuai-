@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[AAA互粉]]></name>
+		<identifie><![CDATA[jiexi_aaa]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[AAA互粉]]></ability>
+		<description><![CDATA[AAA互粉]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="scan" />
+			<message type="subscribe" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="subscribe" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="升级入口" do="index" state="" direct="false"  />
+			<entry title="批准入口" do="waitup" state="" direct="false"  />
+			<entry title="个人中心" do="myinfo" state="" direct="false"  />
+		</cover>
+		<menu>
+			<entry title="会员管理" do="member" state="" direct="false"  />
+			<entry title="升级管理" do="record" state="" direct="false"  />
+			<entry title="名片设置" do="spread" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE `ims_jiexi_aaa_member` (
+  `uid` int(10) unsigned NOT NULL,
+  `uniacid` int(10) unsigned NOT NULL,
+  `openid` varchar(30) NOT NULL,
+  `wechat` varchar(50) NOT NULL,
+  `qq` varchar(20) NOT NULL,
+  `mobile` varchar(11) NOT NULL,
+  `level` tinyint(3) unsigned NOT NULL,
+  `add_time` int(10) unsigned NOT NULL,
+  `deleted` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `parent1` int(10) unsigned NOT NULL DEFAULT '0',
+  `parent2` int(10) unsigned NOT NULL DEFAULT '0',
+  `parent3` int(10) unsigned NOT NULL DEFAULT '0',
+  `parent4` int(10) unsigned NOT NULL DEFAULT '0',
+  `parent5` int(10) unsigned NOT NULL DEFAULT '0',
+  `parent6` int(10) unsigned NOT NULL DEFAULT '0',
+  `parent7` int(10) unsigned NOT NULL DEFAULT '0',
+  `parent8` int(10) unsigned NOT NULL DEFAULT '0',
+  `parent9` int(10) unsigned NOT NULL DEFAULT '0',
+  `parent10` int(10) unsigned NOT NULL DEFAULT '0',
+  `parent11` int(10) unsigned NOT NULL DEFAULT '0',
+  `parent12` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`uid`)
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ims_jiexi_aaa_record` (
+  `record_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `apply_uid` int(10) unsigned NOT NULL,
+  `upgrade` tinyint(3) unsigned NOT NULL,
+  `approval_uid` int(10) unsigned NOT NULL,
+  `manager_uid` int(10) unsigned NOT NULL,
+  `packet` tinyint(3) unsigned NOT NULL,
+  `a_flag` tinyint(3) unsigned NOT NULL,
+  `m_flag` tinyint(3) unsigned NOT NULL,
+  `apply_time` int(10) unsigned NOT NULL,
+  `approval_time` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`record_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_jiexi_aaa_poster` (
+  `poster_id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `active` int(10) unsigned NOT NULL DEFAULT '0',
+  `follow` varchar(500) NOT NULL,
+  `notmember` varchar(500) NOT NULL,
+  `bg` varchar(200) NOT NULL,
+  `bgparam` text NOT NULL,
+  `createtime` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`poster_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_jiexi_aaa_qr` (
+  `uniacid` int(10) unsigned NOT NULL,
+  `scene_id` varchar(50) NOT NULL,
+  `qr_url` varchar(1024) NOT NULL,
+  `media_id` varchar(1024) NOT NULL,
+  `createtime` int(11) NOT NULL,
+  `poster_id` int(10) NOT NULL DEFAULT 0,
+  `openid` varchar(100) NOT NULL,
+  PRIMARY KEY (`uniacid`,`scene_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `ims_jiexi_aaa_scene_id` (
+  `uniacid` int(10) unsigned NOT NULL,
+  `scene_id` int(10) NOT NULL,
+  PRIMARY KEY (`uniacid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+	]]></install>
+	<uninstall><![CDATA[
+DROP TABLE IF EXISTS `ims_jiexi_aaa_member`;
+DROP TABLE IF EXISTS `ims_jiexi_aaa_record`;
+DROP TABLE IF EXISTS `ims_jiexi_aaa_poster`;
+DROP TABLE IF EXISTS `ims_jiexi_aaa_qr`;
+DROP TABLE IF EXISTS `ims_jiexi_aaa_scene_id`;
+	]]>
+	</uninstall>
+	<upgrade><![CDATA[柒柒源码]]>
+	</upgrade>
+</manifest>

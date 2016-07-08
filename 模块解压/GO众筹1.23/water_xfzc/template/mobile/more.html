@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>详细信息</title>
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<link href="../addons/water_xfzc/template/css/style_1.css" rel="stylesheet" type="text/css">
+<script src="../addons/water_xfzc/template/css/jquery.js"></script>
+</head>
+<body>
+<div class="head">小伙伴们，让我们一起嗨皮吧！<a href="javascript:history.go(-1)">x</a></div>
+<div class="jiayoulist">
+<div class="jiayoulq">
+  <!--  <dl>
+   <dd>高岗领取了代金卷500元</dd><dd>小谢领取了代金卷500元</dd><dd>小尹领取了代金卷500元</dd>   </dl>
+  <div class="btnfoot2"><a href="/index.php?g=Wap&m=Crowdfunding&a=index&token=kzbypx1434095368&wecha_id=oglRFsxdOCp-j9vMmpVSRRmsYuXU&id=5" class="cheng" style="padding:10px 0"><i><img src="../addons/water_xfzc/template/images/new_17.jpg" alt="送祝福领礼品" /></i></a></div>
+ -->
+<input type="hidden" id="page" value="1"/>
+<input type="hidden" id="pid" value="5"/>
+      <div class="pymain">
+    <ul>
+     {if empty($helperlist)}
+     <li>
+      <p><b>暂时还没有小伙伴参加哦</b><br />快快告诉你的小伙伴们吧！<br/></p>
+    </li>
+     {/if}
+     {loop $helperlist $item}
+	<li><span><img src="{$item['headimg']}" /></span>
+      <p><b>{$item['nickname']}：</b><br /> 为朋友助力了{$item['zcje']}元 <br/></p>
+    </li>
+    {/loop}
+    <!-- <li><span><img src="http://wx.qlogo.cn/mmopen/t8U3x24q7M2YOj2KfLFmt2SCMdvSIbKIRKA42RiacEPXrVXK49Nns1sZUqNpSyydicDRRbndnph8tMURkeweSItBeLZvZsAVvW/0" /></span>
+      <p><b>龙哥：</b><br /> 为朋友助力了0.10元 <br/></p>
+    </li><li><span><img src="http://wx.qlogo.cn/mmopen/5ZQ3V8nVdKqUZauRQKTG0FBLDjiceaNRwAv3wlUiaDyCF4ibfAHP7XlrzJWkaBctNHzJkPp56OGgict8Mib4NBG43pT2zn6nPK9CL/0" /></span>
+      <p><b>A00000¥：</b><br /> 为朋友助力了0.10元 祝永远幸福,天天快乐!<br/></p>
+    </li><li><span><img src="http://wx.qlogo.cn/mmopen/ajNVdqHZLLA80ZtxbPFBdCG9eVxGON06fHOUWxd1yfxUYzbZ04fpbsiarROgOBquyc63WE2kQCuxPM7hQxH4XhQ/0" /></span>
+      <p><b>江淮圆瑞巧巧：</b><br /> 为朋友助力了5.20元 <br/></p>
+    </li><li><span><img src="http://wx.qlogo.cn/mmopen/4v3I8W4HcNfQicaWYtVuDEGxNn0uXtFcwGrttvtFIjfMVZYvpoTvClxOlpcwic1Bbqs2ODViawKx9wmI7piaSKDGDrGYK4WZkKOz/0" /></span>
+      <p><b>A00000随心所欲：</b><br /> 为朋友助力了0.10元 <br/></p>
+    </li><li><span><img src="http://wx.qlogo.cn/mmopen/4v3I8W4HcNfQicaWYtVuDEGxNn0uXtFcwGrttvtFIjfMVZYvpoTvClxOlpcwic1Bbqs2ODViawKx9wmI7piaSKDGDrGYK4WZkKOz/0" /></span>
+      <p><b>A00000随心所欲：</b><br /> 为朋友助力了0.10元 祝永远幸福,天天快乐!<br/></p>
+    </li><li><span><img src="http://wx.qlogo.cn/mmopen/4v3I8W4HcNfQicaWYtVuDEGxNn0uXtFcwGrttvtFIjfMVZYvpoTvClxOlpcwic1Bbqs2ODViawKx9wmI7piaSKDGDrGYK4WZkKOz/0" /></span>
+      <p><b>A00000随心所欲：</b><br /> 为朋友助力了0.01元 祝永远幸福,天天快乐!<br/></p>
+    </li><li><span><img src="http://wx.qlogo.cn/mmopen/t8U3x24q7M1A8Muv16GylD3qwd8DibjIBFfEe55qBo71y9UiaIqUIVcibfgVq1huu4gBHHYMuxd7vfqjicnkrx05MPL3I7jsvDX6/0" /></span>
+      <p><b>略豹企划-刘老师：</b><br /> 为朋友助力了1.00元 <br/></p>
+    </li><li><span><img src="http://wx.qlogo.cn/mmopen/AtUtJ2RGRHAEqnNLJia62e8wMaebOicmP4Qfbfwr9GfItGFsjPeInjlnkib32qiaQ8ILrXcR7ibojIyywIh3qg1vJkQ/0" /></span>
+      <p><b>漢邦營銷☞麥克：</b><br /> 为朋友助力了0.01元 <br/></p>
+    </li><li><span><img src="http://wx.qlogo.cn/mmopen/4v3I8W4HcNfQicaWYtVuDEGxNn0uXtFcwGrttvtFIjfMVZYvpoTvClxOlpcwic1Bbqs2ODViawKx9wmI7piaSKDGDrGYK4WZkKOz/0" /></span>
+      <p><b>A00000随心所欲：</b><br /> 为朋友助力了0.01元 祝永远幸福,天天快乐!<br/></p>
+    </li> -->
+    </ul></div>
+</div>
+<script type="text/javascript">
+var pagecount,settime,num=2,total,gift = [];
+$(window).scroll(function () {
+    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+    	var page = parseInt($("#page").val())+1;
+        var pid = $("#pid").val();
+        if(page<=pagecount)
+        {
+    	$.get("index.php?g=Wap&m=Crowdfunding&a=listpage",{curpage:page,id:pid},function(data){
+    		$(".pymain").children("ul").append(data);
+    		$("#page").val(page);
+    	},'html');
+        }
+    }
+});
+function refresh()
+{
+    num = num+1;
+    if(num>=total)
+    {
+        num=0;
+    }
+    $(".jiayoulq dl").append(gift[num]);
+    $(".jiayoulq dl").find("dd:first").fadeOut(500,function(){
+    	$(".jiayoulq dl").find("dd:first").remove();
+        $(".jiayoulq dl").find("dd:last").show();
+    });
+    
+}
+$(document).ready(function(){
+	pagecount=15;
+	total=10;
+	if(total>4)
+	{
+		settime=setInterval(refresh,2000);
+	}
+	gift[0]="<dd style=\"display:none;\">高岗领取了代金卷500元</dd>";gift[1]="<dd style=\"display:none;\">小谢领取了代金卷500元</dd>";gift[2]="<dd style=\"display:none;\">小尹领取了代金卷500元</dd>";gift[3]="<dd style=\"display:none;\">尹明领取了代金卷500元</dd>";gift[4]="<dd style=\"display:none;\">尹领取了代金卷500元</dd>";gift[5]="<dd style=\"display:none;\">李丽领取了代金卷500元</dd>";gift[6]="<dd style=\"display:none;\">杰森领取了代金卷500元</dd>";gift[7]="<dd style=\"display:none;\">007领取了代金卷500元</dd>";gift[8]="<dd style=\"display:none;\">风继续吹领取了代金卷500元</dd>";gift[9]="<dd style=\"display:none;\">乔全晓领取了代金卷500元</dd>";	});
+</script>
+
+</body>
+</html>

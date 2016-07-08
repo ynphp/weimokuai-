@@ -1,0 +1,46 @@
+<html lang="zh-CN">
+	<head>
+		<title>常见问题</title>
+		<meta charset="utf-8">
+		<meta content="" name="description">
+		<meta content="" name="keywords">
+		<meta content="eric.wu" name="author">
+		<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+		<meta content="telephone=no, address=no" name="format-detection">
+		<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+		<link href="../addons/hc_moreshop/style/css/reset.css?v=20150211" rel="stylesheet">
+		<link href="../addons/hc_moreshop/style/css/common.css?v=20150211" rel="stylesheet">
+		<link href="../addons/hc_moreshop/style/css/faq.css?v=20150211" rel="stylesheet">
+	</head>
+	<body onselectstart="return true;" ondragstart="return false;">
+		<div data-role="container" class="container faq">
+			<div class="body">
+				<header data-role="header"></header>
+				<section data-role="body" class="body" style="min-height: 456px;">
+					<div>
+						<ul class="list_ul" ontouchstart="" onselectstart="return false;">
+							{loop $questions $q}
+							<li onclick="isopen({$q['id']});">
+								<dl>
+									<dt id="{$q['id']}" class="{if $q['id']==$qid}on{else}of{/if}">{$q['title']}</dt>
+									<dd>{$q['content']}</dd>
+								</dl>
+							</li>
+							{/loop}
+						</ul>
+					</div>
+				</section>
+			</div>
+		</div>
+	</body>
+<script>
+function isopen(qid){
+	var obj = document.getElementById(qid);
+	if(obj.className=='on'){
+		obj.className = 'off';
+	} else {
+		obj.className = 'on';
+	}
+}
+</script>
+</html>

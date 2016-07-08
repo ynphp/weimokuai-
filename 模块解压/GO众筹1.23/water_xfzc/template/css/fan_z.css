@@ -1,0 +1,91 @@
+
+.ui-categories, .ui-categories-r-line, .ui-categories-l-line, .ui-categories-icon-1, .ui-categories-icon-2 {
+    clear: both;
+    display: block;
+    overflow: hidden;
+}
+.ui-categories {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #F8F8F8;
+    border-color: #E9E9E9 #E9E9E9 #D7D7D7;
+    border-image: none;
+    border-radius: 5px 5px 5px 5px;
+    border-style: solid;
+    border-width: 1px;
+    color: #666666;
+    font-family: helvetica,'Helvetica Neue',arial,"liberation sans",freesans,sans-serif;
+    font-size: 13px;
+    margin: 5px auto 14px;
+    width: 958px;
+}
+.ui-categories-l {
+    display: block;
+    float: left;
+    overflow: hidden;
+    width: 48px;
+}
+.ui-categories-r {
+    background: none repeat scroll 0 0 #F8F8F8;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    display: block;
+    float: right;
+    overflow: hidden;
+    padding-bottom: 6px;
+    padding-left: 11px;
+    text-align: left;
+    width: 899px;
+    word-break: break-all;
+}
+.ui-categories-r a {
+    border: 1px solid #F8F8F8;
+    border-radius: 3px 3px 3px 3px;
+    display: block;
+    float: left;
+    font-weight: normal;
+    height: 23px;
+    line-height: 23px;
+    margin: 6px 12px 0 0;
+    padding: 0 5px;
+    white-space: nowrap;
+}
+.ui-categories-r a, .ui-categories-r a:visited, .ui-categories-r a:active, .ui-categories-r a:hover {
+    color: #666666;
+}
+.ui-categories-r a:hover {
+    background: none repeat scroll 0 0 #BBBBBB;
+    border: 1px solid #A8A8A8;
+    color: #FFFFFF;
+}
+A.ui-categories-current, A.ui-categories-current:link, A.ui-categories-current:visited, A.ui-categories-current:hover {
+    background: none repeat scroll 0 0 #E20048;
+    border: 1px solid #E20068;
+    color: #FFFFFF;
+    cursor: text;
+}
+.ui-categories-r-line {
+    border-bottom: 1px solid #E6E6E6;
+    float: none;
+    height: 1px;
+    margin-left: -11px;
+    padding-top: 5px;
+}
+.ui-categories-l-line {
+    border-bottom: 1px solid #E6E6E6;
+    height: 1px;
+    margin-top: 5px;
+}
+.ui-categories-icon-1, .ui-categories-icon-2 {
+    clear: both;
+    color: #666666;
+    display: block;
+    font-weight: normal;
+    height: 31px;
+    line-height: 37px;
+    overflow: hidden;
+    padding-left: 8px;
+    text-align: center;
+}

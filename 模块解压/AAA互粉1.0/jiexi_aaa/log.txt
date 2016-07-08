@@ -1,0 +1,1 @@
+a:2:{s:5:"errno";i:-1;s:7:"message";s:132:"访问微信接口错误, 错误代码: 40003, 错误信息: invalid openid hint: [9vSa6a0888age6],错误详情：不合法的OpenID";}a:2:{s:7:"errcode";i:0;s:6:"errmsg";s:2:"ok";}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{$reply['title']}</title>
+<meta charset="utf-8">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+<meta name="format-detection" content="telephone=no"/>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script>
+
+
+//剩余时间
+var starttime=500000;
+
+
+</script>
+<style>
+body{font-size:12px;font-family:"nobile","微软雅黑","宋体";color:#ed5470;margin:0; padding:0; background-color:#282c2d;}
+@font-face {  font-weight:bold; font-style: normal;  }
+
+/* Common Style */
+*{margin:0;padding:0;}
+input,select{font-size:12px;line-height:16px;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;} q:before,q:after{content:'';}
+.clear{clear:both;display:block;float:none;font-size:0;margin:0;padding:0;overflow:hidden;visibility:hidden;}
+img{border:0;}
+p{ line-height:20px;}
+ul,li{list-style-type:none;}
+a{color:#ccc; text-decoration:none;}
+a:hover{color:#ccc;text-decoration:underline; }
+
+.radius{-moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius:5px;}
+.red{ color:#990000}
+
+
+/*适应手机端的div样式*/
+.mobile-div{border:1px #333 solid; margin:10px 5px; background:#404040;overflow:hidden;min-height:50px;clear:both;}
+
+.mobile-hd{
+	height:35px;
+	line-height:35px;
+	padding:0 10px;
+	color: #ccc;
+	font-weight:bold;
+	border-bottom:1px solid #424242;
+	background-color:#404040;
+	font-size:16px;
+	-webkit-border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-o-border-radius: 5px 5px 0 0;
+	border-radius: 5px 5px 0 0;
+}
+.mobile-hd i{line-height:35px;}
+.mobile-content{margin:10px;line-height:28px;}
+.mobile-content .help-block{margin-bottom:0; margin-top:3px; color:#AAA;}
+.mobile-img img{width:100%;}
+.mobile-submit{margin:0 5px;}
+.mobile-li{display:block; text-decoration:none; color:#666; height:35px; line-height:35px; font-size:14px; padding:0 10px; border-top:1px #CCC solid;}
+.mobile-li:first-child{border-top:0;}
+.mobile-li i{line-height:35px;}
+.mobile-li:hover{text-decoration:none; color:#333;}
+
+.img-rounded {-webkit-border-radius: 6px;	-moz-border-radius: 6px;	border-radius: 6px;}
+#nostart span{font-size:36px;	color:#ed5470;}
+
+.common-bg{filter:Alpha(opacity=70); background:#000; background:rgba(0, 0, 0, 0.7); -moz-border-radius:4px; border-radius:4px;}
+.shake-main{padding:0 10px;clear:both;}
+.shake-nav-bottom{overflow:hidden; width:100%; position:absolute; left:0; bottom:15px;}
+.shake-nav-bottom .col-xs-6{text-align:center;}
+.shake-nav-bottom .col-xs-6 i{font-size:30px;}
+.shake-nav-bottom .col-xs-6 a{color:#5f6364; text-decoration:none;}
+.shake-pic{height:210px; background:url('../addons/hl_tug/style/images/shake.png') no-repeat center; }
+.shake-headerpic{height:60px;  text-align:center;font-size:22px;}
+.submit {
+	text-align: center;
+	background-color:#df4075;
+	padding:10px 20px;
+	font-size:16px;
+	text-decoration:none;
+	border:1px solid #df4075;
+	
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	color: #ffffff;
+	display:block;
+	text-align:center;
+	text-shadow:0 1px rgba(0, 0, 0, 0.2);
+}
+
+</style>
+</head>
+<body>
+
+<div class="shake-main">
+	<div class="shake-headerpic">{$reply['title']}</div>
+	<div class="shake-pic"></div>
+	
+</div>
+	
+<div class="mobile-div img-rounded" >
+	<div style="width:45%;float:left;text-align:center" ><a style="color:#fff;" href="{php echo $this->createMobileUrl('index', array('id' => $_GPC['id'],'whoteam'=>1))}"><img src="{$_W['attachurl']}{$reply['teamapic']}" style="width:100%" class="img-rounded"><br>{$reply['teama']}</a></div>
+	<div style="width:45%;float:right;text-align:center" ><a style="color:#fff;" href="{php echo $this->createMobileUrl('index', array('id' => $_GPC['id'],'whoteam'=>2))}"><img src="{$_W['attachurl']}{$reply['teambpic']}" style="width:100%" class="img-rounded"><br>{$reply['teamb']}</a></div>
+</div>
+		
+<div class="mobile-div img-rounded">
+	<!--div class="mobile-hd" >规则</div-->
+	<div class="mobile-hd"><a href="javascript:testshade();">规则</a></div>
+	<div class="mobile-content">{$reply['rule']}</div>
+</div>
+	
+<div class="mobile-div img-rounded">
+	<div class="mobile-hd">简介</div>
+	<div class="mobile-content">{$reply['description']}</div>
+</div>
+
+
+</body>
+</html>

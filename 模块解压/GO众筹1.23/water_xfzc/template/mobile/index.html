@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$theme['tname']}</title>
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+<link href="../addons/water_xfzc/template/css/style_1.css" rel="stylesheet" type="text/css">
+<script src="../addons/water_xfzc/template/js/jquery.js"></script>
+<script type="text/javascript" src="../addons/water_xfzc/template/js/from.js"></script>
+<script type="text/javascript">
+  var price = {$leftje};
+  var payurl = '{$topayurl}';
+  var date3 = {$lefttime};
+  $(document).ready(function(){
+	  if(date3<0) date3=0;
+	  delayTime();
+	  si=setInterval(delayTime,1000);
+  });
+  function delayTime()
+  {
+      //计算出相差天数
+	  if(date3<0)
+      {
+    	  clearInterval(si);
+      }else
+      {
+    	  var hours=Math.floor(date3/(3600));
+    	  //计算相差分钟数
+    	  var leave2=date3%(3600);//计算小时数后剩余的毫秒数
+    	  var minutes=Math.floor(leave2/(60))
+    	  //计算相差秒数
+    	  var seconds=leave2%(60);   //计算分钟数后剩余的毫秒数
+          $(".now_time").html(hours+"<em>时</em>"+minutes+"<em>分</em>"+seconds+"<em>秒</em>");
+    	  date3=date3-1;
+       }
+	 
+  };
+</script>
+</head>
+<body style="padding-bottom:24px;">
+<!--<div class="hdhead"><img src="../data/upload/shop/from/04866559720433968.jpg"  alt="为爱众筹"/></div>-->
+<!-- 
+<div class="new_kefu_head">
+	<img class="new_kefu_img" src="../addons/water_xfzc/template/images/index_header.jpg" alt="">
+	<li class="new_kefu_name"><span>金牌顾问</span></li>
+	<li class="new_kefu_name" style="margin-top:0;">
+		<a href=""><img src="../addons/water_xfzc/template/images/head_qq.png" alt=""></a>&nbsp;&nbsp;
+		<a href="tel:{$theme['kftel']}"><img src="../addons/water_xfzc/template/images/head_phone.png" alt=""></a>
+	</li>
+</div> -->
+<div class="hdhead"><img src="{$_W['attachurl']}{$theme['hlogo']}"  alt="众筹"/></div>
+<div class="pimg"><img src="{$_W['siteroot']}attachment/{$member['headlogo']}" alt="众筹" ></div>
+<div class="nrbox">
+  <div class="name">    
+<!-- <dl>
+      <dd style="background:#08c1e3"><i><img src="{if empty($set['leftimg'])}../addons/water_xfzc/template/images/new_02.jpg{else}{$_W['attachurl']}{$set['leftimg']}{/if}" /></i><strong>{$member['name1']}</strong></dd>
+      <dd style="background:#ce00d8"><i><img src="{if empty($set['rightimg'])}../addons/water_xfzc/template/images/new_03.jpg{else}{$_W['attachurl']}{$set['rightimg']}{/if}" /></i><strong>{$member['name2']}</strong></dd>
+</dl> -->
+<dl>
+      <dd style="background:#08c1e3"><i><img src="{if empty($set['leftimg'])}../addons/water_xfzc/template/images/new_02.jpg{else}{$_W['attachurl']}{$set['leftimg']}{/if}" style="width:80%;height:100%;margin-left:-30px;"/></i><strong>{$member['name1']}</strong></dd>
+     
+</dl>    
+<dl>
+	 <dd style="background:#ce00d8"><i><img src="{if empty($set['rightimg'])}../addons/water_xfzc/template/images/new_03.jpg{else}{$_W['attachurl']}{$set['rightimg']}{/if}" style="width:80%;height:100%;margin-left:-30px;"/></i><strong>{$member['name2']}</strong></dd>
+</dl>   
+    
+  </div>
+  <div class="sm">
+    <div> 
+     <?php echo mb_substr($member['zcgy'] , 0 , 36,'utf-8'); ?><a href="javascript:void(0)" class="all_art"> [点击查看全文]</a>
+          </div>
+  </div>
+</div>
+<div class="jindubox">
+  <div class="jindutiao" >
+    <div class="progress-radial progress-{$bfb}"><b></b><i><img src="../addons/water_xfzc/template/images/new_15.jpg" /></i><em>￥{$member['zcsum']}元</em></div>
+  </div>
+  <div class="jindushijian" >
+    <div><i>{if $lefttime > 0}距离活动结束 {else}活动已结束{/if}</i></div>
+    <div class="now_time">0<em>时</em>0<em>分</em>0<em>秒</em></div>
+  </div>
+  <div class="jindushijian" style='display: none'>
+    <div><i>活动已结束</i></div>
+  </div>
+</div>
+<div class="py">
+  <div class="headd">
+    <ul>
+      <li style="width:30%; line-height:32px;text-align:center; font-size:150%" >最新支持</li>
+      <li style="width:70%; text-align:right"><i>{$member['scannum']}</i>人浏览 <i>{php echo $this->getMemberHelperCount($memberid);}</i>人支持</li>
+    </ul>
+  </div>
+    <div class="pymain">
+    <ul>
+    {loop $helperlist $item}
+		<li><span><img src="{$item['headimg']}"/></span>
+        <p><b>
+          {$item['nickname']}：</b><br />
+          助力了{$item['zcje']}元 {$item['zfy']},获得{php echo $this->getFansGetJp($themeid,$item['openid']);}</p>
+      </li>
+    {/loop}   
+      </ul>
+  </div>
+  <div class="pybtn"><a href="{php echo $this->createMobileUrl('more', array('memberid'=>$memberid,'themeid'=>$themeid,'openid' => $member['openid']))}" class="kanbtn">查看全部众筹</a></div>
+  <div class="pybtn"><a href="{php echo $this->createMobileUrl('payend', array('memberid'=>$memberid,'themeid'=>$themeid,'openid' => $member['openid']))}" class="kanbtn">查看我的奖品</a></div>
+   
+</div>
+<div class="guizbtn">
+  <ul>
+    <li style=" background:#08c1e3"><a href="{php echo $this->createMobileUrl('rule', array('themeid'=>$themeid))}" class=""><i><img src="../addons/water_xfzc/template/images/new_11.jpg" alt="活动规则" /></i></a></li>
+    <li style=" background:#ce00d8"><a href="javascript:void(0);" class="yao"><i><img src="../addons/water_xfzc/template/images/new_14.jpg" alt="我也要玩" /></i></a></li>
+  </ul>
+</div>
+<div class="banquan">
+  <div><i><img src="{$_W['attachurl']}{$theme['flogo']}" /></i><br />
+  <br />
+    				
+	&copy;<span style="text-decoration:underline;color: #FFF;"><a href="{$theme['jszcurl']}">{$theme['jszc']}</a></span>	</div>
+    <br />
+    <br />
+</div>
+
+<div class=""><!--popbg 点击尺寸的时候插入该样式-->
+  <div class="popbar bread">
+    <div class="popmian display">
+      <div class="pophead">来吧小伙伴们，我需要你的支持 ！<a href="javascript:void(0);">X</a></div>
+      <div class="shuming"></div>
+     <form id="info_form">
+     <input name="pid" value="5"  type="hidden">
+     <input type="hidden" value="0" id="price" name="price"/>
+     <input type="hidden" value="{$member['id']}" id="memberid" name="memberid"/>
+     <input type="hidden" value="{$themeid}" id="themeid" name="themeid"/>
+     </form>
+      <ul>
+        <li><a href="javascript:void(0);" style="background:#ffba00" date-param="{$charge1}"><!--<i><img src="images/19_01.png" alt="5.20" /></i>--><em>{$charge1}元</em></a></li>
+        <li><a href="javascript:void(0);" style="background:#ff9c00" date-param="{$charge2}"><!--<i><img src="images/19_02.png" alt="9.99" /></i>--><em>{$charge2}元</em></a></li>
+        <li><a href="javascript:void(0);" style="background:#ff7800" date-param="{$charge3}"><!--<i><img src="images/19_03.png" alt="13.14" /></i>--><em>{$charge3}元</em></a></li>
+      </ul>
+      <div class="qita">
+        <input type="text" value="其他金额(土豪随意)" />
+      </div>
+    </div>
+    <div class="btnfoot display" style="background:#fff;"><a href="javascript:void(0);" class="cheng pay" style="padding:5px 0"><i><img src="../addons/water_xfzc/template/images/new_16.jpg" /></i></a>
+      <p style="margin-top:8px; font-size:12px; color:#666">
+        <input type="checkbox" checked="checked" id="check" style="border:1px solid #666"/>
+        <span class="support">同意《用户自发众筹协议》</span></p>
+    </div>
+    <div class="btn ">
+      <ul>
+        <li style="background:#ea5504"><a href="javascript:void(0);" class="select"><i><img src="../addons/water_xfzc/template/images/new_13.jpg" /></i></a></li>
+        {if $system['admindo'] == 0 } 
+        <li style="background:#f39800"><a href="{php echo $this->createMobileUrl('add', array('themeid'=>$themeid));}" class=""><i><img src="../addons/water_xfzc/template/images/new_12.jpg" /></i></a></li>      </ul>
+        {else}
+         <li style="background:#ea5504"><a href="javascript:void(0);" class="select"><i><img src="../addons/water_xfzc/template/images/new_13.jpg" /></i></a></li>
+        {/if}
+    </div>
+    <!--默认-->
+      </div>
+</div>
+<div class="popbg display protocol" style="z-index:99999"><!--popbg 点击尺寸的时候插入该样式-->
+  <div class="popbar ">
+    <div class="popmian ">
+      <div class="xieyi">
+      {$theme['xieyi']}
+      </div>
+    </div>
+    <div class="btnfoot" style="background:#fff;"><a href="javascript:void();" class="lan close">关闭</a>
+      <p style="margin-top:8px; font-size:0.8em">
+        <input type="checkbox" checked="checked" />
+        同意《用户自发众筹协议》</p>
+    </div>
+    <!----> 
+  </div>
+</div>
+<div class="popbg  display friend" style="z-index:99999">
+  <div class="fenx"><img src="../addons/water_xfzc/template/images/23.png" /></div>
+</div>
+<div class="popbox discription display">
+  <div style="padding:10px 5%; background:#fff; border-radius:5px; width:80%; margin:30% 5% 0; text-align:left"><p style="padding-bottom:10px">{$member['zcgy']}</p><a href="javascript:void(0);"  class="lan art_close" style="padding:5px 0; border-radius:3px; margin:0; width:30%; margin:0 35%; display:inline-block; text-decoration:none; text-align:center;">关闭</a></div>  
+</div>
+<div class="popbox  display weipay" style="z-index:99999999">
+   <div class="loading" style="background:#08c1e3;margin-top:50%">正在调用支付...请稍后</div>
+</div>
+<script type="text/javascript" src="../addons/water_xfzc/template/js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="../addons/water_xfzc/template/js/dsdialog.js"></script>
+	<script type="text/javascript" src="../addons/water_xfzc/template/js/swiper.min.js"></script>
+<script type="text/javascript">
+    window.setTimeout(function(){
+        $(".new_kefu_head").animate({right:'-90px',opacity:'0.4'}, 500);
+    },1000);
+    $(".new_kefu_img").toggle(function() {
+    	$(".new_kefu_head").animate({right:'0',opacity:'1'}, 500);
+    }, function() {
+    	$(".new_kefu_head").animate({right:'-90px',opacity:'0.4'}, 500);
+    });
+</script>
+{php $shareurl = $_W['siteroot'].'app/'.$this->createMobileUrl('index',array('themeid'=>$themeid,'memberid'=>$memberid));}
+{php $imgUrl = $_W['attachurl'].$member['headlogo'];}
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+    <script>
+        var appid = '{$_W['account']['jssdkconfig']['appId']}';
+        var timestamp = '{$_W['account']['jssdkconfig']['timestamp']}';
+        var nonceStr = '{$_W['account']['jssdkconfig']['nonceStr']}';
+        var signature = '{$_W['account']['jssdkconfig']['signature']}';
+
+        wx.config({
+            debug: false,
+            appId: appid,
+            timestamp: timestamp,
+            nonceStr: nonceStr,
+            signature: signature,
+            jsApiList: [
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo'      
+            ]
+        });
+
+        var shareData = {
+            title: '{$theme['sharetitle']}',
+            desc: '{$theme['sharedesc']}',
+            link: '{php echo $shareurl}',
+            imgUrl: '{php echo $imgUrl}'
+        };
+
+        wx.ready(function () {
+            wx.onMenuShareAppMessage({
+                title: shareData.title,
+                desc: shareData.desc,
+                link: shareData.link,
+                imgUrl: shareData.imgUrl,
+                trigger: function (res) {
+                },
+                success: function (res) {
+                },
+                cancel: function (res) {
+                },
+                fail: function (res) {
+                }
+            });
+
+            wx.onMenuShareTimeline({
+                title: shareData.title,
+                link: shareData.link,
+                imgUrl: shareData.imgUrl,
+                success: function () {
+                },
+                cancel: function () {
+                }
+            });
+
+            wx.onMenuShareQQ({
+                title: shareData.title,
+                desc: shareData.desc,
+                link: shareData.link,
+                imgUrl: shareData.imgUrl,
+                success: function () {
+                },
+                cancel: function () {
+                }
+            });
+
+            wx.onMenuShareWeibo({
+                title: shareData.title,
+                desc: shareData.desc,
+                link: shareData.link,
+                imgUrl: shareData.imgUrl,
+                success: function () {
+                },
+                cancel: function () {
+                }
+            });
+        });
+
+        wx.error(function (res) {
+        });
+    </script>
+</body>
+</html>
