@@ -1,0 +1,58 @@
+
+        <div class="panel panel-default">
+            <div class="panel-heading">前台列表名称设置</div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label">列表名称</label>
+                    <div class="col-xs-12 col-sm-9">
+                    <input type="text" name="mname" class="form-control" value="{$activity['mname']}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">前台模板设置</div>
+            <div class="panel-body">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-4 col-md-3 col-lg-2 control-label">选择模板</label>
+          <div class="col-sm-8 col-xs-12">
+            <div class="row row-fix">
+  <div class="col-xs-6 col-sm-6 col-md-3 template_picker">
+    <div class="thumbnail" style="text-align:center;width:140px;">
+        <span style="display:block;white-space: nowrap;text-overflow:ellipsis; overflow:hidden">默认模板</span>
+      <div class="radio">
+        <label>
+          <input type="radio" name="skins" value="submit" {if $activity['skins'] == 'submit' || empty($activity['skins'])} checked="checked"{/if}>
+          选择
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-6 col-md-3 template_picker">
+    <div class="thumbnail" style="text-align:center;width:140px;" title="二选一模板，创建2个投票项目">
+        <span style="display:block;white-space: nowrap;text-overflow:ellipsis; overflow:hidden">二选一/决赛</span>
+      <div class="radio">
+        <label>
+          <input type="radio" name="skins" value="vs" {if $activity['skins'] == 'vs'} checked="checked"{/if}>
+          选择
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-6 col-sm-6 col-md-3 template_picker">
+    <div class="thumbnail" style="text-align:center;width:140px;" title="二选一模板，创建3个投票项目，中间为平局">
+        <span style="display:block;white-space: nowrap;text-overflow:ellipsis; overflow:hidden">二选一/平局</span>
+      <div class="radio">
+        <label>
+          <input type="radio" name="skins" value="vs2" {if $activity['skins'] == 'vs2'} checked="checked"{/if}>
+          选择
+        </label>
+      </div>
+    </div>
+  </div>
+            </div>
+          </div>
+        </div>
+		
+            </div>
+        </div>

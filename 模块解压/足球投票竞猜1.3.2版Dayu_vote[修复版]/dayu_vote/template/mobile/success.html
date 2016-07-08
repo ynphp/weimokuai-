@@ -1,0 +1,15 @@
+{template 'header'} 
+<style>
+html,body{height:100%;margin:0;padding:0;}
+.am-g{height:100%;padding:0;margin:0;background-image: url('{$activity['bg']}');background-repeat: no-repeat;background-size: 100% auto;background-origin: content-box;background-position:left top;}
+a{color:#fff;}
+
+</style>
+    <div class="am-g am-vertical-align" style="height:100%;">
+	<div class="am-u-sm-12 am-u-sm-centered am-vertical-align-bottom">
+	{$_share['title']}
+        <a href="{php echo $this->createMobileUrl('mydayu_vote', array('name' => 'dayu_vote', 'weid' => $_W['uniacid'], 'id' => $reid))}" class="am-btn am-btn-block" style="margin-bottom:5rem;background:rgba(0,0,0,0.3);">查看我的投票记录</a>
+	</div>
+	</div>
+
+{template 'footer'}

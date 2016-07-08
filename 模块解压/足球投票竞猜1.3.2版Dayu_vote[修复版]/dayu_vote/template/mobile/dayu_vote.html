@@ -1,0 +1,112 @@
+{template 'header'}
+<style>
+.am-text-ir {color:#333;float:left;margin:0.8rem 0.5rem 0 0;height:35px;width:35px;background: url({if !empty($fans['tag']['avatar'])}{$fans['tag']['avatar']}{else}resource/images/noavatar_middle.gif{/if}) no-repeat left center;-webkit-background-size: 35px auto;background-size: 35px auto;}
+.am-header .am-header-nav a{font-size:1.5rem;color:#333;line-height:2rem;}
+.am-header .am-header-nav a .iconfont{font-size:2rem;color:#fff;line-height:2rem;}
+.am-header .am-header-icon{font-size:2rem;line-height:2rem;}
+.am-panel-bd p{padding:0;line-height:1.5rem;margin:0.5rem 0;}
+.content{margin-top:2rem;}
+.am-panel-hd .iconfont{color:#fe8f00}
+.am-panel-footer{height:4.5rem;line-height:3.0rem;}
+</style>
+		<header data-am-widget="header" id="header" class="am-header am-topbar-inverse am-header-fixed">
+            <div class="am-header-left am-header-nav">
+              <a href="#" class="am-text-ir am-circle"></a>{$fans['nickname']}
+            </div>
+            <div class="am-header-right lbs am-header-nav">
+              <a href="javascript:void(0);"><span class="am-header-icon iconfont">&#xe607;</span>
+              </a>
+            </div>
+            <div class="am-header-right am-header-nav am-dropdown" data-am-dropdown>
+              <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;"><span class="am-header-icon iconfont">&#xe607;</span></a>
+        <ul class="am-dropdown-content">
+		{loop $list $item}
+          <li><a href="{php echo $this->createMobileUrl('Mydayu_vote', array('weid' => $item[weid], 'id' => $item[reid]))}">{$item['title']}</a></li>
+		{/loop}
+        </ul>
+            </div>
+		</header>
+{if $operation == 'display'}
+	<div class="content">
+			<div class="am-g">
+				<div class="am-u-sm-12">
+	{loop $rows $item}
+			<div class="am-panel am-panel-default am-text-xs" onclick="location.href='{php echo $this->createMobileUrl('Mydayu_vote', array('op' => 'detail', 'id' => $item['rerid'], 'reid' => $reid))}'">
+				<div class="am-panel-hd"><i class="am-icon iconfont">&#xe60f;</i>{if $activity['select'] == 0} {$item['vote']['title']}{/if}<span class="am-fr">{php echo date('Y/m/d H:i', $item['createtime'])}</span></div>
+					<div class="am-panel-bd" style="padding:10px">
+						<p>姓名：{$item['member']}</p>
+						<p>手机：{$item['mobile']}</p>
+					</div>
+						<footer class="am-panel-footer">
+					{if $item['status'] == 1}
+						<div class="am-fr"><button class="am-btn am-btn-warning am-btn-sm">恭喜！您中奖了</button></div>
+					{/if}
+					{if $activity['select'] == 1}
+					{loop $item['options'] $v}
+					<?php $vote=$this->get_item($value['reid'],$v) ?>
+					{$vote['title']}
+					{/loop}
+					{/if}
+						</footer>
+			</div>
+	{/loop}
+				</div>
+			</div>
+		</div>
+{elseif $operation == 'detail'}
+<style>
+body{background-color:#f0f0f0;}
+.am-g { margin-top:1rem;}
+.am-u-sm-12 p{padding:0;line-height:2.5rem;margin:0.5rem 0;}
+.am-u-sm-12 img {width:100%;}
+.vote{font-size: 1.8rem;color: #FFF;position: absolute;bottom: 0;right:0;display:inline-block;background:rgba(0,0,0,0.2);}
+</style>
+<div class="am-g" style="background:#fff;">
+	<div class="am-u-sm-12">
+		<p>姓名：{$row['member']}</p>
+		<p>手机：{$row['mobile']}</p>
+		<p>提交时间：{php echo date('Y年m月d日 H:i', $row['createtime'])}</p>
+	</div>
+</div>
+					{if $row['status'] == 1}
+<div class="am-g am-text-center">
+<label class="am-u-sm-12 am-form-label"><button class="am-btn am-btn-warning am-btn-sm">恭喜！您中奖了</button></label>
+<div class="am-u-sm-12">{$row['kfinfo']}</div>
+</div>
+					{/if}
+<div class="am-g">
+	<form action="" class="am-form am-form-horizontal"" id="form1">
+	{if $dayu_vote['select'] == 0}
+	<div class="am-form-group" style="position: relative;background:#fff;">
+    <label class="am-u-sm-12 am-form-label"><img src="{php echo tomedia($vote['thumb']);}"></label>
+    <div class="am-u-sm-12 vote">{$vote['title']}</div>
+	</div>
+	{elseif $dayu_vote['select'] == 1}
+			{loop $row['options'] $v}
+			<?php $vote=$this->get_item($row['reid'],$v) ?>
+	<div class="am-form-group" style="position: relative;background:#fff;">
+    <label class="am-u-sm-12 am-form-label"><img src="{php echo tomedia($vote['thumb']);}"></label>
+    <div class="am-u-sm-12 vote">{$vote['title']}</div>
+	</div>
+			{/loop}
+	{/if}
+	
+	<div class="am-form-group primary">
+              	{loop $ds $fid $ftitle}
+                <label class="am-u-sm-4 am-checkbox">{$ftitle['fid']}</label>
+				<label class="am-u-sm-8 am-checkbox">
+                {if $ftitle['type'] == 'image'}
+                <a target="_blank" href="{php echo tomedia($row['fields'][$fid]);}">点击查看{$ftitle['fid']}</a>
+                {else}
+                <span class="label label-success" style="font-size:12px;">{if !empty($row['fields'][$fid])}{$row['fields'][$fid]}{else}用户未填{/if}</span>
+                {/if}
+				</label>
+                {/loop}
+	</div>
+	
+	</form>
+	
+</div>
+{/if}
+
+{template 'footer'}
