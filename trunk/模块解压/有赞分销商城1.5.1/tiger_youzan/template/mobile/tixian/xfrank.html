@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+<meta charset="utf-8">
+<meta name="keywords" content="VIP中心">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="format-detection" content="telephone=no">
+<meta http-equiv="cleartype" content="on">
+<title>消费排行榜</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+{template 'tixian/css'}
+<script type="text/javascript" src="/addons/tiger_youzan/template/mobile/js/jQuery-2.1.4.min.js"></script>
+<script type="text/javascript" src="/addons/tiger_youzan/template/mobile/js/jquery.more.js"></script>
+
+<script type="text/javascript">
+$(function(){
+	$('#more').more({'address': "{php echo $_W['siteroot'].str_replace('./','app/',$this->createMobileurl('ajaxrank',array('weid' => $weid)))}"});
+});
+</script>
+</head>
+<body>
+
+<div class="container " style="min-height: 1px;">
+   <div class="content">
+
+<div class="order-related" >
+  <ul class="uc-order list-horizon clearfix" >
+    <li >
+	  <a href="{php echo $this->createMobileUrl('xfrank',array('op'=>'1'));}" id="A1" class="link clearfix" >
+        <p class="title-info c-black font-size-14" >近7天<br style="margin: 0px; padding: 0px;">排行</p>
+      </a>
+	</li>
+    <li >
+	  <a href="{php echo $this->createMobileUrl('xfrank',array('op'=>'2'));}" id="A1" class="link clearfix" >
+        <p class="title-info c-black font-size-14" >近1月<br style="margin: 0px; padding: 0px;">排行</p>
+      </a>
+	</li>
+    <li >
+	  <a href="{php echo $this->createMobileUrl('xfrank',array('op'=>'3'));}" id="A1" class="link clearfix" >
+        <p class="title-info c-black font-size-14" >近3月<br style="margin: 0px; padding: 0px;">排行</p>
+      </a>
+	</li>
+    <li >
+	  <a href="{php echo $this->createMobileUrl('tixian');}" id="A1" class="link clearfix" >
+        <p class="title-info c-black font-size-14" >我的<br style="margin: 0px; padding: 0px;">收益</p>
+      </a>
+	</li>
+   </ul>
+</div>
+            
+            
+
+            <div class="js-list-content content">
+            <div class="js-list block-order-list block block-list" data-type="payment">
+                {loop $mlist $k $f}
+                        <a class="block-item block-item-small-padding" href="#">
+                            <p class="title-line font-size-14 c-black">
+                                </p><table style="width: 100%">
+                                    <tbody><tr>
+                                        <td class="c-green font-size-16" style="width: 35px; text-align: center;">
+                                            <b>{php echo $k+1}</b>
+                                        </td>
+                                        <td style="width: 50px">
+                                            <img src="{php echo preg_replace('/\/0$/', '/46', stripslashes($f['picurl']));}" style="width: 40px; height: 40px; border-radius: 50%;">
+                                        </td>
+                                        <td>
+                                           {php echo cutstr($f['nickname'],2)}**
+                                        </td>
+                                        <td class="pull-right c-red">
+                                           ￥{$f['payment']}
+                                        </td>
+                                    </tr>
+                                </tbody></table>
+                            <p></p>
+                        </a>
+                 {/loop}   
+                
+                <div class="js-list b-list">
+                </div>
+            </div>
+        </div>
+
+
+<br>
+    {template 'tixian/bottom'}
+    <br>
+    </div>
+</div>
+</body>
+</html>

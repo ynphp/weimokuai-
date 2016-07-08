@@ -1,0 +1,16 @@
+@charset "utf-8";
+* {margin:0; padding: 0;}
+html,body {width: 100%;height: 100%;overflow: hidden;}
+body {background:url(../image/top_bg01.jpg) repeat; }
+#box {width:100%;height:100%;background:url(../image/top_bg01.jpg) repeat;overflow: hidden;text-align: center;}
+#top {width: 200px ;height: 110px; background:url(../image/second_logo.png);background-size: 100% 100%; margin: 10% auto 0}
+#box h1 {font-size: 16px;font-weight: normal;padding: 10px;color: #666;}
+#content {width: 280px;background: #fff;border-radius: 20px;margin: 0 auto;line-height: 24px;padding: 5px 3px;color: #666;font-size: 18px;}
+#content h2 {font-size: 24px;display: inline;color: #f5484b;}
+#btn_bg {width: 110px;height: 110px;border-radius: 55px;background:#eee; margin: 10px auto;position: relative;border:1px solid #f0d0d0;}
+#btn_bt {width: 90px;height: 90px; border-radius: 45px;background: #f5484b;line-height: 90px;position: absolute;top: 10px;left: 10px;border: 0;}
+#btn_bt span {color: #fff;font-size: 24px;}
+.active {-webkit-box-shadow:1px 1px 6px 2px rgba(0,0,0,0.4)  inset ;-ms-box-shadow:1px 1px 6px 2px rgba(0,0,0,0.4)  inset ; box-shadow: 1px 1px 6px 2px rgba(0,0,0,0.4) inset ; }
+#box a {display: block;width:100px;height:20px;padding: 5px;text-decoration: none;font-size: 16px;color: #666;margin: 0 auto;}
+#share {width: 100%;height: 100%;background: rgba(0,0,0,0.9) url(../image/share.png) no-repeat;background-position: top right; position: absolute;top:0;right: 0;z-index: 99;display: none;}
+#logo {width: 80px;height: 80px;background:url(../image/Fiilogo.png);background-size: 100% 100%; margin: 10px auto;}

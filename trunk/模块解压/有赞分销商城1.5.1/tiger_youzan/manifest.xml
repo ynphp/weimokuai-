@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[有赞分销商城]]></name>
+		<identifie><![CDATA[tiger_youzan]]></identifie>
+		<version><![CDATA[1.5.1]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[有赞三级分销商城，无缝对接有赞，强大的数据报表，订单、粉丝、排行榜]]></ability>
+		<description><![CDATA[有赞三级分销商城，无缝对接有赞，强大的数据报表，订单、粉丝、排行榜]]></description>
+		<author><![CDATA[不错吧-免费分享商业源码]]></author>
+		<url><![CDATA[http://www.bcb5.com]]></url>
+
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="积分排行榜" do="Ranking" state="" direct="false" />
+			<entry title="我的积分" do="Records" state="" direct="false" />
+			<entry title="商城入口" do="Goods" state="" direct="false" />
+			<entry title="我的收益" do="Tixian" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="海报管理" do="mposter" state="" direct="false" />
+			<entry title="积分商城" do="goods" state="" direct="false" />
+			<entry title="分销商品" do="yzgoods" state="" direct="false" />
+			<entry title="订单管理" do="yzorder" state="" direct="false" />
+			<entry title="提现记录" do="txlist" state="" direct="false" />
+			<entry title="广告管理" do="ad" state="" direct="false" />
+			<entry title="系统配置" do="set" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

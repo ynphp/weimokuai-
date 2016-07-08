@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[语音祝福]]></name>
+		<identifie><![CDATA[mon_yyzf]]></identifie>
+		<version><![CDATA[0.4]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[语音祝福！]]></ability>
+		<description><![CDATA[语音祝福！]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="祝福管理" do="zf" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_mon_yyzf` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `rid` int(11) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `start_title` varchar(100) NOT NULL,
+  `play_title` varchar(100) NOT NULL,
+  `record_tip` varchar(250) NOT NULL,
+  `follow_url` varchar(200) NOT NULL,
+  `wish` varchar(500) NOT NULL,
+  `share_title` varchar(200) DEFAULT NULL,
+  `share_icon` varchar(200) DEFAULT NULL,
+  `share_content` varchar(200) DEFAULT NULL,
+  `new_title` varchar(200) DEFAULT NULL,
+  `new_icon` varchar(200) DEFAULT NULL,
+  `new_content` varchar(200) DEFAULT NULL,
+  `copyright` varchar(200) DEFAULT NULL,
+  `createtime` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_mon_yyzf_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `yid` int(11) unsigned DEFAULT NULL,
+  `openid` varchar(200) NOT NULL,
+  `nickname` varchar(200) NOT NULL,
+  `headimgurl` varchar(200) NOT NULL,
+  `wish` varchar(500) NOT NULL,
+  `serverId` varchar(500) NOT NULL,
+  `createtime` int(10) unsigned NOT NULL COMMENT '日期',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

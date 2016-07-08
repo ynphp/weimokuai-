@@ -1,0 +1,100 @@
+{template '_header'}
+<ul class="nav nav-tabs">
+    <li {if !$status}class="active"{/if}><a href="{php echo $this->createWebUrl('share',array('pid'=>$pid))}">推广记录</a></li>
+    <!--li {if $status}class="active"{/if}><a href="{php echo $this->createWebUrl('share',array('pid'=>$pid,'status'=>1))}">黑名单</a></li-->
+</ul>
+<style>
+th{
+	text-align: center !important;
+}
+
+td{
+	text-align: center !important;
+	white-space: normal !important;
+	word-break: break-all !important;
+}
+.col{color:#0000FF}
+</style>
+<script type="text/javascript">
+require(['jquery', 'util'], function($, util){
+	$(function(){
+		util.clip($('#needCopy')[0], $('#needCopy').attr('data-url'));
+	});
+});
+</script>
+<div class="panel panel-info">
+        <div class="panel-heading">筛选</div>
+        <div class="panel-body">
+            <form action="{php echo $this->createWebUrl('share',array('pid'=>$pid,'status'=>$status))}" method="post" class="form-horizontal">
+                <div class="form-group">
+                   <label class="col-xs-12 col-sm-2 col-md-2 col-lg-2 control-label" style="width: 200px;">昵称或有赞ID</label>
+                    <div class="col-sm-2 col-lg-3">
+	                    <input type="text" name="name" value="{$name}" class="form-control" style="display: inline-block;">
+                    </div>
+                   <button class="btn btn-default">搜索</button>
+                </div>
+            </form>
+        </div>
+</div>
+<div class="panel panel-default">
+
+	<div class="panel-body" style="text-align: center;">
+
+        <table class="table table-striped table-bordered" style="font-size:12px;">
+
+            <thead class="navbar-inner" style="background:#dde9ff">
+                <tr>
+                    <th width=50>序号</th>
+                	<th width=100>有赞ID</th>
+                    <th width=200>昵称</th>		
+                    <th width=45>等级</th>
+                    <th width=60>一级数</th>
+                    <th width=60>二级数</th>
+                    <th width=60>三级数</th>
+                    <th width=70>地区</th>
+                    <th width=45>姓别</th>
+                    <!--th width=75>销售金额</th-->
+                    <th width=75>积分</th>
+                    <th width=75>现金</th>
+                    <th width=75>未结算</th>
+                    <th width=100>佣金合计</th>
+					<th>加入时间</th>
+					<th>有赞关注时间</th>
+                    <th>上级</th>
+                </tr>
+            </thead>
+
+            <tbody id="table_content">
+
+                {loop $mlist $k $l}
+                <tr>
+                	<td>{php echo $k+1}</td>
+                    <td><a href="http://koudaitong.com/messages/talk?fans_id={$l['fans_id']}" target="_blank" class="col">{$l['fans_id']}</a></td>
+                    <td>{$l['nickname']}</td>
+                    <td><a href="" class="col">{if $l['dj']==1}普通{elseif $l['dj']==2}高级{else}金牌{/if}</a></td>
+                    <td>{if $l['lv1']<>0}<a href="{php echo $this->createWebUrl('share',array('uid'=>$l['uid'],'pid'=>$pid,op=>'1'));}" class="col">{$l['lv1']}</a>{/if}</td>
+                    <td>{if $l['lv2']<>0}<a href="{php echo $this->createWebUrl('share',array('uid'=>$l['uid'],'pid'=>$pid,op=>'2'));}" class="col">{$l['lv2']}</a>{/if}</td>
+                    <td>{if $l['lv3']<>0}<a href="{php echo $this->createWebUrl('share',array('uid'=>$l['uid'],'pid'=>$pid,op=>'3'));}" class="col">{$l['lv3']}</a>{/if}</td>
+                    <td>{$l['province']}<br>{$l['city']}</td>
+                    <td>{if $l['sex']=='m'}男{elseif $l['sex']=='f'}女{else}未知{/if}</td>
+                    <!--td><a href="" class="col">555</a></td-->
+                    <td>{$l['jf']}</td>
+                    <td>{$l['ysh']}</td>
+                    <td>{$l['dsh']}</td>
+                    <td>{php echo $l['ysh']+$l['dsh'] }</td>
+                    <td>{php echo date('Y-m-d H:i:s',$l['createtime'])}</td>
+                    <td>{$l['follow_time']}</td>
+                    <td><a href="" class="col">{$l['tjrname']}</a></td>
+                </tr>
+                {/loop}
+
+            </tbody>
+
+        </table>
+
+        {$pager}
+
+    </div>
+
+</div>
+{template 'common/footer'}
