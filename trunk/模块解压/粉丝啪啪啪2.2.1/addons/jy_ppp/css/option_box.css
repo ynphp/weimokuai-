@@ -1,0 +1,47 @@
+.option_box{ box-shadow:1px 1px 2px rgba(0,0,0,0.1);}
+.option_box .top{background:#fff;padding:5px;line-height:22px;position: relative;font-size: 0.9em;overflow:hidden;}
+.option_box .top h2{ float:left; padding:0 0 0 10px; color:#555;font-size: 16px;}
+.option_box .top .unlimit{ float:right; font-size: 16px;margin-right: 10px;position: relative;}
+.option_box .top .unlimit i{margin-left: 5px}
+.option_box ul li{width:100%; margin-top: 1px;height:38px;clear: both;color: #333}
+/*2格*/
+.option_box ul li span{display:block;float:left;width:50%; height:38px;line-height:38px;text-align:center;font-size: 14px;box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing:border-box;-o-box-sizing: border-box;-ms-box-sizing: border-box;background: #fff; border-right: 1px solid rgba(0,0,0,0); -moz-background-clip: content-box;-webkit-background-clip: content-box; background-clip: content-box;}
+.option_box ul li span:last-child{border-right: 0}
+/*4格*/
+.option_box ul.four_list {overflow: hidden; margin: 0;}
+.option_box ul.four_list li{ width: 100%;}
+.option_box ul.four_list li span { width:25%;}
+/*女生注册条件修改*/
+.option_box .single_list{background:#FEFEFE;margin-top:1px;padding:10px 0;float: left;width: 100%;}
+.option_box .single_list  li{width:90%;box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing:border-box;-o-box-sizing: border-box;-ms-box-sizing: border-box;border:1px solid #E6E6E6; margin: 0 auto 10px;}
+.option_box .single_list  li span{width:100%; background: none; border: 0;}
+
+.option_box .three_list{margin-top:1px;background:#FEFEFE;padding:5px 0 10px 0;float: left;width: 100%;}
+.option_box .three_list li span{width:30%;border:1px solid #E6E6E6; margin: 5px 0 0 2.5%;}
+.option_box ul.three_list li span:last-child{ border-right: 1px solid #e6e6e6;}
+
+.option_box .two_list{ padding:10px; overflow:hidden;background:#fff;margin-top:1px;}
+.option_box .two_list>li{width:100%;overflow:hidden;margin-bottom:10px;}
+
+.option_box .two_list>li span{display:block;float:left;color:#333;border:1px solid #E6E6E6; text-align:center; width:48%; height:38px; line-height:38px; background:#fff; }
+.option_box .two_list>li span.pink{color:#EE3869;}
+
+.option_box .two_list>li span{display:block;float:left;color:#333;border:1px solid #E6E6E6; text-align:center; width:48%; height:38px; line-height:38px; background:#fff; }
+
+
+.option_box .two_list>li span:nth-child(2n){ float:right;border:1px solid #E6E6E6;}
+.bMsg{font-size:14px;margin:5px;line-height:22px;}
+
+.option_box .choose_list{padding:0 0 10px 0;margin-bottom:14px; }
+
+.option_box .choose_list li{;color:#333;border:1px solid #E6E6E6; text-align:center; width:94%; height:38px; line-height:38px; background:#fff;margin:10px 3%;box-sizing:border-box;font-size:14px;}
+.option_box .choose_list li.pink{color:#EE3869;}
+
+.option_box .choose_list li{;color:#333;border:1px solid #E6E6E6; text-align:center; width:94%; height:38px; line-height:38px; background:#fff;margin:10px 3%;box-sizing:border-box;}
+
+.option .qa h2{line-height:22px;}
+.option .Qa_age h2{line-height:38px;}
+
+.option_boxcol_1 ul{ overflow:hidden;}
+.option_boxcol_1 ul li{ overflow:hidden; float:left; width:50%; clear:none; text-align:center; height:38px; line-height:38px; background:#fff; border-right:1px solid #f0f0f0; box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;}
+.option_boxcol_1 ul li:nth-child(2n){ border:0;}

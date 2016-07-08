@@ -1,0 +1,132 @@
+<html>
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <title>{if !empty($sitem['aname'])}{$sitem['aname']}{else}有缘网{/if}</title>
+    <link href="../addons/jy_ppp/css/public_reset.css" rel="stylesheet" type="text/css" />
+    <link href="../addons/jy_ppp/css/public.css" rel="stylesheet" type="text/css" />
+    <link href="../addons/jy_ppp/css/pay_intercept.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="top_blank"></div>
+<nav class="nav" style="position: absolute;">
+    <h2>充值</h2>
+
+    <div class="left" onclick="history.go(-1)">
+        <i class="le_trg"></i>返回
+    </div>
+</nav>
+{if empty($sitem['doubi'])}{php $sitem['doubi']=='豆币'}{/if}
+{if empty($sitem['unit'])}{php $sitem['unit']=='豆'}{/if}
+<div class="content">
+    <section data-type="doubi">
+        <div class="box-shadow">
+            {if empty($category)}
+                {if $weixin==1}
+                <a href="{php echo $this->createMobileUrl('pay',array('op'=>'doubi','fee'=>100))}"><ul class="click_op" style="margin:0">
+                {else}
+                <a href="{php echo $this->createMobileUrl('pcpay',array('op'=>'doubi','fee'=>100))}"><ul class="click_op" style="margin:0">
+                {/if}
+                    <li>
+                        <p class="tit yellow"><label style="width:100px">1300{$sitem['unit']}</label><span>￥100</span><span></span></p>
+                    </li>
+                    <li style="color:#E2A41F">购买<i class="re_trg"></i></li>
+                </ul></a>
+                {if $weixin==1}
+                <a href="{php echo $this->createMobileUrl('pay',array('op'=>'doubi','fee'=>50))}"><ul class="click_op" style="margin:0">
+                {else}
+                <a href="{php echo $this->createMobileUrl('pcpay',array('op'=>'doubi','fee'=>50))}"><ul class="click_op" style="margin:0">
+                {/if}
+                    <li>
+                        <p class="tit yellow"><label style="width:100px">600{$sitem['unit']}</label><span>￥50</span></p>
+                    </li>
+                    <li style="color:#E2A41F">购买<i class="re_trg"></i></li>
+                </ul></a>
+                {if $weixin==1}
+                <a href="{php echo $this->createMobileUrl('pay',array('op'=>'doubi','fee'=>30))}"><ul class="click_op" style="margin:0">
+                {else}
+                <a href="{php echo $this->createMobileUrl('pcpay',array('op'=>'doubi','fee'=>30))}"><ul class="click_op" style="margin:0">
+                {/if}
+                    <li>
+                        <p class="tit yellow"><label style="width:100px">300{$sitem['unit']}</label><span>￥30</span></p>
+                    </li>
+                    <li style="color:#E2A41F">购买<i class="re_trg"></i></li>
+
+                </ul></a>
+            {else}
+                {loop $category $c}
+                    {if $weixin==1}
+                    <a href="{php echo $this->createMobileUrl('pay',array('op'=>'doubi','fee'=>$c['fee']))}"><ul class="click_op" style="margin:0">
+                    {else}
+                    <a href="{php echo $this->createMobileUrl('pcpay',array('op'=>'doubi','fee'=>$c['fee']))}"><ul class="click_op" style="margin:0">
+                    {/if}
+                        <li>
+                            <p class="tit yellow"><label style="width:100px">{$c['credit']}{$sitem['unit']}</label><span>￥{$c['fee']}</span></p>
+                        </li>
+                        <li style="color:#E2A41F">购买<i class="re_trg"></i></li>
+
+                    </ul></a>
+                {/loop}
+            {/if}
+        </div>
+        <p class="click_op_top" style="line-height: 22px;">
+            <i class="bean" style="vertical-align: top;"></i>{$sitem['doubi']}说明<br/>
+            <span>
+                1.{$sitem['doubi']}为通用虚拟货币，可购买一切增值服务；<br/>
+                2.20个{$sitem['unit']}就能换取一位异性的永久畅聊权。
+            </span>
+        </p>
+    </section>
+</div>
+</body>
+<script src="../addons/jy_ppp/js/zepto.min.js"></script>
+<script src="../addons/jy_ppp/js/public.js"></script>
+{if $weixin==1}
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    {php $signPackage=$_W['account']['jssdkconfig'];}
+    <script>
+
+        var appid = '{$_W['account']['jssdkconfig']['appId']}';
+        var timestamp = '{$_W['account']['jssdkconfig']['timestamp']}';
+        var nonceStr = '{$_W['account']['jssdkconfig']['nonceStr']}';
+        var signature = '{$_W['account']['jssdkconfig']['signature']}';
+
+        wx.config({
+            debug: false,
+            appId: appid,
+            timestamp: timestamp,
+            nonceStr: nonceStr,
+            signature: signature,
+            jsApiList: ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo']
+        });
+    </script>
+    <script type="text/javascript">
+        var params = {
+            {if empty($sitem['sharetitle'])}
+            title:"有缘网",
+            {else}
+            title: "{$sitem['sharetitle']}",
+            {/if}
+            {if empty($sitem['sharedesc'])}
+            desc: "有缘网!",
+            {else}
+            desc: "{$sitem['sharedesc']}",
+            {/if}
+            link: "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('index'),2)}",
+            {if empty($sitem['sharelogo'])}
+            imgUrl: "{$_W['siteroot']}addons/jy_ppp/icon.jpg",
+            {else}
+            imgUrl: "{$_W['attachurl']}{$sitem['sharelogo']}",
+            {/if}
+        };
+        wx.ready(function () {
+            wx.showOptionMenu();
+            wx.onMenuShareAppMessage.call(this, params);
+            wx.onMenuShareTimeline.call(this, params);
+        });
+    </script>
+    {/if}
+</html>

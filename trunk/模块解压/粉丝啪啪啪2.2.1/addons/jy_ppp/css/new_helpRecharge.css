@@ -1,0 +1,16 @@
+@charset "utf-8";
+/* CSS Document */
+.honest {margin: 62px auto;font-size: 12px;max-width: 480px}
+.honest>.test_box {margin: 10px;box-shadow: 1px 1px 2px rgba(0,0,0,0.1);}
+.honest_05>.test_box>li:first-child {font-size: 1.1em;color: #333;}
+.honest_05>.test_box>li {margin: 0 0 1px 0;background: #fff;line-height: 22px;padding:10px; position:relative;}
+.honest_05>.test_box>li>p{ color:#666;}
+.honest_05>.bottom_num{ margin:10px 15px 0; line-height:22px; color:#737373;}
+.see_more, .writing_load{ margin:0 10px;}
+
+.honest_05>.test_box>li>.area{ width:100%; height:88px; border:1px solid #EDEDED; box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing:border-box;-o-box-sizing: border-box;-ms-box-sizing: border-box; background:#F8F8F8; vertical-align:middle;}
+.honest_05>.test_box>li>span{ position:absolute; left:20px; top:14px; right:16px; color:#C2C2C2;}
+.honest_05>.test_box>li>.phone_num{ width:100%; height:36px; line-height:36px; background:#F8F8F8;border:1px solid #EDEDED; box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing:border-box;-o-box-sizing: border-box;-ms-box-sizing: border-box;color:#C2C2C2; padding:0 0 0 10px;}
+/*帮助中心发送成功*/
+.send_succes .reward{ padding:15px; background:#fff; margin:10px; font-size:12px; line-height:22px;}
+.send_succes .reward>dt{ font-size:14px; color:#656565;}

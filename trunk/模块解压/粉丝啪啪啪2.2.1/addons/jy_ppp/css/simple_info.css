@@ -1,0 +1,19 @@
+/*私信过滤 弹层*/
+.simple_info,
+.simple_info_unaffect,
+.simple_info_guolv{ width:80%; height:250px; background:#fff;margin:120px auto 0 auto; text-align:center; z-index:1001; overflow:hidden;max-width: 400px;z-index: 99999;position: relative;}
+.simple_info .title{ height:30px; border-bottom:1px solid #E9E9E9; font-size:1.2em;}
+.simple_info .title span{ display:block; width:35%;height:30px; line-height:30px; color:#333; border-bottom:1px solid #ADADAD;}
+.simple_info .examine{ margin:30px 0;}
+.simple_info .examine dd.tit{ font-size:1.2em; color:#555; margin:8px 0;}
+.simple_info .btn,
+.simple_info .col2_btn{ display:block; width:100%; position:absolute; left:0; bottom:0; color:#72BAC6; height:34px; line-height:34px; background:#F7F7F7; border-top:1px solid #E9E9E9;}
+.simple_info .col2_btn>a{ display:block; width:50%; float:left; text-align:center; color:#75B8C9; border-right:1px solid #E9E9E9; box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-o-box-sizing:border-box;-ms-box-sizing:border-box;}
+.simple_info .col2_btn>a:last-child{ border:0;}
+.simple_info .closed{ display:block; width:14px; height:14px; background:url(../images/closed_black.png) no-repeat; position:absolute; right:8px; top:8px;}
+.simple_info_unaffect{ height:150px; margin:175px auto}
+.simple_info_unaffect .abolish{ text-align:left; padding:10px; line-height:22px; color:#555; }
+.simple_info_guolv{ height:396px; margin:-198px 0 0 -40%;}
+.abolish_yellow{ margin:10px; padding:12px; line-height:22px; border:1px solid #F4EFDB; background:#FEFFEF; color:#555; text-align:left;font-size:14px; }
+.simple_info .btttom{ text-align:left; margin:12px; line-height:20px; font-size:12px;}
+.simple_info .pink{ margin:0 5px;}

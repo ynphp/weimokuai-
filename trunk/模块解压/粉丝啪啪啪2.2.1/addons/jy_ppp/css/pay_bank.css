@@ -1,0 +1,110 @@
+/****************
+银行图标start
+****************/
+.icon-bank-gongshang, .icon-bank-nongcun, .icon-bank-youzheng, .icon-bank-huaxia, .icon-bank-jiaotong, .icon-bank-guangzhou, .icon-bank-nongye, .icon-bank-guangda, .icon-bank-zhongxin, .icon-bank-zhaoshang, .icon-bank-guangfa, .icon-bank-pufa, .icon-bank-pingan, .icon-bank-zhongguo, .icon-bank-xingye, .icon-bank-jianshe {
+    display: inline-block;
+    vertical-align: middle;
+    background: url('../images/banks.png') no-repeat;
+    background-size: 143px 38px;
+    font-size: 0;
+    line-height: 0;
+    margin:0 7px 0 4px;
+}
+
+.icon-bank-gongshang {
+    height: 19px;
+    width: 18px;
+    background-position: -0px -0px;
+}
+
+.icon-bank-youzheng {
+    height: 19px;
+    width: 18px;
+    background-position: -18px -0px;
+}
+
+.icon-bank-nongcun {
+    height: 19px;
+    width: 18px;
+    background-position: -36px -0px;
+}
+
+.icon-bank-jiaotong {
+    height: 19px;
+    width: 17px;
+    background-position: -54px -0px;
+}
+
+.icon-bank-huaxia {
+    height: 19px;
+    width: 18px;
+    background-position: -71px -0px;
+}
+
+.icon-bank-nongye {
+    height: 19px;
+    width: 18px;
+    background-position: -89.5px -0px;
+    margin-top: -3px;
+}
+
+.icon-bank-guangzhou {
+    height: 19px;
+    width: 18px;
+    background-position: -108px -0px;
+}
+
+.icon-bank-guangda {
+    height: 19px;
+    width: 18px;
+    background-position: -126px -0px;
+}
+
+.icon-bank-zhongxin {
+    height: 19px;
+    width: 18px;
+    background-position: -0px -19px;
+}
+
+.icon-bank-zhaoshang {
+    height: 20px;
+    width: 18px;
+    background-position: -18px -19px;
+}
+
+.icon-bank-pufa {
+    height: 20px;
+    width: 18px;
+    background-position: -36px -20px;
+}
+
+.icon-bank-guangfa {
+    height: 20px;
+    width: 17.8px;
+    background-position: -54px -19px;
+}
+
+.icon-bank-pingan {
+    height: 20px;
+    width: 17.5px;
+    background-position: -72px -19px;
+}
+
+.icon-bank-zhongguo {
+    height: 20px;
+    width: 18px;
+    background-position: -89.5px -19px;
+}
+
+.icon-bank-xingye {
+    height: 20px;
+    width: 18px;
+    background-position: -125.5px -20px;
+}
+
+.icon-bank-jianshe {
+    height: 20px;
+    width: 18px;
+    background-position: -107.5px -19px;
+}
+/** 银行图标 end   **/

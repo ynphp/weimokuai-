@@ -1,0 +1,19 @@
+a{display: block;}
+.p_list{width: 100%;height: 46px;margin-bottom: 1px;position: relative;background-color: #fff}
+.p_list li{width: 100%;height: 46px;line-height: 46px;}
+.p_list li label,
+.p_list li span{font-size:16px;color:#555;display: inline-block;height: 46px;line-height: 46px;margin-left: 15px}
+.p_list li span{float: right;margin-right: 20px;color: #999}
+.p_list .re_trg{position: absolute;right:10px;top: 18px}
+.p_space{height: 10px}
+
+/*红娘免费领取页面*/
+.hn_msg{width:100%;overflow:hidden}
+.hn_msg h3{font:16px/24px 'Microsoft YaHei',"微软雅黑";text-align:center;color:#e92573;}
+.hn_msg p{color:#999999;font:12px/24px 'Microsoft YaHei',"微软雅黑";}
+
+.hn .p_list li label{float:left;font-size:14px;}
+.hn .p_list li span{float:right;margin-right:22px;color:#666;font-size:14px;}
+.hn .p_list .re_trg{border-right: 2px solid #777;border-bottom: 2px solid #777;}
+.hn .active li span{color:#e92573}
+.hn .active .re_trg{border-right: 2px solid #f27cab;border-bottom: 2px solid #f27cab;}

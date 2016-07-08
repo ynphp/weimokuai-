@@ -1,0 +1,9 @@
+/*可能感兴趣的*/
+.likely{ margin:10px auto;max-width: 480px}
+.likely>.title{ height:38px; line-height:38px; background:#fff; padding:0 0 0 10px; color:#555;}
+.likely>ul{ margin:1px 0 0; background:#fff; overflow:hidden; text-align:center;}
+.likely>ul>li{ margin:14px 0 0 14px; float:left; max-width:81px; line-height:22px; font-size:.8em;}
+.likely>ul>li>a>img{width:81px;height:99px;}
+.likely>ul>li>span{ color:#555;font-size:12px;}
+.likely>ul>li .hello,.likely>ul>li .hello_out{ display:block; width:64px; height:26px; line-height:26px;border: 1px solid #e93593; color:#e93593; margin:4px auto 14px;}
+.likely>ul>li .hello_out{ color:#999; border-color:#ccc;}

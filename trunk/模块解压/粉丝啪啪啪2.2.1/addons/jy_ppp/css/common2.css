@@ -1,0 +1,53 @@
+html,body {margin: 0;padding: 0;width: 100%;height: 100%;background-color: #eee}
+.bodybox{width: 100%;max-width: 640px;margin:0 auto;max-height: 100%;overflow-y:scroll;background-color: #f8f6f7;-webkit-box-shadow:0 0 10px rgba(0,0,0,.4);-moz-box-shadow:0 0 10px rgba(0,0,0,.4);box-shadow:0 0 10px rgba(0,0,0,.4);height:100%}
+::-webkit-scrollbar{width:0}
+.txtAC{text-align:center}
+.txtAR{text-align:right}
+.ovfl{overflow:hidden}
+.floL{float: left}
+.floR{float: right}
+.curP{cursor: pointer}
+.white{color: #fff}
+.black{color:#000}
+.gray{color: #828282}
+.font13{font-size: 13px}
+.none{display: none}
+.nowrap{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+a{text-decoration: none}
+h3{position: fixed;top: 0;width: 100%;max-width: 640px;background-color: #fff;margin-top: 0;padding: 10px 0;border-bottom: 2px solid #F78AA9;box-shadow: 1px 1px 2px rgba(0,0,0,0.1)}
+/**/
+.rBor{border-right:1px solid #b3b2b3}
+.selectedDiv{
+    width: 100%;
+    max-width: 640px;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    background-color: #fff;
+    z-index: 99;
+    height: 44px
+}
+.selectedDiv>a{
+    margin-top: 7px;
+    float: left;
+    width: 24.7%;
+    height: 30px;
+    line-height: 26px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer
+}
+.selectedDiv>a>img{width: 15px;vertical-align: middle}
+.selectedDiv>a>span{vertical-align: middle;margin-left: 5px}
+.zhanwei{height: 85px}
+.topZhan{height: 50px}
+.head{width:100%; height:45px; line-height:45px; box-shadow:0 2px 2px 0 rgba(0,0,0,0.2); position:fixed; z-index:9;top:0;max-width: 640px}
+.head .bn{display:inline-block; height:30px; line-height:30px; padding:0 10px; margin-top:6px}
+.head .bn.pull-left{position:absolute; left:5px; top:0}
+.head .bn.pull-right{position:absolute; right:5px; top:0}
+.head .title{font-size:18px;text-align:center;height:45px;line-height:45px;text-overflow:ellipsis;white-space:nowrap;overflow: hidden;width: 80%;margin: 0 auto;color: #fff}
+.icon{width:20px;height:20px;margin-top: 5px}
+.mainBg{background-color:#f55a8e}
+.mainColor{color: #f55a8e}
+.zhanCol{height: 10px;background-color: #eee}

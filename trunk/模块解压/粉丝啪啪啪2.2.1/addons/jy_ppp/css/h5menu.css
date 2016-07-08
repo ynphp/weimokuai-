@@ -1,0 +1,18 @@
+.h5menu{ height:70px; width:100%; position:fixed; z-index:500}
+.h5menu>div{max-width: 480px;background:#f8f8f8;overflow: hidden;margin: 0 auto}
+.h5menu .myy{ width:25%; height:70px; float:left; color:#838383; font-size:14px; text-align:center; font-family: "微软雅黑",helvetica,arial;}
+.h5menu .myy a{ text-decoration:none; color:#838383; position:relative; z-index:101; display:block;}
+.h5menu .myy a .icon_{ z-index:102; width:30px; height:30px; margin:12px auto 0px auto;  background-size:95%; background-repeat:no-repeat; background-position:center 100%}
+.h5menu .myy1 a .icon_{ background-image:url(../images/myy1.png);}
+.h5menu .myy2 a .icon_{ background-image:url(../images/myy2.png);}
+.h5menu .myy3 a .icon_{ background-image:url(../images/myy3.png);}
+.h5menu .myy3-3 a .icon_{ background-image:url(../images/myy3-3.png);}
+.h5menu .myy4 a .icon_{ background-image:url(../images/myy4.png);}
+.h5menu .myy1on a .icon_,.h5menu .myy2on a .icon_,.h5menu .myy3on a .icon_,.h5menu .myy3-3on a .icon_,.h5menu .myy4on a .icon_{background-position:center 0% !important}
+
+.h5menu .myy5 a .icon_{background-image:url(../images/video.png);}
+.h5menu .myy5on a .icon_{background-image:url(../images/video-s.png);}
+.h5menu.theme5 .myy{width:20%;}
+
+.pu .h5menu{bottom:0; border-bottom:1px #c6c6c6 solid}
+.wx .h5menu{bottom:0; border-top:1px #c6c6c6 solid}

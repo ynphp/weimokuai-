@@ -1,0 +1,369 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<title>{if !empty($sitem['aname'])}{$sitem['aname']}{else}有缘网{/if}</title>
+<link href="../addons/jy_ppp/css/public_reset.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/public.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/option_box.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/user_setting.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="top_blank">
+</div>
+<nav class="nav" style="position: absolute;">
+<h2>详细资料</h2>
+<div class="left" onclick="history.go(-1)">
+    <i class="le_trg"></i>返回
+</div>
+<div class="right">
+    <span id="search_sure" class="seach_sure">确定</span>
+</div>
+</nav>
+<div class="content">
+    <ul class="habit-list">
+        <li class="user_mession">
+        <label class="left">是否想要小孩</label>
+        <div class="right">
+            <div class="select">
+                <span class="value">
+                {if empty($desc['child'])}
+                    <span class="pink">请选择</span></span>
+                {else}
+                    {$desc['child']}</span>
+                {/if}
+                <i class="bot_trged"></i>
+                <select id="need_bady" class="value_select">
+                    <option value="0" style="display:none">请选择</option>
+                    <option value="想" {if $desc['child']=='想'} selected="selected" {/if}>想</option>
+                    <option value="不想" {if $desc['child']=='不想'} selected="selected" {/if}>不想</option>
+                    <option value="还没想好" {if $desc['child']=='还没想好'} selected="selected" {/if}>还没想好</option>
+                </select>
+            </div>
+        </div>
+        </li>
+        <li class="user_mession">
+        <label class="left">能否接受异地恋</label>
+        <div class="right">
+            <div class="select">
+                <span class="value">
+                {if empty($desc['yidi'])}
+                    <span class="pink">请选择</span></span>
+                {else}
+                    {$desc['yidi']}</span>
+                {/if}
+                <i class="bot_trged"></i>
+                <select id="diff_lover" class="value_select">
+                    <option value="0" style="display:none">请选择</option>
+                    <option value="能" {if $desc['yidi']=='能'} selected="selected" {/if}>能</option>
+                    <option value="看情况" {if $desc['yidi']=='看情况'} selected="selected" {/if}>看情况</option>
+                    <option value="不能" {if $desc['yidi']=='不能'} selected="selected" {/if}>不能</option>
+                </select>
+            </div>
+        </div>
+        </li>
+        <li class="user_mession">
+        <label class="left">喜欢的异性类型</label>
+        <div class="right">
+            <div class="select">
+                <span class="value">
+                {if empty($desc['leixin'])}
+                    <span class="pink">请选择</span></span>
+                {else}
+                    {$desc['leixin']}</span>
+                {/if}
+                <i class="bot_trged"></i>
+                <select id="love_type" class="value_select">
+                    <option value="0" style="display:none">请选择</option>
+                    <option value="活泼开朗" {if $desc['leixin']=='活泼开朗'} selected="selected" {/if}>活泼开朗</option>
+                    <option value="善解人意" {if $desc['leixin']=='善解人意'} selected="selected" {/if}>善解人意</option>
+                    <option value="娇小可爱" {if $desc['leixin']=='娇小可爱'} selected="selected" {/if}>娇小可爱</option>
+                    <option value="温柔体贴" {if $desc['leixin']=='温柔体贴'} selected="selected" {/if}>温柔体贴</option>
+                    <option value="落落大方" {if $desc['leixin']=='落落大方'} selected="selected" {/if}>落落大方</option>
+                    <option value="成熟魅力" {if $desc['leixin']=='成熟魅力'} selected="selected" {/if}>成熟魅力</option>
+                    <option value="眉清目秀" {if $desc['leixin']=='眉清目秀'} selected="selected" {/if}>眉清目秀</option>
+                    <option value="性感妩媚" {if $desc['leixin']=='性感妩媚'} selected="selected" {/if}>性感妩媚</option>
+                    <option value="雍容华贵" {if $desc['leixin']=='雍容华贵'} selected="selected" {/if}>雍容华贵</option>
+                </select>
+            </div>
+        </div>
+        </li>
+        <li class="user_mession">
+        <label class="left">能否接受婚前性行为</label>
+        <div class="right">
+            <div class="select">
+                <span class="value">
+                {if empty($desc['sex'])}
+                    <span class="pink">请选择</span></span>
+                {else}
+                    {$desc['sex']}</span>
+                {/if}
+                <i class="bot_trged"></i>
+                <select id="sex_first" class="value_select">
+                    <option value="0" style="display:none">请选择</option>
+                    <option value="能" {if $desc['sex']=='能'} selected="selected" {/if}>能</option>
+                    <option value="看情况" {if $desc['sex']=='看情况'} selected="selected" {/if}>看情况</option>
+                    <option value="不能" {if $desc['sex']=='不能'} selected="selected" {/if}>不能</option>
+                </select>
+            </div>
+        </div>
+        </li>
+        <li class="user_mession">
+        <label class="left">是否愿意与父母同住</label>
+        <div class="right">
+            <div class="select">
+                <span class="value">
+                {if empty($desc['fumu'])}
+                    <span class="pink">请选择</span></span>
+                {else}
+                    {$desc['fumu']}</span>
+                {/if}
+                <i class="bot_trged"></i>
+                <select id="live_with" class="value_select">
+                    <option value="0" style="display:none">请选择</option>
+                    <option value="愿意" {if $desc['fumu']=='愿意'} selected="selected" {/if}>愿意</option>
+                    <option value="看情况" {if $desc['fumu']=='看情况'} selected="selected" {/if}>看情况</option>
+                    <option value="不愿意" {if $desc['fumu']=='不愿意'} selected="selected" {/if}>不愿意</option>
+                </select>
+            </div>
+        </div>
+        </li>
+        <li class="user_mession">
+        <label class="left">魅力部位</label>
+        <div class="right">
+            <div class="select">
+                <span class="value">
+                {if empty($desc['meili'])}
+                    <span class="pink">请选择</span></span>
+                {else}
+                    {$desc['meili']}</span>
+                {/if}
+                <i class="bot_trged"></i>
+                <select id="charm" class="value_select">
+                    <option value="0" style="display:none">请选择</option>
+                    <option value="笑容" {if $desc['meili']=='笑容'} selected="selected" {/if}>笑容</option>
+                    <option value="眼睛" {if $desc['meili']=='眼睛'} selected="selected" {/if}>眼睛</option>
+                    <option value="头发" {if $desc['meili']=='头发'} selected="selected" {/if}>头发</option>
+                    <option value="鼻梁" {if $desc['meili']=='鼻梁'} selected="selected" {/if}>鼻梁</option>
+                    <option value="嘴唇" {if $desc['meili']=='嘴唇'} selected="selected" {/if}>嘴唇</option>
+                    <option value="牙齿" {if $desc['meili']=='牙齿'} selected="selected" {/if}>牙齿</option>
+                    <option value="颈部" {if $desc['meili']=='颈部'} selected="selected" {/if}>颈部</option>
+                    <option value="耳朵" {if $desc['meili']=='耳朵'} selected="selected" {/if}>耳朵</option>
+                    <option value="手" {if $desc['meili']=='手'} selected="selected" {/if}>手</option>
+                    <option value="胳膊" {if $desc['meili']=='胳膊'} selected="selected" {/if}>胳膊</option>
+                    <option value="胸部" {if $desc['meili']=='胸部'} selected="selected" {/if}>胸部</option>
+                    <option value="腰部" {if $desc['meili']=='腰部'} selected="selected" {/if}>腰部</option>
+                    <option value="脚" {if $desc['meili']=='脚'} selected="selected" {/if}>脚</option>
+                    <option value="腿" {if $desc['meili']=='腿'} selected="selected" {/if}>腿</option>
+                    <option value="臀部" {if $desc['meili']=='臀部'} selected="selected" {/if}>臀部</option>
+                    <option value="眉毛" {if $desc['meili']=='眉毛'} selected="selected" {/if}>眉毛</option>
+                </select>
+            </div>
+        </div>
+        </li>
+    </ul>
+    <div class="option_box" style="margin-top: 10px">
+        <div class="top">
+            <h2>兴趣爱好</h2>
+            <span class="unlimit"><span class="pink">可多选</span></span>
+        </div>
+        <ul class="four_list" id="interest">
+            <li>
+            <span {if !empty($a_arr) && in_array('上网',$a_arr)}class="pink"{/if} typeid="上网">上网</span>
+            <span {if !empty($a_arr) && in_array('研究汽车',$a_arr)}class="pink"{/if} typeid="研究汽车">研究汽车</span>
+            <span {if !empty($a_arr) && in_array('养小动物',$a_arr)}class="pink"{/if} typeid="养小动物">养小动物</span>
+            <span {if !empty($a_arr) && in_array('摄影',$a_arr)}class="pink"{/if} typeid="摄影">摄影</span>
+            </li>
+            <li>
+            <span {if !empty($a_arr) && in_array('看电影',$a_arr)}class="pink"{/if} typeid="看电影">看电影</span>
+            <span {if !empty($a_arr) && in_array('听音乐',$a_arr)}class="pink"{/if} typeid="听音乐">听音乐</span>
+            <span {if !empty($a_arr) && in_array('写作',$a_arr)}class="pink"{/if} typeid="写作">写作</span>
+            <span {if !empty($a_arr) && in_array('购物',$a_arr)}class="pink"{/if} typeid="购物">购物</span>
+            </li>
+            <li>
+            <span {if !empty($a_arr) && in_array('做手工艺',$a_arr)}class="pink"{/if} typeid="做手工艺">做手工艺</span>
+            <span {if !empty($a_arr) && in_array('做园艺',$a_arr)}class="pink"{/if} typeid="做园艺">做园艺</span>
+            <span {if !empty($a_arr) && in_array('跳舞',$a_arr)}class="pink"{/if} typeid="跳舞">跳舞</span>
+            <span {if !empty($a_arr) && in_array('看展览',$a_arr)}class="pink"{/if} typeid="看展览">看展览</span>
+            </li>
+            <li>
+            <span {if !empty($a_arr) && in_array('烹饪',$a_arr)}class="pink"{/if} typeid="烹饪">烹饪</span>
+            <span {if !empty($a_arr) && in_array('读书',$a_arr)}class="pink"{/if} typeid="读书">读书</span>
+            <span {if !empty($a_arr) && in_array('绘画',$a_arr)}class="pink"{/if} typeid="绘画">绘画</span>
+            <span {if !empty($a_arr) && in_array('研究计算机',$a_arr)}class="pink"{/if} typeid="研究计算机">研究计算机</span>
+            </li>
+            <li>
+            <span {if !empty($a_arr) && in_array('做运动',$a_arr)}class="pink"{/if} typeid="做运动">做运动</span>
+            <span {if !empty($a_arr) && in_array('旅游',$a_arr)}class="pink"{/if} typeid="旅游">旅游</span>
+            <span {if !empty($a_arr) && in_array('玩电子游戏',$a_arr)}class="pink"{/if} typeid="玩电子游戏">玩电子游戏</span>
+            <span {if !empty($a_arr) && in_array('其他',$a_arr)}class="pink"{/if} typeid="其他">其他</span>
+            </li>
+        </ul>
+    </div>
+    <div class="option_box" style="margin-top: 10px">
+        <div class="top">
+            <h2>个人特征</h2>
+            <span class="unlimit"><span class="pink">可多选</span></span>
+        </div>
+        <ul class="four_list" id="char">
+            <li class="">
+            <span {if !empty($t_arr) && in_array('孝顺',$t_arr)}class="pink"{/if} typeid="孝顺">孝顺</span>
+            <span {if !empty($t_arr) && in_array('自我',$t_arr)}class="pink"{/if} typeid="自我">自我</span>
+            <span {if !empty($t_arr) && in_array('有责任心',$t_arr)}class="pink"{/if} typeid="有责任心">有责任心</span>
+            <span {if !empty($t_arr) && in_array('随和',$t_arr)}class="pink"{/if} typeid="随和">随和</span>
+            </li>
+            <li class="">
+            <span {if !empty($t_arr) && in_array('憨厚',$t_arr)}class="pink"{/if} typeid="憨厚">憨厚</span>
+            <span {if !empty($t_arr) && in_array('感性',$t_arr)}class="pink"{/if} typeid="感性">感性</span>
+            <span {if !empty($t_arr) && in_array('好强',$t_arr)}class="pink"{/if} typeid="好强">好强</span>
+            <span {if !empty($t_arr) && in_array('冷静',$t_arr)}class="pink"{/if} typeid="冷静">冷静</span>
+            </li>
+            <li class="">
+            <span {if !empty($t_arr) && in_array('闷骚',$t_arr)}class="pink"{/if} typeid="闷骚">闷骚</span>
+            <span {if !empty($t_arr) && in_array('幽默',$t_arr)}class="pink"{/if} typeid="幽默">幽默</span>
+            <span {if !empty($t_arr) && in_array('好动',$t_arr)}class="pink"{/if} typeid="好动">好动</span>
+            <span {if !empty($t_arr) && in_array('宅',$t_arr)}class="pink"{/if} typeid="宅">宅</span>
+            </li>
+            <li class="">
+            <span {if !empty($t_arr) && in_array('体贴',$t_arr)}class="pink"{/if} typeid="体贴">体贴</span>
+            <span {if !empty($t_arr) && in_array('勇敢',$t_arr)}class="pink"{/if} typeid="勇敢">勇敢</span>
+            <span {if !empty($t_arr) && in_array('讲义气',$t_arr)}class="pink"{/if} typeid="讲义气">讲义气</span>
+            <span {if !empty($t_arr) && in_array('正直',$t_arr)}class="pink"{/if} typeid="正直">正直</span>
+            </li>
+            <li class="">
+            <span {if !empty($t_arr) && in_array('温柔',$t_arr)}class="pink"{/if} typeid="温柔">温柔</span>
+            <span {if !empty($t_arr) && in_array('稳重',$t_arr)}class="pink"{/if} typeid="稳重">稳重</span>
+            <span></span>
+            <span></span>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<script src="../addons/jy_ppp/js/zepto.min.js"></script>
+<script src="../addons/jy_ppp/js/waiting.js"></script>
+<script>
+$(function () {
+    $(".select select").bind("change",function(){
+        var self = this;
+        if ($(self).val() != 0) {
+            var str = $(self).find("option:selected").text();
+            $(self).siblings("span").text(str);
+        }
+    });
+    $(".four_list span").bind("click",function(){
+        if ($(this).hasClass("pink")) {
+            $(this).removeClass("pink");
+        } else {
+            $(this).addClass("pink");
+        }
+    });
+    $("#search_sure").bind("click",function(){
+        var need_bady = $("#need_bady").val();
+        var diff_lover = $("#diff_lover").val();
+        var love_type = $("#love_type").val();
+        var first = $("#sex_first").val();
+        var live_with = $("#live_with").val();
+        var charm = $("#charm").val();
+        var character = null;
+        var inter = null;
+
+        var arr = [];
+        var arr1 = [];
+        $.each($("#interest span"), function (index, item) {
+            if ($(this).hasClass("pink")) {
+                var t = $(this).attr("typeId")
+                arr.push(t)
+            }
+        });
+        $.each($("#char span"), function (index, item) {
+            if ($(this).hasClass("pink")) {
+                var t = $(this).attr("typeId")
+                arr1.push(t)
+            }
+        });
+        inter = arr.join(',');
+        character = arr1.join(',');
+
+        var param={child: need_bady, yidi:diff_lover, leixin:love_type, sex:first, fumu:live_with, meili:charm, aihao:inter, tezheng:character};
+        // AJAX-----
+        {if empty($_GPC['xuniid']) || $member['type']!=3}
+            $.ajax({url: "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('desc',array('op'=>'add')),2);}", data: param, dataType: 'text', type: 'post', success: function (text) {
+                if(text==1){
+                    $.tips("保存成功!");
+                    location.href = "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('geren'),2)}";
+                }else{
+                    alert(text);
+                    $.tips("网络不畅，请稍候再试"+text)
+                }
+            }, error: function () {
+                $.tips("网络不畅，请稍候再试");
+                }
+            })
+        {else}
+            $.ajax({url: "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('desc',array('op'=>'add','xuniid'=>$_GPC['xuniid'])),2);}", data: param, dataType: 'text', type: 'post', success: function (text) {
+                if(text==1){
+                    $.tips("保存成功!");
+                    location.href = "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('geren',array('xuniid'=>$_GPC['xuniid'])),2)}";
+                }else{
+                    alert(text);
+                    $.tips("网络不畅，请稍候再试"+text)
+                }
+            }, error: function () {
+                $.tips("网络不畅，请稍候再试");
+                }
+            })
+        {/if}
+    });
+});
+</script>
+
+    {if $weixin==1}
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    {php $signPackage=$_W['account']['jssdkconfig'];}
+    <script>
+
+        var appid = '{$_W['account']['jssdkconfig']['appId']}';
+        var timestamp = '{$_W['account']['jssdkconfig']['timestamp']}';
+        var nonceStr = '{$_W['account']['jssdkconfig']['nonceStr']}';
+        var signature = '{$_W['account']['jssdkconfig']['signature']}';
+
+        wx.config({
+            debug: false,
+            appId: appid,
+            timestamp: timestamp,
+            nonceStr: nonceStr,
+            signature: signature,
+            jsApiList: ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo']
+        });
+    </script>
+    <script type="text/javascript">
+        var params = {
+            {if empty($sitem['sharetitle'])}
+            title:"有缘网",
+            {else}
+            title: "{$sitem['sharetitle']}",
+            {/if}
+            {if empty($sitem['sharedesc'])}
+            desc: "有缘网!",
+            {else}
+            desc: "{$sitem['sharedesc']}",
+            {/if}
+            link: "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('index'),2)}",
+            {if empty($sitem['sharelogo'])}
+            imgUrl: "{$_W['siteroot']}addons/jy_ppp/icon.jpg",
+            {else}
+            imgUrl: "{$_W['attachurl']}{$sitem['sharelogo']}",
+            {/if}
+        };
+        wx.ready(function () {
+            wx.showOptionMenu();
+            wx.onMenuShareAppMessage.call(this, params);
+            wx.onMenuShareTimeline.call(this, params);
+        });
+    </script>
+    {/if}
+</html>

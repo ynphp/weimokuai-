@@ -1,0 +1,7 @@
+/*我的相册03*/
+.show_people{line-height: 22px;color: #555;}
+.show_people>.top {margin: 0 0 10px 0;}
+.show_people .photo{ overflow:hidden; background:#fff; text-align:center; font-size:.9em; padding:0 0 14px 0;}
+.show_people .photo li{ width:28.3%;max-height:110px; float:left; margin:15px 0 0 14px;}
+.show_people .photo li>img{ width:80px; height:80px;}
+.show_people .photo li p{font-size: 14px}

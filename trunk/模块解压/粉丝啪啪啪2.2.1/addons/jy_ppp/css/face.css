@@ -1,0 +1,30 @@
+@charset "utf-8";
+.talk_box .face_icon{ padding: 0 10px;position: relative}
+.talk_box .face_icon>.smile{background: url(../images/icon_smile1.png) center center no-repeat;display: block;width: 20px;height: 20px; position: absolute; left: 20px;top: -30px;background-size:17px;}
+.talk_box .face_icon>ul{ background:#fff; width:100%; overflow:hidden;padding-bottom:8px;margin-top:3px;}
+.talk_box .face_icon>ul>li{ float:left; width:14.28%; vertical-align:middle;height: 40px;text-align: center}
+.send_out .face_icon{display: none}
+.talk_box .face_icon{display: block}
+.icon{ display:inline-block;vertical-align: middle; width:25px; height:25px; margin:0 auto; background:url(../images/face.png) center center no-repeat; background-size:30px;}
+.face_1{ background-position:0 0;}
+.face_2{ background-position:0 -30px;}
+.face_3{ background-position:0 -60px;}
+.face_4{ background-position:0 -90px;}
+.face_5{ background-position:0 -120px;}
+.face_6{ background-position:0 -150px;}
+.face_7{ background-position:0 -180px;}
+.face_8{ background-position:0 -210px;}
+.face_9{ background-position:0 -240px;}
+.face_10{ background-position:0 -270px;}
+.face_11{ background-position:0 -300px;}
+.face_12{ background-position:0 -330px;}
+.face_13{ background-position:0 -360px;}
+.face_14{ background-position:0 -390px;}
+.face_15{ background-position:0 -420px;}
+.face_16{ background-position:0 -450px;}
+.face_17{ background-position:0 -480px;}
+.face_18{ background-position:0 -510px;}
+.face_19{ background-position:0 -540px;}
+.face_20{ background-position:0 -574px;}
+.face_21{ background-position:0 -608px;}
+.face_22{ background-position:0 -640px;}

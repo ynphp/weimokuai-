@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+{if $weixin==1}
+<html lang="zh" class="wx">
+{else}
+<html lang="zh" class="pu">
+{/if}
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<title>{if !empty($sitem['aname'])}{$sitem['aname']}{else}有缘网{/if}</title>
+<link href="../addons/jy_ppp/css/public_reset.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/public.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/option_box.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/public_disbox.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/head_nav.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/user-list.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/user_box.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/nearby02.css" rel="stylesheet" type="text/css"/>
+<link href="../addons/jy_ppp/css/home_page.css" rel="stylesheet" type="text/css"/>
+  <link href="../addons/jy_ppp/css/bottom_call.css" rel="stylesheet" type="text/css" />
+<style>
+.qunsay{
+    position: fixed;
+    bottom: 80px;
+    left: 0;
+    width: 100%
+}
+.sayHiss {
+    margin: 0 auto;
+    width: 90%;
+    height: 50px;
+    background: rgba(236,32,88,0.75);
+    border-radius: 8px;
+    font-size: 24px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 50px;
+    max-width: 480px
+}
+.sayHiss>img{width:30px}
+</style>
+</head>
+<body>
+<div>
+    <div>
+        <section class="content" id="found_section">
+        <section id="nearby_list" class="content_02 nearby02">
+        <!-- begin -->
+        {php $now=time();}
+        {loop $tuijian $t}
+        <ul class="disbox-hor user-list" data-id="{$t['id']}">
+            <li class="foot-icon"><a href="{php echo $this->createMobileUrl('detail',array('id'=>$t['id']))}">
+                {if !empty($t['avatar'])}
+                    <img src="{$_W['attachurl']}{$t['avatar']}" />
+                {else}
+                    {if $t['sex']==1}
+                        <img src="../addons/jy_ppp/images/boy.png"/>
+                    {else}
+                        <img src="../addons/jy_ppp/images/girl.png"/>
+                    {/if}
+                {/if}
+            </a></li>
+            <li class="disbox-flex user_mession"><a href="{php echo $this->createMobileUrl('detail',array('id'=>$t['id']))}">
+            <b class="tit">{$t['nicheng']}</b>
+            <p>{$province[$t['province']]}  {if !empty($t['brith'])}
+                {php $birthday=$t['brith'];$month=0;if(date('m', $now)>date('m', $birthday))$month=1;if(date('m', $now)==date('m', $birthday))if(date('d', $now)>=date('d', $birthday))$month=1;$nianlin=date('Y', $now)-date('Y', $birthday)+$month;}{$nianlin}岁{/if} {if !empty($t['height'])}{$t['height']}cm{/if}</p>
+            <p class="foot_imgarrange">{if !empty($t['beizhu'])}{$t['beizhu']}{else}{if !empty($t['province2'])}寻找{$province[$t['province2']]}{if !empty($t['age'])}{$match_age[$t['age']]}{/if}{if !empty($t['height2'])} {$match_height[$t['height2']]}cm{/if}的{$xz_sex}{else}寻找{if !empty($t['province'])}{$province[$t['province']]}{else}{$province[11]}{/if}的{$xz_sex}{/if}{/if}</p>
+            </a></li>
+            <div ><span class="hai_hello" onclick="sayHello(this,{$t['id']})" style="font-size:13px">打招呼</span></div>
+        </ul>
+        {/loop}
+        <!-- end -->
+        </section>
+
+         {if count($tuijian)>9}
+            <div class="see_more" onclick="moreMsg(this)">点击查看更多</div>
+        {/if}
+        <div class="loading" >没有更多了</div>
+
+        <div style="height:120px"></div>
+        </section>
+    </div>
+</div>
+
+<div class="qunsay">
+    <div class="sayHiss">
+    <i class="icon-bt-hello"></i>群打招呼</div>
+</div>
+{template menu}
+<script src="../addons/jy_ppp/js/zepto.min.js"></script>
+<script src="../addons/jy_ppp/js/public.js"></script>
+<script src="../addons/jy_ppp/js/waiting.js"></script>
+
+<script>
+$(".sayHiss").bind("click",function(){
+    var str = "";
+    for(var i=0;i<$(".disbox-hor").length;++i){
+        if($(".disbox-hor").eq(i).find("span").hasClass("hai_hello")){
+            str += $(".disbox-hor").eq(i).data("id")+",";
+        }
+    }
+    $.post("{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('luck',array('op'=>'zhaohu')),2)}"+"&str="+str,function(data){
+        if(data==1)
+        {
+            $(".hai_hello").removeClass("hai_hello").addClass("hello_out").html("已打招呼");
+            $.tips("群打招呼已发出，请耐心等待回复");
+        }
+        else
+        {
+            alert("网络出错，请重试!");
+        }
+    });
+})
+function moreMsg(obj){
+    var str = "";
+    for(var i=0;i<$(".disbox-hor").length;++i){
+        str += $(".disbox-hor").eq(i).data("id")+",";
+    }
+
+    $.post("{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('luck',array('op'=>'more')),2)}"+"&str="+str,function(data){
+        if(data.status==1)
+        {
+            $("#nearby_list").append(data.log);
+        }else if(data.status==2)
+        {
+            $("#nearby_list").append(data.log);
+            $(".see_more").hide();
+            $(".loading").show();
+        }
+        else
+        {
+            alert("网络出错，请重试!");
+        }
+    },'json');
+}
+function sayHello(obj,id){
+    $.post("{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('luck',array('op'=>'zhaohu2')),2)}"+"&id="+id,function(data){
+        if(data==1)
+        {
+            $(obj).removeClass("hai_hello").addClass("hello_out").html("已打招呼");
+            $.tips("招呼已发出，请耐心等待Ta的回复");
+        }else if(data==2)
+        {
+            $(obj).removeClass("hai_hello").addClass("hello_out").html("已打招呼");
+            $.tips("你今天已经向Ta打过招呼了。");
+        }
+        else
+        {
+            alert("网络出错，请重试!");
+        }
+    });
+}
+</script>
+{if $weixin==1}
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    {php $signPackage=$_W['account']['jssdkconfig'];}
+    <script>
+
+        var appid = '{$_W['account']['jssdkconfig']['appId']}';
+        var timestamp = '{$_W['account']['jssdkconfig']['timestamp']}';
+        var nonceStr = '{$_W['account']['jssdkconfig']['nonceStr']}';
+        var signature = '{$_W['account']['jssdkconfig']['signature']}';
+
+        wx.config({
+            debug: false,
+            appId: appid,
+            timestamp: timestamp,
+            nonceStr: nonceStr,
+            signature: signature,
+            jsApiList: ['checkJsApi','onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo']
+        });
+    </script>
+    <script type="text/javascript">
+        var params = {
+            {if empty($sitem['sharetitle'])}
+            title:"有缘网",
+            {else}
+            title: "{$sitem['sharetitle']}",
+            {/if}
+            {if empty($sitem['sharedesc'])}
+            desc: "有缘网!",
+            {else}
+            desc: "{$sitem['sharedesc']}",
+            {/if}
+            link: "{php echo $_W['siteroot'].'app/'.substr($this->createMobileUrl('index'),2)}",
+            {if empty($sitem['sharelogo'])}
+            imgUrl: "{$_W['siteroot']}addons/jy_ppp/icon.jpg",
+            {else}
+            imgUrl: "{$_W['attachurl']}{$sitem['sharelogo']}",
+            {/if}
+        };
+        wx.ready(function () {
+            wx.showOptionMenu();
+            wx.onMenuShareAppMessage.call(this, params);
+            wx.onMenuShareTimeline.call(this, params);
+        });
+    </script>
+    {/if}
+</body>
+</html>

@@ -1,0 +1,8 @@
+@charset "utf-8";
+/* CSS Document */
+.voice, .voice_gif{ display:inline-block; width:14px; height:20px; background:url(../images/talk_voice.png) no-repeat; background-size: cover; float: right;}
+.voice_gif{ background:url(../images/talk_voice.gif) no-repeat;}
+.audio{ position: absolute;left: -400px;opacity:0;width:0;}
+.chatList .you  .voice,.chatList .you .voice_gif{display:inline-block; width:14px; height:20px; background:url(../images/talk_voice_2.png) no-repeat; background-size: cover; float: left; }
+.chatList .you .voice_gif{background:url(../images/talk_voice_2.gif) no-repeat;}
+.dis_block{ display: block;}

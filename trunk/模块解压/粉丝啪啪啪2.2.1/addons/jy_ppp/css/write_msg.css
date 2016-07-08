@@ -1,0 +1,42 @@
+/*对话发送*/
+.send_out{height:52px; position: fixed; left:0px; bottom:0px; right:0px;z-index: 9999}
+.send_out>div{width: 100%;max-width: 480px;margin: 0 auto}
+.send_out ul{ height:52px; border-top:1px solid #E3E3E3; padding:0 2%;background-color: #f0f0f0 }
+.send_out ul li{float: left;width: 20%;margin: 0;padding: 0px;height:42px; line-height:42px;padding-top: 4px; }
+.send_out ul li:first-child{width: 80%}
+.send_out ul li textarea {resize:none;display: inherit;width: 96%;height:36px;line-height:30px;box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing:border-box;-o-box-sizing: border-box;-ms-box-sizing: border-box;border: solid 1px #CCC;border-radius: 3px; font-size:14px;}
+.send_out ul li button {width: 96%;height:36px;color:#fff;padding: 3px 0;border: solid 1px #CE2C5B;border-radius: 3px;background:#ED376A;font-size:14px;}
+.send_btn{display:inline-block;width: 50px;height:30px;line-height:30px;color:#fff;margin-top: 10px;border-radius: 5px;background:#ED376A;font-size:14px;box-shadow: 1px 1px 2px rgba(0,0,0,0.1);}
+
+
+/*私信对话弹窗及加载*/
+.talk_box{height:100%; position: fixed; top: 52px; left: 0; right: 0;bottom: 0;}
+.talk_box>div{width: 100%;max-width: 480px;margin: 0 auto;background-color: #fff;height: 100%;padding-top: 10px}
+.talk_box ul{ background: #fff;height: 120px; border:none 0;}
+.talk_box ul li{ position:relative; overflow:hidden; height: auto;}
+.talk_box>ul li:first-child{ width: 100%;}
+.talk_box ul li textarea{resize:none; width:96%;height:116px;border-radius: 5px;border: 1px solid #ccc;font-size:14px;margin-left: 2%;outline: none;}
+.talk_box ul li .provide{ position:absolute; right:15px; bottom:10px; font-size:.6em;line-height:12px;}
+.talk_box ul li button{width: 100%; display:block;height:40px; line-height:40px; text-align:center; border-radius:5px;color: #444; background: #fff;  border:1px solid #D5D5D5; margin:10px 0 0;font-size: 16px}
+
+/*sp 支付 s*/
+.box-sizing{box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -o-box-sizing:border-box; -ms-box-sizing:border-box;}
+.sp-survice{ color:#333; line-height:24px;}
+.sp-survice .revamp{ color:#2445FF; text-decoration:underline; font-size:1.1em;}
+.sp-survice .see_more{ border-radius:3px;}
+.bg-pink{ background:#ED376A; color:#fff;}
+.margin10{ margin:10px; overflow:hidden;margin-top: -40px;}
+.sp-survice fieldset{ border:0; border-top:1px dotted #AAA; margin:0; padding:0 0 5px;}
+.sp-survice fieldset legend{ color:#AAA; padding:0 10px 0 0; background:#F0F0F0;} 
+.sp-survice p{ word-break:break-all; word-wrap:break-word;}
+.pd-botton10{ padding:0 0 10px;}
+
+/*遮罩*/
+.mask{ width:100%; height:100%; background:rgba(0,0,0,.8); position:fixed; left:0; top:0; z-index:100; display:none;}
+/*验证手机弹窗*/
+.alert-tphone{ width:80%; height:136px; background:#fff; color:#333; padding:15px 20px; position:fixed; left:50%; top:50%; margin:-68px 0 0 -40%; z-index:110; box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box; -o-box-sizing:border-box; -ms-box-sizing:border-box; display:none;}
+.alert-tphone .btn{ display:block; width:100%; height:40px; font-weight:bold; line-height:40px; text-align:center; background:#F7F7F7; color:#74B9C9; border-top:1px solid #E9E9E9; position:absolute; left:0; bottom:0;}
+.alert-tphone .ph-number{ display:block; width:100%; height:36px; line-height:36px; border:none; background:#E3E3E3; padding:0 8px; border-radius:5px; margin:10px 0;}
+.alert-tphone .ts{ font-size:12px;}
+.alert-tphone .closed{ display:block; width:30px; height:30px; position:absolute; right:0px; top:0px; background: url(/xfile/weixin/resources/v20/images/close_btn.png) center center no-repeat; background-size:20px;}
+/*sp 支付 e*/

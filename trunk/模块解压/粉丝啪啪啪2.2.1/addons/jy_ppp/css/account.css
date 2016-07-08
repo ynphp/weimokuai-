@@ -1,0 +1,8 @@
+.test_box>li{ margin:10px 0; height:38px; line-height:38px;}
+.test_box>li>input{font-size: 14px; width:100%; height:38px; line-height:38px;margin:0; border:0; background:#fff; color:#999; padding:0 0 0 4%;}
+.test_box>li>input.input_out, .honest_02>.test_box>li>input.input_out{ color:#555;;}
+.test_box>li>input.post{ width:60%; float:left;}
+.test_box>li>span.get_btn{ width:36%; float:left; margin:0 0 0 4%; background:#74B9C8; color:#fff; text-align:center;font-size:.8em;}
+.repair_success{ background:#fff; padding:14px 10px; line-height:24px; font-size:.9em; color:#555;}
+.repair_success .skip_btn{ text-decoration:underline;}
+.btn_logout{position: fixed;bottom: 0;left: 0;right: 0;display: block;height: 42px;line-height: 42px;background: #ED376A; color: #fff;text-align: center; margin: 10px;box-shadow: 1px 1px 2px rgba(0,0,0,0.2);font-size: 1em; font-weight: bold;}

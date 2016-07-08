@@ -1,0 +1,217 @@
+.scroll_photo {
+    width: 100%;
+    overflow-x: scroll;
+    background: #fff;
+    margin: 10px 0;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1)
+}
+
+.need_photo {
+    width: 100%;
+    height: 56px;
+    margin: 0;
+    padding: 0 0 16px 0
+}
+
+.need_photo > li {
+    margin: 10px 0 0 10px;
+    float: left
+}
+
+.need_photo > li:last-child {
+    margin-right: 10px
+}
+
+.need_photo > li.require {
+    background: #ccc;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: '黑体'
+}
+
+.need_photo > li, .need_photo > li >a> img {
+    width: 50px;
+    height: 50px
+}
+
+.user_space .heart, .date_list {
+    background: #fff
+}
+
+.user_space .heart > dt {
+    color: #555;
+    height: 38px;
+    line-height: 38px;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0 0 0 10px
+}
+
+.user_space .heart > dd {
+    font-size: .9em;
+    margin: 1px 0 0;
+    line-height: 22px;
+    padding: 10px
+}
+
+.date_list,.heart_show {
+    margin: 10px 0 10px;
+    overflow: hidden;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1)
+}
+.user_space .date_list:last-child{ margin: 10px 0 50px;}
+
+.date_list .date_nav {
+    height: 38px;
+    line-height: 38px;
+    border-bottom: 1px solid #f0f0f0
+}
+
+.date_list .date_nav li {
+    width: 33.3333%
+}
+
+.date_list .date_nav li.active {
+    border-bottom: 1px solid #e98fa9;
+    color: #555
+}
+
+.date_list > .user_date > li {
+    height: 37px;
+    line-height: 37px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: .9em
+}
+
+.date_list > .user_date > li:last-child {
+    border: none 0
+}
+
+.date_list > .user_date > li > span:first-child {
+    float: left;
+    margin: 0 0 0 10px
+}
+
+.date_list > .user_date > li > span:last-child {
+    float: right;
+    margin: 0 10px 0 0;
+    color: #555
+}
+
+.simple_info {
+    width: 80%;
+    background: #fff;
+    margin: 100px auto;
+    text-align: center;
+    z-index: 1001;
+    overflow: hidden;
+    max-width: 400px
+}
+.simple_info>a{display: block;}
+.simple_info .title {
+    height: 30px;
+    border-bottom: 1px solid #e9e9e9;
+    font-size: 1.2em
+}
+
+.simple_info .title span {
+    display: block;
+    width: 35%;
+    height: 30px;
+    line-height: 30px;
+    color: #333;
+    border-bottom: 1px solid #adadad
+}
+
+.simple_info .examine {
+    margin: 30px 0
+}
+
+.simple_info .examine dd.tit {
+    font-size: 1.2em;
+    color: #555;
+    margin: 8px 0
+}
+
+.simple_info .btn {
+    display: block;
+    color: #72bac6;
+    height: 34px;
+    line-height: 34px;
+    background: #f7f7f7;
+    border-top: 1px solid #e9e9e9
+}
+
+.simple_info .closed {
+    display: block;
+    width: 14px;
+    height: 14px;
+    background: url(../images/closed_black.png) no-repeat;
+    position: absolute;
+    right: 8px;
+    top: 8px
+}
+
+.send_out {
+    display: none
+}
+
+.house_icon{ display:block; width:50px; height:50px; background:url(../images/house.png) center center no-repeat; background-size:20px;}
+/*底部关注拉黑举报*/
+.bottom{ margin:0 0 8px; text-align: center}
+.bottom a{display: inline-block;color: #999;border-right:1px solid #D9D9D9;padding: 0 10px; height:16px; line-height:16px;}
+.bottom span{display: inline-block;padding: 0 10px; height:16px; line-height:16px;color:#999;border-right:1px solid #D9D9D9;}
+.bottom a:last-child{ border-right:none}
+
+/*弹出层*/
+.shadowBanner{width:100%;height:100%;position:fixed;top:0;left:0;vertical-align:middle;display:none;z-index:150}
+.shadowBanner>div{width: 100%;height:100%;max-width: 480px;text-align:center;margin: 0 auto;background:#000;}
+.shadowBanner>div>div{width:320px;margin:50px auto;height:100%;vertical-align:middle}
+.shadowBanner img{min-width:50%;height:auto;vertical-align:middle;}
+
+body .foot {
+text-align: center;
+padding: 10px 0 80px;
+}
+.foot .notice{ height:22px; line-height:22px; color:#ee4b76; padding:0 10px; margin:6px 0 0; font-size:14px;background:none; text-align:center;}
+.foot .notice>img{ display:none; width:20px; float:left; vertical-align:middle; margin:6px 4px 0 0;background:none;}
+.foot .notice .notice_box{ display:inline; float:left; height:22px; line-height:22px; overflow:hidden;position:relative;width:100%;margin-top:3px;}
+.foot .notice_box ol{position:absolute;top:0;left:0; width: 100%}
+/*个人心情展 示*/
+.heart_show{background:#fff;}
+.heart_show > .heart_title{padding:0 10px;height:36px;line-height:36px;border-bottom:1px solid #ececec;}
+.heart_show > .heart_title > span{float:left;color:#555;}
+.heart_show > .heart_title > a{float:right;}
+.heart_show > .heart_con{padding:10px;line-height:20px;overflow:hidden;}
+.heart_show > .heart_con dl{width:100%;display:-webkit-box;display:-moz-box;display:-ms-box;display:box;}
+.heart_show > .heart_con dt{margin-right:10px;width:50px;height:50px;}
+.heart_show > .heart_con dd{-webkit-box-flex:1;-moz-box-flex:1;-ms-box-flex:1;}
+.heart_show > .heart_con p:nth-child(1){font-size:.9em;}
+.heart_show > .heart_con p:nth-child(2){color:#999;font-size:12px;}
+.user_box .user dt img.green_icon{position:absolute;bottom:0;left:0;width:11px;height:11px;background:none 0;}
+
+/******************************************************************
+H5正向化，打招呼问题拦截 2015-06-15 Liuxx
+*******************************************************************/
+ .rel{ position:relative}
+ .abs{ position:absolute}
+ .p-l-20{padding-left:20px;}
+ /***** 隔离空白上限200 *****/ 
+ .blank10{height:10px; clear:both; overflow:hidden; font-size:0}
+ .blank15{height:15px; clear:both; overflow:hidden; font-size:0}
+ .blank20{height:20px; clear:both; overflow:hidden; font-size:0}
+
+  /***** 行高 *****/
+ .l-h-30{line-height:30px;}
+
+ /*** 拦截弹层 ***/
+.StrategyInfo{ width:80%; height:360px; background:#fff; position:fixed; left:10%; top:50%; margin-top:-180px; z-index:1001; font-size:14px;}
+.StrategyInfo .top_{ height:72px; line-height:72px; text-align:center; border-bottom:1px solid #e9e9e9; vertical-align:top; font-size:14px;}
+.StrategyInfo .top_ .ltb,.StrategyInfo .top_ .rtb{ height:65px; line-height:65px; float:left}
+.StrategyInfo .top_ .rtb{ width:50%; text-align:left; text-indent:0.5em;}
+.StrategyInfo .top_ .Smile{ width:50%; background:url(../images/Smile.png) no-repeat 100% center}
+.StrategyInfo .tit_{ line-height:160%; font-weight:bold; color:#555; padding-left:8%;  padding-right:8%;}
+.StrategyInfo .box_ ul li{ border:1px solid #ed376a; width:80%; margin:0 auto; height:45px; line-height:45px; display:block; margin-bottom:15px; color:#ed376a; text-align:center;}
+.StrategyInfo .box_ ul .lion{background:#ed376a; color:#fff;}
+.StrategyInfo .spokbtn{ height:50px; width:90%; margin:0 auto; background:#ed376a;  border-radius:0.5em; font-size:14px; line-height:50px; text-align:center; color:#fff; font-weight:bold}
+.StrategyInfo .close_btnR{ width:50px; height:60px; z-index:1002; top:0; right:0; background:url(../images/close_btn.png) no-repeat center center;}

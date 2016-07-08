@@ -1,0 +1,14 @@
+/*对方空间页的底部修改*/
+.another{z-index:100;width:46px;height:46px;border-radius:46px;background:rgba(0,0,0,.5);position:fixed;bottom:100px;right:10px;}
+.another .re_trg{display: inline-block; border-right:2px solid #ccc;border-bottom:2px solid #ccc; transform:rotate(-45deg);-webkit-transform: rotate(-45deg);-moz-transform: rotate(-45deg);-o-transform: rotate(-45deg);-ms-transform: rotate(-45deg);border-color:#fff;width:12px;height:12px;border-width:3px;margin-top:16px;margin-left:13px; border-radius:3px;}
+.bottomNext{width:96%;height:36px;padding:8px 2%;position:fixed;bottom:5px;}
+.bottomNext>div{max-width: 480px;margin: 0 auto}
+.bottomNext span{display:block;width: 100%;float:left;text-align:center;height:44px;line-height:44px;background:rgba(236,32,88,0.75);color: #fff;border-radius: 3px;font-size: 18px;font-weight: bold}
+.bottomNext span:last-child{float: right}
+.bottomNext span.hello_out{background-color: rgba(180,180,180,0.75);}
+.icon-bt-hello,
+.icon-bt-next,
+.icon-bt-close{display: inline-block;width: 26px;height: 22px;margin-right:5px;margin-top:-2px;vertical-align: middle;background-size:contain;}
+.icon-bt-hello{background-image:url(../images/icon_Hi3.png); }
+.icon-bt-next{background-image: url(../images/icon_rightBtn.png);}
+.icon-bt-close{background-image: url(../images/icon_close.png);}

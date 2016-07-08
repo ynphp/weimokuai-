@@ -1,0 +1,25 @@
+@charset "utf-8";
+/* CSS Document */
+/*主页附近的人*/
+.hai_hello, .hai_hello_out{ display:block; width:62px; height:26px; line-height:26px; text-align:center; border:1px solid #DFCED4; color:#C74A6C; margin:6px 0 0;}
+.hai_hello_out{border-color: #c8c8c8; color: #c8c8c8; }
+.nearby02 .user-list .foot-icon { width:60px; }
+.nearby02 .user-list .foot-icon img{ display:block;width:60px;height:73px;}
+.nearby02 .user-list li .tit{padding:2px 0 5px;}
+.nearby02 .user-list li .foot_imgarrange{ height: 16px;margin: 6px 0 0;overflow: hidden;text-overflow: ellipsis; white-space: nowrap; width: 150px;}
+.nearby02 .user-list li p{ font-size:.8em;}
+.nearby02 .user-list li .foot_imgarrange img{ width:30px; height:30px; margin:0 8px 0 0;}
+.nearby02 .user-list .right{ height:14px; background:url(../images/sign.png) left center no-repeat; position:absolute; right:10px; top:10px;}
+.content_02{margin:0;}
+
+.guide_mask{ width:100%; height:100%;position:fixed; left:0; top:0;bottom:0; background:url(../images/guide_hello.png) 88% 178px no-repeat rgba(0,0,0,.7); z-index:1000;display:none;}
+.guide_mask .mask_btn{width:80px;height:42px;position:absolute;right:10px;top:178px;}
+
+
+.hai_hello, .hai_hello_out{ display:block; width:62px; height:26px; line-height:26px; text-align:center; border:1px solid #DFCED4; color:#C74A6C; margin:6px 0 0; border-radius: 3px;}
+.hai_hello_out{border-color: #c8c8c8; color: #c8c8c8; }
+
+.sayHis{
+	display:block;position:fixed;bottom:80px;left:5%;width:90%;height:50px;background:#f770ec;border-radius:8px;font-size:24px;color:#ffffff;text-align:center;line-height:50px;
+}
+.sayHis img{width:24px;height:24px;background-color:rgba(0,0,0,0);margin:-5px 5px 0;}
