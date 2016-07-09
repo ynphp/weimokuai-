@@ -1,0 +1,336 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+<title>通缉单身喵！</title>
+<link href="../addons/czt_mojing/template/mobile/css/style.css" rel="stylesheet" type="text/css">
+<link href="../addons/czt_mojing/template/mobile/css/loading.css" rel="stylesheet" type="text/css">
+<link href="../addons/czt_mojing/template/mobile/css/door.css" rel="stylesheet" type="text/css">
+<script src="../addons/czt_mojing/template/mobile/js/jquery.min.js"></script>
+<script src="../addons/czt_mojing/template/mobile/js/modal.js"></script>
+
+</head>
+
+<body>
+<div class="bg">
+
+  <div id="loading">
+    <div><img src="../addons/czt_mojing/template/mobile/images/loading1.png"></div>
+    <p>Loading　</p>
+    <div class="loadStars"></div>
+  </div>
+  <div class="wrap pic1 none">
+    <div class="grid"></div>
+    <div class="Hpeople"></div>
+    <div class="Htext">七夕孤独患者~</div>
+  </div>
+  <div class="wrap pic2 none">
+    <div class="grid"></div>
+    <div class="Fpeople"></div>
+    <div class="stars2"></div>
+    <div class="bird"></div>
+    <div class="Htext">接吻活动，有考虑单身喵的感受吗？</div>
+  </div>
+  <div class="wrap pic3 none">
+    <div class="Ipeople"></div>
+    <div class="invitation"></div>
+    <div class="hand"></div>
+    <div class="ring"></div>
+    <div class="invitationBtn none"></div>
+  </div>
+  <div class="wrap door none">
+    <div class="doorArea door3"></div>
+    <div class="doorArea door4"></div>
+    <div class="doorArea door2"></div>
+  </div>
+</div>
+<div class="wrap none" id="besom">
+  <div class="mirror"><div class="relative">
+	  <div><img src="../addons/czt_mojing/template/mobile/images/mirror.png" ></div>
+    <div class="Mtext"><img src="../addons/czt_mojing/template/mobile/images/text1.png" ></div>
+  </div></div>
+  <div class="people"><img src="../addons/czt_mojing/template/mobile/images/people.png" ></div>
+  <div class="Mtips">按住魔法扫把，<br>默念“魔镜魔镜，为何我还单身？”<br>心越诚，答案越准哦</div>
+  <!-- <div class="besom"><img src="../addons/czt_mojing/template/mobile/images/besom.png" id="besomBtn" ></div> -->
+  <div class="besom"><img src="../addons/czt_mojing/template/mobile/images/besom.png" ><span id="besomBtn" style="width:100%; height:100%; position:absolute; left:0; top:0" ontouchstart="return false;"></span></div>
+</div>
+<div class="wrap none" id="faq">
+  <div class="mirror"><div class="relative">
+	  <div><img src="../addons/czt_mojing/template/mobile/images/mirror.png" ></div>
+    <div class="Mtext"><img src="../addons/czt_mojing/template/mobile/images/text2.png" class="hover" ></div>
+  </div></div>
+  <div class="people"><img src="../addons/czt_mojing/template/mobile/images/people2.png" ></div>
+  <div class="Fselect">魔镜已给出答案，请你郑重的做出选择~</div>
+  <div class="FSbtn"><a href="javascript:;" class="btn">真</a><a href="javascript:;" class="btn">假</a></div>
+</div>
+<div class="wrap none" id="answer">
+  <div class="scratch relative" style="margin-top:10%">
+    <div><img src="../addons/czt_mojing/template/mobile/images/scratch.png" ></div>
+    <div class="Stext">
+      <h5>{$answer[0]}</h5>
+      <div class="Sinfo">{$answer[1]}</div>
+      <!-- <h6>帅到睡不着</h6> -->
+      <h6><span onclick="replay()" >重 玩</span></h6>
+    </div>
+  </div>
+  <div class="stars"><img src="../addons/czt_mojing/template/mobile/images/stars.png"></div>
+<!--   <div class="Rbtn" style="padding-top:4%"><a href="javascript:modal('share');" class="btn">不能让我一个人单</a></div>
+  <div class="Rbtn"><a href="/index.php?s=/addon/mojing/Index/raffle/id/82.html" class="btn">100%送大奖，快领</a></div>
+  <div class="Rbtn" style="padding-bottom:6%"><a href="javascript:;" class="btn" id="resumed">重 玩</a></div>
+</div> -->
+  <div class="relative" style="width:80.625%; left:9%; margin:6% 0 2%">
+    <div><img src="../addons/czt_mojing/template/mobile/images/Stitle.png"></div>
+    <div style="position:absolute; left:34%; top:38%; margin-top:-.5em; line-height:1; color:#000">目前有0个好友匿名评价</div>
+  </div>
+  <div class="Rbtn"><a href="javascript:void(0);" id="share_type" class="btn">邀好友匿名评价</a></div>
+  <div class="Rbtn" style="padding-bottom:6%"><a href="{$setting['btn_url']}" class="btn">{$setting['btn_text']}</a><!-- <a href="/index.php?s=/addon/mojing/Index/index/id/82.html" class="btn" id="resumed_" style="margin-left:2%">重 玩</a> --></div>
+</div>
+<div class="speaker speaker_play none"></div>
+<audio id="audio"  src="../addons/czt_mojing/template/mobile/images/mojing.mp3" autoplay="autoplay" loop="loop"></audio>
+<script type="text/javascript">
+function replay(){
+  window.location.reload();
+}
+var audio = $("#audio")[0];
+//audio.pause();
+//audio.play();
+window.onload=function(){
+	$("#loading").hide();
+	$(".speaker").show();
+	Ihome();
+}
+$("#resumed").click(function(e) {
+  $("#answer").hide();
+	$(".wrap").removeClass('hover');
+	Ihome();
+});
+function Ihome(){
+	//第一屏
+	$(".pic1").show();
+	$(".pic1").addClass('hover');
+	var Hpeople = setInterval(function () {
+		$(".Hpeople").addClass('Hpeople2');
+		setTimeout(function () {
+			$(".Hpeople").removeClass('Hpeople2');
+		},300)
+	},600)
+	//第二屏
+	setTimeout(function () {
+		clearInterval(Hpeople);
+		$(".pic1").fadeOut(400);
+		$(".pic2").fadeIn(600);
+		setTimeout(function () {
+			$(".pic2").addClass('hover');
+		},400)
+	},4800)
+	//第三屏
+	setTimeout(function () {
+		$(".pic2").fadeOut(400);
+		$(".pic3").fadeIn(600);
+		setTimeout(function () {
+			$('.pic3').addClass('hover');
+		},800)
+		setTimeout(function () {
+			$('.invitationBtn').show();
+		},2200)
+	},8700)
+}
+
+$(".invitationBtn").on('click', function () {
+		$(".pic3").fadeOut(400);
+		$(".door").fadeIn(600);
+		setTimeout(function () {
+			$('.invitationBtn').hide();
+			$('.door').addClass('hover');
+		},400)
+		//第五屏
+		setTimeout(function () {
+			$(".door").hide();
+			$("#besom").fadeIn(400);
+		},4800)
+})
+$('#besomBtn').on('touchmove', function (event) {
+	event.preventDefault();
+});
+
+$('#besomBtn').on('touchstart', function () {
+  $("#besom .Mtext").fadeOut(600);
+  $(this).prev('img').addClass('hover');
+  return false;
+});
+
+$('#besomBtn').on('touchend', function () {
+	$("#besom").hide();
+	$(this).removeClass('hover');
+	$("#faq").show();
+});
+
+$(".FSbtn .btn").click(function() {
+	$("#faq").hide();
+	$("#answer").show();
+
+	//分享开始
+    wx.ready(function(){
+
+   		ShareData = {
+
+   			imgUrl : "{MODULE_URL}icon.jpg",
+   			link : "{php echo $_W['siteroot'].'app/'.$this->createMobileUrl('index', array('openid'=>$_W['openid']),1);}",
+   			desc : '我单身原因居然是这个，好可怕！',
+   			title : '通缉单身喵 '
+   		};
+
+   		wx.onMenuShareAppMessage({
+   			title: ShareData.title, // 分享标题
+   			desc: ShareData.desc, // 分享描述
+   			link: ShareData.link, // 分享链接
+   			imgUrl: ShareData.imgUrl, // 分享图标
+   			type: 'link', // 分享类型,music、video或link，不填默认为link
+   			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+   			success: function () {
+   				// 用户确认分享后执行的回调函数
+   			},
+   			cancel: function () {
+   				// 用户取消分享后执行的回调函数
+   			}
+   		});
+
+   		wx.onMenuShareTimeline({
+   			title: ShareData.desc, // 分享标题
+   			link: ShareData.link, // 分享链接
+   			imgUrl: ShareData.imgUrl, // 分享图标
+   			success: function () {
+   				// 用户确认分享后执行的回调函数
+   			},
+   			cancel: function () {
+   				// 用户取消分享后执行的回调函数
+   			}
+   		});
+   	});
+	//分享
+});
+//音乐按钮
+$(".speaker").click(function(){
+	var speaker = "speaker_play";
+	if ($(this).hasClass(speaker)) {
+    audio.pause();
+		$(this).removeClass(speaker)
+	}else{
+    audio.play();
+		$(this).addClass(speaker)
+	}
+})
+</script>
+<!--分享-->
+<div class="modal" id="share">
+  <div class="mod-bg mod-hide"></div>
+  <div class="mod-share mod-hide"><img src="../addons/czt_mojing/template/mobile/images/share.png" ></div>
+</div>
+<script>
+//分享判断
+$("#share_type").click(function(){
+	var wxshareurl = window.location.href;
+	var wxname =  "通缉单身喵";
+	modal("share");
+})
+</script>
+<!-- 公共底部 -->
+<style>
+/* alert box */
+.al_box{ max-width:70%; background:#2b2a2a; filter: alpha(opacity=80); -moz-opacity: 0.8; -khtml-opacity: 0.8; opacity: 0.8; padding:10px; font-size:14px; color:#fff; position:absolute; -moz-border-radius:7px; -webkit-border-radius:7px; border-radius:7px; box-shadow:0px 0px 10px #000; -webkit-box-shadow:0px 0px 10px #000; -moz-box-shadow:0px 0px 10px #000; z-index:10001;}
+.load_box{ max-width:70%; background:#2b2a2a; filter: alpha(opacity=80); -moz-opacity: 0.8; -khtml-opacity: 0.8; opacity: 0.8; padding:18px 40px; font-size:17px; color:#fff; position:absolute; -moz-border-radius:7px; -webkit-border-radius:7px; border-radius:7px; box-shadow:0px 0px 3px #000; -webkit-box-shadow:0px 0px 3px #000; -moz-box-shadow:0px 0px 3px #000; z-index:10001;}
+.al_screen{ width:100%; height:100%; background:#d4d5d0; filter: alpha(opacity=0); -moz-opacity: 0; -khtml-opacity: 0; opacity: 0; position:absolute; z-index:10000; top:0; left:0;}
+</style>
+<div id="openDiv"></div>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+
+wx.config({
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: '{$_W['account']['jssdkconfig']['appId']}', // 必填，公众号的唯一标识
+    timestamp: {$_W['account']['jssdkconfig']['timestamp']}, // 必填，生成签名的时间戳
+    nonceStr: '{$_W['account']['jssdkconfig']['nonceStr']}', // 必填，生成签名的随机串
+    signature: '{$_W['account']['jssdkconfig']['signature']}',// 必填，签名，见附录1
+    jsApiList: ['onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'translateVoice',
+                'startRecord',
+                'stopRecord',
+                'onRecordEnd',
+                'playVoice',
+                'pauseVoice',
+                'stopVoice',
+                'uploadVoice',
+                'downloadVoice',
+                'onVoicePlayEnd',] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+
+wx.ready(function(){
+	/*wx.checkJsApi({
+		jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'], // 需要检测的JS接口列表，所有JS接口列表见附录2,
+		success: function(res){
+			//alert(JSON.stringify(res));
+		}
+	});*/
+	ShareData = {
+
+		appId : '{$_W['account']['jssdkconfig']['appId']}', // 服务号可以填写appId
+		imgUrl : "{MODULE_URL}icon.jpg",
+		link : window.location.href,
+		desc : '魔镜揭开你一直单身之谜，敢不敢来看？',
+		title : '通缉单身喵'
+	};
+		wx.onMenuShareAppMessage({
+		title: ShareData.title, // 分享标题
+		desc: ShareData.desc, // 分享描述
+		link: ShareData.link, // 分享链接
+		imgUrl: ShareData.imgUrl, // 分享图标
+		type: 'link', // 分享类型,music、video或link，不填默认为link
+		dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+		success: function () {
+
+		},
+		cancel: function () {
+			// 用户取消分享后执行的回调函数
+		}
+	});
+
+	wx.onMenuShareTimeline({
+		title: ShareData.desc, // 分享标题
+		link: ShareData.link, // 分享链接
+		imgUrl: ShareData.imgUrl, // 分享图标
+		success: function () {
+
+		},
+		cancel: function () {
+			// 用户取消分享后执行的回调函数
+		}
+	});
+	 wx.showOptionMenu();
+});
+
+/*提醒 提醒弹窗*/
+function alertNew(content, time) {
+    $("#openDiv").empty();
+    var html_div = "<div class=\"al_box\">" + content + "</div>";
+    $("#openDiv").append(html_div);
+    var totH = document.documentElement.clientHeight;
+    var totW = document.documentElement.clientWidth;
+    var logTop = document.documentElement.scrollTop + document.body.scrollTop;
+    var aleT = (totH - $(".al_box").height() - 20) / 2;
+    var aleL = (totW - $(".al_box").width() - 20) / 2;
+    $(".al_box").css('top', aleT + logTop + "px");
+    $(".al_box").css('left', aleL + "px");
+    if (time == 0) {
+        return false;
+    } else if (time == "" || time == "underfind" || time == null) {
+        setTimeout('$(".al_box").remove()', 2000);
+    } else {
+        setTimeout('$(".al_box").remove()', time * 1000);
+    }
+    return false;
+}
+</script>
+</body>
+</html>

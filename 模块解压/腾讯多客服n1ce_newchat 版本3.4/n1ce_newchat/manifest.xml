@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+<application setting="true">
+    <name><![CDATA[腾讯多客服]]></name>
+    <identifie><![CDATA[n1ce_newchat]]></identifie>
+    <version><![CDATA[3.4]]></version>
+    <type><![CDATA[customer]]></type>
+    <ability><![CDATA[微赞的官方多客服需要设置优先级，稍微改良了下！]]></ability>
+    <description><![CDATA[微赞的官方多客服需要设置优先级，稍微改良了下！]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+</application>
+<platform>
+    <handles>
+        <message type="text" />
+    </handles>
+    <rule embed="true" />
+</platform>
+<bindings>
+    <menu>
+        <entry title="客服聊天记录" do="Chatlog" />
+    </menu>
+</bindings>
+<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_n1ce_settings` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL,
+  `wait` varchar(255) NOT NULL,
+  `start1` int(10) unsigned NOT NULL,
+  `end1` int(10) unsigned NOT NULL,
+  `start2` int(10) unsigned NOT NULL,
+  `end2` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `rid` (`rid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+    ]]></install>
+<uninstall><![CDATA[]]></uninstall>
+<upgrade><![CDATA[update.php]]></upgrade>
+</manifest>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[时间轴]]></name>
+		<identifie><![CDATA[mon_timeline]]></identifie>
+		<version><![CDATA[1.0.4]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[时间轴]]></ability>
+		<description><![CDATA[时间轴]]></description>
+		<author><![CDATA[柒|柒|源|码]]></author>
+		<url><![CDATA[H770.com]]></url>
+	</application>
+	<platform>
+
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="时间轴管理" do="timelineMange" state="" />
+		</menu>
+	</bindings>
+
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

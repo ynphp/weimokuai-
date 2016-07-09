@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[手机评估]]></name>
+		<identifie><![CDATA[amouse_valuation]]></identifie>
+		<version><![CDATA[1.3]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[二手机评估。]]></ability>
+		<description><![CDATA[二手机评估,在线评估您的手机值多少毛爷爷。]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="二手机评估入口" do="index" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="手机机型管理" do="model" state="" direct="false" />
+			<entry title="手机型号管理" do="version" state="" direct="false" />
+			<entry title="参数设置" do="sysset" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_amouse_valuation_mobile_model` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT NULL,
+  `title` varchar(25) NOT NULL,
+  `logo` varchar(100) NOT NULL,
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='手机机型';
+CREATE TABLE IF NOT EXISTS `ims_amouse_valuation_mobile_parameter` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `vid` int(11) NOT NULL,
+  `txt` varchar(255) NOT NULL COMMENT '机身颜色',
+  `optionA` varchar(255) NOT NULL,
+  `optionB` varchar(255) NOT NULL,
+  `optionC` varchar(255) NOT NULL,
+  `optionD` varchar(255) NOT NULL,
+  `optionE` varchar(255) NOT NULL,
+  `optionF` varchar(255) NOT NULL,
+  `priceA` varchar(100) NOT NULL COMMENT '价格1',
+  `priceB` varchar(100) NOT NULL COMMENT '价格2',
+  `priceC` varchar(100) NOT NULL COMMENT '价格3',
+  `priceD` varchar(100) NOT NULL COMMENT '价格4',
+  `priceE` varchar(100) NOT NULL COMMENT '价格5',
+  `priceF` varchar(100) NOT NULL COMMENT '价格5',
+  `ptype` varchar(5) NOT NULL COMMENT '奖品顺序，从1-15',
+  PRIMARY KEY (`id`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='评估参数';
+CREATE TABLE IF NOT EXISTS `ims_amouse_valuation_mobile_version` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `moid` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `logo` varchar(100) NOT NULL,
+  `price` int(10) unsigned NOT NULL DEFAULT '0',
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='手机型号';
+CREATE TABLE IF NOT EXISTS `ims_oldtonew_sysset` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `guanzhuUrl` varchar(255) DEFAULT '1' COMMENT '引导关注',
+  `logo` varchar(255) DEFAULT '首页logo',
+  `copyright` varchar(255) DEFAULT '版本信息',
+  `appid` varchar(255) DEFAULT '',
+  `appsecret` varchar(255) DEFAULT '',
+  `appid_share` varchar(255) DEFAULT '',
+  `appsecret_share` varchar(255) DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

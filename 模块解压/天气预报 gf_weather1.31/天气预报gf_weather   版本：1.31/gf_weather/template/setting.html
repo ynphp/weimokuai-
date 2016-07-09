@@ -1,0 +1,82 @@
+{template 'common/header'}
+<div class="main">
+	<form class="form-horizontal form" id="" action="" method="post">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				参数设置
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">要显示天气的城市名称，默认：北京</label>
+					<div class="col-sm-9 col-xs-12">
+						<input class="form-control" name="city" type="text" value="{$settings['city']}">
+					</div>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">底部版权</label>
+					<div class="col-sm-9 col-xs-12">
+						<input class="form-control" name="copyright" type="text" value="{$settings['copyright']}">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				分享设置
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">引导关注素材链接</label>
+					<div class="col-sm-9 col-xs-12">
+						<input class="form-control" name="subscribe_url" type="text" value="{$settings['subscribe_url']}">
+					</div>	
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享标题</label>
+					<div class="col-sm-9 col-xs-12">
+						<input type="text" id="share_title" class="form-control span7" placeholder="" name="share_title" value="{$settings['share_title']}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">分享描述</label>
+					<div class="col-sm-9 col-xs-12">
+						<textarea style="height:60px;" name="share_desc" class="form-control span7" cols="60">{$settings['share_desc']}</textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				统计代码
+			</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">统计代码(可选)</label>
+					<div class="col-sm-9 col-xs-12">
+						<input class="form-control" name="tongji" type="text" value="{$settings['tongji']}" placeholder="如：1256283097">
+						<span class="help-block">
+							<strong>请到http://tongji.cnzz.com 注册，获得你的网站的统计代码，此处填写对应id。h 7 7 0.c o m</strong>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>		
+		<div class="form-group col-sm-12">
+			<input name="token" type="hidden" value="{$_W['token']}" />
+			<input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+		</div>
+	</form>
+</div>
+
+<script language='javascript'>
+require(['jquery', 'util'], function($, u) {
+	$(function() {
+		var city_list = '{$city_list}';
+		var json = eval('(' + city_list + ')');
+		//alert(json);
+	});
+});
+</script>
+{template 'common/footer'}

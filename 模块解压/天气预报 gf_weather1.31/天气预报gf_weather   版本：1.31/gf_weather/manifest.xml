@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[天气预报]]></name>
+		<identifie><![CDATA[gf_weather]]></identifie>
+		<version><![CDATA[1.31]]></version>
+		<type><![CDATA[services]]></type>
+		<ability><![CDATA[关心爸妈、爱人、好友的生活动态，别忘了把所在地的天气分享给他们，或者分享到朋友圈。]]></ability>
+		<description><![CDATA[关心爸妈、爱人、好友的生活动态，别忘了把所在地的天气分享给他们，或者分享到朋友圈。]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="link" />
+			<message type="click" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="功能入口" do="index" state="" direct="true" />
+		</cover>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
