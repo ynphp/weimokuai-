@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>支付宝账户余额生成器 - 支付宝工具 - 扫码群</title>
+    <meta name="keywords" content="支付宝账户余额,支付宝账户余额截图制作,支付宝截图生成器" />
+    <meta name="description" content="一款在线支付宝账户余额截图模拟工具，只需要输入相关的数据，能自动合成账户余额图片，简单方便; 来自扫码群的支付宝工具的在线支付宝转账生成器。" />
+    <meta name="renderer" content="webkit">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="telephone=no, address=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- jQuery -->
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/jquery.sglide.js"></script>
+    <script src="js/jquery.datetimepicker.js"></script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/tools.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="/asset/js/lib/html5shiv/3.7.0.js"></script>
+    <script src="/asset/js/lib/respond/1.4.2.js"></script>
+    <![endif]-->
+
+
+    <script>
+        var is_check_brower = true;
+        var is_mobile = '';
+    </script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script type="text/javascript" src="js/0.4.1.js"></script>
+    <script type="text/javascript" src="js/qq_emoji.js"></script>
+    <script type="text/javascript" src="js/tools.min.js"></script>
+    <!-- 页面header钩子，一般用于加载插件CSS文件和代码 -->
+    <style>
+        .wx-nav {height:63px;padding-top:10px;}
+        .wx-nav .max-width {line-height: 12px;}
+        .wx-nav .logo{margin-top:-15px !important;}
+        input[type=text], input[type=password] {width:300px;margin-top:0;padding:0 15px;font-size:14px;height:32px;}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <!-- Navigation -->
+
+    <!-- 主体 -->
+    <div id="page-wrapper">
+        <div class="row" style="position:relative;padding: 0 15px;">
+            <div class="panel-body panel-wx-tab">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#w1" data-toggle="tab">外观设置</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="w1">
+                        <div class="setting">
+                            <p>
+                                <span>信号强度：</span>
+                                <select class="slt-common" data-class="i-signal">
+                                    <option value="i-signal1">1格</option>
+                                    <option value="i-signal2">2格</option>
+                                    <option value="i-signal3">3格</option>
+                                    <option value="i-signal4">4格</option>
+                                    <option selected value="i-signal5">5格</option>
+                                </select>
+                            </p>
+                            <p>
+                                <span>运营商：</span>
+                                <select class="slt-common" data-class="i-carrier">
+                                    <option value="i-c-yd">中国移动</option>
+                                    <option value="i-c-lt">中国联通</option>
+                                    <option value="i-c-dx">中国电信</option>
+                                </select>
+                            </p>
+                            <p>
+                                <span>网络信号：</span>
+                                <select class="slt-common" data-class="i-network">
+                                    <option value="">无</option>
+                                    <option selected value="i-n-wifi">Wifi</option>
+                                    <option value="i-n-g">G</option>
+                                    <option value="i-n-e">E</option>
+                                    <option value="i-n-3g">3G</option>
+                                    <option value="i-n-4g">4G</option>
+                                </select>
+                            </p>
+                            <p>
+                                <span>手机时间：</span>
+                                <select class="slt-phone-time slt-p-shi">
+                                    <option>-</option>
+                                    <option>上午</option>
+                                    <option>下午</option>
+                                </select>
+                                <select class="slt-phone-time slt-p-hour">
+                                </select>  :
+                                <select class="slt-phone-time slt-p-minite">
+                                </select>
+                            </p>
+                            <p>
+                                <span>锁定旋转：</span>
+                                <label><input class="rd-common" data-class="i-top-dir" type="radio" name="top-dir" value="1" checked /> 显示</label>
+                                <label><input class="rd-common" data-class="i-top-dir" type="radio" name="top-dir" value="0" /> 不显示</label>
+                            </p>
+                            <div style="margin: 0 0 10px;margin-top: 20px;">
+                                <span>电量：</span>
+                                <div class="slider_bar"></div>
+                            </div>
+                            <p>
+                                <span>电池状态：</span>
+                                <select class="slt-common" data-class="i-top-berry">
+                                    <option value="">正常</option>
+                                    <option value="i-top-berry2">充电中</option>
+                                </select>
+                            </p>
+                            <p>
+                                <span>电池百分比：</span>
+                                <label><input class="rd-common" data-class="i-top-berry-num" type="radio" name="i-top-berry-num" value="1"  /> 显示</label>
+                                <label><input class="rd-common" data-class="i-top-berry-num" type="radio" name="i-top-berry-num" value="0" checked /> 不显示</label>
+                            </p>
+                            <p>
+                                <span>账户余额：</span>
+                                <input type="text" value="88.88" class="i-ali-ba-change">
+                                <script>
+                                    $(function(){
+                                        $('.i-ali-ba-change').bind('input propertychange', function() {
+                                            var value = $(this).val();
+                                            if(!value || isNaN(value))
+                                                return false;
+                                            value = toDecimal2(value);
+                                            $('.i-ali-ba-money').text(value);
+                                        });
+                                    });
+                                </script>
+                            </p>
+                            <p>
+                                <span>集分宝：</span>
+                                <input type="text" value="10" data-class="i-ali-ba-jfb" class="input-common">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="my-btns">
+                <div style="max-width: 1000px;margin:0 auto;">
+                    <div class="loading">正在生成，请稍候......</div>
+                    <input id="save" class="btn btn-primary" type="button" value="生成图片" />
+                    <!--<a id="btn-water" class="btn btn-danger btn_no_water" target="_blank" href="">去水印</a>-->
+                </div>
+            </div>
+            <div class="phone-wrap">
+                <div id="iphone" class="iphone">
+                    <div class="i-top i-top-alipay">
+                        <div class="i-top-elm i-signal"></div>
+                        <div class="i-top-elm i-carrier i-c-yd"></div>
+                        <div class="i-top-elm i-network i-n-wifi"></div>
+                        <div class="i-top-elm i-top-time">11:52</div>
+                        <div class="i-top-elm-r i-top-berry"><i><em></em></i></div>
+                        <div class="i-top-elm-r i-top-berry-num" style="display: none;">50%</div>
+                        <div class="i-top-elm-r i-top-dir"></div>
+                        <div class="i-nav i-nav-ali-balance">
+                            <div class="i-n-ali-b-left"></div>
+                            <div class="i-n-ali-b-mid"></div>
+                        </div>
+                    </div>
+                    <div class="i-body i-body-ali-balance">
+                        <div class="i-ali-ba-bg"></div>
+                        <div class="i-ali-ba-money">88.88</div>
+                        <div class="i-ali-ba-jfb">10</div>
+                    </div>
+            </div>
+        </div>
+
+        <div class="emojiPanel" id="emojiPanel">
+            <ul class="faceTab">
+                <li><a class="chooseFaceTab" href="javascript:;">QQ表情</a></li>
+                <!--<li><a href="javascript:;">符号表情</a></li>
+                <li><a href="javascript:;">动画表情</a></li>-->
+            </ul>
+            <div class="faceWrap" style="zoom:1;outline:none;">
+                <div class="faceBox emojiArea"></div>
+            </div>
+        </div>
+        <script src="js/alipay_balance.js"></script>
+    </div>
+    <!-- /主体 -->
+</div>
+</body>
+</html>

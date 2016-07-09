@@ -1,0 +1,54 @@
+{template 'common/header'}
+<style>
+.tile {
+display: block;
+float: left;
+margin: .5em;
+padding: 1em 1em 1em 1em;
+width: 8em;
+text-align: center;
+background: #EEE;
+color: #333;
+text-decoration: none;
+border: 2px solid rgba(54, 55, 56, 0.33);
+}
+.img-rounded {
+border-radius: 6px;
+}
+.tile > i {
+display: block;
+font-size: 2em;
+margin: 0.3em auto 0 auto;
+}
+.fa {
+display: inline-block;
+font: normal normal normal 14px/1 FontAwesome;
+font-size: inherit;
+text-rendering: auto;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+transform: translate(0, 0);
+}
+.gw-container .tile > span {
+display: block;
+}
+</style>
+<div class="clearfix">
+			<a href="../addons/wechat_dialogue/template/mobile/wechatchat.html" target="_blank" class="tile img-rounded">
+				<i class="fa fa-comments-o"></i>
+				<span>微信对话</span>
+			</a>
+			<a href="../addons/wechat_dialogue/template/mobile/wechatwallet.html" target="_blank" class="tile img-rounded">
+				<i class="fa fa-yen"></i>
+				<span>钱包余额</span>
+			</a>
+			<a href="../addons/wechat_dialogue/template/mobile/alipaybalance.html" target="_blank" class="tile img-rounded">
+				<i class="fa fa-money"></i>
+				<span>支付宝余额</span>
+			</a>
+			<a href="../addons/wechat_dialogue/template/mobile/alipaytransfer.html" target="_blank" class="tile img-rounded">
+				<i class="fa fa-dollar"></i>
+				<span>支付宝转账</span>
+			</a>
+			</div>
+{template 'common/footer'}

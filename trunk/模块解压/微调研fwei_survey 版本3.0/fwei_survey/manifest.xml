@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[微调研]]></name>
+		<identifie><![CDATA[fwei_survey]]></identifie>
+		<version><![CDATA[3.0]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[微调研]]></ability>
+		<description><![CDATA[微调研]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[http://h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+        <handles>
+		<message type="text" />
+        </handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+	<rule>	
+			<entry title="调研问题管理" do="question"  />			
+			<entry title="调研报告查看" do="answer" />		
+		</rule>
+        <cover>
+        </cover>
+        <menu>
+            <entry title="调研列表" do="list" />
+            <entry title="新建调研" do="add" />
+        </menu>
+	</bindings>
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_fwei_survey` (
+  `sid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT '0',
+  `uniacid` int(10) unsigned DEFAULT '0',
+  `title` varchar(100) DEFAULT NULL,
+  `thumb` varchar(100) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `content` text,
+  `stime` int(10) unsigned DEFAULT '0',
+  `etime` int(10) unsigned DEFAULT '0',
+  `success_info` varchar(100) DEFAULT NULL,
+  `max_num` int(10) unsigned DEFAULT '0',
+  `num` int(10) unsigned DEFAULT '0',
+  `created` int(10) unsigned DEFAULT '0',
+  `credit` int(10) unsigned DEFAULT '0',
+  `coupon` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`sid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_fwei_survey_answer` (
+  `said` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT '0',
+  `sid` int(10) unsigned DEFAULT '0',
+  `uniacid` int(10) unsigned DEFAULT '0',
+  `sqid` int(10) unsigned DEFAULT '0',
+  `uid` int(10) unsigned DEFAULT '0',
+  `content` text,
+  `created` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`said`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `ims_fwei_survey_question` (
+  `sqid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT '0',
+  `uniacid` int(10) unsigned DEFAULT '0',
+  `sid` int(10) unsigned DEFAULT '0',
+  `title` varchar(100) DEFAULT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `type` varchar(10) DEFAULT NULL,
+  `extra` varchar(500) DEFAULT NULL,
+  `is_must` tinyint(1) unsigned DEFAULT '1',
+  `is_show` tinyint(1) unsigned DEFAULT '1',
+  `rule` varchar(100) DEFAULT NULL,
+  `defvalue` varchar(100) DEFAULT NULL,
+  `sort` smallint(5) unsigned DEFAULT '0',
+  `created` int(10) unsigned DEFAULT '0',
+  PRIMARY KEY (`sqid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+	]]></install>
+	<uninstall><![CDATA[
+	]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

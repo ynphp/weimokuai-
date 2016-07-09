@@ -1,0 +1,35 @@
+{template 'header'}
+<link type="text/css" rel="stylesheet" href="../addons/quickvideo/style/base.css" />
+<link type="text/css" rel="stylesheet" href="../addons/quickvideo/style/style.css?v=200" />
+<script type="text/javascript" src="../addons/{$modulename}/script/script.js"></script>
+<title>专辑</title>
+<section class="canvas">
+
+		<!--section class="card">
+            <section class="title">
+			<aside>我的积分：{$profile['credit1']}</aside>
+			</section>
+        </section-->
+
+
+		{loop $tape_list $tape}
+		<a href='{php echo $this->createMobileUrl("tape", array("tape_id"=>$tape["tape_id"]))}'>
+		<section class="card">
+			<section class="title">
+			<p>{$tape['title']}</p>
+			</section>
+			<section class="logo">
+			<p><img src='{php echo $tape['logo']}' /></p>
+			</section>
+			<section class="info">
+				<p>{$tape['explain']}</p>
+			</section>	
+			<hr>
+			<section class="func">
+				<p>进入欣赏</p>
+			</section>	
+		</section>
+		</a>
+		{/loop}
+</section>
+{template 'footer'}
