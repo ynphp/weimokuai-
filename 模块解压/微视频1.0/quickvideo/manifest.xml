@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.5,0.6">
+	<application setting="false">
+		<name><![CDATA[微视频]]></name>
+		<identifie><![CDATA[quickvideo]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[微视频]]></ability>
+		<description><![CDATA[微视频]]></description>
+		<author><![CDATA[柒柒源码]]></author>
+		<url><![CDATA[h770.com]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+        <cover>
+			<entry title="视频中心" do="Center" />
+        </cover>
+		<menu>
+			<entry title="片段管理" do="Video" />
+			<entry title="专辑管理" do="Tape" />
+		</menu>
+		<home call="getCategoryTiles"></home>
+	</bindings>
+	<install><![CDATA[
+
+CREATE TABLE IF NOT EXISTS `ims_quickvideo_video` (
+  `video_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) unsigned NOT NULL,
+  `title` varchar(1024) NOT NULL,
+  `author` varchar(1024) NOT NULL,
+  `cover` varchar(1024) NOT NULL,
+  `url` varchar(65530) NOT NULL,
+  `lyrics` varchar(65530),
+  `explain` varchar(65530),
+  `credit_cost` int(10) unsigned NOT NULL COMMENT '视频消耗积分',
+  PRIMARY KEY (`video_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8  AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `ims_quickvideo_tape` (
+  `tape_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(1024) NOT NULL,
+  `logo` varchar(512) NOT NULL,
+  `background` varchar(512) NOT NULL,
+  `explain` varchar(65530),
+  `video_ids` varchar(1024)  NOT NULL,
+  `video_ids_seq` varchar(1024)  NOT NULL,
+  `weid` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`tape_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8  AUTO_INCREMENT=1;
+
+CREATE TABLE IF NOT EXISTS `ims_quickvideo_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned NOT NULL,
+  `tape_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8   AUTO_INCREMENT=1;
+
+	]]></install>
+	<uninstall><![CDATA[
+		DROP TABLE IF EXISTS  `ims_quickvideo_video2`;
+		DROP TABLE IF EXISTS  `ims_quickvideo_tape2`;
+		DROP TABLE IF EXISTS  `ims_quickvideo_reply2`;
+	]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

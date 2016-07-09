@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>微信对话生成器 - 微信工具 - 扫码群</title>
+    <meta name="keywords" content="微信对话生成器,在线微信对话,微信对话截图制作,微信工具,微商工具" />
+    <meta name="description" content="一款手动在线微信对话制作工具，只需要输入微信对话的内容，能自动合成微信聊天记录的图片，简单方便。通过它你可以自定义你的微信头像、名称、内容、图片、发布时间等，达到任何你想要修改的结果。你想和明星对话吗，使用在线微信对话生成器能够让你与明星对话，当然不可是真的和明星对话，不过放在空间微博分享，绝对会引人注目。" />
+    <meta name="renderer" content="webkit">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="telephone=no, address=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- jQuery -->
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/jquery.sglide.js"></script>
+    <script src="js/jquery.datetimepicker.js"></script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/jquery.datetimepicker.css"/>
+    <!-- Custom Fonts -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="css/tools.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="/asset/js/lib/html5shiv/3.7.0.js"></script>
+    <script src="/asset/js/lib/respond/1.4.2.js"></script>
+    <![endif]-->
+
+
+    <script>
+        var is_check_brower = true;
+        var is_mobile = '';
+    </script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script type="text/javascript" src="js/0.4.1.js"></script>
+    <script type="text/javascript" src="js/qq_emoji.js"></script>
+    <script type="text/javascript" src="js/tools.min.js"></script>
+    <!--<script type="text/javascript" src="/asset/js/tools_function.js"></script>-->
+    <!--<script type="text/javascript" src="/asset/js/tools_common.js"></script>-->
+    <!-- 页面header钩子，一般用于加载插件CSS文件和代码 -->
+    <style>
+        .wx-nav {height:63px;padding-top:10px;}
+        .wx-nav .max-width {line-height: 12px;}
+        .wx-nav .logo{margin-top:-15px !important;}
+        input[type=text], input[type=password] {width:300px;margin-top:0;padding:0 15px;font-size:14px;height:32px;}
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="page-wrapper">
+        <div class="row" style="position:relative;padding: 0 15px;">
+            <div class="panel-body panel-wx-tab">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs">
+                    <li><a href="#w1" data-toggle="tab">外观设置</a></li>
+                    <li class="active"><a href="#w2" data-toggle="tab">对话设置</a></li>
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane fade" id="w1">
+                        <div class="setting">
+                            <p>
+                                <span>信号强度：</span>
+                                <select class="slt-common" data-class="i-signal">
+                                    <option value="i-signal1">1格</option>
+                                    <option value="i-signal2">2格</option>
+                                    <option value="i-signal3">3格</option>
+                                    <option value="i-signal4">4格</option>
+                                    <option selected="" value="i-signal5">5格</option>
+                                </select>
+                            </p>
+                            <p>
+                                <span>运营商：</span>
+                                <select class="slt-common" data-class="i-carrier">
+                                    <option value="i-c-yd">中国移动</option>
+                                    <option value="i-c-lt">中国联通</option>
+                                    <option value="i-c-dx">中国电信</option>
+                                </select>
+                            </p>
+                            <p>
+                                <span>网络信号：</span>
+                                <select class="slt-common" data-class="i-network">
+                                    <option value="">无</option>
+                                    <option selected="" value="i-n-wifi">Wifi</option>
+                                    <option value="i-n-g">G</option>
+                                    <option value="i-n-e">E</option>
+                                    <option value="i-n-3g">3G</option>
+                                    <option value="i-n-4g">4G</option>
+                                </select>
+                            </p>
+                            <p>
+                                <span>手机时间：</span>
+                                <select class="slt-phone-time slt-p-shi">
+                                    <option>-</option>
+                                    <option>上午</option>
+                                    <option>下午</option>
+                                </select>
+                                <select class="slt-phone-time slt-p-hour">
+                                    <option>00</option><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option><option>13</option><option selected="">14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option></select>  :
+                                <select class="slt-phone-time slt-p-minite">
+                                    <option>00</option><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option><option selected="">13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option></select>
+                            </p>
+                            <p>
+                                <span>锁定旋转：</span>
+                                <label><input class="rd-common" data-class="i-top-dir" type="radio" name="top-dir" value="1" checked=""> 显示</label>
+                                <label><input class="rd-common" data-class="i-top-dir" type="radio" name="top-dir" value="0"> 不显示</label>
+                            </p>
+                            <div style="margin: 0 0 10px;margin-top: 20px;">
+                                <span>电量：</span>
+                                <div class="slider_bar"></div>
+                            </div>
+                            <p>
+                                <span>电池状态：</span>
+                                <select class="slt-common" data-class="i-top-berry">
+                                    <option value="">正常</option>
+                                    <option value="i-top-berry2">充电中</option>
+                                </select>
+                            </p>
+                            <p>
+                                <span>电池百分比：</span>
+                                <label><input class="rd-common" data-class="i-top-berry-num" type="radio" name="i-top-berry-num" value="1" checked=""> 显示</label>
+                                <label><input class="rd-common" data-class="i-top-berry-num" type="radio" name="i-top-berry-num" value="0"> 不显示</label>
+                            </p>
+                            <p>
+                                <span>听筒模式：</span>
+                                <label><input class="rd-common" data-class="i-n-ear" type="radio" name="i-n-ear" value="1"> 显示</label>
+                                <label><input class="rd-common" data-class="i-n-ear" type="radio" name="i-n-ear" value="0" checked=""> 不显示</label>
+                            </p>
+                            <p>
+                                <span>聊天模式：</span>
+                                <select class="slt-common" data-class="i-n-user">
+                                    <option value="">单聊</option>
+                                    <option value="i-n-user-group">群聊</option>
+                                </select>
+                            </p>
+                            <p>
+                                <span>聊天标题：</span>
+                                <input type="text" value="duang~~~" data-class="i-n-name span" class="input-common">
+                            </p>
+                            <p>
+                                <span>消息数目：</span>
+                                <input type="text" value="" class="input-i-n-count">
+                                <a class="btn-del-i-n-count" href="#">删除数目</a>
+                            </p>
+                            <p>
+                                <span>显示用户昵称：</span>
+                                <label><input class="rd-common" data-class="i-b-nick" type="radio" name="i-b-nick" value="0" checked=""> 不显示</label>
+                                <label><input class="rd-common" data-class="i-b-nick" type="radio" name="i-b-nick" value="1"> 显示</label>
+                            </p>
+                            <p>
+                                <span>底部输入框：</span>
+                                <select class="slt-common" data-class="i-bottom">
+                                    <option value="">文本模式</option>
+                                    <option value="i-bottom2">语音模式</option>
+                                </select>
+                            </p>
+                            <div style="overflow:hidden;margin:20px 0 40px 0;">
+                <span style="float:left;margin-right:10px;">背景图片：
+                  <div style="color:#f00">(图片大小:宽640 x 高1136)</div>
+                  <a class="body_bg_del btn btn-danger btn_no_water" href="#">删除背景</a>
+                </span>
+                                <div class="a-u-pic a-u-pic-bodybg">
+                                    <div class="a-u-pic-show">
+                                        <input type="file" data-callback="set_body_bg" accept="image/jpeg,image/x-png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade active in" id="w2">
+                        <div class="setting">
+                            <p style="border-bottom:1px #ccc dotted;padding-bottom:10px;">
+                                <span>添加聊天时间：</span>
+                                <select class="slt-xinqi">
+                                    <option>-</option>
+                                    <option>星期一</option>
+                                    <option>星期二</option>
+                                    <option>星期三</option>
+                                    <option>星期四</option>
+                                    <option>星期五</option>
+                                    <option>星期六</option>
+                                    <option>星期日</option>
+                                </select>
+                                <select class="slt-shi">
+                                    <option>-</option>
+                                    <option>上午</option>
+                                    <option>下午</option>
+                                    <option>凌晨</option>
+                                </select>
+                                <select class="slt-hour">
+                                    <option>00</option><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option><option>13</option><option selected="">14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option></select>  :
+                                <select class="slt-minite">
+                                    <option>00</option><option>01</option><option>02</option><option>03</option><option>04</option><option>05</option><option>06</option><option>07</option><option>08</option><option>09</option><option>10</option><option>11</option><option>12</option><option selected="">13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option><option>32</option><option>33</option><option>34</option><option>35</option><option>36</option><option>37</option><option>38</option><option>39</option><option>40</option><option>41</option><option>42</option><option>43</option><option>44</option><option>45</option><option>46</option><option>47</option><option>48</option><option>49</option><option>50</option><option>51</option><option>52</option><option>53</option><option>54</option><option>55</option><option>56</option><option>57</option><option>58</option><option>59</option></select> &nbsp;
+                                <a class="add-time-btn btn btn-primary btn-sm" href="#">添加</a>
+                            </p>
+                            <div class="users">
+                                <div class="add-user">
+                                    <div class="a-u-pic">
+                                        <div class="a-u-pic-show">
+                                            <input type="file" accept="image/jpeg,image/x-png">
+                                        </div>
+                                    </div>
+                                    <div class="a-u-name">
+                                        <p>
+                                            <input style="margin-right:5px;" class="btn-rand-username" type="button" value="随机用户名">
+                                            <input class="btn-rand-face" type="button" value="随机头像">
+                                        </p>
+                                        <p><span>用户名：</span><input class="a-u-data-name" type="text" value=""></p>
+                                        <p><span>聊天内容：</span><textarea class="a-u-content"></textarea><a class="a-u-face btn-add-face" data-input="a-u-content" href="#">表情</a></p>
+                                        <p><span>转账/收钱金额：</span><input class="a-u-data-pay" type="text" value="" placeholder="转账/收钱金额"></p>
+                                        <p><span>语音时长：</span><input class="a-u-data-voice create_time" type="text" value="" placeholder="语音时长"></p>
+                                    </div>
+                                    <div style="border:1px solid #fff;clear:both;"></div>
+                                    <div class="a-u-dialog" style="clear:both;"><a class="btn btn-primary" data-type="left" href="#">添加文字对话</a></div>
+                                    <div class="a-u-dialog-voice"><a class="btn btn-primary" data-type="left" href="#">添加语音对话</a></div>
+                                    <div class="a-u-dialog-pay"><a class="btn btn-primary" data-dir="send" data-type="left" href="#">添加转账对话</a></div>
+                                    <div class="a-u-dialog-pay"><a class="btn btn-primary" data-dir="rec" data-type="left" href="#">添加收钱对话</a></div>
+                                    <div class="a-u-dialog-master"><a class="btn btn-primary btn-success" href="#">设为主人</a></div>
+                                    <div class="a-u-dialog-del"><a class="btn btn-danger" href="#">删除用户</a></div>
+                                </div>
+                            </div>
+                            <div class="btns">
+                                <input id="add-user" class="btn btn-success" type="button" value="添加用户">
+                                <input class="btn btn-success clear-dialog" type="button" value="清除对话">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="my-btns">
+                <div style="max-width: 1000px;margin:0 auto;">
+                    <div class="loading">正在生成，请稍候......</div>
+                    <input id="save" class="btn btn-primary" type="button" value="生成图片" />
+                    <input class="btn btn-success clear-dialog" type="button" value="清除对话">
+                    <!--<a id="btn-water" class="btn btn-danger btn_no_water" target="_blank" href="">去水印</a>-->
+                </div>
+            </div>
+            <div class="phone-wrap">
+                <div id="iphone" class="iphone iphone-preview">
+                    <div class="i-top">
+                        <div class="i-top-elm i-signal"></div>
+                        <div class="i-top-elm i-carrier i-c-yd"></div>
+                        <div class="i-top-elm i-network i-n-wifi"></div>
+                        <div class="i-top-elm i-top-time">14:13</div>
+                        <div class="i-top-elm-r i-top-berry"><i><em></em></i></div>
+                        <div class="i-top-elm-r i-top-berry-num">50%</div>
+                        <div class="i-top-elm-r i-top-dir"></div>
+                        <div class="i-nav">
+                            <div class="i-n-back"><div class="i-n-count">(3)</div></div>
+                            <div class="i-n-name">
+                                <span>duang~~~</span>
+                                <i class="i-n-ear" style="display:none">&nbsp;</i>
+                            </div>
+                            <div class="i-n-user"></div>
+                        </div>
+                    </div>
+                    <div class="i-body">
+                        <div class="i-b-time"><span>星期二 下午4:37</span><a class="msg-del"></a></div>
+                        <div class="i-b-sen-text">
+                            <img src="images/10016.jpg">
+                            <div>
+            <span>
+              <i></i>
+              <em>亲，这个怎么用<img class="qq_emoji" src="images/Expression_22@2x.png"></em>
+              <a class="msg-del"></a>
+            </span>
+                            </div>
+                        </div>
+                        <div class="i-b-rec-text">
+                            <img src="images/10011.jpg">
+                            <div>
+                                <p class="i-b-nick">马克_SHI</p>
+            <span>
+              <i></i>
+              <em>这个是示例对话哦，你先点击下面绿色的“清除对话”按钮，然后切换到对话设置那里，添加你要的对话类型就行了，需要多个用户进行对话请点击“添加用户”按钮添加用户，然后添加对话即可<img class="qq_emoji" src="images/Expression_22@2x.png"></em>
+              <a class="msg-del"></a>
+            </span>
+                            </div>
+                        </div>
+                        <div class="i-b-sen-text">
+                            <img src="images/10016.jpg">
+                            <div>
+            <span>
+              <i></i>
+              <em>好哒，谢谢你，我操作试试看</em>
+              <a class="msg-del"></a>
+            </span>
+                            </div>
+                        </div>
+                        <div class="i-b-rec-text">
+                            <img src="images/10011.jpg">
+                            <div class="i-b-pay">
+                                <p class="i-b-nick">马克_SHI</p>
+            <span class="i-pay-send">
+              <i></i>
+              <em>88.00</em>
+              <a class="msg-del"></a>
+            </span>
+                            </div>
+                        </div>
+                        <div class="i-b-sen-text">
+                            <img src="images/10016.jpg">
+                            <div class="i-b-pay">
+            <span class="i-pay-rec">
+              <i></i>
+              <em>88.00</em>
+              <a class="msg-del"></a>
+            </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="i-bottom i-bottom-wechat">
+                        <div class="i-b-we-left"></div>
+                        <div class="i-b-we-mid"><div class="i-b-we-mid-text"></div></div>
+                        <div class="i-b-we-right"></div>
+                    </div>
+            </div>
+        </div>
+
+        <div class="emojiPanel" id="emojiPanel">
+            <ul class="faceTab">
+                <li><a class="chooseFaceTab" href="javascript:;">QQ表情</a></li>
+                <!--<li><a href="javascript:;">符号表情</a></li>
+                <li><a href="javascript:;">动画表情</a></li>-->
+            </ul>
+            <div class="faceWrap">
+                <div class="faceBox emojiArea"><a title="微笑" href="javascript:;"></a><a title="撇嘴" href="javascript:;"></a><a title="色" href="javascript:;"></a><a title="发呆" href="javascript:;"></a><a title="得意" href="javascript:;"></a><a title="流泪" href="javascript:;"></a><a title="害羞" href="javascript:;"></a><a title="闭嘴" href="javascript:;"></a><a title="睡" href="javascript:;"></a><a title="大哭" href="javascript:;"></a><a title="尴尬" href="javascript:;"></a><a title="发怒" href="javascript:;"></a><a title="调皮" href="javascript:;"></a><a title="呲牙" href="javascript:;"></a><a title="惊讶" href="javascript:;"></a><a title="难过" href="javascript:;"></a><a title="酷" href="javascript:;"></a><a title="冷汗" href="javascript:;"></a><a title="抓狂" href="javascript:;"></a><a title="吐" href="javascript:;"></a><a title="偷笑" href="javascript:;"></a><a title="愉快" href="javascript:;"></a><a title="白眼" href="javascript:;"></a><a title="傲慢" href="javascript:;"></a><a title="饥饿" href="javascript:;"></a><a title="困" href="javascript:;"></a><a title="惊恐" href="javascript:;"></a><a title="流汗" href="javascript:;"></a><a title="憨笑" href="javascript:;"></a><a title="悠闲" href="javascript:;"></a><a title="奋斗" href="javascript:;"></a><a title="咒骂" href="javascript:;"></a><a title="疑问" href="javascript:;"></a><a title="嘘" href="javascript:;"></a><a title="晕" href="javascript:;"></a><a title="疯了" href="javascript:;"></a><a title="衰" href="javascript:;"></a><a title="骷髅" href="javascript:;"></a><a title="敲打" href="javascript:;"></a><a title="再见" href="javascript:;"></a><a title="擦汗" href="javascript:;"></a><a title="抠鼻" href="javascript:;"></a><a title="鼓掌" href="javascript:;"></a><a title="糗大了" href="javascript:;"></a><a title="坏笑" href="javascript:;"></a><a title="左哼哼" href="javascript:;"></a><a title="右哼哼" href="javascript:;"></a><a title="哈欠" href="javascript:;"></a><a title="鄙视" href="javascript:;"></a><a title="委屈" href="javascript:;"></a><a title="快哭了" href="javascript:;"></a><a title="阴险" href="javascript:;"></a><a title="亲亲" href="javascript:;"></a><a title="吓" href="javascript:;"></a><a title="可怜" href="javascript:;"></a><a title="菜刀" href="javascript:;"></a><a title="西瓜" href="javascript:;"></a><a title="啤酒" href="javascript:;"></a><a title="篮球" href="javascript:;"></a><a title="乒乓" href="javascript:;"></a><a title="咖啡" href="javascript:;"></a><a title="饭" href="javascript:;"></a><a title="猪头" href="javascript:;"></a><a title="玫瑰" href="javascript:;"></a><a title="凋谢" href="javascript:;"></a><a title="嘴唇" href="javascript:;"></a><a title="爱心" href="javascript:;"></a><a title="心碎" href="javascript:;"></a><a title="蛋糕" href="javascript:;"></a><a title="闪电" href="javascript:;"></a><a title="炸弹" href="javascript:;"></a><a title="刀" href="javascript:;"></a><a title="足球" href="javascript:;"></a><a title="瓢虫" href="javascript:;"></a><a title="便便" href="javascript:;"></a><a title="月亮" href="javascript:;"></a><a title="太阳" href="javascript:;"></a><a title="礼物" href="javascript:;"></a><a title="拥抱" href="javascript:;"></a><a title="强" href="javascript:;"></a><a title="弱" href="javascript:;"></a><a title="握手" href="javascript:;"></a><a title="胜利" href="javascript:;"></a><a title="抱拳" href="javascript:;"></a><a title="勾引" href="javascript:;"></a><a title="拳头" href="javascript:;"></a><a title="差劲" href="javascript:;"></a><a title="爱你" href="javascript:;"></a><a title="NO" href="javascript:;"></a><a title="OK" href="javascript:;"></a><a title="爱情" href="javascript:;"></a><a title="飞吻" href="javascript:;"></a><a title="跳跳" href="javascript:;"></a><a title="发抖" href="javascript:;"></a><a title="怄火" href="javascript:;"></a><a title="转圈" href="javascript:;"></a><a title="磕头" href="javascript:;"></a><a title="回头" href="javascript:;"></a><a title="跳绳" href="javascript:;"></a><a title="挥手" href="javascript:;"></a><a title="激动" href="javascript:;"></a><a title="街舞" href="javascript:;"></a><a title="献吻" href="javascript:;"></a><a title="左太极" href="javascript:;"></a><a title="右太极" href="javascript:;"></a></div>
+            </div>
+        </div>
+
+        <script src="js/wechat_chat.js"></script>
+
+    </div>
+    <!-- /主体 -->
+</div>
+<!-- 底部 -->
+</body>
+</html>
