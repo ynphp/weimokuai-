@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>今日天气 - {$settings['city']}</title>
+        <meta charset="UTF-8">
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script type="text/javascript" src="/app/resource/js/lib/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript" src="/addons/gf_weather/template/mobile/js/jquery.cxselect.min.js"></script>
+		<script type="text/javascript" src="/addons/gf_weather/template/mobile/js/jquery.cxdialog.min.js"></script>
+		<link rel="stylesheet" href="/addons/gf_weather/template/mobile/res/css/layout.css">
+        <style type="text/css">
+            body, ul, li, p {
+                margin: 0;
+                padding: 0;
+                font-size: 13px;
+                font-family: Arial, Helvetica, sans-serif;
+                /* text-shadow: #444 0 -1px 2px; */
+            }
+            html, body {
+                height: 100%;
+                background-color: #233161;
+            }
+            .page {
+                color: #fff;
+                /* background-color: #1a1045; */
+                background-color: #233161;
+            }
+            ul {
+                list-style: none;
+            }
+			#now {
+				background: linear-gradient(to bottom, #229d90 0%, #229d90 10%, #233161 100%);
+				background: -webkit-gradient(linear,top,from(#229d90),to(#233161));
+				background: -webkit-linear-gradient(top, #229d90, #233161);
+				background: -moz-linear-gradient(top, #229d90, #233161);
+				background: -o-linear-gradient(top, #229d90, #233161);		
+			}
+            #now .temperature {
+                padding: 20px 18px 0 18px;
+                font-size: 48px;
+                font-weight: 400;
+                text-align: center;
+                margin-left: 30px;
+                /* text-shadow: #444 0 -1px 1px; */
+            }
+            #now .condition-icon, #now .condition-text {
+                text-align: center;
+            }
+            #now .condition-icon img {
+                width: 80px;
+                height: 80px;
+            }
+            #now .condition-icon, #now .condition-text {
+                text-align: center;
+            }
+            #now .details {
+                margin: 18px 36px;
+                padding-bottom: 20px;
+                font-size: 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            }
+            #now .details .pm25 {
+                width: 30%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                text-align: left;
+            }
+            #now .details .wind {
+                width: 40%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                text-align: center;
+            }
+            #now .details .humidity {
+                width: 30%;
+                text-align: right;
+            }
+            #now .details li, #now .details li > * {
+                display: inline-block;
+                vertical-align: middle;
+                line-height: 18px;
+            }
+            #now .condition-text .air-quality-text {
+                margin-left: 5px;
+            }
+            #now .condition-text .air-quality-text {
+                display: inline-block;
+                vertical-align: middle;
+                line-height: 18px;
+            }
+            #now .air-quality-text {
+                margin-right: 9px;
+            }
+            .paper-icon-wind {
+                background-position: -2px -27px;
+                width: 20px;
+                height: 20px;
+            }
+            .paper-icon-humidity {
+                background-position: -2px -52px;
+                width: 20px;
+                height: 20px;
+            }
+            @media not all, not all, (-webkit-min-device-pixel-ratio: 1.5), not all, (min-resolution: 1.5dppx)
+            .paper-icon {
+                background-image: url('/addons/gf_weather/template/mobile/res/images/paper-wechat-x2.png');
+                background-size: 105px 1305px;
+            }
+            .paper-icon {
+                background-image: url('/addons/gf_weather/template/mobile/res/images/paper-wechat.png');
+            }
+            .aqi-level-0 {
+                background-color: #00e400;
+            }
+			.aqi-level-1 {
+			  color: #000;
+			  background-color: #F5DA81;
+			  background-image: linear-gradient(to top, #F5DA81, #F5DA81);
+			  border-color: #e0e000;
+			 }
+			.aqi-level-2 {
+			  color: #fff;
+			  background-color: #ff7e00;
+			  background-image: linear-gradient(to top, #e47100, #ff7e00);
+			  border-color: #e47100;
+			 }
+			.aqi-level-3 {
+			  color: #fff;
+			  background-color: #ff0000;
+			  background-image: linear-gradient(to top, #df0101, #ff0000);
+			  border-color: #df0101;
+			 }
+			.aqi-level-4 {
+			  color: #fff;
+			  background-color: #99004c;
+			  background-image: linear-gradient(to top, #7e013f, #99004c);
+			  border-color: #7e013f;
+			 }
+			.aqi-level-5 {
+				color: #fff;
+				background-color: #7e0023;
+				background-image: linear-gradient(to top, #66001c, #7e0023);
+				border-color: #66001c;
+			}
+            .air-quality-text {
+                padding: 0 3px;
+                border-radius: 2px;
+                color: #fff;
+                /* text-shadow: none; */
+            }
+            body, ul, li, p {
+                margin: 0;
+                padding: 0;
+                font-size: 13px;
+                font-family: Arial, Helvetica, sans-serif;
+                /* text-shadow: #444 0 -1px 2px; */
+            }
+            #futures {
+                background-color: #233161;
+                padding: 0 36px;
+                font-size: 0;
+            }
+            #future-days {
+                width: 20%;
+            }
+            #future-conditions {
+                width: 60%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                text-align: center;
+            }
+            #future-temperatures {
+                width: 20%;
+                text-align: right;
+            }
+            .future-row {
+                line-height: 36px;
+            }
+            .future-column {
+                display: inline-block;
+                vertical-align: top;
+            }
+            #last-update {
+                position: absolute;
+                top: 10px;
+                right: 20px;
+                font-size: 12px;
+            }
+            #sel_city {
+                position: absolute;
+                top: 10px;
+                left: 20px;
+                font-size: 12px;
+				background-image: url('/addons/gf_weather/template/mobile/res/images/location.png');
+				padding-left: 16px;
+				background-repeat: no-repeat;				
+            }			
+			
+			#footer{
+				color: #fff;
+				text-align: center;
+				/* position: fixed;
+				bottom: 0;*/
+				padding: 25px 0px 10px 0px;
+				width: 100%;
+			}
+			.plus{color: #fff;text-decoration: none;height: 40px; line-height: 40px;}
+			.form {color: #333; height: 130px;}
+			.form dl.row dt {
+				float: left;
+				width: 3em;
+				padding: 5px 10px 5px 5px;
+				clear: left;
+				text-align: right;
+				line-height: 30px;
+			}
+			.form dl.row dd {
+				/*float: left;*/
+				padding: 5px;
+			}
+			.select {
+				box-sizing: border-box;
+				width: 175px;
+				height: 30px;
+				padding: 0 4px;
+				border: 1px solid #888;
+				border-radius: 3px;
+				background-color: #fff;
+				background-repeat: no-repeat;
+				background-position: right center;
+				font: 12px/1.5 Tahoma,Arial,sans-serif;
+			}
+			.enabled{background: #8cc152 !important;}
+        </style>
+    
+	</head>
+    <body>
+        <div class="page">
+            <div id="now">
+                <div class="temperature">
+                    <span class="temp">-</span>
+                    <span>°</span>
+                </div>
+                <div class="condition-icon">
+                    <img class="currentIcon" width="80" height="80" src="/addons/gf_weather/template/mobile/res/images/icons/32.png">
+                </div>
+                <div class="condition-text">
+                    <span id="cityName"></span>
+                    <span id="ltlText"></span>
+                    <span class="air">
+                        <span class="air-quality air-quality-text ">
+                            空气
+                        </span>
+                    </span>
+                </div>
+                <ul class="details">
+                    <li class="pm25" >
+                        <span>PM2.5</span>
+                        <span class="air-quality-pm25 air-quality-text " >-</span>
+                    </li>
+                    <li class="wind">
+                        <span class="paper-icon paper-icon-wind"></span>
+                        <span id="paper-icon-wind">-</span>
+                    </li>
+                    <li class="humidity" >
+                        <span class="paper-icon paper-icon-humidity"></span>
+                        <span id="paper-icon-humidity">-</span>
+                        <span>%</span>
+                    </li>
+                </ul>
+            </div>
+            <div id="futures">
+                <ul id="future-days" class="future-column">
+                    <li class="future-row" >--</li>
+                    <li class="future-row" >--</li>
+                    <li class="future-row" >--</li>
+                    <li class="future-row" >--</li>
+                    <li class="future-row" >--</li>
+                    <li class="future-row" >--</li>
+                    <li class="future-row" >--</li>
+                </ul>
+                <div id="future-conditions" class="future-column">
+                    <ul>
+                        <li class="future-row" >
+                            <span class="paper-icon paper-icon-4"></span>
+                            <span class="condition">--</span>
+                        </li><li class="future-row" >
+                            <span class="paper-icon paper-icon-20"></span>
+                            <span class="condition">--</span>
+                        </li><li class="future-row" >
+                            <span class="paper-icon paper-icon-20"></span>
+                            <span class="condition">--</span>
+                        </li><li class="future-row" >
+                            <span class="paper-icon paper-icon-4"></span>
+                            <span class="condition">--</span>
+                        </li><li class="future-row" >
+                            <span class="paper-icon paper-icon-4"></span>
+                            <span class="condition">--</span>
+                        </li><li class="future-row" >
+                            <span class="paper-icon paper-icon-4"></span>
+                            <span class="condition">--</span>
+                        </li><li class="future-row" >
+                            <span class="paper-icon paper-icon-4" ></span>
+                            <span class="condition" >--</span>
+                        </li>
+                    </ul>
+                </div>
+                <ul id="future-temperatures" class="future-column">
+                    <li class="future-row">0/0°C</li>
+                    <li class="future-row">0/0°C</li>
+                    <li class="future-row">0/0°C</li>
+                    <li class="future-row">0/0°C</li>
+                    <li class="future-row">0/0°C</li>
+                    <li class="future-row">0/0°C</li>
+                    <li class="future-row">0/0°C</li>
+                </ul>
+            </div>
+			<div id="footer">
+				<p style="display:none;"><a href="#" class="plus">+</a></p>
+				<p>&copy;{if empty($settings['copyright'])}{$_W['account']['name']}{else}{$settings['copyright']}{/if}</p>
+			</div>
+            <div id="logo" style="display: none;">
+                <span class="paper-icon paper-icon-logo-white"></span>
+            </div>
+            <div id="last-update">
+                更新于 <span id="ltlTime"></span>
+            </div>
+			<div id="sel_city">
+                <span id="cur_city">武威</span>
+            </div>
+        </div>
+		<div style="display:none;">
+		<div class="form">
+			<dl id="city_china" class="row">
+				<dt>省份</dt>
+				<dd><select class="province select"></select></dd>
+				<dt>城市</dt>
+				<dd><select class="city select" disabled=""></select></dd>
+				<dt>地区</dt>
+				<dd><select class="area select" disabled=""></select></dd>
+            </dl>
+		</div>
+		</div>
+        <script type="text/javascript">
+			var cur_city = "";
+			var selected = false;
+			
+			if(localStorage.cityname){
+				cur_city = localStorage.cityname;
+				document.title = "今日天气 - " + cur_city;
+			}
+			
+            $(document).ready(function () {
+			
+				refreshData();
+				
+				//
+				var _form = $('.form');
+				$("#cur_city").click(function(){
+					//alert("show city");
+					
+					$.cxDialog({
+						title: '手动选择城市',
+						info: _form,
+						background: '',
+						okText: '确定',
+						ok: function(){
+							if(cur_city == "" || selected == false){
+								return false;
+							}
+							
+							$("#cur_city").text("读取中...");
+							refreshData();
+						}
+					});
+				});
+            });
+			
+			function refreshData(){
+				
+				localStorage.cityname = cur_city;
+			
+				var url = "{php echo $this->createMobileurl('GetWeather')}";
+				
+				$.ajax({
+					url: url,
+					data: {"city": cur_city},
+					success: function(data){
+						
+						fillData(data);
+					},
+					error: function(e){
+						alert(e);
+					}
+				});
+			}
+			
+			function fillData(data){
+			
+				//alert(data);
+
+				var json = eval('(' + data + ')');
+				if (json.Stat !== "OK") {
+					alert("获得天气信息失败");
+					return false;
+				}
+
+				var weather = json.Weathers[0];
+
+				document.title = "今日天气 - " + weather.CityName;
+				
+				$("#cur_city").text(weather.CityName);
+				$("#cityName").text(weather.CityName);
+				$(".currentIcon").attr("src", "/addons/gf_weather/template/mobile/res/images/icons/" + weather.Current.Code + ".png");
+				//$("#ltlTime").text(weather.LastBuildDate);
+				$(".temp").text(weather.Current.Temperature);
+				$("#ltlText").text(weather.Current.Text);
+				$(".air-quality").text("空气" + weather.AirQuality.CityInfo.Quality);
+				$(".air-quality-pm25").text(weather.AirQuality.CityInfo.PM25);
+				$("#paper-icon-humidity").text(weather.Current.Humidity);
+				$("#paper-icon-wind").text(weather.Current.Direction + "风");
+
+				var aqi = weather.AirQuality.CityInfo.AQI;
+				if(aqi >= 0 && aqi <= 50){
+					$(".air-quality").addClass("aqi-level-0");
+					$(".air-quality-pm25").addClass("aqi-level-0");
+				} else if(aqi > 50 && aqi <= 100){
+					$(".air-quality").addClass("aqi-level-1");
+					$(".air-quality-pm25").addClass("aqi-level-1");
+				} else if(aqi > 100 && aqi <= 150){
+					$(".air-quality").addClass("aqi-level-2");
+					$(".air-quality-pm25").addClass("aqi-level-2");
+				} else if(aqi > 150 && aqi <= 200){
+					$(".air-quality").addClass("aqi-level-3");
+					$(".air-quality-pm25").addClass("aqi-level-3");
+				} else if(aqi > 200 && aqi <= 300){
+					$(".air-quality").addClass("aqi-level-4");
+					$(".air-quality-pm25").addClass("aqi-level-4");
+				} else if(aqi > 300){
+					$(".air-quality").addClass("aqi-level-5");
+					$(".air-quality-pm25").addClass("aqi-level-5");
+				}
+				
+				//
+				var day = '';
+				var size = weather.Forecast.length;
+				if(size >7){
+					size = 7;
+				}				
+				
+				day += '<li class="future-row">' +  '今天' + '</li>';
+				for (i = 1; i < size; i++) {
+					var cast = weather.Forecast[i];
+					day += '<li class="future-row">' + cast.Day + '</li>';
+				}
+
+				$("#future-days").html(day);
+				//
+				var text = '<ul>';
+				for (i = 0; i < size; i++) {
+					var cast = weather.Forecast[i];
+					text += '<li class="future-row" >'
+							+ '<span class="paper-icon paper-icon-4"></span>'
+							+ '<span class="condition">' + cast.Text + '</span>'
+							+ '</li>'
+				}
+				text += '</ul>';
+
+				$("#future-conditions").html(text);
+				
+				//
+				var temp = '';
+				for (i = 0; i < size; i++) {
+					var cast = weather.Forecast[i];
+					temp += '<li class="future-row">' + cast.Low + '/' + cast.High + '°C</li>';
+				}
+
+				$("#future-temperatures").html(temp);
+				
+				var now = new Date();
+				$("#ltlTime").text(formatDate(now));			
+			}
+			
+            function formatDate(date) {
+                var datetime = 
+                        //date.getFullYear()
+                        //+"-"// "年"
+                        //+ ((date.getMonth() + 1) > 10 ? (date.getMonth() + 1) : "0"
+                        //        + (date.getMonth() + 1))
+                        date.getMonth() + 1
+                        + "/"// "月"
+                        + (date.getDate() < 10 ? "0" + date.getDate() : date.getDate())
+                        + " "
+                        + (date.getHours() < 10 ? "0" + date.getHours() : date.getHours())
+                        + ":"
+                        + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes())
+                        //+ ":"
+                        //+ (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds());
+                return datetime;
+            }
+        </script>
+	{php echo register_jssdk(false);}
+	<script type="text/javascript">
+		wx.ready(function () {
+			var now = new Date();
+			var date = now.getMonth() + 1;
+			date += '.' + now.getDate();
+			
+			sharedata = {
+				title: date + "{if empty($settings['share_title'])}天气动态{else}天气 -{$settings['share_title']}{/if}",
+				desc:  "{if empty($settings['share_desc'])}关注每日最新资讯{else}{$settings['share_desc']}{/if}",
+				link:  window.location.href,
+				imgUrl: "{MODULE_URL}template/mobile/res/images/tq.jpg",
+				success: function(){
+					//alert("ok);
+                    },
+                    cancel: function(){
+						//
+                    }
+                };
+            wx.onMenuShareAppMessage(sharedata);
+            wx.onMenuShareTimeline(sharedata);
+        });
+	</script>
+	<script>
+		$.cxSelect.defaults.url = '{MODULE_URL}template/mobile/js/cityData.min.json';
+
+		$('#city_china').cxSelect({
+			selects: ['province', 'city', 'area']
+		});
+		
+		$(".area").change(function(){
+			cur_city = $(this).val();
+			if(cur_city == ""){
+				selected = false;
+				$(".btn_ok").removeClass("enabled");
+			}else{
+				//alert(cur_city);
+				selected = true;
+				$(".btn_ok").addClass("enabled");
+			}
+		});
+
+		$(".city").change(function(){
+
+			if($(this).val() == ""){
+				selected = false;
+				cur_city = "";
+				$(".btn_ok").removeClass("enabled");
+			}else{
+				//alert(cur_city);
+				selected = true;
+				$(".btn_ok").addClass("enabled");
+			}
+		});
+	</script>
+	<div style="display: none;">
+		{if !empty($settings['tongji'])}
+		<script src="http://s11.cnzz.com/stat.php?id={$settings['tongji']}&web_id={$settings['tongji']}" language="JavaScript"></script>
+		{/if}
+	</div>
+    </body>
+</html>

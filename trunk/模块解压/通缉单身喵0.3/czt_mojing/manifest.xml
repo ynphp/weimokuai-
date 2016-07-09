@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[通缉单身喵]]></name>
+		<identifie><![CDATA[czt_mojing]]></identifie>
+		<version><![CDATA[0.3]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[通缉单身喵]]></ability>
+		<description><![CDATA[通缉单身喵]]></description>
+		<author><![CDATA[来自柒柒源码h770.com]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="通缉单身喵" do="index" state="" direct="false" />
+		</cover>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_czt_mojing` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) unsigned NOT NULL,
+  `openid` varchar(40) NOT NULL DEFAULT '',
+  `answer` varchar(200) NOT NULL,
+  `comment` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,9 @@
+@charset "utf-8";
+#loading { position: fixed; z-index:2; width:22em; left:50%; margin-left:-11em; top:12%; text-align:center}
+#loading p{ font-size:2em; text-shadow:0 0 .5em #000}
+.loadStars{ position:absolute; width:100%; height:100%; top:0; left:0; background-repeat: no-repeat; background-size:100% auto;-webkit-animation:loading 2s infinite linear;}
+@-webkit-keyframes loading {
+0%,33.333% {background-image:url(../images/loading2.png)}
+33.334%,66.666%{background-image:url(../images/loading3.png)}
+66.667%,100% {background-image:url(../images/loading4.png)}
+}

@@ -1,0 +1,42 @@
+{template 'common/header'}
+<div class="main">
+    <form class="form-horizontal form" id="" action="" method="post">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                设置
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label" for="">按钮文字</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="btn_text" value="{$settings['btn_text']}" />
+                        <span class="help-block">
+                            <strong>例如：100%送大奖，快领、点击关注我、抢红包活动火热进行中。。。</strong>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 col-md-2 control-label" for="">按钮链接</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="btn_url" value="{$settings['btn_url']}" />
+                        <span class="help-block">
+                            <strong></strong>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-sm-12">
+            <input name="token" type="hidden" value="{$_W['token']}" />
+            <input type="submit" class="btn btn-primary col-lg-1" name="submit" value="提交" />
+        </div>
+    </form>
+</div>
+<script language='javascript'>
+require(['jquery', 'util'], function($, u) {
+    $(function() {
+
+    });
+});
+</script>
+{template 'common/footer'}
