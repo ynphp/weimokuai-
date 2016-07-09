@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微小猴核销管理中心]]></name>
+		<identifie><![CDATA[mon_exchange]]></identifie>
+		<version><![CDATA[0.0.2]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[微小猴核销管理中心]]></ability>
+		<description><![CDATA[微小猴核销管理中心]]></description>
+		<author><![CDATA[柒柒源码分享]]></author>
+		<url><![CDATA[http://code.h770.com]]></url>
+	</application>
+	<platform>
+		<handles>
+			<message type="text" />
+		</handles>
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="奖品核销" do="gameAdminIndex" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="游戏管理" do="gameManage" state="" />
+			<entry title="核销人员" do="gameAdmin" state="" />
+			<entry title="核销记录" do="exchangeRecord" state="" />
+		</menu>
+	</bindings>
+
+	<install><![CDATA[
+CREATE TABLE IF NOT EXISTS `ims_mon_exchange_admin` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `gid` int(10) DEFAULT NULL,
+  `admin` varchar(1000) DEFAULT NULL,
+  `pwd` varchar(500) DEFAULT NULL,
+  `token` varchar(100) DEFAULT NULL,
+  `remark` varchar(1000) DEFAULT NULL,
+  `createtime` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_mon_exchange_game` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(11) NOT NULL,
+  `gname` varchar(100) NOT NULL,
+  `gcode` varchar(2000) DEFAULT NULL,
+  `createtime` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+CREATE TABLE IF NOT EXISTS `ims_mon_exchange_record` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) NOT NULL,
+  `gid` int(10) NOT NULL,
+  `aid` int(10) NOT NULL,
+  `uname` varchar(100) DEFAULT NULL,
+  `unickname` varchar(1000) DEFAULT NULL,
+  `utel` varchar(100) DEFAULT NULL,
+  `pname` varchar(1000) DEFAULT NULL,
+  `remark` text,
+  `createtime` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

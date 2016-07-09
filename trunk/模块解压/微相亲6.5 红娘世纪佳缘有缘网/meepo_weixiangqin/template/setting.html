@@ -1,0 +1,155 @@
+{template 'common/header'}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		公众平台配置参数以及相关参数设置
+	</div>
+	<form id="reply-form" class="form-horizontal form"  method="post" enctype="multipart/form-data">
+	<div class="panel-body">
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">公众平台appid</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="appid" value="{$settings['appid']}">
+				<span class="help-block">微信平台唯一appid
+				</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">公众平台secret</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="secret" value="{$settings['secret']}">
+				<span class="help-block">微信平台唯一secret</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">积分充值比率</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="bilv" value="{$settings['bilv']}">
+				<span class="help-block">若设置为100 即为1元 充值100积分</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝上传图片是否需要审核</label>
+			<div class="col-sm-9">
+				<label class="radio-inline">
+					<input type="radio" name="isstatus" value="1" id="xh" {if $settings['isstatus'] == '1'}checked="true"{/if}> 是
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="isstatus" value="0" id="xh"  {if $settings['isstatus'] == '0'}checked="true"{/if}>否
+				</label>
+				<span class="help-block">默认需要审核，那么粉丝上传的图片均需到后台审核才能显示</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">每日分享可以奖励积分次数【请到基本设置里设置奖励积分】</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="sharenum" value="{$settings['sharenum']}">
+				<span class="help-block">即为每天奖励积分，最多分享几次，如设置为3，那么分享第4次将不会奖励积分！</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">客服消息图片</label>
+			
+			<div class="col-sm-9">
+				{php echo tpl_form_field_image('kefuimg', $settings['kefuimg']);}
+				<span class="help-block">客服消息图片</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">关键字触发标题</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="title" value="{$settings['title']}">
+				<span class="help-block">关键字触发标题</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">关键字触发内容</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="description" value="{$settings['description']}">
+				<span class="help-block">关键字触发内容</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">关键字触发头图</label>
+			<div class="col-sm-9">
+				{php echo tpl_form_field_image('picurl', $settings['picurl']);}
+				<span class="help-block">关键字触发头图</span>
+			</div>
+		</div>
+		此处定义活动页参数
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">活动首页标题</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="huodongtitle" value="{$settings['huodongtitle']}">
+				<span class="help-block">活动首页标题</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">活动首页图片链接</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="huodongurl" value="{$settings['huodongurl']}">
+				<span class="help-block">活动首页图片链接</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">活动首页图片</label>
+			<div class="col-sm-9">
+				{php echo tpl_form_field_image('huodongpicurl', $settings['huodongpicurl']);}
+				<span class="help-block">活动首页图片</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">活动详情页面客服电话【请填写手机号码】</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="kefuphone" value="{$settings['kefuphone']}">
+				<span class="help-block">活动详情页面客服手机号码</span>
+			</div>
+		</div>
+		
+		<strong>首页菜单名称自定义【请自己斟酌后命名  注意: 不填写的话 将会显示默认的菜单名字 填写的话最好不超过4个汉字 只可围绕默认文字去命名】</strong><br>
+	  
+        
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">第一个主菜单名称</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="firstcard" value="{$settings['firstcard']}">
+				<span class="help-block">第一个主菜单名称【默认为女神】</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">第二个主菜单名称</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="secondcard" value="{$settings['secondcard']}">
+				<span class="help-block">第二主菜单名称【默认为男神】</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">第三个主菜单名称</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="thirdcard" value="{$settings['thirdcard']}">
+				<span class="help-block">第三主菜单名称【默认为榜单】</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">第四个主菜单名称</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="fourcard" value="{$settings['fourcard']}">
+				<span class="help-block">第四主菜单名称【默认为我的资料】</span>
+			</div>
+		</div><div class="form-group">
+			<label class="col-xs-12 col-sm-3 col-md-2 control-label">第五个主菜单名称</label>
+			<div class="col-sm-9">
+				<input type="text"  class="form-control" name="fivecard" value="{$settings['fivecard']}">
+				<span class="help-block">第五主菜单名称【默认为与我相关】</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-12">
+				<input name="submit" type="submit" value="保存" class="btn btn-primary" />
+				
+				<input type="hidden" name="token" value="{$_W['token']}" />
+			</div>
+		</div>
+	</form>
+</div>
+
+{template 'common/footer'}

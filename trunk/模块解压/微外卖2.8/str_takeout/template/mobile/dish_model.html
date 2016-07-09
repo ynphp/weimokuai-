@@ -1,0 +1,45 @@
+<div class="menu_tt" id="cate-{$category['id']}"><h2 style="color:#ff510c">{$category['title']}</h2></div>
+<ul class="menu_list" id="data-{$category['id']}">
+	{loop $dish $ds}
+		<li id="{$ds['id']}">
+			<div>
+				{if $ds['thumb']}
+					<div><img src="{php echo tomedia($ds['thumb']);}" alt=""></div>
+				{else}
+					<div class="nopic"></div>
+				{/if}								
+			</div>
+			<div>
+				<h3>{$ds['title']}</h3>
+				<p>
+					已售<span class="sale_num">{$ds['sailed']}</span><span class="sale_unit">{$ds['unitname']}</span>
+					{if $ds['total'] == 0}
+						<span class="text-danger">已售完</span>
+					{/if}
+					赠{$ds['grant_credit']}积分
+				</p>
+				<div class="info">{$ds['description']}</div>
+			</div>
+			<div class="price_wrap">
+				<strong>￥<span class="unit_price">{$ds['price']}</span></strong>
+				{if $store['business_hours_flag']}
+					{if $ds['total'] == -1 || $ds['total'] > 0}
+					<div class="fr" max="{$ds['total']}">
+						<a href="javascript:void(0);" class="btn_n add" data-num="{$cart['data'][$ds['id']]}"></a>
+					</div>
+					<input autocomplete="off" class="number" type="hidden" name="dish[{$ds['id']}]" value="{$cart['data'][$ds['id']]}">
+					{/if}
+				{/if}
+			</div>
+		</li>
+	{/loop}
+</ul>
+<script type="text/javascript">
+	var id = 'data-' + '{$category['id']}';
+	$('#menuWrap #'+id+' .add').each(function(){
+		$(this).amount(0, $.amountCb());
+		for(var i = 0, num = parseInt($(this).data('num')); i < num; i++){
+			$(this).click();
+		}
+	});
+</script>

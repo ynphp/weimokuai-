@@ -1,0 +1,51 @@
+{template 'common/header'}
+<style type="text/css">
+	.require{color:red;}
+	.info{padding:6px;width:400px;margin:-20px auto 3px auto;text-align:center;}
+</style>
+<ul class="nav nav-tabs">
+	<li class="active"><a href="{php echo $this->createWebUrl('config');}"> 参数设置</a></li>
+	<li><a href="{php echo $this->createWebUrl('store');}"> 返回门店列表</a></li>
+</ul>
+<form class="form-horizontal form" id="form1" action="" method="post" enctype="multipart/form-data">
+	<div class="main">
+		<div class="panel panel-default">
+			<div class="panel-heading">参数设置</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="require">* </span>版本设置</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" value="2" name="version" {if $config['version'] == 2}checked{/if}> 独立外卖版本
+						</label>
+						<label class="radio-inline">
+							<input type="radio" value="1" name="version" {if $config['version'] == 1}checked{/if}> 多店外卖版本
+						</label>
+						<div class="help-block text-danger">如果是独立版本，用户进入时，不会显示门店列表，直接跳转到该门店的菜单页</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label"><span class="require">* </span>区域搜索</label>
+					<div class="col-sm-9 col-xs-12">
+						<label class="radio-inline">
+							<input type="radio" value="2" name="area_search" {if $config['area_search'] == 2}checked{/if}> 关闭
+						</label>
+						<label class="radio-inline">
+							<input type="radio" value="1" name="area_search" {if $config['area_search'] == 1}checked{/if}> 开启
+						</label>
+						<div class="help-block text-danger">如果是独立外卖版本，系统不会开启区域搜索.如果是多店外卖版本,可自行设置.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-9 col-xs-9 col-md-9">
+				<input type="hidden" name="token" value="{$_W['token']}">
+				<input name="submit" id="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+			</div>	
+		</div>
+	</div>
+</form>
+
+{template 'common'}
+{template 'common/footer'}

@@ -1,0 +1,129 @@
+{template 'common/header'}
+<link rel="stylesheet" type="text/css" href="../addons/str_takeout/template/resource/css/main.css">
+<script src="../addons/str_takeout/template/resource/js/dialog.js"></script>
+{if $op == 'list'}
+<div data-role="container" class="container addresslist">
+	<section data-role="body">
+		<ul class="list">
+			{loop $addresses $address}
+			<li>
+				<table cellpadding="0" cellspacing="0">
+					<tbody>
+						<tr>
+							<td class="td_radio"><input class="addressChecked" {if $address['is_default'] == 1}checked{/if} type="radio" data-id="{$address['id']}"></td>
+							<td>
+							<div class="text"><span>{$address['realname']}</span><label>{$address['mobile']}</label></div>
+							<div class="text">{$address['address']}</div>
+							</td>
+							<td class="td_edit"><a href="{php echo $this->createMobileUrl('address', array('op' => 'post', 'id' => $address['id'],'sid' => $sid, 'r' => $_GPC['r']))}" class="edit_icon"><span></span></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</li>
+			{/loop}
+		</ul>
+		<div class="btn_div"><a href="{php echo $this->createMobileUrl('address', array('op' => 'post', 'sid' => $sid, 'r' => $_GPC['r']))}" class="add"><span><i></i>新增收件地址</span></a></div>
+	</section>
+</div>
+{elseif $op == 'post'}
+<div data-role="container" class="container addressedit">
+	<section data-role="body">
+		<div class="info">
+			<div class="line"><input type="text" name="realname" value="{$address['realname']}" placeholder="姓名"></div>
+			<div class="line"><input type="text" name="mobile" value="{$address['mobile']}" placeholder="手机"></div>
+			<div class="line address addr1"><input name="address" value="{$address['address']}" type="text" placeholder="详细地址">
+				<i class="getposition"></i>
+			</div>
+		</div>
+		<div class="btn_div" {if !$address}style="display: none;"{/if}><a id="deladdress"><span>删除该地址</span></a></div>
+	</section>
+	<footer data-role="footer">
+		<nav class="nav_common">
+			<ul class="box_nav" style="bottom:40px">
+				<li>
+					<a href="javascript:history.go(-1);" class="middle">
+						<span class="cacel">&nbsp;</span>
+						<label>取消</label>
+					</a>
+				</li>
+				<li id="submit">
+					<a class="middle">
+						<span class="sure">&nbsp;</span>
+						<label>确定</label>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</footer>
+	{template 'footerbar'}
+</div>
+{/if}
+<script type="text/javascript">
+	$(function(){
+		var r = "{$_GPC['r']}";
+		var return_url = "{php echo $this->createMobileUrl('orderconfirm', array('sid' => $sid, 'r' => 1));}";
+		$('.addressChecked').click(function(){
+			var address_id = $(this).attr('data-id');
+			if(address_id) {
+				$.post("{php echo $this->createMobileUrl('address', array('op' => 'default', 'sid' => $sid))}", {'id':address_id},function(){
+					if(r) {
+						location.href=return_url + '&address_id='+address_id;
+					} else {
+						location.href = "{php echo $this->createMobileUrl('address', array('op' => 'list'));}"
+					}
+				});
+			}
+			return false;
+		});
+
+		$('#submit').click(function(){
+			var id = '{$id}';
+			var realname = $.trim($(':text[name="realname"]').val());
+			if(!realname) {
+				alert('预定人不能为空');
+				return false;
+			}
+			var mobile = $.trim($(':text[name="mobile"]').val());
+			if(!mobile) {
+				alert('手机号不能为空');
+				return false;
+			}
+			var address = $.trim($(':text[name="address"]').val());
+			if(!address) {
+				alert('收件地址不能为空');
+				return false;
+			}
+			$.post("{php echo $this->createMobileUrl('address', array('op' => 'post', 'sid' => $sid))}", {'id':id,'realname':realname, 'mobile':mobile, 'address':address}, function(data){
+				var data = $.parseJSON(data);
+				if(!data.errorno) {
+					if(r) {
+						location.href=return_url + '&address_id='+data.message;
+					} else {
+						location.href = "{php echo $this->createMobileUrl('address', array('op' => 'list'));}"
+					}
+				} else {
+					alert(data.message);
+					return false;
+				}
+			});
+		});
+
+		$('#deladdress').click(function(){
+			var id = '{$id}';
+			if(!id) {
+				return false;
+			}
+			if(!confirm('确定删除吗')) return false;
+			$.post("{php echo $this->createMobileUrl('address', array('op' => 'del', 'sid' => $sid))}", {'id':id}, function(){
+				var data = $.parseJSON(data);
+				if(!data.errorno) {
+					location.href = "{php echo $this->createMobileUrl('address', array('op' => 'list', 'r' => $_GPC['r']));}"
+				} else {
+					alert(data.message);
+					return false;
+				}
+			});
+		});
+	});
+</script>
+{template 'common/footer'}
