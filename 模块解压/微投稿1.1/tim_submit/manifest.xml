@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[微投稿]]></name>
+		<identifie><![CDATA[tim_submit]]></identifie>
+		<version><![CDATA[1.1]]></version>
+		<type><![CDATA[other]]></type>
+		<ability><![CDATA[微投稿]]></ability>
+		<description><![CDATA[微投稿]]></description>
+		<author><![CDATA[来自柒柒源码h770.com]]></author>
+		<url><![CDATA[http://h770.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="进入投稿" do="submit" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="今日投稿" do="today" state="" direct="false" />
+			<entry title="投稿记录" do="list" state="" direct="false" />
+			<entry title="用户积分" do="cent" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_tim_submit_article` (
+  `aid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sid` int(10) DEFAULT NULL,
+  `uniacid` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `tel` varchar(20) NOT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `content` text,
+  `adate` date DEFAULT NULL,
+  PRIMARY KEY (`aid`),
+  KEY `sid` (`sid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_tim_submit_set` (
+  `sid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `today` date DEFAULT NULL,
+  `article_num` int(11) NOT NULL,
+  `cent` float DEFAULT NULL,
+  `info` text,
+  `share_title` varchar(100) DEFAULT NULL,
+  `share_icon` varchar(200) DEFAULT NULL,
+  `share_content` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`sid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_tim_submit_user` (
+  `uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) NOT NULL,
+  `name` varchar(20) DEFAULT NULL,
+  `tel` varchar(20) NOT NULL,
+  `total_cent` float DEFAULT NULL,
+  PRIMARY KEY (`uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

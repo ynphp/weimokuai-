@@ -1,0 +1,122 @@
+{template 'common/header'}
+<style type="text/css">
+/*apps.html*/
+.app a.tim {float: right;display: inline-block;margin-left:10px;}
+.app .icon { width: 196px; height:196px;}
+.app .thumbnail { min-height:276px; box-shadow:0 0 10px 0px #CCCCCC; position:relative; }
+.app .thumbnail.addapp { background-color:#F9F9F9;}
+.app .thumbnail.addapp .addAppBtn{ display:block; margin:15px 15px 0 15px; height:238px; border:2px dashed #BFBFBF; color:#2C2C2C; position:relative; -webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;}
+.addAppBtn .addicon {position:absolute;width:100%; padding-top:136px; height:66px; background:url({MODULE_URL}icon.jpg) center top no-repeat; top:15%; text-align:center;}
+.addAppBtn .addicon.hav-add{background:url({MODULE_URL}template/mobile/img/hav_publish.png) center top no-repeat;}
+.app .thumbnail.addapp .addAppBtn:hover{ text-decoration:none;}
+
+@-webkit-keyframes rotate{
+    from { -webkit-transform:rotate(0deg)} to { -webkit-transform:rotate(360deg)}
+}
+@-moz-keyframes rotate{
+    from { -moz-transform:rotate(0deg)} to { -moz-transform:rotate(360deg)}
+}
+@keyframes rotate{
+    from { transform:rotate(0deg)} to { transform:rotate(360deg)}
+}
+</style>
+    <ul class="nav nav-tabs">
+  		<li {if $op == 'post'}class="active"{/if}><a href="{php echo $this->createWebUrl('today', array('op' => 'post'));}">编辑发布</a></li>
+  		<li {if $op == 'display'}class="active"{/if}><a href="{php echo $this->createWebUrl('today',array('op'=>'display'));}">创建投稿</a></li>
+    </ul>
+    {if $op =='display'}
+    <div class="row">
+        <div class="col-xs-4 col-md-3 app">
+            <div class="thumbnail addapp">
+                <a class="addAppBtn" href="{php echo $this->createWebUrl('today', array('op' => 'post'));}"><span class="addicon">创建今日投稿</span></a>
+            </div>
+        </div>
+        {loop $list $item}
+		<div class="col-xs-4 col-md-3 app">
+            <div class="thumbnail addapp">
+                <a class="addAppBtn hav"><span class="hav-add addicon">{php echo $item['today'];} <br>积分：{$item['cent']} 次数：{$item['article_num']}</span>
+
+				<a class="tim" href="{php echo $this->createWebUrl('today', array('op' => 'post', 'sid' => $item['sid']))}" title="编辑">编辑</a>
+					
+				<a class="tim" onclick="if(confirm('此操作不可恢复，确认吗？')){location.href='{php echo $this->createWebUrl('today', array('sid' => $item['sid'],'op'=>'del'))}'}" href="javascript:;" title="删除" >删除</a>
+                </a>
+            </div>
+        </div>
+        {/loop}
+    </div>
+    {$pager}
+   {else}
+    <div class="panel panel-default">
+    <div class="panel-heading">设置今日投稿</div>
+    <div class="panel-body">
+		 <form action="" method="post" class="form-horizontal form">
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-3 col-md-2 control-label" for="appname">积分:</div>
+                <div class="col-sm-8 col-md-6">
+                    <input type="text" name="cent" class="form-control" value="{$item['cent']} "/>
+                    <div class="help-block">设置每份投稿的积分</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-3 col-md-2 control-label" for="description">投稿次数:</div>
+                <div class="col-sm-8 col-md-6">
+                <input type="text" name="article_num" class="form-control" value="{$item['article_num']} "/>
+                    <div class="help-block">限定每天投稿的次数</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-3 col-md-2 control-label" for="description">日期:</div>
+                <div class="col-sm-8 col-md-6">
+                    <input type="text" name="today" class="form-control" value="{$item['today']} "/>
+                    <div class="help-block">格式如：2015-08-10</div>
+                </div>
+            </div>
+            <div class="form-group">
+		        <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>提示信息</label>
+		        <div class="col-sm-8 col-md-6">
+		            <textarea id="remark" name="info" class="form-control">
+					{$item['info']} 
+					</textarea>
+		        </div>
+		    </div>
+            <div class="form-group">
+		        <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>分享标题：</label>
+		        <div class="col-sm-8 col-md-6">
+		            <input type="text" id="share_title" class="form-control span7" placeholder="" name="share_title" value="{$item['share_title']}">
+		        </div>
+		        </div>
+
+		    <div class="form-group">
+		        <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>分享图标：</label>
+		        <div class="col-sm-8 col-md-6">
+		            {php echo tpl_form_field_image('share_icon',$item['share_icon']);}
+		        </div>
+		    </div>
+
+		    <div class="form-group">
+		        <label class="col-xs-12 col-sm-3 col-md-2 control-label"><span style='color:red'>*</span>分享描述：</label>
+		        <div class="col-sm-8 col-md-6">
+			        <textarea style="height: 60px;" name="share_content" class="form-control span7" cols="60">{$item['share_content']}</textarea>
+		        </div>
+		    </div>            
+            <div class="form-group mt10">
+                <div class="col-sm-offset-2 col-sm-6">
+                 	<input type="hidden" name="sid" value="{$item['sid']}">
+					<input type="hidden" name="token" value="{$_W['token']}" />
+                    <input name="submit" type="submit" value="提交" class="btn btn-primary btn btn-primary btn-block" />
+                </div>
+            </div>
+			
+        </form>
+        
+    </div>
+</div>
+{/if}	
+<script>
+require(['jquery','util'], function($, util){
+	$(function(){
+		var editor = util.editor($('#remark')[0]);
+	});
+});
+</script>
+{template 'common/footer'}

@@ -1,0 +1,69 @@
+{template 'common/header'}
+
+<div class="main">
+    <ul class="nav nav-tabs">
+        <li  class="active"><a
+            href="{php echo $this->createWebUrl('gameManage');}">游戏管理</a></li>
+        <li>
+            <a href="{php echo $this->createWebUrl('gameManage', array('op' => 'edit'))}">添加游戏</a>
+        </li>
+
+    </ul>
+
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          游戏管理
+        </div>
+        <div class="table-responsive panel-body">
+
+            <div style="padding:15px;">
+                <table class="table table-hover">
+                    <thead class="navbar-inner">
+                    <tr>
+                        <th width="130px">游戏名称</th>
+                        <th width="130px">游戏编号</th>
+                        <th width="130px">创建时间</th>
+                        <th style="width:350px">操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {loop $list $row}
+                    <tr>
+
+                        <td>{$row['gname']} </td>
+                        <td>{$row['gcode']}</td>
+                        <td>{php echo date("Y-m-d H:i",$row['createtime'])}</td>
+                        <td>
+                            <a href="{php echo $this->createWebUrl('gameManage', array('op' => 'edit', 'gid'=> $row['id'] ))}" class="btn btn-default" role="button"><i class="glyphicon glyphicon-edit"></i>编辑</a>
+                            <a href="{php echo $this->createWebUrl('gameAdmin', array('gid'=> $row['id'] ))}" class="btn btn-default" role="button"><i class="glyphicon glyphicon-list"></i>核销人员</a>
+                            <a href="{php echo $this->createWebUrl('exchangeRecord', array('gid'=> $row['id'] ))}" class="btn btn-default" role="button"><i class="glyphicon glyphicon-list"></i>核销记录</a>
+                            <a href="{php echo $this->createWebUrl('gameManage', array( 'gid' => $row['id'], 'op' => 'delete'))}" class="btn btn-danger" role="button"  onclick="return confirm('此操作不可恢复，确认删除？');return false;"><i class="glyphicon glyphicon-remove"></i>删除</a>
+                        </td>
+                    </tr>
+                    {/loop}
+                    </tbody>
+                </table>
+                {$pager}
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+</div>
+<script>
+
+<script>
+    function drop_confirm(msg, url){
+        if (confirm(msg)){
+            window.location = url;
+        }
+    }
+</script>
+
+
+{template 'common/footer'}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,user-scalable=no, initial-scale=1">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="<?php echo MODULE_URL;?>template/mobile/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo MODULE_URL;?>template/mobile/css/zAlert.css"/>
+	<link rel="stylesheet" type="text/css" href="<?php echo MODULE_URL;?>template/mobile/css/style.css"/>
+	<script type="text/javascript" src="<?php echo MODULE_URL;?>template/mobile/js/jquery-2.0.3.js"></script>
+
+</head>
+<body style="background-color:#fefbf3;">
+<div class="header">
+	<div class="clearfix">
+		<?php echo html_entity_decode($item['info']);?>
+	</div>
+</div>
+<div class="apply-form">
+	<form action="{php echo $this->createMobileUrl('create')}" method="post">
+	<div class="label clearfix">
+		<span class="label-left">姓名</span>
+		<div class="label-right">
+			<input class="name" type="text" name="name" placeholder="请输入您的姓名(必填)" />
+		</div>
+	</div>
+	<div class="label clearfix">
+		<span class="label-left">手机号</span>
+		<div class="label-right">
+			<input class="mobile-input" type="tel" name="tel" placeholder="请输入您的手机号(必填)" />
+		</div>
+	</div>
+	<div class="label clearfix">
+		<span class="label-left">标题</span>
+		<div class="label-right">
+			<input class="mobile-input" type="title" name="title" placeholder="文章标题"/>
+		</div>
+	</div>
+	
+	<div class="label clearfix" style="border:none;">
+		<span class="label-left">内容</span>
+		<div class="label-right">
+			<textarea class="content" name="content" placeholder="文章内容"></textarea>
+		</div>
+	</div>
+	
+	<input type="submit" class="sub-btn" value="提 交">
+	</form>
+</div>
+
+</body>
+{php echo register_jssdk(false);}
+<script type="text/javascript">
+    initShare();
+    function initShare(){
+        wx.ready(function () {
+            sharedata = {
+                title: "{$item['share_title']}",
+                desc: "{$item['share_content']}",
+                link: window.location.href,
+                imgUrl: "{$_W['attachurl']}{$item['share_icon']}",
+                success: function(){
+                	
+                },
+                cancel: function(){
+                    //alert("分享失败，可能是网络问题，一会儿再试试？");
+                }
+            };
+            wx.onMenuShareAppMessage(sharedata);
+            wx.onMenuShareTimeline(sharedata);
+        });
+    }
+</script>
+
+</html>

@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1"><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+	正在与{$to}聊天
+</title>
+<meta charset="utf-8" />
+<meta name="description" />
+<meta name="keywords" />
+<meta content="eric.wu" name="author" />
+<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type" />
+<meta content="no-cache,must-revalidate" http-equiv="Cache-Control" />
+<meta content="no-cache" http-equiv="pragma" />
+<meta content="0" http-equiv="expires" />
+<meta content="telephone=no, address=no" name="format-detection" />
+<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+<link rel="stylesheet" type="text/css" href="{RES2}css/mobilemain.css?t={$num}"/>
+
+    <script src="{RES2}js/jquery_min.js"></script>
+    <script>
+        
+    </script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;">
+<ul style="position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+		height: 35px;
+        margin: auto;
+        background: #f3f3f3;
+        z-index: 1000;
+        border-top: 1px solid #b2b2b2;">
+                    
+                        <li style="width:100%">
+						  
+						<div style="float:left;margin-left:10px" class="acolor">
+						
+                           <a href="{php echo $this->createMobileUrl('mynews')}" target="__blank"   class="ui-btn" ">我的消息</a>
+</div>
+<div style="float:right;margin-right:10px" class="acolor">
+  <a href="{php echo $this->createMobileUrl('dropblack',array('toname'=>$to,'toopenid'=>$toopenid))}" target="__blank"  class="ui-btn" >{if empty($result)}拉黑{else}取消{/if}</a>
+</div>
+                        </li>
+                         
+         <style>
+		 .acolor a:link {color: #0079ff;} 
+.acolor a:visited {color: #0079ff;} 
+ .acolor a:hover{color: #0079ff;} 
+.acolor a:active {color: #0079ff;} 
+		 .ui-btn{height: 30px;
+line-height: 30px;
+padding: 0 13px;
+min-width: 56px;
+display: inline-block;
+position: relative;
+text-align: center;
+border: none;
+color: #0079ff;
+font-size: 14px;
+background-color: #fdfdfd;
+background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, white), to(#fafafa));
+border-radius: 3px;
+vertical-align: top;
+color: #00a5e0;
+text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+-webkit-box-sizing: border-box;
+border: 1px solid #cacccd;
+-webkit-background-clip: padding-box;
+background-clip: padding-box;
+outline:0;
+}
+		 </style>                
+                       
+                   
+</ul>
+
+
+    <div id="container" class="container animate">
+        <div class="containertop" id="containertop">
+            
+            
+        </div>
+        <footer>
+            <section class="nav_footer" id="nav_footer">
+                <ul>
+                    <ol class="tbox">
+                        <li>
+                            <a style="display: block;
+height: 30px;
+text-align: center;
+/* overflow: hidden; */
+width: 1px;
+margin: 9px 0;"></a>
+                        </li>
+
+                        <li>
+                            <iframe style="display: none;" name="Upload_iframe" id="Upload_iframe" style="display:none"></iframe >
+                            <form method="post" enctype="multipart/form-data" target="Upload_iframe" action="http://kf.weimob.com/MobileUpload.aspx?aid=1071&weimobId=271723900295" id="Upload_form" style="display:none">
+                                <input type="file" accept="image/jpg, image/jpeg, image/png" class="picfile" onchange="sendimg(this);" id="Upload_file" name="Upload_file">
+                                <a class="pointer toolscamera" id="picPoint"></a>
+                            </form>
+                        </li>
+                        <!--改为点击刷新--->
+						
+                        <li style="width: 100%;">
+                            <input type="text" id="sendtext"  oninput="cansend()" onpropertychange="cansend()" class="toolstext" style="width: 100%;" />
+                        </li>
+
+                        <li>
+                            <a id="btnsend" class="toolssend on" style="height: 24px; padding-top: 6px; margin: 0 7px;">发送</a>
+                        </li>
+                    </ol>
+
+                </ul>
+
+
+            </section>
+        </footer>
+        <input type="hidden" id="pageNumber" value="2" />
+        <input type="hidden" id="lastmsgtime" value="" />
+    </div>
+</body>
+</html>
+
+<script src="{RES}js/emotion.js" ></script>
+<script src="{RES}js/helper_min.js" ></script>
+<script src="{RES}js/swipe.js" ></script>
+
+
+<script>
+    var userAgent = navigator.userAgent.toLowerCase();
+    var IsIOS = false;
+    if(userAgent.indexOf("iphone") >= 0){
+        IsIOS = true;
+        $("#nav_footer ul").css("position","absolute");
+    }
+    var sender = "{$_W['fans']['from_user']}";//粉丝标识
+    var geter = "{$geter}";
+    var SocketIp = "";
+    var CustomerHeadUrl = "{$avatar}";
+    function cansend() {
+        var text = $("#sendtext").val();
+        var btn = $("#btnsend");
+        if (text.trim().length > 0) {
+            btn.removeClass("on");
+        }
+        else {
+            btn.addClass("on");
+        }
+    }
+   
+    $("#btnsend").click(function(){
+        var text = $("#sendtext").val();
+        if (text.trim().length == 0) {
+            return;
+        }
+        else{
+            sendMessage(sender,geter, text.trim());
+        }
+    });
+ </script>
+<!---将以下文件放入到本文件内>
+<!--script src="{RES}js/MobileCustomer.js-v=3"></script>-->
+<script>
+var getType = true;
+var TimeInterval;
+$(document).ready(function () {
+	onLoadMessage(1);//加载历史已读消息 
+    setInterval(getnewMessage2,1000); //每1秒发送一次请求 加载最新回复消息
+    $(window).bind("scroll", function () {
+		
+        if ($(document).scrollTop() <= 0 && getType) {
+            var oldheight = document.body.scrollHeight;
+            var page = $("#pageNumber").val();
+            onLoadMessage(page);
+            $(document).scrollTop(document.body.scrollHeight - oldheight)
+        }
+
+    });
+    scrollTop();
+    //imgonload();
+    SetAudioEventLister();
+    //SocketMessage(1, 2);
+    //GetPolling();
+});
+
+
+var scrollTop = function () {
+    TscrollTop();
+    setTimeout(TscrollTop, 100);
+    setTimeout(TscrollTop, 1000);
+}
+
+function TscrollTop() {
+    $(window).scrollTop(document.body.scrollHeight);
+}
+
+function onLoadMessage(page) {
+    $.ajax({
+        type: 'post',
+        url: "{php echo $this->createMobileUrl('getfatherback10')}",
+        data: {
+            action: 'GetMessageData',
+            sender: sender,
+            geter: geter,
+            page: page
+        },
+        dataType: 'json',
+        success: function (json) {
+            if (json) {
+                for (var i = 0; i <= json.length - 1; i++) {
+                    var uliHtml = "";
+                    var voiceId = "";
+                    var obj = json[i];
+                    var fromType = obj.sender;
+					var fromwho = obj.sender;//谁发的
+                    var ulclass = 'class="ul_talk reply"';
+                    var showFlag = true;
+                    var path = '<path d="M18,40 A9,5,0,0,0,2,37 L0,23" stroke-width="1" stroke="#2792ff" fill="#2792ff" />';
+                    var preobj;
+                    if (obj.fromwho == "{$_W['fans']['from_user']}") {
+                        ulclass = 'class="ul_talk"';
+                        path = '<path d="M2,20 A9,5,0,0,1,18,24 L20,0" stroke-width="1" stroke="#e2e2e2" fill="#e2e2e2" />';
+                    }
+                    //alert(obj.sender);
+                    //ulHtml += '<p class="time" style="display:block;">' + obj.stime + '</p>'
+                    if (obj.sender != sender) {//回复的放于左边
+                         uliHtml += '<ul class="ul_talk"><li class="tbox"><div><span class="head"><img src="' + obj.senderavatar + '" /></span><label class="name" >' + obj.sendernickname + '</label></div><div><span class="arrow" ><svg><path d="M2,20 A9,5,0,0,1,18,24 L20,0" stroke-width="1" stroke="#e2e2e2" fill="#e2e2e2" /></svg></span></div><div><article class="content">' + obj.content + '</article></div></li></ul>';
+       
+          
+                    }
+                    else {//自己发的放于右边
+                          uliHtml += '<ul class="ul_talk reply"><li class="tbox"><div><span class="head"><img src="' + CustomerHeadUrl + '" /></span><label class="name" >{$res2['nickname']}</label></div><div><span class="arrow" ><svg><path d="M18,40 A9,5,0,0,0,2,37 L0,23" stroke-width="1" stroke="#2792ff" fill="#2792ff" /></svg></span></div><div><article class="content">' + obj.content + '</article></div></li></ul>';
+                    }
+                   
+                    $("#containertop").prepend(uliHtml);
+                    
+                }
+                if (json.length > 0) {
+                    page++;
+                }else{
+				    getType = false;
+				}
+                $("#pageNumber").val(page);
+            }
+        },
+        error: function () {
+        }
+    });
+}
+
+
+
+function StartPolling() {
+    getType = 2;
+    clearInterval(TimeInterval);
+    TimeInterval = setInterval(GetPolling, 10000);
+    GetPolling();
+}
+
+function GetPolling() {
+    $.ajax({
+        type: 'post',
+        url: 'Ajax/CustomerChatAjax.aspx',
+        data: {
+            action: 'GetPolling',
+            weimobid: sWeimobId,
+            AId: AId
+        },
+        dataType: 'json',
+        success: function (json) {
+            if (json) {
+                PollingSuccess(json);
+            }
+        },
+        error: function () {
+
+        }
+    });
+}
+
+function SocketMessage(msgCount, msg) {
+    $.ajax({
+        type: 'post',
+        url: 'Ajax/CustomerChatAjax.aspx',
+        data: {
+            action: 'GetSocketMessage',
+            weimobid: sWeimobId,
+            AId: AId,
+            r: Math.random()
+        },
+        dataType: 'json',
+        success: function (json) {
+            if (json) {
+                PollingSuccess(json);
+            }
+        },
+        error: function () {
+        }
+    });
+}
+//**********************不停的发送ajax接收返回的最新消息**************
+function getnewMessage2() {
+    $.ajax({
+        type: 'post',
+        url: "{php echo $this->createMobileUrl('getmes')}",
+        data: {
+            sender: "{$_W['fans']['from_user']}",
+            geter: "{$geter}",
+        },
+        dataType: 'json',
+        success: function (json) {
+            if (json) {
+                for (var i = 0; i <= json.length; i++) {
+                    var uliHtml = "";
+                    
+                    var obj = json[i];
+                    
+                    //alert(obj.sender);
+					uliHtml += '<ul class="ul_talk"><li class="tbox"><div><span class="head"><img src="' + obj.senderavatar + '" /></span><label class="name" >' + obj.sendernickname + '</label></div><div><span class="arrow" ><svg><path d="M2,20 A9,5,0,0,1,18,24 L20,0" stroke-width="1" stroke="#e2e2e2" fill="#e2e2e2" /></svg></span></div><div><article class="content">' + obj.content + '</article></div></li></ul>';
+
+                          
+                  
+                   
+                    $("#containertop").append(uliHtml);
+                     scrollTop();
+                }
+                
+                
+            }
+        },
+        error: function () {
+        }
+    });
+}
+
+var elelastmsgtime = $("#lastmsgtime");
+function PollingSuccess(json) {
+    for (var i = 0; i < json.length; i++) {
+        var liHtml = '';
+        var obj = json[i];
+        var voiceId = "";
+        var HeadUrl = 'images/mengmei.jpg';
+        if (obj.HeadUrl.trim().length > 0) {
+            HeadUrl = obj.HeadUrl;
+        }
+        var lastmsgtime = "";
+        if (elelastmsgtime) {
+            lastmsgtime = elelastmsgtime.val();
+        }
+        if (lastmsgtime.trim().length > 0) {
+            var minsec = Date.parse(obj.AddTime) - Date.parse(lastmsgtime.trim());
+            var minutes = minsec / 1000 / 60;
+            if (minutes > 2) {
+                liHtml += '<p class="time">' + obj.AddTime + '</p>';
+            }
+        }
+        elelastmsgtime.val(obj.AddTime);
+        liHtml += '<ul class="ul_talk"><li class="tbox"><div><span class="head"><img src="' + HeadUrl + '" /></span><label class="name" >' + obj.ReplyUserName + '</label></div><div><span class="arrow" ><svg><path d="M2,20 A9,5,0,0,1,18,24 L20,0" stroke-width="1" stroke="#e2e2e2" fill="#e2e2e2" /></svg></span></div><div>';
+        switch (obj.MsgType) {
+            case 'text':
+                liHtml += '<article class="content">' + obj.Content + '</article>';
+                break;
+            case 'image':
+                liHtml += '<img src="' + obj.Content + '" data-src="' + obj.Content + '" data-gid="g2" title="点击查看大图" class="image" onload="preViewImg(this, event);" onerror="preViewImg(this, event);" />';
+                break;
+            case 'faceimg':
+                liHtml += '<img src="' + obj.Content + '" data-src="' + obj.Content + '" class="image" style="max-width:200px;" />';
+                break;
+            case 'voice':
+                var id = obj.Id;
+                liHtml += '<article class="content" data-id="' + id + '" data-value="2" data-name="Messagevoice" style="padding-bottom: 8px;" onclick="playAudio(this);">' +
+                                '<span class="voice" id="voicespan' + id + '"></span><span class="second" id="VoiceSecond' + id + '" style="margin-left: 30px;">1”</span>' +
+                                '<audio id="myaudio_' + id + '" data-value="2" data-id="' + id + '" controls="" name="MessageFromaudio" style="display:none;"><source src="' + obj.Content + '" type="video/mp4"></audio>' +
+                           ' </article> ';
+                voiceId = "myaudio_" + id;
+                break;
+            case 'news':
+                if (obj.News && obj.News.length > 0) {
+                    var objNewsList = obj.News;
+                    if (objNewsList.length == 1) {
+                        var objNews = objNewsList[0];
+                        liHtml += '<div class="graphic">' +
+                                  '<p class="ftitle">' + objNews.title + '</p>' +
+                                  '<p class="stitle">' + obj.FormatAddTime + '</p>' +
+                                  '<a href="' + objNews.url + '" target="_blank"><img width="182" height="112" src="' + objNews.picurl + '" /></a>' +
+                                  '<a class="ttitle" href="' + objNews.url + '" target="_blank">' + objNews.description + '</a>' +
+                                  '<a class="readall" href="' + objNews.url + '" target="_blank">阅读全文</a>' +
+                             '</div>';
+                    }
+                    else {
+                        liHtml += '<div class="multigraphic">'
+                        var objNews = objNewsList[0];
+                        liHtml += ' <a href="' + objNews.url + '" target="_blank"><img width="182" height="112" src="' + objNews.picurl + '" /></a>' +
+                                  ' <a class="maintitleback" href="' + objNews.url + '" target="_blank"></a>' +
+                                  ' <a class="maintitle" href="' + objNews.url + '" target="_blank">' + objNews.title + '</a>' +
+                                  '<div class="child"> ' +
+                                  '  <ul>';
+                        for (var j = 1; j < objNewsList.Count; j++) {
+                            var objN = objNewsList[j];
+                            liHtml += ' <li> ' +
+                                  '  <a class="ctitle" href="' + objN.url + '">' + objN.title + '</a>' +
+                                     '   <img width="40" height="40" src="' + objN.picurl + '" />' +
+                               ' </li>';
+                        }
+                        liHtml += '</ul>' +
+               '</div>' +
+       '</div>';
+                    }
+                }
+                break;
+        }
+        liHtml += '</div></li></ul>';
+        $("#containertop").append(liHtml);
+        scrollTop();
+    }
+}
+
+
+
+
+//发送消息
+function sendMessage(sender, geter, Content) {
+    var type;
+   // var extension;
+    $("#sendtext").val("");
+    $("#sendtext").html("");
+    scrollTop();
+    $("#btnsend").addClass("on");
+  //alert(geter);
+
+    var date = new Date();
+    var time = date.getFullYear() + "" + (date.getMonth() + 1) + "" + date.getDate() + "" + date.getHours() + "" + date.getMinutes() + "" + date.getSeconds();
+
+    var r = Math.floor(Math.random() * 100000);
+    var id = time + "n" + r;
+
+    var liHtml;
+    var voiceId = "";
+    var spanId = "";
+	{if empty($res2['constellation'])}
+	   alert('亲,需要先完善个人资料哦！');
+       window.location='{php echo  $this->createMobileUrl('userinfo')}';  
+	   return;
+	{/if}
+    //默认将显示内容放于此处
+	//将显示的内容放于发送之后更加合理
+	  {if empty($result) && empty($uresult)}
+            liHtml = '<ul class="ul_talk reply"><li class="tbox"><div><span class="head"><img src="' + CustomerHeadUrl + '" /></span><label class="name" >{$res2['nickname']}</label></div><div><span class="arrow" ><svg><path d="M18,40 A9,5,0,0,0,2,37 L0,23" stroke-width="1" stroke="#2792ff" fill="#2792ff" /></svg></span></div><div><article class="content">' + FormatFaceImage(Content) + '</article></div></li></ul>';
+    spanId = "spanId_" + id;
+    
+    $("#containertop").append(liHtml);
+
+    $.ajax({
+        type: 'post',
+        url: "{php echo $this->createMobileUrl('chatfatherajax')}",
+        data: {
+            action: 'sendmessage',
+            sender: sender,
+            geter: geter,
+            content: Content
+        },
+        dataType: 'json',
+        success: function (json) {
+			
+            if (json && json.succ == true) {
+              //alert('hadsend');
+            }
+            else {
+				//alert('sendfail');
+                $("#" + spanId).attr("style", "display: block;");
+            }
+        },
+        error: function () {
+            $("#" + spanId).attr("style", "display: block;");
+        }
+    });
+	{else if !empty($result)}
+	  alert('抱歉，您已经将{$to}拉入黑名单！');
+	{else}
+       alert('抱歉，{$to}已经你拉入黑名单！');
+	{/if}
+	
+}
+
+//替换表情符号
+function FormatFace(contentFace) {
+    var arr = ["/::)", "/::~", "/::B", "/::|", "/:8-)", "/::<", "/::$", "/::X", "/::Z", "/::'(", "/::-|", "/::@", "/::P", "/::D", "/::O", "/::(", "/::+", "/:--b", "/::Q", "/::T", "/:,@P", "/:,@-D", "/::d", "/:,@o", "/::g", "/:|-)", "/::!", "/::L", "/::>", "/::,@", "/:,@f", "/::-S", "/:?", "/:,@x", "/:,@@", "/::8", "/:,@!", "/:!!!", "/:xx", "/:bye", "/:wipe", "/:dig", "/:handclap", "/:&-(", "/:B-)", "/:<@", "/:@>", "/::-O", "/:>-|", "/:P-(", "/::'|", "/:X-)", "/::*", "/:@x", "/:8*", "/:pd", "/:<W>", "/:beer", "/:basketb", "/:oo", "/:coffee", "/:eat", "/:pig", "/:rose", "/:fade", "/:showlove", "/:heart", "/:break", "/:cake", "/:li", "/:bome", "/:kn", "/:footb", "/:ladybug", "/:shit", "/:moon", "/:sun", "/:gift", "/:hug", "/:strong", "/:weak", "/:share", "/:v", "/:@)", "/:jj", "/:@@", "/:bad", "/:lvu", "/:no", "/:ok", "/:love", "/:<L>", "/:jump", "/:shake", "/:<O>", "/:circle", "/:kotow", "/:turn", "/:skip", "/:#-0", "/:#-0", "[街舞]", "/:kiss", "/:<&", "/:&>"];
+    try {
+        for (var i = 0; i < arr.length; i++) {
+            var face = arr[i];
+            contentFace = contentFace.replace(face, "<img src='http://hs-net-img.oss-cn-hangzhou.aliyuncs.com/Face/images/face/" + i + ".gif' />");
+        }
+    } catch (e) {
+        alert(e.message);
+    }
+    return contentFace;
+}
+
+function FormatFaceImage(contentFace) {
+
+    var arr = ["smiley001", "smiley002", "smiley003", "smiley004", "smiley005", "smiley006", "smiley007", "smiley008", "smiley009", "smiley010", "smiley011", "smiley012", "smiley013", "smiley014", "smiley015", "smiley016", "smiley017", "smiley018", "smiley019", "smiley020", "smiley021", "smiley022", "smiley023", "smiley024", "smiley025", "smiley026", "smiley027"];
+
+    try {
+        for (var i = 0; i < arr.length; i++) {
+            var face = arr[i];
+            contentFace = contentFace.replace('[', '').replace(']', '').replace(face, "<img src='http://hs-net-img.oss-cn-hangzhou.aliyuncs.com/Face/images/smiley/" + face + ".png' style='-webkit-background-size: auto 24px;width:24px;height:24px'/>");
+        }
+    } catch (e) {
+        alert(e.message);
+    }
+    return contentFace;
+}
+
+//音频事件
+function SetAudioEventLister() {
+
+    var eleAudios = $("audio[name=MessageFromaudio]");
+    var eleclicks = $("article[data-name=Messagevoice]");
+    $(eleAudios).each(function (audio) {
+        $(eleAudios[audio]).bind("loadedmetadata", function () {
+            showSeconds(this);
+        });
+
+    });
+
+    $(eleclicks).click(function () {
+        playAudio(this);
+    });
+}
+
+$.FormatDateTime = function (obj, IsMi) {
+    var myDate = new Date(obj);
+    var year = myDate.getFullYear();
+    var month = ("0" + (myDate.getMonth() + 1)).slice(-2);
+    var day = ("0" + myDate.getDate()).slice(-2);
+    var h = ("0" + myDate.getHours()).slice(-2);
+    var m = ("0" + myDate.getMinutes()).slice(-2);
+    var s = ("0" + myDate.getSeconds()).slice(-2);
+    var mi = ("00" + myDate.getMilliseconds()).slice(-3);
+    if (IsMi == true) {
+        return year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s;
+    }
+    else {
+        return year + "-" + month + "-" + day + " " + h + ":" + m + ":" + s + "." + mi;
+    }
+};
+
+//show seconds
+function showSeconds(thi) {
+    var id = thi.getAttribute("data-id");
+    var trueseconds = Math.floor(thi.duration);
+    var seconds = trueseconds;
+    if (seconds > 90) {
+        seconds = 90;
+    }
+    var fromType = thi.getAttribute("data-value");
+    if (fromType == 2) {
+        $("#VoiceSecond" + id).attr("style", "margin-left: " + seconds + "px;");
+        $("#VoiceSecond" + id).html(trueseconds + "”");
+    }
+    else {
+        $("#replyvoice" + id).attr("style", "margin-left: " + seconds + "px;");
+        $("#replysecond" + id).html(trueseconds + "”");
+    }
+}
+//play audio
+function playAudio(thi) {
+    var dataid = thi.getAttribute("data-id");
+    var fromType = thi.getAttribute("data-value");
+
+    if (fromType == 2) {
+        $("#voicespan" + dataid).removeClass("voice").addClass("playvoice");
+    }
+    else {
+        $("#replyvoice" + dataid).removeClass("replyvoice").addClass("replyplayvoice");
+    }
+    var oAudio = $("#myaudio_" + dataid)[0];
+
+    $("audio").each(function (i, v) {
+        if (v == oAudio) {
+            if (v.paused) {
+                v.play();
+                $(v).closest("article").find("span[id^='voicespan']").removeClass("voice").addClass("playvoice");
+                $(v).closest("article").find("span[id^='replyvoice']").removeClass("replyvoice").addClass("replyplayvoice");
+
+                v.onended = function () {
+                    $(v).closest("article").find("span[id^='voicespan']").removeClass("playvoice").addClass("voice");
+                    $(v).closest("article").find("span[id^='replyvoice']").removeClass("replyplayvoice").addClass("replyvoice");
+                }
+            } else {
+                v.pause();
+                $(v).closest("article").find("span[id^='voicespan']").removeClass("playvoice").addClass("voice");
+                $(v).closest("article").find("span[id^='replyvoice']").removeClass("replyplayvoice").addClass("replyvoice");
+            }
+        } else {
+            v.pause();
+            v.currentTime = 0;
+            $(v).closest("article").find("span[id^='voicespan']").removeClass("playvoice").addClass("voice");
+            $(v).closest("article").find("span[id^='replyvoice']").removeClass("replyplayvoice").addClass("replyvoice");
+        }
+    });
+}
+
+function hidenface(e) {
+    var facearea = $("#face_area");
+    if (facearea.is(":hidden")) {
+
+    }
+    else {
+        $("#nav_footer").height("48px");
+    }
+    $("#face_area").hide();
+    $("#facetype").hide();
+    var userAgent = navigator.userAgent;
+}
+</script>
+
+

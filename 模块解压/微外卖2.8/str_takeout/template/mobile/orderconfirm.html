@@ -1,0 +1,329 @@
+{template 'common/header'}
+<link rel="stylesheet" type="text/css" href="../addons/str_takeout/template/resource/css/main.css">
+<script src="../addons/str_takeout/template/resource/js/dialog.js"></script>
+<style type="text/css">
+	label{margin-bottom: 0;font-weight: normal;}
+</style>
+<div class="container">
+	<section class="pay_wrap">
+		<ul class="box pay_box">
+			<li><label>订单费用&赠送积分</label></li>
+			<li>
+				<a href="javascript:;">
+					<strong>份数：<span class="text-strong">{$cart['num']}份</span></strong>
+					<span>
+						合计：<span class="text-strong">{$cart['price']}元</span>	
+					</span>
+				</a>
+			</li>
+			<li class="is_takeout" {if !$return && ($store['is_meal'] != 2)}style="display:none"{/if}>
+				<a href="javascript:;">
+					<strong>本店外卖<span class="text-strong">{$store['send_price']}</span>元起送</strong>
+					<span>
+						配送费：<span class="text-strong">{$store['delivery_price']}元</span>	
+					</span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<strong>可赠送：<span class="text-strong">{$cart['grant_credit']}积分</span></strong>
+				</a>
+			</li>
+		</ul>	
+		<ul class="box pay_type">
+			<li><label>订单类型</label></li>
+			{if $store['is_meal'] == 1}
+				<li><label><input type="radio" name="order_type" value="1" {if !$return}checked="checked"{/if} onclick="$('.is_takeout').slideUp();$('#is_meal').slideDown();">店内点餐</label></li>
+			{/if}
+			{if $store['is_takeout'] == 1}
+				<li><label><input type="radio" name="order_type" value="2" {if $return || $store['is_meal'] == 2}checked="checked"{/if} onclick="$('#is_meal').slideUp();$('.is_takeout').slideDown();">外卖订餐</label></li>
+			{/if}
+		</ul>
+		<ul class="box pay_box" id="is_meal" {if $return || ($store['is_meal'] == 2)}style="display:none"{/if}>
+			<li><label>就餐信息</label></li>
+			<li>
+				<a href="javascript:;">
+					<strong>用户姓名：</strong>
+					<span>
+						<input class="txt" name="realname" placeholder="用户姓名" id="realname" value="{$member['realname']}">
+					</span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<strong>手机号码：</strong>
+					<span>
+						<input class="txt" type="num" name="mobile" placeholder="手机号" id="mobile" value="{$member['mobile']}">
+					</span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<strong>就餐人数：</strong>
+					<span>
+						<input class="txt" type="num" name="person_num" placeholder="就餐人数" id="person_num" value="1">
+					</span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<strong>桌号/包厢：</strong>
+					<span style="text-align:left">
+						<input type="hidden" name="table_num" id="table_num" value="0">
+						<i class="label label-success" id="table">选择桌号</i>
+						 或 
+						<i class="label label-danger" id="room">选择包厢</i>
+<!-- 						<input class="txt" type="num" class="hide" name="table_num" placeholder="就餐桌号" id="table_num" value="">
+ -->					</span>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:;">
+					<strong>订单备注：</strong>
+					<span>
+						<textarea class="txt" style="height:50px" name="note" placeholder="订单备注" id="note_meal"></textarea>
+					</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="box pay_box is_takeout" {if !$return && ($store['is_meal'] != 2)}style="display:none"{/if}>
+			<li><label>外卖信息</label></li>
+			{if empty($address)}
+				<li>
+					<a href="{php echo $this->createMobileUrl('address', array('sid' => $sid, 'r' => 1));}">
+						<strong>请添加送餐地址</strong>
+						<span></span>
+						<div><i class="ico_arrow"></i></div>
+					</a>
+				</li>
+			{else}
+				<input type="hidden" name="address_id" value="{$address['id']}" id="address_id">
+				<li>
+					<a href="{php echo $this->createMobileUrl('address', array('sid' => $sid, 'r' => 1));}">
+						<strong>
+							<span id="showAddres">{$address['address']}</span><br>
+							<span id="showName">{$address['realname']}</span>
+							<span id="showTel">{$address['mobile']}</span>
+						</strong>
+						<span>收件地址</span>
+						<div><i class="ico_arrow"></i></div>
+					</a>
+				</li>
+			{/if}
+			<li>
+				<a href="javascript:void(0);" id="timeBtn">
+					<strong>送达时间</strong>
+					<span id="arriveTime">尽快送出</span>
+					<div><i class="ico_arrow"></i></div>
+				</a>
+			</li>
+			<li>
+				<a href="javascript:void(0);" id="remarkBtn">
+					<strong>订单备注</strong>
+					<span id="remarkTxt">点击添加订单备注</span>
+					<div><i class="ico_arrow"></i></div>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<footer class="go_menu">
+		<div class="fixed">
+			<a id="submit_order" href="javascript:void(0);">提交订单</a>
+		</div>
+	</footer>
+	{template 'footerbar'}
+</div>
+
+<div id="timeBox" class="timeBox">
+	<div>
+		<a href="javascript:void(0);">尽快送出</a>
+		{$str}
+	</div>
+</div>
+
+<div id="tableBox" class="timeBox">
+	<div style="max-height:270px;overflow-y:scroll">
+		{if !empty($tables['tables'])}
+			{loop $tables['tables'] $table}
+			<a href="javascript:void(0);">{$table} 号桌</a>
+			{/loop}
+		{/if}
+	</div>
+</div>
+
+<div id="roomBox" class="timeBox">
+	<div style="max-height:270px;overflow-y:scroll">
+		{if !empty($tables['rooms'])}
+			{loop $tables['rooms'] $room}
+			<a href="javascript:void(0);">{$room}</a>
+			{/loop}
+		{/if}
+	</div>
+</div>
+
+<div class="addres_box" id="remarkBox">
+	<ul>
+		<li><textarea class="txt max" placeholder="请填写备注" id="userMark"></textarea></li>
+		<li class="btns_wrap">
+			<span><a href="javascript:void(0);" class="comm_btn higher disabled" id="cancleRemark">取消</a></span>
+			<span><a href="javascript:void(0);" class="comm_btn higher" id="saveRemark">确认</a></span>
+		</li>
+	</ul>
+</div>
+
+<div class="confirm_box" id="dishBox">
+	<p>本店外卖{$store['send_price']}起送,您的菜品费少于起送价,现在去加菜？</p>
+	<div>
+		<span><a href="javascript:void(0);" class="comm_btn disabled" id="canceldish">取消</a></span>
+		<span><a href="javascript:void(0);" class="comm_btn" id="confirmdish">去加菜</a></span>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var _timeBox = $('#timeBox'),
+			_remarkBox = $('#remarkBox'),
+			_tableBox = $('#tableBox'),
+			_roomBox = $('#roomBox'),
+			_dishBox = $('#dishBox'),
+			_remarkInput = _remarkBox.find('textarea');
+
+		// 选择送餐时间
+		$('#timeBtn').bind('click', function(){
+			_timeBox.dialog({title: '选择送达时间'});
+		});
+
+		_timeBox.find('a').bind('click', function(){
+			$('#arriveTime').text($(this).text());
+			_timeBox.dialog('close');
+		});
+
+		// 选择桌号
+		$('#table').bind('click', function(){
+			_tableBox.dialog({title: '选择桌号'});
+		});
+
+		_tableBox.find('a').bind('click', function(){
+			$('#room').text('选择包厢');
+			$('#table').text($(this).text());
+			$('#table_num').val($(this).text());
+			_tableBox.dialog('close');
+		});
+
+		// 选择包厢
+		$('#room').bind('click', function(){
+			_roomBox.dialog({title: '选择包厢'});
+		});
+
+		_roomBox.find('a').bind('click', function(){
+			$('#table').text('选择桌号');
+			$('#room').text($(this).text());
+			$('#table_num').val($(this).text());
+			_roomBox.dialog('close');
+		});
+
+		// 添加备注
+		$('#remarkBtn').bind('click', function(){
+			var remark = $('#remarkTxt').text();
+			if(remark == '点击添加订单备注') remark = '';
+			$('#userMark').val(remark);
+			_remarkBox.dialog({title: '添加备注'});
+		});
+
+		$('#cancleRemark').bind('click', function(){
+			_remarkBox.dialog('close');
+		});
+
+		$('#saveRemark').bind('click', function(){
+			$('#remarkTxt').text(_remarkInput.val());
+			_remarkInput.val('');
+			_remarkBox.dialog('close');
+		});
+
+		$("#canceldish").click(function(){
+			$('#dishBox').dialog('close');
+		});
+		$("#confirmdish").click(function(){
+			location.href="{php echo $this->createMobileUrl('dish', array('sid' => $store['id']))}"
+			return false;
+		});
+
+		$("#submit_order").click(function(){
+			if(!$(this).hasClass('disabled')){
+				$(this).addClass('disabled');
+				var order_type = $(':radio[name="order_type"]:checked').val();
+				if(order_type == 1) {
+					var wo_user_name = $.trim($("#realname").val());
+					var wo_receiver_mobile = $.trim($("#mobile").val());
+					if(!wo_user_name) {
+						alert('请填写预定人');
+						$(this).removeClass('disabled');
+						return false;
+					}
+					if(!wo_receiver_mobile || !/^.{5,20}$/gi.test(wo_receiver_mobile) || !/^(\+\s?)?(\d*\s?)?(?:\(\s?(\d+[-\s])?\d+\s?\)\s?)?\s?(\d+[-\s]?)+\d+$/gi.test(wo_receiver_mobile)) {
+						alert('请填写有效的手机号');
+						$(this).removeClass('disabled');
+						return false;
+					}
+					var note = $.trim($('#note_meal').val())
+					var person_num = parseInt($('#person_num').val());
+					var table_num = $('#table_num').val();
+					var param = {
+						'order_type' :1,
+						'username':wo_user_name,
+						'mobile':wo_receiver_mobile,
+						'person_num':person_num,
+						'table_num':table_num,
+						'note':note
+					}
+				} else if(order_type == 2) {
+					var send_price = parseFloat("{$store['send_price']}");
+					var cart_price = parseFloat("{$cart['price']}");
+					if(cart_price < send_price) {
+						_dishBox.dialog({title: '确定提交'});
+						$(this).removeClass('disabled');
+						return false;
+					}
+					
+					var address_id = $("#address_id").val();
+					if(!address_id) {
+						alert('请选择送餐地址');
+						$(this).removeClass('disabled');
+						return false;
+					}
+					var wo_memo = $.trim($("#remarkTxt").html());
+					if(wo_memo == '点击添加订单备注') {
+						wo_memo = '';
+					}
+					var wo_delivery_time = $.trim($("#arriveTime").html());
+					if(wo_delivery_time == '尽快送出'){
+						wo_delivery_time = '';
+					}
+					var param = {
+						'order_type' :2,
+						'address_id':address_id,
+						'note':wo_memo,
+						'delivery_time':wo_delivery_time,
+					}
+				}
+
+				$.post("{php echo $this->createMobileUrl('orderconfirm', array('sid' => $sid));}", param, function(e){
+					if(e.errno == 0) {
+						$("#submit_order").html('已提交');
+						$("#submit_order").addClass('disabled');
+						window.location.href = e.url;
+						return false;
+					}else{
+						alert(e.error);
+						$("#submit_order").removeClass('disabled');
+					}
+				},'json');
+			}
+			return false;
+		});
+	});
+	document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+		WeixinJSBridge.call('hideOptionMenu');
+	});
+</script>
+{template 'common'}
+{template 'common/footer'}

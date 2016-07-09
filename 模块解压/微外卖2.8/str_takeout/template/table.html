@@ -1,0 +1,42 @@
+{template 'common/header'}
+<style type="text/css">
+	.require{color:red;}
+	.info{padding:6px;width:400px;margin:-20px auto 3px auto;text-align:center;}
+</style>
+<div class="alert alert-info info">
+	<i class="fa fa-info-circle"></i>
+	当前门店名称: {$store['title']}
+</div>
+{template 'nav'}
+<form class="form-horizontal form" id="form1" action="" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="sid" value="{$sid}">
+	<div class="main">
+		<div class="panel panel-default">
+			<div class="panel-heading">添加桌号/包厢</div>
+			<div class="panel-body">
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">桌号设置</label>
+					<div class="col-sm-9 col-xs-12" style="padding-top:7px">
+						<textarea class="form-control" rows="6" name="tables">{$data['tables']}</textarea>
+						<span class="help-block">桌号名称，一行一个</span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-12 col-sm-3 col-md-2 control-label">包厢设置</label>
+					<div class="col-sm-9 col-xs-12" style="padding-top:7px">
+						<textarea class="form-control" rows="6" name="rooms">{$data['rooms']}</textarea>
+						<span class="help-block">包厢名称，一行一个</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-9 col-xs-9 col-md-9">
+				<input type="hidden" name="token" value="{$_W['token']}">
+				<input name="submit" id="submit" type="submit" value="提交" class="btn btn-primary col-lg-1">
+			</div>	
+		</div>
+	</div>
+</form>
+{template 'common'}
+{template 'common/footer'}
