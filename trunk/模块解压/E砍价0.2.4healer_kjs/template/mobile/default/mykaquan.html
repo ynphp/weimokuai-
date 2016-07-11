@@ -1,0 +1,57 @@
+{template $settings["themes"] . '/common/header-base'}
+<!-- 页面区域 -->
+<div id="J_PAGE_KAQUAN" class="page">
+  {template $settings["themes"] . '/common/page-header'}
+  <!-- 内容区域 | 滚动加载 -->
+  <div class="content infinite-scroll infinite-scroll-bottom" data-distance="100">
+    <div id="J_PAGE_CONTENT" class="kj-content">
+      {loop $list $item}
+      <div class="kaquan {if $item['type']==0}yishiyong{else}J_QRCODE{/if}" data-id="{$item['id']}" data-type="{$item['order']['type']}" data-price="{$item['order']['price']}">
+        <div class="item-media"> <i class="kicon icon-qrcode"></i>
+        </div>
+        <div class="item-inner">
+          <div class="name">{$item["pname"]}</div>
+          <div class="sn">{php echo formatCode($item["code"], "-");}</div>
+        </div>
+        <i class="kicon icon-yishiyong"></i>
+      </div>
+      {/loop}
+    </div>
+    <!-- 加载提示 -->
+    <div class="infinite-scroll-preloader" style="display:none;">
+      <div class="preloader"></div>
+    </div>
+  </div>
+  <!-- 页面js -->
+  <script type="text/javascript">
+    var PAGE = {php echo ++$page;};
+    var PAGE_URL = "{php echo $this->createMobileUrl('mykaquan')}";
+    var QRCODE_URL = "{php echo $this->createMobileUrl('qrcode');}";
+  </script>
+</div>
+<!-- 二维码 -->
+<div class="popup popup-services">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left close-popup" href="#">
+      <span class="icon icon-left"></span>
+      关闭
+    </a>
+    <h1 class="title">二维码</h1>
+  </header>
+  <div class="content">
+    <div class="row">
+      <div class="col-100">
+        <div class="content-padded">
+          <div class="qrcode text-center">
+            <div id="J_QRCODE_TIP" class="color-primary"></div>
+            <div class="height-lv1"></div>
+            <div class="img"><img id="J_QRCODE_IMG" src=""/></div>
+            <div class="text">请将该二维码出示给工作人员扫一扫</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{template $settings["themes"] . '/common/page-footer'}
+{template $settings["themes"] . '/common/footer-base'}

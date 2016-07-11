@@ -1,0 +1,145 @@
+{template "common/header"}
+<script type="text/javascript">
+  require(['bootstrap'], function($) {
+    $('.btn').hover(function() {
+      $(this).tooltip('show');
+    }, function() {
+      $(this).tooltip('hide');
+    });
+  });
+</script>
+<ul class="nav nav-tabs">
+	<li class="active">
+		<a href="{php echo $this->createWebUrl('manager', array('op'=>'manager'));}">砍价管理</a>
+	</li>
+	<li>
+		<a href="{php echo url('platform/reply/post', array('m'=>'healer_kjs'));}">添加砍价</a>
+	</li>
+</ul>
+<div class="main">
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="" method="get" class="form-horizontal" role="form">
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">商家</label>
+					<div class="col-sm-10 col-md-10">
+						<select class="form-control" name="bid">
+							<option value="">不限</option>
+							{loop $businesslist $item}
+							<option value="{$item['id']}" {if $item['id'] == intval($_GPC['bid'])}selected{/if}>{$item['name']}</option>
+							{/loop}
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">活动标题</label>
+					<div class="col-sm-10 col-md-10">
+						<input class="form-control" name="title" value="{$_GPC['title']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">活动状态</label>
+					<div class="col-sm-10 col-md-10">
+						<select class="form-control" name="status">
+							<option value="">不限</option>
+							<option value="0" {if 0 == intval($_GPC['status']) && is_numeric($_GPC['status'])}selected{/if}>下线</option>
+							<option value="1" {if 1 == intval($_GPC['status'])}selected{/if}>上线</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-10 col-md-10 col-sm-offset-2 col-md-offset-2">
+						<input type="hidden" name="c" value="site">
+						<input type="hidden" name="a" value="entry">
+						<input type="hidden" name="do" value="manager">
+						<input type="hidden" name="m" value="healer_kjs">
+						<input type="hidden" name="token" value="{$_W['token']}" />
+						<button type="submit" class="btn btn-default"> <i class="fa fa-search"></i>
+							搜索
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">砍价管理</div>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover" style="table-layout: auto;">
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-center" width="100">封面</th>
+						<th class="text-center">商家</th>
+						<th class="text-center">标题</th>
+						<th class="text-center">活动时间</th>
+						<th class="text-center">库存</th>
+						<th class="text-center">已售</th>
+						<th class="text-center">参与</th>
+						<th class="text-center">助力</th>
+						<th class="text-center">状态</th>
+						<th class="text-right">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $list $key $kanjia}
+					<tr>
+						<td class="text-center" width="50">{php echo ++$key;}</td>
+						<td class="text-left">
+							<img width="100" src="{php echo tomedia($kanjia['cover'])}" alt=" "/>
+						</td>
+						<td class="text-center">
+							{loop $businesslist $item}
+								{if $item["id"] == $kanjia["bid"]}
+									{$item["name"]}
+								{/if}
+							{/loop}
+						</td>
+						<td class="text-center">{$kanjia["title"]}</td>
+						<td class="text-center">
+							{php echo date("Y-m-d H:i", $kanjia["starttime"])}-{php echo date("Y-m-d H:i", $kanjia["endtime"])}
+						</td>
+						<td class="text-center">{$kanjia["pweight"]}</td>
+						<td class="text-center">{$kanjia["psold"]}</td>
+						<td class="text-center">{$kanjia["join"]}</td>
+						<td class="text-center">{$kanjia["help"]}</td>
+						<td class="text-center">
+							{if $kanjia["status"] == 0}
+							<label class="label label-danger">下线</label>
+							{else}
+							<label class="label label-success">上线</label>
+							{/if}
+						</td>
+						<td class="text-right">
+							{if !empty($kanjia['rid'])}
+							<a class="btn btn-default btn-sm" href="{php echo murl('entry/index/detail', array('rid'=>$kanjia['rid'], 'm'=>'healer_kjs'), true, true);}" target="_blank" data-toggle="tooltip" data-placement="top" data-original-title="右键复制活动链接">
+								<i class="fa fa-link"></i>
+							</a>
+							<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('order', array('rid'=>$kanjia['rid'], 'm'=>'healer_kjs'))}" data-toggle="tooltip" data-placement="top" data-original-title="订单">
+								<i class="fa fa-shopping-cart"></i>
+							</a>
+							<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('record', array('rid'=>$kanjia['rid'], 'm'=>'healer_kjs'))}" data-toggle="tooltip" data-placement="top" data-original-title="参与记录">
+								<i class="fa fa-list"></i>
+							</a>
+							<a class="btn btn-default btn-sm" href="{php echo url('platform/reply/post', array('rid'=>$kanjia['rid'], 'm'=>'healer_kjs'))}" data-toggle="tooltip" data-placement="top" data-original-title="编辑">
+								<i class="fa fa-edit"></i>
+							</a>
+							<a class="btn btn-default btn-sm" href="{php echo url('platform/reply/delete', array('rid'=>$kanjia['rid'], 'm'=>'healer_kjs'))}" data-toggle="tooltip" data-placement="top" data-original-title="删除" onclick="if(!confirm('删除后将不可恢复,确定删除吗?')) return false;">
+								<i class="fa fa-remove"></i>
+							</a>
+							{else}
+							<a class="btn btn-default btn-sm" href="{php echo url('platform/reply/post', array('id'=>$kanjia['id'], 'op'=>'auth', 'm'=>'healer_kjs'))}" data-toggle="tooltip" data-placement="top" data-original-title="审核">
+								<i class="fa fa-legal"></i>
+							</a>
+							{/if}
+						</td>
+					</tr>
+					{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{$pager}
+</div>
+{template "common/footer"}

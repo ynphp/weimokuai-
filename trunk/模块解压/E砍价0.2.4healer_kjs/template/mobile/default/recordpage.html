@@ -1,0 +1,47 @@
+{template $settings["themes"] . '/common/header-base'}
+<!-- 页面区域 -->
+<div id="J_PAGE_RECORD" class="page">
+  {template $settings["themes"] . '/common/page-header'}
+  <!-- 内容区域 | 滚动加载 -->
+  <div class="content infinite-scroll infinite-scroll-bottom" data-distance="100">
+    <div class="kj-content">
+      <div class="box">
+        <div class="box-content">
+          <div class="row">
+            <div class="col-100">
+              <ul id="J_PAGE_CONTENT" class="kanhuo-list">
+                {loop $list $item}
+                <li>
+                  <div class="img">
+                    <img class="img-circle" src="{$item['avatar']}" alt=" " />
+                  </div>
+                  <div class="kanhuo-content clearfix">
+                    <div class="userinfo pull-left">
+                      <div class="name">{$item['nickname']}</div>
+                      <div class="time color-gray">{php echo date("m/d H:i", $item["createtime"]);}</div>
+                    </div>
+                    <div class="price pull-right">
+                      <div>¥{$item['price']}</div>
+                    </div>
+                  </div>
+                </li>
+                {/loop}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 加载提示 -->
+    <div class="infinite-scroll-preloader" style="display:none;">
+      <div class="preloader"></div>
+    </div>
+  </div>
+  <!-- 页面js -->
+  <script type="text/javascript">
+    var PAGE = {php echo ++$page;};
+    var PAGE_URL = "{php echo $this->createMobileUrl('recordpage', array('id'=>intval($_GPC['id'])));}";
+  </script>
+</div>
+{template $settings["themes"] . '/common/page-footer'}
+{template $settings["themes"] . '/common/footer-base'}

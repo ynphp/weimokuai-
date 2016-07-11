@@ -1,0 +1,121 @@
+{template $settings["themes"] . '/common/header-base'}
+<style type="text/css">
+  header .icon-menu{
+    display: none;
+  }
+</style>
+<!-- 页面区域 -->
+<div class="page">
+  {template $settings["themes"] . '/common/page-header'}
+  <!-- 内容区域 | 滚动加载 -->
+  <div class="content user">
+    <!-- 会员中心顶部 -->
+    <div class="box">
+      <div class="box-content">
+        <div class="row">
+          <div class="col-100">
+            <div class="user-top">
+              <div class="user-img">
+                <img class="img-circle" src="{$_W['fans']['tag']['avatar']}"/>
+              </div>
+              <h2 class="user-name text-center">{$_W['fans']['tag']['nickname']}</h2>
+              <div class="user-num">
+                <div class="jifen text-right">我的积分：{$user_credits['credit1']}</div>
+                <div class="yue">我的余额：{$user_credits['credit2']}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="height-lv1"></div>
+    <!-- 我的订单 -->
+    <div class="box">
+      <div class="box-header">
+        <div class="row">
+          <div class="col-100">
+            <div class="content-padded">
+              我的订单
+              <a class="pull-right more" href="{php echo $this->createMobileUrl('order')}">查看全部订单</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-content">
+        <div class="row order-icons">
+          <div class="col-25">
+            <a class="text-center content-padded item" href="{php echo $this->createMobileUrl('order', array('status'=>1));}">
+              <div> <i class="kicon icon-daifukuan"></i>
+              </div>
+              <div>待付款</div>
+            </a>
+          </div>
+          <div class="col-25">
+            <a class="text-center content-padded item" href="{php echo $this->createMobileUrl('order', array('status'=>2));}">
+              <div> <i class="kicon icon-daifahuo"></i>
+              </div>
+              <div>待发货</div>
+            </a>
+          </div>
+          <div class="col-25">
+            <a class="text-center content-padded item" href="{php echo $this->createMobileUrl('order', array('status'=>3));}">
+              <div>
+                <i class="kicon icon-yifahuo"></i>
+              </div>
+              <div>待收货</div>
+            </a>
+          </div>
+          <div class="col-25">
+            <a class="text-center content-padded item" href="{php echo $this->createMobileUrl('order', array('status'=>6));}">
+              <div>
+                <i class="kicon icon-tuikuan"></i>
+              </div>
+              <div>已退款</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="height-lv1"></div>
+    <!--其他功能-->
+    <div class="list-block user-intent">
+      <ul>
+        <a class="item-content item-link" href="{php echo $this->createMobileUrl('mykaquan')}">
+          <div class="item-media">
+            <i class="kicon icon-kabao"></i>
+          </div>
+          <div class="item-inner">
+            <div class="item-title">我的凭证</div>
+          </div>
+        </a>
+        <a class="item-content item-link" href="{php echo $this->createMobileUrl('mykanjia')}">
+          <div class="item-media">
+            <i class="kicon icon-canyu"></i>
+          </div>
+          <div class="item-inner">
+            <div class="item-title">我的砍价</div>
+          </div>
+        </a>
+        <a class="item-content item-link" href="{php echo $this->createMobileUrl('mycollect')}">
+          <div class="item-media">
+            <i class="kicon icon-shoucang"></i>
+          </div>
+          <div class="item-inner">
+            <div class="item-title">我的收藏</div>
+          </div>
+        </a>
+        <a class="item-content item-link" href="{php echo $this->createMobileUrl('address')}">
+          <div class="item-media">
+            <i class="kicon icon-address"></i>
+          </div>
+          <div class="item-inner">
+            <div class="item-title">收货地址</div>
+          </div>
+        </a>
+      </ul>
+    </div>
+    <div class="height-lv1"></div>
+  </div>
+</div>
+{template $settings["themes"] . '/common/page-footer'}
+{template $settings["themes"] . '/common/footer-base'}

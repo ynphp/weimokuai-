@@ -1,0 +1,280 @@
+{template $settings["themes"] . '/common/header-base'}
+<!-- 页面区域 -->
+<div class="page">
+  {template $settings["themes"] . '/common/page-header'}
+  <!-- 内容区域 -->
+  <div class="content">
+    <div class="kj-content">
+      <div class="height-lv1"></div>
+      <!-- 订单状态 -->
+      <div class="box order-info">
+        <div class="box-content">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                <dl>
+                  <dt class="color-gray">订单状态：</dt>
+                  <dd>
+                    {if $order["status"] == 0 }
+                    <span class="color-gray">已关闭</span>
+                    {elseif $order["status"] == 1}
+                    <span class="color-gray">待付款</span>
+                    {elseif $order["status"] == 2}
+                    <span class="color-warning">待发货</span>
+                    {elseif $order["status"] == 3}
+                    <span class="color-warning">待收货</span>
+                    {elseif $order["status"] == 4}
+                      <span class="color-primary">已完成</span>
+                    {elseif $order["status"] == 6}
+                    <span class="color-danger">已退款</span>
+                    {/if}
+                  </dd>
+                </dl>
+                <dl>
+                  <dt class="color-gray">订单编号：</dt>
+                  <dd>{$order["ordersn"]}</dd>
+                </dl>
+                <dl>
+                  <dt class="color-gray">下单时间：</dt>
+                  <dd>{php echo date("Y-m-d H:i:s", $order["createtime"])}</dd>
+                </dl>
+                {if !empty($kaquan)}
+                <dl>
+                  <dt class="color-gray">线下凭证：</dt>
+                  <dd class="clearfix">{php echo formatCode($kaquan["code"], "-");}<a class="button button-fill pull-right" href="{php echo $this->createMobileUrl('mykaquan')}">查看</a></dd>
+                </dl>
+                {/if}
+              </div>
+            </div>
+          </div>
+        </div>
+        {if $order["status"] == 1 || $order["status"] == 3} 
+        <div class="box-footer">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded text-right">
+                {if $order["status"] == 1}
+                <a class="button button-fill button-big" href="{php echo $this->createMobileUrl('pay', array('oid' => $order['id']));}">付款</a>
+                <p></p>
+                <a class="J_ORDER_CLOSE button button-big" href="#" data-id="{$order['id']}">关闭订单</a>
+                {elseif $order["status"] == 3}
+                <a class="J_ORDER_CONFIRM button button-fill button-big" href="#" data-id="{$order['id']}">确认收货</a>
+                {/if}
+              </div>
+            </div>
+          </div>
+        </div>
+        {/if}
+      </div>
+      <div class="height-lv1"></div>
+      {if !empty($address)}
+      <!-- 收货信息 -->
+      <div class="box order-info">
+        <div class="box-header">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">收货信息</div>
+            </div>
+          </div>
+        </div>
+        <div class="box-content">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                <dl>
+                  <dt class="color-gray">收件人：</dt>
+                  <dd>{$address["name"]}</dd>
+                </dl>
+                <dl>
+                  <dt class="color-gray">联系方式：</dt>
+                  <dd>{$address["tel"]}</dd>
+                </dl>
+                <dl>
+                  <dt class="color-gray">收件地址：</dt>
+                  <dd>{$address["province"]}{$address["address"]}</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="height-lv1"></div>
+      {/if}
+      {if $order["status"] == 3}
+      <!-- 快递信息 -->
+      <div class="box order-info">
+        <div class="box-header">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">快递信息</div>
+            </div>
+          </div>
+        </div>
+        <div class="box-content">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                <dl>
+                  <dt class="color-gray">快递公司：</dt>
+                  <dd>{$order["express"]}</dd>
+                </dl>
+                <dl>
+                  <dt class="color-gray">快递单号：</dt>
+                  <dd>{$order["expresssn"]}</dd>
+                </dl>
+                <dl>
+                  <dt class="color-gray">发货时间：</dt>
+                  <dd>{php echo date("Y-m-d H:i:s", $order["expresstime"]);}</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="height-lv1"></div>
+      {/if}
+      <!-- 订单项 -->
+      <div class="box order">
+        <div class="box-header">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">订单项</div>
+            </div>
+          </div>
+        </div>
+        <div class="box-content">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                <div class="item-content">
+                  <div class="item-media">
+                    <img src="{php echo tomedia($kanjia['cover'])}" alt=" "/>
+                  </div>
+                  <div class="item-inner">
+                    <div class="name">{$kanjia["pname"]}</div>
+                    <div class="price">
+                      <span class="color-primary">¥&nbsp;{$order["goodsprice"]}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 备注 -->
+      <div class="box order">
+        <div class="box-header">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">备注</div>
+            </div>
+          </div>
+        </div>
+        <div class="box-content">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                {$order["remark"]}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {if !empty($order["message"])}
+      <!-- 附加信息 -->
+      <div class="box order">
+        <div class="box-header">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">附加信息</div>
+            </div>
+          </div>
+        </div>
+        <div class="box-content">
+          <div class="row">
+            <div class="col-100">
+              <div class="list-block" style="margin:0;">
+                <ul>
+                  {loop $order["message"] $key $message}
+                  <li>
+                    <div class="item-content">
+                      <div class="item-inner">
+                      <div class="item-title label">{$message['field_name']}{if $message['field_required'] == 1}<span class="text-danger">*</span>{/if}</div>
+                        <div class="item-input">
+                          <div class="color-gray">{$message['value']}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  {/loop}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/if}
+      <!-- 订单金额 -->
+      <div class="box order-info">
+        <div class="box-header">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">支付信息</div>
+            </div>
+          </div>
+        </div>
+        <div class="box-content">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                <dl>
+                  <dt class="color-gray">商品总额</dt>
+                  <dd class="text-right">
+                    <span class="color-primary">¥&nbsp;{$order["goodsprice"]}</span>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt class="color-primary">
+                    +运费
+                  </dt>
+                  <dd class="text-right">
+                    <span class="color-primary">¥&nbsp;{$order["fare"]}</span>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="box-footer">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                {if $order["type"] == "offline"}
+                <div class="text-right">
+                  线下支付：
+                  <span class="color-primary"> <b>¥&nbsp;{$order["price"]}</b>
+                  </span>
+                </div>
+                {else}
+                <div class="text-right">
+                  实付金额：
+                  <span class="color-primary"> <b>¥&nbsp;{$order["price"]}</b>
+                  </span>
+                </div>
+                {/if}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="height-lv1"></div>
+    </div>
+  </div>
+  <!-- 页面js -->
+  <script type="text/javascript">
+    var STATUS_URL = "{php echo $this->createMobileUrl('orderstatus');}";
+  </script>
+</div>
+{template $settings["themes"] . '/common/page-footer'}
+{template $settings["themes"] . '/common/footer-base'}

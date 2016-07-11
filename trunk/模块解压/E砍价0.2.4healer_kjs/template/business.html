@@ -1,0 +1,318 @@
+{template "common/header"}
+<script type="text/javascript">
+  require(['bootstrap'], function($) {
+    $('.btn').hover(function() {
+      $(this).tooltip('show');
+    }, function() {
+      $(this).tooltip('hide');
+    });
+  });
+</script>
+<ul class="nav nav-tabs">
+	<li {if $op == 'list'}class="active"{/if}>
+		<a href="{php echo $this->createWebUrl('business', array('op'=>'list'));}">商家管理</a>
+	</li>
+	<li {if $op == 'post' && empty($_GPC['id'])}class="active"{/if}>
+		<a href="{php echo $this->createWebUrl('business', array('op'=>'post'));}">添加商家</a>
+	</li>
+	{if $op == 'post' && !empty($_GPC['id'])}
+	<li class="active">
+		<a href="{php echo $this->createWebUrl('business', array('op'=>'post', 'id'=>$_GPC['id']));}">编辑商家
+		</a>
+	</li>
+	{/if}
+	{if $op == 'authcode'}
+	<li class="active">
+		<a href="{php echo $this->createWebUrl('business', array('id'=>intval($_GPC['id']), 'op'=>'authcode'));}">核销员</a>
+	</li>
+	{/if}
+</ul>
+{if $op == 'list'}
+<div class="main">
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="" method="get" class="form-horizontal" role="form">
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">商家名称</label>
+					<div class="col-sm-10 col-md-10">
+						<input class="form-control" name="name" value="{$_GPC['name']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-10 col-md-10 col-sm-offset-2 col-md-offset-2">
+						<input type="hidden" name="c" value="site">
+						<input type="hidden" name="a" value="entry">
+						<input type="hidden" name="do" value="business">
+						<input type="hidden" name="m" value="healer_kjs">
+						<input type="hidden" name="token" value="{$_W['token']}" />
+						<button type="submit" class="btn btn-default"> <i class="fa fa-search"></i>
+							搜索
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">商家管理</div>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover" style="table-layout: auto;">
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-center" width="80">LOGO</th>
+						<th class="text-left">名称</th>
+						<th class="text-center">联系方式</th>
+						<th class="text-right">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $list $key $item}
+					<tr>
+						<td class="text-center" width="50">{php echo ++$key;}</td>
+						<td class="text-left">
+							<img width="80" src="{php echo tomedia($item['cover'])}" alt=" "/>
+						</td>
+						<td class="text-left">{$item["name"]}</td>
+						<td class="text-center">{$item["tel"]}</td>
+						<td class="text-right">
+							<a class="btn btn-default btn-sm" href="{php echo murl('entry/index/shop', array('id'=>$item['id'], 'm'=>'healer_kjs'), true, true);}" target="_blank" data-toggle="tooltip" data-placement="top" data-original-title="右键复制商家链接">
+								<i class="fa fa-link"></i>
+							</a>
+							<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('business', array('op'=>'authcode', 'id'=>$item['id']));}" data-toggle="tooltip" data-placement="top" data-original-title="核销员">
+								<i class="fa fa-user"></i>
+							</a>
+							<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('business', array('op'=>'post', 'id'=>$item['id']));}" data-toggle="tooltip" data-placement="top" data-original-title="编辑">
+								<i class="fa fa-edit"></i>
+							</a>
+							<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('business', array('op'=>'del', 'id'=>$item['id']));}" data-toggle="tooltip" data-placement="top" data-original-title="删除" onclick="if(!confirm('删除后将不可恢复,确定删除吗?')) return false;">
+								<i class="fa fa-remove"></i>
+							</a>
+						</td>
+					</tr>
+					{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{$pager}
+</div>
+{elseif $op == 'post'}
+<div class="main">
+	<div class="panel panel-default">
+		<div class="panel-heading">基本信息</div>
+		<div class="panel-body">
+			<form id="J_FORM" action="" method="post" class="form-horizontal" role="form">
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">选择用户</label>
+					<div class="col-sm-10 col-md-10">
+						<div class="form-control-static">
+							<span id="J_USERNAME">
+								{loop $users $user}
+									{if $user['uid'] == $business['uid']}
+										{$user['username']}
+									{/if}
+								{/loop}
+							</span>
+							<a id="J_ADDUSER" class="btn btn-info btn-sm" href="javascript:;">选择用户</a>
+							<input type="hidden" name="uid" value="{$business['uid']}"/>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">
+						<span class="text-danger">*</span>
+						商家名称
+					</label>
+					<div class="col-sm-10 col-md-10">
+						<input class="form-control" type="text" name="name" value="{$business['name']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">
+						<span class="text-danger">*</span>
+						LOGO图
+					</label>
+					<div class="col-sm-10 col-md-10">
+						{php echo tpl_form_field_image('cover', $business['cover']);}
+						<div class="text-warning">建议上传120px*120px的图片，显示效果最佳。</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">
+						详情
+					</label>
+					<div class="col-sm-10 col-md-10">
+						{php echo tpl_ueditor("content", $business['content']); }
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">商家地址</label>
+					<div class="col-sm-10 col-md-10">
+						<input class="form-control" type="text" name="address" value="{$business['address']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">自定义链接</label>
+					<div class="col-sm-10 col-md-10">
+						<input class="form-control" type="text" name="url" value="{$business['url']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">联系方式</label>
+					<div class="col-sm-10 col-md-10">
+						<input class="form-control" type="text" name="tel" value="{$business['tel']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">
+						<span class="text-danger">*</span>
+						专题背景
+					</label>
+					<div class="col-sm-10 col-md-10">
+						{php echo tpl_form_field_image('bgimage', $business['bgimage']);}
+						<div class="text-warning">建议上传750px*150px的图片，显示效果最佳。</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">核销员</label>
+					<div class="col-sm-10 col-md-10">
+						<textarea name="openids" class="form-control" rows="6">{$business['openids']}</textarea>
+						<div class="help-block">
+							每个核销员的粉丝编号一行，粉丝编号可从
+							<a href="{php echo url('mc/fans');}" target="_blank">本链接获取</a>
+							，只有在本处设置的粉丝才能进入手机核销入口。
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-6 col-md-8 col-xs-12 col-sm-offset-2 col-md-offset-2">
+						<input name="submit" type="submit" value="提交" class="btn btn-primary" />
+						<input type="hidden" name="token" value="{$_W['token']}" />
+						<input type="hidden" name="id" value="{$business['id']}" />
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- 添加用户模态框 -->
+<div class="modal fade" id="J_USER_MODAL"  tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h3 class="modal-title" id="myModalLabel">添加账号操作员</h3>
+			</div>
+			<div class="modal-body">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>用户名</th>
+							<th class="text-right">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						{loop $users $user}
+						{if $_W['role'] == 'manager'}
+							{if $user['uid'] != $_W['uid']}
+							<tr>
+								<td>
+									<label class="label label-info">{$user['username']}</label>
+								</td>
+								<td class="text-right">
+									<a class="J_USER_CHOOSE btn btn-default btn-sm" data-uid="{$user['uid']}" data-username="{$user['username']}">选取</a>
+								</td>
+							</tr>
+							{/if}
+						{else}
+						<tr>
+							<td>
+								<label class="label label-info">{$user['username']}</label>
+							</td>
+							<td class="text-right">
+								<a class="J_USER_CHOOSE btn btn-default btn-sm" data-uid="{$user['uid']}" data-username="{$user['username']}">选取</a>
+							</td>
+						</tr>
+						{/if}
+						{/loop}
+						{if empty($users)}
+						<tr>
+							<td colspan="2">你需要让新商家先去注册一个“新管理账号”</td>
+						</tr>
+						{/if}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	require(["jquery", "util"], function($, util){
+		//弹出模态框
+		$("#J_ADDUSER").on("click", function(){
+			$("#J_USER_MODAL").modal("show");
+		});
+		//选择管理帐号
+		$(document).on("click", ".J_USER_CHOOSE", function(){
+			$("#J_USERNAME").html($(this).data("username"));
+			$("[name=uid]").val($(this).data("uid"));
+			$("#J_USER_MODAL").modal("hide");
+		});
+		//检查
+		$("#J_FORM").on("submit", function(){
+			//商家名称
+			if($("[name=name]").val() == ""){
+				util.message("温馨提示：请填写商家名称", "", "error");
+				return false;
+			}
+			//商家logo
+			if($("[name=cover]").val() == ""){
+				util.message("温馨提示：请上传商家LOGO图", "", "error");
+				return false;
+			}
+			return true;
+		});
+	});
+</script>
+{elseif $op == "authcode"}
+<div class="main">
+	<div class="panel panel-default">
+		<div class="panel-heading">核销员</div>
+		<div class="panel-body">
+			<div>
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active">
+						<a href="#J_Add" aria-controls="J_Add" role="tab" data-toggle="tab">添加</a>
+					</li>
+					<li role="presentation">
+						<a href="#J_Del" aria-controls="J_Del" role="tab" data-toggle="tab">删除</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="J_Add">
+						<div class="text-center">
+							<div>
+								<img width="240" src="{php echo $this->createWebUrl('business', array('op'=>'qrcodeadd', 'id'=>intval($_GPC['id'])));}" alt=" " />
+							</div>
+							<div class="help-block">请让员工使用微信扫一扫，扫描该二维码。</div>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="J_Del">
+						<div class="text-center">
+							<div>
+								<img width="240" src="{php echo $this->createWebUrl('business', array('op'=>'qrcodedel', 'id'=>intval($_GPC['id'])));}" alt=" " />
+							</div>
+							<div class="help-block">请让员工使用微信扫一扫，扫描该二维码。</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{/if}
+{template "common/footer"}

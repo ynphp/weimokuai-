@@ -1,0 +1,487 @@
+{template "common/header"}
+<script type="text/javascript">
+  require(['bootstrap'], function($) {
+    $('.btn').hover(function() {
+      $(this).tooltip('show');
+    }, function() {
+      $(this).tooltip('hide');
+    });
+  });
+</script>
+<ul class="nav nav-tabs">
+  <li {if empty($_GPC["status"]) && !is_numeric($_GPC["status"]) && $op=="order"}class="active"{/if}>
+    <a href="{php echo $this->createWebUrl('order', array()); }">全部({$count})</a>
+  </li>
+  <li {if $_GPC["status"] == 1}class="active"{/if}>
+    <a href="{php echo $this->createWebUrl('order', array('status'=>1)); }">待付款({$count1})</a>
+  </li>
+  <li {if $_GPC["status"] == 2}class="active"{/if}>
+    <a href="{php echo $this->createWebUrl('order', array('status'=>2)); }">待发货({$count2})</a>
+  </li>
+  <li {if $_GPC["status"] == 3}class="active"{/if}>
+    <a href="{php echo $this->createWebUrl('order', array('status'=>3)); }">待收货({$count3})</a>
+  </li>
+  <li {if $_GPC["status"] == 4}class="active"{/if}>
+    <a href="{php echo $this->createWebUrl('order', array('status'=>4)); }">交易完成({$count4})
+    </a>
+  </li>
+  <li {if $_GPC["status"] == 0 && is_numeric($_GPC["status"])}class="active"{/if}>
+    <a href="{php echo $this->createWebUrl('order', array('status'=>0)); }">已关闭({$count0})</a>
+  </li>
+  <li {if $_GPC["status"] == 6}class="active"{/if}>
+    <a href="{php echo $this->createWebUrl('order', array('status'=>6)); }">已退款({$count6})</a>
+  </li>
+  {if $op == "detail"}
+  <li class="active">
+    <a href="#">订单详情</a>
+  </li>
+  {/if}
+</ul>
+{if $op == "order"}
+<div class="main">
+  <div class="panel panel-info">
+    <div class="panel-heading">筛选</div>
+    <div class="panel-body">
+      <form action="" method="get" class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-sm-2 col-md-2 control-label">商家</label>
+          <div class="col-sm-10 col-md-10">
+            <select class="form-control" name="bid">
+              <option value="">不限</option>
+              {loop $businesslist $item}
+              <option value="{$item['id']}" {if $item["id"] == $_GPC["bid"]}selected{/if}>{$item["name"]}</option>
+              {/loop}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 col-md-2 control-label">砍价</label>
+          <div class="col-sm-10 col-md-10">
+            <select class="form-control" name="rid">
+              <option value="">不限</option>
+              {loop $kjlist $item}
+              <option value="{$item['rid']}" {if $item["rid"] == $_GPC["rid"]}selected{/if}>{$item["title"]}</option>
+              {/loop}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 col-md-2 control-label">订单编号</label>
+          <div class="col-sm-10 col-md-10">
+            <input class="form-control" name="ordersn" type="text" value="{$_GPC['ordersn']}" placeholder="订单编号"></div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 col-md-2 control-label">支付方式</label>
+          <div class="col-sm-10 col-md-10">
+            <select class="form-control" name="type">
+              <option value="">不限</option>
+              <option value="wechat" {if $_GPC["type"] == "wechat"}selected{/if}>微信支付</option>
+              <option value="credit" {if $_GPC["type"] == "credit"}selected{/if}>余额支付</option>
+              <option value="offline" {if $_GPC["type"] == "offline"}selected{/if}>线下支付</option>
+              <option value="alipay" {if $_GPC["type"] == "alipay"}selected{/if}>支付宝支付</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 col-md-2 control-label">下单时间</label>
+          <div class="col-sm-10 col-md-10">
+            {php echo tpl_form_field_daterange('time', array('start'=>$_GPC["time"]["start"], 'end'=>$_GPC["time"]["end"]));}
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-10 col-md-10 col-sm-offset-2 col-md-offset-2">
+            <input type="hidden" name="c" value="site">
+            <input type="hidden" name="a" value="entry">
+            <input type="hidden" name="do" value="order">
+            <input type="hidden" name="m" value="healer_kjs">
+            <input type="hidden" name="status" value="{$_GPC['status']}" />
+            <input type="hidden" name="token" value="{$_W['token']}" />
+            <button type="submit" class="btn btn-default">
+              <i class="fa fa-search"></i>
+              搜索
+            </button>
+            <button type="submit" class="btn btn-success" name="submit" value="1">
+              <i class="fa fa-download"></i>
+              下载表格
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <table class="table" style="border: 1px solid #ccc; background-color:#fff;">
+    <tbody>
+      <tr class="trhead">
+        <td style="width: 60px;"></td>
+        <td></td>
+        <td>单价/数量</td>
+        <td class="text-center">买家</td>
+        <td class="text-center">配送方式</td>
+        <td class="text-center">价格</td>
+        <td class="text-center">状态</td>
+        <td class="text-center">操作</td>
+      </tr>
+    </tbody>
+  </table>
+  {loop $list $order}
+  <table class="table" style="border: solid #ccc; border-width:1px 1px 0 1px; background-color: #ffffff; margin-bottom:-2px;">
+    <thead style="background-color:#efefef;">
+      <th colspan="7">
+        订单编号：
+        <span style="font-weight:normal;">{$order["ordersn"]}</span>
+        &nbsp;&nbsp;下单时间：
+        <span style="font-weight:normal;">{php echo date("Y-m-d H:i:s", $order["createtime"]);}</span>
+      </th>
+      <th class="text-right">
+        {if $order["status"] == 1}
+        <a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('order', array('op'=>'close', 'id'=>$order['id']));}" title="关闭订单" onclick="return confirm('确认关闭该订单吗？');return false;">关闭订单</a>
+        {/if}
+      </th>
+    </thead>
+  </table>
+  <!-- 订单开始 -->
+  <table class="table" style="border: 1px solid #ccc; background-color: #ffffff;">
+    <tbody>
+      <tr>
+        <td style="width: 60px;">
+          <img src="{php echo tomedia($order['cover']);}" alt="图片丢失" style="width:50px; height:50px;" />
+        </td>
+        <td class="text-left" valign="top" style="white-space: normal;">{$order['pname']}</td>
+        <td>
+          单价：{$order['goodsprice']}
+          <br/>
+          数量：1
+        </td>
+        <td class="text-center" style="border-left: 1px solid #ccc;">
+          昵称：{$order["record"]["nickname"]}
+          <br/>
+          {$order["address"]["name"]}
+          <br/>
+          {$order["address"]["tel"]}
+        </td>
+        <td class="text-center" style="border-left: 1px solid #ccc;">
+          <span>{$order["express"]}</span>
+        </td>
+        <td class="text-center" style="border-left: 1px solid #ccc;">
+          小计：{$order["goodsprice"]}
+          <br/>
+          运费：{$order["fare"]}
+          <br/>
+          实收：{$order['price']}
+        </td>
+        <td class="text-center" style="border-left: 1px solid #ccc;">
+          {if $order["status"] == 1}
+          <label class="label label-default">待付款</label>
+          <br/>
+          {elseif $order["status"] == 2}
+          <label class="label label-info">待发货</label>
+          <br/>
+          {elseif $order["status"] == 3}
+          <label class="label label-warning">待收货</label>
+          <br/>
+          {elseif $order["status"] == 4}
+          <label class="label label-success">交易完成</label>
+          <br/>
+          {elseif $order["status"] == 5}
+          <label class="label label-warning">申请退款</label>
+          <br/>
+          {elseif $order["status"] == 6}
+          <label class="label label-danger">已退款</label>
+          <br/>
+          {elseif $order["status"] == 0 && is_numeric($order["status"])}
+          <label class="label label-danger">已关闭</label>
+          <br/>
+          {/if}
+          <a href="{php echo $this->createWebUrl('order',array('op'=>'detail', 'id'=>$order['id']))}" title="查看详情">查看详情
+          </a>
+        </td>
+        <td class="text-center" style="border-left: 1px solid #ccc;">
+          {if $order["status"] == 2}
+          <!-- 确认发货 -->
+          <a class="J_SEND btn btn-info btn-sm" href="javascript:;" title="确认发货" data-name="{$order['address']['name']}" data-tel="{$order['address']['tel']}" data-province="{$order['address']['province']}" data-address="{$order['address']['address']}" data-id="{$order['id']}">确认发货</a>
+          {elseif $order["status"] == 3}
+          <a class="J_CONFIRM btn btn-primary btn-sm" href="{php echo $this->createWebUrl('order', array('op'=>'confirm', 'id'=>$order['id']));}" title="确认收货" onclick="return confirm('确认收货吗？');return false;">确认收货
+          </a>
+          {/if}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  {/loop}
+  <!-- 分页 -->{$pager}</div>
+{elseif $op == "detail"}
+<div class="main">
+  <form class="form-horizontal form" action="" method="post">
+    <div class="panel panel-default">
+      <div class="panel-heading">买家信息</div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">昵称：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$record["nickname"]}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">头像：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">
+              <img src="{$record['avatar']}" alt=" " style=" width:50px; height:50px;"/>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">粉丝编号：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$order["openid"]}</div>
+          </div>
+        </div>
+        {if !empty($address)}
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">收货人：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$address["name"]}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">联系方式：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$address["tel"]}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">收货地址：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$address["province"]}{$address["address"]}</div>
+          </div>
+        </div>
+        {/if}
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">订单信息</div>
+      <div class="panel-body">
+        {if !empty($order["transactionid"])}
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">微信支付单号：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$order["transactionid"]}</div>
+          </div>
+        </div>
+        {/if}
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">订单编号：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$order["ordersn"]}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">商品名称：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$kanjia["pname"]}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">数量：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">1</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">商品金额：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$order["goodsprice"]}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">运费：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$order["fare"]}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">实付：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$order["price"]}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">支付方式：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$i18n[$order['type']]}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">下单时间：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{php echo date("Y-m-d H:i:s", $order["createtime"])}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">备注：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$order['remark']}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">状态：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">
+              {if $order["status"] == 1}
+              <p><label class="label label-default">待付款</label></p>
+              <a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('order', array('op'=>'close', 'id'=>$order['id']));}" title="关闭订单" onclick="return confirm('确认关闭该订单吗？');return false;">关闭订单</a>
+              {elseif $order["status"] == 2}
+              <p>待发货</p>
+              <a class="J_SEND btn btn-info btn-sm" href="javascript:;" title="确认发货" data-name="{$address['name']}" data-tel="{$address['tel']}" data-province="{$address['province']}" data-address="{$address['address']}" data-id="{$order['id']}">确认发货</a>
+              {elseif $order["status"] == 3}
+              <p>待收货</p>
+              <a class="J_CONFIRM btn btn-primary btn-sm" href="{php echo $this->createWebUrl('order', array('op'=>'confirm', 'id'=>$order['id']));}" title="确认收货" onclick="return confirm('确认收货吗？');return false;">确认收货
+              </a>
+              {elseif $order["status"] == 4}
+              <label class="label label-success">交易完成</label>
+              {elseif $order["status"] == 5}
+              <label class="label label-warning">申请退款</label>
+              {elseif $order["status"] == 6}
+              <label class="label label-danger">已退款</label>
+              {elseif $order["status"] == 0 && is_numeric($order["status"])}
+              <label class="label label-danger">已关闭</label>
+              {/if}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {if !empty($order["message"])}
+    <div class="panel panel-default">
+      <div class="panel-heading">信息采集</div>
+      <div class="panel-body">
+        {loop $order["message"] $key $message}
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">{if $message['field_required'] == 1}<span class="text-danger">*</span>{/if}{$message['field_name']}：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$message['value']}</div>
+          </div>
+        </div>
+        {/loop}
+      </div>
+    </div>
+    {/if}
+    {if !empty($address) && $order["status"] == 3}
+    <div class="panel panel-default">
+      <div class="panel-heading">物流信息</div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">快递公司：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$order["express"]}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">快递编号：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{$order["expresssn"]}</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-xs-12 col-sm-3 col-md-2 control-label">发货时间：</label>
+          <div class="col-sm-9 col-xs-12 col-md-10">
+            <div class="form-control-static">{php echo date("Y-m-d H:i:s", $order["expresstime"])}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {/if}
+  </form>
+</div>
+{/if}
+<!-- 确认发货 -->
+<form class="form-horizontal form" action="" method="post" onsubmit="return send(this);">
+  <div id="J_SEND_MODAL" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title">确认发货</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-3 control-label">收货人：</label>
+            <div class="col-sm-9 col-xs-12 col-md-9">
+              <div class="form-control-static J_NAME"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-3 control-label">联系方式：</label>
+            <div class="col-sm-9 col-xs-12 col-md-9">
+              <div class="form-control-static J_TEL"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-3 control-label">收货地址：</label>
+            <div class="col-sm-9 col-xs-12 col-md-9">
+              <div class="form-control-static J_ADDRESS"></div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-3 control-label">快递公司：</label>
+            <div class="col-sm-9 col-xs-12 col-md-9">
+              <select name="express" class="form-control">
+                <option value="商家配送">商家配送</option>
+                {loop $settings["express"] $express}
+                <option value="{$express}">{$express}</option>
+                {/loop}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-xs-12 col-sm-3 col-md-3 control-label">快递单号：</label>
+            <div class="col-sm-9 col-xs-12 col-md-9">
+              <input class="form-control" name="expresssn" type="text" value="" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-9 col-xs-12 col-md-9 col-sm-offset-3 col-md-offset-3">
+              <input type="hidden" value="c" name="site" />
+              <input type="hidden" value="entry" name="a" />
+              <input type="hidden" value="order" name="do" />
+              <input type="hidden" value="healer_kjs" name="m" />
+              <input type="hidden" value="send" name="op" />
+              <input type="hidden" value="" name="id" />
+              <input type="hidden" value="{$_W['token']}" name="token" />
+              <button class="btn btn-info" type="submit" name="submit" value="1">确认发货</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<script type="text/javascript">
+require(['jquery', 'util'], function($, util){
+  $(function(){
+    $(".J_SEND").on("click", function(){
+      var btn = $(this);
+      var modal = $("#J_SEND_MODAL");
+      modal.find(".J_NAME").html(btn.data("name"));
+      modal.find(".J_TEL").html(btn.data("tel"));
+      modal.find(".J_ADDRESS").html(btn.data("province")+btn.data("address"));
+      modal.find("[name=id]").val(btn.data("id"));
+      modal.modal("show");
+    });
+  });
+});
+function send(ele){
+  var form = $(ele);
+  if(form.find("[name=express]").val() == ""){
+    util.message("请选择快递公司！", "", "error");
+    return false;
+  }
+  if(form.find("[name=expresssn]").val() == ""){
+    util.message("请填写快递单号！", "", "error");
+    return false;
+  }
+  return true;
+}
+</script>
+{template "common/footer"}

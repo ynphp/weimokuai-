@@ -1,0 +1,88 @@
+{template $settings["themes"] . '/common/header-base'}
+<style type="text/css">
+  header .icon-menu{
+    display: none;
+  }
+</style>
+<!-- 页面区域 -->
+<div id="J_PAGE_CITYPICKER" class="page">
+  {template $settings["themes"] . '/common/page-header'}
+  <!-- 内容区域 -->
+  <div class="content address">
+    <!-- 新增收货地址 -->
+    <form action="" method="post">
+      <div class="list-block">
+        <ul>
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">收货人</div>
+                <div class="item-input">
+                  <input name="name" type="text" placeholder="姓名" value="{$address['name']}" />
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">联系方式</div>
+                <div class="item-input">
+                  <input name="tel" type="tel" placeholder="手机号码/固话" value="{$address['tel']}" />
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">省市区</div>
+                <div class="item-input">
+                  <input name="province" type="text" placeholder="点击选择" readonly="" id="J_CITYPICKER" value="{$address['province']}" />
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">详细地址</div>
+                <div class="item-input">
+                  <input name="address" type="text" placeholder="详细地址" value="{$address['address']}" />
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">默认</div>
+                <div class="item-input">
+                  <label class="label-switch">
+                    <input name="default" type="checkbox" value="1" {if $address['default']}checked{/if}/>
+                    <div class="checkbox"></div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="content-block">
+        <div class="row">
+          <div class="col-100">
+            <input type="hidden" name="token" value="{$_W['token']}" />
+            <input type="hidden" name="id" value="{$address['id']}" />
+            <button id="J_ADDRESS_POST" type="button" name="submit" value="1" class="button button-big button-fill">确认</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- 页面js -->
+  <script type="text/javascript">
+    var CALLBACK_URL = "{$_SERVER['HTTP_REFERER']}";
+    var POST_URL = "{php echo $this->createMobileUrl('addresspost');}";
+  </script>
+</div>
+{template $settings["themes"] . '/common/footer-base'}

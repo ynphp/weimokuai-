@@ -1,0 +1,261 @@
+{template 'common/header'}
+<div class="container-fluid">
+	<form action="" class="form-horizontal form" method="post" enctype="multipart/form-data">
+		<!-- 标签页 -->
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active">
+				<a href="#kanjia_basic" aria-controls="kanjia_basic" role="tab" data-toggle="tab">基础参数</a>
+			</li>
+			<li role="presentation">
+				<a href="#kanjia_adv" aria-controls="kanjia_adv" role="tab" data-toggle="tab">广告位</a>
+			</li>
+			<li role="presentation">
+				<a href="#kanjia_share" aria-controls="kanjia_share" role="tab" data-toggle="tab">分享设置</a>
+			</li>
+		</ul>
+		<!-- Tab panes -->
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="kanjia_basic">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">首页标题</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								<input class="form-control" type="text" name="page_title_index" value="{$settings['page_title_index']}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">分享采用头像</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								<label class="radio-inline">
+									<input type="radio" name="use_avatar" value="0" {if empty($settings['use_avatar'])}checked=""{/if}/>否
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="use_avatar" value="1" {if !empty($settings['use_avatar'])}checked=""{/if}/>是
+								</label>
+								<div class="help-block">邀请好友助力砍价时可采用用户头像增加辨识度。</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">取消关注恢复价格</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								<label class="radio-inline">
+									<input type="radio" name="unsubscribe" value="0" {if empty($settings['unsubscribe'])}checked=""{/if}/>否
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="unsubscribe" value="1" {if !empty($settings['unsubscribe'])}checked=""{/if}/>是
+								</label>
+								<div class="help-block">此处设置仅在活动未结束，并且粉丝尚未下单期间有效。</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">采集姓名和手机</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								<label class="radio-inline">
+									<input type="radio" name="caiji" value="0" {if empty($settings['caiji'])}checked=""{/if}/>否
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="caiji" value="1" {if !empty($settings['caiji'])}checked=""{/if}/>是
+								</label>
+								<div class="help-block">此处设置仅对服务号、参与者有效，助力者无效。</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">付款时间</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								<div class="input-group">
+									<input type="text" class="form-control" name="pay_hour" value="{$settings['pay_hour']}">
+									<span class="input-group-addon">小时</span>
+								</div>
+								<div class="help-block">在该设定的时间内未付款订单会自动关闭，系统已设定固定检测时间，默认是0表示无付款时效。</div>
+								{if $_W["isfounder"] == true}<a href="{$_W['siteroot']}app/{php echo substr(murl('entry//crontab', array('m'=>'healer_kjs')),2)}">系统定时检测链接</a>{/if}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">腾讯KEY</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								<input class="form-control" type="text" name="qqkey" value="{$settings['qqkey']}"/>
+								<div class="help-block">使用地理位置限制时，该项必填。需前往腾讯地图注册开发密钥。<a href="http://lbs.qq.com/mykey.html" target="_blank">传送门</a>(注：应用类型选择浏览器)</div>
+							</div>
+						</div>
+						<hr/>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">价格提醒</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								<input class="form-control" type="text" name="pricemsg" value="{$settings['pricemsg']}"/>
+								<div class="help-block">
+									此处模板ID需从&nbsp;
+									<a href="{php echo url('site/entry', array('do'=>'manager', 'op'=>'index',  'm'=>'healer_tplmsg'));}" target="_blank">H模板消息获取
+									</a>
+									&nbsp;，采用微信模版库中OPENTM207664667的“信息更新提醒”。
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">核销提醒</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								<input class="form-control" type="text" name="checkmsg" value="{$settings['checkmsg']}"/>
+								<div class="help-block">
+									此处模板ID需从&nbsp;
+									<a href="{php echo url('site/entry', array('do'=>'manager', 'op'=>'index',  'm'=>'healer_tplmsg'));}" target="_blank">H模板消息获取
+									</a>
+									&nbsp;，采用微信模版库中OPENTM205537465的“电子凭证核销通知”。
+								</div>
+							</div>
+						</div>
+						<hr/>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">核销员设置</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								<textarea name="openids" class="form-control" rows="6">{$settings['openids']}</textarea>
+								<div class="help-block">
+									每个核销员的粉丝编号一行，粉丝编号可从
+									<a href="{php echo url('mc/fans');}" target="_blank">本链接获取</a>
+									，只有在本处设置的粉丝才能进入手机核销入口。
+								</div>
+							</div>
+						</div>
+						<hr/>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">快递公司</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								<textarea name="express" class="form-control" rows="6">{$settings['express']}</textarea>
+								<div class="help-block">每个快递公司一行，在处理发货时使用。</div>
+							</div>
+						</div>
+						<hr/>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">选择风格</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								<select class="form-control" name="themes">
+									{loop $templates $template}
+									<option value="{$template}" {if $settings['themes'] == $template} selected="" {/if}>{$template}</option>
+									{/loop}
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="kanjia_adv">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="alert alert-info">广告图建议统一使用740px*400px的图片，也可自己选择同一大小的图片，显示效果最佳。</div>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>
+										广告图
+										<span class="text-danger">*</span>
+									</th>
+									<th>
+										链接
+										<span class="text-danger">*</span>
+									</th>
+									<th>排序</th>
+									<th class="text-right" width="100">操作</th>
+								</tr>
+							</thead>
+							<tbody id="J_ADVS">
+								{loop $settings["advs"] $adv}
+								<tr class="J_ADV">
+									<td>
+										<div style="margin-bottom:4px;">
+											<img class="J_ADV_IMG" src="{$adv['image']}" alt=" " width="97" style="background-color:#ffffff;" />
+											<input class="J_ADV_THUMB" name="adv_image[]" type="hidden" value="{$adv['image']}"/>
+										</div>
+										<div>
+											<span data-number="0" class="J_uploadImage btn btn-primary" class="btn btn-primary"> <i class="fa fa-plus"></i>
+												上传图片
+											</span>
+										</div>
+									</td>
+									<td>
+										<input type="text" class="form-control" name="adv_link[]" value="{$adv['link']}" placeholder=""/>
+									</td>
+									<td>
+										<input type="text" class="form-control" name="adv_sort[]" value="{$adv['sort']}" />
+									</td>
+									<td class="text-right">
+										<a onclick="delAdv(this)" class="btn btn-default tips" title="删除"> <i class="fa fa-times-circle-o"></i>
+										</a>
+									</td>
+								</tr>
+								{/loop}
+							</tbody>
+						</table>
+						<button onclick="addAdv()" type="button" class="btn btn-default">
+							<i class="fa fa-plus-circle"></i>
+							添加广告位
+						</button>
+					</div>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="kanjia_share">
+				<div class="panel panel-default">
+					<div class="panel-body">						
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">分享标题</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								<input type="text" name="sharetitle" class="form-control" value="{$settings['sharetitle']}"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">分享图片</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								{php echo tpl_form_field_image('shareimg', $settings['shareimg']);}
+								<div class="text-danger">建议上传100像素*100像素的图片，显示效果更佳。</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">分享描述</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								<textarea name="sharedesc" class="form-control" rows="4">{$settings['sharedesc']}</textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 col-md-2 control-label">分享链接</label>
+							<div class="col-sm-6 col-md-8 col-xs-12">
+								<input type="text" name="sharelink" class="form-control" value="{$settings['sharelink']}"/>
+								<div class="help-block">一般情况下建议不要填写，由系统控制分享链接。</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6 col-md-8 col-xs-12 col-sm-offset-2 col-md-offset-2">
+				<input name="submit" type="submit" value="提交" class="btn btn-primary" />
+				<input type="hidden" name="token" value="{$_W['token']}" />
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	//删除
+	function delAdv(adv){
+		var _ = $(adv);
+		if(confirm("确定删除吗?")){
+			_.parents(".J_ADV").remove();
+		}
+	}
+	//添加
+	function addAdv(){
+		var html= '<tr class="J_ADV"><td><div style="margin-bottom:4px"><img class="J_ADV_IMG" src="" alt=" " width="97" style="background-color:#fff"> <input class="J_ADV_THUMB" name="adv_image[]" type="hidden" value=""></div><div><span data-number="0" class="J_uploadImage btn btn-primary" class="btn btn-primary"><i class="fa fa-plus"></i> 上传图片</span></div></td><td><input type="text" class="form-control" name="adv_link[]" value="" placeholder=""></td><td><input type="text" class="form-control" name="adv_sort[]" value=""></td><td class="text-right" width="100"><a onclick="delAdv(this)" class="btn btn-default tips" title="删除"><i class="fa fa-times-circle-o"></i></a></td></tr>';
+		$("#J_ADVS").append(html);
+	}
+	require(["jquery", "util"], function ($, util) {
+		$(function(){
+			//照片上传
+			$(document).on("click", ".J_uploadImage", function(){
+				var _ = $(this);
+				util.image('',function(data){
+					_.parents(".J_ADV").find(".J_ADV_IMG").attr("src", data["url"]);
+					_.parents(".J_ADV").find(".J_ADV_THUMB").val(data["url"]);
+				});
+			});
+		});
+	});
+</script>
+{template 'common/footer'}

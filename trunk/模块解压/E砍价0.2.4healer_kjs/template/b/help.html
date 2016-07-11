@@ -1,0 +1,58 @@
+{template "common/header"}
+<script type="text/javascript">
+  require(['bootstrap'], function($) {
+    $('.btn').hover(function() {
+      $(this).tooltip('show');
+    }, function() {
+      $(this).tooltip('hide');
+    });
+  });
+</script>
+<ul class="nav nav-tabs">
+	<li class="active">
+		<a href="{php echo $this->createWebUrl('help', array('id'=>intval($_GPC['id'])));}">帮砍记录</a>
+	</li>
+</ul>
+<div class="main">
+	<div class="panel panel-default">
+		<div class="panel-heading">帮砍记录</div>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover" style="table-layout: auto;">
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-center" width="50">头像</th>
+						<th class="text-center">昵称</th>
+						<th class="text-center">粉丝编号</th>
+						<th class="text-center">帮砍</th>
+						<th class="text-center">IP地址</th>
+						<th class="text-center">参与时间</th>
+						<th class="text-right">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $list $key $help}
+					<tr>
+						<td class="text-center" width="50">{php echo ++$key;}</td>
+						<td class="text-left">
+							<img width="50" src="{php echo tomedia($help['avatar'])}" alt=" "/>
+						</td>
+						<td class="text-center">{$help["nickname"]}</td>
+						<td class="text-center">{$help["openid"]}</td>
+						<td class="text-center">-{$help["price"]}</td>
+						<td class="text-center">{php echo date('Y-m-d H:i:s', $help['createtime'])}</td>
+						<td class="text-center">{$help["ip"]}</td>
+						<td class="text-right">
+							<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('help', array('id'=>$help['id'], 'op'=>'del'));}" data-toggle="tooltip" data-placement="top" data-original-title="删除" onclick="if(!confirm('删除后将不可恢复,确定删除吗?')) return false;">
+								<i class="fa fa-remove"></i>
+							</a>
+						</td>
+					</tr>
+					{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{$pager}
+</div>
+{template "common/footer"}
