@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.0766city.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[E砍价]]></name>
+		<identifie><![CDATA[healer_kjs]]></identifie>
+		<version><![CDATA[0.2.4]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[healer出品E系列模块——砍价多商家版本]]></ability>
+		<description><![CDATA[healer出品E系列模块——砍价多商家版本。]]></description>
+		<author><![CDATA[不错吧]]></author>
+		<url><![CDATA[http://www.bcb5.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="unsubscribe" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="砍价入口" do="index" state="" direct="false" />
+			<entry title="会员中心" do="user" state="" direct="false" />
+			<entry title="核销入口" do="check" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="商家管理" do="business" state="" direct="false" />
+			<entry title="砍价管理" do="manager" state="" direct="false" />
+			<entry title="订单管理" do="order" state="" direct="false" />
+			<entry title="凭证管理" do="kaquan" state="" direct="false" />
+			<entry title="黑名单" do="black" state="" direct="false" />
+		</menu>
+		<home>
+			<entry title="砍价入口" do="index" state="" direct="false" />
+		</home>
+		<profile>
+			<entry title="砍价入口" do="index" state="" direct="false" />
+			<entry title="会员中心" do="user" state="" direct="false" />
+		</profile>
+		<shortcut>
+			<entry title="砍价入口" do="index" state="" direct="false" />
+			<entry title="会员中心" do="user" state="" direct="false" />
+		</shortcut>
+	</bindings>
+	<permissions>
+	</permissions>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_healer_kjs` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `rid` int(10) NOT NULL,
+  `uniacid` int(10) NOT NULL,
+  `bid` int(10) NOT NULL DEFAULT '0',
+  `title` varchar(500) NOT NULL,
+  `cover` varchar(255) NOT NULL,
+  `rule` text NOT NULL,
+  `content` text NOT NULL,
+  `starttime` int(10) NOT NULL,
+  `endtime` int(10) NOT NULL,
+  `helpmode` tinyint(1) NOT NULL DEFAULT '0',
+  `helprule` int(10) NOT NULL,
+  `helprule2` text NOT NULL,
+  `joincredit` varchar(20) NOT NULL,
+  `helpcredit` varchar(20) NOT NULL,
+  `pname` varchar(255) NOT NULL,
+  `pad` varchar(255) NOT NULL,
+  `pimages` varchar(1000) NOT NULL,
+  `pprice` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `ppricemin` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `pfare` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `pweight` int(10) NOT NULL DEFAULT '0',
+  `psold` int(10) NOT NULL DEFAULT '0',
+  `pturl` varchar(255) NOT NULL,
+  `tuijian` tinyint(1) NOT NULL DEFAULT '0',
+  `buymode` tinyint(1) NOT NULL DEFAULT '0',
+  `paymode` tinyint(1) NOT NULL DEFAULT '0',
+  `ordermode` tinyint(1) NOT NULL DEFAULT '0',
+  `follow` tinyint(1) NOT NULL,
+  `followhelp` tinyint(1) NOT NULL,
+  `followurl` varchar(500) NOT NULL,
+  `stat` varchar(1000) NOT NULL,
+  `maxhelp` int(4) NOT NULL DEFAULT '0',
+  `maxip` int(4) NOT NULL DEFAULT '0',
+  `recordarea` varchar(500) NOT NULL,
+  `helparea` varchar(500) NOT NULL,
+  `message` text NOT NULL,
+  `postermid` varchar(255) NOT NULL,
+  `sharetitle` varchar(255) NOT NULL,
+  `shareimage` varchar(255) NOT NULL,
+  `sharedesc` varchar(255) NOT NULL,
+  `sharelink` varchar(255) NOT NULL,
+  `join` int(10) NOT NULL DEFAULT '0',
+  `help` int(10) NOT NULL DEFAULT '0',
+  `sort` int(10) NOT NULL DEFAULT '0',
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_healer_kjs_address` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `openid` varchar(128) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `tel` varchar(20) NOT NULL,
+  `province` varchar(50) NOT NULL,
+  `address` varchar(50) NOT NULL,
+  `default` tinyint(1) NOT NULL DEFAULT '0',
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_healer_kjs_black` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `rid` int(10) NOT NULL DEFAULT '0',
+  `uniacid` int(10) NOT NULL,
+  `openid` varchar(64) NOT NULL,
+  `remark` varchar(255) NOT NULL,
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_healer_kjs_business` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `uid` int(10) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `cover` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `tel` varchar(20) NOT NULL,
+  `bgimage` varchar(255) NOT NULL,
+  `authcode` varchar(20) NOT NULL,
+  `openids` varchar(500) NOT NULL,
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_healer_kjs_collect` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `openid` varchar(128) NOT NULL,
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_healer_kjs_help` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `reid` int(10) NOT NULL,
+  `openid` varchar(128) NOT NULL,
+  `nickname` varchar(50) NOT NULL,
+  `avatar` varchar(255) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `ip` varchar(20) NOT NULL,
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_healer_kjs_kaquan` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `bid` int(10) NOT NULL,
+  `oid` int(10) NOT NULL,
+  `openid` varchar(128) NOT NULL,
+  `code` varchar(24) NOT NULL,
+  `checker` varchar(128) NOT NULL,
+  `type` tinyint(1) NOT NULL DEFAULT '1',
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_healer_kjs_order` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `acid` int(10) NOT NULL,
+  `uniacid` int(10) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `reid` int(10) NOT NULL,
+  `bid` int(10) NOT NULL,
+  `openid` varchar(128) NOT NULL,
+  `ordersn` varchar(255) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `goodsprice` decimal(10,2) NOT NULL,
+  `fare` decimal(10,2) NOT NULL,
+  `aid` int(10) NOT NULL,
+  `express` varchar(20) NOT NULL,
+  `expresssn` varchar(50) NOT NULL,
+  `expresstime` int(10) NOT NULL,
+  `type` varchar(20) NOT NULL,
+  `transactionid` varchar(64) NOT NULL DEFAULT '',
+  `remark` varchar(1000) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `message` text NOT NULL,
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_healer_kjs_record` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(10) NOT NULL,
+  `rid` int(10) NOT NULL,
+  `openid` varchar(128) NOT NULL,
+  `nickname` varchar(50) NOT NULL,
+  `avatar` varchar(255) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `buy` tinyint(1) NOT NULL DEFAULT '0',
+  `ip` varchar(20) NOT NULL,
+  `createtime` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[DROP TABLE IF EXISTS `ims_healer_kjs`;
+DROP TABLE IF EXISTS `ims_healer_kjs_address`;
+DROP TABLE IF EXISTS `ims_healer_kjs_black`;
+DROP TABLE IF EXISTS `ims_healer_kjs_business`;
+DROP TABLE IF EXISTS `ims_healer_kjs_collect`;
+DROP TABLE IF EXISTS `ims_healer_kjs_help`;
+DROP TABLE IF EXISTS `ims_healer_kjs_kaquan`;
+DROP TABLE IF EXISTS `ims_healer_kjs_order`;
+DROP TABLE IF EXISTS `ims_healer_kjs_record`;
+]]></uninstall>
+	<upgrade><![CDATA[update.php]]></upgrade>
+</manifest>

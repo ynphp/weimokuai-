@@ -1,0 +1,168 @@
+{template "common/header"}
+<script type="text/javascript">
+  require(['bootstrap'], function($) {
+    $('.btn').hover(function() {
+      $(this).tooltip('show');
+    }, function() {
+      $(this).tooltip('hide');
+    });
+  });
+</script>
+<ul class="nav nav-tabs">
+	<li {if $op == 'post'}class="active"{/if}>
+		<a href="{php echo $this->createWebUrl('business', array('op'=>'post'));}">商家管理</a>
+	</li>
+	<li {if $op == 'authcode'}class="active"{/if}>
+		<a href="{php echo $this->createWebUrl('business', array('op'=>'authcode'));}">核销员</a>
+	</li>
+</ul>
+{if $op == "post"}
+<div class="main">
+	<div class="panel panel-default">
+		<div class="panel-heading">基本信息</div>
+		<div class="panel-body">
+			<form id="J_FORM" action="" method="post" class="form-horizontal" role="form">
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">
+						<span class="text-danger">*</span>
+						商家专题
+					</label>
+					<div class="col-sm-10 col-md-10">
+						<div class="form-control-static">
+							<a href="{php echo murl('entry/index/shop', array('id'=>$business['id'], 'm'=>'healer_kjs'), true, true);}" target="_blank">{php echo murl('entry/index/shop', array('id'=>$business['id'], 'm'=>'healer_kjs'), true, true);}
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">
+						<span class="text-danger">*</span>
+						商家名称
+					</label>
+					<div class="col-sm-10 col-md-10">
+						<input class="form-control" type="text" name="name" value="{$business['name']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">
+						<span class="text-danger">*</span>
+						LOGO图
+					</label>
+					<div class="col-sm-10 col-md-10">
+						{php echo tpl_form_field_image('cover', $business['cover']);}
+						<div class="text-warning">建议上传120px*120px的图片，显示效果最佳。</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">
+						详情
+					</label>
+					<div class="col-sm-10 col-md-10">
+						{php echo tpl_ueditor("content", $business['content']); }
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">商家地址</label>
+					<div class="col-sm-10 col-md-10">
+						<input class="form-control" type="text" name="address" value="{$business['address']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">自定义链接</label>
+					<div class="col-sm-10 col-md-10">
+						<input class="form-control" type="text" name="url" value="{$business['url']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">联系方式</label>
+					<div class="col-sm-10 col-md-10">
+						<input class="form-control" type="text" name="tel" value="{$business['tel']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">
+						<span class="text-danger">*</span>
+						专题背景
+					</label>
+					<div class="col-sm-10 col-md-10">
+						{php echo tpl_form_field_image('bgimage', $business['bgimage']);}
+						<div class="text-warning">建议上传750px*150px的图片，显示效果最佳。</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">核销员</label>
+					<div class="col-sm-10 col-md-10">
+						<textarea name="openids" class="form-control" rows="6">{$business['openids']}</textarea>
+						<div class="help-block">
+							每个核销员的粉丝编号一行，粉丝编号可从
+							<a href="{php echo url('mc/fans');}" target="_blank">本链接获取</a>
+							，只有在本处设置的粉丝才能进入手机核销入口。
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-6 col-md-8 col-xs-12 col-sm-offset-2 col-md-offset-2">
+						<input name="submit" type="submit" value="提交" class="btn btn-primary" />
+						<input type="hidden" name="token" value="{$_W['token']}" />
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	require(["jquery", "util"], function($, util){
+		//检查
+		$("#J_FORM").on("submit", function(){
+			//商家名称
+			if($("[name=name]").val() == ""){
+				util.message("温馨提示：请填写商家名称", "", "error");
+				return false;
+			}
+			//商家logo
+			if($("[name=cover]").val() == ""){
+				util.message("温馨提示：请上传商家LOGO图", "", "error");
+				return false;
+			}
+			return true;
+		});
+	});
+</script>
+{elseif $op == "authcode"}
+<div class="main">
+	<div class="panel panel-default">
+		<div class="panel-heading">核销员</div>
+		<div class="panel-body">
+			<div>
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active">
+						<a href="#J_Add" aria-controls="J_Add" role="tab" data-toggle="tab">添加</a>
+					</li>
+					<li role="presentation">
+						<a href="#J_Del" aria-controls="J_Del" role="tab" data-toggle="tab">删除</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="J_Add">
+						<div class="text-center">
+							<div>
+								<img width="240" src="{php echo $this->createWebUrl('business', array('op'=>'qrcodeadd'));}" alt=" " />
+							</div>
+							<div class="help-block">请让员工使用微信扫一扫，扫描该二维码。</div>
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="J_Del">
+						<div class="text-center">
+							<div>
+								<img width="240" src="{php echo $this->createWebUrl('business', array('op'=>'qrcodedel'));}" alt=" " />
+							</div>
+							<div class="help-block">请让员工使用微信扫一扫，扫描该二维码。</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{/if}
+{template "common/footer"}

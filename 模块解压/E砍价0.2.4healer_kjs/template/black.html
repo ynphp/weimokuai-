@@ -1,0 +1,54 @@
+{template "common/header"}
+<script type="text/javascript">
+  require(['bootstrap'], function($) {
+    $('.btn').hover(function() {
+      $(this).tooltip('show');
+    }, function() {
+      $(this).tooltip('hide');
+    });
+  });
+</script>
+<ul class="nav nav-tabs">
+	<li class="active">
+		<a href="{php echo $this->createWebUrl('black', array('op'=>'list'));}">黑名单</a>
+	</li>
+</ul>
+<div class="main">
+	<div class="panel panel-default">
+		<div class="panel-heading">黑名单</div>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover" style="table-layout: auto;">
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-left">粉丝编号</th>
+						<th class="text-left">活动</th>
+						<th class="text-left">备注</th>
+						<th class="text-center">时间</th>
+						<th class="text-right">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $list $key $black}
+					<tr>
+						<td class="text-center" width="50">{php echo ++$key;}</td>
+						<td class="text-left">{$black["openid"]}</td>
+						<td class="text-left">
+							{php echo $kjlist[$black["rid"]]["title"];}
+						</td>
+						<td class="text-left">{$black["remark"]}</td>
+						<td class="text-center">{php echo date('Y-m-d H:i:s', $black['createtime'])}</td>
+						<td class="text-right">
+							<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('black', array('id'=>$black['id'], 'op'=>'del'));}" data-toggle="tooltip" data-placement="top" data-original-title="移除" onclick="if(!confirm('移除后将不可恢复,确定移除吗?')) return false;">
+								<i class="fa fa-remove"></i>
+							</a>
+						</td>
+					</tr>
+					{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{$pager}
+</div>
+{template "common/footer"}

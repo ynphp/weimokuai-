@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{$_W['page']['title']}</title>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="keywords" content="{$_W['page']['title']}">
+  <meta name="description" content="{$_W['page']['title']}">
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta name="format-detection" content="email=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
+  <link rel="shortcut icon" href="{MODULE_URL}icon.jpg"/>
+  <link rel="stylesheet" href="{MODULE_URL}assets/css/kj.min.css"/>
+  <link rel="stylesheet" href="{MODULE_URL}assets/css/kj-extend.min.css"/>
+  <link rel="stylesheet" href="{MODULE_URL}assets/css/kanjia.css?v={$VERSION}"/>
+  <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" charset='utf-8'></script>
+  <script type='text/javascript' src='{MODULE_URL}assets/js/zepto.min.js' charset='utf-8'></script>
+  <script type="text/javascript">
+    var jssdkConfig= {php echo json_encode($_W["account"]["jssdkconfig"])} || {};
+    jssdkConfig.jsApiList = [
+      'checkJsApi',
+      'getLocation',
+  		'onMenuShareTimeline',
+  		'onMenuShareAppMessage',
+  		'onMenuShareQQ',
+  		'onMenuShareWeibo',
+      'hideOptionMenu',
+  		'hideMenuItems',
+  		'showMenuItems',
+      'closeWindow',
+  		'scanQRCode',
+    ];
+    wx.config(jssdkConfig);
+	  var sharedata = {php echo json_encode($sharedata);};
+    //
+    $.config = {router: false};
+  </script>
+</head>
+<body class="theme-kanjia">

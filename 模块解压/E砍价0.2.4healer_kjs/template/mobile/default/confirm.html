@@ -1,0 +1,278 @@
+{template $settings["themes"] . '/common/header-base'}
+<style type="text/css">
+  header .icon-menu{
+    display: none;
+  }
+</style>
+<!-- 页面区域 -->
+<div id="J_PAGE_COMFIRM" class="page">
+  {template $settings["themes"] . '/common/page-header'}
+  <!-- 内容区域  -->
+  <div class="content">
+    <form id="J_FORM" action="" method="post">
+      {if $kanjia["ordermode"] == 0}
+      <!-- 收货地址 -->
+      <div class="box">
+        {if !empty($address)}
+        <div class="box-content">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                <!-- 默认收货地址 -->
+                <div class="address-list">
+                  <a class="item active" href="#">
+                    <div class="item-default"> <i class="kicon icon-moren"></i>
+                    </div>
+                    <div id="J_ADDRESS" class="item-inner">
+                      <div>{$address['province']}{$address['address']}</div>
+                      <div>
+                        <span>{$address['name']}</span>
+                        &nbsp;&nbsp;
+                        <span>{$address['tel']}</span>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/if}
+        <div class="box-footer">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                <!-- 选择其他收货地址 -->
+                <a class="address-add clearfix open-popup" href="#">选择其他收货地址</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="height-lv1"></div>
+      {/if}
+      <!-- 订单项 -->
+      <div class="box order">
+        <div class="box-header">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">订单项</div>
+            </div>
+          </div>
+        </div>
+        <div class="box-content">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                <div class="item-content">
+                  <div class="item-media">
+                    <img src="{php echo tomedia($kanjia['cover']);}" />
+                  </div>
+                  <div class="item-inner">
+                    <div class="name">{$kanjia["pname"]}</div>
+                    <div class="price">
+                      <span class="color-primary">¥&nbsp;{$record["price"]}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 备注 -->
+      <div class="box order">
+        <div class="box-header">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">备注</div>
+            </div>
+          </div>
+        </div>
+        <div class="box-content">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                <input class="remark-input" type="text" name="remark" value="" placeholder="您可以给我们留言"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {if !empty($kanjia["message"])}
+      <!-- 附加信息 -->
+      <div class="box order">
+        <div class="box-header">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">附加信息</div>
+            </div>
+          </div>
+        </div>
+        <div class="box-content">
+          <div class="row">
+            <div class="col-100">
+              <div class="list-block" style="margin:0;">
+                <ul>
+                  {loop $kanjia["message"] $key $message}
+                  <li>
+                    <div class="item-content">
+                      <div class="item-inner">
+                      <div class="item-title label">{$message['field_name']}{if $message['field_required'] == 1}<span class="text-danger">*</span>{/if}</div>
+                        <div class="item-input">
+                          {if $message['field_type'] == 'text' || $message['field_type'] == 'time'}
+                            <input class="{if $message['field_required'] == 1}J_required{/if}" type="text" name="field_name[{$key}]" value="" placeholder="{$message['field_name']}" />
+                          {elseif $message['field_type'] == 'textarea'}
+                            <textarea class="{if $message['field_required'] == 1}J_required{/if}" name="field_name[{$key}]" placeholder="{$message['field_name']}"></textarea>
+                          {elseif $message['field_type'] == 'number'}
+                            <input class="{if $message['field_required'] == 1}J_required{/if}" type="number" name="field_name[{$key}]" value="" placeholder="{$message['field_name']}" />
+                          {elseif $message['field_type'] == 'email'}
+                            <input class="{if $message['field_required'] == 1}J_required{/if}" type="email" name="field_name[{$key}]" value="" placeholder="{$message['field_name']}" />
+                          {elseif $message['field_type'] == 'date'}
+                            <input class="{if $message['field_required'] == 1}J_required{/if}" type="date" name="field_name[{$key}]" value="" placeholder="{$message['field_name']}" />
+                          {elseif $message['field_type'] == 'id_no'}
+                            <input class="{if $message['field_required'] == 1}J_required{/if}" type="number" name="field_name[{$key}]" value="" placeholder="{$message['field_name']}" />
+                          {/if}
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  {/loop}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/if}
+      <!-- 支付信息 -->
+      <div class="box order-info">
+        <div class="box-header">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">支付信息</div>
+            </div>
+          </div>
+        </div>
+        <div class="box-content">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                <dl>
+                  <dt class="color-gray">商品总额</dt>
+                  <dd class="text-right">
+                    <span class="color-primary">¥&nbsp;{$record["price"]}</span>
+                  </dd>
+                </dl>
+                {if $kanjia["pfare"] > 0}
+                <dl>
+                  <dt class="color-gray">
+                    <span class="color-primary">+运费</span>
+                  </dt>
+                  <dd class="text-right">
+                    <span class="color-primary">¥&nbsp;{$kanjia["pfare"]}</span>
+                  </dd>
+                </dl>
+                {/if}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="box-footer">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                <div class="text-right">
+                  实付金额：
+                  <span class="color-primary">
+                    <b>¥&nbsp;{php echo ($record["price"] + $kanjia["pfare"]);}</b>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 提交订单 -->
+      <div class="content-block">
+        <div class="row">
+          <div class="col-100">
+            <input type="hidden" name="token" value="{$_W['token']}" />
+            <input type="hidden" name="id" value="{$record['id']}" />
+            <input type="hidden" name="aid" value="{$address['id']}" />
+            <button id="J_ORDER_CONFIRM" type="button" name="submit" value="1" class="button button-big button-fill button-block">提交订单</button>
+            {if !empty($settings["pay_hour"]) && $kanjia["paymode"] != 1}
+            <div class="content-padded color-danger text-center">请在提交订单后 {$settings["pay_hour"]} 小时内付款！</div>
+            {/if}
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- 页面js -->
+  <script type="text/javascript">
+    var ID = "{$record['id']}";
+    var AID = "{$address['id']}";
+    var ORDERMODE = "{$kanjia['ordermode']}";
+    var COMFIRM_URL = "{php echo $this->createMobileUrl('confirm');}";
+    wx.ready(function () {
+      wx.hideOptionMenu();
+    });
+  </script>
+</div>
+<!-- 其他收货地址 -->
+<div class="popup popup-services">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left close-popup" href="#">
+      <span class="icon icon-left"></span>
+      关闭
+    </a>
+    <h1 class="title">我的收货地址</h1>
+  </header>
+  <div class="content address">
+    <div class="box">
+      <div class="box-content">
+        <div class="row">
+          <div class="col-100">
+            <div class="content-padded">
+              <div class="address-list">
+                {loop $addresslist $item}
+                <a class="J_ADDRESS_ITEM item {if $item['default']}active{/if}" href="#" data-id="{$item['id']}">
+                  <div class="item-default">
+                    <i class="kicon icon-moren"></i>
+                  </div>
+                  <div class="item-inner">
+                    <div class="">{$item['province']}{$item['address']}</div>
+                    <div class="">
+                      <span>{$item['name']}</span>
+                      &nbsp;&nbsp;
+                      <span>{$item['tel']}</span>
+                    </div>
+                  </div>
+                </a>
+                {/loop}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="row">
+          <div class="col-100">
+            <div class="content-padded">
+              <!-- 新增收货地址 -->
+              <a class="address-add clearfix" href="{php echo $this->createMobileUrl('addresspost');}">
+                  新增收货地址
+                <span class="pull-right">
+                  <i class="kicon icon-plus"></i>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{template $settings["themes"] . '/common/page-footer'}
+{template $settings["themes"] . '/common/footer-base'}

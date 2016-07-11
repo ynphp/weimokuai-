@@ -1,0 +1,37 @@
+{template $settings["themes"] . '/common/header-base'}
+<!-- 页面区域 -->
+<div id="J_PAGE_MYCOLLECT" class="page">
+  {template $settings["themes"] . '/common/page-header'}
+  <!-- 内容区域 | 滚动加载 -->
+  <div class="content infinite-scroll infinite-scroll-bottom" data-distance="100">
+    <div id="J_PAGE_CONTENT" class="kj-content">
+      {loop $list $item}
+      <div class="card">
+        <div class="card-header color-white no-border">
+          <img width="100%" src="{php echo tomedia($item['cover']);}"/>
+        </div>
+        <div class="card-content">
+          <div class="card-content-inner">
+            <a class="name" href="{php echo $this->createMobileUrl('detail', array('rid'=>$item['rid']));}">{$item['title']}</a>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a class="KANJIA_COLLECT_CANCEL button button-fill button-big button-collect" href="#" data-id="{$item['id']}">取消收藏</a>
+        </div>
+      </div>
+      {/loop}
+    </div>
+    <!-- 加载提示 -->
+    <div class="infinite-scroll-preloader" style="display:none;">
+      <div class="preloader"></div>
+    </div>
+  </div>
+  <!-- 页面js -->
+  <script type="text/javascript">
+    var PAGE = {php echo ++$page;};
+    var PAGE_URL = "{php echo $this->createMobileUrl('mycollect');}";
+    var COLLECT_CANCEL_URL = "{php echo $this->createMobileUrl('collectcancel');}";
+  </script>
+</div>
+{template $settings["themes"] . '/common/page-footer'}
+{template $settings["themes"] . '/common/footer-base'}

@@ -1,0 +1,95 @@
+{template $settings["themes"] . '/common/header-base'}
+<!-- 页面区域 -->
+<div id="J_PAGE_ORDER" class="page">
+  {template $settings["themes"] . '/common/page-header'}
+  <!-- 内容区域 | 滚动加载 -->
+  <div class="content infinite-scroll infinite-scroll-bottom" data-distance="100">
+    <div class="buttons-tab buttons-fixed" data-offset="44">
+      <a href="{php echo $this->createMobileUrl('order')}" class="button {if empty($status)}active{/if}">全部</a>
+      <a href="{php echo $this->createMobileUrl('order', array('status'=>1))}" class="button {if $status == 1}active{/if}">待付款</a>
+      <a href="{php echo $this->createMobileUrl('order', array('status'=>2))}" class="button {if $status == 2}active{/if}">待发货</a>
+      <a href="{php echo $this->createMobileUrl('order', array('status'=>3))}" class="button {if $status == 3}active{/if}">待收货</a>
+      <a href="{php echo $this->createMobileUrl('order', array('status'=>4))}" class="button {if $status == 4}active{/if}">已完成</a>
+    </div>
+    <div class="height-lv1"></div>
+    <div class="height-lv1"></div>
+    <div class="height-lv1"></div>
+    <div class="height-lv1"></div>
+    <div class="height-lv1"></div>
+    <div id="J_PAGE_CONTENT" class="kj-content">
+      {loop $list $item}
+      <div class="box order">
+        <div class="box-header">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                编号：{$item["ordersn"]}
+                {if $item["status"] == 0 }
+                <span class="color-gray pull-right status">已关闭</span>
+                {elseif $item["status"] == 1}
+                <span class="color-gray pull-right status">待付款</span>
+                {elseif $item["status"] == 2}
+                <span class="color-warning pull-right status">待发货</span>
+                {elseif $item["status"] == 3}
+                <span class="color-warning pull-right status">待收货</span>
+                {elseif $item["status"] == 4}
+                <span class="color-primary pull-right status">已完成</span>
+                {elseif $item["status"] == 6}
+                <span class="color-danger pull-right status">已退款</span>
+                {/if}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="box-content">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded">
+                <div class="item-content">
+                  <div class="item-media">
+                    <img src="{php echo tomedia($item['cover']);}" />
+                  </div>
+                  <div class="item-inner">
+                    <div class="name">{$item['pname']}</div>
+                    <div class="price">
+                      <span class="color-primary">¥&nbsp;{$item['price']}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="box-footer">
+          <div class="row">
+            <div class="col-100">
+              <div class="content-padded text-right">
+                <a class="button" href="{php echo $this->createMobileUrl('orderdetail', array('id'=>$item['id']));}">查看订单</a>
+                {if $item["status"] == 1}
+                <a class="J_ORDER_CLOSE button" href="#" data-id="{$item['id']}">关闭订单</a>
+                <a class="button button-fill" href="{php echo $this->createMobileUrl('pay', array('oid' => $item['id']));}">付款</a>
+                {elseif $item["status"] == 3}
+                <a class="J_ORDER_CONFIRM button button-fill" href="#" data-id="{$item['id']}">确认收货</a>
+                {/if}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/loop}
+    </div>
+    <!-- 加载提示 -->
+    <div class="infinite-scroll-preloader" style="display:none;">
+      <div class="preloader"></div>
+    </div>
+  </div>
+  <!-- 页面js -->
+  <script type="text/javascript">
+    var PAGE = {php echo ++$page;};
+    var PAGE_URL = "{php echo $this->createMobileUrl('order')}";
+    var STATUS_URL = "{php echo $this->createMobileUrl('orderstatus');}";
+    var STATUS = "{$status}";
+  </script>
+</div>
+{template $settings["themes"] . '/common/page-footer'}
+{template $settings["themes"] . '/common/footer-base'}

@@ -1,0 +1,493 @@
+{template $settings["themes"] . '/common/header-base'}
+<style type="text/css">
+  body{ padding-top: 0;}
+  header.bar{ display: none;}
+  .page .bar-nav~.content{top: 0;}
+  .popup header.bar{ display: block;}
+</style>
+<!-- 页面区域 -->
+<div id="J_PAGE_DETAIL" class="page">
+  {template $settings["themes"] . '/common/page-header'}
+  <!-- 内容区域  -->
+  <div class="content">
+    <!-- 公众号信息 -->
+    <div class="gzh-fixed">
+      <div class="row">
+        <div class="col-100">
+          <div class="content-padded">
+            <div class="gzh-fixed-box">
+              <div class="gzh-img">
+                <img class="img-circle" src="{$_W['account']['avatar']}"/>
+              </div>
+              <div class="gzh-name">{$_W['account']['name']}</div>
+              {if $_W["fans"]["follow"] != 1}
+              <a href="{$kanjia['followurl']}" class="button button-gz external">+关注</a>
+              {/if}
+              <div class="icon icon-menu open-panel"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 多图展示 -->
+    <div class="swiper-container" data-autoplay="3000">
+      <div class="swiper-wrapper">
+        {loop $kanjia["pimages"] $img}
+        <div class="swiper-slide">
+          <img src="{php echo tomedia($img);}" alt=" "/>
+        </div>
+        {/loop}
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+    <!-- 价格 -->
+    <div class="goods-info">
+      <div class="row no-gutter number">
+        <div class="pull-left">
+          <div class="content-padded">
+            <div class="dijia">
+              <span class="yuan">¥</span>
+              <span class="">{$kanjia["ppricemin"]}</span>
+              <span class="dj">底价</span>
+            </div>
+          </div>
+        </div>
+        <div class="pull-left">
+          <div class="content-padded">
+            <div class="yuanjia">
+              原价： <del>{$kanjia["pprice"]}</del>
+            </div>
+            <div class="canyu">{php echo ($kanjia["join"]+$kanjia["help"]);}&nbsp;人关注</div>
+          </div>
+        </div>
+        <div class="pull-right jieshu">
+          {if TIMESTAMP < $kanjia["starttime"]}
+          <div class="content-padded text-center">
+            <div>距离开启</div>
+            <div class="J_TIMER jieshusj" data-time="{php echo ($kanjia['starttime']-TIMESTAMP);}">
+              <span>00</span>:<span>00</span>:<span>00</span>
+            </div>
+          </div>
+          {else}
+          <div class="content-padded text-center">
+            <div>距离结束</div>
+            <div class="J_TIMER jieshusj" data-time="{php echo ($kanjia['endtime']-TIMESTAMP);}">
+              <span>00</span>:<span>00</span>:<span>00</span>
+            </div>
+          </div>
+          {/if}
+        </div>
+      </div>
+      <div class="box">
+        <div class="box-content">
+          <div class="row no-gutter string">
+            {if !empty($record)}
+            <div class="col-20">
+              <div class="content-padded">
+                <div><img class="img-circle" src="{$record['avatar']}"></div>
+              </div>
+            </div>
+            <div class="col-60">
+              <div class="content-padded">
+                <div class="biaoti">{$kanjia["pname"]}</div>
+                <div class="jiansu">{$kanjia["pad"]}</div>
+              </div>
+            </div>
+            {else}
+            <div class="col-80">
+              <div class="content-padded">
+                <div class="biaoti">{$kanjia["pname"]}</div>
+                <div class="jiansu">{$kanjia["pad"]}</div>
+              </div>
+            </div>
+            {/if}
+            <div class="col-20">
+              <div class="content-padded">
+                <a class="guize text-center open-popup" href="javascript:;" data-popup=".popup-rule">
+                  <div>
+                    <span class="kicon icon-xiangqing"></span>
+                  </div>
+                  <div class="text">规则</div>
+                </a>
+              </div>
+            </div>
+          </div>
+          {if !empty($record)}
+          <!-- 砍价进度 -->
+          <div class="row no-gutter jindu">
+            <div class="col-100">
+              <div class="content-padded">
+                <!-- 进度轴 -->
+                <div class="progress">
+                  <div class="progress-bar">
+                    <div class="progress-inner-bar" style="width:{php echo round(($kanjia['pprice'] - $record['price']) / ($kanjia['pprice']-$kanjia['ppricemin']) * 100, 2);}%;"></div>
+                    <div class="text">
+                      {php echo round(($kanjia['pprice'] - $record['price']) / ($kanjia['pprice']-$kanjia['ppricemin']) * 100, 2);}%
+                    </div>
+                  </div>
+                </div>
+                <!-- 文字标识 -->
+                <div class="clearfix">
+                  <div class="pull-left">库存：{php echo($kanjia["pweight"]-$kanjia["psold"]);}</div>
+                  <div class="pull-right">距离底价：¥&nbsp;{php echo round($record["price"]-$kanjia["ppricemin"], 2);}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/if}
+        </div>
+      </div>
+    </div>
+    <div class="height-lv1"></div>
+    {if empty($record)}
+    <!-- 立即砍价 -->
+    <div class="box fixed">
+      <div class="box-content">
+        <div class="row">
+          <div class="col-50">
+            <div class="content-padded">
+              {if empty($collect)}
+              <a id="J_KANJIA_COLLECT" href="#" class="button button-big collect">
+                <i class="kicon icon-shoucang"></i>
+                收藏
+              </a>
+              {else}
+              <a href="#" class="button button-big collect">
+                <i class="kicon icon-shoucang"></i>
+                已收藏
+              </a>
+              {/if}
+            </div>
+          </div>
+          <div class="col-50">
+            <div class="content-padded">
+              <a id="J_KANJIA_RECORD" href="#" class="button button-fill button-big"> <i class="kicon icon-futou"></i>
+                立即砍价
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="height-lv1"></div>
+    {else}
+    <!-- 邀请帮砍 | 立即购买 -->
+    <div class="box">
+      <div class="box-content">
+        <div class="row">
+          <div class="col-50">
+            <div class="content-padded">
+              <a id="J_KANJIA_FINDHELP" href="#" class="button button-big">
+                <i class="kicon icon-share"></i>
+                邀请帮砍
+              </a>
+            </div>
+          </div>
+          <div class="col-50">
+            <div class="content-padded">
+              <a id="J_KANJIA_BUY" href="#" class="button button-big button-fill">
+                <i class="kicon icon-buy"></i>
+                立即购买
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="height-lv1"></div>
+    {/if}
+    {if !empty($business)}
+    <!-- 商家信息 -->
+    <div class="box">
+      <div class="box-content">
+        <div class="row">
+          <div class="col-100">
+            <div class="content-padded">
+              <div class="business">
+                <div class="business-img">
+                  <img class="img-circle" src="{php echo tomedia($business['cover']);}"/>
+                </div>
+                <div class="business-info">
+                  <div class="clearfix">
+                    <div class="business-sjxx pull-left">
+                      商家
+                    </div>
+                    <div class="business-name pull-left">
+                      {$business['name']}
+                    </div>
+                  </div>
+                  <div class="business-address color-gray">地址：{$business['address']}</div>
+                </div>
+                <a href="{php echo $this->createMobileUrl('shop', array('id'=>$business['id']));}" class="external button-more text-center">
+                  <div><i class="kicon icon-shangjia"></i></div>
+                  <div>更多</div>
+                </a>
+                <a href="tel:{$business['tel']}" class="external button-tel text-center">
+                  <div><i class="kicon icon-dianhua"></i></div>
+                  <div>电话</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="height-lv1"></div>
+    {/if}
+    <!-- 详情 | 商家介绍 | 帮砍榜 -->
+    <div class="box">
+      <div class="box-content">
+        <div class="row">
+          <div class="col-100">
+            <div class="buttons-tab">
+              <a href="#tab1" class="tab-link active button">活动详情</a>
+              {if !empty($business)}
+              <a href="#tab2" class="tab-link button">商家介绍</a>
+              {/if}
+              {if !empty($record)}
+              <a href="#tab3" class="tab-link button">帮砍榜</a>
+              {/if}
+            </div>
+            <div class="tabs">
+              <div id="tab1" class="tab active">
+                <div class="content-padded">
+                  <div>{$kanjia["content"]}</div>
+                  {if !empty($kanjia['pturl'])}
+                  <div><a class="button button-fill button-big external" href="{$kanjia['pturl']}">了解更多</a></div>
+                  {/if}
+                </div>
+              </div>
+              {if !empty($business)}
+              <div id="tab2" class="tab">
+                <div class="content-padded">{$business["content"]}</div>
+              </div>
+              {/if}
+              {if !empty($record)}
+              <div id="tab3" class="tab">
+                <ul class="kanhuo-list">
+                  {loop $helplist $item}
+                  <li>
+                    <div class="img">
+                      <img class="img-circle" src="{$item['avatar']}" alt=" " />
+                    </div>
+                    <div class="kanhuo-content clearfix">
+                      <div class="userinfo pull-left">
+                        <div class="name">{$item['nickname']}</div>
+                        <div class="time color-gray">{php echo date("m/d H:i", $item["createtime"]);}</div>
+                      </div>
+                      <div class="price pull-right">
+                        <div>-&nbsp;¥{$item['price']}</div>
+                      </div>
+                    </div>
+                  </li>
+                  {/loop}
+                </ul>
+                <div class="row">
+                  <div class="col-100">
+                    <div class="content-padded text-center">
+                      <a href="{php echo $this->createMobileUrl('helppage', array('id'=>$record['id']))}">查看更多</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/if}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="height-lv1"></div>
+    <!-- 参与名单 | Top 10 -->
+    <div class="box">
+      <div class="box-header">
+        <div class="row">
+          <div class="col-100">
+            <div class="content-padded">参与名单（{$recordCount}位）</div>
+          </div>
+        </div>
+      </div>
+      <div class="box-content">
+        <div class="row">
+          <div class="col-100">
+            <ul class="kanhuo-list">
+              {loop $recordlist $item}
+              <li>
+                <div class="img">
+                  <img class="img-circle" src="{$item['avatar']}" alt=" " />
+                </div>
+                <div class="kanhuo-content clearfix">
+                  <div class="userinfo pull-left">
+                    <div class="name">{$item['nickname']}</div>
+                    <div class="time color-gray">{php echo date("m/d H:i", $item["createtime"]);}</div>
+                  </div>
+                  <div class="price pull-right">
+                    <div>¥{$item['price']}</div>
+                  </div>
+                </div>
+              </li>
+              {/loop}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="box-footer">
+        <div class="row">
+          <div class="col-100">
+            <div class="content-padded text-center">
+              <a href="{php echo $this->createMobileUrl('recordpage', array('id'=>$kanjia['rid']))}">查看更多</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="height-lv1"></div>
+    <!-- 猜你喜欢 | 10 -->
+    <div class="box">
+      <div class="box-header">
+        <div class="row">
+          <div class="col-100">
+            <div class="content-padded">猜你喜欢</div>
+          </div>
+        </div>
+      </div>
+      <div class="box-content">
+        <div class="row">
+          <div class="col-100">
+            <div class="maybe-like">
+              <div class="maybe-like-content clearfix" style="width:{php echo (count($list) * 50)}%;">
+                {loop $list $item}
+                <a class="card pull-left" href="{php echo $this->createMobileUrl('detail', array('rid'=>$item['rid']));}" style="width:{php echo (100 / count($list))}%;">
+                  <div class="card-header color-white no-border">
+                    <img width="100%" src="{php echo tomedia($item['cover']);}"/>
+                  </div>
+                  <div class="card-content">
+                    <div class="card-content-inner">
+                      <div class="name">{$item["title"]}</div>
+                    </div>
+                  </div>
+                </a>
+                {/loop}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="height-lv1"></div>
+  </div>
+  <!-- 页面js -->
+  <script type="text/javascript">
+    var ID = "{$record['id']}";
+    var RID = "{$kanjia['rid']}";
+    var RECORD_URL = "{php echo $this->createMobileUrl('record');}";
+    var COLLECT = "{php echo $this->createMobileUrl('collect', array('rid'=>$kanjia['rid']));}";
+    var DETAIL_URL = "{php echo $this->createMobileUrl('detail', array('rid'=>$kanjia['rid']));}";
+    var BUY_URL = "{php echo $this->createMobileUrl('buy');}";
+    var PWEIGHT = "{$kanjia['pweight']}";
+    var PSOLD = "{$kanjia['psold']}";
+    var POSTERMID = "{$kanjia['postermid']}";
+    var NEEDE_GPS = {if !empty($kanjia["recordarea"]["province"]) || !empty($kanjia["recordarea"]["city"]) || !empty($kanjia["recordarea"]["district"])}1{else}0{/if};
+    {if file_exists(IA_ROOT . "/addons/healer_poster/PosterApi.php") && !empty($record)}
+      var POSTER_URL = "{php echo $this->createMobileUrl('poster', array('id'=>$record['id']));}";
+    {/if}
+  </script>
+</div>
+<!-- 活动规则 -->
+<div class="popup popup-rule">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left close-popup" href="#">
+      <span class="icon icon-left"></span>
+      关闭
+    </a>
+    <h1 class="title">活动规则</h1>
+  </header>
+  <div class="content">
+    <div class="row">
+      <div class="col-100">
+        <div class="content-padded">{$kanjia["rule"]}</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 分享海报 -->
+<div class="popup popup-poster">
+  <header class="bar bar-nav">
+    <a class="button button-link button-nav pull-left close-popup" href="#">
+      <span class="icon icon-left"></span>
+      关闭
+    </a>
+    <h1 class="title">分享海报</h1>
+  </header>
+  <div class="content">
+    <div class="row">
+      <div class="col-100">
+        <img id="J_POSTER_IMG" width="100%" src="#" alt="海报正在生成中…" />
+      </div>
+    </div>
+  </div>
+</div>
+{if ($_W["account"]["level"] == 4 && $settings["caiji"])}
+  {if (empty($member_fields["realname"]) || empty($member_fields["mobile"]))}
+  <!-- 完善会员信息 -->
+  <div class="popup popup-member">
+    <header class="bar bar-nav">
+      <h1 class="title">完善会员信息</h1>
+    </header>
+    <div class="content">
+      <div class="row">
+        <div class="col-100">
+          <div class="list-block" style="margin-top: 0;">
+            <ul>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">姓名</div>
+                    <div class="item-input">
+                      <input id="J_MEMBER_NAME" type="text" placeholder="真实姓名" value="{$member_fields['realname']}" />
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">手机</div>
+                    <div class="item-input">
+                      <input id="J_MEMBER_MOBILE" type="number" placeholder="手机号码" value="{$member_fields['mobile']}"/>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="content-block">
+            <div class="row">
+              <div class="col-100">
+                <a id="J_MEMBER_COMFIRM" href="#" class="button button-big button-fill">提交</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    var NEEDE_MEMBER_INFO = 1;
+    var MEMBER_URL = "{php echo $this->createMobileUrl('member');}";
+  </script>
+  {else}
+  <script type="text/javascript">
+    var NEEDE_MEMBER_INFO = 0;
+  </script>
+  {/if}
+{else}
+<script type="text/javascript">
+  var NEEDE_MEMBER_INFO = 0;
+</script>
+{/if}
+<script type="text/javascript">
+var latitude = {$latitude};
+var longitude = {$longitude};
+</script>
+{template $settings["themes"] . '/common/page-footer'}
+{template $settings["themes"] . '/common/footer-base'}

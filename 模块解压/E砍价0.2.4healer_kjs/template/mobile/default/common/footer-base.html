@@ -1,0 +1,26 @@
+<script type='text/javascript' src='{MODULE_URL}assets/js/kj.min.js' charset='utf-8'></script>
+<script type='text/javascript' src='{MODULE_URL}assets/js/kj-extend.min.js' charset='utf-8'></script>
+<script type="text/javascript" src='{MODULE_URL}assets/js/citypicker.min.js'></script>
+<script type="text/javascript" src='{MODULE_URL}assets/js/kanjia.min.js?v={$VERSION}' charset='utf-8'></script>
+<!-- 脚本引入 -->
+<script type="text/javascript">
+// 海报分享
+{if file_exists(IA_ROOT . "/addons/healer_poster/PosterApi.php") && ($_GPC["do"] == "detail" || $_GPC["do"] == "help")}
+var POSTER = 1;
+{else}
+var POSTER = 0;
+// 海报分享end
+{/if}
+wx.ready(function () {
+	wx.onMenuShareAppMessage(sharedata);
+	wx.onMenuShareTimeline(sharedata);
+	wx.onMenuShareQQ(sharedata);
+	wx.onMenuShareWeibo(sharedata);
+	//隐藏部分功能
+	wx.hideMenuItems({
+		menuList: ["menuItem:copyUrl"],
+	});
+});
+</script>
+</body>
+</html>

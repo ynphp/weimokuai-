@@ -1,0 +1,97 @@
+{template $settings["themes"] . '/common/header-base'}
+<style type="text/css">
+  header{ display: none; }
+  .bar-tab~.content{
+    top: 0;
+  }
+</style>
+<!-- 页面区域 -->
+<div id="J_PAGE_SHOP" class="page">
+  {template $settings["themes"] . '/common/page-header'}
+  <!-- 内容区域 | 滚动加载 -->
+  <div class="content infinite-scroll infinite-scroll-bottom" data-distance="100">
+    <!-- 商家信息 -->
+    <div class="box">
+      <div class="box-content">
+        <div class="row">
+          <div class="col-100">
+            <a class="shop" href="{$business['url']}">
+              <div class="shop-header" {if !empty($business['bgimage'])}style="background-image:url({php echo tomedia($business['bgimage']);})"{/if}>              
+                <div class="shop-image">
+                  <img src="{php echo tomedia($business['cover']);}" alt=" " />
+                </div>
+                <div class="shop-info">
+                  <div class="shop-name">{$business['name']}</div>
+                </div>
+              </div>
+              <div class="shop-content">
+                <div class="shop-address"> <i class="kicon icon-weizhi"></i>
+                  {$business['address']}
+                </div>
+                <div class="shop-contact"> <i class="kicon icon-dianhua2"></i>
+                  {$business['tel']}
+                </div>
+                <ul class="shop-icon-list text-center">
+                  <li class="item">
+                    <i class="kicon icon-zhengpin color-warning"></i>
+                    <span>正品保障</span>
+                  </li>
+                  <li class="item">
+                    <i class="kicon icon-youhui color-success"></i>
+                    超值优惠
+                  </li>
+                  <li class="item ">
+                    <i class="kicon icon-mendian color-primary"></i>
+                    实体门店
+                  </li>
+                </ul>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="height-lv1"></div>
+    <!-- 砍价列表 -->
+    <div class="buttons-tab">
+      <a href="{php echo $this->createMobileUrl('shop', array('id'=>$business['id'], 'op'=>'soon'))}" class="button {if $op == 'soon'}active{/if}">即将开始</a>
+      <a href="{php echo $this->createMobileUrl('shop', array('id'=>$business['id'], 'op'=>'ing'))}" class="button {if $op == 'ing'}active{/if}">进行中</a>
+      <a href="{php echo $this->createMobileUrl('shop', array('id'=>$business['id'], 'op'=>'past'))}" class="button {if $op == 'past'}active{/if}">往期活动</a>
+    </div>
+    <div class="box">
+      <div class="box-content">
+        <div class="row">
+          <div class="col-100">
+            <div id="J_PAGE_CONTENT" class="kj-content card-list clearfix">
+              {loop $list $item}
+              <a class="item" href="{php echo $this->createMobileUrl('detail', array('rid'=>$item['rid']));}" data-no-cache="true">
+                <div class="item-box">
+                  <img width="100%" src="{php echo tomedia($item['cover']);}" alt=" " />
+                  <div class="content-padded">
+                    <div class="name">{$item['title']}</div>
+                    <div class="dijia">最低价</div>
+                    <div class="price">
+                      ¥&nbsp; <b class="color-primary">{php echo floatval($item['ppricemin']);}</b>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              {/loop}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 加载提示 -->
+    <div class="infinite-scroll-preloader" style="display:none;">
+      <div class="preloader"></div>
+    </div>
+  </div>
+  <!-- 页面js -->
+  <script type="text/javascript">
+    var PAGE = {php echo ++$page;};
+    var PAGE_URL = "{php echo $this->createMobileUrl('shop', array('id'=>$business['id'], 'op'=>$op))}";
+  </script>
+</div>
+{template $settings["themes"] . '/common/page-footer'}
+{template $settings["themes"] . '/common/footer-base'}

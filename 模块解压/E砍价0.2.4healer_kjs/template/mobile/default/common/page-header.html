@@ -1,0 +1,31 @@
+<header class="bar bar-nav text-center">
+  {if $_GPC['do'] == 'index' || $_GPC['do'] == 'yule' || $_GPC['do'] == 'fengkuang'}
+  <div class="buttons-row">
+    <a href="{php echo $this->createMobileUrl($_GPC['do'], array('op'=>'now'));}" class="button {if $op == 'now'}active{/if}">正在进行</a>
+    <a href="{php echo $this->createMobileUrl($_GPC['do'], array('op'=>'past'));}" class="button {if $op == 'past'}active{/if}">往期活动</a>
+  </div>
+  {else}
+  <h1 class="title">{$_W['page']['title']}</h1>
+  {/if}
+  <a class="icon icon-menu open-panel"></a>
+</header>
+<!-- 导航 -->
+<nav class="bar bar-tab">
+  <a class="tab-item {if $_GPC['do'] == 'index'}active{/if}" href="{php echo $this->createMobileUrl('index');}">
+    <span class="icon kicon icon-home"></span>
+    <span class="tab-label">首页</span>
+  </a>
+  <a class="tab-item {if $_GPC['do'] == 'yule'}active{/if}" href="{php echo $this->createMobileUrl('yule');}">
+    <span class="icon kicon icon-yule"></span>
+    <span class="tab-label">随时购</span>
+    <!-- <span class="badge"></span> -->
+  </a>
+  <a class="tab-item {if $_GPC['do'] == 'fengkuang'}active{/if}" href="{php echo $this->createMobileUrl('fengkuang');}">
+    <span class="icon kicon icon-fengkuang"></span>
+    <span class="tab-label">砍至底价</span>
+  </a>
+  <a class="tab-item {if $_GPC['do'] == 'user'}active{/if}" href="{php echo $this->createMobileUrl('user');}">
+    <span class="icon kicon icon-user"></span>
+    <span class="tab-label">我的</span>
+  </a>
+</nav>

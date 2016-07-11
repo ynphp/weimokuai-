@@ -1,0 +1,22 @@
+{template $settings["themes"] . '/common/header-base'}
+<!-- 页面区域 -->
+<div class="page">
+  {template $settings["themes"] . '/common/page-header'}
+  <!-- 内容区域 | 滚动加载 -->
+  <div class="checkcontent content infinite-scroll infinite-scroll-bottom" data-distance="100">
+    <div class="kj-content">
+      <div id="J_KAQUAN" class="kaquan"></div>
+      <div id="J_SAOMA" class="saoma text-center color-primary">
+        <div> <i class="kicon icon-saoma"></i>
+        </div>
+        <div>点击这里开启扫码功能</div>
+      </div>
+    </div>
+  </div>
+  <!-- 页面js -->
+  <script type="text/javascript">
+    var CHECK_URL = "{php echo $this->createMobileUrl('check');}";
+  </script>
+</div>
+{template $settings["themes"] . '/common/page-footer'}
+{template $settings["themes"] . '/common/footer-base'}

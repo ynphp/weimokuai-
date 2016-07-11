@@ -1,0 +1,661 @@
+{template "common/header"}
+<style type="text/css">
+  .div-hide{
+    display: none;
+  }
+</style>
+<script type="text/javascript">
+  require(['bootstrap'], function($) {
+    $('.btn').hover(function() {
+      $(this).tooltip('show');
+    }, function() {
+      $(this).tooltip('hide');
+    });
+  });
+</script>
+<ul class="nav nav-tabs">
+	<li {if $op == 'list'}class="active"{/if}>
+		<a href="{php echo $this->createWebUrl('manager', array('op'=>'list'));}">砍价管理</a>
+	</li>
+	<li {if $op == 'post' && empty($_GPC['id'])}class="active"{/if}>
+		<a href="{php echo $this->createWebUrl('manager', array('op'=>'post'));}">添加砍价</a>
+	</li>
+	{if $op == 'post' && !empty($_GPC['id'])}
+	<li class="active">
+		<a href="{php echo $this->createWebUrl('manager', array('op'=>'manager', 'id'=>intval($_GPC['id'])));}">编辑砍价
+		</a>
+	</li>
+	{/if}
+</ul>
+{if $op == 'post'}
+<form id="reply-form" class="form-horizontal form" action="" method="post">
+	<!-- 标签页 -->
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active">
+			<a href="#kanjia_basic" aria-controls="kanjia_basic" role="tab" data-toggle="tab">基础信息</a>
+		</li>
+		<li role="presentation">
+			<a href="#kanjia_product" aria-controls="kanjia_product" role="tab" data-toggle="tab">产品设置</a>
+		</li>
+		<li role="presentation">
+	      <a href="#kanjia_rule" aria-controls="kanjia_rule" role="tab" data-toggle="tab">规则设置</a>
+	    </li>
+		<li role="presentation">
+			<a href="#kanjia_event" aria-controls="kanjia_event" role="tab" data-toggle="tab">活动设置</a>
+		</li>
+		<li role="presentation">
+			<a href="#kanjia_share" aria-controls="kanjia_share" role="tab" data-toggle="tab">分享设置</a>
+		</li>
+		<li role="presentation">
+	      <a href="#kanjia_kuozhan" aria-controls="kanjia_kuozhan" role="tab" data-toggle="tab">扩展设置</a>
+	    </li>
+	</ul>
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="kanjia_basic">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">
+							<span class="text-danger">*</span>
+							活动标题
+						</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<input type="text" name="title" class="form-control" value="{$kanjia['title']}"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">
+							<span class="text-danger">*</span>
+							活动封面
+						</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							{php echo tpl_form_field_image('cover', $kanjia['cover']);}
+							<div class="text-warning">建议上传660px*440px的图片，显示效果最佳。</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">
+							规则
+						</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							{php echo tpl_ueditor("rule", $kanjia['rule']); }
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">
+							<span class="text-danger">*</span>
+							活动详情
+						</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							{php echo tpl_ueditor("content", $kanjia['content']); }
+							<div class="text-warning">可在此处说明活动以及产品的相关介绍</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">
+							<span class="text-danger">*</span>
+							活动时间
+						</label>
+						<div class="col-sm-4 col-md-5">
+							{php echo tpl_form_field_daterange("time", array("start"=>$kanjia["starttime"], "end"=>$kanjia["endtime"]), true);}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">参与积分</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<div class="input-group">
+								<input type="text" class="form-control" name="joincredit" value="{$kanjia['joincredit']}" />
+								<span class="input-group-addon">分</span>
+							</div>
+							<div class="text-warning">填写大于0的数可增加积分，填写小于0的数需减少积分，填写0积分不改变。</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">助力积分</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<div class="input-group">
+								<input type="text" class="form-control" name="helpcredit" value="{$kanjia['helpcredit']}" />
+								<span class="input-group-addon">分</span>
+							</div>
+							<div class="text-warning">填写大于0的数可增加积分，填写小于0的数需减少积分，填写0积分不改变。</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="kanjia_product">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">
+							<span class="text-danger">*</span>
+							产品名称
+						</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<input type="text" name="pname" class="form-control" value="{$kanjia['pname']}"/>
+							<div class="text-warning">建议不要填写广告相关的内容</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">产品广告语</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<input type="text" name="pad" class="form-control" value="{$kanjia['pad']}"/>
+							<div class="text-warning">建议不要填写太多的内容</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">产品图</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							{php echo tpl_form_field_multi_image('pimages', $kanjia['pimages']);}
+							<div class="text-warning">建议上传660px*440px的图片5张图，显示效果最佳。</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">原价</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<div class="input-group">
+								<input type="text" class="form-control" name="pprice" value="{$kanjia['pprice']}" />
+								<span class="input-group-addon">元</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">底价</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<div class="input-group">
+								<input type="text" class="form-control" name="ppricemin" value="{$kanjia['ppricemin']}" />
+								<span class="input-group-addon">元</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">运费</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<div class="input-group">
+								<input type="text" class="form-control" name="pfare" value="{$kanjia['pfare']}" />
+								<span class="input-group-addon">元</span>
+							</div>
+							<div class="text-warning">默认是0表示包邮，如果设置了线下核销该内容填写无效。</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">
+							<span class="text-danger">*</span>
+							库存
+						</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<input type="text" class="form-control" name="pweight" value="{$kanjia['pweight']}" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">链接</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<input type="text" class="form-control" name="pturl" value="{$kanjia['pturl']}" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="kanjia_rule">
+	      <div class="panel panel-default">
+	        <div class="panel-body">
+	          <div class="alert alert-info">
+	            使用“阶梯模式”需具备一定的运营经验，阶梯中的价格范围不可大于原价或小于底价，砍价阶梯按照顺序向下设置。
+	          </div>
+	          <div class="form-group">
+	            <label class="col-sm-2 col-md-2 control-label">砍价模式</label>
+	            <div class="col-sm-6 col-md-8 col-xs-12">
+	              <label class="radio-inline">
+	                <input type="radio" name="helpmode" value="0"{if $kanjia['helpmode'] == 0} checked="" {/if}>普通模式</label>
+	              <label class="radio-inline">
+	                <input type="radio" name="helpmode" value="1"{if $kanjia['helpmode'] == 1} checked="" {/if}>阶梯模式</label>
+	            </div>
+	          </div>
+	          <div id="J_HELPMODE_1" class="div-hide" {if empty($kanjia['helpmode'])}style="display: block;"{/if}>
+	            <div class="form-group">
+	              <label class="col-sm-2 col-md-2 control-label">
+	                <span class="text-danger">*</span>
+	                帮砍人次
+	              </label>
+	              <div class="col-sm-6 col-md-8 col-xs-12">
+	                <div class="input-group">
+	                  <input type="text" class="form-control" name="helprule" value="{$kanjia['helprule']}" />
+	                  <span class="input-group-addon">人次</span>
+	                </div>
+	                <div class="text-warning">预计参与砍价从原价砍至底价需要多少人次。</div>
+	              </div>
+	            </div>
+	          </div>
+	          <div id="J_HELPMODE_2" class="div-hide" {if !empty($kanjia['helpmode'])}style="display: block;"{/if}>
+	            <div class="form-group">
+	              <label class="col-sm-2 col-md-2 control-label">
+	              	<span class="text-danger">*</span>
+	              	砍价规则
+	              </label>
+	              <div class="col-sm-10 col-md-10 col-xs-12">
+	                <table class="table">
+	                  <thead>
+	                    <tr>
+	                      <th>金额大于/元 <span class="text-danger">*</span></th>
+	                      <th>砍掉金额/元（最小）<span class="text-danger">*</span></th>
+	                      <th>砍掉金额/元（最大）<span class="text-danger">*</span></th>
+	                      <th class="text-right" width="80">操作</th>
+	                    </tr>
+	                  </thead>
+	                  <tbody id="J_KANJIA_RULE">
+	                    {loop $kanjia["helprule2"] $rule}
+	                    <tr>
+	                      <td>
+	                        <input name="ruleprice[]" type="text" class="form-control" value="{$rule['ruleprice']}"></td>
+	                      <td>
+	                        <input name="rulemin[]" type="text" class="form-control" value="{$rule['rulemin']}"></td>
+	                      <td>
+	                        <input name="rulemax[]" type="text" class="form-control" value="{$rule['rulemax']}"></td>
+	                      <td class="text-right">
+	                        <a class="J_KANJIA_RULE_DEL btn btn-danger btn-sm" href="javascript:;">删除</a>
+	                      </td>
+	                    </tr>
+	                    {/loop}
+	                  </tbody>
+	                </table>
+	              </div>
+	            </div>
+	            <div class="form-group">
+	              <div class="col-sm-10 col-md-10 col-xs-12 col-sm-offset-2 col-md-offset-2">
+	                <a id="J_KANJIA_RULE_ADD" class="btn btn-default btn-sm" href="javascript:;">添加规则</a>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+		<div role="tabpanel" class="tab-pane" id="kanjia_event">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">官方推荐</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<label class="radio-inline">
+								<input type="radio" name="tuijian" value="0"{if $kanjia['tuijian'] == 0} checked="" {/if}>否</label>
+							<label class="radio-inline">
+								<input type="radio" name="tuijian" value="1"{if $kanjia['tuijian'] == 1} checked="" {/if}>是</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">购买模式</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<label class="radio-inline">
+								<input type="radio" name="buymode" value="0"{if $kanjia['buymode'] == 0} checked="" {/if}>砍至底价</label>
+							<label class="radio-inline">
+								<input type="radio" name="buymode" value="1"{if $kanjia['buymode'] == 1} checked="" {/if}>随时购</label>
+							<div class="help-block">砍至底价：参与者只能砍到底价才能购买；随时购：参与砍价即可随时以当前砍到的价格购买。</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">支付模式</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<label class="radio-inline">
+								<input type="radio" name="paymode" value="0"{if $kanjia['paymode'] == 0} checked="" {/if}>线上支付</label>
+							<label class="radio-inline">
+								<input type="radio" name="paymode" value="1"{if $kanjia['paymode'] == 1} checked="" {/if}>线下支付</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">订单模式</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<label class="radio-inline">
+								<input type="radio" name="ordermode" value="0"{if $kanjia['ordermode'] == 0} checked="" {/if}>快递送货</label>
+							<label class="radio-inline">
+								<input type="radio" name="ordermode" value="1"{if $kanjia['ordermode'] == 1} checked="" {/if}>线下核销</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">参与关注</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<label class="radio-inline">
+								<input type="radio" name="follow" value="0"{if $kanjia['follow'] == 0} checked="" {/if}>不强制</label>
+							<label class="radio-inline">
+								<input type="radio" name="follow" value="1"{if $kanjia['follow'] == 1} checked="" {/if}>强制</label>
+							<div class="text-warning">该选项对订阅号无效。</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">助力关注</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<label class="radio-inline">
+								<input type="radio" name="followhelp" value="0"{if $kanjia['followhelp'] == 0} checked="" {/if}>不强制</label>
+							<label class="radio-inline">
+								<input type="radio" name="followhelp" value="1"{if $kanjia['followhelp'] == 1} checked="" {/if}>强制</label>
+							<div class="text-warning">该选项对订阅号无效。</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">关注链接</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<input type="text" name="followurl" class="form-control" value="{$kanjia['followurl']}"/>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">第三方代码</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<textarea name="stat" class="form-control" rows="6">{$kanjia['stat']}</textarea>
+							<div class="text-warning">此处可放广告代码以及统计代码。</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">帮砍次数</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<div class="input-group">
+								<input type="text" class="form-control" name="maxhelp" value="{$kanjia['maxhelp']}" />
+								<span class="input-group-addon">次</span>
+							</div>
+							<div class="text-warning">粉丝在本次砍价活动中帮砍次数限制，默认0表示不限制。</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">IP次数</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<div class="input-group">
+								<input type="text" class="form-control" name="maxip" value="{$kanjia['maxip']}" />
+								<span class="input-group-addon">次</span>
+							</div>
+							<div class="text-warning">同一IP在本次砍价活动中帮砍次数限制，默认0表示不限制。</div>
+						</div>
+					</div>
+					<div class="form-group">
+			            <label class="col-sm-2 col-md-2 control-label">参与区域</label>
+			            <div class="col-sm-6 col-md-8 col-xs-12">
+			              {php echo tpl_form_field_district('recordarea',array('province' => $kanjia[recordarea][province], 'city'=> $kanjia[recordarea][city], 'district' => $kanjia[recordarea][district]))}
+			              <div class="text-warning">不选择表示无任何限制。</div>
+			            </div>
+		          	</div>
+		          	<div class="form-group">
+			            <label class="col-sm-2 col-md-2 control-label">帮砍区域</label>
+			            <div class="col-sm-6 col-md-8 col-xs-12">
+			              {php echo tpl_form_field_district('helparea',array('province' => $kanjia[helparea][province], 'city'=> $kanjia[helparea][city], 'district' => $kanjia[helparea][district]))}
+			              <div class="text-warning">不选择表示无任何限制。</div>
+			            </div>
+		          	</div>
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="kanjia_share">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">海报编号</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<input type="text" name="postermid" class="form-control" value="{$kanjia['postermid']}"/>
+							<div class="text-warning">此处海报编号需从&nbsp;<a href="{php echo url('site/entry', array('do'=>'manager', 'op'=>'index', 'm'=>'healer_poster'));}" target="_blank">H海报</a>&nbsp;获取mid的值。</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">
+			              <span class="text-danger">*</span>
+			              分享标题
+			            </label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<input type="text" name="sharetitle" class="form-control" value="{$kanjia['sharetitle']}"/>
+							<div class="text-warning">
+								可在标题在中嵌入“#粉丝昵称#”（代表粉丝的昵称），“#底价#”(代表产品底价)，“#现价#”(代表当前砍到的价格)，系统会自动将以上关键词替换成真实数据。
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">
+			              <span class="text-danger">*</span>
+			              分享图片
+			            </label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							{php echo tpl_form_field_image('shareimage', $kanjia['shareimage']);}
+							<div class="text-warning">建议上传100像素*100像素的图片，显示效果最佳，默认显示粉丝头像增强辨识度。</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">
+		              <span class="text-danger">*</span>
+		              分享描述
+		            </label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<textarea name="sharedesc" class="form-control" rows="4">{$kanjia['sharedesc']}</textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 col-md-2 control-label">分享链接</label>
+						<div class="col-sm-6 col-md-8 col-xs-12">
+							<input type="text" name="sharelink" class="form-control" value="{$kanjia['sharelink']}"/>
+							<div class="text-warning">如无特殊要求请不要填写该分享链接。</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="kanjia_kuozhan">
+	      <div class="panel panel-default">
+	        <div class="panel-body">
+	          <div class="form-group">
+	            <label class="col-sm-2 col-md-2 control-label">信息采集</label>
+	            <div class="col-sm-10 col-md-10 col-xs-12">
+	              <div id="messages-region">
+	                <div>
+	                  <div class="js-message-container message-container">
+	                    {loop $kanjia["message"] $key $message}
+	                    <p class="message-item form-inline">
+	                      <input type="text" name="field_name[{$key}]" value="{$message['field_name']}" class="form-control" maxlength="5" placeholder="不填写无效">
+	                      <select class="form-control message-input" name="field_type[{$key}]">
+	                        <option value="text" {if $message['field_type'] == 'text'}selected{/if}>单行文本</option>
+	                        <option value="textarea" {if $message['field_type'] == 'textarea'}selected{/if}>多行文本</option>
+	                        <option value="number" {if $message['field_type'] == 'number'}selected{/if}>数字格式</option>
+	                        <option value="email" {if $message['field_type'] == 'email'}selected{/if}>邮件格式</option>
+	                        <option value="date" {if $message['field_type'] == 'date'}selected{/if}>日期</option>
+	                        <option value="time" {if $message['field_type'] == 'time'}selected{/if}>时间</option>
+	                        <option value="id_no" {if $message['field_type'] == 'id_no'}selected{/if}>身份证号码</option>
+	                      </select>
+	                      <label class="checkbox-inline message-input">
+	                        <input type="checkbox" name="field_required[{$key}]" class="required" value="1" {if !empty($message['field_required'])}checked{/if}>必填</label>
+	                      <label class="checkbox-inline">
+	                        <a href="javascript:;" class="js-remove-message btn btn-danger btn-xs">删除</a>
+	                      </label>
+	                    </p>
+	                    {/loop}
+	                  </div>
+	                  <div class="message-add">
+	                    <a href="javascript:;" class="js-add-message btn btn-info btn-sm">+ 添加字段</a>
+	                  </div>
+	                </div>
+	              </div>
+	              <div class="text-warning">下单时，用户额外需填写的信息。</div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 col-md-8 col-xs-12 col-sm-offset-2 col-md-offset-2">
+			<button class="btn btn-primary" type="submit" name="submit" value="1">提交</button>
+			<input name="token" type="hidden" value="{$_W['token']}"/>
+			<input name="id" type="hidden" value="{$kanjia['id']}"/>
+		</div>
+	</div>
+</form>
+<script type="text/javascript">
+  var i18n = {php echo json_encode($i18n);} || {};
+  require(["jquery", "util"], function ($, util) {
+    $(function(){
+      //表单提交
+      $("#reply-form").on("submit", function(){
+        var _ = $(this);
+        //标题不可为空
+        if(_.find("[name=title]").val() == ""){
+          util.message(i18n.kanjia_title_empty,'','error');
+          return false;
+        }
+        //封面
+        if(_.find("[name=cover]").val() == ""){
+          util.message(i18n.kanjia_cover_empty,'','error');
+          return false;
+        }
+        //详情
+        if(_.find("[name=content]").val() == ""){
+          util.message(i18n.kanjia_content_empty,'','error');
+          return false;
+        }
+        //预计帮砍次数
+        if((_.find("[name=helprule]").val() < 1 || _.find("[name=helprule]").val() == "") && _.find("[name=helpmode]:checked").val() == 0){
+          util.message(i18n.kanjia_helprule_empty,'','error');
+          return false;
+        }
+        //商品名称
+        if(_.find("[name=pname]").val() == ""){
+          util.message(i18n.kanjia_pname_empty,'','error');
+          return false;
+        }
+        //库存需要大于0
+        if(_.find("[name=pweight]").val() < 1 || _.find("[name=pweight]").val() == ""){
+          util.message(i18n.kanjia_pweight_min_one,'','error');
+          return false;
+        }
+      });
+    });
+  });
+</script>
+<script type="text/javascript">
+  var KEY = {php echo count($kanjia['message'])};
+  require(["jquery"], function($){
+  	$(document).on("click", "#J_KANJIA_RULE_ADD", function(){
+      var html = '';
+      html += '<tr>';
+      html += '<td><input name="ruleprice[]" type="text" class="form-control" value=""></td>';
+      html += '<td><input name="rulemin[]" type="text" class="form-control" value=""></td>';
+      html += '<td><input name="rulemax[]" type="text" class="form-control" value=""></td>';
+      html += '<td class="text-right"><a class="J_KANJIA_RULE_DEL btn btn-danger btn-sm" href="javascript:;">删除</a></td>';
+      html += '</tr>';
+      $("#J_KANJIA_RULE").append(html);
+    });
+    $(document).on("click", ".J_KANJIA_RULE_DEL", function(){
+      $(this).parents("tr").remove();
+    });
+    $(document).on('click', '[name=helpmode]', function(){
+      if($(this).val() == 1){
+        $("#J_HELPMODE_1").hide();
+        $("#J_HELPMODE_2").show();
+      }else{
+        $("#J_HELPMODE_2").hide();
+        $("#J_HELPMODE_1").show();
+      }
+    });
+    $(document).on('click', '.js-add-message', function() {
+      KEY += 1;
+      $('.js-message-container').append('<p class="message-item form-inline"><input type="text" name="field_name['+KEY+']" value="" class="form-control" maxlength="5" placeholder="不填写无效"/>&nbsp;<select class="form-control message-input" name="field_type['+KEY+']"><option value="text"selected="">单行文本</option><option value="textarea">多行文本</option><option value="number">数字格式</option><option value="email">邮件格式</option><option value="date">日期</option><option value="time">时间</option><option value="id_no">身份证号码</option></select>&nbsp;<label class="checkbox-inline message-input"><input type="checkbox" name="field_required['+KEY+']" class="required" value="1" checked=""/>必填</label>&nbsp;<label class="checkbox-inline"><a href="javascript:;"class="js-remove-message btn btn-danger btn-xs">删除</a></label></p>');
+    });
+    $(document).on('click', '.js-remove-message', function() {
+      $(this).closest('.message-item').remove();
+    });
+  });
+</script>
+{else}
+<div class="main">
+	<div class="panel panel-info">
+		<div class="panel-heading">筛选</div>
+		<div class="panel-body">
+			<form action="" method="get" class="form-horizontal" role="form">
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">活动标题</label>
+					<div class="col-sm-10 col-md-10">
+						<input class="form-control" name="title" value="{$_GPC['title']}" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 col-md-2 control-label">活动状态</label>
+					<div class="col-sm-10 col-md-10">
+						<select class="form-control" name="status">
+							<option value="">不限</option>
+							<option value="0" {if 0 == intval($_GPC['status']) && is_numeric($_GPC['status'])}selected{/if}>下线</option>
+							<option value="1" {if 1 == intval($_GPC['status'])}selected{/if}>上线</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-10 col-md-10 col-sm-offset-2 col-md-offset-2">
+						<input type="hidden" name="c" value="site">
+						<input type="hidden" name="a" value="entry">
+						<input type="hidden" name="do" value="manager">
+						<input type="hidden" name="m" value="healer_kjs">
+						<input type="hidden" name="token" value="{$_W['token']}" />
+						<button type="submit" class="btn btn-default"> <i class="fa fa-search"></i>
+							搜索
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading">砍价管理</div>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover" style="table-layout: auto;">
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-center" width="100">封面</th>
+						<th class="text-center">标题</th>
+						<th class="text-center">活动时间</th>
+						<th class="text-center">库存</th>
+						<th class="text-center">已售</th>
+						<th class="text-center">参与</th>
+						<th class="text-center">助力</th>
+						<th class="text-center">状态</th>
+						<th class="text-right">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $list $key $kanjia}
+					<tr>
+						<td class="text-center" width="50">{php echo ++$key;}</td>
+						<td class="text-left">
+							<img width="100" src="{php echo tomedia($kanjia['cover'])}" alt=" "/>
+						</td>
+						<td class="text-center">{$kanjia["title"]}</td>
+						<td class="text-center">
+							{php echo date("Y-m-d H:i", $kanjia["starttime"])}-{php echo date("Y-m-d H:i", $kanjia["endtime"])}
+						</td>
+						<td class="text-center">{$kanjia["pweight"]}</td>
+						<td class="text-center">{$kanjia["psold"]}</td>
+						<td class="text-center">{$kanjia["join"]}</td>
+						<td class="text-center">{$kanjia["help"]}</td>
+						<td class="text-center">
+							{if $kanjia["status"] == 0}
+							<label class="label label-danger">下线</label>
+							{else}
+							<label class="label label-success">上线</label>
+							{/if}
+						</td>
+						<td class="text-right">
+							{if $kanjia['status'] == 1}
+							<a class="btn btn-default btn-sm" href="{php echo murl('entry/index/detail', array('rid'=>$kanjia['rid'], 'm'=>'healer_kjs'), true, true);}" target="_blank" data-toggle="tooltip" data-placement="top" data-original-title="右键复制活动链接"> <i class="fa fa-link"></i>
+							</a>
+							<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('order', array('rid'=>$kanjia['rid']))}" data-toggle="tooltip" data-placement="top" data-original-title="订单">
+								<i class="fa fa-shopping-cart"></i>
+							</a>
+							<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('record', array('rid'=>$kanjia['rid'], 'm'=>'healer_kjs'))}" data-toggle="tooltip" data-placement="top" data-original-title="参与记录">
+								<i class="fa fa-list"></i>
+							</a>
+							{/if}
+							<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('manager', array('op'=>'post','id'=>$kanjia['id']))}" data-toggle="tooltip" data-placement="top" data-original-title="编辑">
+								<i class="fa fa-edit"></i>
+							</a>
+							<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('manager', array('op'=>'del','id'=>$kanjia['id']))}" data-toggle="tooltip" data-placement="top" data-original-title="删除" onclick="if(!confirm('删除后将不可恢复,确定删除吗?')) return false;">
+								<i class="fa fa-remove"></i>
+							</a>
+						</td>
+					</tr>
+					{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{$pager}
+</div>
+{/if}
+{template "common/footer"}

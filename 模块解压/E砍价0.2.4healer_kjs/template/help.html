@@ -1,0 +1,117 @@
+{template "common/header"}
+<script type="text/javascript">
+  require(['bootstrap'], function($) {
+    $('.btn').hover(function() {
+      $(this).tooltip('show');
+    }, function() {
+      $(this).tooltip('hide');
+    });
+  });
+</script>
+<ul class="nav nav-tabs">
+	<li class="active">
+		<a href="{php echo $this->createWebUrl('help', array('id'=>intval($_GPC['id'])));}">帮砍记录</a>
+	</li>
+</ul>
+<div class="main">
+	<div class="panel panel-default">
+		<div class="panel-heading">帮砍记录</div>
+		<div class="panel-body table-responsive">
+			<table class="table table-hover" style="table-layout: auto;">
+				<thead>
+					<tr>
+						<th class="text-center">#</th>
+						<th class="text-center" width="50">头像</th>
+						<th class="text-center">昵称</th>
+						<th class="text-center">粉丝编号</th>
+						<th class="text-center">帮砍</th>
+						<th class="text-center">参与时间</th>
+						<th class="text-center">IP地址</th>
+						<th class="text-right">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					{loop $list $key $help}
+					<tr>
+						<td class="text-center" width="50">{php echo ++$key;}</td>
+						<td class="text-left">
+							<img width="50" src="{php echo tomedia($help['avatar'])}" alt=" "/>
+						</td>
+						<td class="text-center">{$help["nickname"]}</td>
+						<td class="text-center">{$help["openid"]}</td>
+						<td class="text-center">-{$help["price"]}</td>
+						<td class="text-center">{php echo date('Y-m-d H:i:s', $help['createtime'])}</td>
+						<td class="text-center">{$help["ip"]}</td>
+						<td class="text-right">
+							<a class="btn btn-default btn-sm J_POST_BLACKLIST" href="#" data-toggle="tooltip" data-placement="top" data-original-title="加入黑名单" data-openid="{$help['openid']}">
+								<i class="fa fa-user-times"></i>
+							</a>
+							<a class="btn btn-default btn-sm" href="{php echo $this->createWebUrl('help', array('id'=>$help['id'], 'op'=>'del'));}" data-toggle="tooltip" data-placement="top" data-original-title="删除" onclick="if(!confirm('删除后将不可恢复,确定删除吗?')) return false;">
+								<i class="fa fa-remove"></i>
+							</a>
+						</td>
+					</tr>
+					{/loop}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{$pager}
+</div>
+<!-- 加入黑名单 -->
+<form id="J_BLACKLIST_FORM" class="form-horizontal form" action="{php echo $this->createWebUrl('black')}" method="post">
+	<div id="J_MODAL" class="modal fade">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	        <h4 class="modal-title">加入黑名单</h4>
+	      </div>
+	      <div class="modal-body">
+	        <div class="form-group">
+	            <label class="col-sm-2 col-md-2 control-label">
+	              <span class="text-danger">*</span>
+	              备注
+	            </label>
+	            <div class="col-sm-10 col-md-10 col-xs-12">
+	              <input type="text" name="remark" class="form-control" value="" placeholder="限100个字以内" />
+	            </div>
+          	</div>
+	      </div>
+	      <div class="modal-footer">
+            <input type="hidden" value="c" name="site" />
+            <input type="hidden" value="entry" name="a" />
+            <input type="hidden" value="black" name="do" />
+            <input type="hidden" value="healer_kjs" name="m" />
+            <input type="hidden" value="post" name="op" />
+            <input type="hidden" value="" name="openid" />
+            <input type="hidden" value="{$_W['token']}" name="token" />
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button class="btn btn-info" type="submit" name="submit" value="1">确定</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</form>
+<script type="text/javascript">
+	require(["jquery", "util"], function($, u){
+		$(".J_POST_BLACKLIST").on("click", function(){
+			$("[name=openid]").val($(this).data("openid"));
+			$("#J_MODAL").modal("show");
+		});
+		$("#J_BLACKLIST_FORM").on("submit", function(){
+			if($(this).find("[name=openid]").val() == ""){
+				u.message("温馨提示：获取不到该用户信息！", "", "error");
+				return false;
+			}
+			if($(this).find("[name=remark]").val() == ""){
+				u.message("温馨提示：您还未填写备注！", "", "error");
+				return false;
+			}
+			return true;
+		});
+	});
+</script>
+{template "common/footer"}

@@ -1,0 +1,67 @@
+{template $settings["themes"] . '/common/header-base'}
+<!-- 页面区域 -->
+<div id="J_PAGE" class="page">
+  {template $settings["themes"] . '/common/page-header'}
+  <!-- 内容区域 | 滚动加载 -->
+  <div class="content infinite-scroll infinite-scroll-bottom" data-distance="100">
+    <div id="J_PAGE_CONTENT" class="kj-content">
+      {if !empty($settings["advs"])}
+      <!-- 广告位展示 -->
+      <div class="home-adv">
+        <div class="swiper-container" data-autoplay="3000">
+          <div class="swiper-wrapper">
+            {loop $settings["advs"] $adv}
+            <a class="swiper-slide block" href="{$adv['link']}" data-no-cache="true" external>
+              <img src="{$adv['image']}" alt=" "/>
+            </a>
+            {/loop}
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+      {/if}
+      <!-- 砍价列表 -->
+      {loop $list $item}
+      <a class="card" href="{php echo $this->createMobileUrl('detail', array('rid'=>$item['rid']));}" data-no-cache="true">
+        <div class="card-header color-white no-border">
+          <img width="100%" src="{php echo tomedia($item['cover']);}"/>
+          {if $item['tuijian'] == 1}
+          <div class="tag">—&nbsp;推荐&nbsp;—</div>
+          {/if}
+        </div>
+        <div class="card-content">
+          <div class="card-content-inner">
+            <div class="name">{$item['title']}</div>
+          </div>
+        </div>
+        <div class="card-footer clearfix">
+          <div class="card-info">
+            <div class="clearfix">
+            <div class="pull-left">原价：<del class="color-gray">¥&nbsp;{$item['pprice']}</del></div>
+              <div class="pull-right">库存：<span class="color-primary">{php echo $item['pweight']-$item['psold']}</span></div>
+            </div>
+            <div class="clearfix">
+              <div class="pull-left">底价：<b class="color-primary">¥&nbsp;{$item['ppricemin']}</b></div>
+              <div class="pull-right">{php echo ($item["join"]+$item["help"]);}&nbsp;人关注</div>
+            </div>
+          </div>
+          <div class="card-button">
+            <button class="button button-fill">立即参加</button>
+          </div>
+        </div>
+      </a>
+      {/loop}
+    </div>
+    <!-- 加载提示 -->
+    <div class="infinite-scroll-preloader" style="display:none;">
+      <div class="preloader"></div>
+    </div>
+  </div>
+  <!-- 页面js -->
+  <script type="text/javascript">
+    var PAGE = {php echo ++$page;};
+    var PAGE_URL = "{php echo $this->createMobileUrl('fengkuang', array('op'=>$op))}";
+  </script>
+</div>
+{template $settings["themes"] . '/common/page-footer'}
+{template $settings["themes"] . '/common/footer-base'}
