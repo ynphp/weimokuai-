@@ -1,0 +1,45 @@
+{template 'common/header'}
+<ul class="nav nav-tabs">
+	<li class="active"><a>充值记录</a></li>
+</ul>
+<div class="main">
+	<div class="stat-div">
+		<div class="navbar navbar-static-top">
+			<div class="navbar-inner">
+				<span class="pull-right" style="color:red; padding:10px 10px 0 0;">总数：<?php echo $total;?></span>
+			</div>
+		</div>
+		<div class="sub-item" id="table-list">
+			<h4 class="sub-title" style="float:right;color:red;"><a href="">刷新</a></h4>
+			<h4 class="sub-title">充值记录</h4>
+			<form action="" method="post" onsubmit="">
+				<div class="sub-content">
+					<table class="table table-hover">
+						<thead class="navbar-inner">
+							<tr>
+								<th class="row-hover">金额</th>
+								<th class="row-hover">备注</th>
+								<th class="row-hover">时间</th>
+							</tr>
+						</thead>
+						<tbody>
+							{loop $list $v}
+							<tr>
+								<td>
+									{$v['money']}
+								</td>
+								<td>
+									{$v['moneycontent']}
+								</td>
+								<td>
+									{php echo date('Y-m-d H:i:s',$v['createtime'])}
+								</td>
+							{/loop}
+						</tbody>
+					</table>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{template 'common/footer'}

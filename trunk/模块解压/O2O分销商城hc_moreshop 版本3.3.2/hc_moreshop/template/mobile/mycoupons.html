@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<title>我的优惠券</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="max-age=0" />
+<meta name="apple-touch-fullscreen" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="stylesheet" href="../addons/hc_chips/style/css/mobi.css"/>
+</head>
+<body style="background-image:url(../addons/hc_chips/style/images/bg.jpg);">
+<section class="main animated fadeInDown">
+<div class="main-box">
+	<div class="activity-list">
+		{php $time=time()}
+		{loop $mycoupons $l}
+			<div class="regular activity-box" id="div{$l['id']}">
+				<h1>{$l['title']}<div style="display:inline; color:red; float:right;" onclick="isdelete({$l['id']});">X</div></h1>
+				<figure class="figure"><img src="{$_W['attachurl']}{$l['thumb']}" alt="" /></figure>
+				<p class="activity-btn fn-clear"> 
+					<a href="{php echo $this->createMobileUrl('coupons', array('id'=>$l['couponid'], 'op'=>'detail'))}" class="enter">查看详情</a>
+					<a href="{php echo $this->createMobileUrl('index')}" class="rule-btn">我要使用</a> 
+				</p>
+			</div> 
+		{/loop}
+	</div>
+</div>
+</section>
+<footer class="foot">
+	<div style="color:#fff;">@{$_W['account']['name']}</div>
+</footer>
+<script src="../addons/hc_moreshop/template/mobile/skycat/style/js/jquery-1.11.1.min.js"></script>
+<script>
+function isdelete(mycouponid){
+	if(!confirm('删除后该优惠券消失，确认要删除吗？')){
+		return false;
+	}
+	$.ajax({
+		type: "POST",
+		url: "{php echo $this->createMobileurl('coupons',array('op'=>'delete'))}",
+		data: {mycouponid: mycouponid},
+		dataType: "text",
+		
+		success: function (d) {
+			if(d==1){
+				var div = 'div'+mycouponid;
+				var div = document.getElementById(div);
+				div.remove();
+			}
+			if(d==0){
+				alert('删除失败！');
+			}
+		},
+		
+		error: function (xml, text, thrown){
+			TopBox.alert("出错啦!");
+		}
+	});
+}
+</script>
+</body>
+</html>
