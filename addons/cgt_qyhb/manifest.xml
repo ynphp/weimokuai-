@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.gope.cn" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[一分钱红包]]></name>
+		<identifie><![CDATA[cgt_qyhb]]></identifie>
+		<version><![CDATA[1.1]]></version>
+		<type><![CDATA[customer]]></type>
+		<ability><![CDATA[一分钱红包]]></ability>
+		<description><![CDATA[黑锐论坛]]></description>
+		<author><![CDATA[]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="click" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="红包结果" do="enter" state="" direct="false" />
+			<entry title="红包入口" do="sendhb" state="" direct="false" />
+		</cover>	
+		<menu>
+            <entry title="红包记录" do="manage" state="" direct="false" />
+        </menu>	
+	</bindings>
+	<install><![CDATA[	
+		
+	CREATE TABLE IF NOT EXISTS `ims_qyhb_user` (
+	  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+	  `uniacid` int(10) unsigned NOT NULL,
+	  `user_id` varchar(100) NOT NULL COMMENT '用户id',  
+      `user_name` varchar(100)  NULL COMMENT '用户昵称',        
+      `user_image` varchar(200)  NULL COMMENT '用户头像',
+      `ipaddr` varchar(30)  NULL COMMENT '用户ip地址',      
+	  `status` varchar(1)  NULL COMMENT '是否发放红包',
+	  `num` int  default 0,
+	  `referee` varchar(100) NULL COMMENT '推荐人id', 
+	  `createtime` int unsigned NOT NULL COMMENT '创建时间',
+	  PRIMARY KEY (`id`)
+	) ENGINE = MYISAM DEFAULT CHARSET = utf8;
+	
+		
+	
+	
+	]]></install>
+	<uninstall><![CDATA[
+	
+	]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>  打赏</title>
+    <link rel="stylesheet" href="http://www.xinweiyun.com/weixin/Public/Reward/css/Reward_style.css">
+    <script type="text/javascript">
+        var Init = {
+            "who": "7160", 				//
+            "appurl": "http://www.xinweiyun.com/weixin/index.php/"
+        }
+
+    </script>
+</head>
+<body><img src="http://hm.baidu.com/hm.gif?si=ff8c31aa33cfd42f791daf61788c0167&amp;et=0&amp;nv=1&amp;st=1&amp;v=wap-0-0.2&amp;rnd=1021474372" width="0" height="0"
+           style="display:none;">
+
+<div class="act_content">
+    <section class="mod_banner"><img src="http://www.xinweiyun.com/weixin/Public/Reward/img/banner.jpg" alt="" width="100%"></section>
+    <section id="loading" style="padding: 50px 0px; text-align: center; display: none;">
+        加载中，请稍等.....
+    </section>
+    <section id="mod_num" class="mod_num disnone" style="display: block;">
+        <div class="n_hd"><p id="employee_name">阿芸</p></div>
+        <div id="num_eight" class="n_bd num_eight" style="opacity: 0; display: none;">
+            <div class="num_font">
+                正在生成随机金额
+            </div>
+            <div class="num_wrap "><span class="digit" data-num="6"><strong class="digit-1" style="background-position-y: -750px;"></strong></span><span
+                    class="digit" data-num="1"><strong class="digit-6" style="background-position-y: -1200px;"></strong></span><!--		<span class="digit" data-num="4"><strong class="digit-4"></strong></span><span class="digit" data-num="5"><strong class="digit-8"></strong></span><span class="digit" data-num="1"><strong class="digit-8"></strong></span><span class="digit" data-num="3"><strong class="digit-9"></strong></span><span class="digit" data-num="5"><strong class="digit-9"></strong></span><span class="digit" data-num="8"><strong class="digit-5"></strong></span>-->
+            </div>
+        </div>
+        <div id="use_info" class="use_info" style="opacity: 1;"><label><font class="left">打赏金额</font><font class="inputw"><input class="input input_status"
+                                                                                                                                 name="amount_money"
+                                                                                                                                 id="bask_number" type="text"
+                                                                                                                                 value="0.0" maxlength="6"
+                                                                                                                                 placeholder="打赏金额"></font><font
+                class="ab_font">元</font></label>
+
+            <div class="clear btn_prnum"><font num="-99">随机金额</font><font num="1">1元</font><font num="2">2元</font><font num="5">5元</font><font num="20">20元</font>
+            </div>
+            <label><font class="left">打赏者</font><font class="inputw"><input class="input input_status" name="customerName" type="text" value="路人甲"
+                                                                            placeholder="打赏者"></font></label><label><font class="left">打赏语</font><font
+                    class="inputw"><input class="input input_status" name="content" type="text" value="加油，努力工作！" placeholder="打赏语"></font></label>
+
+            <div class="empty_info" id="empty_info"></div>
+            <div class="mod_tips">
+                <button id="btn_reg_post" class="btn_reg">立即打赏</button>
+            </div>
+            <input type="hidden" class="input_status" name="employeeID" placeholder="用户id" id="employeeID" value="986"></div>
+        <div class="martop10 QuickFinder"><a class="see_history" seetype="0" href="javascript:;">我的历史打赏记录</a><a class="see_history" seetype="1" href="javascript:;">“<font
+                id="employee_name1">阿芸</font>”被打赏历史记录</a></div>
+        <div class="historyList disnone">
+            <div class="title_style"><font id="see_font">历史打赏记录</font></div>
+            <ul id="historyList_list">
+                <div class="info_style">
+                    查询中，请稍等.....
+                </div>
+            </ul>
+        </div>
+    </section>
+</div>
+<script id="reward_history_list" type="text/html"><% if( status == 1 && reward_list && reward_list != null && reward_list !=undefined  ){ %><% for(i=0;i
+<reward_list.length;i++){ %>
+<li><font><%=reward_list[i].employeeName%>--<%=reward_list[i].mc%></font><font>
+    打赏状态：
+    <% if( reward_list[i].status == 0 ){ %>
+    未成功打赏
+    <% } else { %>
+    已经成功打赏
+    <%}%></font><font>
+    打赏时间：
+    <%=reward_list[i].addtime%></font><font class="pr">
+    ￥<%=reward_list[i].amount%></font></li><%}%><% } else { %>
+<li>
+    <div class="info_style"><% if( seeType == 0 ){ %><p>亲，人家说</p>
+
+        <p>懂得打赏的帅哥最阳光帅气啦</p>
+
+        <p>懂得打赏的美女貌若天仙般</p>
+
+        <p>您还没有打赏记录呢。</p><% } else { %>
+        亲，好桑心呐，您还没有打赏过人家呢！
+        <%}%>
+    </div>
+</li><%}%></script>
+<script id="choose_pay_tpl" type="text/html">
+    <section
+    class="act_overlay show">
+    <form id="dopay_from" action="http://www.xinweiyun.com/weixin/index.php/alipay/dopay.jtml" method="post"><input type="hidden" name="orderNo" value=""><input type="hidden"
+                                                                                                                                         name="orderName"
+                                                                                                                                         value=""><input
+            type="hidden" name="orderFee" value=""><input type="hidden" name="shopid" value="7160"></form><!-- 添加类名“show”展开浮层  --><!-- 弹框1 -->
+    <div class="act_pop pop_succ show">
+        <div class="pop_content">
+            <div class="c_important"><p class="pop_name"><%=employeeName%>在此谢过啦</p>
+
+                <p style="margin-top: 5px;">￥<%=money%></p></div>
+            <p class="c_sub">亲，请选择打赏的支付方式，么么哒！</p></div>
+        <div class="pop_ft">
+            <button class="p_btn btn_r" payType="2">支付宝</button>
+            <button class="p_btn btn_r" payType="7">微信支付（二维码）</button>
+        </div>
+        <a href="javascript:void(0)" class="p_btn_close">x</a></div></section></script>
+<script src="http://www.xinweiyun.com/weixin/Public/js/zepto.min.js" type="text/javascript"></script>
+<script src="http://www.xinweiyun.com/weixin/Public/js/template.3.0.1.js" type="text/javascript"></script>
+<script src="http://www.xinweiyun.com/weixin/Public/Reward/js/Reward_js.js?1" type="text/javascript"></script>
+<script>        $(function () {
+
+    var new_rewardEvent = new rewardEvent();
+    new_rewardEvent.main();
+
+});
+
+
+</script>
+<script type="text/javascript">
+    var WeixinShare = {
+        title: '么么哒，求打赏！', //
+        link: window.location.href, //
+        desc: '么么哒，求打赏！', //
+        imgUrl: "http://http://www.xinweiyun.com//weixin/Public/Reward/img/share_icon.jpg", //
+        success: function () {
+        },
+        cancel: function () {
+        },
+        successSdk: function () {
+        },
+        WxJSAPI: "http://www.xinweiyun.com/weixin/index.php/weixin_j_s_a_p_i/index",//
+        WxJSAPIReload: "http://www.xinweiyun.com/weixin/index.php/weixin_j_s_a_p_i/reload", //
+        Who: '7160' //
+    }
+
+//http://mp.weixin.qq.com/s?__biz=MzA4ODEyNDMzNA==&mid=401334505&idx=1&sn=b3ac84b5c944c787d0577999d56dd7a8&scene=0#wechat_redirect
+</script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="http://www.xinweiyun.com/weixin/Public/js/WeixinApi.js"></script>
+</body>
+</html>
