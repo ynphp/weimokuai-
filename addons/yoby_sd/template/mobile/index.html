@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	<meta charset='utf-8'>
+
+		<title>微树洞</title>
+
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="cache-control" content="no-cache">
+		<meta http-equiv="expires" content="0">
+		<meta http-equiv="keywords" content="微树洞,表白墙,留言板">
+		<meta http-equiv="description" content="多功能应用,可用于树洞,表白墙,留言板">
+		<meta name="viewport"
+			content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<link href="../addons/yoby_sd/ui/css/style.css" type="text/css" rel="stylesheet">
+		<link href="../addons/yoby_sd/ui/css/font.css" type="text/css" rel="stylesheet">
+				<script type="text/javascript" src="../addons/yoby_sd/ui/jquery.min.js"></script>
+		<script type="text/javascript" src="../addons/yoby_sd/ui/js/fn.js"></script>
+
+
+		<style type="text/css">
+.bg_shit {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: -10;
+}
+
+.item_shit {
+	margin-left: 15px;
+	padding: 10px 10px 5px 10px;
+	opacity: 0.8;
+	border-radius: 3px;
+	background-color: #fff;
+	box-shadow: 0px 2px 2px #eee;
+}
+
+#shit_bgcolor {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#shit_bgcolor li {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	float: left;
+	margin-left: 15px;
+	text-align: center;
+}
+</style>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
+		<script type="text/javascript">
+$(function() {
+	checkMM();
+	
+	if(1 == 1 && '2' == "null"){
+		updateArticleVisitPerson('gh_b315c2abe8ce','274');
+	}
+});
+
+function showPubShit() {
+	var dsp = $("#pubShit").css("display");
+	if (dsp == "block") {
+		$("#pubShit").hide();
+	} else {
+		$("#pubShit").show();
+	}
+}
+
+function check() {
+	var content = document.getElementsByName("content")[0].value;
+	var bgcolor = $('input[name="bgcolor"]:checked').val();
+
+	if ($.trim(content) == "" ) {
+		$("#msg").text("不能为空");
+		return false;
+	}
+	
+	if (bgcolor == undefined ) {
+		$("#msg").text("请选择一个背景色");
+		return false;
+	}
+
+	if (content.length > 480) {
+		$("#msg").text("消息内容不能过长");
+		return false;
+	}
+		if (content.length < 5) {
+		$("#msg").text("消息内容不能少于5个字");
+		return false;
+	}
+	$(":button").attr("disabled", true);
+	$(":button").val("提交中...");
+	
+	var url = "{php echo $this->createMobileUrl('fabu')}";
+	$.post(url, {
+		content : content,
+		bgcolor : bgcolor
+	}, function(data) {
+		window.location.reload();
+	});
+}
+wx.config({
+      debug: false,
+      appId: 'wxef5e62bfe14ed476',
+      timestamp: 1421831234,
+      nonceStr: 'z0jf1m41ruMglriS',
+      signature: '272b76d92dff5ba9eb73d2b8103678c480b652f9',
+      jsApiList: [
+        'checkJsApi',
+        'hideOptionMenu',
+        'showOptionMenu',
+        'closeWindow',
+      ]
+  });
+wx.ready(function () {
+  wx.hideOptionMenu();
+})
+</script>
+	</head>
+
+	<body>
+		<img class="bg_shit" src="{$bgimg}"
+			style="width: 100%; height: 100%" />
+
+		<div
+			style="background-color: #EA2534; padding: 8px 0; text-align: center; margin: -8px -8px 20px -8px;">
+			<div style="font-size: 24px; font-weight: bold; color: #fff;">
+				树洞
+				<span style="font-size: 15px">--吐槽·心声·秘密</span>
+				<div style="float: right; padding: 0 10px;" onclick="showPubShit();">
+					<span class='icon icon-compose'></span>
+				</div>
+			</div>
+		</div>
+
+		
+		<div id="pubShit" style="display: none">
+			<form method="post" name="form">
+				<div class="html5yj" style="margin-top: 0px">
+					<div class="formhead_n">
+						<div>
+							<span class="icon icon-compose"></span>&nbsp;发布您的洞语
+						</div>
+					</div>
+					<div style="padding: 10px 10px 3px 10px">
+						<div class="text1">
+							洞语内容
+						</div>
+						<textarea rows="4" cols="" name="content" class="html5area_n"
+							onclick="clearMsg();"></textarea>
+						<hr />
+						<div class="text1">
+							背景色
+						</div>
+						<ul id="shit_bgcolor">
+							<li style="background-color: #1A531E;">
+								<input type="radio" name="bgcolor" value="1A531E" checked />
+							</li>
+							<li style="background-color: #1E0155;">
+								<input type="radio" name="bgcolor" value="1E0155" />
+							</li>
+							<li style="background-color: #FF7F00;">
+								<input type="radio" name="bgcolor" value="FF7F00" />
+							</li>
+							<li style="background-color: #AB291C;">
+								<input type="radio" name="bgcolor" value="AB291C" />
+							</li>
+							<li style="background-color: #8E8460;">
+								<input type="radio" name="bgcolor" value="8E8460" />
+							</li>
+							<li style="background-color: #017BBE;">
+								<input type="radio" name="bgcolor" value="017BBE" />
+							</li>
+						</ul>
+						<div style="clear: both"></div>
+						<hr />
+						<input type="button" value="提 交" onclick="check();"
+							class="html5btn">
+						<div id="msg"></div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div>
+			{loop $list $rs}
+			<table width="100%" cellpadding="0" cellspacing="0" border="0"
+				style="margin-top: 15px">
+				<tr>
+					<td valign="middle">
+						<div
+							style="height: 50px; line-height: 50px; width: 50px; border-radius: 25px; text-align: center; background-color: #{$rs['bgcolor']}">
+							<span style="font-size: 13px; color: #fff">#{$rs['bid']}</span>
+						</div>
+					</td>
+					<td width="100%">
+						<div class="item_shit" onclick='location.href="{php echo $this->createMobileUrl('say',array('id'=>$rs['id']))}"' >
+							<div
+								style="padding-bottom: 8px; text-indent: 2em; font-family: '微软雅黑', Tahoma, Verdana, Arial, Helvetica, sans-serif;">
+								{$rs['content']}
+							</div>
+							<div style="font-size: 13px; color: #666">
+								<span>{php echo timeshudong($rs['createtime'])}</span>
+								<span style="float: right;">
+<span class='icon icon-43'></span>&nbsp;{$rs['say']}
+									&nbsp;&nbsp;<span class='icon icon-49'></span>&nbsp;{$rs['num']}
+								</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+	{/loop}
+		</div>
+
+		<div style="margin-top: 20px;">
+			
+			<div class="page">
+{$pager}
+				<div style="clear: both;"></div>
+			</div>
+		</div>
+		<div style="text-align: center; margin-top: 15px; font-size: 13px; color: #666" id="copyright">&copy;{php echo date('Y')}&nbsp;&nbsp;<span id="wxName">{$_W['account']['name']}</span></div>
+		
+		<div id="mybar_dis"></div>
+		<div id="mybar">
+			<table width="100%" cellpadding="0" cellspacing="0">
+				<tr align="center" height="40px"
+					style="line-height: 40px; color: #fff">
+					
+					<td style="border-right: 1px solid #666"
+						onclick='location.href="{php echo $this->createMobileUrl('index')}"'>
+						最新
+					</td>
+					<td width="35%" style="border-right: 1px solid #666"
+						onclick='location.href="{php echo $this->createMobileUrl('index2')}"'>
+						热门
+					</td>
+					<td width="35%" onclick='location.href="{php echo $this->createMobileUrl('index3')}"'>
+						我
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		
+		</body>
+		</html>

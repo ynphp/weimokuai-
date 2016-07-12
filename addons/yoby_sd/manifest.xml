@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="true">
+		<name><![CDATA[微树洞]]></name>
+		<identifie><![CDATA[yoby_sd]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[customer]]></type>
+		<ability><![CDATA[发布匿名消息]]></ability>
+		<description><![CDATA[]]></description>
+		<author><![CDATA[发货源]]></author>
+		<url><![CDATA[qq915166089]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<cover>
+			<entry title="封面设置" do="fm" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="管理数据" do="gl" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_yoby_sd` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `content` text COMMENT '内容',
+  `bgcolor` char(12) DEFAULT NULL COMMENT '背景色',
+  `createtime` int(10) DEFAULT NULL COMMENT '时间',
+  `num` int(10) DEFAULT '0' COMMENT '点击量',
+  `say` int(10) DEFAULT '0' COMMENT '评论数',
+  `zan` int(10) DEFAULT '0' COMMENT '点赞数',
+  `openid` varchar(128) DEFAULT NULL COMMENT '洞主openid',
+  `bid` int(10) DEFAULT NULL COMMENT '树洞id,仅仅输出',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_yoby_sd_say` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `weid` int(10) DEFAULT NULL,
+  `openid` varchar(128) DEFAULT NULL,
+  `sid` int(10) DEFAULT NULL COMMENT '树洞id',
+  `createtime` int(10) DEFAULT NULL,
+  `bgcolor` char(12) DEFAULT NULL COMMENT '颜色',
+  `content` varchar(1024) DEFAULT NULL COMMENT '内容',
+  `zan` int(10) DEFAULT '0' COMMENT '点赞',
+  `pid` int(10) DEFAULT NULL COMMENT '评论名次',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
