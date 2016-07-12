@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[itzoo]]></name>
+		<identifie><![CDATA[itzoo]]></identifie>
+		<version><![CDATA[1.0]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[ITZoo社区]]></ability>
+		<description><![CDATA[ITZoo社区]]></description>
+		<author><![CDATA[]]></author>
+		<url><![CDATA[http://itzoo.club/]]></url>
+	</application>
+    <platform>
+        <subscribes>
+        </subscribes>
+        <handles>
+            <message type="text" />
+        </handles>
+        <rule embed="true" />
+    </platform>
+    <bindings>
+        <!--
+        <cover>
+            <entry title="入口设置" do="bigwheelall" state="" direct="false" />
+        </cover>
+        <menu>
+            <entry title="大转盘管理" do="manage" state="" direct="false" />
+        </menu>
+        <home call="gethome">
+        </home>
+        <profile>
+            <entry title="大转盘抽奖" do="bigwheel" state="" direct="false" />
+        </profile>
+        -->
+    </bindings>
+    <install><![CDATA[]]></install>
+    <uninstall><![CDATA[]]></uninstall>
+    <upgrade><![CDATA[]]></upgrade>
+</manifest>
