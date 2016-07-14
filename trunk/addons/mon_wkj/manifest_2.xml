@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[微砍价]]></name>
+		<identifie><![CDATA[mon_wkj]]></identifie>
+		<version><![CDATA[1.0.2]]></version>
+		<type><![CDATA[activity ]]></type>
+		<ability><![CDATA[微砍价，砍砍！！！！！]]></ability>
+		<description><![CDATA[微砍价，砍砍！！！！！！]]></description>
+		<author><![CDATA[codeMonkey]]></author>
+		<url><![CDATA[]]></url>
+	</application>
+	<platform>
+
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+
+		<menu>
+			<entry title="砍价活动管理" do="kjManage" state="" />
+			<entry title="参数配置" do="kjSetting" state="" />
+		</menu>
+	</bindings>
+
+	<install><![CDATA[install.php]]></install>
+	<uninstall><![CDATA[uninstall.php]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>

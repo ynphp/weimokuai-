@@ -1,0 +1,67 @@
+{php $bootstrap_type = 3;}
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>{php if(isset($title)) $_W['page']['title'] = $title}{if !empty($_W['page']['title'])}{$_W['page']['title']} - {/if}{if !empty($_W['account']['name'])}{$_W['account']['name']}{/if}{if !empty($_W['page']['sitename'])} - {$_W['page']['sitename']}{else}{if IMS_FAMILY != 'x'} - powered by cq8t.com{/if}{/if}</title>
+	<meta name="format-detection" content="telephone=no, address=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" /> <!-- apple devices fullscreen -->
+	<meta name="apple-touch-fullscreen" content="yes"/>
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<meta name="keywords" content="{if empty($_W['page']['keywords'])}{if IMS_FAMILY != 'x'}BATU,微信,微信公众平台,cq8t.com{/if}{else}{$_W['page']['keywords']}{/if}" />
+	<meta name="description" content="{if empty($_W['page']['description'])}{if IMS_FAMILY != 'x'}公众平台自助引擎（www.cq8t.com），简称BATU，BATU是一款开源的微信公众平台管理系统，是国内最完善移动网站及移动互联网技术解决方案。{/if}{else}{$_W['page']['description']}{/if}" />
+	<link rel="shortcut icon" href="{$_W['siteroot']}{$_W['config']['upload']['attachdir']}/{if !empty($_W['setting']['copyright']['icon'])}{$_W['setting']['copyright']['icon']}{else}images/global/wechat.jpg{/if}" />
+	<link href="{$_W['siteroot']}app/resource/css/bootstrap.min.css" rel="stylesheet">
+	<link href="{$_W['siteroot']}app/resource/css/font-awesome.min.css" rel="stylesheet">
+	<link href="{$_W['siteroot']}app/resource/css/animate.css" rel="stylesheet">
+	<link href="{$_W['siteroot']}app/resource/css/common.css" rel="stylesheet">
+	<link href="{$_W['siteroot']}app/{php echo str_replace('./', '', url('utility/style'))}" rel="stylesheet">
+	
+	<script type="text/javascript" src="{$_W['siteroot']}app/resource/js/lib/jquery-1.11.1.min.js"></script>
+	<script>
+		$(function(){
+				
+				var audio = document.getElementById('audio');
+					if(audio.paused){
+						audio.play();
+					}
+                    else {
+                        audio.pause();
+                    }
+ 
+                    audio.onended = function() {
+                        audio.play();
+                    }
+			});
+	</script>
+</head>
+
+<div class="container container-fill">
+{if $orderlist}
+<p style="width:100%;line-height:45px; font-size:2rem;color:#fff; text-align:center;margin-top:50%;">您已经成功砍价购买1张</p>
+{else}
+<p style="width:100%;line-height:45px; font-size:2rem;color:#fff; text-align:center;margin-top:50%;">您已砍价购买0张</p>
+{/if}
+<p style="width:100%;line-height:45px; font-size:2rem;color:#fff; text-align:center;">您已原价购买{if $orderTotal}{$orderTotal}{else}0{/if}张</p>
+
+
+{if $orderlist=='' && $orderTotal==''}
+<p style="display:none;">
+							 <body style="background-image:url(../addons/mon_xkwkj/images/show_bg.jpg); background-size:100%">
+							 <audio src="../addons/mon_xkwkj/template/mobile/hidden.mp3" id="audio" controls="controls"  ></audio>
+							</p>
+{else}
+<p style="display:none;">
+							 <body style="background-image:url(../addons/mon_xkwkj/images/show_bjcg.jpg); background-size:100%">
+							 <audio src="../addons/mon_xkwkj/template/mobile/show.mp3" id="audio" controls="controls"  ></audio>
+							</p>
+{/if}
+
+</div>
+<div style="width:100%;line-height:30px; font-size:1.5rem;color:#fff; text-align:center; position:absolute;bottom:15%;">扫描次数：{$show_list['number']}<br/>上次扫描时间：{$show_row['time']}</div>
+</body>
+</html>
+
+
