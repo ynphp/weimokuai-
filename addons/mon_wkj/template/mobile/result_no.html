@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css"
+          href="{MON_WKJ_RES}css/admin.css">
+    <script type="text/javascript">var _speedMark = new Date(), _loadTime = '';</script>
+
+
+    <script type="text/javascript">
+        {if $orderInfo['status']==$this::$KJ_STATUS_XD}
+        //调用微信JS api 支付
+        function jsApiCall() {
+
+            WeixinJSBridge.invoke(
+                    'getBrandWCPayRequest',
+            <?php echo $jsApiParameters; ?>,
+            function (res) {
+                // WeixinJSBridge.log(res.err_msg);
+                if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                    location.href = '{php echo $this->createMobileUrl('Ordersms',array('uid'=>$uid , 'kid'=>$kid))}';
+                    $("#btn_zf_div").html('<a class="bottombtn" href="javascript:;" ><span>已支付</span> </a>');
+
+
+                } else{
+                    //location.href = '{php echo $this->createMobileUrl('Ordersms',array('uid'=>$uid , 'kid'=>$kid))}';
+                    alert(res.err_code+res.err_desc+res.err_msg);
+                }
+
+
+            });
+        }
+
+        function callpay() {
+
+            if (typeof WeixinJSBridge == "undefined") {
+                if (document.addEventListener) {
+                    document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                } else if (document.attachEvent) {
+                    document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                    document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                }
+            } else {
+                jsApiCall();
+            }
+        }
+
+        {/if}
+    </script>
+
+    <style>
+        .bottombtn {
+            text-shadow: 1px 1px 0 rgba(150,33,139,.3),1px 1px 5px rgba(150,33,139,.5);
+            color: #f7f7f7;
+            font-weight: bold;
+            display: block;
+            text-align: center;
+            padding: 13px 0;
+            font-size: 20px;
+            background-color: #D23B3E;
+            border-radius: 6px;
+        }
+
+        .mdaijishi {
+            padding: 10px 0 10px 12px;
+            color: #FFF;
+            font-size: 16px;
+            vertical-align: middle;
+            background-color: #5f6a7c;
+        }
+        .dingdan{
+            padding: 5px;
+        }
+
+        h3 a {
+            color: #FFF
+        }
+    </style>
+</head>
+<body class="order">
+<div class="mdaijishi">{$wkj['title']}砍价活动</div>
+
+<div class="dingdan gyStyle2">
+
+    <h3 style="background-size: 100%;"><a href="{php echo $this->createMobileUrl('index',array('openid'=>$user['openid'],'kid'=>$wkj['id']))}">活动首页</a></h3>
+
+    <div style="color:#F35B5A; font-size: 30px;text-align: center;">
+    <p>您还没下订单哦<br>快来砍价吧</p>
+    </div>
+
+</div>
+
+<div class="xinyuemin" id="cprt"><a
+        href="{$wkj['copyright_url']}"
+        target="_blank">{$wkj['copyright']}</a></div>
+<div id="zhegaik" class="zhegaik"></div>
+
+<div class="jizanimg">
+    <div class="jiantou"></div>
+    <p>分享到朋友圈就有机会把价格压到更低哦!</p></div>
+<div class="fenxiangImgk">
+    <img class="img-responsive" src="{MON_WKJ_RES}images/TB20KOcbFXXXXXmXXXXXXXXXXXX-23432926.png" alt="图片"/>
+
+</div>
+
+<script src="{MON_WKJ_RES}js/jquery-1.11.2.min.js" type="text/javascript"
+        charset="utf-8"></script>
+
+<script src="{MON_WKJ_RES}js/image-lazyload-min.js"></script>
+
+
+<!-- 音乐 begin -->
+<div style="position:absolute; left:-9999px; overflow:hidden; width:0; height:0;">
+    <audio id="sound0" src="{MON_WKJ_RES}css/no.mp3" preload="preload" ></audio>
+</div>
+<script>
+    /*---- 音乐开关 begin ----*/
+    $('#sound0')[0].play();
+    //        $('#sound0')[0].pause();
+
+    /*---- 音乐开关 end ----*/
+
+
+    /*---- 微信音乐自动播放 begin ----*/
+    var onBridgeReady = function () {
+        // 音乐自动播放
+        // 适配微信
+        $('#sound0')[0].play();
+    };
+    document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+    /*---- 微信音乐自动播放 end ----*/
+
+</script>
+<!-- 音乐 end -->
+
+</body>
+
+</html>

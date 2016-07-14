@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN" ng-app="WmallAPP">
+<head>
+    <title>{$xkwkj['title']}</title>
+    <meta charset="utf-8">
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <meta content="kang" name="author">
+    <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+    <!--
+    <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="pragma">
+    <meta content="0" http-equiv="expires">
+    -->
+    <meta content="telephone=no, address=no" name="format-detection">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <link href="{MON_XKWKJ_RES}css/reset.css?v={php echo mt_rand(0,100) }" rel="stylesheet" />
+    <link href="{MON_XKWKJ_RES}css/common.css?v={php echo mt_rand(0,100) }" rel="stylesheet" />
+    <link href="{MON_XKWKJ_RES}css/bargain.css?v={php echo mt_rand(0,100) }" rel="stylesheet" />
+    <style>
+        *[data-mask='help'] .help_pic{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /*background: url({php echo MonUtil::defaultImg(MonUtil::$IMG_SHARE_BG,$xkwkj)}) no-repeat center top rgba(0,0,0,0.93);*/
+            background: url({MON_XKWKJ_RES}images/share2.png);
+            background-size: 100% 100%;
+            z-index: 100;
+        }
+    </style>
+    <script src="{MON_XKWKJ_RES}js/jquery_min.js"></script>
+    {template 'share'}
+    <script>
+        var  basePath = "{MON_XKWKJ_RES}";
+        APP = {
+            config: {
+                needTime: true, //是否需要计时，如果不需要请设为false，这很重要，因为倒计时到点时js会自动刷新页面
+                time: {
+                    currentTime: "{$curtime}",
+                    calcWhat: "end",
+                    //计算距离开始的时间填"start", 计算距离结束的时间填"end"
+                    startTime: "{$starttime}",//活动开始时间(请按此字符串格式赋值)
+                    endTime: "{$endtime}"//活动结束时间（请按此字符串格式赋值）
+                }
+            },
+            urls: {
+                cut_list: '{php echo $this->createMobileUrl('KjFirendList',array('uid'=>$user['id']), true)}'
+            }
+        }
+    </script>
+    <script src="{MON_XKWKJ_RES}js/sea.js"></script>
+    <script>
+        (function(l){
+            seajs.config({
+                base: "./",
+                map: [
+                    [".js", (l && l[1] || "") + ".js"]
+                ]
+            });
+            seajs.use("{MON_XKWKJ_RES}js/bargain.js?v=14");
+        })(location.href.match(/de(\-\d+)bug/));
+
+        {if empty($orderInfo)}
+            var addressUrl ="{php echo $this->createMobileUrl('address',array('kid'=>$xkwkj['id'],'uid'=>$user['id']),true)}";
+        {else}
+            var addressUrl ="{php echo $this->createMobileUrl('OrderInfo',array('kid'=>$xkwkj['id'],'uid'=>$user['id']),true)}";
+        {/if}
+    </script>
+</head>
+<body onselectstart="return true;" ondragstart="return false;">
+<div data-role="container" class="container">
+    <header data-role="header"></header>
+    <section data-role="body" class="body">
+
+        <!-- top begin -->
+        <div id="top_div" class="section_div">
+            <div class="banner">
+                <img src="{MON_XKWKJ_RES}images/top_bg2.png">
+                <div class="layers">
+                    <img src="{MON_XKWKJ_RES}images/top_kan.png">
+                </div>
+                <div class="layers">
+                    <img src="{MON_XKWKJ_RES}images/top_gantan.png">
+                </div>
+                <div class="layers">
+                    <img src="{MON_XKWKJ_RES}images/top_fly.png">
+                </div>
+                <div class="layers">
+                    <img src="{MON_XKWKJ_RES}images/top_color.png">
+                </div>
+            </div>
+        </div>
+        <!-- top end -->
+
+        <!-- center begin -->
+        <div id="center_div" class="section_div">
+            <div class="banner">
+                <img src="{MON_XKWKJ_RES}images/center_bg.png">
+                <!--
+                <div class="layers">
+                    <img src="{MON_XKWKJ_RES}images/box_kaned.png">
+                </div>
+                -->
+
+                <!--
+                <div class="layers">
+                    <img src="{MON_XKWKJ_RES}images/box_kan.png">
+                </div>
+                -->
+
+                <div class="layers">
+                    <img src="{MON_XKWKJ_RES}images/box_detail.png">
+                </div>
+                <div class="layers">
+                    <div class="layers_detail">
+                        <div class="layers_price">现价：{php echo round( $user['price'] ) }元</div>
+                        <div class="layers_price">原价：{php echo round( $xkwkj['p_y_price'] ) }元</div>
+                        <!--<div class="text_intro">爱瑞嘉亲润配方奶粉3段900克</div>-->
+                        <img src="{MON_XKWKJ_RES}images/text_intro.png">
+                        <img class="goods_intro" src="{MON_XKWKJ_RES}images/text_detail.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- center end -->
+
+        <!-- bottom begin -->
+        <div id="bottom_div" class="section_div">
+            <div class="banner">
+                <!--<img src="{MON_XKWKJ_RES}images/bottom_bg.png">-->
+
+                <div class="bottom line3">
+
+                    {if empty($orderInfo)}
+                    <!-- 立即出手 -->
+                    <div class="btn_wrapper">
+                        <a href="javascript:;" class="cut_one_btn shadow_red {php echo ($leftCount<=0)? ('  btn_custom  gameover  ') : (' btn_custom cut_6 ')  } custom" >搞定，下单！</a>
+                    </div>
+                    {else}
+                    <!-- 查看订单 -->
+                        {if $status== $this::$KJ_STATUS_XD}
+                        <!-- 已下单 -->
+                        <div class="btn_wrapper">
+                            <a href="javascript:;" class="cut_one_btn shadow_red  btn_custom cut_8  }   custom" >查看订单</a>
+                        </div>
+                        {else}
+                        <div class="btn_wrapper">
+                            <a href="javascript:;" class="cut_one_btn shadow_red  {php echo ($leftCount<=0)? ('  btn_custom  gameover  ') : (' btn_custom cut_8 ')  }   custom" >查看订单</a>
+                        </div>
+                        {/if}
+
+                    {/if}
+
+                    {if $status == $this::$KJ_STATUS_ZC}
+                    <!-- 找人帮砍 -->
+                    <div class="btn_wrapper">
+                        <a href="javascript:;" class="cut_one_btn shadow_red {php echo ($leftCount<=0)? ('  btn_custom  gameover  ') : (' btn_gethelp ')  } custom">不够，叫人！</a>
+                    </div>
+                    {else}
+                    <!-- 再逛逛 -->
+                    <!--
+                    <div class="btn_wrapper">
+                        <a href="javascript:;" class="cut_one_btn shadow_red cut_3 custom" >再逛逛</a>
+                    </div>
+                    -->
+                    {/if}
+
+                    {if $status == $this::$KJ_STATUS_ZC}
+                    <!-- 活动规则 -->
+                    <div class="btn_wrapper">
+                        <a href="javascript:;" class="cut_one_btn shadow_red btn_rule custom activity_detail" >活动规则</a>
+                    </div>
+                    {else}
+                    <div class="btn_wrapper">
+                        <a href="javascript:;" class="cut_one_btn shadow_red btn_custom custom activity_detail" >活动规则</a>
+                    </div>
+                    {/if}
+
+                </div>
+            </div>
+        </div>
+        <!-- bottom end -->
+
+    </section>
+    <footer data-role="footer">
+        <!--有活动说明的页面请添加此段-->
+        <div data-role="mask" data-mask="instruction" id="mask_instruction" class="mask_instruction">
+            <div class="mask_bkg"></div>
+            <div class="dialogue_wrapper">
+                <div class="d_header"></div>
+                <div class="d_body" id="wrapper">
+                    <div>
+                        {$xkwkj['kj_intro']}
+                    </div>
+                </div>
+                <div class="d_footer">我知道了</div>
+            </div>
+        </div>
+
+        <!--有找人帮砍的页面请添加此段-->
+        <div data-role="mask" data-mask="help" id="mask_help" class="mask_help">
+            <div class="help_pic"></div>
+        </div>
+
+        <!--活动规则-->
+        <div data-role="mask" data-mask="activity_detail" id="mask_activity_detail" class="mask_activity_detail">
+            <div class="detail_pic"></div>
+            <div class="detail_btn">
+                <!--<img class="btn2 cut_7" src="{MON_XKWKJ_RES}images/btn_gethelp.png">-->
+                <div class="btn_wrapper">
+                    <a href="javascript:;" class="cut_one_btn shadow_red btn_ok custom" ></a>
+                </div>
+            </div>
+        </div>
+
+        <!--品牌介绍-->
+        <div data-role="mask" data-mask="goods_intro" id="mask_goods_intro" class="mask_goods_intro">
+            <div class="detail_pic"></div>
+            <div class="detail_btn">
+                <!--
+                <img class="btn2 cut_7" src="{MON_XKWKJ_RES}images/btn_gethelp.png">
+                <div class="btn_wrapper">
+                    <a href="javascript:;" class="cut_one_btn shadow_red btn_ok custom" ></a>
+                </div>
+                -->
+            </div>
+        </div>
+
+        <!--活动结束-->
+        <div data-role="mask" data-mask="gameover" id="mask_gameover" class="mask_gameover">
+            <div class="detail_pic">
+                <img src="{MON_XKWKJ_RES}images/gameover.png">
+            </div>
+        </div>
+
+    </footer>
+</div>
+
+<!-- 百度统计wanyouxibu.com -->
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?4c75a08c5ed53483840001824d223513";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+</body>
+</html>
+
