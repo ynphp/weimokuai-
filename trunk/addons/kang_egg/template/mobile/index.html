@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content=" initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link href="../addons/kang_egg/template/css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="../addons/kang_egg/template/css/animate.css" rel="stylesheet" type="text/css" />
+    <link href="../addons/kang_egg/template/css/animate.kang.css" rel="stylesheet" type="text/css" />
+    <link href="../addons/kang_egg/template/css/square.css" rel="stylesheet" type="text/css" />
+    <link href="../addons/kang_egg/template/css/h5egg.css" rel="stylesheet" type="text/css" />
+	<!--<script type="text/javascript" src="../addons/kang_egg/template/js/zepto.js"></script>-->
+    <script type="text/javascript" src="../addons/kang_egg/template/js/jquery-1.11.1.min.js"></script>
+    <!--<script type="text/javascript" src="../addons/kang_egg/template/js/WeixinApi.js"></script>-->
+
+    <!--<script type="text/javascript" src="../addons/kang_egg/template/js/lib/animation/jquery-animatecss-chainable.js"></script>-->
+    <script type="text/javascript" src="../addons/kang_egg/template/js/lib/animation/fn.animate-css.js"></script>
+
+
+
+    <title>{$reply['title']}</title>
+</head>
+<body>
+
+<!--
+<img id="logo" style="z-index:2 ; position:absolute;left: 0;top:0; width: 100%; height: 100%;" src="../addons/kang_egg/template/images/common/logo1.png" width="100%" height="100%" />
+-->
+
+<div id="loading">
+
+    <div style="position:absolute;width:320px;height:20px;left:50%;top:40%;margin:40px -160px;text-align:center;text-shadow:0px 0px 1px #666;color:#444;font-family:'微软雅黑';" class="arrowing">
+
+        <div id="loading-in" style="position:absolute;top:-90px;width:50%;left:25%;">
+            <img id="buttons" src="../addons/kang_egg/template/images/common/loading.png" style="width:180px">
+        </div>
+
+        <div id="loader" style="color:#fff;position:absolute;top:38px;width:100%;left:0;font-size:2.8rem;" class="">0%</div>
+    </div>
+</div>
+
+<div id="homepage" class="home" >
+    <img style="position:absolute;left: 0;top:0; width: 100%; height: 100%;" src="../addons/kang_egg/template/images/home/page1.png" width="100%" height="100%" />
+
+    <div class="btns" >
+        <img id="btn_read"
+             src="../addons/kang_egg/template/images/btn/btn_read.png" />
+    </div>
+</div>
+
+<div id="rulepage" class="home" >
+    <img style="position:absolute;left: 0;top:0; width: 100%; height: 100%;" src="../addons/kang_egg/template/images/home/page2.png" width="100%" height="100%" />
+
+    <div class="btns" >
+        <img id="btn_begin"
+             src="../addons/kang_egg/template/images/btn/btn_begin.png" />
+    </div>
+</div>
+
+<!--
+<div id="rulepage" style="position: fixed; left: 0; top: 0; width: 100%; height: 100%;  z-index: 990;text-align: center; display: none; ">
+    <img style="position:absolute;left: 0;top:0; width: 100%; height: 100%;" src="../addons/kang_egg/template/images/home/page2.png" width="100%" height="100%" />
+    <img id="btn_begin" style="position:absolute; bottom: 0; right: 0; width: 100%"
+         src="../addons/kang_egg/template/images/btn/btn_begin.png" />
+</div>
+-->
+
+<div id="mainpage" >
+
+    <!-- 主页面元素 begin -->
+    <div class="play" >
+
+        <div class="play_bg">
+            <img src="../addons/kang_egg/template/images/play/play_bg.png">
+        </div>
+
+        <div class="egg1">
+            <img src="../addons/kang_egg/template/images/play/play_egg_1.png">
+        </div>
+        <div class="egg2">
+            <img src="../addons/kang_egg/template/images/play/play_egg_2.png">
+        </div>
+        <div class="egg3">
+            <img src="../addons/kang_egg/template/images/play/play_egg_3.png">
+        </div>
+
+        <div class="flag">
+            <img src="../addons/kang_egg/template/images/play/play_flag.png">
+        </div>
+
+        <div class="feiji">
+            <img src="../addons/kang_egg/template/images/play/play_feiji.png">
+        </div>
+
+        <div class="btn_egg">
+            <img  src="../addons/kang_egg/template/images/btn/btn_egg.png" />
+        </div>
+
+    </div>
+
+
+    <div class="nou" style="display: none;">
+	    <div style="max-width:100%">
+		{if !empty($reply['adpic'])}{if !empty($reply['adpicurl'])}<a href="{$reply['adpicurl']}">{/if}<img id="top_img" style="max-width: 100%;height: auto;width: auto\9;"  src="{php echo toimage($reply['adpic'])}" width="100%" border="0">{if !empty($reply['adpicurl'])}</a>{/if}{/if}
+        </div>
+        <div class="zhuan1" id="lottery">
+
+		    {if $reply['opportunity']==2}
+            <!--
+			<div class="mingdan">
+                <div class="biaoti">我的{$creditnames} <span class="n" id="credit_now">{php echo intval($credit[$reply['credit_type']])}</span> 个  每次 <span class="n">{$reply['credit_times']}</span> {$creditnames}</div>
+            </div>
+            -->
+			{/if}
+			{if $reply['opportunity']==1}
+			<!--
+            <div class="mingdan">
+                <div class="biaoti"> 赠送 <span class="n">{$reply['number_times']}</span> 次抽奖机会 剩余 <span class="n" id="number_times">{php echo $reply['number_times']-$fans['totalnum']}</span> 次</div>
+            </div>
+            -->
+			{/if}
+			{if $reply['opportunity']==0}
+            <!--
+			<div class="mingdaninfo">
+				<div class="box">					
+					<div class="Detail" style="color:#FFF;text-align:center;">{$detail}</div>
+				</div>
+            </div>
+            -->
+			{/if}
+
+			<div class="main">
+				<div id="outercont">
+            		<div id="outer-cont">
+               		 <div id="outer"><img src="{php echo toimage($reply['bigwheelpic'])}"></div>
+            		</div>
+            		<div id="inner-cont">
+                		<div id="inner">
+                    		<img src="{php echo toimage($reply['bigwheelimg'])}">
+                		</div>
+            		</div>
+       		    </div>
+			</div>
+
+            <!--
+			<div class="mingdan">
+                <div class="biaoti">已有 <span class="n">{php echo $reply['xuninum']+$reply['fansnum']}</span> 人参与此活动</div>
+            </div>
+            -->
+			{if !empty($award_list)&&$reply['awardnum']}
+			<!--
+            <div class="mingdan">
+                <div class="biaoti"><marquee behavior="scroll" scrolldelay="200">{$award_list}</marquee></div>
+            </div>
+            -->
+			{/if}
+			{if $share['sharenum']>0}
+            <!--
+			<div class="boxwhite">
+                <div id="shareimg" class="share"><img src="{$share['share_picurl']}"></div>
+            </div>
+            -->
+			{/if}
+
+			<div style="height:55px;">&nbsp;&nbsp;</div>
+        </div>
+    </div>
+    <!-- 主页面元素 end -->
+
+    <!-- 抽奖结果提示框 begin -->
+	<div class="panel-box" id="prize_box">
+        <div class="panel-content" id="panel-content">
+            <!--
+            <div class="panel-close" id="panel-close"></div>
+
+            <span class="icon-prize-useless" id="panelimg"></span>
+            -->
+
+            <div class="info_lost_guanzhu">
+                <div class="bg">
+                <img src="../addons/kang_egg/template/images/guanzhu/guanzhu_bg.png">
+                </div>
+            </div>
+
+            <div class="info_lost_over">
+                <!-- 第二次抽奖机会不中 -->
+                <!--<img src="../addons/kang_egg/template/images/info_lost_over.png">-->
+                <img src="../addons/kang_egg/template/images/common/over.png">
+            </div>
+
+            <div class="info_lost_over_today">
+                <!-- 今日抽奖机会用完 -->
+                <!--<img src="../addons/kang_egg/template/images/info_lost_over.png">-->
+                <img src="../addons/kang_egg/template/images/common/over.png">
+            </div>
+            <div class="info_lost_fail">
+                <!-- 不中奖 -->
+                <!--<img src="../addons/kang_egg/template/images/info_lost_share.png">-->
+                <img src="../addons/kang_egg/template/images/common/fail.png">
+            </div>
+
+            <div class="info_lost_share">
+                <!-- 1次抽奖机会用完 提示分享朋友圈增加机会 -->
+                <!--<img src="../addons/kang_egg/template/images/info_lost_share.png">-->
+                <img src="../addons/kang_egg/template/images/common/sharetip.png">
+            </div>
+
+            <div class="info_lost_over_today">
+                <img src="../addons/kang_egg/template/images/common/over.png">
+            </div>
+
+            <!--
+            <div id="cccc">{$reply['ticketinfo']}</div>
+            -->
+            <div id="cccc"></div>
+
+            <!-- TODO WKL 目前不用通用版 -->
+            <!--
+			<div id="result_info"{if !$isfans} style="display:none"{/if}>
+			    <div id="isfans" style="display:none">{$isfans}</div>
+			    <hr class="common-hr" />
+                {if $reply['isrealname']}<label>{$isfansname[0]}</label><input name="text" class="px" id="realname" value="{$profile['realname']}" type="text" placeholder="请输入{$isfansname[0]}">{/if}
+				{if $reply['ismobile']}<label>{$isfansname[1]}</label><input name="tel" class="px" id="mobile" value="{$profile['mobile']}" type="text" placeholder="请输入{$isfansname[1]}">{/if}
+				{if $reply['isqq']}<label>{$isfansname[2]}</label><input name="tel" class="px" id="qq" value="{$profile['qq']}" type="text" placeholder="请输入{$isfansname[2]}">{/if}
+				{if $reply['isemail']}<label>{$isfansname[3]}</label><input name="email" class="px" id="email" value="{$profile['email']}" type="text" placeholder="请输入{$isfansname[3]}">{/if}
+				{if $reply['isaddress']}<label>{$isfansname[4]}</label><input name="text" class="px" id="address" value="{$profile['address']}" type="text" placeholder="请输入{$isfansname[4]}">{/if}
+				{if $reply['isgender']}<label>{$isfansname[5]}</label><select name="gender" id="gender" class="form-control">
+						<option value="0"{if $profile['gender']==0} selected {/if}>选择{$isfansname[5]}</option>
+						<option value="1"{if $profile['gender']==1} selected {/if}>男</option>
+						<option value="2"{if $profile['gender']==2} selected {/if}>女</option>
+					</select>{/if}
+				{if $reply['istelephone']}<label>{$isfansname[6]}</label><input name="text" class="px" id="telephone" value="{$profile['telephone']}" type="text" placeholder="请输入{$isfansname[6]}">{/if}
+				{if $reply['isidcard']}<label>{$isfansname[7]}</label><input name="text" class="px" id="idcard" value="{$profile['idcard']}" type="text" placeholder="请输入{$isfansname[7]}">{/if}
+				{if $reply['iscompany']}<label>{$isfansname[8]}</label><input name="text" class="px" id="company" value="{$profile['company']}" type="text" placeholder="请输入{$isfansname[8]}">{/if}
+				{if $reply['isoccupation']}<label>{$isfansname[9]}</label><input name="text" class="px" id="occupation" value="{$profile['occupation']}" type="text" placeholder="请输入{$isfansname[9]}">{/if}
+				{if $reply['isposition']}<label>{$isfansname[10]}</label><input name="text" class="px" id="position" value="{$profile['position']}" type="text" placeholder="请输入{$isfansname[10]}">{/if}
+                <div id="result_info_tip"></div>
+				<div class="btn-layout">
+                    <input type="reset" class="btn-reset" value="重填"/>
+					<input class="btn-confirm" name="确定" id="btn_submit" type="button" value="确定">
+                </div>
+            </div>
+			<div id="result_info1" style="display:none">
+			    <div style="margin-top:10px;">
+                    <input class="btn-confirm" name="放入百宝箱" id="savebtn" type="button" value="放入百宝箱">
+                </div>
+			</div>
+			-->
+        </div>
+    </div>
+    <!-- 抽奖结果提示框 end -->
+
+    <!-- 奖品提示框 begin -->
+    <div class="" id="panel_prize_box">
+        <div class="panel-content" id="panel_prize_content">
+            <!--<div class="panel-close" id="panel_prize_close"></div>-->
+
+            <div class="prize_1" >
+                <div class="prize_detail">
+                    <img src="../addons/kang_egg/template/images/prize/prize_1.png">
+                </div>
+                <div class="btn_get_prize"  id="btn_prize_1">
+                    <img  src="../addons/kang_egg/template/images/btn/btn_get_prize.png" />
+                </div>
+            </div>
+            <div class="prize_2"   >
+                <div class="prize_detail">
+                    <img src="../addons/kang_egg/template/images/prize/prize_2.png">
+                </div>
+                <div class="btn_get_prize" id="btn_prize_2">
+                    <img src="../addons/kang_egg/template/images/btn/btn_get_prize.png" />
+                </div>
+            </div>
+            <div class="prize_3">
+                <div class="prize_detail">
+                    <img src="../addons/kang_egg/template/images/prize/prize_3.png">
+                </div>
+                <div class="btn_get_prize" id="btn_prize_3" >
+                    <img src="../addons/kang_egg/template/images/btn/btn_get_prize.png" />
+                </div>
+            </div>
+            <div class="prize_4" >
+                <div class="prize_detail">
+                    <img src="../addons/kang_egg/template/images/prize/prize_4.png">
+                </div>
+                <div class="btn_get_prize" id="btn_prize_4" >
+                    <img src="../addons/kang_egg/template/images/btn/btn_get_prize.png" />
+                </div>
+            </div>
+            <div class="prize_5">
+                <div class="prize_detail">
+                    <img src="../addons/kang_egg/template/images/prize/prize_5.png">
+                </div>
+                <div class="btn_get_prize"  id="btn_prize_5" >
+                    <img src="../addons/kang_egg/template/images/btn/btn_get_prize.png" />
+                </div>
+            </div>
+            <div class="prize_6">
+                <div class="prize_detail">
+                    <img src="../addons/kang_egg/template/images/prize/prize_6.png">
+                </div>
+                <div class="btn_get_prize" id="btn_prize_6" >
+                    <img src="../addons/kang_egg/template/images/btn/btn_get_prize.png" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- 奖品提示框 end -->
+
+    <!-- 收货信息框 begin -->
+    <div class="get_prize_box" id="get_prize_box">
+
+        <img class="bg" src="../addons/kang_egg/template/images/address/address_bg.png" />
+
+        <div class="userinfo">
+            <div id="isfans" style="display:none">{$isfans}</div>
+
+            <div class="field">
+                <!--<img  src="../addons/kang_egg/template/images/address/address_name.png" />-->
+                <input name="text" class=" address_name" id="realname"
+                       value="{$profile['realname']}" type="text"
+                       placeholder="请输入{$isfansname[0]}">
+            </div>
+
+            <div class="field">
+                <!--<img  src="../addons/kang_egg/template/images/address/address_phone.png" />-->
+                <input name="tel" class=" address_phone" id="mobile"
+                       value="{$profile['mobile']}" type="text" maxlength="11"
+                       placeholder="请输入{$isfansname[1]}">
+            </div>
+
+            <div class="field">
+                <!--<img  src="../addons/kang_egg/template/images/address/address_dizhi.png" />-->
+                <input name="text" class=" address_dizhi" id="address"
+                       value="{$profile['address']}" type="text"
+                       placeholder="请输入{$isfansname[4]}">
+            </div>
+           <div id="result_info_tip"></div>
+        </div>
+
+        <div class="btns" >
+            <img id="btn_submit"
+                 src="../addons/kang_egg/template/images/btn/btn_submit.png" />
+        </div>
+
+    </div>
+<!-- 收货信息框 end -->
+
+
+    <!-- 分享提示框 begin -->
+	<div class="panel-box" id="share_box">
+        <div class="panel-share" id="panel-share">
+            <div class="panel-close" id="share_close"></div>
+            <div id="share_tip"></div>
+			<hr class="common-hr" />
+			<div style="margin-top:10px;" id="share_miao"><input class="btn-confirm" name="关闭" id="sharebtn" type="button" value="关闭"> </div>
+        </div>
+    </div>
+    <!-- 分享提示框 end -->
+
+    <!-- 领奖提示框 begin -->
+    <div class="panel_box_get_prize" id="panel_box_get_prize">
+
+        <!-- 领奖提示框 兑奖码 begin -->
+        <div class="get_prize_content" id="get_prize_box_code">
+            <div class="get_prize_close" ></div>
+            <div class="get_prize_code_title">
+                <input class="btn-code" name="兑换码" type="button" value="兑换码">
+            </div>
+            <div class="get_prize_code" id="get_prize_code"></div>
+
+            <div class="get_prize_input">
+                <div class="get_prize_input_left">
+                    <p>姓名</p>
+                    <p><input type="text" value="" id="get_prize_input_name"></p>
+                    <p>电话</p>
+                    <p><input type="text" value="" id="get_prize_input_tel"></p>
+                    <p id="result_info_tip1"></p>
+                </div>
+                <div class="get_prize_input_right">
+                    <input id="btn_get_prize_code" class="btn-submit" name="提交" type="button" value="提交">
+                </div>
+            </div>
+
+            <div style="clear:both"></div>
+
+            <div class="tip_success">您的信息已提交，请截图保存好您的兑换码，现场可凭兑换码截图领取吴亦凡见面会门票一张，仅以首次兑换为准，重复兑换无效。</div>
+
+            <!--<hr class="common-hr" />-->
+        </div>
+
+        <!-- 领奖提示框 兑奖码 end -->
+
+        <!-- 领奖提示框 兑奖码 begin -->
+        <div class="get_prize_content" id="get_prize_box_physical">
+            <div class="get_prize_close" ></div>
+
+            <div id="get_prize_tip">请务必真实准确填写以下信息：</div>
+
+            <div class="get_prize_input">
+                    <p>收货人：</p>
+                    <p><input type="text" value="" id="get_prize_input_name2"></p>
+                    <p>联系电话：</p>
+                    <p><input type="text" value="" id="get_prize_input_tel2"></p>
+                    <p>详细地址：</p>
+                    <p><input type="text" value="" id="get_prize_input_address"></p>
+                    <p id="result_info_tip2"></p>
+                <div>
+                    <input id="btn_get_prize_physical" class="btn-submit-red" name="提交" type="button" value="提交">
+                </div>
+            </div>
+
+            <div style="clear:both"></div>
+
+            <div class="tip_success" style="margin-top: 80px;">
+                <p style="font-size: 30px; color:#f00; text-align: center;">感谢您的参与</p>
+                <p style="font-size: 25px; color:#000; text-align: center; margin-top: 20px;">我们会在活动结束后的10个工作日内 寄出您的获奖礼品，请耐心等候。</p>
+            </div>
+
+        </div>
+        <!-- 领奖提示框 兑奖码 end -->
+
+<!--
+        <div class="get_prize_content" id="get_prize_content">
+            <div class="get_prize_close" ></div>
+            <div id="get_prize_tip"></div>
+
+            <div style="margin-top:10px;" id="get_prize_miao">
+                <input class="btn-confirm" name="关闭" id="sharebtn" type="button" value="关闭">
+            </div>
+        </div>
+-->
+    </div>
+    <!-- 领奖提示框 begin -->
+
+</div>
+
+
+{if $share['sharenum']>0}<div id="pop_share"><img src="{$share['share_pic']}" width="100%" alt="分享到朋友圈"/></div>{/if}
+
+<!--{template 'footer'}-->
+
+
+<script type="text/javascript">
+//    $(function () {
+        window.requestAnimFrame = (function () {
+            return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+                    function (callback) {
+                        window.setTimeout(callback, 1000 / 60)
+                    }
+        })();
+        var totalDeg = 360 * 3 + 0;
+        var steps = [];
+        var lostDeg = [{$reply['lostDeg']}];
+        var prizeDeg = [{$reply['prizeDeg']}];
+        var prize, height, sncode, prizename, prizedes, isfans, credit_now, isphysical;
+        var count = 0;
+        var now = 0;
+        var a = 0.01;
+        var outter, inner, timer, running = false;
+
+        function getPrize() {
+
+            if(running){
+                console.log("请稍候--------------");
+                return;
+            }
+
+            if ($("#isfans").text() == 1) {
+
+                $("#prize_box").show();
+                $("#panel-content").css({"height": "{$isfansh}px"});
+
+            } else {
+                $.ajax({
+                    url: "{php echo $this->createMobileUrl('get_award', array('rid' => $rid))}",
+                    dataType: "json",
+                    data: {
+                        t: Math.random()
+                    },
+                    beforeSend: function () {
+
+                    },
+                    success: function (data) {
+
+                        console.dir(data);
+                        alert("抽奖结果：" + data.msg);
+                        console.log("抽奖返回值：" + data.success);
+                        console.log("奖次：" + data.prizetype);
+                        console.log("奖名：" + data.prizename);
+
+                        hideAllPrize();
+
+                        if (data.success == 1) {
+                            // 正常抽奖
+
+                            prize = data.prizetype;
+                            prizename = data.name;
+                            prizedes = data.award;
+                            sncode = data.sn;
+                            isfans = data.isfans;
+                            height = data.height;
+                            credit_now = data.credit_now;
+                            isphysical = data.isphysical;
+
+                            if (data.prizetype == 0) {
+//                                    start();
+                            } else {
+//                                    start(prizeDeg[data.prizetype - 1]);
+                            }
+
+
+                            playEgg();
+
+                        } else if(data.success == 2){
+                            // 有限制，无法抽奖
+                            console.log("没有中奖" );
+
+                            prize = null;
+
+                            if(data.msg == "活动已经结束了，下次再来吧！"){
+
+                                alert("活动已经结束了，下次再来吧！");
+
+                                $(".info_lost_guanzhu").show();
+                                $("#prize_box").show();
+
+                                $("#btn_begin").hide();
+
+                                setTimeout(function(){
+                                    $(".info_lost_guanzhu .bg").show().addClass("bounceInDown animated time_0_75");
+                                },100);
+
+                            }else if(data.msg == "请先关注公共账号再来参与活动！详情请查看规则！" ||
+                                    data.msg == '未关注') {
+
+//                                alert("请先关注公共账号");
+
+                                if (credit_now != "") {
+                                    // 引导关注页
+
+//                                    alert("credit_now  "+credit_now);
+//                                    alert("没有中奖，现在去关注公众号，中奖率会提高哦");
+//                                    window.location.href=credit_now;
+
+
+                                    /*
+                                    $(".info_lost_guanzhu").show();
+                                    $("#prize_box").show();
+
+                                    $("#btn_begin").hide();
+
+                                    setTimeout(function(){
+                                        $(".info_lost_guanzhu .bg").show().addClass("bounceInDown animated time_0_75");
+                                    },100);
+                                    */
+
+
+                                    /*
+                                    setTimeout(function(){
+                                        $(".info_lost_guanzhu .qrcode").show().addClass("bounceInDown  animated time_1_5");
+                                    },1200);
+                                    */
+
+
+                                    /*
+                                     $("#btn_guanzhu").show();
+                                     // 跳转到专注引导页
+                                     $("#btn_guanzhu").click(function () {
+                                     window.location.href = credit_now;
+                                     });
+                                     */
+
+                                } else {
+//                                    alert("没有中奖，关注公众号，中奖率会提高哦");
+
+                                    /*
+                                    $("#prize_box").show();
+                                    $(".info_lost_over").show().addClass("bounceInDown animated time_0_75");
+
+                                    $("#btn_begin").hide();
+                                    */
+                                }
+                            }
+
+
+                            if (data.msg == "超过当日限制次数") {
+
+                                setTimeout(function(){
+                                    $(".play .egg1").hide();
+                                    $(".play .egg2").show();
+                                    $(".play .egg3").hide();
+                                },100);
+                                setTimeout(function(){
+                                    $(".play .egg1").hide();
+                                    $(".play .egg2").hide();
+                                    $(".play .egg3").show();
+                                },500);
+                                setTimeout(function(){
+                                    $("#prize_box").show();
+                                    $(".info_lost_over_today").show().addClass("bounceInDown animated time_0_75");
+
+                                    $("#btn_begin").hide();
+                                },600);
+
+                            }else if(data.msg == "还没有分享"){
+                                $("#prize_box").show();
+                                $(".info_lost_share").show().addClass("bounceInDown animated time_0_75");
+
+                                $("#btn_begin").hide();
+
+                            } else{
+
+                                $("#prize_box").show();
+                                $(".info_lost_fail").show().addClass("bounceInDown animated time_0_75");
+
+                                $("#btn_begin").hide();
+
+                                //TODO WKL 没有中奖
+                            }
+
+                        }else if(data.success == 0){
+                            // 程序出错
+                            prize = null;
+                        }
+
+                        count++;
+
+//                        playEgg();
+
+                        running = true;
+                    },
+                    error: function () {
+                        prize = null;
+
+                        count++;
+                    },
+                    timeout: 500
+                })
+            }
+        }
+
+function resetEgg(){
+
+    hideAllPrize();
+
+    running = false;
+
+    $("#prize_box").hide();
+
+    $(".play .egg1").show();
+    $(".play .egg2").hide();
+    $(".play .egg3").hide();
+}
+
+
+function playEgg(){
+
+    $("#btn_begin").hide();
+
+    setTimeout(function(){
+        $(".play .egg1").hide();
+        $(".play .egg2").show();
+        $(".play .egg3").hide();
+    },100);
+    setTimeout(function(){
+        $(".play .egg1").hide();
+        $(".play .egg2").hide();
+        $(".play .egg3").show();
+    },500);
+    setTimeout(function(){
+        showPrize();
+    },600);
+}
+
+    function showPrize() {
+        setTimeout(function () {
+            if (prize != null) {
+
+                hideAllPrize();
+
+                if(prize == 1 || prize == 2||prize == 3||prize == 4||prize == 5||prize == 6 ){
+
+                    setTimeout(function(){
+                        $("#panel_prize_box").show().addClass("zoomInDown animated time_0_75");
+                    },100);
+                    setTimeout(function(){
+                        $(".btn_get_prize").show().addClass("bounceInDown animated time_0_75");
+                    },1200);
+
+                    if (prize == 1) {
+                        $(".prize_1").show();
+
+                    } else if (prize == 2) {
+                        $(".prize_2").show();
+
+                    } else if (prize == 3) {
+                        $(".prize_3").show();
+
+                    } else if (prize == 4) {
+                        $(".prize_4").show();
+
+                    } else if (prize == 5) {
+                        $(".prize_5").show();
+
+                    } else if (prize == 6) {
+                        $(".prize_6").show();
+
+                    }
+                }else{
+                    if (prize == 'first') {
+                        // 第一次抽奖不中
+
+                        $("#prize_box").show();
+                        $(".info_lost_fail").show().addClass("bounceInDown animated time_0_75");
+
+                    } else if(prize == 'second'){
+                        // 第二次抽奖不中
+
+                        $("#prize_box").show();
+                        $(".info_lost_over").show().addClass("bounceInDown animated time_0_75");
+
+                    }else if(prize == 'fail'){
+                        // 多次中奖不中
+
+                        $("#prize_box").show();
+                        $(".info_lost_over").show().addClass("bounceInDown animated time_0_75");
+
+                    }else{
+                        console.log("其他奖项");
+
+                        $("#prize_box").show();
+                        $(".info_lost_over").show().addClass("bounceInDown animated time_0_75");
+                    }
+                }
+            }
+        },
+        200)
+    }
+
+
+    function hideAllPrize(){
+        $(".prize_1, .prize_2, .prize_3, .prize_4, .prize_5, .prize_6 ").hide();
+
+        $(".info_lost_guanzhu").hide();
+        $(".info_lost_over").hide();
+        $(".info_lost_share").hide();
+        $(".info_lost_over_today").hide();
+        $(".info_lost_fail").hide();
+
+        $("#panel_prize_box").hide();
+        $(".btn_get_prize").hide();
+        $("#get_prize_box").hide();
+        $("#prize_box").hide();
+
+        $("#share_box").hide();
+        $("#result_info").hide();
+        $("#result_info1").hide();
+    }
+
+
+//    });
+
+		$(function () {
+
+
+            $("#shareimg").click(function(){
+		   		$("#pop_share").show(500);
+                setTimeout(function () {
+                    $("#pop_share").hide();
+                }, 6000);
+	   		});
+
+	   		$("#pop_share").click(function(){
+		  		 $("#pop_share").hide(500);
+	    	});
+
+            function countSteps() {
+                var t = Math.sqrt(2 * totalDeg / a);
+                var v = a * t;
+                for (var i = 0; i < t; i++) {
+                    steps.push((2 * v * i - a * i * i) / 2)
+                }
+                steps.push(totalDeg)
+            }
+
+			{if $isfans}
+                $("#prize_box").show();
+                $("#panel-content").css({"height": "{$isfansh}px"});
+			{/if}
+
+/*
+            function run(){
+                running = true;
+                        timer = setInterval(function () {
+                            i += 5;
+                            outter.style.webkitTransform = 'rotate(' + i + 'deg)';
+                            outter.style.MozTransform = 'rotate(' + i + 'deg)'
+                        },
+                        1)
+            }
+            function start_bak(deg) {
+                deg = deg || lostDeg[parseInt(lostDeg.length * Math.random())];
+                running = true;
+                clearInterval(timer);
+                totalDeg = 360 * 2 + deg;
+                steps = [];
+                now = 0;
+                countSteps();
+                requestAnimFrame(step)
+            }
+            window.start = start;
+            outter = document.getElementById('outer');
+            inner = document.getElementById('inner');
+            i = 10;
+
+            $("#inner").click(function () {
+                getPrize();
+            })
+*/
+        });
+
+        $("#btn_submit").bind("click",function () {
+            var btn = $(this);
+            {if $reply['isrealname']}
+			var realname = $("#realname").val();
+            if (realname == '') {
+				$("#result_info_tip").text("请输入{$isfansname[0]}");
+                return
+            }
+			var partten = /[\u4e00-\u9fa5]/g;
+            if(!partten.test(realname)){
+               $("#result_info_tip").text("请输入正确的{$isfansname[0]}");
+			   return;
+            }
+			{/if}
+			{if $reply['ismobile']}
+			var mobile = $("#mobile").val();
+            if (mobile == '') {
+                $("#result_info_tip").text("请输入{$isfansname[1]}");
+                return
+            }
+			var partten = /^1\d{10}$/;
+            if(!partten.test(mobile)){
+               $("#result_info_tip").text("请输入正确的{$isfansname[1]}");
+			   return;
+            }
+			{/if}
+			{if $reply['isqq']}
+			var qq = $("#qq").val();
+            if (qq == '') {
+                $("#result_info_tip").text("请输入{$isfansname[2]}");
+                return
+            }
+            var partten = /^[1-9]{1}\d{4,11}$/;
+            if(!partten.test(qq)){
+               $("#result_info_tip").text("请输入正确的{$isfansname[2]}");
+			   return;
+            }
+			{/if}
+			{if $reply['isemail']}
+			var email = $("#email").val();
+            if (email == '') {
+                $("#result_info_tip").text("请输入{$isfansname[3]}");
+                return
+            }
+			var partten = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+            if(!partten.test(email)){
+               $("#result_info_tip").text("请输入正确的{$isfansname[3]}");
+			   return;
+            }
+			{/if}
+			{if $reply['isaddress']}
+			var address = $("#address").val();
+            if (address == '') {
+                $("#result_info_tip").text("请输入{$isfansname[4]}");
+                return
+            }
+			{/if}
+			{if $reply['isgender']}
+			var gender = $("#gender").val();
+            if (gender == '0') {
+                $("#result_info_tip").text("请选择{$isfansname[5]}");
+                return
+            }
+			{/if}
+			{if $reply['istelephone']}
+			var telephone = $("#telephone").val();
+            if (telephone == '') {
+                $("#result_info_tip").text("请输入{$isfansname[6]}");
+                return
+            }
+			{/if}
+			{if $reply['isidcard']}
+			var idcard = $("#idcard").val();
+            if (idcard == '') {
+                $("#result_info_tip").text("请输入{$isfansname[7]}");
+                return
+            }
+			{/if}
+			{if $reply['iscompany']}
+			var company = $("#company").val();
+            if (company == '') {
+                $("#result_info_tip").text("请输入{$isfansname[8]}");
+                return
+            }
+			{/if}
+			{if $reply['isoccupation']}
+			var occupation = $("#occupation").val();
+            if (occupation == '') {
+                $("#result_info_tip").text("请输入{$isfansname[9]}");
+                return
+            }
+			{/if}
+			{if $reply['isposition']}
+			var position = $("#position").val();
+            if (position == '') {
+                $("#result_info_tip").text("请输入{$isfansname[10]}");
+                return
+            }
+			{/if}
+            var submitData = {
+                    code: $("#sncode").text(),
+                    {if $reply['isrealname']}realname: realname,{/if}
+					{if $reply['ismobile']}mobile: mobile,{/if}
+					{if $reply['isqq']}qq: qq,{/if}
+					{if $reply['isemail']}email: email,{/if}
+					{if $reply['isaddress']}address: address,{/if}
+					{if $reply['isgender']}gender: gender,{/if}
+					{if $reply['istelephone']}telephone: telephone,{/if}
+					{if $reply['isidcard']}idcard: idcard,{/if}
+					{if $reply['iscompany']}company: company,{/if}
+					{if $reply['isoccupation']}occupation: occupation,{/if}
+					{if $reply['isposition']}position: position,{/if}
+            };
+           	$.post('{php echo $this->createMobileUrl('settel', array('rid' => $rid))}', submitData, function(data) {
+			if (data.success == true) {
+
+                $("#get_prize_box").hide();
+                $("#panel_prize_box").hide();
+                $("#isfans").text('0');
+
+//                alert("提交成功，坐等奖品吧！");
+
+                resetEgg();
+
+//                alert(data.isfirst);
+
+                if(data.isfirst == true){
+                    $("#prize_box").show();
+                    $(".info_lost_share").show().addClass("bounceInDown animated time_0_75");
+                }else{
+//                    alert("只能增加一次机会哦");
+                }
+
+
+                /*
+				$("#result_info").html("<br/><br/>" + data.msg + "<br/><div id='share_miao'>3秒后自动关闭</div>");
+				djstime(3);
+				setTimeout(function () {
+				    $("#prize_box").hide();
+					$("#result_info").hide();
+					$("#isfans").text('0');
+				},4000)
+				*/
+				return
+			} else {
+//			    $("#result_info_tip").text(data.msg);
+
+                alert("提交失败，请重新提交！");
+
+				return
+			}
+			},"json")
+        });
+
+
+    $("#btn_get_prize_code").bind("click",function () {
+        var btn = $(this);
+        var realname = $("#get_prize_input_name").val();
+        if (realname == '') {
+            $("#result_info_tip1").text("请输入姓名");
+            return
+        }
+        var partten = /[\u4e00-\u9fa5]/g;
+        if(!partten.test(realname)){
+            $("#result_info_tip1").text("请输入正确的姓名");
+            return;
+        }
+        var mobile = $("#get_prize_input_tel").val();
+        if (mobile == '') {
+            $("#result_info_tip1").text("请输入电话");
+            return
+        }
+        var partten = /^1\d{10}$/;
+        if(!partten.test(mobile)){
+            $("#result_info_tip1").text("请输入正确的电话");
+            return;
+        }
+
+        var submitData = {
+            code: $("#sncode").text(),
+            realname: realname,
+            mobile: mobile,
+            address: '未登记'
+        };
+        $.post('{php echo $this->createMobileUrl('settel', array('rid' => $rid))}', submitData, function(data) {
+            if (data.success == true) {
+
+                $("#panel_prize_box").hide();
+
+                $(".prize_piao").hide();
+                $(".prize_jiashiqi").hide();
+                $(".prize_quan").hide();
+                $(".prize_t").hide();
+
+//                $("#prize_box_get_prize").hide();
+//                $("#get_prize_box_code").hide();
+                $("#get_prize_box_physical").hide();
+
+                $("#result_info_tip1").text("");
+                $("#get_prize_input_name").val("");
+                $("#get_prize_input_tel").val("");
+
+//                alert("虚拟 ok");
+
+                $("#get_prize_box_code .tip_success").show();
+                $("#get_prize_box_code .get_prize_input").hide().css("display","none");
+
+
+
+                return
+            } else {
+                $("#result_info_tip1").text(data.msg);
+                return
+            }
+        },"json")
+
+    });
+
+    $("#btn_get_prize_physical").bind("click",function () {
+        var btn = $(this);
+        var realname = $("#get_prize_input_name2").val();
+        if (realname == '') {
+            $("#result_info_tip2").text("请输入收货人");
+            return
+        }
+        var partten = /[\u4e00-\u9fa5]/g;
+        if(!partten.test(realname)){
+            $("#result_info_tip2").text("请输入正确的收货人");
+            return;
+        }
+        var mobile = $("#get_prize_input_tel2").val();
+        if (mobile == '') {
+            $("#result_info_tip2").text("请输入联系电话");
+            return
+        }
+        var partten = /^1\d{10}$/;
+        if(!partten.test(mobile)){
+            $("#result_info_tip2").text("请输入正确的联系电话");
+            return;
+        }
+
+        var address = $("#get_prize_input_address").val();
+        if (address == '') {
+            $("#result_info_tip2").text("请输入详细地址");
+            return
+        }
+
+        var submitData = {
+            code: $("#sncode").text(),
+            realname: realname,
+            mobile: mobile,
+            address: address
+        };
+        $.post('{php echo $this->createMobileUrl('settel', array('rid' => $rid))}', submitData, function(data) {
+            if (data.success == true) {
+                $("#panel_prize_box").hide();
+
+                $(".prize_piao").hide();
+                $(".prize_jiashiqi").hide();
+                $(".prize_quan").hide();
+                $(".prize_t").hide();
+
+//                $("#prize_box_get_prize").hide();
+                $("#get_prize_box_code").hide();
+//                $("#get_prize_box_physical").hide();
+
+                $("#result_info_tip2").text("");
+                $("#get_prize_input_name2").val("");
+                $("#get_prize_input_tel2").val("");
+                $("#get_prize_input_address").val("");
+
+                $("#get_prize_box_physical .tip_success").show();
+                $("#get_prize_box_physical .get_prize_input").hide().css("display","none");
+
+                $("#get_prize_box_physical #get_prize_tip").hide();
+
+                return
+            } else {
+                $("#result_info_tip2").text(data.msg);
+                return
+            }
+        },"json")
+    });
+
+
+/*倒计时*/
+function djstime(miao){
+	var e1=$("#share_miao").first();
+	var i=miao;
+	var interval=setInterval(function(){
+		e1.html(i+"秒自动关闭");
+		$("#share_miao").css("line-height","35px");
+		i--;
+		if(i<0){
+			$("#share_miao").css({cursor:"pointer"});
+			$("#share_miao").css("line-height","18px");
+			clearInterval(interval);
+		}
+	},1000);
+}
+</script>
+
+
+<script type="text/javascript" src="../addons/kang_egg/template/js/h5egg.ui.js"></script>
+
+<!-- 图片预加载1 begin --->
+
+<script type="text/javascript" src="../addons/kang_egg/template/js/lib/preload/loadImages.min.js"></script>
+<script type="text/javascript" src="../addons/kang_egg/template/js/loadImages.wkl.js"></script>
+
+<!-- 图片预加载1 end --->
+
+<!-- 图片预加载2 begin --->
+<!--
+<script type="text/javascript" src="../addons/kang_egg/template/js/lib/preload/preloadImg.js"></script>
+-->
+<!--<script type="text/javascript" src="../addons/kang_egg/template/js/preloadImg.wkl.js"></script>-->
+<!-- 图片预加载2 end --->
+
+
+<!-- 微信分享设置 -->
+<script>var require = { urlArgs: 'v={php echo date('YmdH');}' };</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="{$_W['siteroot']}app/resource/js/require.js"></script>
+<script src="{$_W['siteroot']}app/resource/js/app/config.js"></script>
+<script type="text/javascript">
+	// jssdk config 对象
+	jssdkconfig = {php echo json_encode($_W['account']['jssdkconfig']);} || {};
+	// 是否启用调试
+	jssdkconfig.debug = false;
+
+	jssdkconfig.jsApiList = [
+		'checkJsApi',
+		'onMenuShareTimeline',
+		'onMenuShareAppMessage',
+		'onMenuShareQQ',
+		'onMenuShareWeibo',
+		'showOptionMenu'
+	];
+
+	wx.config(jssdkconfig);
+	require(['jquery', 'util'], function($, util){
+		var sharedata = {
+	        "imgUrl" : "{$shareimg}",
+	        "link" : "{$sharelink}",
+	        "desc" : "{$sharedesc}",
+	        "title" : "{$sharetitle}"
+	    };
+
+		wx.ready(function () {
+			wx.showOptionMenu();
+			wx.onMenuShareAppMessage({
+			    title: sharedata.title,
+			    desc: sharedata.desc,
+			    link: sharedata.link,
+			    imgUrl: sharedata.imgUrl,
+			    {if !empty($share['share_cancel'])}
+				// 分享取消
+				cancel: function (res) {
+                    /*
+			        $("#share_tip").text("{$share['share_cancel']}");
+			        $("#share_miao").text("5秒后自动关闭");
+			        $("#share_box").show();
+			        djstime(5);
+			        setTimeout(function () {
+			            $("#share_box").hide();
+			        }, 6000);
+			        */
+			    },
+				{/if}
+				{if !empty($share['share_fail'])}
+				// 分享取消
+			    fail: function (res) {
+                    /*
+			        $("#share_tip").text("{$share['share_fail']}");
+			        $("#share_miao").text("5秒后自动关闭");
+			        $("#share_box").show();
+			        djstime(5);
+			        setTimeout(function () {
+			            $("#share_box").hide();
+			        }, 6000);
+			        */
+			    },
+				{/if}
+				{if !empty($share['share_confirm'])}
+				// 分享成功
+				success : function(resp) {
+				    // 分享成功了，我们是不是可以做一些分享统计呢？
+				    $.getJSON('{php echo $this->createMobileUrl('get_share', array('rid' => $rid,'from_user' => $page_from_user))}', function(data){
+			    	    if(data.success==1) {
+                    	    //$("#share_tip").text("{$share['share_confirm']}");
+			   	     	}else{
+                            /*
+                            if(data.msg == null){
+
+                                $("#share_tip").text("超过每天分享有效次数");
+                            }else{
+
+                                $("#share_tip").text(data.msg);
+                            }
+                            */
+			    	    }
+
+                        /*
+			    	    $("#share_miao").text("5秒后自动关闭");
+			    	    $("#share_box").show();
+			   	        djstime(5);
+			    	    setTimeout(function () {
+                    	    $("#share_box").hide();
+                	    }, 6000);
+                	    */
+
+				    });
+
+                    resetEgg();
+				},
+				{/if}
+			});
+			wx.onMenuShareTimeline({
+			    title: sharedata.title,
+			    desc: sharedata.desc,
+			    link: sharedata.link,
+			    imgUrl: sharedata.imgUrl,
+			    {if !empty($share['share_cancel'])}
+				// 分享取消
+				cancel: function (res) {
+			        $("#share_tip").text("{$share['share_cancel']}");
+			        $("#share_miao").text("5秒后自动关闭");
+			        $("#share_box").show();
+			        djstime(5);
+			        setTimeout(function () {
+			            $("#share_box").hide();
+			        }, 6000);
+			    },
+				{/if}
+				{if !empty($share['share_fail'])}
+				// 分享取消
+			    fail: function (res) {
+			        $("#share_tip").text("{$share['share_fail']}");
+			        $("#share_miao").text("5秒后自动关闭");
+			        $("#share_box").show();
+			        djstime(5);
+			        setTimeout(function () {
+			            $("#share_box").hide();
+			        }, 6000);
+			    },
+				{/if}
+				{if !empty($share['share_confirm'])}
+				// 分享成功
+				success : function(resp) {
+				    // 分享成功了，我们是不是可以做一些分享统计呢？
+				    $.getJSON('{php echo $this->createMobileUrl('get_share', array('rid' => $rid,'from_user' => $page_from_user))}', function(data){
+			    	    if(data.success==1) {
+                    	    $("#share_tip").text("{$share['share_confirm']}");
+			   	     	}else{
+                            if(data.msg == null){
+
+                                $("#share_tip").text("超过每天分享有效次数");
+                            }else{
+
+                                $("#share_tip").text(data.msg);
+                            }
+			    	    }
+			    	    $("#share_miao").text("5秒后自动关闭");
+			    	    $("#share_box").show();
+			   	        djstime(5);
+			    	    setTimeout(function () {
+                    	    $("#share_box").hide();
+                	    }, 6000);
+				    });
+
+
+                    hideAllPrize();
+				},
+				{/if}
+			});
+			wx.onMenuShareQQ({
+			    title: sharedata.title,
+			    desc: sharedata.desc,
+			    link: sharedata.link,
+			    imgUrl: sharedata.imgUrl,
+			    {if !empty($share['share_cancel'])}
+				// 分享取消
+				cancel: function (res) {
+			        $("#share_tip").text("{$share['share_cancel']}");
+			        $("#share_miao").text("5秒后自动关闭");
+			        $("#share_box").show();
+			        djstime(5);
+			        setTimeout(function () {
+			            $("#share_box").hide();
+			        }, 6000);
+			    },
+				{/if}
+				{if !empty($share['share_fail'])}
+				// 分享取消
+			    fail: function (res) {
+			        $("#share_tip").text("{$share['share_fail']}");
+			        $("#share_miao").text("5秒后自动关闭");
+			        $("#share_box").show();
+			        djstime(5);
+			        setTimeout(function () {
+			            $("#share_box").hide();
+			        }, 6000);
+			    },
+				{/if}
+				{if !empty($share['share_confirm'])}
+				// 分享成功
+				success : function(resp) {
+				    // 分享成功了，我们是不是可以做一些分享统计呢？
+				    $.getJSON('{php echo $this->createMobileUrl('get_share', array('rid' => $rid,'from_user' => $page_from_user))}', function(data){
+			    	    if(data.success==1) {
+                    	    $("#share_tip").text("{$share['share_confirm']}");
+			   	     	}else{
+			        	    $("#share_tip").text(data.msg);
+			    	    }
+			    	    $("#share_miao").text("5秒后自动关闭");
+			    	    $("#share_box").show();
+			   	        djstime(5);
+			    	    setTimeout(function () {
+                    	    $("#share_box").hide();
+                	    }, 6000);
+				    });
+				},
+				{/if}
+			});
+			wx.onMenuShareWeibo({
+			    title: sharedata.title,
+			    desc: sharedata.desc,
+			    link: sharedata.link,
+			    imgUrl: sharedata.imgUrl,
+			    {if !empty($share['share_cancel'])}
+				// 分享取消
+				cancel: function (res) {
+			        $("#share_tip").text("{$share['share_cancel']}");
+			        $("#share_miao").text("5秒后自动关闭");
+			        $("#share_box").show();
+			        djstime(5);
+			        setTimeout(function () {
+			            $("#share_box").hide();
+			        }, 6000);
+			    },
+				{/if}
+				{if !empty($share['share_fail'])}
+				// 分享取消
+			    fail: function (res) {
+			        $("#share_tip").text("{$share['share_fail']}");
+			        $("#share_miao").text("5秒后自动关闭");
+			        $("#share_box").show();
+			        djstime(5);
+			        setTimeout(function () {
+			            $("#share_box").hide();
+			        }, 6000);
+			    },
+				{/if}
+				{if !empty($share['share_confirm'])}
+				// 分享成功
+				success : function(resp) {
+				    // 分享成功了，我们是不是可以做一些分享统计呢？
+				    $.getJSON('{php echo $this->createMobileUrl('get_share', array('rid' => $rid,'from_user' => $page_from_user))}', function(data){
+			    	    if(data.success==1) {
+                    	    $("#share_tip").text("{$share['share_confirm']}");
+			   	     	}else{
+			        	    $("#share_tip").text(data.msg);
+			    	    }
+			    	    $("#share_miao").text("5秒后自动关闭");
+			    	    $("#share_box").show();
+			   	        djstime(5);
+			    	    setTimeout(function () {
+                    	    $("#share_box").hide();
+                	    }, 6000);
+				    });
+				},
+				{/if}
+			});
+
+		});
+	});
+</script>
+
+
+
+<!-- 百度统计wanyouxibu.com begin -->
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?4c75a08c5ed53483840001824d223513";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<!-- 百度统计wanyouxibu.com end -->
+
+
+
+</body>
+</html>
