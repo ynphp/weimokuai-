@@ -1,0 +1,1314 @@
+
+
+body{
+    background-color:#f7b52c;
+    /*background-image: url('../images/common/clound.png');*/
+    /*background-size: 100% 100%;*/
+    /*background-repeat: no-repeat;*/
+}
+
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /*background-size: 100% 100%;*/
+    /*background-repeat: no-repeat;*/
+    background-color: #f7b52c;
+    /*background-image: url('../images/common/clound.png');*/
+    z-index: 9999;
+
+    /*display: block;*/
+    display: none;
+}
+
+#helppage{
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #f7b52c;
+
+    height: 100%;
+    width: 100%;
+    z-index: 99;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+#sharepage{
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    display: none;
+    height: 100%;
+    width: 100%;
+    z-index: 99;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background: url(../images/common/red_bg.png);
+    background-size: 100% 100%;
+    background-repeat: repeat-y;
+}
+#sharepage img, #rulepage img{
+    height: auto;
+    width: 100%;
+}
+
+
+#rulepage{
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #f7b52c;
+
+    height: 100%;
+    width: 100%;
+    z-index: 99;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+    #rulepage .border{
+        padding: 1rem 4% 0 4%;
+        /*width: 14rem;*/
+    }
+    #rulepage .border .bg{
+        width: 14.7rem;
+        height: 23rem;
+        margin-bottom: 1rem;
+
+        background: url(../images/rule/rule_bg.png);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    #rulepage .border .bg #btn_close_rule {
+        width: 3.45rem;
+        height: 3.45rem;
+        position: absolute;
+        right: -0.1rem;
+        top: 0.8rem;
+    }
+    #rulepage .border .bg .btns{
+        height: 1.8rem;
+        width: 13rem;
+        top: 2.7rem;
+        position: relative;
+        font-size: 0.86rem;
+    }
+    #rulepage .border .bg .btns #btn_prize{
+        height: 1.8rem;
+        width: 4.5rem;
+        position: relative;
+        left: 0;
+        top: 0;
+        z-index: 88;
+    }
+    #rulepage .border .bg .btns #btn_rule{
+        height: 1.8rem;
+        width: 4.5rem;
+        position: relative;
+        left: -0.8rem;
+        top: 0;
+        z-index: 3;
+    }
+    #rulepage .border .bg .content{
+        background-color: #FFF;
+        width: 13rem;
+        height: 17.6rem;
+        top: 2.7rem;
+        position: relative;
+        font-size: 0.6rem;
+    }
+
+    #rulepage .border .bg .content #game_prizes {
+        width: 100%;
+        height: 100%;
+        /*background-color: #FF0;*/
+        overflow-y: hidden;
+        overflow-x: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        /*display: none;*/
+    }
+    #rulepage .border .bg .content #game_prizes .inner{
+        padding: 0.8rem 0.4rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: auto;
+        height: 100%;
+    }
+    #rulepage .border .bg .content #game_prizes .inner .inner_content{
+        padding: 4% 4% 4% 4%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: auto;
+        height: 86%;
+        /*background-color: #FFD700;*/
+    }
+    #rulepage .border .bg .content #game_rules {
+        width: 100%;
+        height: 100%;
+        /*background-color: #FFDCFF;*/
+        overflow-y: hidden;
+        overflow-x: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        display: none;
+    }
+    #rulepage .border .bg .content #game_rules .inner{
+        padding: 0.8rem 0.4rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: auto;
+        height: 100%;
+    }
+    #rulepage .border .bg .content #game_rules .inner .inner_content{
+        padding: 4% 4% 4% 4%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: auto;
+        height: 86%;
+        /*background-color: #FFD700;*/
+    }
+
+
+
+#panel_agreement{
+    height: 380px;
+    background-color: #ccc;
+    overflow-y: auto;
+
+    /*-webkit-border-radius: 8px;*/
+    /*-moz-border-radius: 8px;*/
+    /*border-radius: 8px;*/
+
+    background-color: #fff;
+
+    /*margin: 10px;*/
+    padding: 11px;
+
+    font-size: 15px;
+}
+
+#panel_agreement_out{
+    height: 400px;
+
+
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+
+    background-color: #fff;
+
+    margin: 10px;
+    padding: 10px;
+
+    font-size: 15px;
+}
+
+
+
+
+
+
+#homepage{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    width: 100%;
+
+    /*display: none;*/
+}
+    #homepage .border{
+        padding: 1rem 4% 0 4%;
+        /*width: 14rem;*/
+    }
+    #homepage .border .title{
+        width: 14.7rem;
+        height: 18.8rem;
+        margin: 0 auto 0.6rem auto;
+    }
+    #homepage .border .title .bg{
+        width: 14.7rem;
+        height: 18.8rem;
+    }
+    #homepage .border .title .text {
+        width: 14.7rem;
+        height: 18.8rem;
+        position: relative;
+        top: -18.85rem;
+        text-align: center;
+    }
+    #homepage .border .title .text .title1{
+        width: 14.7rem;
+        /*height: 37.8rem;*/
+    }
+    #homepage .border .title .text .title2{
+        width: 14.7rem;
+
+    }
+    #homepage .border .title .text .quantou{
+        position: relative;
+        width: 14.7rem;
+        left: 0;
+        /*top: 2rem;*/
+    }
+    #homepage .border .title .text #btn_start{
+        position: relative;
+        width: 8rem;
+        left: 0;
+        bottom: 0;
+    }
+    #homepage .border .title .text .count{
+        position: relative;
+        width: 8rem;
+        left: 0;
+        bottom: 2.5rem;
+        font-size: 0.6rem;
+        color: #FFF;
+    }
+    #homepage .border .title .text #btn_help {
+        width: 1.7rem;
+        position: absolute;
+        right: 0.5rem;
+        top: 0.3rem;
+    }
+
+    #homepage .border .qrcode{
+        margin: 0 auto 0.5rem auto;
+    }
+    #homepage .border #btn_prize{
+        margin: 0 auto 0.5rem auto;
+    }
+    #homepage .border .logo{
+        margin: 0 auto 0.5rem auto;
+    }
+
+
+
+
+#guesspage {
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    display: none;
+    height: 100%;
+    width: 100%;
+}
+    #guesspage .border{
+        padding: 1rem 4% 0 4%;
+        width: 14rem;
+    }
+    #guesspage .border .price{
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    #guesspage .border .chart{
+        /*width: 14rem;*/
+        /*height: 7.5rem;*/
+        /* height: auto; */
+        background-color: #FFF;
+    }
+    #guesspage .border .chart #canvas_last {
+        /*width: 268px;*/
+        /*height: 134px;*/
+        width: 100%;
+        height: 100%;
+        /* margin: 20px auto 0px; */
+        padding: 1rem 1rem 0 0;
+        margin: 1rem 0.5rem 0 auto;
+    }
+    #guesspage .border .text1{
+        margin: 0.5rem auto 0.5rem auto;
+    }
+    #guesspage .border .text2{
+        font-size: 0.7rem;
+        color: #FFF;
+    }
+    #guesspage .border .btns{
+        /*display: table-cell;*/
+        text-align: center;
+    }
+    #guesspage .border .btns .up{
+        display: table-cell;
+    }
+    #guesspage .border .btns .down{
+        display: table-cell;
+    }
+    #guesspage .border .btns #btn_up{
+        width: 6.55rem;
+        height: 5.15rem;
+        margin-right: 0.1rem;
+    }
+    #guesspage .border .btns #btn_down{
+        width: 6.55rem;
+        height: 5.15rem;
+        margin-left: 0.1rem;
+    }
+
+
+
+
+#orderpage{
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    display: none;
+    height: 100%;
+    width: 100%;
+}
+    #orderpage .border{
+        padding: 1rem 4% 0 4%;
+        width: 14rem;
+    }
+    #orderpage .border .chart{
+        /*width: 14rem;*/
+        /*height: 7.5rem;*/
+        /* height: auto; */
+        background-color: #FFF;
+    }
+    #orderpage .border .chart #canvas_current {
+        /*width: 268px;*/
+        /*height: 134px;*/
+        width: 100%;
+        height: 100%;
+        /* margin: 20px auto 0px; */
+        padding: 1rem 1rem 0 0;
+        margin: 0.5rem 0.5rem 0 auto;
+    }
+    #orderpage .border .text1{
+        font-size: 0.9rem;
+        color: #000;
+        margin: 0.5rem auto 0.5rem auto;
+        font-weight: bold;
+        line-height: 1.3rem;
+    }
+    #orderpage #guess_icon{
+        margin-left: 0.1rem;
+        margin-right: 0.1rem;
+        display: inline-block;
+        width: 1.1rem;
+        height: 1.1rem;
+        line-height: 1.3rem;
+        margin-bottom: -0.2rem;
+    }
+    #orderpage .btns .price_buy{
+        display: table-cell;
+        text-align: center;
+        width: 6rem;
+        float: left;
+        color: #FFF;
+        font-weight: bold;
+    }
+    #orderpage .btns .price_buy #price_buy{
+        width: 6rem;
+        height: 4rem;
+        line-height: 4rem;
+    }
+    #orderpage .btns .price_current{
+        display: table-cell;
+        text-align: center;
+        width: 6rem;
+        float: right;
+        color: #FFF;
+        font-weight: bold;
+    }
+    #orderpage .btns .price_current #price_current{
+        width: 6rem;
+        height: 4rem;
+        line-height: 4rem;
+    }
+
+    #orderpage .btns #price_buy, #orderpage .btns #price_current{
+        background-color: #FFF;
+        color: #000;
+    }
+    #orderpage .time {
+        font-size: 1rem;
+        color: #000;
+        width: 14rem;
+        height: 2rem;
+        z-index: 3;
+        margin: 1.5rem auto 0 auto;
+        padding: 0 !important;
+        text-align: left;
+    }
+    #orderpage .time #time_bg {
+        background-color: #fff;
+        z-index: 1;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        position: relative;
+    }
+    #orderpage .time #time_left {
+        z-index: 1;
+        height: 102%;
+        width: 100%;
+        top: -2.4rem;
+        left: 0;
+        position: relative;
+    }
+    #orderpage .time .text {
+        z-index: 1;
+        height: 100%;
+        width: 100%;
+        top: -4.8rem;
+        left: 0;
+        position: relative;
+        text-align: center;
+        line-height: 2rem;
+    }
+    #orderpage .border .logo{
+        margin: 1rem auto 0.5rem auto;
+        width: 100%;
+    }
+
+
+
+#resultpage{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+    #resultpage .border{
+        padding: 1rem 4% 0 4%;
+        /*width: 14rem;*/
+    }
+    #resultpage .border .title{
+        width: 14.7rem;
+        height: 9.9rem;
+        margin: 0 auto 0.6rem auto;
+    }
+    #resultpage .border .title .bg{
+        width: 14.7rem;
+        height: 9.9rem;
+    }
+    #resultpage .border .title .text {
+        width: 14.7rem;
+        height: 9.9rem;
+        position: relative;
+        top: -10.2rem;
+        text-align: center;
+
+        font-weight: bold;
+    }
+    #resultpage .border .title .text .title1{
+        width: 14.7rem;
+        height: 3.85rem;
+        line-height: 3.85rem;
+        font-size: 2rem;
+        color: #f00;
+    }
+    #resultpage .border .title .text .title2{
+        width: 14.7rem;
+        line-height: 1.4rem;
+        font-size: 0.8rem;
+    }
+    #resultpage .border .title .text .title3{
+        width: 14.7rem;
+        line-height: 1.4rem;
+        font-size: 0.9rem;
+    }
+    #resultpage .border .btns{
+        position: relative;
+        width: 14.7rem;
+        left: 0;
+        text-align: center;
+        margin: 1rem auto 0 auto;
+    }
+    #resultpage .border .btns #btn_continue{
+        width: 8.45rem;
+        height: 7.17rem;
+        text-align: center;
+    }
+    #resultpage .border .btns #btn_more{
+        width: 14.7rem;
+        height: 5.46rem;
+        text-align: center;
+    }
+    #resultpage .border .btns #count_continue{
+        position: relative;
+        width: 8rem;
+        left: 0;
+        bottom: 3.5rem;
+        font-size: 0.6rem;
+        color: #FFF;
+        display: none;
+    }
+    #resultpage .border .btns #count_more{
+        position: relative;
+        width: 8rem;
+        left: 0;
+        top: -5.3rem;
+        font-size: 0.6rem;
+        color: #FFF;
+        display: none;
+    }
+
+
+
+#shoppage{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+    #shoppage .prizelist{
+        background-color: #f7b52c;
+        height: auto;
+        width: 100%;
+    }
+    #shoppage .prizelist .border{
+        padding: 1rem 4% 0 4%;
+    }
+    #shoppage .prizelist .border .header{
+        width: 14rem;
+        font-size: 0.9rem;
+        font-weight: bold;
+        margin-bottom: 0.3rem;
+    }
+    #shoppage .prizelist .border .items{
+        background-color: #FFF;
+        width: 14.2rem;
+        /*height: 7rem;*/
+
+        margin-bottom: 1rem;
+    }
+    #shoppage .prizelist .border .items .item:nth-child(odd){
+
+        width: 7rem;
+        height: 7rem;
+        background-color: #fff;
+        border: solid #000;
+        border-width: 0 1px 1px 0;
+        float: left;
+        display: block;
+        word-break: break-all;
+        word-wrap: break-word;
+    }
+    #shoppage .prizelist .border .items  .item:nth-child(even) {
+        width: 7rem;
+        height: 7rem;
+        background-color: #fff;
+        border: solid #000;
+        border-width: 0 0 1px 0;
+        float: left;
+        display: block;
+        word-break: break-all;
+        word-wrap: break-word;
+    }
+    #shoppage .prizelist .border .items .detail{
+        width: 90%;
+        padding: 5% 5% 0 5%;
+        height: 100%;
+        position: relative;
+        text-align: center;
+    }
+    #shoppage .prizelist .border .items .detail img{
+        height: 70%;
+        width: auto !important;
+        margin: 0 auto;
+        visibility: visible !important;
+    }
+    #shoppage .prizelist .border .items .detail .detail_foot {
+        width: 100%;
+        position: absolute;
+        bottom: 10%;
+        left: 0;
+    }
+    #shoppage .prizelist .border .items .detail .detail_text {
+        -webkit-border-radius: 1rem;
+        -moz-border-radius: 1rem;
+        border-radius: 1rem;
+        font-size: 0.6rem;
+        background-color: #F7B52C;
+        text-align: center;
+        color: #FFF;
+        padding: 0.2rem;
+        width: 80%;
+    }
+
+    #shoppage .banner{
+        position: relative;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#mainpage {
+
+    /*background-color: #FF0;*/
+
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+
+    display: none;
+}
+
+
+
+
+
+/* 领奖提示框 */
+#panel_prize_box{
+    /*
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    */
+
+    display: none;
+
+    /* 绝对定位 不能移动位置 */
+    position: fixed; left: 0; top: 0; width: 100%; height: 100%;
+
+    z-index: 9;
+}
+
+
+    #panel_prize_box img{
+        width: 100%;
+        height: auto;
+    }
+#panel_prize_box .prize_detail{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+#panel_prize_box .prize_detail img{
+    width: 100%;
+    height: 100%;
+}
+#panel_prize_box .btn_get_prize{
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    /*height: 20%;*/
+    height: 8.5rem;
+    bottom: 0;
+    left: 0;
+
+    z-index: 50;
+}
+#panel_prize_box .btn_get_prize img{
+    width: 13rem;
+}
+
+
+    #panel_prize_box .prize_quan{
+        display: none;
+        width: 100%;
+        height: 100%;
+    }
+    #panel_prize_box .prize_piao{
+        display: none;
+        width: 100%;
+        height: 100%;
+    }
+    #panel_prize_box .prize_jiashiqi{
+        display: none;
+        width: 100%;
+        height: 100%;
+    }
+    #panel_prize_box .prize_t{
+        display: none;
+        width: 100%;
+        height: 100%;
+    }
+
+    #panel_prize_content{
+
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        /*background-color: #f7b52c;*/
+        /*background-image: url('../images/common/clound.png');*/
+
+        height: 100%;
+        width: 100%;
+    }
+
+
+    #panel_box_get_prize {
+        position: fixed;
+        display: none;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.72);
+    }
+    #panel_box_get_prize #get_prize_box_code{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 400px;
+        text-align: center;
+        font-size: 16px;
+        color: #717171;
+        margin: auto 20px;
+        border-radius: 8px;
+        background-color: #FFF;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    #panel_box_get_prize .get_prize_close{
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: -12px;
+        right: -12px;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-image: url(../images/btn_close.png);
+    }
+    #panel_box_get_prize .common-hr{
+        margin: 15px 0;
+    }
+    #panel_box_get_prize .btn-code{
+        border: none;
+        border-radius: 5px;
+        background: #FFA200;
+        color: #FFF;
+        width: 135px;
+        font-size: 25px;
+        font-weight: bolder;
+        font-family: "微软雅黑";
+        height: 50px;
+        /* display: inline-block; */
+        display: block;
+        /* margin: auto; */
+        margin-top: 40px;
+    }
+    #panel_box_get_prize .btn-submit{
+        border: none;
+        border-radius: 5px;
+        background: #ffdc1e;
+        color: #FFF;
+        width: 80px;
+        font-size: 25px;
+        font-weight: bolder;
+        font-family: "微软雅黑";
+        height: 50px;
+        /* display: inline-block; */
+        display: block;
+        /*margin: auto;*/
+    }
+    #panel_box_get_prize .btn-submit-red{
+        border: none;
+        border-radius: 5px;
+        background: #d9524e;
+        color: #FFF;
+        width: 100px;
+        font-size: 25px;
+        font-weight: bolder;
+        font-family: "微软雅黑";
+        height: 50px;
+        /* display: inline-block; */
+        display: block;
+
+        margin-top: 25px;
+    }
+
+    #panel_box_get_prize #get_prize_box_code{
+        display: none;
+    }
+
+    #get_prize_box_code .get_prize_code{
+        color: #FFA200;
+        font-size: 25px;
+        font-weight: bolder;
+        font-family: "微软雅黑";
+        margin-top: 15px;
+        margin-bottom: 35px;
+    }
+    #get_prize_box_code .get_prize_input{
+        padding: 20px;
+    }
+    #get_prize_box_code .get_prize_input_left{
+        display: inline-block; width: 60%;;float: left;height: 160px;
+        text-align: left;
+        font-size: 20px;
+        line-height: 32px;
+    }
+    #get_prize_box_code .get_prize_input_left input{
+        border-radius: 5px;
+        height: 40px;
+        border-color: #000;
+        border-width: 1px;
+        font-size: 25px;
+        width: 90%;
+    }
+    #get_prize_box_code .get_prize_input_right{
+        width: 40%;  float: right; height: 160px;
+
+        /* 垂直居中 */
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    #get_prize_box_code .get_prize_input_right input{
+        /*position:absolute;*/
+        /*left:50%;*/
+        /*top:50%;*/
+        /*transform:translate(-50% -50%);*/
+    }
+
+    #get_prize_box_code .tip_success{
+        height: 160px;
+        font-size: 23px;
+        padding: 15px;
+        display: none;
+        text-align: left;
+    }
+
+
+    /* 领奖提示框 实物 */
+    #panel_box_get_prize #get_prize_box_physical{
+        display: none;
+    }
+
+    #panel_box_get_prize #get_prize_box_physical{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 400px;
+        text-align: center;
+        font-size: 16px;
+        color: #717171;
+        margin: auto 20px;
+        border-radius: 8px;
+        background-color: #FFF;
+        /*padding: 10px;*/
+        padding: 0;
+        box-sizing: border-box;
+    }
+    #get_prize_box_physical .get_prize_close{
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        top: -12px;
+        right: -12px;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-image: url(../images/btn_close.png);
+    }
+    #get_prize_box_physical #get_prize_tip{
+
+        background: #F3F3F3;
+        height: 50px;
+        border-radius: 8px 8px 0 0;
+        line-height: 50px;
+        font-size: 20px;
+        text-align: left;
+        padding-left: 15px;
+    }
+    #get_prize_box_physical .get_prize_input{
+        display: inline-block;
+        height: 160px;
+        text-align: left;
+        font-size: 20px;
+        line-height: 32px;
+        padding: 20px;
+    }
+    #get_prize_box_physical .get_prize_input input{
+        border-radius: 5px;
+        height: 40px;
+        border-color: #ccc;
+        border-width: 1px;
+        font-size: 25px;
+        width: 100%;
+    }
+    #get_prize_box_physical .tip_success{
+        height: 160px;
+        font-size: 23px;
+        padding: 15px;
+        display: none;
+        text-align: left;
+    }
+
+    #result_info_tip1, #result_info_tip2{
+        color: #f00;
+    }
+
+
+
+/*--- 抽奖信息框 begin ---*/
+
+.panel-box{
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /*background-color: rgba(0,0,0,0.72);*/
+
+    z-index:11;
+}
+.panel-box.show{
+    display: block;
+}
+.panel-box .panel-content{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 100%;
+    width: 100%;
+
+    text-align: center;
+    font-size: 16px;
+    color: #717171;
+    /* margin: auto 20px; */
+    border-radius: 8px;
+    /* background-color: #F5F0EB; */
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    /* padding: 10px; */
+    box-sizing: border-box;
+}
+
+.panel-box .share_box{
+    display: none;
+}
+
+.panel-box .panel-share{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height:180px;
+    text-align: center;
+    font-size: 16px;
+    color: #717171;
+    margin: auto 20px;
+    border-radius: 8px;
+    background-color: #f5f0eb;
+
+    padding: 10px;
+    box-sizing:border-box;
+}
+
+.panel-box .panel-close{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../images/btn_close.png);
+
+
+    display: none;
+}
+.panel-box .icon-prize-useless{
+    display: inline-block;
+    width: 90px;
+    height: 90px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-image: url(../images/icon_prize_useless.png);
+}
+
+.panel-box .info_lost_guanzhu{
+    /*display: inline-block;*/
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+.panel-box .info_lost_guanzhu .bg{
+    /*display: inline-block;*/
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+    z-index: 99;
+
+    display: none;
+}
+.panel-box .info_lost_guanzhu .bg img{
+
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
+    z-index: 99999;
+}
+.panel-box .info_lost_guanzhu .qrcode{
+    /* display: inline-block; */
+    /* display: none; */
+    position: absolute;
+    /* width: 100%; */
+    /* height: 100%; */
+    /* top: 0; */
+    /* left: 0; */
+    z-index: 88;
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    display: none;
+}
+.panel-box .info_lost_guanzhu .qrcode img{
+    width: 15rem;
+    margin: 0 auto;
+    position: relative;
+    top: 18rem;
+    z-index: 999;
+}
+
+.panel-box .info_lost_over{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+.panel-box .info_lost_share{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+.panel-box .info_lost_fail{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+.panel-box .info_lost_2{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+.panel-box img{
+    width: 100%;
+    height: 100%;
+    /*height: auto;*/
+    /*max-width: 320px;*/
+    /*min-height: 150px;*/
+}
+.panel-box .info_btn{
+    /*position: absolute; */
+    /* left: 50%; */
+    /* transform: translateX(-50%); */
+
+    bottom: 0;
+    margin: auto;
+    width: 100%;
+}
+
+/*--- 抽奖信息框 end ---*/
+
+/*--- 主页面元素 begin ---*/
+
+.play{
+    position: absolute;
+    width: 100%;
+    /*height: 100%;*/
+    height: auto;
+    top:0;
+    left:0;
+}
+    .play img{
+        width: 100%;
+        /*height: 100%;*/
+        height: auto;
+
+        padding: 0;
+        margin: 0;
+    }
+    .play .play_bg{
+        position: absolute;
+        width: 100%;
+        /*height: 100%;*/
+        height: auto;
+        top:0;
+        left:0;
+        overflow: hidden;
+
+        display: none;
+        z-index: -2;
+    }
+
+    .play .egg1, .play .egg2, .play .egg3, .play .flag, .play .feiji{
+        position: absolute;
+        width: 100%;
+        /*height: 100%;*/
+        height: auto;
+        top:0;
+        left:0;
+
+        display: none;
+    }
+    .play .egg1{
+        z-index: 2;
+    }
+    .play .egg2{
+        z-index: 3;
+    }
+    .play .egg3{
+        z-index: 4;
+    }
+    .play .flag{
+        z-index: 5;
+    }
+    .play .feiji{
+        z-index: 6;
+    }
+    .play .btn_egg{
+        position: absolute;
+        text-align: center;
+        width: 100%;
+        /*height: 20%;*/
+        height: 8.5rem;
+        /*top: 32rem;*/
+        top: 40rem;
+        /*bottom: 0;*/
+        left: 0;
+
+        z-index: 10;
+        display: none;
+    }
+    .play .btn_egg img{
+        width: 16rem;
+        height: auto;
+    }
+
+/*--- 主页面元素 end ---*/
+
+/*--- 收货信息页面 begin ---*/
+#get_prize_box{
+    display: none;
+
+    z-index: 999;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+/*
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url('../images/address/address_bg.png');
+*/
+}
+
+#get_prize_box .userinfo{
+    position: relative;
+    /*top: 18rem;*/
+    /*top: 32%;*/
+    top: 14.5rem;
+}
+#get_prize_box .bg{
+    position:absolute;
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 41rem;
+}
+#get_prize_box .btns{
+    /*width:100%; height:12%;*/
+    /*position: absolute;*/
+    /*bottom: 0;left: 0;*/
+    /*text-align: center;*/
+
+    width: 100%;
+    text-align: center;
+    position: relative;
+    top: 22rem;
+    left: 0;
+ }
+#get_prize_box .btns img{
+    width: 13rem;
+}
+#get_prize_box #result_info_tip{
+    color: #f7b52c;
+    font-size: 1.5rem;
+    line-height: 20px;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+.field {
+    margin: 0 auto;
+    position: relative;
+    width: 66%;
+    height: 50px;
+}
+.field img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+}
+.field input {
+    box-shadow: none;
+    background: none;
+
+    border-width: 0 0 1px 0;
+    border-color: #FFF;
+
+    /*border: 0;*/
+    border-radius: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+    /*font-size: 2rem;*/
+    font-weight: bold;
+
+    height: 100%;
+    left: 0;
+    padding: 0 0 0 35%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    color: #fff;
+}
+/* 通用 */
+.field ::-webkit-input-placeholder { color:rgba(253,253,253,0.5); }
+.field ::-moz-placeholder { color:rgba(253,253,253,0.5);  } /* firefox 19+ */
+.field :-ms-input-placeholder { color:rgba(253,253,253,0.5);  } /* ie */
+.field input:-moz-placeholder { color:rgba(253,253,253,0.5);  }
+
+
+/*--- 收货信息页面 end ---*/
