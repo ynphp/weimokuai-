@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN" ng-app="WmallAPP">
+<head>
+    <title>{$xkwkj['title']}</title>
+    <meta charset="utf-8">
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    <meta content="eric.wu" name="author">
+    <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+    <!--meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="pragma">
+    <meta content="0" http-equiv="expires"-->
+    <meta content="telephone=no, address=no" name="format-detection">
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+          name="viewport">
+    <link href="{kang_xkwkj_RES}css/reset.css?v=131" rel="stylesheet"/>
+    <link href="{kang_xkwkj_RES}css/common.css?v=131" rel="stylesheet"/>
+    <link href="{kang_xkwkj_RES}css/bargain.css?v=1316112223" rel="stylesheet"/>
+    <script src="{kang_xkwkj_RES}js/jquery_min.js"></script>
+    <style>
+
+        *[data-mask='help'] .help_pic {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url({php echo MonUtil::defaultImg(MonUtil::$IMG_SHARE_BG,$xkwkj)
+        }
+
+        )
+        no-repeat center top
+
+        rgba
+        (
+        0
+        ,
+        0
+        ,
+        0
+        ,
+        0.93
+        )
+        ;
+        background-size:
+
+        100
+        %
+        ;
+        z-index:
+
+        100
+        ;
+        }
+    </style>
+    {template 'share'}
+    <script>
+        var basePath = "{kang_xkwkj_RES}";
+        APP = {
+            config: {
+                needTime: true, //是否需要计时，如果不需要请设为false，这很重要，因为倒计时到点时js会自动刷新页面
+                time: {
+                    currentTime: "{$curtime}",
+                    calcWhat: "end",
+                    //计算距离开始的时间填"start", 计算距离结束的时间填"end"
+                    startTime: "{$starttime}",//活动开始时间(请按此字符串格式赋值)
+                    endTime: "{$endtime}",//活动结束时间（请按此字符串格式赋值）
+                }
+            },
+            urls: {
+                cut_list: '{php echo $this->createMobileUrl('KjFirendList',array('uid'=>$user['id']), true)}'
+
+            }
+        }
+    </script>
+    <script src="{kang_xkwkj_RES}js/sea.js"></script>
+    <script>
+        (function (l) {
+            seajs.config({
+                base: "./",
+                map: [
+                    [".js", (l && l[1] || "") + ".js"]
+                ]
+            });
+            //
+            seajs.use("{kang_xkwkj_RES}js/bargain.js?v=14");
+        })(location.href.match(/de(\-\d+)bug/));
+
+        {
+            if empty($orderInfo)}
+            var addressUrl = "{php echo $this->createMobileUrl('address',array('kid'=>$xkwkj['id'],'uid'=>$user['id']),true)}";
+            {else
+            }
+            var addressUrl = "{php echo $this->createMobileUrl('OrderInfo',array('kid'=>$xkwkj['id'],'uid'=>$user['id']),true)}";
+            {/
+                if}
+    </script>
+
+</head>
+<body onselectstart="return true;" ondragstart="return false;">
+<div data-role="container" class="container">
+    <header data-role="header"></header>
+    <section data-role="body" class="body">
+
+
+        <!---->
+        <div class="section_div">
+
+            <div class="title_time">
+                {if $status == $this::$KJ_STATUS_ZC}
+                <div>
+                    <span>剩余时间</span>
+                    <span class="time hours">00</span>
+                    <span>:</span>
+                    <span class="time minutes">00</span>
+                    <span>:</span>
+                    <span class="time seconds">00</span>
+                </div>
+                {else}
+                <div>
+                    <span>{$statusText}</span>
+
+                </div>
+                {/if}
+
+
+                <div class='fr'>剩余{$leftCount}件</div>
+
+            </div>
+
+        </div>
+
+        <div class="section_div">
+            <div class="poster">
+                <img src="{php echo MonUtil::getpicurl($xkwkj['p_pic'])}">
+
+                <div class="goods">
+                    <a href="{$xkwkj['p_url']}">
+                        <div class="goods_pic">
+                            <img src="{php echo MonUtil::getpicurl($xkwkj['p_preview_pic'])}">
+                        </div>
+                        <div class="goods_des">{$xkwkj['p_name']}</div>
+                        <div class="goods_price">原价<br>￥{$xkwkj['p_y_price']}</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="section_div">
+
+            <div class="price_board">
+                <!--当前价，已砍-->
+
+                <img src="{kang_xkwkj_RES}images/bargain_3.png">
+
+                <div class="price"><span>￥{$user['price']}</span></div>
+                <div class="cut_price"><span>￥{php echo round($xkwkj['p_y_price']-$user['price'], 2)}</span></div>
+            </div>
+
+        </div>
+
+        <div class="section_div">
+            <div class="msg_board">
+                <div class="avatar">
+                    <i></i>
+                </div>
+                <!--若获取不到用户昵称，则统一填少侠-->
+                <div><span class="avatar_name">{$user['nickname']}</span>{php echo $this->getTipMsg($xkwkj,
+                    $this::$TIP_U_ALREADY)}
+                </div>
+            </div>
+        </div>
+
+        <div class="section_div">
+
+            <!--立即出手&找人帮砍 红色&黄色-->
+            <div class="btn_wrapper two">
+                {if empty($orderInfo)}
+                <a href="javascript:;" class="cut_two_btn shadow_red cut_6 fl"></a>
+                {else}
+                <a href="javascript:;" class="cut_two_btn shadow_red cut_8 fl"></a>
+                {/if}
+
+                {if $status == $this::$KJ_STATUS_ZC}
+                <a href="javascript:;" class="cut_two_btn shadow_yellow cut_7 fr"></a>
+                {else}
+                <a href="javascript:;" class="cut_two_btn shadow_red cut_3 fr"></a>
+                {/if}
+
+
+            </div>
+
+        </div>
+
+
+        <div class="section_div">
+            <div class="instruction"><label>活动说明</label></div>
+            <div class="instruction1"><label><a style="text-decoration: underline"
+                                                href="{php echo $this->createMobileUrl('Rank',array('kid'=>$xkwkj['id']), true)}">{$joinCount}人排行榜</a></label>
+            </div>
+        </div>
+
+        <div class="section_div">
+            <div class="list_wrapper">
+                <div class="list_title"></div>
+                <ul class="cut_list" id="cut_list">
+
+                </ul>
+            </div>
+        </div>
+    </section>
+    <footer data-role="footer">
+        <!--有活动说明的页面请添加此段-->
+        <div data-role="mask" data-mask="instruction" id="mask_instruction" class="mask_instruction">
+            <div class="mask_bkg"></div>
+            <div class="dialogue_wrapper">
+                <div class="d_header"></div>
+                <div class="d_body" id="wrapper">
+                    <div> {$xkwkj['kj_intro']}</div>
+                </div>
+                <div class="d_footer">我知道了</div>
+            </div>
+        </div>
+
+        <!--有找人帮砍的页面请添加此段-->
+        <div data-role="mask" data-mask="help" id="mask_help" class="mask_help">
+            <div class="help_pic"></div>
+        </div>
+
+    </footer>
+</div>
+</body>
+</html>
+

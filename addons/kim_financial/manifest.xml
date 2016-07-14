@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.52,0.6,0.7">
+	<application setting="false">
+		<name><![CDATA[财务中心]]></name>
+		<identifie><![CDATA[kim_financial]]></identifie>
+		<version><![CDATA[1.8]]></version>
+		<type><![CDATA[customer]]></type>
+		<ability><![CDATA[用于会员在线充值余额、余额购买套餐，购买短信条数服务]]></ability>
+		<description><![CDATA[用于会员在线充值余额、余额购买套餐，购买短信条数服务]]></description>
+		<author><![CDATA[狗扑源码]]></author>
+		<url><![CDATA[http://gope.cn/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="view" />
+			<message type="enter" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="false" />
+		<card embed="false" />
+	</platform>
+	<bindings>
+		<menu>
+			<entry title="财务中心" do="FinancialCenter" state="" direct="false" />
+		</menu>
+	</bindings>
+	<install><![CDATA[CREATE TABLE IF NOT EXISTS `ims_uni_payorder` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `orderid` varchar(200) DEFAULT NULL,
+  `status` int(1) DEFAULT '0' COMMENT '0-未付款 1-已付款',
+  `money` decimal(10,2) DEFAULT NULL,
+  `pay_time` int(10) DEFAULT NULL,
+  `uid` int(11) DEFAULT NULL COMMENT '用户ID',
+  `order_time` int(10) DEFAULT NULL,
+  `credittype` varchar(20) DEFAULT NULL,
+  `pay_type` int(1) DEFAULT '0',
+  `order_no` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `orderid` (`orderid`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_users_credits_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `uniacid` int(11) NOT NULL,
+  `credittype` varchar(10) NOT NULL DEFAULT '',
+  `num` decimal(10,2) NOT NULL,
+  `operator` int(10) unsigned NOT NULL,
+  `createtime` int(10) unsigned NOT NULL,
+  `remark` varchar(200) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`),
+  KEY `uid` (`uid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户购买记录表\r\n模块开发QQ:800083075';
+CREATE TABLE IF NOT EXISTS `ims_users_group` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `package` varchar(5000) NOT NULL DEFAULT '',
+  `maxaccount` int(10) unsigned NOT NULL DEFAULT '0',
+  `maxsubaccount` int(10) unsigned NOT NULL,
+  `timelimit` int(10) unsigned NOT NULL,
+  `discount` decimal(11,2) DEFAULT NULL COMMENT '打折',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `ims_users_packages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uniacid` int(11) DEFAULT NULL COMMENT '公众号ID',
+  `record_id` int(11) DEFAULT NULL COMMENT '消费记录ID',
+  `uid` int(11) DEFAULT NULL COMMENT '用户ID',
+  `package` int(11) DEFAULT NULL COMMENT '套餐ID',
+  `buy_time` int(11) DEFAULT '0' COMMENT '购买时间',
+  `expiration_time` int(11) DEFAULT '0' COMMENT '到期时间',
+  `status` int(1) DEFAULT '0' COMMENT '状态 0 - 待付款 1-已付款',
+  PRIMARY KEY (`id`),
+  KEY `uid_package` (`uid`,`package`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户购买的套餐\r\n模块开发QQ:800083075';
+]]></install>
+	<uninstall><![CDATA[]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
