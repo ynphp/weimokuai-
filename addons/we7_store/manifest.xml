@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.we7.cc" versionCode="0.6">
+	<application setting="true">
+		<name><![CDATA[便利店]]></name>
+		<identifie><![CDATA[we7_store]]></identifie>
+		<version><![CDATA[1.9]]></version>
+		<type><![CDATA[business]]></type>
+		<ability><![CDATA[一个简单的便利店]]></ability>
+		<description><![CDATA[教初学者如何快速开发一个微擎模块.]]></description>
+		<author><![CDATA[Gorden]]></author>
+		<url><![CDATA[http://bbs.we7.cc/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+			<message type="text" />
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="unsubscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="enter" />
+		</subscribes>
+		<handles>
+			<message type="text" />
+			<message type="image" />
+			<message type="voice" />
+			<message type="video" />
+			<message type="location" />
+			<message type="link" />
+			<message type="subscribe" />
+			<message type="qr" />
+			<message type="trace" />
+			<message type="click" />
+			<message type="enter" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<cover call="getRuleMenus">
+			<entry title="便利店首页" do="store" state="" direct="true" />
+		</cover>
+		<menu call="getMenus">
+			<entry title="分类管理" do="category" state="" direct="false" />
+			<entry title="商品管理" do="goods" state="" direct="false" />
+			<entry title="订单管理" do="orders" state="" direct="false" />
+		</menu>
+		<home call="getHomes">
+			<entry title="便利店首页" do="store" state="" direct="true" />
+		</home>
+		<profile call="getProfiles">
+			<entry title="便利店订单" do="orders" state="" direct="false" />
+		</profile>
+		<shortcut call="getShortcuts">
+			<entry title="便利店订单" do="orders" state="" direct="false" />
+		</shortcut>
+		<rule>
+			<entry title="规则" do="rule" state="" direct="false" />
+		</rule>
+	</bindings>
+	<install><![CDATA[
+-- phpMyAdmin SQL Dump
+-- version 4.1.6
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: 2015-03-17 09:50:23
+-- 服务器版本： 5.5.39
+-- PHP Version: 5.4.31
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `we7_prowx3`
+--
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_we7_store_cart`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_we7_store_cart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `goodsid` int(10) unsigned NOT NULL COMMENT '商品编号',
+  `quantity` int(11) NOT NULL,
+  `uid` varchar(50) NOT NULL COMMENT '微信会员OPENID OR UID',
+  `uniacid` int(10) unsigned NOT NULL,
+  `createtime` int(10) unsigned NOT NULL COMMENT '加入购物车时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_we7_store_category`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_we7_store_category` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类id',
+  `name` varchar(30) NOT NULL COMMENT '类名',
+  `orderno` int(10) unsigned NOT NULL COMMENT '排序',
+  `uniacid` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_we7_store_goods`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_we7_store_goods` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `sn` varchar(30) NOT NULL COMMENT '条码',
+  `name` varchar(50) NOT NULL COMMENT '品名',
+  `image` varchar(255) NOT NULL,
+  `price` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '价格',
+  `cost` decimal(10,2) NOT NULL COMMENT '成本价',
+  `quantity` int(11) NOT NULL,
+  `uniacid` int(10) unsigned NOT NULL COMMENT '统一公众号',
+  `createtime` int(10) unsigned NOT NULL COMMENT '添加日期',
+  `status` int(11) NOT NULL COMMENT '1:下架, 2: 上架',
+  `categoryid` int(11) NOT NULL COMMENT '分类 id',
+  PRIMARY KEY (`id`),
+  KEY `sn` (`sn`),
+  KEY `uniacid` (`uniacid`),
+  KEY `categoryid` (`categoryid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='商品表' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_we7_store_items`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_we7_store_items` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `orderid` int(10) unsigned NOT NULL COMMENT '订单编号',
+  `goodsid` int(10) unsigned NOT NULL,
+  `name` varchar(30) NOT NULL COMMENT '品名',
+  `image` varchar(100) NOT NULL,
+  `price` decimal(10,2) NOT NULL COMMENT '售价',
+  `quantity` int(11) NOT NULL COMMENT '购买数量',
+  `cost` decimal(10,2) NOT NULL COMMENT '实时成本',
+  `uniacid` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `uniacid` (`uniacid`),
+  KEY `orderid` (`orderid`),
+  KEY `goodsid` (`goodsid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_we7_store_orders`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_we7_store_orders` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `nickname` varchar(30) NOT NULL,
+  `realname` varchar(30) NOT NULL,
+  `uniacid` int(10) unsigned NOT NULL,
+  `sn` varchar(30) NOT NULL,
+  `amount` decimal(10,2) NOT NULL COMMENT '金额合计',
+  `province` varchar(30) NOT NULL,
+  `city` varchar(30) NOT NULL,
+  `district` varchar(30) NOT NULL,
+  `createtime` int(10) unsigned NOT NULL,
+  `paytime` int(10) unsigned NOT NULL COMMENT '付款日期',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1:未付款;2已付款',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`uid`),
+  KEY `uniacid` (`uniacid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ims_we7_store_user`
+--
+
+CREATE TABLE IF NOT EXISTS `ims_we7_store_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `uniacid` int(10) unsigned NOT NULL,
+  `total` decimal(10,2) NOT NULL COMMENT '消费总金额',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+	
+	]]></install>
+	<uninstall><![CDATA[
+DROP TABLE IF EXISTS `ims_we7_store_cart`;
+DROP TABLE IF EXISTS `ims_we7_store_category`;
+DROP TABLE IF EXISTS `ims_we7_store_goods`;
+DROP TABLE IF EXISTS `ims_we7_store_items`;
+DROP TABLE IF EXISTS `ims_we7_store_orders`;
+DROP TABLE IF EXISTS `ims_we7_store_user`;
+	]]></uninstall>
+	<upgrade><![CDATA[]]></upgrade>
+</manifest>
