@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns="http://www.012wz.com" versionCode="0.6">
+	<application setting="false">
+		<name><![CDATA[走鹊桥]]></name>
+		<identifie><![CDATA[weisrc_magpiebridge]]></identifie>
+		<version><![CDATA[1.20150822]]></version>
+		<type><![CDATA[activity]]></type>
+		<ability><![CDATA[走鹊桥]]></ability>
+		<description><![CDATA[走鹊桥]]></description>
+		<author><![CDATA[小康]]></author>
+		<url><![CDATA[http://wanyouxibu.com/]]></url>
+	</application>
+	<platform>
+		<subscribes>
+		</subscribes>
+		<handles>
+			<message type="text" />
+		</handles>
+		<rule embed="true" />
+	</platform>
+	<bindings>
+		<cover>
+			<!--<entry title="入口设置" do="bigwheelall" state="" direct="false" />-->
+            <entry title="微站首页导航图标" do="home" state="" direct="false" />
+		</cover>
+		<menu>
+			<entry title="活动管理" do="manage" state="" direct="false" />
+		</menu>
+		<home call="gethome">
+		</home>
+		<profile>
+			<!--<entry title="大转盘抽奖" do="bigwheel" state="" direct="false" />-->
+		</profile>
+	</bindings>
+	<install><![CDATA[
+
+CREATE TABLE  IF NOT EXISTS `ims_weisrc_magpiebridge_award` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `rid` int(11) DEFAULT '0',
+  `prizetype` varchar(50) DEFAULT '',
+  `prizename` varchar(50) DEFAULT '',
+  `prizetotal` int(11) DEFAULT '0',
+  `prizepic` varchar(500) DEFAULT '',
+  `dateline` int(10) DEFAULT '0',
+  `status` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+CREATE TABLE  IF NOT EXISTS `ims_weisrc_magpiebridge_fans` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `rid` int(11) DEFAULT '0',
+  `from_user` varchar(50) DEFAULT '' COMMENT '用户ID',
+  `nickname` varchar(50) DEFAULT '',
+  `headimgurl` varchar(500) DEFAULT '',
+  `username` varchar(50) DEFAULT '',
+  `tel` varchar(20) DEFAULT '' COMMENT '登记信息(手机等)',
+  `credit` decimal(10,4) DEFAULT '0.0000' COMMENT '单次最高分数',
+  `totalcredit` decimal(10,2) DEFAULT '0.00' COMMENT '累计分数',
+  `totalnum` int(11) DEFAULT '0' COMMENT '总次数',
+  `todaynum` int(11) DEFAULT '0' COMMENT '今天次数',
+  `lasttime` int(11) DEFAULT '0' COMMENT '最后游戏时间',
+  `sharenum` int(11) DEFAULT '0' COMMENT '总分享次数',
+  `sharelotterynum` int(11) DEFAULT '0' COMMENT '分享抽奖次数',
+  `todaysharenum` int(11) DEFAULT '0' COMMENT '今日分享次数',
+  `lastsharetime` int(10) DEFAULT '0',
+  `dateline` int(10) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`)
+) ENGINE=MyISAM AUTO_INCREMENT=513 DEFAULT CHARSET=utf8;
+
+CREATE TABLE  IF NOT EXISTS `ims_weisrc_magpiebridge_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `weid` int(11) DEFAULT '0',
+  `rid` int(11) DEFAULT '0',
+  `from_user` varchar(50) DEFAULT '0' COMMENT '用户ID',
+  `fansid` int(11) DEFAULT '0',
+  `credit` decimal(10,4) DEFAULT '0.0000' COMMENT '单次最高分数',
+  `dateline` int(10) DEFAULT '0',
+  `status` tinyint(4) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM AUTO_INCREMENT=1397 DEFAULT CHARSET=utf8;
+
+CREATE TABLE  IF NOT EXISTS `ims_weisrc_magpiebridge_reply` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` int(10) unsigned DEFAULT '0',
+  `weid` int(11) DEFAULT '0',
+  `title` varchar(50) DEFAULT '',
+  `description` varchar(255) DEFAULT '',
+  `content` varchar(200) DEFAULT '',
+  `rule` text,
+  `award` text,
+  `bg` varchar(500) DEFAULT '',
+  `logo` varchar(500) DEFAULT '',
+  `start_picurl` varchar(500) DEFAULT '',
+  `end_theme` varchar(50) DEFAULT '',
+  `end_instruction` varchar(200) DEFAULT '',
+  `end_picurl` varchar(500) DEFAULT '',
+  `banner` varchar(200) DEFAULT '',
+  `starttime` int(10) DEFAULT '0',
+  `endtime` int(10) DEFAULT '0',
+  `number_times` int(11) DEFAULT '0' COMMENT '总游戏次数',
+  `most_num_times` int(11) DEFAULT '0' COMMENT '每天游戏次数',
+  `daysharenum` int(11) DEFAULT '0' COMMENT '日分享次数',
+  `sharelotterynum` int(11) DEFAULT '0' COMMENT '分享后奖励次数',
+  `viewnum` int(11) DEFAULT '0',
+  `sharenum` int(11) DEFAULT '0',
+  `gametime` int(11) DEFAULT '15',
+  `gamelevel` int(11) DEFAULT '3',
+  `cover` varchar(500) DEFAULT '',
+  `showusernum` int(11) DEFAULT '20',
+  `share_title` varchar(200) DEFAULT '',
+  `share_url` varchar(100) DEFAULT '',
+  `share_desc` varchar(300) DEFAULT '',
+  `share_image` varchar(500) DEFAULT '',
+  `follow_url` varchar(100) DEFAULT '',
+  `follow_title` varchar(100) DEFAULT '',
+  `copyright` varchar(100) DEFAULT '',
+  `copyrighturl` varchar(500) DEFAULT '',
+  `ad` varchar(500) DEFAULT '',
+  `adurl` varchar(500) DEFAULT '',
+  `awardtip` varchar(500) DEFAULT '',
+  `isneedfollow` tinyint(1) DEFAULT '1',
+  `mode` tinyint(1) DEFAULT '0',
+  `status` tinyint(1) DEFAULT '0',
+  `dateline` int(10) DEFAULT '0',
+  `btn_start` varchar(500) DEFAULT '',
+  `game_page_bg` varchar(500) DEFAULT '',
+  `result_page_bg` varchar(500) DEFAULT '',
+  `game_tile` varchar(500) DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `indx_rid` (`rid`),
+  KEY `indx_weid` (`weid`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+INSERT INTO `ims_weisrc_magpiebridge_reply` VALUES ('1', '9', '2', '七夕走鹊桥, 粉丝来相“惠” 玩游戏赢巨幕电影票', '七夕走鹊桥,粉丝来相“惠', '', '&lt;p&gt;走对60步，尽可能快，别掉水里。小伙伴只需要不断踩着图案快快前进即可。&lt;/p&gt;\r\n&lt;p&gt;很简单吧，谁都可以会玩，但并不是谁都能玩得很好噢。&lt;/p&gt;\r\n&lt;p&gt;小伙伴，不服来战。&lt;/p&gt;', '&lt;p&gt;1、 手机号码为兑奖重要凭证，填写应当真实有效，如若有误，作废处理。&lt;/p&gt;\r\n&lt;p&gt;2、 优惠券使用规则参照商家实际制定。&lt;/p&gt;\r\n&lt;p&gt;3、 本活动最终解释权归湖州新鲜事所有。&lt;/p&gt;\r\n&lt;p&gt;4、 每分享转发一次可增加游戏一次&lt;/p&gt;\r\n&lt;p&gt;5、 活动仅限湖州地区用户参与&lt;/p&gt;', '', '', '../addons/weisrc_magpiebridge/template/mobile/bridge/image/game.jpg', '七夕走鹊桥, 粉丝来相“惠” 玩游戏赢巨幕电影票 活动结束了', '七夕走鹊桥, 粉丝来相“惠” 玩游戏赢巨幕电影票 活动已经结束了', '../addons/weisrc_magpiebridge/template/mobile/bridge/image/game.jpg', '', '1439012040', '1440086340', '0', '3', '2', '1', '0', '0', '60', '60', '', '0', '七夕走鹊桥, 粉丝来相“惠” 玩游戏赢巨幕电影票 ', '', '亲，欢迎参加七夕走鹊桥活动，祝您好运哦！！ ', 'images/2/2015/08/TJpCnXZ506wW2rxjXWXiIxpiJi0KpS.jpg', 'http://www.dwz.cn/1fBgFQ', '', '湖州新鲜事', 'http://mp.weixin.qq.com/s?__biz=MjM5MTg1MTcyOQ==&mid=208021153&idx=1&sn=e22504cbd20c729823ed109ac32ea0be#rd', '../addons/weisrc_magpiebridge/template/mobile/bridge/image/bottom_ads.jpg', 'http://mp.weixin.qq.com/s?__biz=MjM5MTg1MTcyOQ==&mid=208021153&idx=1&sn=e22504cbd20c729823ed109ac32ea0be#rd', '注:活动时间截止2015-08-20 23:59,活动结束后依次按排行榜名次发奖', '1', '0', '1', '1439012963', '', '', '', '');
+INSERT INTO `ims_weisrc_magpiebridge_reply` VALUES ('3', '12', '4', '七夕走鹊桥,粉丝来相“惠”', '七夕走鹊桥,粉丝来相“惠', '', '&lt;p&gt;走对70步，尽可能快，别掉水里。小伙伴只需要不断踩着图案快快前进即可。&lt;/p&gt;\r\n&lt;p&gt;很简单吧，谁都可以会玩，但并不是谁都能玩得很好噢。&lt;/p&gt;\r\n&lt;p&gt;小伙伴，不服来战。&lt;/p&gt;', '&lt;p&gt;1、 手机号码为兑奖重要凭证，填写应当真实有效，如若有误，作废处理。&lt;/p&gt;\r\n&lt;p&gt;2、 优惠券使用规则参照商家实际制定。&lt;/p&gt;\r\n&lt;p&gt;3、 本活动最终解释权归xxxx所有。&lt;/p&gt;', '../addons/weisrc_magpiebridge/template/mobile/bridge/image/bg.jpg', '', '../addons/weisrc_magpiebridge/template/mobile/bridge/image/game.jpg', '活动结束了', '活动已经结束了', '../addons/weisrc_magpiebridge/template/mobile/bridge/image/game.jpg', '', '1439732820', '1440337620', '0', '1', '1', '1', '0', '0', '60', '60', '', '0', '欢迎参加七夕走鹊桥', 'http://wanyouxibu.com', '亲，欢迎参加七夕走鹊桥活动，祝您好运哦！！ ', '../addons/weisrc_magpiebridge/icon.jpg', 'http://wanyouxibu.com', '', '谷巴大牌档', 'http://wanyouxibu.com/blog', '../addons/weisrc_magpiebridge/template/mobile/bridge/image/bottom_ads.jpg', '#', '注:活动时间截止2015-08-17 21:47,活动结束后依次按排行榜名次发奖', '1', '0', '1', '1439733048', '../addons/weisrc_magpiebridge/template/mobile/bridge/image/btn_start.png', '../addons/weisrc_magpiebridge/template/mobile/bridge/image/game_page_bg.jpg', '../addons/weisrc_magpiebridge/template/mobile/bridge/image/result_page_bg.jpg', '../addons/weisrc_magpiebridge/template/mobile/bridge/image/game_tile.png');
+INSERT INTO `ims_weisrc_magpiebridge_reply` VALUES ('4', '13', '5', '谷巴小龙虾竞赛！欢迎参加活动哦。', '谷巴小龙虾竞赛！欢迎参加活动哦。', '', '&lt;p&gt;抓到130只小龙虾，尽可能快，别掉水里。小伙伴只需要不断踩着图案快快前进即可。&lt;/p&gt;\r\n&lt;p&gt;很简单吧，谁都可以会玩，但并不是谁都能玩得很好噢。&lt;/p&gt;\r\n&lt;p&gt;小伙伴，不服来战。&lt;/p&gt;', '&lt;p&gt;1、 手机号码为兑奖重要凭证，填写应当真实有效，如若有误，作废处理。&lt;/p&gt;\r\n&lt;p&gt;2、 优惠券使用规则参照商家实际制定。&lt;/p&gt;\r\n&lt;p&gt;3、 本活动最终解释权归谷巴大牌档所有。&lt;/p&gt;', '../addons/weisrc_magpiebridge/template/mobile/bridge/image/bg.jpg', '', 'images/5/2015/08/EeZR5R6rQdoMecopr4QCeMp56pc4RE.jpg', '活动结束了', '活动已经结束了', 'images/5/2015/08/k66PUJ8PH3W8316H414u061UppP1CX.jpg', '', '1439735280', '1441031280', '0', '15', '1000', '1', '0', '0', '60', '130', '', '0', '谷巴小龙虾竞赛！欢迎参加活动哦。', '', '亲！欢迎您参加谷巴小龙虾竞赛哦！', 'images/5/2015/08/tqqhj2ZRRA0s7t1dhllH7aS7Jd181Z.png', 'http://wap.koudaitong.com/v2/showcase/feature?alias=11uldh748', '', '谷巴大牌档', 'http://wap.koudaitong.com/v2/showcase/feature?alias=11uldh748', 'images/5/2015/08/YzE47sDFS496VFh4EeHe7htS2t4eo9.png', 'http://wap.koudaitong.com/v2/goods/7a2ls6bl', '注:活动时间截止2015-08-31 22:28,活动结束后依次按排行榜名次发奖', '0', '0', '1', '1439735404', 'images/5/2015/08/E7Z4QoXXwVJsltRRXj3jVGl74lCxOW.png', '../addons/weisrc_magpiebridge/template/mobile/bridge/image/game_page_bg.jpg', '../addons/weisrc_magpiebridge/template/mobile/bridge/image/result_page_bg.jpg', 'images/5/2015/08/NrX4OxSQ1Ift3mi113hi3X38S18Iqf.png');
+
+	]]></install>
+	<uninstall><![CDATA[
+drop table `ims_weisrc_magpiebridge_award`;
+drop table `ims_weisrc_magpiebridge_fans`;
+drop table `ims_weisrc_magpiebridge_record`;
+drop table `ims_weisrc_magpiebridge_reply`;
+drop table `ims_kang_bigwheel_share`;
+drop table `ims_kang_bigwheel_prize`;
+	]]></uninstall>
+	<upgrade><![CDATA[upgrade.php]]></upgrade>
+</manifest>
