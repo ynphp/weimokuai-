@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=yes" />
+    <title>江华路痴考试</title>
+    <link href="{PATH}bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{PATH}style.css" />
+    <link herf="css/bootstrap.foot.css" rel="stylesheet">
+    <link herf="css/fontstyle.css" rel="stylesheet">
+    <link href="{PATH}reset.css" rel="stylesheet">
+    <style type="text/css">
+    body {
+    }
+    .addthumb {padding-left:0;padding-right:0; height: 50px; overflow: hidden;}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div id="bd" class="panel">
+        <div id="panel1" class="panel-body">
+            <div class="index_c_img"></div>
+            <div class="index_footer">
+             <h2>看图猜地名</h2>
+             <p>已有5716人参与考试</p>
+             <a href="#result" class="btn btn-danger btn-block" onClick="return next(0);"> 开始考试</a>
+             <div class="index_tips">
+            PS:你是正宗的江华人吗？下面一道路痴考试题你敢测不？不要东张西望， 一经发现，取消考试成绩，并终生禁止再次参与本考试！
+            </div>
+            
+            <div class="copy">Copyright &copy; 2014 江华微生活荣誉出品</div>
+            </div>
+            
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}1.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问图中的花园叫什么名字？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item " data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i>A.春晓路花园</li>
+                <li class="list-group-item" data-score="5" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.江华县中心花园</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.阳华路花园</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}2.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问图中建筑是哪个车站？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.动车站</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.西客站</li>
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.火车站</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}3.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问图中的建筑叫什么名字？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.祥龙城市花园</li>
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.龙华时代财富广场</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.印象瑶都</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}4.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问图中建筑属于哪个学校的？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.江华一中</li>
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.江华二中</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.江华四中</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}5.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问上图是以前的什么公园？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.翠华公园</li>
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.平头岩公园</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.春晓公园</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}6.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问图中尚品品牌服装折扣城属于哪个商业中心？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.华银国际商业中心</li>
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.安佳商业中心</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.新百佳商业中心</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}7.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问图中桥叫什么名字？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.西佛桥</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.大桥</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.赵州桥</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}10.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问图中是江华哪里风景？</p></dd>
+
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.火车站</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.务江</li>
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.豸山</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}8.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问图中这座桥位于哪里？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.大路铺</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.码市</li>
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.大山寨</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}9.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问图中建筑叫什么名字？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.盘王殿</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.和尚庙</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.文庙</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}11.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问图中秦岩风景区在哪里？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.白芒营</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.大路铺</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.河路口</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}12.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问图中的风景区位于哪里？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.涛圩</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.河路口</li>
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.务江</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}13.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问江华最豪华的酒店叫什么名字？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.爱塞丽雅国际大酒店</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.城市便捷酒店</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.南华大酒店</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}14.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问图中所示属于江华哪个街道？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.春晓路</li>
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.萌渚路</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.阳华路</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}15.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问图中的人在哪里表演？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.礼堂</li>
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.文化宫</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.火车站</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}17.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">【送分题】江华微生活的微信号是？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="5" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.jhwsh520</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.jianghuaweisheng</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.jianghuawang</li>
+            </ul>
+        </div>
+        <div id="panel2" class="panel-body js_answer" data-type="1" style="display: none;">
+            <dl>
+                <dd><p class="a_img"><img src="{PATH}16.jpg" style="width:100%" /></p><div class="a_mask"></div><p class="a_title">请问图中的雕像在哪里？</p></dd>
+            </dl>
+            <ul class="list-group js_group">
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> A.春晓路交汇处</li>
+                <li class="list-group-item" data-score="6" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> B.体育馆红绿灯</li>
+                <li class="list-group-item" data-score="0" onClick="return toggle(this);"><i class="glyphicon glyphicon-unchecked"></i> C.鲤鱼井大道</li>
+            </ul>
+        </div>
+        <div id="panel3" class="panel-body js_result" data-id="0" style="display:none;">
+            <h1 class="bold text-danger"><b>10分</b>以下</h1>
+            <p class="view_a"><a href="view3.html" target="_blank">【查看答案】</a></p>
+            <dl>
+                <dt>答题分析:</dt>
+
+                <dd>
+                    <p>你这完全属于标准的极品路痴，不是江华人吧！！！;</p>
+                </dd>
+            </dl>
+            <div class="buttons">
+                <a href="javascript:void(0)" class="btn btn-success btn-block" onClick="$('#mcover').show()">分享到朋友圈</a>
+                            </div>
+<div style="text-align: center;color: #FF8500;width: 100%;margin: 5px auto;">------------广告------------</div>
+            <div><a href="add/shoubiao.html"><img src="http://www.0746jh.cn/luci/add/shoubiao.png" width="100%"/></a></div>
+        </div>
+        <div id="panel3" class="panel-body js_result" data-id="1" style="display:none;">
+            <h1 class="bold text-danger"><b>50分</b>以下</h1>
+            <p class="view_a"><a href="view3.html" target="_blank">【查看答案】</a></p>
+            <dl>
+                <dt>答题分析:</dt>
+                <dd>
+                    <p>看的出你是刚到江华的外地人，希望你能爱上江华！！！;</p>
+                </dd>
+            </dl>
+            <div class="buttons">
+                <a href="javascript:void(0)" class="btn btn-success btn-block" onClick="$('#mcover').show()">分享到朋友圈</a>
+                            </div>
+<div style="text-align: center;color: #FF8500;width: 100%;margin: 5px auto;">------------广告------------</div>
+            <div><a href="http://m.wsq.qq.com/262892734"><img src="{PATH}yaci.jpg" width="100%"/></a></div>
+        </div>
+        <div id="panel3" class="panel-body js_result" data-id="2" style="display:none;">
+            <h1 class="bold text-danger"><b>60分</b>以下</h1>
+            <p class="view_a"><a href="view3.html" target="_blank">【查看答案】</a></p>
+            <dl>
+                <dt>答题分析:</dt>
+                <dd>
+                    <p>才来江华3个月？半年？不科学卅，多出去走走逛逛，江华很多好耍的好玩的等你发现！！！;</p>
+                </dd>
+            </dl>
+            <div class="buttons">
+                <a href="javascript:void(0)" class="btn btn-success btn-block" onClick="$('#mcover').show()">分享到朋友圈</a>
+                            </div>
+<div style="text-align: center;color: #FF8500;width: 100%;margin: 5px auto;">------------广告------------</div>
+            <div><a href="add/jieyan.html"><img src="http://www.0746jh.cn/luci/add/jieyan.png" width="100%"/></a></div>
+        </div>
+        <div id="panel3" class="panel-body js_result" data-id="3" style="display:none;">
+            <h1 class="bold text-danger"><b>70分</b>以下</h1>
+            <p class="view_a"><a href="view3.html" target="_blank">【查看答案】</a></p>
+            <dl>
+                <dt>答题分析:</dt>
+                <dd>
+                    <p>你对江华还不完全了解，没事多出去打打酱油，逛逛街，邀上朋友一起多嗨皮下！！！;</p>
+                </dd>
+            </dl>
+            <div class="buttons">
+                <a href="javascript:void(0)" class="btn btn-success btn-block" onClick="$('#mcover').show()">分享到朋友圈</a>
+                            </div>
+<div style="text-align: center;color: #FF8500;width: 100%;margin: 5px auto;">------------广告------------</div>
+            <div><a href="add/nanmu.html"><img src="http://www.0746jh.cn/luci/add/nanmu.jpg" width="100%"/></a></div>
+        </div>
+        <div id="panel3" class="panel-body js_result" data-id="4" style="display:none;">
+            <h1 class="bold text-danger"><b>80分</b>以下</h1>
+            <p class="view_a"><a href="view3.html" target="_blank">【查看答案】</a></p>
+            <dl>
+                <dt>答题分析:</dt>
+                <dd>
+                    <p>这个分数线上的朋友，你是江华人民的骄傲！建议你多关注关注我们的微信平台，在外面游玩多多拍照片分享投稿给我们;</p>
+                </dd>
+            </dl>
+            <div class="buttons">
+                <a href="javascript:void(0)" class="btn btn-success btn-block" onClick="$('#mcover').show()">分享到朋友圈</a>
+                            </div>
+<div style="text-align: center;color: #FF8500;width: 100%;margin: 5px auto;">------------广告------------</div>
+            <div><a href="http://www.0746jh.cn/luci/add/shoubiao.html"><img src="http://www.0746jh.cn/luci/add/shoubiao.png" width="100%"/></a></div>
+        </div>
+        <div id="panel3" class="panel-body js_result" data-id="5" style="display:none;">
+            <h1 class="bold text-danger"><b>90分</b>以下</h1>
+            <p class="view_a"><a href="view3.html" target="_blank">【查看答案】</a></p>
+            <dl>
+                <dt>答题分析:</dt>
+                <dd>
+                    <p>这个分数线上的朋友，你是江华人民的骄傲！建议你多关注关注我们的微信平台，在外面游玩多多拍照片分享投稿给我们;</p>
+                </dd>
+            </dl>
+            <div class="buttons">
+                <a href="javascript:void(0)" class="btn btn-success btn-block" onClick="$('#mcover').show()">分享到朋友圈</a>
+                            </div>
+<div style="text-align: center;color: #FF8500;width: 100%;margin: 5px auto;">------------广告------------</div>
+        <div><a href="add/nanmu.html"><img src="http://www.0746jh.cn/luci/add/nanmu.jpg" width="100%"/></a></div>
+        </div>
+        <div id="panel3" class="panel-body js_result" data-id="6" style="display:none;">
+            <h1 class="bold text-danger">哇噻，高分！</h1>
+            <p class="view_a"><a href="view3.html" target="_blank">【查看答案】</a></p>
+            <dl>
+                <dt>答题分析:</dt>
+                <dd>
+                    <p>耶，整凶残了哦，满分，你不愧是一个地地道道的江华人！建议你多关注关注我们的微信平台，在外面游玩多多拍照片分享投稿给我们。;</p>
+                </dd>
+            </dl>
+            <div class="buttons">
+                <a href="javascript:void(0)" class="btn btn-success btn-block" onClick="$('#mcover').show()">分享到朋友圈</a>
+                            </div>
+<div style="text-align: center;color: #FF8500;width: 100%;margin: 5px auto;">------------广告------------</div>
+           <div><a href="add/jieyan.html"><img src="http://www.0746jh.cn/luci/add/jieyan.png" width="100%"/></a></div>
+        </div>
+    </div>
+</div>
+<div class="footer text-center" style="margin-top:10px">
+<!--<div class="container"><a href="http://mp.weixin.qq.com/s?__biz=MjM5NzAxNDE2MA==&mid=201283753&idx=1&sn=04173910fb2dfcae60df9e0e7f3f6305#rd">&copy;点击关注我们</a> </div>-->
+<!--<div class="container addthumb"><a href="http://mp.weixin.qq.com/s?__biz=MjM5NzAxNDE2MA==&mid=201283753&idx=1&sn=04173910fb2dfcae60df9e0e7f3f6305#rd"><img src="picture/dh.jpg" style="width:100%" /></a></div>-->
+</div>
+<div id="mcover" onClick="$(this).hide()">
+    <img src="{PATH}guide.png">
+</div>
+<div class="loads" style="display:bolck"><i></i></div>
+<script src="{PATH}zepto.min.js"></script>
+<script type="text/javascript">
+    // var audio = new Audio();
+	var stime;
+    var total = '17';
+    var tScore = 0;
+	var ttime=0;
+    var scoreArr = new Array();
+        scoreArr[0] = 0;
+        scoreArr[1] = 10;
+        scoreArr[2] = 50;
+        scoreArr[3] = 60;
+        scoreArr[4] = 70;
+        scoreArr[5] = 80;
+        scoreArr[6] = 90;
+	function count_s(){
+		nt=document.getElementById("now_time")
+		num=parseInt(nt.getAttribute("data-src"))+1;
+		nt.innerHTML=num+'<i>秒</i>';
+		nt.setAttribute("data-src",num);  
+		ttime++;
+		
+	}
+    function next(t){
+		if(t==0)
+		{
+			
+			stime=window.setInterval(count_s,1000);
+			ui = document.getElementById("fix_footer");
+			ui.style.display="block";
+			
+			ui = document.getElementById("fix_nav");
+			ui.style.display="none";
+			$(".back_index").show();
+			$(".back_index a").click(function(){
+				location.reload();
+				});
+		}
+       // console.log(t);
+        $(".panel-body").hide();
+        var $_this = $(".js_answer").eq(t);
+            $_this.show();
+        var type = $_this.attr('data-type');
+        if(type==2){
+            // audio.src = $_this.find('audio').attr('src');
+            // audio.load();
+            // audio.play();
+            $('#sicon').html('<span class="glyphicon glyphicon-headphones"></span>');
+        }
+        else if(type==1){
+            // stop = true;
+            // audio.pause();
+            $('#sicon').html('<span class="glyphicon glyphicon-picture"></span>');
+        }
+        else{
+            // stop = true;
+            // audio.pause();
+            $('#sicon').html('<span class="glyphicon glyphicon-pencil"></span>');
+        }
+    }
+
+    function result(t){
+        console.log("得分"+tScore);
+        $(".panel-body").hide();
+        for (var i = scoreArr.length - 1; i >= 0; i--) {
+            if ( parseInt(t) >= parseInt(scoreArr[i]) ) {
+                console.log("应该弹"+i);
+                $(".js_result").eq(i).show();
+                if(i>(total/2)){
+                    $('#sicon').html('<span class="glyphicon glyphicon-thumbs-up"></span>');
+                }
+                else{
+                    $('#sicon').html('<span class="glyphicon glyphicon-thumbs-down"></span>');
+                }
+                $.get("index.php?act=module&name=dialect&do=detail&weid=5", {id: "6",score: tScore});
+                return false;
+            }
+            else{
+                continue;    
+            }
+        };
+    }
+
+    function toggle(t){
+        $(".list-group-item").removeClass('active')
+        var score = $(t).attr("data-score");
+        tScore  = parseInt(tScore) + parseInt(score);
+        $(t).find('i').removeClass('glyphicon-unchecked').addClass('glyphicon-ok');
+		$(t).addClass("on");
+        var t = $(".js_answer").index($(t).parents(".js_answer")) + 1;
+		$("#now_an").html(t);
+        if(t == total){
+			window.clearInterval(stime) ;
+            result(tScore);
+        }
+        else{
+           setTimeout(function(){next(t);},300);
+        }
+    }
+    Zepto(function($){
+        $('.loads').hide();
+    })
+</script>
+{template 'share'}
+<div class="hide"></div>
+<div class="fix_footer" id="fix_footer" style="left:0;background-color:#333739;color:#ffffff;height:55px;width:100%;position:fixed;bottom:0%;font-size:14px;">
+<table width="100%" height="100%" border="0" style="border-collapse: collapse;">
+<tbody><tr>
+<td id="fix_footer_menu" align="center"><span id="now_an">0</span><br>
+已答题目</a></td>
+<td id="fix_footer_menu" align="center"><span>17</span><br>
+题目总数</a></td>
+<td id="fix_footer_menu" align="center"><span id="now_time" data-src='0'>0<i>秒</i></span><br>
+答题用时</a></td>
+</tr>
+</tbody></table>
+</div>
+<div class="back_index">
+  <div class="back_mask"></div>
+  <a href="javascript:void(0);">答题首页</a>
+</div>
+<div class="fix_nav" id="fix_nav">
+  <div class="fix_sp"></div>
+  <div class="index_bottom">
+    <ul>
+      <li><a href="http://m.wsq.qq.com/262892734" target="_blank">江华微生活</a></li>
+      <li><a href="tel:15688277758" target="_blank">微信推广</a></li>
+      <li style="border-right:none;"><a href="http://mp.weixin.qq.com/s?__biz=MjM5OTMyOTI5MA==&mid=201325278&idx=1&sn=d04cd33dcfdcfd5ec1d2e0103de62e7c#rd" target="_blank">关注微信</a></li>
+   </ul>
+   </div>
+</div>
+<div style="display:none" align=center>
+</div>
+</body>
+</html>
